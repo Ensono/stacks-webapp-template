@@ -1,6 +1,13 @@
-[<type>: <description> - <work item number> - Please use the Conventional Commits specification as PR Name/Title and for all commits]
+Please use the Conventional Commits specification as PR Name/Title and for all commits
 
 [Conventional Commits](https://www.conventionalcommits.org)
+
+Example
+```
+<type>: <description> - <work item number>
+
+feat: Repo base files - 949
+```
 
 #### 📲 What
 
