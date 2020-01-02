@@ -4,9 +4,10 @@ Please use the Conventional Commits specification as PR Name/Title and for all c
 
 Example
 ```
-<type>: <description> - <work item number>
+<type>: <description> <optional: - work item number>
 
-feat: Repo base files - 949
+feat: repo base files
+feat: repo base files - 949
 ```
 
 #### 📲 What
