@@ -1,6 +1,8 @@
 # stacks-webapp-template
 
-Build it with docker:
+## To build and run using Docker
+
+In order to be able to build and run the webapp template, across environments and as part of CI, we need to use [Docker](https://docs.docker.com/install/).
 
 ```bash
 # build
