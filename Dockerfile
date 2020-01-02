@@ -1,4 +1,4 @@
-FROM mhart/alpine-node
+FROM node:10-alpine
 
 WORKDIR /app
 COPY . .
