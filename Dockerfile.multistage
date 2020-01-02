@@ -7,7 +7,7 @@ COPY . .
 RUN yarn build && yarn --production
 
 # And then copy over node_modules, etc from that stage to the smaller base image
-FROM node:10-alpine:base
+FROM node:10-alpine
 WORKDIR /app
 COPY --from=builder /app .
 EXPOSE 3000
