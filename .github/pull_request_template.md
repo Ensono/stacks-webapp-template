@@ -1,4 +1,6 @@
-[XXXX-<Title> - Please use the Work Item number and Title as PR Name, not subtasks]
+[<type>: <description> - <work item number> - Please use the Conventional Commits specification as PR Name/Title and for all commits]
+
+[Conventional Commits](https://www.conventionalcommits.org)
 
 #### 📲 What
 
