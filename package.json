@@ -9,5 +9,8 @@
   "private": true,
   "workspaces": [
     "webapp"
-  ]
+  ],
+  "scripts": {
+    "webapp:dev": "yarn workspace @amido-stacks/webapp dev"
+  }
 }
