@@ -1,5 +1,13 @@
 # Web Application
 
+## To run locally
+
+```bash
+yarn dev
+```
+
+> To run from root refer the [Readme](../README.md)
+
 ## To build and run using Docker
 
 In order to be able to build and run the webapp template, across environments and as part of CI, we need to use [Docker](https://docs.docker.com/install/).
