@@ -6,11 +6,16 @@
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "project": "./tsconfig.json"
+        "project": "./tsconfig.json",
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": true
+      }
     },
     "extends": [
-        "plugin:compat/recommended",
         "eslint:recommended",
+        "eslint-config-prettier",
+        "plugin:compat/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",

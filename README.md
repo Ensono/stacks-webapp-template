@@ -2,14 +2,19 @@
 
 # ![stacks-webapp-template](.github/images/stacks_logo.png)
 
-Run `yarn` on the root of the application to install all the dependencies.
+### Dependencies
+`yarn` on the root of the application to install all the dependencies.
 
-## Node version
+
+### Node version
 We are supporting and running [node@12](https://nodejs.org/en/about/releases/). Please ensure that your local environment has the correct version [installed](https://nodejs.org/en/download/).
 
-## Static Testing Tools
+## Tests
 
-`yarn lint`: runs global linting and Prettier formatting from root level, ensuring all packages are following conventions specifices in [config](.eslintrc)
+1. Static 
+`yarn lint`: runs global linting from root level, ensuring all packages are following conventions specified in [.eslintrc](.eslintrc).
+`yarn prettier`: runs formatting from root level, ensuring all packages are following conventions specified in [.prettierrc](.prettierrc).
+`yarn validatte`: ensures that the project adheres to Typescript checks, formatting and linting rules.
 
 ## Web Application
 
