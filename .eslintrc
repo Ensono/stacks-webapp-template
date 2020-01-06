@@ -1,55 +1,71 @@
 {
-    "env": {
-        "browser": true,
-        "es2020": true,
-        "node": true
-    },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "project": "./tsconfig.json",
-        "sourceType": "module",
-        "ecmaFeatures": {
-          "jsx": true
-      }
-    },
-    "extends": [
-        "eslint:recommended",
-        "eslint-config-prettier",
-        "plugin:compat/recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "plugin:react/recommended",
-        "prettier",
-        "prettier/@typescript-eslint",
-        "prettier/react"
-    ],
-    "globals": {
-        "React": "writable"
-    },
-    "plugins": ["react-hooks"],
-    "rules": {
-        "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/interface-name-prefix": "off",
-        "@typescript-eslint/no-floating-promises": "error",
-        "@typescript-eslint/no-use-before-define": "off",
-        "@typescript-eslint/no-unused-vars": "off",
-        "react/prop-types": "off",
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
-        "react/react-in-jsx-scope": "off"
-    },
-    "overrides": [
-        {
-            "files": ["*.js"],
-            "rules": {
-                "@typescript-eslint/no-var-requires": "off"
-            }
-        }
-    ],
-    "settings": {
-        "react": {
-            "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
-        }
+  "env": {
+    "browser": true,
+    "es2020": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
     }
+  },
+  "extends": [
+    "eslint:recommended",
+    "eslint-config-prettier",
+    "plugin:compat/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:react/recommended",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "prettier/react",
+    "airbnb",
+    "airbnb/hooks"
+  ],
+  "globals": {
+    "React": "writable"
+  },
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "react/prop-types": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    }
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+      // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
+  }
 }

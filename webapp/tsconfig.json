@@ -1,10 +1,10 @@
 {
-    "extends": "../tsconfig.json",
-    "compilerOptions": {
-        "baseUrl": "../",
-        "rootDir": ".",
-        "lib": ["dom", "dom.iterable", "esnext"]
-    },
-    "exclude": ["node_modules"],
-    "include": ["next-env.d.ts", "next.config.js", "**/*.ts", "**/*.tsx"]
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "../",
+    "rootDir": ".",
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "next.config.js", "**/*.ts", "**/*.tsx"]
 }
