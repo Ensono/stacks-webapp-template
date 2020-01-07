@@ -29,9 +29,7 @@
   "globals": {
     "React": "writable"
   },
-  "plugins": [
-    "react-hooks"
-  ],
+  "plugins": ["react-hooks"],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/interface-name-prefix": "off",
@@ -45,18 +43,13 @@
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".js", ".jsx", ".tsx"]
       }
     ]
   },
   "overrides": [
     {
-      "files": [
-        "*.js"
-      ],
+      "files": ["*.js"],
       "rules": {
         "@typescript-eslint/no-var-requires": "off"
       }
