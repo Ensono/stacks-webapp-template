@@ -35,14 +35,22 @@ variable "location_name_map" {
 }
 
 ############################################
-# RESOURCE GROUP INFORMATION
+# AZURE INFORMATION
+############################################
+variable "subscription_id" {
+  type = string
+}
+
+
+############################################
+# RESOURCE INFORMATION
 ############################################
 
-variable "resource_group_location_env" {
+variable "resource_location" {
   default = "uksouth"
 }
 
-variable "resource_group_tags" {
+variable "resource_tags" {
   type = map(string)
   default = {}
 }
@@ -50,6 +58,14 @@ variable "resource_group_tags" {
 ###########################
 
 locals {
-  resource_group_name_env      = "${var.name_company}-${var.name_project}-${var.name_component}-rg-${var.location_name_map[var.resource_group_location_env]}-${var.name_environment}"
+  # // common //
+  resource_prefix           = "${var.name_company}-${var.name_project}-${var.name_component}"
+  resource_suffix           = "${var.location_name_map[var.resource_location]}-${var.name_environment}"
+  
+  # // resource group //
+  resource_group_name       = "${local.resource_prefix}-rg-${local.resource_suffix}"
+
+  # // storage account - static website hosting //
+  storage_account_name      = "${var.name_company}${var.name_project}${var.name_component}sa${var.location_name_map[var.resource_location]}${var.name_environment}"
 }
 
