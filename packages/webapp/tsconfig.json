@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "../",
+    "rootDir": ".",
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  "exclude": ["node_modules"],
+  "include": [
+    "next-env.d.ts",
+    "next.config.js",
+    "jest.config.js",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}
