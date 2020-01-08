@@ -4,8 +4,7 @@
     "jsx": "react",
     "baseUrl": "../",
     "rootDir": ".",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "isolatedModules": true
+    "lib": ["dom", "dom.iterable", "esnext"]
   },
   "exclude": ["node_modules"],
   "include": [
