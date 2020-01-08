@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {render} from "@testing-library/react"
-import App from "../pages/index"
+import { render } from '@testing-library/react';
+import App from '../pages/index';
 
 test('Renders a page of tag type <div> with text', () => {
   const { getByText } = render(<App />);
