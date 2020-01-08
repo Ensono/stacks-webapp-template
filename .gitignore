@@ -129,6 +129,15 @@ dist
 **/.vscode/settings.json
 
 # TERRAFORM
-**/.terraform
-**/terraform.tfvars
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# .tfvars files
+terraform.tfvars
+local.auto.tfvars
+backend.local.tfvars
+
 deploy/terraform/azure/backend-config.tfvars
