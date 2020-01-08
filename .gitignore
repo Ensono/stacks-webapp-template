@@ -122,4 +122,13 @@ dist
 .env.test.local
 .env.production.local
 
+# VSCODE
 **/.vscode/chrome
+# include examples for these in the repo
+**/.vscode/launch.json
+**/.vscode/settings.json
+
+# TERRAFORM
+**/.terraform
+**/terraform.tfvars
+deploy/terraform/azure/backend-config.tfvars
