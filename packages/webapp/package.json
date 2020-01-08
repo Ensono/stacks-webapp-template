@@ -1,11 +1,12 @@
 {
-  "name": "@amido-stacks/webapp",
+  "name": "webapp",
   "version": "0.0.1",
   "scripts": {
-    "test": "jest",
+    "test": "./task test",
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "./task lint"
   },
   "dependencies": {
     "@types/jest": "^24.0.25",

@@ -1,0 +1,29 @@
+#!/bin/bash
+
+CMD=$1
+shift
+
+exe() { echo "$@" ; $@ ; }
+
+case $CMD in
+  test)
+    if [ -d "__tests__" ]; then
+      exe "../../node_modules/.bin/jest -c $(pwd)/jest.config.js --rootDir ."
+    else
+      echo "No tests to run"
+    fi
+    ;;
+
+  lint)
+    echo "Linting"
+    exe "../../node_modules/.bin/eslint -c $(pwd)/.eslintrc . --ext .js,.ts,.tsx -f codeframe"
+    ;;
+
+  *)
+    if [[ -z "$CMD" ]]; then
+      echo "USAGE: ./task (clean|compile|test|lint|<node_modules_bin_command>) command_args"
+      exit 0
+    fi
+    exe "../../node_modules/.bin/$CMD $@"
+    ;;
+esac
