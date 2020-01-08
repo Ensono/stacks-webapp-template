@@ -11,10 +11,13 @@ We are supporting and running [node@12](https://nodejs.org/en/about/releases/). 
 
 ## Tests
 
-1. Static 
+##### Static
 `yarn lint`: runs global linting from root level, ensuring all packages are following conventions specified in [.eslintrc](.eslintrc).
+
 `yarn prettier`: runs formatting from root level, ensuring all packages are following conventions specified in [.prettierrc](.prettierrc).
-`yarn validatte`: ensures that the project adheres to Typescript checks, formatting and linting rules.
+
+
+`yarn validate`: ensures that the project adheres to Typescript checks, formatting and linting rules.
 
 ## Web Application
 
