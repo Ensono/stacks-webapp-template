@@ -1,10 +1,11 @@
 {
-  "name": "@amido-stacks/webapp",
+  "name": "webapp",
   "version": "0.0.1",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "./task lint"
   },
   "dependencies": {
     "next": "latest",
