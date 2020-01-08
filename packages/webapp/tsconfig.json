@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "jsx": "preserve",
+    "jsx": "react",
     "baseUrl": "../",
     "rootDir": ".",
     "lib": ["dom", "dom.iterable", "esnext"],
