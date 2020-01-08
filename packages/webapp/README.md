@@ -6,16 +6,17 @@
 yarn dev
 ```
 
+> To run from root refer the [Readme](../README.md)
+
 ## Testing 
 
-#### Unit Testing
+#### Unit, Component and Snapshot Testing
 We are using [Jest](https://jestjs.io/) for running all unit, component, integration and snapshot tests. Jest supports TypeScript via Babel. Because TypeScript support in Babel is transpilation, to ensure that Jest will type-check the tests as they are run we use [ts-jest](https://github.com/kulshekhar/ts-jest).
 
 To help that encourage good testing practices for React DOM testing, we are leveraging a helper library [react-testing-library](https://jestjs.io/).
 
-`yarn test`: To run all unit tests
+`yarn test`: To run all unit tests. This will also run any snapshot tests. Snapshots are to be checked in and are found in [__snapshots__](__tests__/__snapshots__).
 
-> To run from root refer the [Readme](../README.md)
 
 ## To build and run using Docker
 
