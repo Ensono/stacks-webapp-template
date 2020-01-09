@@ -2,9 +2,23 @@
 
 # ![stacks-webapp-template](.github/images/stacks_logo.png)
 
-## To start
+## Requirements
 
-`yarn` on the root of the application to install all the dependencies.
+[Lerna](https://lernajs.io) and [Yarn](https://yarnpkg.com/) - follow the
+installation instructions for your OS
+[here](https://yarnpkg.com/lang/en/docs/install).
+
+```
+yarn global add lerna
+```
+
+**Make sure yarn workspaces are enabled!**
+
+```
+yarn config set workspaces-experimental true
+```
+
+## To start
 
 `yarn lerna:setup` to bootstrap the packages in the current Lerna repo. Installs
 all of their dependencies and links any cross-dependencies.
