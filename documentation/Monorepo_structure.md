@@ -14,30 +14,22 @@ At the moment, the project is comprised of:
 ## Sample Project Directory Structure:
 
 ```
-├── .editorconfig
-├── .prettierrc
-├── .browserslistrc
-├── .huskyrc
 ├── .gitignore
 ├── lerna.json
 ├── package.json
 ├── packages
 │   ├── Webapp
-│   │   ├── babelrc
 │   │   ├── __tests__
 │   │   │   ├── index.test.tsx
-│   │   ├── .eslint.config.js
-│   │   ├── package.json
-│   │   ├── jest.config.js
-│   │   ├── README.md
 │   │   ├── pages
 │   │   │   └── index.tsx
+│   │   ├── package.json
+│   │   ├── README.md
 │   │   ├── task -> ../../scripts/task
 │   │   └── Dockerfile
 │   ├── [sample Package]
 │   │   ├── README.md
 │   │   ├── __tests__
-│   │   ├── Storybook
 │   │   ├── package.json
 │   │   ├── task -> ../../scripts/task
 │   │   └── Dockerfile
