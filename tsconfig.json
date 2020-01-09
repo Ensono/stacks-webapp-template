@@ -13,6 +13,12 @@
     "resolveJsonModule": true,
     "jsx": "preserve"
   },
-  "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/next.config.js", "**/*.ts", "**/*.tsx"]
+  "exclude": ["node_modules", "./**/coverage"],
+  "include": [
+    "next-env.d.ts",
+    "**/next.config.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js"
+  ]
 }
