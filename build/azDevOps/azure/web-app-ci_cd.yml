@@ -152,18 +152,18 @@ stages:
         vmImage: 'ubuntu-latest'
       build_number: $(Docker.ImageTag)
 
-  # Retrieve a blob file with only Azure credentials, extract it and publish as an artefact
-  - template: azDevOps/azure/templates/jobs/publish-blob-as-artefact.yml@templates
-    parameters:
-      pool:
-        vmImage: 'ubuntu-latest'
-      dependsOn: UpdateBuildNumber
-      Package_RG: $(DevOps.RG)
-      Package_storageAccount: $(DevOps.storageAccount)
-      Package_Container: $(DevOps.Container)
-      Package_File: $(DevOps.File)
-      Package_OutputFolder: $(Build.BinariesDirectory)
-      Package_OutputArtefact: '$(DevOps.ArtefactName)'
+  # # Retrieve a blob file with only Azure credentials, extract it and publish as an artefact
+  # - template: azDevOps/azure/templates/jobs/publish-blob-as-artefact.yml@templates
+  #   parameters:
+  #     pool:
+  #       vmImage: 'ubuntu-latest'
+  #     dependsOn: UpdateBuildNumber
+  #     Package_RG: $(DevOps.RG)
+  #     Package_storageAccount: $(DevOps.storageAccount)
+  #     Package_Container: $(DevOps.Container)
+  #     Package_File: $(DevOps.File)
+  #     Package_OutputFolder: $(Build.BinariesDirectory)
+  #     Package_OutputArtefact: '$(DevOps.ArtefactName)'
 
   # BUILD NPM
   - template: templates/jobs/build-npm.yml
