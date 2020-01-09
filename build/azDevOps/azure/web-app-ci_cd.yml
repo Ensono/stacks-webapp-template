@@ -171,7 +171,6 @@ stages:
       pool:
         vmImage: ubuntu-18.04
       jobName: 'WebAppBuild'
-      dependsOn: UpdateBuildNumber
       dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
       devops_artefact_name: '$(DevOps.ArtefactName)'
       # Docker Config
