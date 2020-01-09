@@ -1,0 +1,197 @@
+name: $(build.SourceBranchName)-init
+
+trigger:
+  branches:
+    include:
+    - "*"
+  paths:
+    include:
+    - deploy/*
+    - packages/*
+    - build/azDevOps/azure/web-app-ci_cd.yml
+    # exclude:
+    # - 
+
+# Only build PR's into Master (i.e. 'going live')
+pr:
+- master
+
+resources:
+  repositories:
+  - repository: templates
+    type: github
+    name: amido/stacks-pipeline-templates
+    endpoint: amido
+
+
+variables:
+# Global Config:
+- name: Global.Company
+  value: 'amido'
+- name: Global.Project
+  value: 'stacks'
+- name: Global.Domain
+  value: 'webapp'
+# allow for overriding the default behaviour of skipping CD stages unless on master
+# SET `ENVIRONMENT` to dev || test
+
+# Versioning
+- name: Version.Major
+  value: 0
+- name: Version.Minor
+  value: 0
+- name: Version.Revision
+  value: $[counter(variables['Version.Minor'], 0)]
+
+# Tests
+# TODO: Calculate and devolve these into build template where feasible as parameters
+- name: Test.FunctionalTestProjectFile
+  value: 'CF.BookingService.API.FunctionalTests.csproj'
+- name: Test.FunctionalTestProjectSourcePath
+  value: '$(Pipeline.Workspace)/tests/Functional/CF.BookingService.API.FunctionalTests'
+- name: Test.FunctionalTestProjectBuildPath
+  value: '$(Build.BinariesDirectory)'
+- name: Test.FunctionalTestReportSourcePath
+  value: '$(Pipeline.Workspace)/tests/Functional/CF.BookingService.API.FunctionalTests/bin/Debug/netcoreapp2.2/BDDfy.html'
+- name: Test.FunctionalTestReportTargetName
+  value: '$(Docker.ImageName)/$(Build.BuildNumber)-$(environment).html'
+- name: Test.FunctionalTestReportStorageAccountRG
+  value: 'amido-stacks-rg-uks-prod'
+- name: Test.FunctionalTestReportStorageAccountName
+  value: 'amidostacksuksprod'
+- name: Test.FunctionalTestReportStorageContainerName
+  value: 'testresults '
+- name: Test.ProviderContractTestProjectSourcePath
+  value: '$(Build.SourcesDirectory)/src/CF.BookingService.API.ContractTests'
+- name: Test.TestsSourcePath
+  value: '$(Build.SourcesDirectory)/src/tests/'
+- name: Test.PerformanceTestProjectSourcePath
+  value: '$(Pipeline.Workspace)/tests/Performance/CF.BookingService.API.PerformanceTests'
+- name: Test.UnitTestProjectPath
+  value: '$(Build.SourcesDirectory)/src/Tests/**/*UnitTests.csproj'
+- name: Test.ComponentTestProjectPath
+  value: '$(Build.SourcesDirectory)/src/Tests/**/*ComponentTests.csproj'
+- name: Test.IntegrationTestProjectPath
+  value: '$(Build.SourcesDirectory)/src/**/*IntegrationTests.csproj'
+# Performance Test Settings (set outside of code so they can be adjusted as neccesary)
+- group: amido-stacks-testing
+
+#TODO: convert below to variable group
+- name: Sonar.serviceConnection
+  value: 'amido-sonarcloud'
+- name: Sonar.organization
+  value: 'amido'
+- name: Sonar.scannerMode
+  value: 'MSBuild'
+- name: Sonar.projectKey
+  value: 'stacks-dotnet'
+- name: Sonar.projectName
+  value: '$(Docker.ImageName)'
+- name: Sonar.projectVersion
+  value: '$(Docker.ImageTag)'
+
+# Release Notes
+- name: ReleaseNote.TargetName
+  value: '$(Docker.ImageName)/$(Build.BuildNumber).json'
+- name: ReleaseNote.StorageAccountRG
+  value: 'amido-stacks-rg-uks-prod'
+- name: ReleaseNote.StorageAccountName
+  value: 'amidostacksuksprod'
+- name: ReleaseNote.StorageContainerName
+  value: 'releasenotes'
+- name: ReleaseNote.GitHubProject
+  value: 'stacks-dotnet'
+
+# SonarCloud Info
+- name: Test.sonarProjectKey
+  value: 'stacks-dotnet'
+
+# Pact Broker Info
+- name: Test.PactBrokerUrl
+  value: 'https://amido-stacks.pact.dius.com.au'
+# Specific Pact Contract Test Variables as ENV VAR
+- name: BROKER_URL
+  value: '$(Test.PactBrokerUrl)'
+- name: BUILD_NUMBER
+  value: '$(Docker.ImageTag)'
+- name: BROKER_TOKEN
+  value: '$(Test.PactBearerToken)'
+
+# Docker Config
+- name: Docker.DockerfilePath
+  value: 'src/'
+- name: Docker.ImageName
+  value: 'stacks-webapp'
+- name: Docker.ImageTag
+  value: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
+# value: '0.0.1-stacks-migration-2'
+
+# DevOps Scripts Package Info
+- name: DevOps.File
+  value: 'scripts-1.2.75-master.tar.gz'
+- name: DevOps.Container
+  value: 'packages'
+- name: DevOps.storageAccount
+  value: 'amidostacksuksdev'
+- name: DevOps.RG
+  value: 'amido-stacks-rg-uks-dev'
+- name: DevOps.ArtefactName
+  value: 'DevOps'
+
+stages:
+- stage: Build
+  variables:
+  - group: amido-stacks-infra-credentials-nonprod
+  - name: Docker.ContainerRegistryName
+    value: 'amidouksstacksacrdev'
+  jobs:
+  # Set build number
+  - template: azDevOps/azure/templates/jobs/build-updatebuildnumber.yml@templates
+    parameters:
+      pool:
+        vmImage: 'ubuntu-latest'
+      build_number: $(Docker.ImageTag)
+
+  # Retrieve a blob file with only Azure credentials, extract it and publish as an artefact
+  - template: azDevOps/azure/templates/jobs/publish-blob-as-artefact.yml@templates
+    parameters:
+      pool:
+        vmImage: 'ubuntu-latest'
+      dependsOn: UpdateBuildNumber
+      Package_RG: $(DevOps.RG)
+      Package_storageAccount: $(DevOps.storageAccount)
+      Package_Container: $(DevOps.Container)
+      Package_File: $(DevOps.File)
+      Package_OutputFolder: $(Build.BinariesDirectory)
+      Package_OutputArtefact: '$(DevOps.ArtefactName)'
+
+  # BUILD NPM
+  - template: templates/jobs/build-npm.yml
+    parameters:
+      pool:
+        vmImage: ubuntu-18.04
+      jobName: 'WebAppBuild'
+      dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
+      devops_artefact_name: '$(DevOps.ArtefactName)'
+      # Docker Config
+      docker_build: true
+      # TODO: put this in a var
+      docker_workdir: '$(Build.SourcesDirectory)/packages/webapp/'
+      docker_imagename: '$(Docker.ImageName)'
+      docker_imagetag: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
+      docker_containerregistryname: '$(Docker.ContainerRegistryName)'
+      # Vulnerability Scanning
+      vulnerability_scan: false
+      vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
+      # Testing
+      unit_test: false
+      projectRootDir: $(Build.SourcesDirectory)/packages/webapp
+      unit_test_command: yarn test
+      unit_test_project: '$(Test.UnitTestProjectPath)'
+      component_test: false
+      component_test_project: '$(Test.ComponentTestProjectPath)'
+      # Build Output File
+      build_file: false
+      build_file_path: '$(Build.SourcesDirectory)/deploy/k8s/cron_gdpr_scheduler'
+      build_file_artefact: 'webapp_template_build'
+
