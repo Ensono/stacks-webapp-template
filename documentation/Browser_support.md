@@ -31,6 +31,9 @@ example demonstrates the recommended approach to implement polyfills._
 #### To find out the list of supported browsers.
 
 ```bash
-# run the following on the root level.
+# run the following on the root level
+
 npx browserslist
 ```
+
+> If you do not have npx already: "npm install -g npx"
