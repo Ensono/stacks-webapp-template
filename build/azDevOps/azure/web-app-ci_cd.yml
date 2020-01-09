@@ -132,7 +132,7 @@ variables:
 - name: DevOps.Container
   value: 'packages'
 - name: DevOps.storageAccount
-  value: 'amidostacksuksprod'
+  value: 'amidostacksuksdev'
 - name: DevOps.RG
   value: 'amido-stacks-rg-uks-dev'
 - name: DevOps.ArtefactName
