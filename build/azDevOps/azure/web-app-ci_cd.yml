@@ -128,7 +128,7 @@ variables:
 
 # DevOps Scripts Package Info
 - name: DevOps.File
-  value: 'scripts-1.2.75-master.tar.gz'
+  value: 'scripts-1.2.84-master.tar.gz'
 - name: DevOps.Container
   value: 'packages'
 - name: DevOps.storageAccount
