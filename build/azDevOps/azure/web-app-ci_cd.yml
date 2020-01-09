@@ -132,7 +132,7 @@ variables:
 - name: DevOps.Container
   value: 'packages'
 - name: DevOps.storageAccount
-  value: 'amidostacksuksdev'
+  value: 'amidostacksuksprod'
 - name: DevOps.RG
   value: 'amido-stacks-rg-uks-dev'
 - name: DevOps.ArtefactName
@@ -171,6 +171,7 @@ stages:
       pool:
         vmImage: ubuntu-18.04
       jobName: 'WebAppBuild'
+      dependsOn: UpdateBuildNumber
       dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
       devops_artefact_name: '$(DevOps.ArtefactName)'
       # Docker Config
