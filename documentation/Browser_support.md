@@ -23,6 +23,8 @@ example demonstrates the recommended approach to implement polyfills._
 
 - [Browserslist](https://github.com/browserslist/browserslist) -
   `.browserslistrc` contains the list of supported browsers.
+  - [Examples](https://github.com/browserslist/browserslist-example) - to update
+    this list
 - [eslint-plugin-compat](https://www.npmjs.com/package/eslint-plugin-compat) -
   enforces the browser support across stacks.
 
