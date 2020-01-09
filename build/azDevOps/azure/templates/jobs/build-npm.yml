@@ -1,0 +1,185 @@
+parameters:
+  pool:
+      vmImage: 'ubuntu-latest'
+  versionSpec: 10.x
+  jobName: 'setMe'
+  devops_artefact_name: 'DevOps'
+  dependsOn: 'GetPackage'
+  # Docker Config
+  docker_build: true
+  docker_workdir: ''
+  docker_imagename: ''
+  docker_imagetag: ''
+  docker_containerregistryname: ''
+  # Vulnerability Scanning
+  vulnerability_scan: false
+  vulnerability_workdir: ''
+  #  Static Code Analysis
+  static_code_analysis: false
+  static_code_analysis_build_path: ''
+  Sonar_serviceConnection: ''
+  Sonar_organization: ''
+  Sonar_scannerMode: ''
+  Sonar_projectKey: ''
+  Sonar_projectName: ''
+  Sonar_projectVersion: ''
+  # Testing
+  unit_test: false
+  unit_test_command: 'npm run unit_test'
+  unit_test_project: ''
+  component_test: false
+  component_test_project: ''
+  integration_test: false
+  integration_test_project: ''
+  integration_test_cosmosdb_secret: false
+  integration_test_cosmosdb_account: ''
+  integration_test_cosmosdb_database: ''
+  contract_test: false
+  contract_test_project: ''
+  functional_test: false
+  functional_test_path: ''
+  functional_test_artefact: ''
+  # Build File Output
+  build_file: false
+  build_file_path: ''
+  build_file_artefact: ''
+
+
+jobs:
+- job: ${{ parameters.jobName }}
+  dependsOn: ${{ parameters.dependsOn }}
+  pool: ${{ parameters.pool }}
+  continueOnError: false
+  steps:
+# Get DevOps Artefact and Install Prerequisites
+  - template: azDevOps/azure/templates/steps/build-consume-devops.yml@templates
+
+# Login to Azure/AKS
+  - template: azDevOps/azure/templates/steps/login-services.yml@templates
+    parameters:
+      # Azure
+      login_azure: true
+      azure_tenant_id: '$(azure_tenant_id)'
+      azure_subscription_id: '$(azure_subscription_id)'
+      azure_client_id: '$(azure_client_id)'
+      azure_client_secret: '$(azure_client_secret)'
+      # Kubernetes
+      login_kubernetes: false
+        # aks_rg: ''
+        # aks_clustername: ''
+      devops_artefact_name: '${{ parameters.devops_artefact_name }}'
+
+# SonarCloud Start
+#  - ${{ if eq(parameters.static_code_analysis, true) }}:
+#    - task: SonarCloudPrepare@1
+#      inputs:
+#        SonarCloud: ${{ parameters.Sonar_serviceConnection }}
+#        organization: ${{ parameters.Sonar_organization }}
+#        scannerMode: ${{ parameters.Sonar_scannerMode }}
+#        projectKey: ${{ parameters.Sonar_projectKey }}
+#        projectName: ${{ parameters.Sonar_projectName }}
+#        projectVersion: ${{ parameters.Sonar_projectVersion }}
+#      displayName: 'SonarCloud: Prepare for Analysis'
+#
+#    - task: DotNetCoreCLI@2
+#      inputs:
+#        command: 'build'
+#        workingDirectory: ${{ parameters.static_code_analysis_build_path }}
+
+# Unit Test
+  - ${{ if eq(parameters.unit_test, true) }}:
+    - task: NodeTool@0
+      displayName: 'Test: Unit tests'
+      inputs:
+        versionSpec: ${{ parameters.versionSpec }}
+    - script: |
+        npm ci
+        ${{ parameters.unit_test_command}}
+      workingDirectory: ${{ parameters.projectRootDir }}
+      displayName: 'Run Tests Basic'
+
+
+# Component Test
+  - ${{ if eq(parameters.component_test, true) }}:
+    - task: DotNetCoreCLI@2
+      displayName: 'Test: Component tests'
+      inputs:
+        command: test
+        projects: '${{ parameters.component_test_project }}'
+        arguments: '-v n '
+        testRunTitle: 'Test: Component tests'
+
+# Integration Test
+  - ${{ if eq(parameters.integration_test_cosmosdb_secret, true) }}:
+    - task: Bash@3
+      displayName: 'Get: CosmosDB Account Key for Integration Tests'
+      inputs:
+        targetType: 'filePath'
+        filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Azure/get-cosmosdb-key-endpoint.sh
+        arguments: ${{ parameters.integration_test_cosmosdb_account }}
+
+    - bash: |
+        echo Setting CosmosDB Database Name to ${{ parameters.integration_test_cosmosdb_database }}
+        echo "##vso[task.setvariable variable=CosmosDB__DatabaseName]${{ parameters.integration_test_cosmosdb_database }}"
+        echo Setting CosmosDB Account URI to https://${{ parameters.integration_test_cosmosdb_account }}.documents.azure.com:443/
+        echo "##vso[task.setvariable variable=CosmosDB__DatabaseAccountUri]https://${{ parameters.integration_test_cosmosdb_account }}.documents.azure.com:443/"
+      displayName: 'Mutate: Set CosmosDB Database Account for Integration Tests'
+
+  - ${{ if eq(parameters.integration_test, true) }}:
+    - task: DotNetCoreCLI@2
+      displayName: 'Test: Integration tests'
+      inputs:
+        command: test
+        projects: '${{ parameters.integration_test_project }}'
+        arguments: '-v n '
+        testRunTitle: 'Test: Integration tests'
+
+# Contract tests
+  - ${{ if eq(parameters.contract_test, true) }}:
+    - task: DotNetCoreCLI@2
+      displayName: 'Test: Provider Contracts'
+      inputs:
+        command: test
+        projects: '${{ parameters.contract_test_project }}'
+        arguments: '-v n'
+        testRunTitle: 'Test: Provider Contracts'
+
+# SonarCloud Results
+#  - ${{ if eq(parameters.static_code_analysis, true) }}:
+#    - task: SonarCloudAnalyze@1
+#      displayName: 'SonarCloud: Analysis'
+#
+#    - task: SonarCloudPublish@1
+#      inputs:
+#        pollingTimeoutSec: '300'
+#      displayName: 'SonarCloud: Publish'
+
+# Build Docker Image, Scan and Push to Repository
+  - ${{ if eq(parameters.docker_build, true) }}:
+    - template: azDevOps/azure/templates/steps/build-docker-build-and-scan.yml@templates
+      parameters:
+        devops_artefact_name: '{{ parameters.devops_artefact_name }}'
+        # Docker
+        docker_workdir: '${{ parameters.docker_workdir }}'
+        docker_imagename: '${{ parameters.docker_imagename }}'
+        docker_imagetag: '${{ parameters.docker_imagetag }}'
+        docker_containerregistryname: '${{ parameters.docker_containerregistryname }}'
+        # Vulnerability Scanning
+        vulnerability_scan: '${{ parameters.vulnerability_scan }}'
+        vulnerability_workdir: '${{ parameters.vulnerability_workdir }}'
+
+# Publish Artefacts if required
+
+  - ${{ if eq(parameters.functional_test, true) }}:
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish: Functional Tests Artifact'
+      inputs:
+        PathtoPublish: '${{ parameters.functional_test_path }}'
+        ArtifactName: '${{ parameters.functional_test_artefact }}'
+
+  - ${{ if eq(parameters.build_file, true) }}:
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish: Build Artefacts'
+      inputs:
+        PathtoPublish: '${{ parameters.build_file_path }}'
+        ArtifactName: '${{ parameters.build_file_artefact }}'
