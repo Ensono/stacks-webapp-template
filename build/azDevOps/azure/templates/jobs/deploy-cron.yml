@@ -1,0 +1,109 @@
+parameters:
+  pool:
+    vmImage: "ubuntu-latest"
+  jobName: "setMe"
+  devops_artefact_name: ""
+  dependsOn: ""
+  environment: ""
+  build_file: false
+  build_artefact: ""
+  test_artefact: "tests"
+  test_baseurl: ""
+  functional_test: false
+  smoke_test: false
+  kubernetes_clusterrg: ""
+  kubernetes_clustername: ""
+  kubernetes_kustomize_filepath: ""
+  kubernetes_docker_registry: ""
+  cosmosdb_secret: false
+  cosmosdb_accountName: ""
+  appinsights_enabled: false
+  appinsights_accountName: ""
+  performance_test: false
+  secureFile: ""
+  secureFileDestinationName: ""
+
+jobs:
+  # - job: ${{ parameters.jobName }}
+  - deployment: ${{ parameters.jobName }}
+    dependsOn: ${{ parameters.dependsOn }}
+    variables:
+      - name: BaseURL
+        value: ${{ parameters.test_baseurl }}
+    pool:
+      vmImage: "ubuntu-latest"
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            ## Prerequisites
+            - ${{ if eq(parameters.build_file, true) }}:
+                - download: current
+                  displayName: "Download: Build Artefacts"
+                  artifact: "${{ parameters.build_artefact }}"
+
+            # Download this artefact if functional or performance tests are enabled for this deployment
+            - ? ${{ if or(eq(parameters.functional_test, true), eq(parameters.performance_test, true)) }}
+              : - download: current
+                  displayName: "Download: Test Artefacts"
+                  artifact: "${{ parameters.test_artefact }}"
+
+            - template: azDevOps/azure/templates/steps/build-consume-devops.yml@templates
+
+            - template: azDevOps/azure/templates/steps/login-services.yml@templates
+              parameters:
+                # Azure
+                login_azure: true
+                azure_tenant_id: "$(azure_tenant_id)"
+                azure_subscription_id: "$(azure_subscription_id)"
+                azure_client_id: "$(azure_client_id)"
+                azure_client_secret: "$(azure_client_secret)"
+                # Kubernetes
+                login_kubernetes: true
+                aks_rg: "${{ parameters.kubernetes_clusterrg }}"
+                aks_clustername: "${{ parameters.kubernetes_clustername }}"
+                devops_artefact_name: "${{ parameters.devops_artefact_name }}"
+
+            - task: Bash@3
+              displayName: "Mutate: Secrets from Environment Vars"
+              inputs:
+                targetType: "filePath"
+                filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Kubectl/inject-secrets-from-env-var.sh
+                arguments: $(Pipeline.Workspace)/cron_gdpr_build/${{ parameters.kubernetes_kustomize_filepath }}/secrets
+                failOnStderr: true
+
+            ## Mutation
+            - task: Bash@3
+              displayName: "Mutate: Annotate Version Information"
+              inputs:
+                targetType: "filePath"
+                filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Kustomize/kustomize-annotate-version.sh
+                arguments: $(Build.BinariesDirectory)/kustomize $(Docker.ImageTag)
+                workingDirectory: $(Pipeline.Workspace)/cron_gdpr_build/base
+                failOnStderr: true
+
+            - bash: |
+                echo "Setting cron-image to '${{ parameters.kubernetes_docker_registry }}'/$(Docker.CronImageName):$(Docker.ImageTag)"
+                $(Build.BinariesDirectory)/kustomize edit set image cron-image='${{ parameters.kubernetes_docker_registry }}'/$(Docker.CronImageName):$(Docker.ImageTag);
+              workingDirectory: $(Pipeline.Workspace)/${{ parameters.build_artefact }}/base
+              displayName: "Mutate: Set Docker Image Version for cron-image"
+              failOnStderr: true
+
+            # This is how we would update the UI image version
+            #  - bash: |
+            #     echo "Setting ui-image to '${{ parameters.kubernetes_docker_registry }}'/$(Docker.ImageName):$(Docker.ImageTag)"
+            #     $(Build.BinariesDirectory)/kustomize edit set image ui-image='${{ parameters.kubernetes_docker_registry }}'/$(Docker.ImageName):$(Docker.ImageTag);
+            #    workingDirectory: $(Pipeline.Workspace)/${{ parameters.build_artefact }}/base
+            #    displayName: 'Mutate: Set Docker Image Version for ui-image'
+            #    failOnStderr: true
+
+            ## Deployment
+            - task: Bash@3
+              displayName: "Deploy: Kubectl Apply with Kustomize"
+              inputs:
+                targetType: "filePath"
+                filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Kubectl/apply-with-kustomize.sh
+                arguments: ./${{ parameters.kubernetes_kustomize_filepath }}
+                workingDirectory: $(Pipeline.Workspace)/${{ parameters.build_artefact }}
+                failOnStderr: true

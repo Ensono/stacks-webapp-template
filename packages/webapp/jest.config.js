@@ -2,7 +2,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
     '<rootDir>/node_modules/',
-    '<rootDir>/__tests__/coverage/',
+    '<rootDir>/coverage/',
   ],
   testResultsProcessor: 'jest-sonar-reporter',
   coverageReporters: ['lcov'],
@@ -16,7 +16,7 @@ module.exports = {
     '!**/next-env.d.ts',
     '!**/dist/**',
   ],
-  coverageDirectory: '<rootDir>./coverage/',
+  coverageDirectory: '<rootDir>/coverage/',
   coverageThreshold: {
     global: {
       statements: 100,

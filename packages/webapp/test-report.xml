@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testExecutions version="1">
-  <file path="/Users/narenbellala/Dev/stacks-webapp-template/packages/webapp/__tests__/index.test.tsx">
-    <testCase name="With React Testing Library page renders tag type &lt;div&gt; with text" duration="20"/>
-    <testCase name="With React Testing Library Snapshot renders page" duration="11"/>
-    <testCase name="With React Testing Library page rerenders with hydrate" duration="3"/>
-  </file>
-</testExecutions>

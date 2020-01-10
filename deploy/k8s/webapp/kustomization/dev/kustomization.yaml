@@ -1,0 +1,60 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+- ./../../base
+resources:
+- namespace.yaml
+
+namespace: dev-booking
+commonLabels:
+  environment: dev
+
+patchesJson6902:
+- path: ingress_patch.yaml
+  target:
+    group: extensions
+    version: v1beta1
+    kind: Ingress
+    name: bookingapi
+
+patchesStrategicMerge:
+- deployment_patch.yaml
+
+configMapGenerator:
+- name: appsettings
+  files:
+    - appsettings.json
+
+secretGenerator:
+- name: cosmosdb
+  behavior: replace
+  files:
+  - secrets/COSMOSDB/KEY
+
+- name: azureblob
+  behavior: replace
+  files:
+  - secrets/AZUREBLOB/CONNECTIONSTRING
+
+- name: appinsights
+  behavior: replace
+  files:
+  - secrets/appinsights/instrumentationkey
+
+- name: authentication
+  behavior: replace
+  files:
+  - secrets/AUTHENTICATION/APIKEY
+
+- name: carusapisettings
+  behavior: replace
+  files:
+  - secrets/CARUSAPISETTINGS/CONSUMERKEY
+  - secrets/CARUSAPISETTINGS/CONSUMERSECRET
+  - secrets/CARUSAPISETTINGS/JWTSECRET
+  - secrets/CARUSAPISETTINGS/CARUSPASSWORD
+
+- name: certificates
+  files:
+  - secrets/documentsPublicKey.pem
+

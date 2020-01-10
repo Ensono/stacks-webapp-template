@@ -115,7 +115,7 @@ dist
 /reports
 
 # production
-/build
+
 
 # misc
 .DS_Store
@@ -124,4 +124,25 @@ dist
 .env.test.local
 .env.production.local
 
+# VSCODE
 **/.vscode/chrome
+# include examples for these in the repo
+**/.vscode/launch.json
+**/.vscode/settings.json
+
+# TERRAFORM
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# .tfvars files
+terraform.tfvars
+local.auto.tfvars
+backend.local.tfvars
+
+# misc
+**/test-*
+**/*report.xml
+
