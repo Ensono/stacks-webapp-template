@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render } from '@testing-library/react';
 import App from '../pages/index';
 
-const indexPageText = 'Welcome to Stacks-react app!';
+const indexPageText = `Welcome to Stacks-react app! your current environemnt is: ${process.env.NODE_ENV}`;
 
 test('With React Testing Library page renders tag type <div> with text', () => {
   const { getByText } = render(<App />);

@@ -23,7 +23,6 @@ resources:
     name: amido/stacks-pipeline-templates
     endpoint: williamayerst # This was created Cycle 1 when they set up the connection to GitHub from Azure DevOps
 
-
 variables:
 # Global Config:
 - name: Global.Company

@@ -8,14 +8,15 @@ module.exports = {
   coverageReporters: ['lcov'],
   collectCoverage: true,
   collectCoverageFrom: [
-    '**/*.{js,jsx,ts,tsx}',
+    '**/*.{js,jsx,tsx}',
     '!**/*config.{js,json}',
     '!**/coverage/**',
     '!**/node_modules/**',
     '!**/.next/**',
     '!**/next-env.d.ts',
+    '!**/dist/**',
   ],
-  coverageDirectory: '<rootDir>./coverage/',
+  coverageDirectory: '<rootDir>/coverage/',
   coverageThreshold: {
     global: {
       statements: 100,
