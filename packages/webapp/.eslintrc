@@ -14,20 +14,20 @@
     }
   },
   "extends": [
+    "airbnb",
+    "airbnb/hooks",
     "eslint:recommended",
     "eslint-config-prettier",
     "plugin:compat/recommended",
     "plugin:jest/recommended",
     "plugin:import/typescript",
+    "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:react/recommended",
     "prettier",
     "prettier/@typescript-eslint",
-    "prettier/react",
-    "airbnb",
-    "airbnb/hooks"
+    "prettier/react"
   ],
   "globals": {
     "React": "writable"
