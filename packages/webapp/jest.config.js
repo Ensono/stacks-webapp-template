@@ -4,6 +4,8 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/__tests__/coverage/',
   ],
+  testResultsProcessor: 'jest-sonar-reporter',
+  coverageReporters: ['lcov'],
   collectCoverage: true,
   collectCoverageFrom: [
     '**/*.{js,jsx,tsx}',
@@ -14,7 +16,7 @@ module.exports = {
     '!**/next-env.d.ts',
     '!**/dist/**',
   ],
-  coverageDirectory: '<rootDir>./__tests__/coverage/',
+  coverageDirectory: '<rootDir>./coverage/',
   coverageThreshold: {
     global: {
       statements: 100,
