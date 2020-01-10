@@ -157,12 +157,13 @@ jobs:
 
 # Build Docker Image, Scan and Push to Repository
   - ${{ if eq(parameters.docker_build, true) }}:
-    - task: BuildAndDeploy
+    - task: DockerBuildAndDeploy
       bash: |
         docker build ${{ parameters.docker_build_additional_args }} -t ${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:latest
       displayName: Build Container Image
       workingDirectory: ${{ parameters.docker_workdir }}
-      
+    
+    - task: DockerPush
       bash: |
         az acr login --name ${{ parameters.docker_containerregistryname }} # this is super annoying
         docker push ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}
