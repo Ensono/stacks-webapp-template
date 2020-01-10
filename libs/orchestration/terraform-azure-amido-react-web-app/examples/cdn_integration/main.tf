@@ -1,7 +1,8 @@
+
 data "azurerm_client_config" "current" {}
 
 module "static_website" {
-  source                   = "../../../libs/orchestration/terraform-azure-amido-react-web-app"
+  source                   = "../../"
   subscription_id          = var.subscription_id
   tenant_id                = var.tenant_id
   client_id                = var.client_id

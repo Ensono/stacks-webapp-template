@@ -140,4 +140,5 @@ terraform.tfvars
 local.auto.tfvars
 backend.local.tfvars
 
-deploy/terraform/azure/backend-config.tfvars
+# misc
+**/test-*

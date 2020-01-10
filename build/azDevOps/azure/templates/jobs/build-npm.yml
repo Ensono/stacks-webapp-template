@@ -167,7 +167,7 @@ jobs:
         docker push ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}
       displayName: Push Container Image to Azure Container Registry
       workingDirectory: ${{ parameters.docker_workdir }}
-    
+
     # - template: azDevOps/azure/templates/steps/build-docker-build-and-scan.yml@templates
     #   parameters:
     #     devops_artefact_name: '{{ parameters.devops_artefact_name }}'

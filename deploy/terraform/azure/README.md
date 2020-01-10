@@ -45,3 +45,6 @@ t12ws dev || t12 workspace new dev
 ```
 
 <!--  -->
+
+
+t12i -backend-config=./backend.local.tfvars

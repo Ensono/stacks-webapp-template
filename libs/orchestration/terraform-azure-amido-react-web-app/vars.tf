@@ -29,7 +29,7 @@ variable "name_environment" {
 }
 
 variable "stage" {
-  type = string
+  type    = string
   default = "dev"
 }
 
@@ -72,7 +72,7 @@ variable "resource_location" {
 }
 
 variable "resource_tags" {
-  type = map(string)
+  type    = map(string)
   default = {}
 }
 
@@ -102,15 +102,17 @@ variable "enabled" {
   description = "Enables or disables the static-website"
 }
 
+variable "account_replication_type" {
+  type    = string
+  default = "LRS"
+}
 
-# locals {
-#   # // common //
-#   resource_prefix           = "${var.name_company}-${var.name_project}-${var.name_component}"
-#   resource_suffix           = "${var.location_name_map[var.resource_location]}-${var.name_environment}"
+variable "account_kind" {
+  type    = string
+  default = "StorageV2"
+}
 
-#   # // resource group //
-#   resource_group_name       = "${local.resource_prefix}-rg-${local.resource_suffix}"
-
-#   # // storage account - static website hosting //
-#   storage_account_name      = "${var.name_company}${var.name_project}${var.name_component}sa${var.location_name_map[var.resource_location]}${var.name_environment}"
-# }
+variable "account_tier" {
+  type    = string
+  default = "Standard"
+}

@@ -2,7 +2,7 @@ module "spa_labels" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.16.0"
   namespace  = "${var.name_company}-${var.name_project}"
   stage      = var.stage
-  name       = "spa"
+  name       = var.name_component
   attributes = var.attributes
   delimiter  = "-"
   tags       = var.tags
@@ -15,8 +15,6 @@ resource "azurerm_resource_group" "spa" {
   tags     = var.resource_tags
 }
 
-data "azurerm_client_config" "current" {}
-
 # Probably best to create a module that handles the creation of all required resources to set up CSR react app
 # includes:
 # DNS
@@ -26,13 +24,13 @@ data "azurerm_client_config" "current" {}
 
 
 resource "azurerm_storage_account" "spa" {
-  name                      = replace(module.spa_labels.id, "-", "")
+  name = replace(module.spa_labels.id, "-", "")
   # resource_group_name       = azurerm_resource_group.spa.name
   resource_group_name       = var.rg_name
-  account_replication_type  = "LRS"
+  account_replication_type  = var.account_replication_type
   location                  = var.resource_location
-  account_kind              = "StorageV2"
-  account_tier              = "Standard"
+  account_kind              = var.account_kind
+  account_tier              = var.account_tier
   enable_https_traffic_only = true
   tags                      = var.resource_tags
 }
@@ -47,7 +45,7 @@ resource "null_resource" "static_website_cmd" {
   provisioner "local-exec" {
     command = <<EOF
     az storage blob service-properties update \
-      --subscription ${data.azurerm_client_config.current.subscription_id} \
+      --subscription ${var.subscription_id} \
       --account-name ${azurerm_storage_account.spa.name} \
       --static-website true \
       --404-document index.html \
