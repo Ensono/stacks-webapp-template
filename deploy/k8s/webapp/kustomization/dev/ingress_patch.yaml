@@ -1,0 +1,16 @@
+- op: replace
+  path: /spec/rules/0/host
+  value: dev-api-freight.condorferriesfreight.co.uk
+
+#for localhost tests      
+- op: add
+  path: /spec/rules/-
+  value:
+    host: "dev.localhost"
+    http:
+      paths:
+      - path: /api/booking(/|$)(.*)
+        backend:
+          serviceName: bookingapi
+          servicePort: 80
+          

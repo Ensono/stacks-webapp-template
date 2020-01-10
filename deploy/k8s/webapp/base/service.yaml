@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp_template
+  labels:
+    app.kubernetes.io/name: bookingapi
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: booking
+spec:
+  type: ClusterIP
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: http
+  selector:
+    app.kubernetes.io/name: bookingapi
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: booking

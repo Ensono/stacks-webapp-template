@@ -194,4 +194,3 @@ stages:
       build_file: false
       build_file_path: '$(Build.SourcesDirectory)/deploy/k8s/cron_gdpr_scheduler'
       build_file_artefact: 'webapp_template_build'
-

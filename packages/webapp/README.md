@@ -23,6 +23,7 @@ In order to be able to build and run the webapp template, across environments an
 
 ```bash
 # build
+docker build ../ -f ./Dockerfile -t stacks-app
 docker build -t stacks-app .
 # or, use multi-stage builds to build a smaller docker image
 docker build -t stacks-app -f ./Dockerfile.multistage .
@@ -32,4 +33,14 @@ Run it:
 
 ```bash
 docker run --rm -it -p 3000:3000 stacks-app
+```
+
+
+docker run --rm -it -v $(pwd):/app/deployed/src stacks-app:latest /bin/sh
+docker run --rm -it stacks-app:latest /bin/sh
+
+Alternatives to running in a container
+
+```bash
+CMD ["pm2-runtime", "--json", "./ecosystem.yml", "--exp-backoff-restart-delay=500", "-a", "--update-env"]
 ```

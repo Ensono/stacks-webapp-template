@@ -156,17 +156,30 @@ jobs:
 
 # Build Docker Image, Scan and Push to Repository
   - ${{ if eq(parameters.docker_build, true) }}:
-    - template: azDevOps/azure/templates/steps/build-docker-build-and-scan.yml@templates
-      parameters:
-        devops_artefact_name: '{{ parameters.devops_artefact_name }}'
-        # Docker
-        docker_workdir: '${{ parameters.docker_workdir }}'
-        docker_imagename: '${{ parameters.docker_imagename }}'
-        docker_imagetag: '${{ parameters.docker_imagetag }}'
-        docker_containerregistryname: '${{ parameters.docker_containerregistryname }}'
-        # Vulnerability Scanning
-        vulnerability_scan: '${{ parameters.vulnerability_scan }}'
-        vulnerability_workdir: '${{ parameters.vulnerability_workdir }}'
+    - task: BuildAndDeploy
+      bash: |
+        docker build . -t ${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:latest
+      displayName: Build Container Image
+      workingDirectory: ${{ parameters.docker_workdir }}
+      
+      bash: |
+        az acr login --name ${{ parameters.docker_containerregistryname }} # this is super annoying
+        docker push ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}
+      displayName: Push Container Image to Azure Container Registry
+      workingDirectory: ${{ parameters.docker_workdir }}
+    
+    # - template: azDevOps/azure/templates/steps/build-docker-build-and-scan.yml@templates
+    #   parameters:
+    #     devops_artefact_name: '{{ parameters.devops_artefact_name }}'
+    #     # Docker
+    #     docker_workdir: '${{ parameters.docker_workdir }}'
+    #     docker_imagename: '${{ parameters.docker_imagename }}'
+    #     docker_imagetag: '${{ parameters.docker_imagetag }}'
+    #     docker_containerregistryname: '${{ parameters.docker_containerregistryname }}'
+    #     # Vulnerability Scanning
+    #     vulnerability_scan: '${{ parameters.vulnerability_scan }}'
+    #     vulnerability_workdir: '${{ parameters.vulnerability_workdir }}'
+
 
 # Publish Artefacts if required
 

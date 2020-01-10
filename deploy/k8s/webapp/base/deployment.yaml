@@ -1,0 +1,126 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: bookingapi
+  labels:
+    app.kubernetes.io/name: bookingapi
+    app.kubernetes.io/component: api
+    app.kubernetes.io/part-of: booking
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bookingapi
+      app.kubernetes.io/component: api
+      app.kubernetes.io/part-of: booking
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bookingapi
+        app.kubernetes.io/component: api
+        app.kubernetes.io/part-of: booking
+    spec:
+      containers:
+        - name: api
+          image: api-image:tag
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: API_BASEPATH
+              value: /api/booking
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: ENVIRONMENT
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['environment']
+            - name: VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['version']
+            - name: RELEASE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['release']
+
+            - name: APPINSIGHTS_INSTRUMENTATIONKEY
+              valueFrom:
+                secretKeyRef:
+                  name: appinsights
+                  key: instrumentationkey
+
+            - name: COSMOSDBCONFIGURATION__SECURITYKEY
+              valueFrom:
+                secretKeyRef:
+                  name: cosmosdb
+                  key: KEY
+
+            - name: AUTHENTICATION__APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: authentication
+                  key: APIKEY
+
+            - name: AZUREBLOBSETTINGS__CONNECTIONSTRING
+              valueFrom:
+                secretKeyRef:
+                  name: azureblob
+                  key: CONNECTIONSTRING
+
+            - name: CARUSAPISETTINGS__CONSUMERKEY
+              valueFrom:
+                secretKeyRef:
+                  name: carusapisettings
+                  key: CONSUMERKEY
+            - name: CARUSAPISETTINGS__CONSUMERSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: carusapisettings
+                  key: CONSUMERSECRET
+            - name: CARUSAPISETTINGS__JWTSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: carusapisettings
+                  key: JWTSECRET
+            - name: CARUSAPISETTINGS__CARUSPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: carusapisettings
+                  key: CARUSPASSWORD
+
+          resources:
+            limits:
+              cpu: 300m
+              memory: 300Mi
+            requests:
+              cpu: 300m
+              memory: 300Mi
+
+          ports:
+            - name: http
+              containerPort: 80
+
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: 80
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10

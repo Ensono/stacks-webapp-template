@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- deployment.yaml
+- service.yaml
+- ingress.yaml
+commonLabels:
+  app.kubernetes.io/component: api
+  app.kubernetes.io/name: bookingapi
+  app.kubernetes.io/part-of: booking
+# environment: dev # applied by overlays for each environment
+commonAnnotations:
+  role: api
+  stage: stable
+  tier: frontend
+  app.kubernetes.io/instance: bookingapi
+  app.kubernetes.io/managed-by: kustomize
+  projectID: stacks
+  applicationName: booking
+  applicationId: stacks/booking
+  customerID: amido
+  owner: amido/dotnet
+# CD pipeline annotations
+# release: 0.0.1
+# version: 2019.06.07-1703 #inserted by CD pipeline
+# app.kubernetes.io/version: 2019.06.07-1703
+# releasedOn: "2019-06-07T16:42:05Z"
+secretGenerator:
+- name: cosmosdb
+  files:
+  - secrets/COSMOSDB/KEY
+
+- name: azureblob
+  files:
+  - secrets/AZUREBLOB/CONNECTIONSTRING
+
+- name: appinsights
+  files:
+  - secrets/appinsights/instrumentationkey
+
+- name: authentication
+  files:
+  - secrets/AUTHENTICATION/APIKEY
+
+- name: carusapisettings
+  files:
+  - secrets/CARUSAPISETTINGS/CONSUMERKEY
+  - secrets/CARUSAPISETTINGS/CONSUMERSECRET
+  - secrets/CARUSAPISETTINGS/JWTSECRET
