@@ -177,7 +177,7 @@ stages:
       docker_build: true
       # TODO: put this in a var
       docker_build_additional_args: '../ -f ./Dockerfile'
-      # stuff
+      # stuff hdhsd
       docker_workdir: '$(Build.SourcesDirectory)/packages/webapp/'
       docker_imagename: '$(Docker.ImageName)'
       docker_imagetag: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
