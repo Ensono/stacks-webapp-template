@@ -31,7 +31,7 @@ To run the web application from the root:
 yarn dev
 ```
 
-> To read more about the webapp click [here](./webapp/README.md)
+> To read more about the webapp click [here](./packages/webapp/README.md)
 
 ### Node version
 

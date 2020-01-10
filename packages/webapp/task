@@ -15,7 +15,7 @@ case $CMD in
     ;;
 
   lint)
-    exe "../../node_modules/.bin/eslint -c $(pwd)/.eslintrc . --ext .js,.ts,.tsx -f codeframe"
+    exe "../../node_modules/.bin/eslint -c $(pwd)/.eslintrc . -f codeframe"
     ;;
 
   *)

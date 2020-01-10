@@ -19,6 +19,7 @@
     "next.config.js",
     "jest.config.js",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "**/*.js"
   ]
 }
