@@ -7,6 +7,7 @@ parameters:
   dependsOn: 'GetPackage'
   # Docker Config
   docker_build: true
+  docker_build_additional_args: '.'
   docker_workdir: ''
   docker_imagename: ''
   docker_imagetag: ''
@@ -158,7 +159,7 @@ jobs:
   - ${{ if eq(parameters.docker_build, true) }}:
     - task: BuildAndDeploy
       bash: |
-        docker build . -t ${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:latest
+        docker build ${{ parameters.docker_build_additional_args }} -t ${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:latest
       displayName: Build Container Image
       workingDirectory: ${{ parameters.docker_workdir }}
       
