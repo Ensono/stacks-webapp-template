@@ -12,11 +12,11 @@
   ],
   "scripts": {
     "lerna:setup": "lerna bootstrap",
-    "lint": "lerna run lint",
+    "dev": "lerna run dev --stream",
+    "test": "lerna run test --stream",
+    "lint": "lerna run lint --stream",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
-    "validate": "yarn prettier --list-different && yarn lint",
-    "dev": "lerna run dev",
-    "test": "lerna run test"
+    "validate": "yarn prettier --list-different && yarn lint"
   },
   "engines": {
     "node": ">=12.0"
