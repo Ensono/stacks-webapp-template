@@ -1,0 +1,24 @@
+{
+  "name": "@amido-stacks/eslint-config",
+  "version": "1.0.0",
+  "description": "Shared linting config from amido stacks",
+  "main": "index.js",
+  "author": "https://amido.com",
+  "license": "MIT",
+  "peerDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.15.0",
+    "@typescript-eslint/parser": "^2.15.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-eslint-plugin": "^2.2.0",
+    "eslint-plugin-mocha": "^6.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amido/stacks-webapp-template.git",
+    "directory": "packages/eslint-config"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
