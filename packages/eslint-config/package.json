@@ -20,7 +20,8 @@
     "directory": "packages/eslint-config"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "git://github.com/amido/stacks-webapp-template.git"
   },
   "gitHead": "bc7d6173390e8849d5f9eacad067171cffd8306c"
 }
