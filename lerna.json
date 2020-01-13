@@ -1,8 +1,15 @@
 {
-  "packages": [
-    "packages/*"
-  ],
-  "version": "0.0.1",
+  "packages": ["packages/*"],
+  "command": {
+    "run": {
+      "prefix": false,
+      "loglevel": "silent",
+      "stream": true,
+      "concurrency": 8,
+      "sort": false
+    }
+  },
+  "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true
 }
