@@ -21,7 +21,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "registry": "git://github.com/amido/stacks-webapp-template.git"
+    "registry": "https://npm.pkg.github.com/"
   },
-  "gitHead": "bc7d6173390e8849d5f9eacad067171cffd8306c"
+  "gitHead": "3805d481e14e6a3d06828e76800ec7179a883043"
 }
