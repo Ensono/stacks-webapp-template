@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@amido-stacks/eslint-config": "0.0.3",
     "@types/jest": "^24.0.25",
     "cross-env": "^6.0.3",
     "express": "^4.17.1",
