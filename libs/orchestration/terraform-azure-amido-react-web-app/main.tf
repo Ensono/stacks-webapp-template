@@ -17,11 +17,10 @@ resource "azurerm_resource_group" "spa" {
 
 # Probably best to create a module that handles the creation of all required resources to set up CSR react app
 # includes:
-# DNS
-# Blob
+# DNS 
+# Blob X
 # Resourcce group should be OPTIONAL as people might want to put in their own RG
 #
-
 
 resource "azurerm_storage_account" "spa" {
   name = replace(module.spa_labels.id, "-", "")
@@ -54,4 +53,7 @@ resource "null_resource" "static_website_cmd" {
   }
   depends_on = [azurerm_storage_account.spa]
 }
+
+
+
 # end module

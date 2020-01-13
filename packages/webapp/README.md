@@ -61,7 +61,6 @@ and as part of CI, we need to use [Docker](https://docs.docker.com/install/).
 ```bash
 # build
 docker build ../ -f ./Dockerfile -t stacks-app
-docker build -t stacks-app .
 # or, use multi-stage builds to build a smaller docker image
 docker build -t stacks-app -f ./Dockerfile.multistage .
 ```

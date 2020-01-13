@@ -44,7 +44,10 @@ parameters:
   build_file: false
   build_file_path: ''
   build_file_artefact: ''
-
+  # build output defaults 
+  git_do_tag_release: false
+  git_release_tag: ''
+  publish_packages_lerna: false
 
 jobs:
 - job: ${{ parameters.jobName }}
@@ -94,21 +97,10 @@ jobs:
       inputs:
         versionSpec: ${{ parameters.versionSpec }}
     - script: |
-        npm ci
+        yarn
         ${{ parameters.unit_test_command}}
       workingDirectory: ${{ parameters.projectRootDir }}
       displayName: 'Run Tests Basic'
-
-
-# Component Test
-  - ${{ if eq(parameters.component_test, true) }}:
-    - task: DotNetCoreCLI@2
-      displayName: 'Test: Component tests'
-      inputs:
-        command: test
-        projects: '${{ parameters.component_test_project }}'
-        arguments: '-v n '
-        testRunTitle: 'Test: Component tests'
 
 # Integration Test
   - ${{ if eq(parameters.integration_test_cosmosdb_secret, true) }}:
@@ -180,6 +172,20 @@ jobs:
     #     vulnerability_scan: '${{ parameters.vulnerability_scan }}'
     #     vulnerability_workdir: '${{ parameters.vulnerability_workdir }}'
 
+# Build Docker Image, Scan and Push to Repository
+  - ${{ if eq(parameters.git_do_tag_release, true) }}:
+    - bash: |
+       git tag -a v${{ parameters.docker_containerregistryname }} -m "CI generate"
+       git push origin v${{ parameters.docker_containerregistryname }}
+      displayName: Git Tag release
+      workingDirectory: ${{ parameters.docker_workdir }}
+# Do Lerna release
+  - ${{ if eq(parameters.publish_packages_lerna, true) }}:
+    - bash: |
+       git tag -a v${{ parameters.docker_containerregistryname }} -m "CI generate"
+       git push origin v${{ parameters.docker_containerregistryname }}
+      displayName: Git Tag release
+      workingDirectory: ${{ parameters.docker_workdir }}
 
 # Publish Artefacts if required
 
