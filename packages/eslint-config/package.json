@@ -1,5 +1,5 @@
 {
-  "name": "@amido-stacks/eslint-config",
+  "name": "@amido/eslint-config",
   "version": "0.0.2",
   "description": "Shared linting config from amido stacks",
   "main": "index.js",
@@ -23,5 +23,5 @@
     "access": "public",
     "registry": "https://npm.pkg.github.com/"
   },
-  "gitHead": "4ea21b24f63780206a7fbc123d2a055f4cdd1198"
+  "gitHead": "895722ac5f69b537c95bc1515f45946ab422cfb6"
 }
