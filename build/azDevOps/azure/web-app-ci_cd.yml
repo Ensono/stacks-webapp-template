@@ -184,7 +184,7 @@ stages:
       # Vulnerability Scanning
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
-      # Testing
+      # Testing run me
       unit_test: false
       projectRootDir: $(Build.SourcesDirectory)/packages/webapp
       unit_test_command: yarn test
