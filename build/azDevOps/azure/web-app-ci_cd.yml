@@ -184,7 +184,7 @@ stages:
       # Vulnerability Scanning
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
-      # Testing run me again
+      # Testing
       unit_test: true
       projectRootDir: $(Build.SourcesDirectory)/packages/webapp
       unit_test_command: node_modules/.bin/jest -c jest.config.js --rootDir .
