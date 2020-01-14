@@ -96,7 +96,7 @@ jobs:
         command: 'custom' # Options: install, publish, custom
         workingDir: ${{ parameters.projectRootDir }}
         #verbose: # Optional
-        customCommand: npm install && ${{ parameters.unit_test_command}} # Required when command == Custom
+        customCommand: install && run ${{ parameters.unit_test_command}} # && ${{ parameters.unit_test_command}} # Required when command == Custom
         customRegistry: 'useNpmrc'
         # customFeed: 'https://pkgs.dev.azure.com/amido-dev/Amido-Stacks/_packaging/stacks-webapp-feed/npm/registry/' # Required when customRegistry == UseFeed
         #customEndpoint: # Optional

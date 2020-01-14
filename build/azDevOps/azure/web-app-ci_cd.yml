@@ -187,7 +187,7 @@ stages:
       # Testing
       unit_test: true
       projectRootDir: $(Build.SourcesDirectory)/packages/webapp
-      unit_test_command: node_modules/.bin/jest -c jest.config.js --rootDir .
+      unit_test_command: test_ci # using npm run $@
       unit_test_project: '$(Test.UnitTestProjectPath)'
       component_test: false
       component_test_project: '$(Test.ComponentTestProjectPath)'
