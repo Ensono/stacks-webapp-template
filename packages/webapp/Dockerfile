@@ -6,7 +6,8 @@ COPY tsconfig.json /app/deployed
 COPY ./webapp .
 RUN yarn
 RUN yarn build
-RUN npm install pm2 -g
+# not required at the moment
+# RUN npm install pm2 -g
 
 EXPOSE 3000
 

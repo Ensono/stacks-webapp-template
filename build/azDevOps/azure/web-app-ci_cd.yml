@@ -173,6 +173,7 @@ stages:
       dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
       devops_artefact_name: '$(DevOps.ArtefactName)'
       # Docker Config
+      build_on_server: true
       docker_build: true
       # TODO: put this in a var
       docker_build_additional_args: '../ -f ./Dockerfile'
