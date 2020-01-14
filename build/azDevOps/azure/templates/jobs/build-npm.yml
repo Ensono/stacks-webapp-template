@@ -156,21 +156,21 @@ jobs:
 #        pollingTimeoutSec: '300'
 #      displayName: 'SonarCloud: Publish'
 # STEP build NPM for Azure registry 
- - ${{ if eq(parameters.build_on_server, true) }}:
-  - task: Npm@1
-    displayName: Build on ADO using custom feeds
-    inputs:
-      command: 'install' # Options: install, publish, custom
-      workingDir: ${{ parameters.projectRootDir }}
-      #verbose: # Optional
-      #customCommand: # Required when command == Custom
-      customRegistry: 'useFeed'
-      customFeed: 'https://pkgs.dev.azure.com/amido-dev/Amido-Stacks/_packaging/stacks-webapp-feed/npm/registry/' # Required when customRegistry == UseFeed
-      #customEndpoint: # Optional
-      #publishRegistry: 'useExternalRegistry' # Optional. Options: useExternalRegistry, useFeed
-      #publishFeed: # Required when publishRegistry == UseFeed
-      #publishPackageMetadata: true # Optional
-      #publishEndpoint: # Required when publishRegistry == UseExternalRegistry
+  - ${{ if eq(parameters.build_on_server, true) }}:
+    - task: Npm@1
+      displayName: Build on ADO using custom feeds
+      inputs:
+        command: 'install' # Options: install, publish, custom
+        workingDir: ${{ parameters.projectRootDir }}
+        #verbose: # Optional
+        #customCommand: # Required when command == Custom
+        customRegistry: 'useFeed'
+        customFeed: 'https://pkgs.dev.azure.com/amido-dev/Amido-Stacks/_packaging/stacks-webapp-feed/npm/registry/' # Required when customRegistry == UseFeed
+        #customEndpoint: # Optional
+        #publishRegistry: 'useExternalRegistry' # Optional. Options: useExternalRegistry, useFeed
+        #publishFeed: # Required when publishRegistry == UseFeed
+        #publishPackageMetadata: true # Optional
+        #publishEndpoint: # Required when publishRegistry == UseExternalRegistry
 
 # Build Docker Image, Scan and Push to Repository
   - ${{ if eq(parameters.docker_build, true) }}:
