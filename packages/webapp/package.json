@@ -1,14 +1,17 @@
 {
   "name": "webapp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "test": "./task test",
+    "test_ci": "node_modules/.bin/jest -c jest.config.js --rootDir .",
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "next start",
     "lint": "./task lint"
   },
+  "private": true,
   "dependencies": {
+    "@amido-stacks/eslint-config": "^0.0.4",
     "@types/jest": "^24.0.25",
     "cross-env": "^6.0.3",
     "express": "^4.17.1",
@@ -27,8 +30,8 @@
     "babel-jest": "^24.9.0",
     "isomorphic-unfetch": "^3.0.0",
     "jest": "^24.9.0",
-    "nodemon": "^2.0.2",
     "jest-sonar-reporter": "^2.0.0",
+    "nodemon": "^2.0.2",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
