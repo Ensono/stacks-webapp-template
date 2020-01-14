@@ -33,7 +33,6 @@ variables:
 - name: Global.Domain
   value: 'webapp'
 # allow for overriding the default behaviour of skipping CD stages unless on master
-# SET `ENVIRONMENT` to dev || test
 
 # Versioning
 - name: Version.Major

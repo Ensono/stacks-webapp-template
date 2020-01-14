@@ -58,7 +58,8 @@ jobs:
   pool: ${{ parameters.pool }}
   continueOnError: false
   steps:
-  - persistCredentials: true
+  - checkout: self
+    persistCredentials: true
 # Get DevOps Artefact and Install Prerequisites
   - template: azDevOps/azure/templates/steps/build-consume-devops.yml@templates
 
