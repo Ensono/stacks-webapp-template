@@ -7,6 +7,9 @@
       "stream": true,
       "concurrency": 8,
       "sort": false
+    },
+    "publish": {
+      "allowBranch":["master", "feature/1149-publish_eslint_config"]
     }
   },
   "version": "independent",
