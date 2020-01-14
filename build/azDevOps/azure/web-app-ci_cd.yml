@@ -198,9 +198,9 @@ stages:
       build_file_path: '$(Build.SourcesDirectory)/deploy/k8s/cron_gdpr_scheduler'
       build_file_artefact: 'webapp_template_build'
       # Git Tag release
-      git_do_tag_release: true
+      git_do_tag_release: false
       git_release_tag: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
       publish_packages_lerna: true
       # Lerna step --from-git
-      lerna_command: 'npx lerna publish from-git --yes'
+      lerna_command: 'npx lerna publish from-package --yes'
       lerna_rootDir: '$(Build.SourcesDirectory)'
