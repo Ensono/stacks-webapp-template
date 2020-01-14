@@ -84,7 +84,7 @@ variables:
 - name: Sonar.scannerMode
   value: 'MSBuild'
 - name: Sonar.projectKey
-  value: 'stacks-dotnet'
+  value: 'stacks-webapp-template'
 - name: Sonar.projectName
   value: '$(Docker.ImageName)'
 - name: Sonar.projectVersion
@@ -104,7 +104,7 @@ variables:
 
 # SonarCloud Info
 - name: Test.sonarProjectKey
-  value: 'stacks-dotnet'
+  value: 'stacks-webapp-template'
 
 # Pact Broker Info
 - name: Test.PactBrokerUrl
