@@ -145,5 +145,3 @@ backend.local.tfvars
 # misc
 **/test-*
 **/*report.xml
-
-packages/eslint-config/.npmrc
