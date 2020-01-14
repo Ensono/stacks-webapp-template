@@ -20,7 +20,8 @@ resources:
   repositories:
   - repository: templates
     type: github
-    name: amido/stacks-pipeline-templates?ref=v1.0.0
+    name: amido/stacks-pipeline-templates
+    ref: tag/v1.0.0
     endpoint: williamayerst # This was created Cycle 1 when they set up the connection to GitHub from Azure DevOps
 
 variables:
