@@ -174,6 +174,7 @@ stages:
       dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
       devops_artefact_name: '$(DevOps.ArtefactName)'
       # Docker Config
+      build_on_server: true
       docker_build: true
       # TODO: put this in a var
       docker_build_additional_args: '../ -f ./Dockerfile'
@@ -184,10 +185,12 @@ stages:
       # Vulnerability Scanning
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
-      # Testing
-      unit_test: false
+      # Testing again
+      unit_test: true
       projectRootDir: $(Build.SourcesDirectory)/packages/webapp
-      unit_test_command: yarn test
+      unit_test_command: npm run test_ci # using npm run $@
+      # unit_test_command: npx jest -c jest.config.js --rootDir . # using npm run $@
+      unit_test_project: '$(Test.UnitTestProjectPath)'
       component_test: false
       component_test_project: '$(Test.ComponentTestProjectPath)'
       # Build Output File

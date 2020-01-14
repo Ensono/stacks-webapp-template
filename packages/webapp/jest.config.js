@@ -2,7 +2,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/.next/',
     '<rootDir>/node_modules/',
-    '<rootDir>/coverage/',
+    '<rootDir>/__tests__/coverage/',
   ],
   testResultsProcessor: 'jest-sonar-reporter',
   coverageReporters: ['lcov'],

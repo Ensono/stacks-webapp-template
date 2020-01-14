@@ -33,9 +33,12 @@ Snapshots are to be checked in and are found in
 
 #### Static Testing
 
-There is support with [SonarCloud](https://sonarcloud.io/) for static analysis. We can run this with [SonarScanner Docker](https://github.com/SonarSource/sonar-scanner-cli-docker)
+There is support with [SonarCloud](https://sonarcloud.io/) for static analysis.
+We can run this with
+[SonarScanner Docker](https://github.com/SonarSource/sonar-scanner-cli-docker)
 
-In order to run, the export the followings environment variables for the SonarCloud Project:
+In order to run, the export the followings environment variables for the
+SonarCloud Project:
 
 ```bash
 export SONAR_TOKEN=
@@ -44,9 +47,11 @@ export SONAR_PROJECT_KEY=
 export SONAR_ORGANIZATION=
 ```
 
-To find this, please ensure that you sign up with GitHub to [Sonarcloud](https://sonarcloud.io).
+To find this, please ensure that you sign up with GitHub to
+[Sonarcloud](https://sonarcloud.io).
 
-First generate the code coverage results, then run the SonarCloud scanner and push up the results:
+First generate the code coverage results, then run the SonarCloud scanner and
+push up the results:
 
 ```bash
 yarn test
@@ -59,7 +64,7 @@ In order to be able to build and run the webapp template, across environments
 and as part of CI, we need to use [Docker](https://docs.docker.com/install/).
 
 ```bash
-# build
+# build from the webapp directory
 docker build ../ -f ./Dockerfile -t stacks-app
 # or, use multi-stage builds to build a smaller docker image
 docker build -t stacks-app -f ./Dockerfile.multistage .

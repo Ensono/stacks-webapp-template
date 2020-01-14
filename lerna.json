@@ -1,6 +1,18 @@
 {
   "packages": ["packages/*"],
-  "version": "0.0.0",
+  "command": {
+    "run": {
+      "prefix": false,
+      "loglevel": "silent",
+      "stream": true,
+      "concurrency": 8,
+      "sort": false
+    },
+    "publish": {
+      "allowBranch": ["master", "feature/1149-publish_eslint_config"]
+    }
+  },
+  "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true
 }

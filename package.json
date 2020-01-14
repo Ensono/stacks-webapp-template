@@ -11,7 +11,9 @@
     "packages/*"
   ],
   "scripts": {
-    "lerna:setup": "lerna bootstrap",
+    "lerna": "lerna",
+    "postinstall": "lerna bootstrap",
+    "release": "lerna version && lerna publish from-package --yes",
     "dev": "lerna run dev --stream",
     "test": "lerna run test --stream",
     "lint": "lerna run lint --stream",

@@ -1,7 +1,7 @@
 parameters:
   pool:
       vmImage: 'ubuntu-latest'
-  versionSpec: 10.x
+  versionSpec: 12.x
   jobName: 'setMe'
   devops_artefact_name: 'DevOps'
   dependsOn: 'GetPackage'
@@ -42,6 +42,7 @@ parameters:
   functional_test_artefact: ''
   # Build File Output
   build_file: false
+  build_on_server: false
   build_file_path: ''
   build_file_artefact: ''
   # build output defaults 
@@ -92,50 +93,28 @@ jobs:
 
 # Unit Test
   - ${{ if eq(parameters.unit_test, true) }}:
+    - task: Npm@1
+      displayName: 'Test: Install Dev Dependencies'
+      inputs:
+        command: 'install' # Options: install, publish, custom
+        workingDir: ${{ parameters.projectRootDir }}
+        verbose: false
+        # customCommand: 'install'; 'run ${{ parameters.unit_test_command}}' # && ${{ parameters.unit_test_command}} # Required when command == Custom
+        customRegistry: 'useNpmrc'
+        # customFeed: 'https://pkgs.dev.azure.com/amido-dev/Amido-Stacks/_packaging/stacks-webapp-feed/npm/registry/' # Required when customRegistry == UseFeed
+        #customEndpoint: # Optional
+        #publishRegistry: 'useExternalRegistry' # Optional. Options: useExternalRegistry, useFeed
+        #publishFeed: # Required when publishRegistry == UseFeed
+        #publishPackageMetadata: true # Optional
+        #publishEndpoint: # Required when publishRegistry == UseExternalRegistry
+    
     - task: NodeTool@0
       displayName: 'Test: Unit tests'
       inputs:
         versionSpec: ${{ parameters.versionSpec }}
     - script: |
-        yarn
-        ${{ parameters.unit_test_command}}
+        ${{ parameters.unit_test_command }}
       workingDirectory: ${{ parameters.projectRootDir }}
-      displayName: 'Run Tests Basic'
-
-# Integration Test
-  - ${{ if eq(parameters.integration_test_cosmosdb_secret, true) }}:
-    - task: Bash@3
-      displayName: 'Get: CosmosDB Account Key for Integration Tests'
-      inputs:
-        targetType: 'filePath'
-        filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Azure/get-cosmosdb-key-endpoint.sh
-        arguments: ${{ parameters.integration_test_cosmosdb_account }}
-
-    - bash: |
-        echo Setting CosmosDB Database Name to ${{ parameters.integration_test_cosmosdb_database }}
-        echo "##vso[task.setvariable variable=CosmosDB__DatabaseName]${{ parameters.integration_test_cosmosdb_database }}"
-        echo Setting CosmosDB Account URI to https://${{ parameters.integration_test_cosmosdb_account }}.documents.azure.com:443/
-        echo "##vso[task.setvariable variable=CosmosDB__DatabaseAccountUri]https://${{ parameters.integration_test_cosmosdb_account }}.documents.azure.com:443/"
-      displayName: 'Mutate: Set CosmosDB Database Account for Integration Tests'
-
-  - ${{ if eq(parameters.integration_test, true) }}:
-    - task: DotNetCoreCLI@2
-      displayName: 'Test: Integration tests'
-      inputs:
-        command: test
-        projects: '${{ parameters.integration_test_project }}'
-        arguments: '-v n '
-        testRunTitle: 'Test: Integration tests'
-
-# Contract tests
-  - ${{ if eq(parameters.contract_test, true) }}:
-    - task: DotNetCoreCLI@2
-      displayName: 'Test: Provider Contracts'
-      inputs:
-        command: test
-        projects: '${{ parameters.contract_test_project }}'
-        arguments: '-v n'
-        testRunTitle: 'Test: Provider Contracts'
 
 # SonarCloud Results
 #  - ${{ if eq(parameters.static_code_analysis, true) }}:
@@ -146,6 +125,22 @@ jobs:
 #      inputs:
 #        pollingTimeoutSec: '300'
 #      displayName: 'SonarCloud: Publish'
+# STEP build NPM for Azure registry 
+  - ${{ if eq(parameters.build_on_server, true) }}:
+    - task: Npm@1
+      displayName: Build on ADO using custom feeds
+      inputs:
+        command: 'install' # Options: install, publish, custom
+        workingDir: ${{ parameters.projectRootDir }}
+        #verbose: # Optional
+        #customCommand: # Required when command == Custom
+        customRegistry: 'useNpmrc'
+        # customFeed: 'https://pkgs.dev.azure.com/amido-dev/Amido-Stacks/_packaging/stacks-webapp-feed/npm/registry/' # Required when customRegistry == UseFeed
+        #customEndpoint: # Optional
+        #publishRegistry: 'useExternalRegistry' # Optional. Options: useExternalRegistry, useFeed
+        #publishFeed: # Required when publishRegistry == UseFeed
+        #publishPackageMetadata: true # Optional
+        #publishEndpoint: # Required when publishRegistry == UseExternalRegistry
 
 # Build Docker Image, Scan and Push to Repository
   - ${{ if eq(parameters.docker_build, true) }}:
