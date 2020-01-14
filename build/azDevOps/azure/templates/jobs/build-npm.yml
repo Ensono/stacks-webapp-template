@@ -1,7 +1,7 @@
 parameters:
   pool:
       vmImage: 'ubuntu-latest'
-  versionSpec: 10.x
+  versionSpec: 12.x
   jobName: 'setMe'
   devops_artefact_name: 'DevOps'
   dependsOn: 'GetPackage'
@@ -90,13 +90,15 @@ jobs:
 
 # Unit Test
   - ${{ if eq(parameters.unit_test, true) }}:
+
+
     - task: Npm@1
-      displayName: 'Run Unit Tests on NPM task'
+      displayName: 'Install Dev Dependencies'
       inputs:
-        command: 'custom' # Options: install, publish, custom
+        command: 'install' # Options: install, publish, custom
         workingDir: ${{ parameters.projectRootDir }}
-        #verbose: # Optional
-        customCommand: 'install'; 'run ${{ parameters.unit_test_command}}' # && ${{ parameters.unit_test_command}} # Required when command == Custom
+        verbose: false
+        # customCommand: 'install'; 'run ${{ parameters.unit_test_command}}' # && ${{ parameters.unit_test_command}} # Required when command == Custom
         customRegistry: 'useNpmrc'
         # customFeed: 'https://pkgs.dev.azure.com/amido-dev/Amido-Stacks/_packaging/stacks-webapp-feed/npm/registry/' # Required when customRegistry == UseFeed
         #customEndpoint: # Optional
@@ -104,7 +106,15 @@ jobs:
         #publishFeed: # Required when publishRegistry == UseFeed
         #publishPackageMetadata: true # Optional
         #publishEndpoint: # Required when publishRegistry == UseExternalRegistry
-
+    
+    - task: NodeTool@0
+      displayName: 'Test: Unit tests'
+      inputs:
+        versionSpec: ${{ parameters.versionSpec }}
+    - script: |
+        ${{ parameters.unit_test_command }}
+      workingDirectory: ${{ parameters.projectRootDir }}
+      displayName: 'Install dev deps Tests Basic'
 # SonarCloud Results
 #  - ${{ if eq(parameters.static_code_analysis, true) }}:
 #    - task: SonarCloudAnalyze@1
