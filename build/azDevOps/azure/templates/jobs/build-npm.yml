@@ -100,52 +100,6 @@ jobs:
       workingDirectory: ${{ parameters.projectRootDir }}
       displayName: 'Run Tests Basic'
 
-
-# Component Test
-  - ${{ if eq(parameters.component_test, true) }}:
-    - task: DotNetCoreCLI@2
-      displayName: 'Test: Component tests'
-      inputs:
-        command: test
-        projects: '${{ parameters.component_test_project }}'
-        arguments: '-v n '
-        testRunTitle: 'Test: Component tests'
-
-# Integration Test
-  - ${{ if eq(parameters.integration_test_cosmosdb_secret, true) }}:
-    - task: Bash@3
-      displayName: 'Get: CosmosDB Account Key for Integration Tests'
-      inputs:
-        targetType: 'filePath'
-        filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Azure/get-cosmosdb-key-endpoint.sh
-        arguments: ${{ parameters.integration_test_cosmosdb_account }}
-
-    - bash: |
-        echo Setting CosmosDB Database Name to ${{ parameters.integration_test_cosmosdb_database }}
-        echo "##vso[task.setvariable variable=CosmosDB__DatabaseName]${{ parameters.integration_test_cosmosdb_database }}"
-        echo Setting CosmosDB Account URI to https://${{ parameters.integration_test_cosmosdb_account }}.documents.azure.com:443/
-        echo "##vso[task.setvariable variable=CosmosDB__DatabaseAccountUri]https://${{ parameters.integration_test_cosmosdb_account }}.documents.azure.com:443/"
-      displayName: 'Mutate: Set CosmosDB Database Account for Integration Tests'
-
-  - ${{ if eq(parameters.integration_test, true) }}:
-    - task: DotNetCoreCLI@2
-      displayName: 'Test: Integration tests'
-      inputs:
-        command: test
-        projects: '${{ parameters.integration_test_project }}'
-        arguments: '-v n '
-        testRunTitle: 'Test: Integration tests'
-
-# Contract tests
-  - ${{ if eq(parameters.contract_test, true) }}:
-    - task: DotNetCoreCLI@2
-      displayName: 'Test: Provider Contracts'
-      inputs:
-        command: test
-        projects: '${{ parameters.contract_test_project }}'
-        arguments: '-v n'
-        testRunTitle: 'Test: Provider Contracts'
-
 # SonarCloud Results
 #  - ${{ if eq(parameters.static_code_analysis, true) }}:
 #    - task: SonarCloudAnalyze@1
