@@ -49,6 +49,8 @@ parameters:
   git_do_tag_release: false
   git_release_tag: ''
   publish_packages_lerna: false
+  lerna_rootDir: ''
+  lerna_command: ''
 
 jobs:
 - job: ${{ parameters.jobName }}
@@ -170,17 +172,16 @@ jobs:
 # Build Docker Image, Scan and Push to Repository
   - ${{ if eq(parameters.git_do_tag_release, true) }}:
     - bash: |
-       git tag -a v${{ parameters.docker_containerregistryname }} -m "CI generate"
-       git push origin v${{ parameters.docker_containerregistryname }}
+       git tag -a v${{ parameters.git_release_tag }} -m "CI generate"
+       git push origin v${{ parameters.git_release_tag }}
       displayName: Git Tag release
-      workingDirectory: ${{ parameters.docker_workdir }}
+      workingDirectory: ${{ parameters.projectRootDir }}
 # Do Lerna release
   - ${{ if eq(parameters.publish_packages_lerna, true) }}:
     - bash: |
-       git tag -a v${{ parameters.docker_containerregistryname }} -m "CI generate"
-       git push origin v${{ parameters.docker_containerregistryname }}
-      displayName: Git Tag release
-      workingDirectory: ${{ parameters.docker_workdir }}
+        ${{ parameters.lerna_command }} 
+      displayName: Lerna Publish
+      workingDirectory: ${{ parameters.lerna_rootDir }}
 
 # Publish Artefacts if required
 
