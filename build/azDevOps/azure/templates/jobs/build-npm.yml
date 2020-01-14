@@ -90,10 +90,8 @@ jobs:
 
 # Unit Test
   - ${{ if eq(parameters.unit_test, true) }}:
-
-
     - task: Npm@1
-      displayName: 'Install Dev Dependencies'
+      displayName: 'Test: Install Dev Dependencies'
       inputs:
         command: 'install' # Options: install, publish, custom
         workingDir: ${{ parameters.projectRootDir }}
@@ -114,7 +112,7 @@ jobs:
     - script: |
         ${{ parameters.unit_test_command }}
       workingDirectory: ${{ parameters.projectRootDir }}
-      displayName: 'Install dev deps Tests Basic'
+
 # SonarCloud Results
 #  - ${{ if eq(parameters.static_code_analysis, true) }}:
 #    - task: SonarCloudAnalyze@1
