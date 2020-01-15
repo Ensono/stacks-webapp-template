@@ -109,9 +109,9 @@ jobs:
       displayName: Run Sonar Scanner
       inputs:
       # docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
-        command: run
+        command: run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$(SONAR_TOKEN) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_ORGANIZATION=$(SONAR_ORGANIZATION) -it -v ${{ parameters.projectRootDir }}:/usr/src
         repository: sonarsource/sonar-scanner-cli
-        arguments: -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$(SONAR_TOKEN) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_ORGANIZATION=$(SONAR_ORGANIZATION) -it -v ${{ parameters.projectRootDir }}:/usr/src
+        # arguments: -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$(SONAR_TOKEN) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_ORGANIZATION=$(SONAR_ORGANIZATION) -it -v ${{ parameters.projectRootDir }}:/usr/src
 
     - task: NodeTool@0
       displayName: 'Test: Unit tests'
