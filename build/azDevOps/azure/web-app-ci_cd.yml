@@ -41,7 +41,6 @@ resources:
     # ports: [ string ] # ports to expose on the container
     # volumes: [ "$(Build.SourcesDirectory)/packages/webapp:/usr/src" ] # volumes to mount on the container
 
-
 variables:
 # Global Config:
 - name: Global.Company
