@@ -30,9 +30,16 @@ resources:
     image: sonarsource/sonar-scanner-cli  # container image name
     # options: string  # arguments to pass to container at startup
     # endpoint: string  # reference to a service connection for the private registry
-    # env: { string: string }  # list of environment variables to add
+    env: { 
+      SONAR_HOST_URL: https://sonarcloud.io,
+      SONAR_TOKEN: $(SONAR_TOKEN),
+      SONAR_PROJECT_KEY: $(SONAR_PROJECT_KEY),
+      SONAR_PROJECT_KEY: $(SONAR_PROJECT_KEY),
+      SONAR_ORGANIZATION: $(SONAR_ORGANIZATION)
+    }  # list of environment variables to add
+    # ${{ parameters.projectRootDir }}:/usr/src
     # ports: [ string ] # ports to expose on the container
-    # volumes: [ string ] # volumes to mount on the container
+    volumes: [ "$(Build.SourcesDirectory)/packages/webapp:/usr/src" ] # volumes to mount on the container
 
 
 variables:
@@ -187,7 +194,7 @@ stages:
       # Docker Config
       build_on_server: true
       docker_build: true
-      # TODO: put
+      # TODO: stuff
       docker_build_additional_args: '../ -f ./Dockerfile'
       docker_workdir: '$(Build.SourcesDirectory)/packages/webapp/'
       docker_imagename: '$(Docker.ImageName)'
