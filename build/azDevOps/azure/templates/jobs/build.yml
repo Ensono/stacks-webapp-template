@@ -121,8 +121,7 @@ jobs:
         ${{ parameters.unit_test_command }}
       displayName: 'Unit Test: Running Command'
       workingDirectory: ${{ parameters.projectRootDir }}
-    
-    - task: 
+  
 
 # SonarCloud Results
 #  - ${{ if eq(parameters.static_code_analysis, true) }}:
