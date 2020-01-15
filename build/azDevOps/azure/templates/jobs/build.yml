@@ -105,6 +105,14 @@ jobs:
         verbose: false
         customRegistry: 'useNpmrc'
     
+    - task: Docker@2
+      displayName: Run Sonar Scanner
+      inputs:
+      # docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
+        command: run
+        repository: sonarsource/sonar-scanner-cli
+        arguments: -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$(SONAR_TOKEN) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_ORGANIZATION=$(SONAR_ORGANIZATION) -it -v ${{ parameters.projectRootDir }}:/usr/src
+
     - task: NodeTool@0
       displayName: 'Test: Unit tests'
       inputs:
@@ -113,6 +121,8 @@ jobs:
         ${{ parameters.unit_test_command }}
       displayName: 'Unit Test: Running Command'
       workingDirectory: ${{ parameters.projectRootDir }}
+    
+    - task: 
 
 # SonarCloud Results
 #  - ${{ if eq(parameters.static_code_analysis, true) }}:

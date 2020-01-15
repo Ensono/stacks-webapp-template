@@ -145,3 +145,5 @@ backend.local.tfvars
 # misc
 **/test-*
 **/*report.xml
+**/.scannerwork
+**/.sonar

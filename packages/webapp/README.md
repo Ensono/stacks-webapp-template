@@ -55,7 +55,8 @@ push up the results:
 
 ```bash
 yarn test
-docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -it -v "$(pwd):/usr/src" sonarsource/sonar-scanner-cli
+docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
+docker run -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -e sonar.organization=$SONAR_ORGANIZATION
 ```
 
 ## To build and run using Docker
@@ -75,6 +76,7 @@ Run it:
 ```bash
 docker run --rm -it -p 3000:3000 stacks-app
 docker run --rm -it -v $(pwd):/app/deployed/src stacks-app:latest /bin/sh
+docker run --rm -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
 docker run --rm -it -p 3000:3000 stacks-app:latest /bin/sh
 ```
 
