@@ -202,5 +202,5 @@ stages:
       git_release_tag: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
       publish_packages_lerna: true
       # Lerna step --from-git
-      lerna_command: 'npx lerna publish from-git --yes'
+      lerna_command: 'npx lerna publish from-git --yes --skip-git'
       lerna_rootDir: '$(Build.SourcesDirectory)'
