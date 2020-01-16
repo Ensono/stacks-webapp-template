@@ -104,7 +104,8 @@ jobs:
         set -x
         echo $(pwd)
         echo $(env)
-        ls
+        uname -a
+        lsb_release -a
         cd ${{ parameters.projectRootDir }}
         sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
