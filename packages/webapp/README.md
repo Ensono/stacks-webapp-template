@@ -59,6 +59,9 @@ docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -
 docker run -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -e sonar.organization=$SONAR_ORGANIZATION
 ```
 
+
+
+
 ## To build and run using Docker
 
 In order to be able to build and run the webapp template, across environments

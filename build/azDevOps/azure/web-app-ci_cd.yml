@@ -27,7 +27,7 @@ resources:
 ########## PART OF TEMPLATE
   containers:
   - container: sonar_scanner  # identifier (A-Z, a-z, 0-9, and underscore)
-    image: sonarsource/sonar-scanner-cli  # container image name
+    image: dnitsch/build-sonar-cli:v0.0.1   # container image name
     # options: string  # arguments to pass to container at startup
     # endpoint: string  # reference to a service connection for the private registry
     # env: { 
