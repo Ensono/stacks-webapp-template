@@ -99,7 +99,6 @@ jobs:
 # SonarCloud Start
     #     docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e BUILD_NUMBER=${{ parameters.docker_imagetag }} -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -t --rm -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
   - ${{ if eq(parameters.static_code_analysis, true) }}:
-    # - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
     - bash: | 
         set -x
         echo $(pwd)
@@ -108,11 +107,10 @@ jobs:
         lsb_release -a
         echo $PATH
         echo $(ls -lat /usr/local/bin/sonar-scanner)
+        chmod a+rwX /usr/local/bin/sonar-scanner
         /usr/local/bin/sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
-      # target: sonar_scanner
       target: sonar_scanner
-        # container: dnitsch/build-sonar-cli:v0.0.1
       env: 
         SONAR_HOST_URL: https://sonarcloud.io
         SONAR_TOKEN: $SONAR_TOKEN
