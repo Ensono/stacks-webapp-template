@@ -116,9 +116,8 @@ jobs:
         SONAR_TOKEN: $SONAR_TOKEN
         SONAR_PROJECT_KEY: $SONAR_PROJECT_KEY
         SONAR_ORGANIZATION: $SONAR_ORGANIZATION
-        BUILD_NUMBER: 1.2.=4
-      inputs:
-        workingDirectory: ${{ parameters.projectRootDir }}
+        BUILD_NUMBER: 1.2.4
+      workingDirectory: ${{ parameters.projectRootDir }}
 
 
 # SonarCloud Results

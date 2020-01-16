@@ -30,14 +30,8 @@ resources:
     image: dnitsch/build-sonar-cli:v0.0.1   # container image name
     # options: string  # arguments to pass to container at startup
     # endpoint: string  # reference to a service connection for the private registry
-    # env: { 
-    #   SONAR_HOST_URL: https://sonarcloud.io,
-    #   SONAR_TOKEN: $(SONAR_TOKEN),
-    #   SONAR_PROJECT_KEY: $(SONAR_PROJECT_KEY),
-    #   SONAR_PROJECT_KEY: $(SONAR_PROJECT_KEY),
-    #   SONAR_ORGANIZATION: $(SONAR_ORGANIZATION)
-    # }  # list of environment variables to add
-    # ${{ parameters.projectRootDir }}:/usr/src
+    # env: 
+      # FOO: BAR
     # ports: [ string ] # ports to expose on the container
     # volumes: [ "$(Build.SourcesDirectory)/packages/webapp:/usr/src" ]
 
