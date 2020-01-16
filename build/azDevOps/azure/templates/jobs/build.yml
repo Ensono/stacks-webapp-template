@@ -103,13 +103,12 @@ jobs:
     - bash: | 
         set -x
         echo $(pwd)
-        echo $(env)
         ls -lat coverage
         uname -a
         lsb_release -a
         echo $PATH
         echo $(ls -lat /usr/local/bin/sonar-scanner)
-        sonar-scanner
+        /usr/local/bin/sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
       # target: sonar_scanner
       target: sonar_scanner
