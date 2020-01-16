@@ -56,28 +56,28 @@ jobs:
 - job: ${{ parameters.jobName }}
   dependsOn: ${{ parameters.dependsOn }}
   pool: ${{ parameters.pool }}
-  # container: sonar_scanner # dnitsch/build-server-stacks-webapp
+  container: sonar_scanner # dnitsch/build-server-stacks-webapp
   continueOnError: false
   steps:
   - checkout: self
     persistCredentials: true
 # Get DevOps Artefact and Install Prerequisites
-  - template: azDevOps/azure/templates/steps/build-consume-devops.yml@templates
+#   - template: azDevOps/azure/templates/steps/build-consume-devops.yml@templates
 
-# Login to Azure/AKS
-  - template: azDevOps/azure/templates/steps/login-services.yml@templates
-    parameters:
-      # Azure
-      login_azure: true
-      azure_tenant_id: '$(azure_tenant_id)'
-      azure_subscription_id: '$(azure_subscription_id)'
-      azure_client_id: '$(azure_client_id)'
-      azure_client_secret: '$(azure_client_secret)'
-      # Kubernetes
-      login_kubernetes: false
-        # aks_rg: ''
-        # aks_clustername: ''
-      devops_artefact_name: '${{ parameters.devops_artefact_name }}'
+# # Login to Azure/AKS
+#   - template: azDevOps/azure/templates/steps/login-services.yml@templates
+#     parameters:
+#       # Azure
+#       login_azure: true
+#       azure_tenant_id: '$(azure_tenant_id)'
+#       azure_subscription_id: '$(azure_subscription_id)'
+#       azure_client_id: '$(azure_client_id)'
+#       azure_client_secret: '$(azure_client_secret)'
+#       # Kubernetes
+#       login_kubernetes: false
+#         # aks_rg: ''
+#         # aks_clustername: ''
+#       devops_artefact_name: '${{ parameters.devops_artefact_name }}'
 
 
 # Unit Test
