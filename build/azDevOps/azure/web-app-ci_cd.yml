@@ -55,35 +55,6 @@ variables:
 
 # Tests
 # TODO: Calculate and devolve these into build template where feasible as parameters
-- name: Test.FunctionalTestProjectFile
-  value: 'CF.BookingService.API.FunctionalTests.csproj'
-- name: Test.FunctionalTestProjectSourcePath
-  value: '$(Pipeline.Workspace)/tests/Functional/CF.BookingService.API.FunctionalTests'
-- name: Test.FunctionalTestProjectBuildPath
-  value: '$(Build.BinariesDirectory)'
-- name: Test.FunctionalTestReportSourcePath
-  value: '$(Pipeline.Workspace)/tests/Functional/CF.BookingService.API.FunctionalTests/bin/Debug/netcoreapp2.2/BDDfy.html'
-- name: Test.FunctionalTestReportTargetName
-  value: '$(Docker.ImageName)/$(Build.BuildNumber)-$(environment).html'
-- name: Test.FunctionalTestReportStorageAccountRG
-  value: 'amido-stacks-rg-uks-prod'
-- name: Test.FunctionalTestReportStorageAccountName
-  value: 'amidostacksuksprod'
-- name: Test.FunctionalTestReportStorageContainerName
-  value: 'testresults '
-- name: Test.ProviderContractTestProjectSourcePath
-  value: '$(Build.SourcesDirectory)/src/CF.BookingService.API.ContractTests'
-- name: Test.TestsSourcePath
-  value: '$(Build.SourcesDirectory)/src/tests/'
-- name: Test.PerformanceTestProjectSourcePath
-  value: '$(Pipeline.Workspace)/tests/Performance/CF.BookingService.API.PerformanceTests'
-- name: Test.UnitTestProjectPath
-  value: '$(Build.SourcesDirectory)/src/Tests/**/*UnitTests.csproj'
-- name: Test.ComponentTestProjectPath
-  value: '$(Build.SourcesDirectory)/src/Tests/**/*ComponentTests.csproj'
-- name: Test.IntegrationTestProjectPath
-  value: '$(Build.SourcesDirectory)/src/**/*IntegrationTests.csproj'
-# Performance Test Settings (set outside of code so they can be adjusted as neccesary)
 - group: amido-stacks-testing
 
 #TODO: convert below to variable group

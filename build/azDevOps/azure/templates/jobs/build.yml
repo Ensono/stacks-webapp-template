@@ -110,7 +110,7 @@ jobs:
         sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
       target: 
-        container: sonar_scanner
+        container: dnitsch/build-sonar-cli:v0.0.1
       env: 
         SONAR_HOST_URL: https://sonarcloud.io
         SONAR_TOKEN: $SONAR_TOKEN
