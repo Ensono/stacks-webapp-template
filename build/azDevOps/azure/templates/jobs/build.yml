@@ -89,13 +89,11 @@ jobs:
         verbose: false
         customRegistry: 'useNpmrc'
     
-    - task: NodeTool@0
+    - script: |
+        ${{ parameters.unit_test_command }}
       displayName: 'Test: Unit tests'
       inputs:
         versionSpec: ${{ parameters.versionSpec }}
-    - script: |
-        ${{ parameters.unit_test_command }}
-      displayName: 'Unit Test: Running Command'
       workingDirectory: ${{ parameters.projectRootDir }}
 
 # SonarCloud Start
@@ -109,8 +107,8 @@ jobs:
         ls
         sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
-      target: 
-        container: dnitsch/build-sonar-cli:v0.0.1
+      target: sonar_scanner
+        # container: dnitsch/build-sonar-cli:v0.0.1
       env: 
         SONAR_HOST_URL: https://sonarcloud.io
         SONAR_TOKEN: $SONAR_TOKEN
