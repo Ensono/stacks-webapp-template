@@ -158,6 +158,7 @@ stages:
 - stage: Build
   variables:
   - group: amido-stacks-infra-credentials-nonprod
+  - group: amido-stacks-webapp
   - name: Docker.ContainerRegistryName
     value: 'amidouksstacksacrdev'
   jobs:
