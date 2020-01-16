@@ -56,7 +56,7 @@ jobs:
 - job: ${{ parameters.jobName }}
   dependsOn: ${{ parameters.dependsOn }}
   pool: ${{ parameters.pool }}
-  container: dnitsch/build-server-stacks-webapp
+  container: sonar_scanner # dnitsch/build-server-stacks-webapp
   continueOnError: false
   steps:
   - checkout: self
