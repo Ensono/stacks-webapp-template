@@ -107,6 +107,8 @@ jobs:
         ls -lat coverage
         uname -a
         lsb_release -a
+        echo $(which sonar-scanner)
+        chomd +x /root/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner
         /root/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
       # target: sonar_scanner
