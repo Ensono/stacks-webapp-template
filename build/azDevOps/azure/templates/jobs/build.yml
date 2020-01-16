@@ -56,7 +56,7 @@ jobs:
 - job: ${{ parameters.jobName }}
   dependsOn: ${{ parameters.dependsOn }}
   pool: ${{ parameters.pool }}
-  container: sonar_scanner # dnitsch/build-server-stacks-webapp
+  # container: sonar_scanner # dnitsch/build-server-stacks-webapp
   continueOnError: false
   steps:
   - checkout: self
@@ -84,6 +84,7 @@ jobs:
   - ${{ if eq(parameters.unit_test, true) }}:
     - task: Npm@1
       displayName: 'Test: Install Dev Dependencies'
+      target: sonar_scanner
       inputs:
         command: 'install' # Options: install, publish, custom
         workingDir: ${{ parameters.projectRootDir }}
@@ -104,9 +105,11 @@ jobs:
         echo $(pwd)
         echo $(env)
         ls
+        cd ${{ parameters.projectRootDir }}
         sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
       # target: sonar_scanner
+      target: sonar_scanner
         # container: dnitsch/build-sonar-cli:v0.0.1
       env: 
         SONAR_HOST_URL: https://sonarcloud.io
@@ -130,7 +133,8 @@ jobs:
     - task: Npm@1
       displayName: Build on ADO using custom feeds
       inputs:
-        command: 'install' # Options: install, publish, custom
+        command: 'custom' # Options: install, publish, custom
+        customCommand: 'ci --only=prod'
         workingDir: ${{ parameters.projectRootDir }}
         customRegistry: 'useNpmrc'
 
