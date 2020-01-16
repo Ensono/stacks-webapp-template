@@ -108,7 +108,7 @@ jobs:
         echo $(env)
         ls
         sonar-scanner
-      displayName: 'Prepare analysis on SonarQube'
+      displayName: 'Static Analysis: SonarScanner Run'
       target: 
         container: sonar_scanner
       env: 
@@ -118,7 +118,6 @@ jobs:
         SONAR_ORGANIZATION: $SONAR_ORGANIZATION
         BUILD_NUMBER: 1.2.4
       workingDirectory: ${{ parameters.projectRootDir }}
-
 
 # SonarCloud Results
 #  - ${{ if eq(parameters.static_code_analysis, true) }}:
