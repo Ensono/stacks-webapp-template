@@ -92,8 +92,6 @@ jobs:
     - script: |
         ${{ parameters.unit_test_command }}
       displayName: 'Test: Unit tests'
-      inputs:
-        versionSpec: ${{ parameters.versionSpec }}
       workingDirectory: ${{ parameters.projectRootDir }}
 
 # SonarCloud Start
