@@ -27,7 +27,7 @@ resources:
 ########## PART OF TEMPLATE
   containers:
   - container: sonar_scanner
-    image: dnitsch/build-sonar-cli@v0.0.1   # container image name
+    image: dnitsch/build-server-stacks-webapp   # container image name
     # options: string  # arguments to pass to container at startup
     # endpoint: string  # reference to a service connection for the private registry
     # env: 
@@ -35,7 +35,7 @@ resources:
     # ports: [ string ] # ports to expose on the container
     # volumes: [ "$(Build.SourcesDirectory)/packages/webapp:/usr/src" ]
 
-    
+
 variables:
 # Global Config:
 - name: Global.Company
@@ -164,7 +164,7 @@ stages:
       docker_build_additional_args: '../ -f ./Dockerfile'
       docker_workdir: '$(Build.SourcesDirectory)/packages/webapp/'
       docker_imagename: '$(Docker.ImageName)'
-      docker_imagetag: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
+      docker_imagetag: $(Docker.ImageTag)
       docker_containerregistryname: '$(Docker.ContainerRegistryName)'
       # Vulnerability Scanning
       vulnerability_scan: false

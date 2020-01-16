@@ -56,6 +56,7 @@ jobs:
 - job: ${{ parameters.jobName }}
   dependsOn: ${{ parameters.dependsOn }}
   pool: ${{ parameters.pool }}
+  container: dnitsch/build-server-stacks-webapp
   continueOnError: false
   steps:
   - checkout: self
@@ -105,7 +106,7 @@ jobs:
         ls
         sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
-      target: sonar_scanner
+      # target: sonar_scanner
         # container: dnitsch/build-sonar-cli:v0.0.1
       env: 
         SONAR_HOST_URL: https://sonarcloud.io
