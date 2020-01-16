@@ -5,6 +5,13 @@ USAGE:
 ---
 
 ```bash
+push_id=$(docker build . -t dnitsch/build-server-stacks-webapp:0.0.2)
+docker tag $push_id dnitsch/build-server-stacks-webapp:0.0.2
+docker push dnitsch/build-server-stacks-webapp:0.0.2
+```
+
+
+```bash
 export SONAR_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxx \
 export SONAR_PROJECT_KEY=my-app \
 export SONAR_ORGANIZATION=my-org

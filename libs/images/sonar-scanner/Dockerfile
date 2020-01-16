@@ -19,7 +19,8 @@ RUN set -x && \
   rm sonarscanner.zip && \
   rm sonar-scanner-$RELEASE-linux/jre -rf && \
 #   ensure Sonar uses the provided Java for musl instead of a borked glibc one
-  sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner
+  sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner && \
+  ln -sf /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner /usr/local/bin
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs
