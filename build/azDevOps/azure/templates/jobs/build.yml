@@ -79,21 +79,25 @@ jobs:
       devops_artefact_name: '${{ parameters.devops_artefact_name }}'
 
 # SonarCloud Start
-#  - ${{ if eq(parameters.static_code_analysis, true) }}:
-#    - task: SonarCloudPrepare@1
-#      inputs:
-#        SonarCloud: ${{ parameters.Sonar_serviceConnection }}
-#        organization: ${{ parameters.Sonar_organization }}
-#        scannerMode: ${{ parameters.Sonar_scannerMode }}
-#        projectKey: ${{ parameters.Sonar_projectKey }}
-#        projectName: ${{ parameters.Sonar_projectName }}
-#        projectVersion: ${{ parameters.Sonar_projectVersion }}
-#      displayName: 'SonarCloud: Prepare for Analysis'
-#
-#    - task: DotNetCoreCLI@2
-#      inputs:
-#        command: 'build'
-#        workingDirectory: ${{ parameters.static_code_analysis_build_path }}
+    #     docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e BUILD_NUMBER=${{ parameters.docker_imagetag }} -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -t --rm -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
+
+  - ${{ if eq(parameters.static_code_analysis, true) }}:
+    - task: SonarSource.sonarqube.15B84CA1-B62F-4A2A-A403-89B77A063157.SonarQubePrepare@4
+      displayName: 'Prepare analysis on SonarQube'
+      env: 
+        - SONAR_HOST_URL: https://sonarcloud.io
+        - SONAR_TOKEN: $SONAR_TOKEN
+        - SONAR_PROJECT_KEY: $SONAR_PROJECT_KEY
+        - SONAR_ORGANIZATION: $SONAR_ORGANIZATION
+      inputs:
+        SonarQube: 'SonarCloud'
+        projectKey: $SONAR_PROJECT_KEY
+        projectVersion: ${{ parameters.docker_imagetag }}
+        extraProperties: |
+          sonar.organization=$SONAR_ORGANIZATION
+          sonar.branch.name=$(Build.SourceBranchName)
+          sonar.login=$SONAR_TOKEN
+      workingDirectory: ${{ parameters.projectRootDir }}
 
 # Unit Test
   - ${{ if eq(parameters.unit_test, true) }}:
@@ -105,29 +109,6 @@ jobs:
         verbose: false
         customRegistry: 'useNpmrc'
     
-    - bash: |
-        set -x
-        echo $SONAR_TOKEN
-        echo "-v $(pwd):/usr/src"
-        docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e BUILD_NUMBER=${{ parameters.docker_imagetag }} -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -t --rm -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
-      displayName: Run Sonar Scanner
-      workingDirectory: ${{ parameters.projectRootDir }}
-
-    # - task: Docker@2
-    #   displayName: Run Sonar Scanner
-    #   inputs:
-    #   # docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
-    #     command: run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$(SONAR_TOKEN) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_ORGANIZATION=$(SONAR_ORGANIZATION) -it -v ${{ parameters.projectRootDir }}:/usr/src
-    #     repository: sonarsource/sonar-scanner-cli
-    #     arguments: -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$(SONAR_TOKEN) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_PROJECT_KEY=$(SONAR_PROJECT_KEY) -e SONAR_ORGANIZATION=$(SONAR_ORGANIZATION) -it -v ${{ parameters.projectRootDir }}:/usr/src
-    #   env: { 
-    #     SONAR_HOST_URL: https://sonarcloud.io,
-    #     SONAR_TOKEN: $(SONAR_TOKEN),
-    #     SONAR_PROJECT_KEY: $(SONAR_PROJECT_KEY),
-    #     SONAR_PROJECT_KEY: $(SONAR_PROJECT_KEY),
-    #     SONAR_ORGANIZATION: $(SONAR_ORGANIZATION)
-    #   }
-
     - task: NodeTool@0
       displayName: 'Test: Unit tests'
       inputs:
