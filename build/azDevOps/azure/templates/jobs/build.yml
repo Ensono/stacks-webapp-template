@@ -107,6 +107,7 @@ jobs:
         ls -lat coverage
         uname -a
         lsb_release -a
+        echo $PATH
         echo $(ls -lat /usr/local/bin/sonar-scanner)
         sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
