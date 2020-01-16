@@ -102,7 +102,8 @@ jobs:
     - bash: | 
         set -x
         echo $(pwd)
-        ls -lat coverage
+        node -v 
+        npm -v
         uname -a
         lsb_release -a
         echo $PATH
@@ -110,7 +111,7 @@ jobs:
         chmod a+rwX /usr/local/bin/sonar-scanner
         /usr/local/bin/sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
-      target: sonar_scanner
+      # target: sonar_scanner
       env: 
         SONAR_HOST_URL: https://sonarcloud.io
         SONAR_TOKEN: $SONAR_TOKEN

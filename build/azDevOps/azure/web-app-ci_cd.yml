@@ -133,7 +133,7 @@ stages:
   - template: azDevOps/azure/templates/jobs/build-updatebuildnumber.yml@templates
     parameters:
       pool:
-        vmImage: 'ubuntu-18.04'
+        vmImage: ubuntu-18.04
       build_number: $(Docker.ImageTag)
 
   # Retrieve a blob file with only Azure credentials, extract it and publish as an artefact
