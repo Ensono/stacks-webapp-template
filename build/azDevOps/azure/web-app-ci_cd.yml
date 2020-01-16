@@ -27,7 +27,7 @@ resources:
 ########## PART OF TEMPLATE
   containers:
   - container: sonar_scanner
-    image: dnitsch/build-server-stacks-webapp  # container image name
+    image: dnitsch/build-server-stacks-webapp # container image name
     # options: string  # arguments to pass to container at startup
     # endpoint: string  # reference to a service connection for the private registry
     # env: 
