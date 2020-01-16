@@ -194,7 +194,7 @@ stages:
       # Docker Config
       build_on_server: true
       docker_build: true
-      # TODO: stuff
+      # TODO: normalize this
       docker_build_additional_args: '../ -f ./Dockerfile'
       docker_workdir: '$(Build.SourcesDirectory)/packages/webapp/'
       docker_imagename: '$(Docker.ImageName)'

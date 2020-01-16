@@ -109,7 +109,7 @@ jobs:
         set -x
         echo $SONAR_TOKEN
         echo "-v $(pwd):/usr/src"
-        docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -t --rm -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
+        docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e BUILD_NUMBER=${{ parameters.docker_imagetag }} -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -t --rm -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
       displayName: Run Sonar Scanner
       workingDirectory: ${{ parameters.projectRootDir }}
 
