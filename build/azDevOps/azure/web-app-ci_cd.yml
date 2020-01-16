@@ -206,6 +206,7 @@ stages:
       # Sonar settings
       static_code_analysis: true
       # sonar_project_name: amido-stacks-webapp
+      # Should be hardcoded in your sonar-project.properties file
       # Testing again
       unit_test: true
       projectRootDir: $(Build.SourcesDirectory)/packages/webapp
