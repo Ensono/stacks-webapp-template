@@ -171,7 +171,7 @@ stages:
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
       # Sonar settings
-      static_code_analysis: true
+      static_code_analysis: false
       # Should be hardcoded in your sonar-project.properties file
       # sonar_project_name: amido-stacks-webapp
       # Testing again

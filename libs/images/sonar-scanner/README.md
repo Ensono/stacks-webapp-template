@@ -1,8 +1,15 @@
 # Sonar-CLI Build container
 
 
+DESCRIPTION:
+---
+Container used for sonar-scanner run analysis during build time within CI.
+
+
 USAGE:
 ---
+
+TODO: Interim dockerhub repo will be moved to Amido org eventually.
 
 ```bash
 push_id=$(docker build . -t dnitsch/build-server-stacks-webapp:0.0.2)
@@ -18,12 +25,9 @@ export SONAR_ORGANIZATION=my-org
 ```
 
 ```
-docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -e BUILD_NUMBER=1.2.3 --rm -it -v $(pwd):/usr/src dnitsch/build-sonar-cli:latest
+docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -e BUILD_NUMBER=1.2.3 --rm -it -v $(pwd):/usr/src dnitsch/build-server-stacks-webapp:0.0.2
 ```
 
-
-
-docker exec -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -e BUILD_NUMBER=1.2.3 -it -v /Users/dusannitschneider/git/amido/stacks/stacks-webapp-template/packages/webapp:/usr/src -w /usr/src dnitsch/build-server-stacks-webapp:latest /bin/bash -c "sonar-scanner"
-
-
-docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -e BUILD_NUMBER=1.2.3 --rm -it -v $(pwd):/usr/src docker:stable-dind
+NOTES:
+---
+TODO: flesh this out
