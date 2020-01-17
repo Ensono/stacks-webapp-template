@@ -25,10 +25,6 @@ RUN set -x && \
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs
 
-# RUN nvm install $NODE_VERSION && \
-#     nvm use $NODE_VERSION && \
-#     nvm alias default $NODE_VERSION
-
 # DUMP OUT VERSIONS
 # RUN nvm --version && \
 RUN node -v && \
