@@ -102,7 +102,7 @@ jobs:
     - bash: | 
         set -x
         echo $(pwd)
-        su root
+        su -
         node -v 
         npm -v
         uname -a
