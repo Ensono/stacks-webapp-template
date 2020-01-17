@@ -1,6 +1,5 @@
 {
   "name": "webapp",
-  "version": "0.0.2",
   "scripts": {
     "test": "./task test",
     "test_ci": "node_modules/.bin/jest -c jest.config.js --rootDir .",
