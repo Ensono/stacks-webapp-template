@@ -10,7 +10,7 @@ namespace FlowSelector {
     export async function option1(instructions: PromptAnswer): Promise<object> {
         return await ssr_aks_tfs(instructions)
     }
-    export async function option2(instructions: string): Promise<string> {
+    export async function option2(instructions: PromptAnswer): Promise<object> {
         return await csr_aks_tfs(instructions)
     }
 }

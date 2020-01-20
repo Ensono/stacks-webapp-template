@@ -13,24 +13,26 @@ import FlowSelector from './selectors'
 // --> platform target (AKS)
 // --> deployment tooling (TFS)
 
-let cliSelection: PromptAnswer
-let exitMessage: ExitMessage
+let userSelection: PromptAnswer = <PromptAnswer>{}
+let exitMessage: ExitMessage = <ExitMessage>{}
+
 /**
  * 
  * @param default_project_name 
  * @returns 
  */
-async function initializeQuestions(default_project_name: string, cli_args: Array<string>): Promise<ExitMessage> {
+async function runCli(default_project_name: string, cli_args: Array<string>): Promise<ExitMessage> {
     // v0 of Question Selection
+    // let user_selection: PromptAnswer
     if (cli_args.length > 0) {
-        cliSelection = await _get_from_config(cli_args[0])
+        userSelection = await _get_from_config(cli_args[0])
     } else {
-        cliSelection = await _get_from_cli(default_project_name)
+        userSelection = await _get_from_cli(default_project_name)
     }
-    
-    return await _select_flow(cliSelection)
+    // selections.project_name = userSelection
 
-    // return JSON.stringify(cliSelection)
+    return await _select_flow(userSelection)
+
 }
 
 /**
@@ -38,6 +40,8 @@ async function initializeQuestions(default_project_name: string, cli_args: Array
  * @param default_project_name 
  */
 async function _get_from_cli(default_project_name: string): Promise<PromptAnswer> {
+   let cliSelection: PromptAnswer
+    
     // Always assigning the project name question - static forever
     let initialQs: Array<PromptQuestion> = new Array<PromptQuestion>({
         type: 'text',
@@ -61,14 +65,15 @@ async function _get_from_cli(default_project_name: string): Promise<PromptAnswer
  * @param config_path 
  */
 async function _get_from_config(config_path: string): Promise<PromptAnswer> {
-   
+   let configSelection: PromptAnswer
+
     if (isAbsolute(config_path)){
-        cliSelection = JSON.parse(readFileSync(config_path, 'utf-8').trim())
+        configSelection = JSON.parse(readFileSync(config_path, 'utf-8').trim())
     } else {
-        cliSelection = JSON.parse(readFileSync(resolve(process.cwd(), config_path), 'utf-8').trim())
+        configSelection = JSON.parse(readFileSync(resolve(process.cwd(), config_path), 'utf-8').trim())
     }
 
-    return cliSelection;
+    return configSelection;
 
 }
 
@@ -77,12 +82,18 @@ async function _select_flow(selection: PromptAnswer): Promise<ExitMessage> {
     const workflows: any = {
         ssr_aks_tfs: FlowSelector.option1
     }
+        
+    try {
+        let message = await workflows[determined_choice](selection)
+        exitMessage.code = 0
+        exitMessage.message = message
+        // return exitMessage
 
-    // await FlowSelector['option1']
-    // exitMessage.code = 0
-    let message = await workflows[determined_choice](selection)
-    // console.log(determined_choice)
-    return message
+    } catch (ex) {
+        exitMessage.code = ex.code || -1
+        exitMessage.message = ex.message
+    }
+    return exitMessage
 }
 
-export { initializeQuestions }
+export { runCli }

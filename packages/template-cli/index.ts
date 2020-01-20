@@ -1,5 +1,6 @@
 import { basename, resolve } from 'path'
-import { initializeQuestions } from './lib/prompt'
+import { ExitMessage } from './lib/model/cliResponse'
+import { runCli } from './lib/prompt'
 
 // let { logger } = require('simple-winston-logger-abstraction').stdout
 // import { stdout } from 'simple-winston-logger-abstraction'
@@ -10,8 +11,8 @@ import { initializeQuestions } from './lib/prompt'
     const default_project_name = basename(resolve(process.cwd()))
     const args = process.argv
     try {
-        const initial_response = await initializeQuestions(default_project_name, args.slice(2))
-        console.log(initial_response)
+        const response: ExitMessage = await runCli(default_project_name, args.slice(2))
+        console.log(response)
         process.exit(0)
     } catch (ex) {
         console.log(ex.message)
