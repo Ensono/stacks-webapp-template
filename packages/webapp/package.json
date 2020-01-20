@@ -1,13 +1,13 @@
 {
   "name": "webapp",
   "scripts": {
-    "test": "./task test",
+    "test": "../task test",
     "test_ci": "node_modules/.bin/jest -c jest.config.js --rootDir .",
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
     "build_ci": "next build",
     "start": "next start",
-    "lint": "./task lint"
+    "lint": "../task lint"
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,9 @@
+{
+  "tests": {
+    "config_id": "testing",
+    "code_cov_threshold_statements": 100,
+    "code_cov_threshold_branches": 100,
+    "code_cov_threshold_functions": 100,
+    "code_cov_threshold_lines": 100
+  }
+}
