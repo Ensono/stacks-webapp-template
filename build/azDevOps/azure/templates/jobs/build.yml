@@ -83,7 +83,6 @@ jobs:
   - ${{ if eq(parameters.unit_test, true) }}:
     - task: Npm@1
       displayName: 'Test: Install Dev Dependencies'
-      # target: sonar_scanner
       inputs:
         command: 'install' # Options: install, publish, custom
         workingDir: ${{ parameters.projectRootDir }}
@@ -110,7 +109,6 @@ jobs:
         chmod a+rwX /usr/local/bin/sonar-scanner
         /usr/local/bin/sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
-      # target: sonar_scanner
       env: 
         SONAR_HOST_URL: https://sonarcloud.io
         SONAR_TOKEN: $SONAR_TOKEN
