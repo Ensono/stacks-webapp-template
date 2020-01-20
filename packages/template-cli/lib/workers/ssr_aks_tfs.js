@@ -1,0 +1,8 @@
+"use strict";
+//  DO imports 
+Object.defineProperty(exports, "__esModule", { value: true });
+async function ssr_aks_tfs(instructions) {
+    return instructions;
+}
+exports.ssr_aks_tfs = ssr_aks_tfs;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic3NyX2Frc190ZnMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJzc3JfYWtzX3Rmcy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUEsZUFBZTs7QUFFZixLQUFLLFVBQVUsV0FBVyxDQUFDLFlBQW9CO0lBQzNDLE9BQU8sWUFBWSxDQUFBO0FBQ3ZCLENBQUM7QUFFUSxrQ0FBVyIsInNvdXJjZXNDb250ZW50IjpbIi8vICBETyBpbXBvcnRzIFxuXG5hc3luYyBmdW5jdGlvbiBzc3JfYWtzX3RmcyhpbnN0cnVjdGlvbnM6IG9iamVjdCk6IFByb21pc2U8b2JqZWN0PiB7XG4gICAgcmV0dXJuIGluc3RydWN0aW9uc1xufVxuXG5leHBvcnQgeyBzc3JfYWtzX3RmcyB9XG4iXX0=

@@ -1,0 +1,22 @@
+{
+  "name": "amido-scaffolding-cli-webapp",
+  "version": "1.0.0",
+  "description": "scaffolding-cli for amido-stacks created webapp",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/jest -c jest.config.js --rootDir .",
+    "tsc": "tsc",
+    "tscw": "tsc -w"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@types/prompts": "^2.0.3",
+    "prompts": "^2.3.0",
+    "simple-winston-logger-abstraction": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.7",
+    "jest": "^24.9.0"
+  }
+}
