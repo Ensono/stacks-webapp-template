@@ -90,7 +90,7 @@ jobs:
         customRegistry: 'useNpmrc'
     
     - script: |
-        tsc --project tsconfig.server.json
+        npm run build
       displayName: 'Build: Run Transpile'
       workingDirectory: ${{ parameters.projectRootDir }}
 
