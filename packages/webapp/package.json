@@ -1,6 +1,5 @@
 {
   "name": "webapp",
-  "version": "0.0.2",
   "scripts": {
     "test": "./task test",
     "test_ci": "node_modules/.bin/jest -c jest.config.js --rootDir .",
@@ -12,10 +11,12 @@
   },
   "private": true,
   "dependencies": {
-    "@amido-stacks/eslint-config": "^0.0.4",
+    "@types/helmet": "^0.0.45",
     "@types/jest": "^24.0.25",
+    "body-parser": "^1.19.0",
     "cross-env": "^6.0.3",
     "express": "^4.17.1",
+    "helmet": "^3.21.1",
     "next": "latest",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
