@@ -147,3 +147,5 @@ backend.local.tfvars
 **/*report.xml
 **/.scannerwork
 **/.sonar
+**/sample_*
+examples/sample_generated_app/docs/README.md

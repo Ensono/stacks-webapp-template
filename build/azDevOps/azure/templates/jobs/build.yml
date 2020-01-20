@@ -56,7 +56,6 @@ jobs:
 - job: ${{ parameters.jobName }}
   dependsOn: ${{ parameters.dependsOn }}
   pool: ${{ parameters.pool }}
-  # container: sonar_scanner
   continueOnError: false
   steps:
   - checkout: self
@@ -90,7 +89,7 @@ jobs:
         workingDir: ${{ parameters.projectRootDir }}
         verbose: false
         customRegistry: 'useNpmrc'
-    
+
     - script: |
         ${{ parameters.unit_test_command }}
       displayName: 'Test: Unit tests'
@@ -117,7 +116,7 @@ jobs:
         SONAR_TOKEN: $SONAR_TOKEN
         SONAR_PROJECT_KEY: $SONAR_PROJECT_KEY
         SONAR_ORGANIZATION: $SONAR_ORGANIZATION
-        BUILD_NUMBER: 1.2.4
+        BUILD_NUMBER: $(Build.BuildNumber)
       workingDirectory: ${{ parameters.projectRootDir }}
 
 # STEP build NPM for Azure registry 
@@ -142,18 +141,6 @@ jobs:
         docker push ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}
       displayName: Push Container Image to Azure Container Registry
       workingDirectory: ${{ parameters.docker_workdir }}
-
-    # - template: azDevOps/azure/templates/steps/build-docker-build-and-scan.yml@templates
-    #   parameters:
-    #     devops_artefact_name: '{{ parameters.devops_artefact_name }}'
-    #     # Docker
-    #     docker_workdir: '${{ parameters.docker_workdir }}'
-    #     docker_imagename: '${{ parameters.docker_imagename }}'
-    #     docker_imagetag: '${{ parameters.docker_imagetag }}'
-    #     docker_containerregistryname: '${{ parameters.docker_containerregistryname }}'
-    #     # Vulnerability Scanning
-    #     vulnerability_scan: '${{ parameters.vulnerability_scan }}'
-    #     vulnerability_workdir: '${{ parameters.vulnerability_workdir }}'
 
 # Build Docker Image, Scan and Push to Repository
   - ${{ if eq(parameters.git_do_tag_release, true) }}:

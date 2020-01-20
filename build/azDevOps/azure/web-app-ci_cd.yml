@@ -28,13 +28,6 @@ resources:
   containers:
   - container: sonar_scanner
     image: dnitsch/build-server-stacks-webapp:0.0.2 # container with su -
-    # options: string  # arguments to pass to container at startup
-    # endpoint: string  # reference to a service connection for the private registry
-    # env: 
-      # why won;t you work
-      # FOO: BAR
-    # ports: [ string ] # ports to expose on the container
-    # volumes: [ "$(Build.SourcesDirectory)/packages/webapp:/usr/src" ]
 
 
 variables:
