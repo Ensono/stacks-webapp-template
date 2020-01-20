@@ -148,4 +148,4 @@ backend.local.tfvars
 **/.scannerwork
 **/.sonar
 **/sample_*
-examples/sample_generated_app/docs/README.md
+

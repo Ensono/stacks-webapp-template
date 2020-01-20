@@ -4,7 +4,6 @@ FROM node:12.13.0-alpine
 WORKDIR /app/deployed/webapp
 COPY tsconfig.json /app/deployed
 COPY ./webapp .
-# RUN npm run build_ci
 
 EXPOSE 3000
 
