@@ -9,19 +9,23 @@ trigger:
     - deploy/*
     - packages/*
     - build/azDevOps/azure/web-app-ci_cd.yml
-    # exclude:
-    # - 
 
-# Only build PR's into Master (i.e. 'going live')
 pr:
 - master
-
+###### PART OF AMIDO-STACKS
 resources:
   repositories:
   - repository: templates
     type: github
     name: amido/stacks-pipeline-templates
-    endpoint: williamayerst # This was created Cycle 1 when they set up the connection to GitHub from Azure DevOps
+    ref: refs/tags/v1.0.0
+    endpoint: williamayerst
+
+########## PART OF TEMPLATE
+  containers:
+  - container: sonar_scanner
+    image: dnitsch/build-server-stacks-webapp:0.0.2 # container with su -
+
 
 variables:
 # Global Config:
@@ -31,8 +35,6 @@ variables:
   value: 'stacks'
 - name: Global.Domain
   value: 'webapp'
-# allow for overriding the default behaviour of skipping CD stages unless on master
-# SET `ENVIRONMENT` to dev || test
 
 # Versioning
 - name: Version.Major
@@ -44,35 +46,6 @@ variables:
 
 # Tests
 # TODO: Calculate and devolve these into build template where feasible as parameters
-- name: Test.FunctionalTestProjectFile
-  value: 'CF.BookingService.API.FunctionalTests.csproj'
-- name: Test.FunctionalTestProjectSourcePath
-  value: '$(Pipeline.Workspace)/tests/Functional/CF.BookingService.API.FunctionalTests'
-- name: Test.FunctionalTestProjectBuildPath
-  value: '$(Build.BinariesDirectory)'
-- name: Test.FunctionalTestReportSourcePath
-  value: '$(Pipeline.Workspace)/tests/Functional/CF.BookingService.API.FunctionalTests/bin/Debug/netcoreapp2.2/BDDfy.html'
-- name: Test.FunctionalTestReportTargetName
-  value: '$(Docker.ImageName)/$(Build.BuildNumber)-$(environment).html'
-- name: Test.FunctionalTestReportStorageAccountRG
-  value: 'amido-stacks-rg-uks-prod'
-- name: Test.FunctionalTestReportStorageAccountName
-  value: 'amidostacksuksprod'
-- name: Test.FunctionalTestReportStorageContainerName
-  value: 'testresults '
-- name: Test.ProviderContractTestProjectSourcePath
-  value: '$(Build.SourcesDirectory)/src/CF.BookingService.API.ContractTests'
-- name: Test.TestsSourcePath
-  value: '$(Build.SourcesDirectory)/src/tests/'
-- name: Test.PerformanceTestProjectSourcePath
-  value: '$(Pipeline.Workspace)/tests/Performance/CF.BookingService.API.PerformanceTests'
-- name: Test.UnitTestProjectPath
-  value: '$(Build.SourcesDirectory)/src/Tests/**/*UnitTests.csproj'
-- name: Test.ComponentTestProjectPath
-  value: '$(Build.SourcesDirectory)/src/Tests/**/*ComponentTests.csproj'
-- name: Test.IntegrationTestProjectPath
-  value: '$(Build.SourcesDirectory)/src/**/*IntegrationTests.csproj'
-# Performance Test Settings (set outside of code so they can be adjusted as neccesary)
 - group: amido-stacks-testing
 
 #TODO: convert below to variable group
@@ -83,7 +56,7 @@ variables:
 - name: Sonar.scannerMode
   value: 'MSBuild'
 - name: Sonar.projectKey
-  value: 'stacks-dotnet'
+  value: 'stacks-webapp-template'
 - name: Sonar.projectName
   value: '$(Docker.ImageName)'
 - name: Sonar.projectVersion
@@ -103,7 +76,7 @@ variables:
 
 # SonarCloud Info
 - name: Test.sonarProjectKey
-  value: 'stacks-dotnet'
+  value: 'stacks-webapp-template'
 
 # Pact Broker Info
 - name: Test.PactBrokerUrl
@@ -141,6 +114,7 @@ stages:
 - stage: Build
   variables:
   - group: amido-stacks-infra-credentials-nonprod
+  - group: amido-stacks-webapp
   - name: Docker.ContainerRegistryName
     value: 'amidouksstacksacrdev'
   jobs:
@@ -148,7 +122,7 @@ stages:
   - template: azDevOps/azure/templates/jobs/build-updatebuildnumber.yml@templates
     parameters:
       pool:
-        vmImage: 'ubuntu-latest'
+        vmImage: ubuntu-18.04
       build_number: $(Docker.ImageTag)
 
   # Retrieve a blob file with only Azure credentials, extract it and publish as an artefact
@@ -165,7 +139,8 @@ stages:
       Package_OutputArtefact: '$(DevOps.ArtefactName)'
 
   # BUILD NPM
-  - template: templates/jobs/build-npm.yml
+  # TODO: change this to steps and feed upstream
+  - template: templates/jobs/build.yml
     parameters:
       pool:
         vmImage: ubuntu-18.04
@@ -175,15 +150,19 @@ stages:
       # Docker Config
       build_on_server: true
       docker_build: true
-      # TODO: put this in a var
+      # TODO: normalize this
       docker_build_additional_args: '../ -f ./Dockerfile'
       docker_workdir: '$(Build.SourcesDirectory)/packages/webapp/'
       docker_imagename: '$(Docker.ImageName)'
-      docker_imagetag: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
+      docker_imagetag: $(Docker.ImageTag)
       docker_containerregistryname: '$(Docker.ContainerRegistryName)'
       # Vulnerability Scanning
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
+      # Sonar settings
+      static_code_analysis: false
+      # Should be hardcoded in your sonar-project.properties file
+      # sonar_project_name: amido-stacks-webapp
       # Testing again
       unit_test: true
       projectRootDir: $(Build.SourcesDirectory)/packages/webapp
@@ -196,3 +175,10 @@ stages:
       build_file: false
       build_file_path: '$(Build.SourcesDirectory)/deploy/k8s/cron_gdpr_scheduler'
       build_file_artefact: 'webapp_template_build'
+      # Git Tag release
+      git_do_tag_release: false
+      git_release_tag: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
+      publish_packages_lerna: true
+      # Lerna step --from-git
+      lerna_command: 'npx lerna publish from-git --yes --no-git-tag-version --no-push'
+      lerna_rootDir: '$(Build.SourcesDirectory)'

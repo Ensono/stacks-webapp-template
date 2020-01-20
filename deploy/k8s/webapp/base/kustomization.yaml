@@ -6,20 +6,20 @@ resources:
 - ingress.yaml
 commonLabels:
   app.kubernetes.io/component: api
-  app.kubernetes.io/name: bookingapi
-  app.kubernetes.io/part-of: booking
+  app.kubernetes.io/name: webapp
+  app.kubernetes.io/part-of: template
 # environment: dev # applied by overlays for each environment
 commonAnnotations:
   role: api
   stage: stable
   tier: frontend
-  app.kubernetes.io/instance: bookingapi
+  app.kubernetes.io/instance: webapp
   app.kubernetes.io/managed-by: kustomize
   projectID: stacks
-  applicationName: booking
-  applicationId: stacks/booking
+  applicationName: template
+  applicationId: stacks/webapp
   customerID: amido
-  owner: amido/dotnet
+  owner: amido/stacks
 # CD pipeline annotations
 # release: 0.0.1
 # version: 2019.06.07-1703 #inserted by CD pipeline
@@ -41,9 +41,3 @@ secretGenerator:
 - name: authentication
   files:
   - secrets/AUTHENTICATION/APIKEY
-
-- name: carusapisettings
-  files:
-  - secrets/CARUSAPISETTINGS/CONSUMERKEY
-  - secrets/CARUSAPISETTINGS/CONSUMERSECRET
-  - secrets/CARUSAPISETTINGS/JWTSECRET

@@ -12,7 +12,7 @@ spec:
   - host: ""
     http:
       paths:
-      - path: /api/booking(/|$)(.*)
+      - path: /sample/(/|$)(.*)
         backend:
-          serviceName: bookingapi
+          serviceName: webapp
           servicePort: 80

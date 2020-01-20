@@ -41,10 +41,10 @@ name_environment        = "dev"
 ```
 
 ```
-t12ws dev || t12 workspace new dev
+terraform workspace select dev || terraform workspace new dev
 ```
 
 <!--  -->
 
 
-t12i -backend-config=./backend.local.tfvars
+terraform init -backend-config=./backend.local.tfvars
