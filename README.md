@@ -28,7 +28,7 @@ all of their dependencies and links any cross-dependencies.
 
 `npm run lint`: runs global linting from root level, ensuring all packages are
 following conventions specified in [.eslintrc](.eslintrc).
-
+  
 `npm run prettier`: runs formatting from root level, ensuring all packages are
 following conventions specified in [.prettierrc](.prettierrc).
 

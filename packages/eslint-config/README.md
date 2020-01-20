@@ -5,9 +5,9 @@ Shared ESLint config to enforce a consistent code style for stacks development
 ## Installation
 
 ```shell
-yarn add @amido-stacks/eslint-config
+npm install @amido-stacks/eslint-config
 
-yarn add --dev \
+npm install --dev \
 @typescript-eslint/parser \
 eslint \
 eslint-config-airbnb \

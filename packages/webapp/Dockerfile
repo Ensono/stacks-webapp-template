@@ -1,4 +1,4 @@
-# Do the yarn install in the full image
+# Do the npm install in the full image
 # web template app
 FROM node:12.13.0-alpine
 WORKDIR /app/deployed/webapp
@@ -7,4 +7,4 @@ COPY ./webapp .
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["npm run", "start"]
