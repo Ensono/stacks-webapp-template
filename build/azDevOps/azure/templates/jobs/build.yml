@@ -82,12 +82,17 @@ jobs:
 # Unit Test
   - ${{ if eq(parameters.unit_test, true) }}:
     - task: Npm@1
-      displayName: 'Test: Install Dev Dependencies'
+      displayName: 'Build: Install Dev Dependencies'
       inputs:
         command: 'install' # Options: install, publish, custom
         workingDir: ${{ parameters.projectRootDir }}
         verbose: false
         customRegistry: 'useNpmrc'
+    
+    - script: |
+        tsc --project tsconfig.server.json
+      displayName: 'Build: Run Transpile'
+      workingDirectory: ${{ parameters.projectRootDir }}
 
     - script: |
         ${{ parameters.unit_test_command }}

@@ -4,7 +4,7 @@ FROM amd64/openjdk:11.0.6-slim-buster
 ARG RELEASE=4.2.0.1873
 ARG NODE_VERSION=12.13.0
 
-LABEL maintainer="Dusan Nitschneider <nitschneiderd@gmail.com>"
+LABEL maintainer="Amido Stacks <stacks@amido.com"
 
 WORKDIR /root
 
@@ -35,4 +35,4 @@ ENV SONAR_RUNNER_HOME=/root/sonar-scanner-$RELEASE-linux
 ENV PATH $PATH:/root/sonar-scanner-$RELEASE-linux/bin
 
 # NVM installer
-CMD /bin/bash
+CMD ["/bin/bash"]

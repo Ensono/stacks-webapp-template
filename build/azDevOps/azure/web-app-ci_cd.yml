@@ -9,10 +9,7 @@ trigger:
     - deploy/*
     - packages/*
     - build/azDevOps/azure/web-app-ci_cd.yml
-    # exclude:
-    # - 
 
-# Only build PR's into Master (i.e. 'going live')
 pr:
 - master
 ###### PART OF AMIDO-STACKS
@@ -22,7 +19,7 @@ resources:
     type: github
     name: amido/stacks-pipeline-templates
     ref: refs/tags/v1.0.0
-    endpoint: williamayerst # This was created Cycle 1 when they set up the connection to GitHub from Azure DevOps
+    endpoint: williamayerst
 
 ########## PART OF TEMPLATE
   containers:
@@ -38,7 +35,6 @@ variables:
   value: 'stacks'
 - name: Global.Domain
   value: 'webapp'
-# allow for overriding the default behaviour of skipping CD stages unless on master
 
 # Versioning
 - name: Version.Major
