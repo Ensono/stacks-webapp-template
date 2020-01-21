@@ -1,9 +1,6 @@
 import { basename, resolve } from 'path'
-import { ExitMessage } from './lib/model/cliResponse'
-import { runCli } from './lib/prompt'
-
-// let { logger } = require('simple-winston-logger-abstraction').stdout
-// import { stdout } from 'simple-winston-logger-abstraction'
+import { ExitMessage } from './domain/model/cliResponse'
+import { runCli } from './domain/prompt'
 
 // main
 (async () => {

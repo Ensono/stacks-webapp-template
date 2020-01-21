@@ -152,3 +152,10 @@ tests/**/build
 tests/**/deploy
 tests/**/docs
 tests/**/src
+**/templates/**/__snapshots__
+
+# GENERATED OUTPUT
+# **/packages/**/lib
+# packages/**/lib/**/*.js
+# packages/**/lib/**/*.d.ts
+packages/template-cli/lib

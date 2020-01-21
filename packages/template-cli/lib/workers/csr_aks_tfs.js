@@ -1,7 +1,0 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-async function csr_aks_tfs(instructions) {
-    return instructions;
-}
-exports.csr_aks_tfs = csr_aks_tfs;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3NyX2Frc190ZnMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJjc3JfYWtzX3Rmcy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLEtBQUssVUFBVSxXQUFXLENBQUMsWUFBb0I7SUFDM0MsT0FBTyxZQUFZLENBQUE7QUFDdkIsQ0FBQztBQUVRLGtDQUFXIiwic291cmNlc0NvbnRlbnQiOlsiYXN5bmMgZnVuY3Rpb24gY3NyX2Frc190ZnMoaW5zdHJ1Y3Rpb25zOiBvYmplY3QpOiBQcm9taXNlPG9iamVjdD4ge1xuICAgIHJldHVybiBpbnN0cnVjdGlvbnNcbn1cblxuZXhwb3J0IHsgY3NyX2Frc190ZnMgfVxuIl19

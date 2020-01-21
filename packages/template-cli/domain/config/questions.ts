@@ -11,9 +11,6 @@ function cliQuestions(): Array<PromptQuestion> {
         "choices": [
             {
                 "title": "SSR", "description": "Serverside rendered", "value": "ssr"
-            },
-            {
-                "title": "CSR", "description": "Clientside rendered", "value": "csr"
             }
         ],
         "initial": 0
@@ -24,10 +21,7 @@ function cliQuestions(): Array<PromptQuestion> {
         "message": "Select Target Platform",
         "choices": [
             {
-                "title": "AKS", "description": "Azure Kuberneter", "value": "aks"
-            },
-            {
-                "title": "EKS", "description": "AWS Kubernetes", "value": "eks"
+                "title": "AKS", "description": "Azure Kubernetes", "value": "aks"
             }
         ],
         "initial": 0
@@ -39,9 +33,6 @@ function cliQuestions(): Array<PromptQuestion> {
         "choices": [
             {
                 "title": "AzureDevOps", "description": "Azure Devops/VSTS/TFS", "value": "azdevops"
-            },
-            {
-                "title": "Gitlab", "description": "Gitlab", "value": "gitlab"
             }
         ],
         "initial": 0

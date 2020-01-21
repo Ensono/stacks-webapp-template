@@ -7,23 +7,27 @@ Creates an amido-stacks template in your local directory much like express-gener
 
 1. Install dependencies required to generate the templated app:
 ```bash
-cd ./packages/template-cli
+cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-cli
+npm install -g typescript
 npm install
+npm run tsc
 ```
-2. Change to your output directory and run
+
+2. Change to a directory for testing - e.g. $HOME/stacks-test and run
 ```bash
-npx [DIR]/stacks-webapp-template/packages/template-cli
+npx ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-cli
 ```
 
 3. Follow the CLI prompts to create a templated app with user defined configuration:
-- Project Name: _default_: current directory
+- Project Name: _default_: current directory (will create a directory with this name)
 - Project Type: _default_: SSR (server side rendering)
 - Platform: _default_: AKS (Azure Kubernetes Service)
 - CI/CD Tooling: _default_: AzureDevOps
 
 4. Navigate to the created project directory to install template dependencies:
+e.g. $HOME/stacks-test/$PROJECT_NAME
 ```bash
-cd [DIR]/[PROJECT_NAME]/src/client
+cd $HOME/stacks-test/$PROJECT_NAME/src/ssr
 npm install
 ```
 
@@ -32,3 +36,5 @@ npm install
 npm run build
 npm run start
 ```
+
+Open Browser and hit [http://localhost:3000](http://localhost:3000)

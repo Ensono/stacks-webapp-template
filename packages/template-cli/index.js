@@ -1,22 +1,19 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = require("path");
-const prompt_1 = require("./lib/prompt");
-// let { logger } = require('simple-winston-logger-abstraction').stdout
-// import { stdout } from 'simple-winston-logger-abstraction'
+'use strict'
+Object.defineProperty(exports, '__esModule', {value: true})
+const path_1 = require('path')
+const prompt_1 = require('./domain/prompt')
 // main
-(async () => {
-    // initial steps before handing over to a selector worker
-    const default_project_name = path_1.basename(path_1.resolve(process.cwd()));
-    const args = process.argv;
-    try {
-        const response = await prompt_1.runCli(default_project_name, args.slice(2));
-        console.log(response);
-        process.exit(0);
-    }
-    catch (ex) {
-        console.log(ex.message);
-        process.exit(ex.exit_code || -1);
-    }
-})();
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLCtCQUF3QztBQUV4Qyx5Q0FBcUM7QUFFckMsdUVBQXVFO0FBQ3ZFLDZEQUE2RDtBQUU3RCxPQUFPO0FBQ1AsQ0FBQyxLQUFLLElBQUksRUFBRTtJQUNSLHlEQUF5RDtJQUN6RCxNQUFNLG9CQUFvQixHQUFHLGVBQVEsQ0FBQyxjQUFPLENBQUMsT0FBTyxDQUFDLEdBQUcsRUFBRSxDQUFDLENBQUMsQ0FBQTtJQUM3RCxNQUFNLElBQUksR0FBRyxPQUFPLENBQUMsSUFBSSxDQUFBO0lBQ3pCLElBQUk7UUFDQSxNQUFNLFFBQVEsR0FBZ0IsTUFBTSxlQUFNLENBQUMsb0JBQW9CLEVBQUUsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFBO1FBQy9FLE9BQU8sQ0FBQyxHQUFHLENBQUMsUUFBUSxDQUFDLENBQUE7UUFDckIsT0FBTyxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQTtLQUNsQjtJQUFDLE9BQU8sRUFBRSxFQUFFO1FBQ1QsT0FBTyxDQUFDLEdBQUcsQ0FBQyxFQUFFLENBQUMsT0FBTyxDQUFDLENBQUE7UUFDdkIsT0FBTyxDQUFDLElBQUksQ0FBQyxFQUFFLENBQUMsU0FBUyxJQUFJLENBQUMsQ0FBQyxDQUFDLENBQUE7S0FDbkM7QUFDTCxDQUFDLENBQUMsRUFBRSxDQUFBIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgYmFzZW5hbWUsIHJlc29sdmUgfSBmcm9tICdwYXRoJ1xuaW1wb3J0IHsgRXhpdE1lc3NhZ2UgfSBmcm9tICcuL2xpYi9tb2RlbC9jbGlSZXNwb25zZSdcbmltcG9ydCB7IHJ1bkNsaSB9IGZyb20gJy4vbGliL3Byb21wdCdcblxuLy8gbGV0IHsgbG9nZ2VyIH0gPSByZXF1aXJlKCdzaW1wbGUtd2luc3Rvbi1sb2dnZXItYWJzdHJhY3Rpb24nKS5zdGRvdXRcbi8vIGltcG9ydCB7IHN0ZG91dCB9IGZyb20gJ3NpbXBsZS13aW5zdG9uLWxvZ2dlci1hYnN0cmFjdGlvbidcblxuLy8gbWFpblxuKGFzeW5jICgpID0+IHtcbiAgICAvLyBpbml0aWFsIHN0ZXBzIGJlZm9yZSBoYW5kaW5nIG92ZXIgdG8gYSBzZWxlY3RvciB3b3JrZXJcbiAgICBjb25zdCBkZWZhdWx0X3Byb2plY3RfbmFtZSA9IGJhc2VuYW1lKHJlc29sdmUocHJvY2Vzcy5jd2QoKSkpXG4gICAgY29uc3QgYXJncyA9IHByb2Nlc3MuYXJndlxuICAgIHRyeSB7XG4gICAgICAgIGNvbnN0IHJlc3BvbnNlOiBFeGl0TWVzc2FnZSA9IGF3YWl0IHJ1bkNsaShkZWZhdWx0X3Byb2plY3RfbmFtZSwgYXJncy5zbGljZSgyKSlcbiAgICAgICAgY29uc29sZS5sb2cocmVzcG9uc2UpXG4gICAgICAgIHByb2Nlc3MuZXhpdCgwKVxuICAgIH0gY2F0Y2ggKGV4KSB7XG4gICAgICAgIGNvbnNvbGUubG9nKGV4Lm1lc3NhZ2UpXG4gICAgICAgIHByb2Nlc3MuZXhpdChleC5leGl0X2NvZGUgfHwgLTEpXG4gICAgfVxufSkoKVxuIl19
+;(async () => {
+  // initial steps before handing over to a selector worker
+  const default_project_name = path_1.basename(path_1.resolve(process.cwd()))
+  const args = process.argv
+  try {
+    const response = await prompt_1.runCli(default_project_name, args.slice(2))
+    console.log(response)
+    process.exit(0)
+  } catch (ex) {
+    console.log(ex.message)
+    process.exit(ex.exit_code || -1)
+  }
+})()
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJpbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLCtCQUF3QztBQUV4Qyw0Q0FBd0M7QUFFeEMsT0FBTztBQUNQLENBQUMsS0FBSyxJQUFJLEVBQUU7SUFDUix5REFBeUQ7SUFDekQsTUFBTSxvQkFBb0IsR0FBRyxlQUFRLENBQUMsY0FBTyxDQUFDLE9BQU8sQ0FBQyxHQUFHLEVBQUUsQ0FBQyxDQUFDLENBQUE7SUFDN0QsTUFBTSxJQUFJLEdBQUcsT0FBTyxDQUFDLElBQUksQ0FBQTtJQUN6QixJQUFJO1FBQ0EsTUFBTSxRQUFRLEdBQWdCLE1BQU0sZUFBTSxDQUFDLG9CQUFvQixFQUFFLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQTtRQUMvRSxPQUFPLENBQUMsR0FBRyxDQUFDLFFBQVEsQ0FBQyxDQUFBO1FBQ3JCLE9BQU8sQ0FBQyxJQUFJLENBQUMsQ0FBQyxDQUFDLENBQUE7S0FDbEI7SUFBQyxPQUFPLEVBQUUsRUFBRTtRQUNULE9BQU8sQ0FBQyxHQUFHLENBQUMsRUFBRSxDQUFDLE9BQU8sQ0FBQyxDQUFBO1FBQ3ZCLE9BQU8sQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLFNBQVMsSUFBSSxDQUFDLENBQUMsQ0FBQyxDQUFBO0tBQ25DO0FBQ0wsQ0FBQyxDQUFDLEVBQUUsQ0FBQSJ9

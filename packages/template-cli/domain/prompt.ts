@@ -6,6 +6,7 @@ import { PromptQuestion } from './model/prompt_question'
 import { PromptAnswer } from './model/prompt_answer'
 import { ExitMessage } from './model/cliResponse'
 import FlowSelector from './selectors'
+import { WorkflowOptions, Workflow } from './model/workflow'
 
 // FLOW 
 // ProjectName 
@@ -79,10 +80,9 @@ async function _get_from_config(config_path: string): Promise<PromptAnswer> {
 
 async function _select_flow(selection: PromptAnswer): Promise<ExitMessage> {
     let determined_choice = `${selection.project_type}_${selection.platform}_${selection.deployment}`
-    const workflows: any = {
-        ssr_aks_azdevops: FlowSelector.option1
-    }
-        
+
+    const workflows: Workflow = WorkflowOptions()
+
     try {
         let message = await workflows[determined_choice](selection)
         exitMessage.code = 0

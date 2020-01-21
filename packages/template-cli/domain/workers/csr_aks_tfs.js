@@ -1,0 +1,7 @@
+'use strict'
+Object.defineProperty(exports, '__esModule', {value: true})
+async function csr_aks_tfs(instructions) {
+  return instructions
+}
+exports.csr_aks_tfs = csr_aks_tfs
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3NyX2Frc190ZnMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJjc3JfYWtzX3Rmcy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUFBLEtBQUssVUFBVSxXQUFXLENBQUMsWUFBb0I7SUFDM0MsT0FBTyxZQUFZLENBQUE7QUFDdkIsQ0FBQztBQUVRLGtDQUFXIn0=

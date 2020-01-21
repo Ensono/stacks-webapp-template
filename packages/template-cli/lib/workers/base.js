@@ -1,7 +1,0 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const ssr_aks_tfs_1 = require("./ssr_aks_tfs");
-exports.ssr_aks_tfs = ssr_aks_tfs_1.ssr_aks_tfs;
-const csr_aks_tfs_1 = require("./csr_aks_tfs"); //SAMPLE ONLY
-exports.csr_aks_tfs = csr_aks_tfs_1.csr_aks_tfs;
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYmFzZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbImJhc2UudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSwrQ0FBMkM7QUFHbEMsc0JBSEEseUJBQVcsQ0FHQTtBQUZwQiwrQ0FBMkMsQ0FBQyxhQUFhO0FBRW5DLHNCQUZiLHlCQUFXLENBRWEiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBzc3JfYWtzX3RmcyB9IGZyb20gJy4vc3NyX2Frc190ZnMnXG5pbXBvcnQgeyBjc3JfYWtzX3RmcyB9IGZyb20gJy4vY3NyX2Frc190ZnMnIC8vU0FNUExFIE9OTFlcblxuZXhwb3J0IHsgc3NyX2Frc190ZnMsIGNzcl9ha3NfdGZzIH1cbiJdfQ==
