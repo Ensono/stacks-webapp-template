@@ -1,4 +1,4 @@
-declare enum base_flow_type {
+declare enum BaseFlowType {
     BUILD = "build",
     SOURCE = "src",
     DEPLOY = "deploy",
@@ -6,5 +6,12 @@ declare enum base_flow_type {
 }
 interface fileMapper {
     name: string;
-    type: base_flow_type;
+    type: BaseFlowType;
 }
+interface sourceStruct {
+    path: string;
+    replaceFiles: Array<string>;
+    replaceVals: Array<string>;
+}
+declare function getSourceFolders(): Array<sourceStruct>;
+export { BaseFlowType, fileMapper, getSourceFolders };

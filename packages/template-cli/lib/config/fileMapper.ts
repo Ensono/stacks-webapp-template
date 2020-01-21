@@ -1,6 +1,6 @@
 // const type_enum = Object.freeze()
 
-enum base_flow_type {
+enum BaseFlowType {
     BUILD = "build",
     SOURCE = "src",
     DEPLOY = "deploy",
@@ -9,5 +9,21 @@ enum base_flow_type {
 
 interface fileMapper {
     name: string,
-    type: base_flow_type
+    type: BaseFlowType
 }
+
+interface sourceStruct {
+    path: string,
+    replaceFiles: Array<string>,
+    replaceVals: Array<string>
+}
+
+function getSourceFolders(): Array<sourceStruct> {
+    return [{
+        path: "templates/build",
+        replaceFiles: [""],
+        replaceVals: [""]
+    }]
+}
+
+export {BaseFlowType, fileMapper, getSourceFolders }

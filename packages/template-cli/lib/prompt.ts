@@ -1,6 +1,7 @@
 import { prompt, prompts } from 'prompts'
 import { basename, resolve, join, isAbsolute } from 'path'
 import { readFile, readFileSync } from 'fs'
+import cliQuestions from './config/questions'
 import { PromptQuestion } from './model/prompt_question'
 import { PromptAnswer } from './model/prompt_answer'
 import { ExitMessage } from './model/cliResponse'
@@ -50,7 +51,7 @@ async function _get_from_cli(default_project_name: string): Promise<PromptAnswer
         initial: default_project_name
     })
 
-    const questions: Array<PromptQuestion> = JSON.parse(readFileSync(join(__dirname, 'config/questions.json'), 'utf-8').trim())
+    const questions: Array<PromptQuestion> = cliQuestions() //JSON.parse(readFileSync(join(__dirname, 'config/questions.json'), 'utf-8').trim())
     questions.forEach(el => {
         initialQs = [...initialQs, el]
     });
@@ -80,7 +81,7 @@ async function _get_from_config(config_path: string): Promise<PromptAnswer> {
 async function _select_flow(selection: PromptAnswer): Promise<ExitMessage> {
     let determined_choice = `${selection.project_type}_${selection.platform}_${selection.deployment}`
     const workflows: any = {
-        ssr_aks_tfs: FlowSelector.option1
+        ssr_aks_azdevops: FlowSelector.option1
     }
         
     try {

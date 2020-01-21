@@ -147,5 +147,8 @@ backend.local.tfvars
 **/*report.xml
 **/.scannerwork
 **/.sonar
-**/sample_*
 
+tests/**/build
+tests/**/deploy
+tests/**/docs
+tests/**/src
