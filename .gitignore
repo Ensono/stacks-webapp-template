@@ -160,4 +160,3 @@ packages/template-cli/index.js
 packages/template-cli/index.d.ts
 packages/template-cli/domain/**/*.js
 packages/template-cli/domain/**/*.d.ts
-
