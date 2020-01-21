@@ -51,14 +51,13 @@ async function _get_from_cli(default_project_name: string): Promise<PromptAnswer
         initial: default_project_name
     })
 
-    const questions: Array<PromptQuestion> = cliQuestions() //JSON.parse(readFileSync(join(__dirname, 'config/questions.json'), 'utf-8').trim())
+    const questions: Array<PromptQuestion> = cliQuestions()
     questions.forEach(el => {
         initialQs = [...initialQs, el]
     });
 
     cliSelection = await prompt(initialQs)
     return cliSelection;
-    // console.log('cliSelection :', JSON.stringify(cliSelection))
 }
 
 /**
@@ -88,7 +87,6 @@ async function _select_flow(selection: PromptAnswer): Promise<ExitMessage> {
         let message = await workflows[determined_choice](selection)
         exitMessage.code = 0
         exitMessage.message = message
-        // return exitMessage
 
     } catch (ex) {
         exitMessage.code = ex.code || -1
