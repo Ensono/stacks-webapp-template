@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "../",
-    "rootDir": ".",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -13,16 +11,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "jsx": "preserve",
-    "isolatedModules": true
+    "jsx": "preserve"
   },
   "exclude": ["node_modules"],
-  "include": [
-    "next-env.d.ts",
-    "next.config.js",
-    "jest.config.js",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js"
-  ]
+  "include": ["next-env.d.ts", "**/next.config.js", "**/*.ts", "**/*.tsx"]
 }
