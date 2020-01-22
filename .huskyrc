@@ -1,5 +1,4 @@
 {
   "hooks": {
-    "pre-commit": "yarn validate && yarn test"
   }
 }

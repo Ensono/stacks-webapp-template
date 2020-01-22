@@ -1,13 +1,11 @@
 data "azurerm_client_config" "current" {}
 
 module "static_website" {
-  # source                   = "../../../libs/orchestration/terraform-azure-amido-react-web-app"
   source                   = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azure-amido-react-web-app?ref=master"
-  # create_rg                = false
-  subscription_id          = var.subscription_id
-  tenant_id                = var.tenant_id
-  client_id                = var.client_id
-  client_secret            = var.client_secret
+  subscription_id          = data.azurerm_client_config.current.subscription_id
+  tenant_id                = "var.tenant_id_unused"
+  client_id                = "var.client_id_unused"
+  client_secret            = "var.client_secret"
   rg_name                  = var.rg_name
   resource_location        = var.resource_location
   name_company             = var.name_company

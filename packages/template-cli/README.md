@@ -38,3 +38,29 @@ npm run start
 ```
 
 Open Browser and hit [http://localhost:3000](http://localhost:3000)
+
+6. to test the deploy fodler has been correctly provisioned
+prior to checking you need to at this point in time copy over a sample backend-config and terraform vars. currently vars.tf and provider configuration is not automatically updated.
+
+future iterations will include this.
+
+The safest way to run and maintain this going forward is to rely on environment variables for credentials as that is the way the pipeline will trigger the executions of terraform. 
+
+sample export script with correct environment vars:
+
+```bash
+export ARM_CLIENT_ID=d0a64261-3b9c-429e-aa04-531f0545b609 \
+ARM_CLIENT_SECRET=8m0b3MgAREY0Lcu:MoT_vFqz].nOuvF8 \
+ARM_SUBSCRIPTION_ID=dede7228-b81c-42e4-af31-b3ca3575c0a9 \
+ARM_TENANT_ID=f88c76e1-2e79-4cd5-8b37-842f3f870d58
+```
+
+
+
+```
+cd ${SELECTED_DIR}/deploy/azure/terraform
+t12i -backend-config=./backend.local.tfvars
+t12p
+```
+
+NB: as the module currently points to a private github repo you will need to supply credentials on the command line as part of the plan/apply
