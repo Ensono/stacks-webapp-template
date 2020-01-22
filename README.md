@@ -2,8 +2,10 @@
 
 # ![stacks-webapp-template](.github/images/stacks_logo.png)
 
+
 ## Requirements
 
+[npx](https://www.npmjs.com/package/npx) we are using npx to execute and create the [template-cli](./packages/template-cli). 
 [Lerna](https://lernajs.io) and [Yarn](https://yarnpkg.com/) - follow the
 installation instructions for your OS
 [here](https://yarnpkg.com/lang/en/docs/install).
@@ -17,6 +19,11 @@ yarn global add lerna
 ```
 yarn config set workspaces-experimental true
 ```
+
+## To create sample app locally
+
+See [template-cli](./packages/template-cli/README.md) for information.
+
 
 ## To start
 
