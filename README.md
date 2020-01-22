@@ -2,6 +2,7 @@
 
 # ![stacks-webapp-template](.github/images/stacks_logo.png)
 
+
 ## Requirements
 
 We are supporting and running [node@12](https://nodejs.org/en/about/releases/).
@@ -14,6 +15,8 @@ installation instructions for your OS [here](https://www.npmjs.com/get-npm).
 
 For package management, we are using [Lerna](https://lernajs.io) which can be installed using [npm](https://www.npmjs.com/package/lerna).
 
+We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
+
 
 ## To start
 
@@ -21,6 +24,12 @@ For package management, we are using [Lerna](https://lernajs.io) which can be in
 
 `npm run postinstall` to bootstrap the packages in the current Lerna repo. Installs
 all of their dependencies and links any cross-dependencies.
+
+
+## To create the sample app locally
+
+See [template-cli](./packages/template-cli/README.md) for information.
+
 
 ## Tests
 
@@ -35,19 +44,6 @@ following conventions specified in [.prettierrc](.prettierrc).
 `npm run validate`: ensures that the project adheres to Typescript checks,
 formatting and linting rules.
 
+##### Unit
+
 `npm run test`: runs the unit tests for all packages.
-
-## Web Application
-
-To run the web application from the root:
-
-```bash
-# To run locally:
-npm run dev
-```
-
-> To read more about the webapp click [here](./packages/webapp/README.md)
-
-
-### Dependency management
- We are using `npm`

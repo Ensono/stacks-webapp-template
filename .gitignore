@@ -147,5 +147,16 @@ backend.local.tfvars
 **/*report.xml
 **/.scannerwork
 **/.sonar
-**/sample_*
 
+tests/**/build
+tests/**/deploy
+tests/**/docs
+tests/**/src
+**/templates/**/__snapshots__
+
+# GENERATED OUTPUT
+# template-cli
+packages/template-cli/index.js
+packages/template-cli/index.d.ts
+packages/template-cli/domain/**/*.js
+packages/template-cli/domain/**/*.d.ts

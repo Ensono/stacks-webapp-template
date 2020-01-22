@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "rootDir": ".",
+    "inlineSourceMap": true,
+    "noEmit": false,
+    "module": "commonjs"
+  },
+  "exclude": ["node_modules/**/*", "templates/**/*"],
+  "include": ["jest.config.js", "**/*.ts", "**/*.tsx"]
+}
