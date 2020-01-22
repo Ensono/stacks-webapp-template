@@ -22,7 +22,7 @@ yarn config set workspaces-experimental true
 
 ## To create sample app locally
 
-See [template-ci](./packages/template-cli/README.md) for information.
+See [template-cli](./packages/template-cli/README.md) for information.
 
 
 ## To start
