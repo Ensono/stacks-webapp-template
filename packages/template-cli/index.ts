@@ -1,5 +1,5 @@
 import { basename, resolve } from 'path'
-import { ExitMessage } from './domain/model/cliResponse'
+import { ExitMessage } from './domain/model/cli_response'
 import { runCli } from './domain/prompt'
 
 // main

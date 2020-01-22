@@ -1,5 +1,3 @@
-// const type_enum = Object.freeze()
-
 enum BaseFlowType {
     BUILD = "build",
     SOURCE = "src",
@@ -7,18 +5,18 @@ enum BaseFlowType {
     DOCS = "docs"   
 }
 
-interface fileMapper {
+interface FileMapper {
     name: string,
     type: BaseFlowType
 }
 
-interface sourceStruct {
+interface SourceStruct {
     path: string,
     replaceFiles: Array<string>,
     replaceVals: Array<string>
 }
 
-function getSourceFolders(): Array<sourceStruct> {
+function getSourceFolders(): Array<SourceStruct> {
     return [{
         path: "templates/build",
         replaceFiles: [""],
@@ -26,4 +24,4 @@ function getSourceFolders(): Array<sourceStruct> {
     }]
 }
 
-export {BaseFlowType, fileMapper, getSourceFolders }
+export {BaseFlowType, FileMapper, getSourceFolders}
