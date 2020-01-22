@@ -27,13 +27,13 @@ async function runCli(default_project_name: string, cli_args: Array<string>): Pr
     // v0 of Question Selection
     // let user_selection: PromptAnswer
     if (cli_args.length > 0) {
-        userSelection = await _get_from_config(cli_args[0])
+        userSelection = await getFromConfig(cli_args[0])
     } else {
-        userSelection = await _get_from_cli(default_project_name)
+        userSelection = await getFromCli(default_project_name)
     }
     // selections.project_name = userSelection
 
-    return await _select_flow(userSelection)
+    return await selectFlow(userSelection)
 
 }
 
@@ -41,7 +41,7 @@ async function runCli(default_project_name: string, cli_args: Array<string>): Pr
  * @private
  * @param default_project_name 
  */
-async function _get_from_cli(default_project_name: string): Promise<PromptAnswer> {
+async function getFromCli(default_project_name: string): Promise<PromptAnswer> {
    let cliSelection: PromptAnswer
     
     // Always assigning the project name question - static forever
@@ -65,7 +65,7 @@ async function _get_from_cli(default_project_name: string): Promise<PromptAnswer
  * @private
  * @param config_path 
  */
-async function _get_from_config(config_path: string): Promise<PromptAnswer> {
+async function getFromConfig(config_path: string): Promise<PromptAnswer> {
    let configSelection: PromptAnswer
 
     if (isAbsolute(config_path)){
@@ -78,7 +78,7 @@ async function _get_from_config(config_path: string): Promise<PromptAnswer> {
 
 }
 
-async function _select_flow(selection: PromptAnswer): Promise<ExitMessage> {
+async function selectFlow(selection: PromptAnswer): Promise<ExitMessage> {
     let determined_choice = `${selection.project_type}_${selection.platform}_${selection.deployment}`
 
     const workflows: Workflow = WorkflowOptions()
