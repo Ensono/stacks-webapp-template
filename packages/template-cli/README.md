@@ -14,7 +14,7 @@ npm run build
 
 2. Change to a directory for testing - e.g. $HOME and run
 ```bash
-cd $HOME
+cd ${SELECTED_DIR}
 npx ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-cli
 ```
 
@@ -25,9 +25,9 @@ npx ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-cli
 - CI/CD Tooling: _default_: AzureDevOps
 
 4. Navigate to the created project directory to install template dependencies:
-e.g. $HOME/$PROJECT_NAME
+e.g. ${SELECTED_DIR}/$PROJECT_NAME
 ```bash
-cd $HOME/$PROJECT_NAME/src/ssr
+cd ${SELECTED_DIR}/$PROJECT_NAME/src/ssr
 npm install
 ```
 
