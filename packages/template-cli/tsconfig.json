@@ -5,7 +5,8 @@
     "rootDir": ".",
     "inlineSourceMap": true,
     "noEmit": false,
-    "module": "commonjs"
+    "module": "commonjs",
+    "types": ["jest"]
   },
   "exclude": ["node_modules/**/*", "templates/**/*", "**/*.test.ts"],
   "include": ["jest.config.js", "**/*.ts", "**/*.tsx"]
