@@ -7,6 +7,6 @@
     "noEmit": false,
     "module": "commonjs"
   },
-  "exclude": ["node_modules/**/*", "templates/**/*"],
+  "exclude": ["node_modules/**/*", "templates/**/*", "**/*.test.ts"],
   "include": ["jest.config.js", "**/*.ts", "**/*.tsx"]
 }
