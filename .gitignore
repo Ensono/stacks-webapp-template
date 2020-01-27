@@ -157,6 +157,6 @@ tests/**/src
 **/templates/**/__snapshots__
 
 # GENERATED OUTPUT
-# template-cli
 *.d.ts
 *.js
+!*.config.js
