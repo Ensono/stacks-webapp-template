@@ -4,9 +4,13 @@
   "description": "scaffolding-cli for amido-stacks created webapp",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/jest -c jest.config.js",
+    "test": "node_modules/.bin/jest -c jest.config.js --coverage",
+    "test:watch": "node_modules/.bin/jest -c jest.config.js --coverage --watchAll",
+    "view:coverage": "open coverage/lcov-report/index.html",
     "build": "tsc",
-    "start": "npm run build -- -w"
+    "build:watch": "npm run build -- -w",
+    "clean:tree": "git clean -idx",
+    "start": "node index.js"
   },
   "author": "",
   "license": "MIT",
