@@ -1,7 +1,17 @@
 # stacks-webapp-template
 
-# ![stacks-webapp-template](.github/images/stacks_logo.png)
+![Stacks Webapp Template](.github/images/stacks_banner.png)
 
+Create SSR Node.js with React apps with no build configuration.
+
+## Why?
+
+Every new project exists to solve a unique challenge 
+but requires common building blocks to get up and running.
+
+Traditional approaches require clients to use a single, specific templating model that is quick to set up but too rigid to allow development of the ideal solution.
+
+Amido Stacks brings 10 years of client expertise to every project, providing fast, flexible, bespoke value in an accelerated environment.
 
 ## Requirements
 
