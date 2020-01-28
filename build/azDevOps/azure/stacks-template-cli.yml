@@ -14,4 +14,4 @@ pr:
 - master
 
 jobs:
-  - template: jobs/install-build-jest.yml
+  - template: jobs/install-build-test.yml
