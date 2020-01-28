@@ -1,32 +1,32 @@
 module.exports = {
-    roots: [`<rootDir>.`],
-    transform: {
-        '^.+.ts.?$': 'ts-jest'
+  roots: [`<rootDir>.`],
+  transform: {
+    '^.+.ts.?$': 'ts-jest',
+  },
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/coverage/',
+    '<rootDir>/templates/',
+  ],
+  testResultsProcessor: 'jest-sonar-reporter',
+  coverageReporters: ['lcov'],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '**/*.{ts,tsx}',
+    '!**/*config.{js,json}',
+    '!**/coverage/**',
+    '!**/templates/**',
+    '!**/coverage/**',
+    '!**/node_modules/**',
+  ],
+  coverageDirectory: '<rootDir>./coverage/',
+  coverageThreshold: {
+    global: {
+      statements: 0,
+      branches: 0,
+      functions: 0,
+      lines: 0,
     },
-    testPathIgnorePatterns: [
-        '<rootDir>/node_modules/',
-        '<rootDir>/coverage/',
-        '<rootDir>/templates/'
-    ],
-    testResultsProcessor: 'jest-sonar-reporter',
-    coverageReporters: ['lcov'],
-    collectCoverage: true,
-    collectCoverageFrom: [
-        '**/*.{ts,tsx}',
-        '!**/*config.{js,json}',
-        '!**/coverage/**',
-        '!**/templates/**',
-        '!**/coverage/**',
-        '!**/node_modules/**'
-    ],
-    coverageDirectory: '<rootDir>./coverage/',
-    coverageThreshold: {
-        global: {
-            statements: 0,
-            branches:0,
-            functions: 0,
-            lines: 0,
-        },
-    },
-    verbose: true
+  },
+  verbose: true,
 }
