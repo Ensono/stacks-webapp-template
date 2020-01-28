@@ -1,0 +1,39 @@
+#
+# Steps for building and testing using Jest. See jobs defined in install-build-test.yml
+#
+
+steps:
+  - checkout: self
+    path: packages/template-cli
+
+  # Ensure Node.js 12 is active
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '12.x'
+    displayName: 'Use Node.js 12'
+
+  # Run npm to install dev dependencies
+  - script: npm install --only=dev
+    displayName: 'Install dependencies'
+
+  - script: npm run build
+    displayName: 'Compile code'
+
+  # Run tests with Jest
+  - script: npm run test
+    displayName: 'Run tests'
+
+  # Publish CI test results
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: JUnit
+      testResultsFiles: '**/test-report.xml'
+      testRunTitle: 'Jest Tests'
+    displayName: 'Publish test results'
+    condition: succeededOrFailed()
+
+#  - task: PublishCodeCoverageResults@1
+#    inputs:
+#      codeCoverageTool: Cobertura
+#      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
+#      reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
