@@ -1,3 +1,4 @@
+<!--
 Please use the Conventional Commits specification as PR Name/Title and for all commits
 
 [Conventional Commits](https://www.conventionalcommits.org)
@@ -9,6 +10,7 @@ Example
 feat: repo base files
 feat: repo base files - 949
 ```
+-->
 
 #### 📲 What
 
