@@ -13,6 +13,7 @@ steps:
   - task: NodeTool@0
     inputs:
       versionSpec:  ${{ parameters.versionSpec }}
+      customRegistry: 'useNpmrc'
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   # Run npm to install dev dependencies
