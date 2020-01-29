@@ -23,6 +23,9 @@ steps:
   - script: npm install
     displayName: 'Install dependencies'
 
+  - script: npm run postinstall
+    displayName: 'Bootstrap packages with Lerna'
+
   # Run tests with Jest
   - script: npm run validate
     displayName: 'Run linting'
