@@ -7,6 +7,7 @@ parameters:
 
 steps:
   - checkout: self
+    path:
 
   # Ensure Node.js 12 is active
   - task: NodeTool@0
