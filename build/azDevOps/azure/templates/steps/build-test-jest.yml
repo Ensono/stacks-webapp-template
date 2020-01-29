@@ -27,6 +27,15 @@ steps:
   - script: npm run validate
     displayName: 'Run linting'
 
+  - bash: |
+      pwd
+      dir
+      ls -l
+      tree
+      cd packages/template-cli
+      ls -l
+      cd ../..
+
   # Run tests with Jest
   - script: npm run test
     displayName: 'Run tests'
