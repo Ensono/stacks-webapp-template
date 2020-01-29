@@ -7,7 +7,6 @@ parameters:
 
 steps:
   - checkout: self
-    path:
 
   # Ensure Node.js 12 is active
   - task: NodeTool@0
@@ -21,7 +20,7 @@ steps:
       workingFile: .npmrc
 
   # Run npm to install dev dependencies
-  - script: npm install --only=dev
+  - script: npm install
     displayName: 'Install dependencies'
 
   # Run tests with Jest
