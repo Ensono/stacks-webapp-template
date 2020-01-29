@@ -15,15 +15,9 @@ steps:
       customRegistry: 'useNpmrc'
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
-  - bash: |
-      pwd
-
   - task: npmAuthenticate@0
     inputs:
       workingFile: .npmrc
-
-  - bash: |
-      pwd
 
   # Run npm to install dev dependencies
   - script: npm install --only=dev
@@ -31,7 +25,7 @@ steps:
 
   # Run tests with Jest
   - script: npm run validate
-    displayName: 'Run tests'
+    displayName: 'Run linting'
 
   # Run tests with Jest
   - script: npm run test
