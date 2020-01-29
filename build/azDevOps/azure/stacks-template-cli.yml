@@ -14,4 +14,4 @@ pr:
 - master
 
 jobs:
-  - template: jobs/install-build-test.yml
+  - template: templates/jobs/install-build-test.yml
