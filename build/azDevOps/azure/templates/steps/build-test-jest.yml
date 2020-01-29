@@ -16,13 +16,15 @@ steps:
       customRegistry: 'useNpmrc'
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
-  - script: echo pwd
+  - bash: |
+      echo pwd
 
   - task: npmAuthenticate@0
     inputs:
-      workingFile: ../../../../../.npmrc
+      workingFile: .npmrc
 
-  - script: echo pwd
+  - bash: |
+      echo pwd
 
   # Run npm to install dev dependencies
   - script: npm install --only=dev
