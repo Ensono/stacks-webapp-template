@@ -2,6 +2,9 @@
 # Steps for building and testing using Jest. See jobs defined in install-build-test.yml
 #
 
+parameters:
+  versionSpec: ''
+
 steps:
   - checkout: self
     path: packages/template-cli
@@ -9,8 +12,8 @@ steps:
   # Ensure Node.js 12 is active
   - task: NodeTool@0
     inputs:
-      versionSpec: '12.x'
-    displayName: 'Use Node.js 12'
+      versionSpec:  ${{ parameters.versionSpec }}
+    displayName: 'Use Node.js ' ${{ parameters.versionSpec }}
 
   # Run npm to install dev dependencies
   - script: npm install --only=dev
