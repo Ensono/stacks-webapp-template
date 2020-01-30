@@ -57,4 +57,3 @@ steps:
     inputs:
       codeCoverageTool: Cobertura
       summaryFileLocation: '**/cobertura-coverage.xml'
-      reportDirectory: '**/coverage'
