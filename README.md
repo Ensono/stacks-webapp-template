@@ -33,6 +33,7 @@ yarn config set workspaces-experimental true
 ## Contribution guidelines
 We enforce the use of [Conventional Commits](https://commitlint.js.org) with CommitLint at commit time. We also lint and test all code before committing.
 
+To link to an Azure Boards ticket, please include `AB#{id}` in your commit message. eg. `AB#1230`
 
 ## To create sample app locally
 
