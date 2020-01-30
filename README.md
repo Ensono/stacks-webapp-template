@@ -30,6 +30,10 @@ yarn global add lerna
 yarn config set workspaces-experimental true
 ```
 
+## Contribution guidelines
+We enforce the use of [Conventional Commits](https://commitlint.js.org) with CommitLint at commit time. We also lint and test all code before committing.
+
+
 ## To create sample app locally
 
 See [template-cli](./packages/template-cli/README.md) for information.
