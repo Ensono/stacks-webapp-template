@@ -9,7 +9,7 @@ module.exports = {
     '<rootDir>/templates/',
   ],
   testResultsProcessor: 'jest-sonar-reporter',
-  coverageReporters: ['lcov', 'cobertura'],
+  coverageReporters: ['cobertura'],
   collectCoverage: true,
   collectCoverageFrom: [
     '**/*.{ts,tsx}',
