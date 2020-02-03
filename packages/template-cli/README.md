@@ -36,29 +36,26 @@ npm install
 npm run build
 npm run start
 ```
-
 Open Browser and hit [http://localhost:3000](http://localhost:3000)
 
-6. to test the deploy fodler has been correctly provisioned
-prior to checking you need to at this point in time copy over a sample backend-config and terraform vars. currently vars.tf and provider configuration is not automatically updated.
-
-future iterations will include this.
+6. To test the deploy folder has been correctly provisioned prior to checking you need to at this point in time copy over a sample backend-config and terraform vars. Currently vars.tf and provider configuration is not automatically updated. 
+Future iterations will include this.
 
 The safest way to run and maintain this going forward is to rely on environment variables for credentials as that is the way the pipeline will trigger the executions of terraform. 
 
-sample export script with correct environment vars:
+Sample export script with correct environment vars:
 
 ```bash
-export ARM_CLIENT_ID=xxxxxxxx \
-ARM_CLIENT_SECRET=xxxxxxxxxx \
-ARM_SUBSCRIPTION_ID=xxxxxxx \
-ARM_TENANT_ID=xxxxxx
+export ARM_CLIENT_ID= \
+ARM_CLIENT_SECRET= \
+ARM_SUBSCRIPTION_ID= \
+ARM_TENANT_ID=
 ```
 
 ```
-cd ${SELECTED_DIR}/deploy/azure/terraform
-t12i -backend-config=./backend.local.tfvars
-t12p
+cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/deploy/terraform/azure
+terraform init -backend-config=./backend.local.tfvars
+terraform plan
 ```
 
 NB: as the module currently points to a private github repo you will need to supply credentials on the command line as part of the plan/apply
