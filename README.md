@@ -23,20 +23,22 @@ Please ensure that your local environment has the correct version
 We are leveraging [npm](https://www.npmjs.com/) for dependency management - follow the
 installation instructions for your OS [here](https://www.npmjs.com/get-npm).
 
-For package management, we are using [Lerna](https://lernajs.io) which can be installed using [npm](https://www.npmjs.com/package/lerna).
+## Contribution guidelines
+We enforce the use of [Conventional Commits](https://commitlint.js.org) with CommitLint at commit time. We also lint and test all code before committing.
 
-We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
+To link to an Azure Boards ticket, please include `AB#{id}` in your commit message. eg. `AB#1230`
 
 
 ## To start
 
-`npm install` to install the dev dependencies from the root.
-
-`npm run postinstall` to bootstrap the packages in the current Lerna repo. Installs
-all of their dependencies and links any cross-dependencies.
+`npm install` to install the dev dependencies from the root. This should invoke `npm run postinstall` automatically to bootstrap the packages in the current Lerna repo. Lerna installs
+all package dependencies and links any cross-dependencies.
 
 
 ## To create the sample app locally
+For package management, we are using [Lerna](https://lernajs.io) which can be installed using [npm](https://www.npmjs.com/package/lerna).
+
+We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
 
 See [template-cli](./packages/template-cli/README.md) for information.
 
