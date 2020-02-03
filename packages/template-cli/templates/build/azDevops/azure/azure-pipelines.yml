@@ -27,26 +27,26 @@ resources:
 
 
 variables:
-  - company: amido
-    project: stacks
-    domain: webapp
-    # Versioning
-    version_major: 0
-    version_minor: 0
-    version_revision: $[counter(variables['version_minor'], 0)]
+  company: amido
+  project: stacks
+  domain: webapp
+  # Versioning
+  version_major: 0
+  version_minor: 0
+  version_revision: $[counter(variables['version_minor'], 0)]
 
-    # Docker Config
-    docker_dockerfile_path: 'src/'
-    docker_image_name: stacks-webapp
-    docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
-    docker_container_registry_name: amidouksstacksacrdev
+  # Docker Config
+  docker_dockerfile_path: 'src/'
+  docker_image_name: stacks-webapp
+  docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
+  docker_container_registry_name: amidouksstacksacrdev
 
-    # DevOps Scripts Package Info
-    devops_file: 'scripts-1.2.84-master.tar.gz'
-    devops_container: packages
-    devops_storage_account: amidostacksuksdev
-    devops_rg: amido-stacks-rg-uks-dev
-    devops_artefact_name: DevOps
+  # DevOps Scripts Package Info
+  devops_file: 'scripts-1.2.84-master.tar.gz'
+  devops_container: packages
+  devops_storage_account: amidostacksuksdev
+  devops_rg: amido-stacks-rg-uks-dev
+  devops_artefact_name: DevOps
 
   # Tests
   # TODO: Calculate and devolve these into build template where feasible as parameters
