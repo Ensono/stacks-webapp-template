@@ -19,6 +19,11 @@ resources:
     name: amido/stacks-pipeline-templates
     ref: refs/tags/v1.0.0
     endpoint: williamayerst
+  # - repository: amido-mono-repo
+  #   type: git
+  #   name: amido/stacks-pipeline-templates
+  #   ref: refs/tags/v1.0.0
+  #   endpoint: williamayerst
 
   ########## PART OF TEMPLATE
   containers:
@@ -96,7 +101,7 @@ stages:
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
       # Sonar settings
-      static_code_analysis: false
+      static_code_analysis: true
       # Should be hardcoded in your sonar-project.properties file
       unit_test: true
       projectRootDir: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr
