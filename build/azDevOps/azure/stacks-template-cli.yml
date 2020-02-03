@@ -1,0 +1,17 @@
+name: $(build.SourceBranchName)-init
+
+trigger:
+  branches:
+    include:
+    - "*"
+  paths:
+    include:
+    - deploy/*
+    - packages/template-cli/*
+    - build/azDevOps/azure/stacks-template-cli.yml
+
+pr:
+- master
+
+jobs:
+  - template: templates/jobs/install-build-test.yml

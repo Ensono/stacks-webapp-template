@@ -3,7 +3,7 @@
 ## To run locally
 
 ```bash
-yarn dev
+npm run dev
 ```
 
 ## Testing
@@ -25,7 +25,7 @@ type-check the tests as they are run we use
 To help that encourage good testing practices for React DOM testing, we are
 leveraging a helper library [react-testing-library](https://jestjs.io/).
 
-`yarn test`: To run all unit tests. This will also run any snapshot tests.
+`npm run test`: To run all unit tests. This will also run any snapshot tests.
 Snapshots are to be checked in and are found in
 [**snapshots**](__tests__/__snapshots__).
 
@@ -54,7 +54,7 @@ First generate the code coverage results, then run the SonarCloud scanner and
 push up the results:
 
 ```bash
-yarn test
+npm run test
 docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -e BUILD_NUMBER=1.2.3 --rm -t -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
 docker run -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -e sonar.organization=$SONAR_ORGANIZATION
 ```

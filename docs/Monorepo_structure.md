@@ -3,8 +3,7 @@
 ## Description
 
 The Amido stacks webapp template is a monorepo managed with
-[Lerna](https://lernajs.io/) and
-[Yarn workspaces](https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/)
+[Lerna](https://lernajs.io/)
 
 At the moment, the project is comprised of:
 
@@ -36,12 +35,12 @@ At the moment, the project is comprised of:
 ├── README.md
 ├── scripts
 │   └── task
-└── yarn.lock
+└── package-lock.json
 ```
 
 ## Approach
 
-- _Yarn_ handles the dependencies.
+- _npm_ handles the dependencies.
 - _Lerna_ handles tasks that affect multiple package (compile/test/lint all
   modules).
 - One folder per package inside _packages/_.

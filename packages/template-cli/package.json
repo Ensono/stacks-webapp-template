@@ -4,9 +4,13 @@
   "description": "scaffolding-cli for amido-stacks created webapp",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/jest -c jest.config.js --rootDir .",
+    "test": "node_modules/.bin/jest -c jest.config.js --coverage",
+    "test:watch": "node_modules/.bin/jest -c jest.config.js --coverage --watchAll",
+    "view:coverage": "open coverage/lcov-report/index.html",
     "build": "tsc",
-    "start": "npm run build -- -w"
+    "build:watch": "npm run build -- -w",
+    "clean:tree": "git clean -idx",
+    "start": "node index.js"
   },
   "author": "",
   "license": "MIT",
@@ -17,8 +21,15 @@
     "prompts": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@types/jest": "^24.9.1",
     "@types/node": "^13.1.7",
-    "typescript": "3.7.5",
-    "jest": "^24.9.0"
+    "babel-jest": "^25.1.0",
+    "jest": "^24.9.0",
+    "jest-junit": "^10.0.0",
+    "jest-sonar-reporter": "^2.0.0",
+    "ts-jest": "^24.3.0",
+    "typescript": "3.7.5"
   }
 }

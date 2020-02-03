@@ -1,5 +1,16 @@
 # template-cli
 
+Builds a Node.js with React SSR template from a command line interface (CLI).
+
+## Dependencies
+
+We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
+
+We are supporting and running [node@12](https://nodejs.org/en/about/releases/). Please ensure that your local environment has the correct version
+[installed](https://nodejs.org/en/download/).
+
+We are leveraging [npm](https://www.npmjs.com/) for dependency management - follow the
+installation instructions for your OS [here](https://www.npmjs.com/get-npm).
 
 ## Create app from template
 
@@ -38,3 +49,12 @@ npm run start
 ```
 
 Open Browser and hit [http://localhost:3000](http://localhost:3000)
+
+
+## Testing
+
+```bash
+npm run test
+```
+
+We are using [Jest.js](https://jestjs.io/) for testing including code coverage.
