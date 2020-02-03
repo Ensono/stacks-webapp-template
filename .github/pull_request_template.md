@@ -1,3 +1,4 @@
+<!--
 Please use the Conventional Commits specification as PR Name/Title and for all commits
 
 [Conventional Commits](https://www.conventionalcommits.org)
@@ -9,10 +10,15 @@ Example
 feat: repo base files
 feat: repo base files - 949
 ```
+-->
 
 #### 📲 What
 
 A description of the change.
+
+<!--
+If you have accesss, to ink to the Azure Devops Ticket use `AB#{ID}`, eg. Implements `AB#1228 - Link tickets to GitHub`
+-->
 
 #### 🤔 Why
 		

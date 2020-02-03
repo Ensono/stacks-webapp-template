@@ -31,7 +31,6 @@ async function runCli(default_project_name: string, cli_args: Array<string>): Pr
     } else {
         userSelection = await getFromCli(default_project_name)
     }
-    // selections.project_name = userSelection
 
     return await selectFlow(userSelection)
 

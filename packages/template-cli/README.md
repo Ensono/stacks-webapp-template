@@ -1,5 +1,16 @@
 # template-cli
 
+Builds a Node.js with React SSR template from a command line interface (CLI).
+
+## Dependencies
+
+We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
+
+We are supporting and running [node@12](https://nodejs.org/en/about/releases/). Please ensure that your local environment has the correct version
+[installed](https://nodejs.org/en/download/).
+
+We are leveraging [npm](https://www.npmjs.com/) for dependency management - follow the
+installation instructions for your OS [here](https://www.npmjs.com/get-npm).
 
 ## Create app from template
 
@@ -53,9 +64,17 @@ ARM_TENANT_ID=
 ```
 
 ```
-cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/deploy/terraform/azure
+cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/deploy/azure/terraform
 terraform init -backend-config=./backend.local.tfvars
 terraform plan
 ```
 
 NB: as the module currently points to a private github repo you will need to supply credentials on the command line as part of the plan/apply
+
+## Testing
+
+```bash
+npm run test
+```
+
+We are using [Jest.js](https://jestjs.io/) for testing including code coverage.
