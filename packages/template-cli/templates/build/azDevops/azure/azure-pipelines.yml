@@ -1,0 +1,121 @@
+name: $(build.SourceBranchName)-init
+
+trigger:
+  branches:
+    include:
+    - "*"
+  paths:
+    include:
+    # Amido Testing pipeline for E2E output of the CLI
+    - packages/template-cli/templates/*
+
+pr:
+- master
+###### PART OF AMIDO-STACKS
+resources:
+  repositories:
+  - repository: templates
+    type: github
+    name: amido/stacks-pipeline-templates
+    ref: refs/tags/v1.0.0
+    # endpoint: williamayerst
+
+########## PART OF TEMPLATE
+  containers:
+  - container: sonar_scanner
+    image: dnitsch/build-server-stacks-webapp:0.0.2 # container with su -
+
+
+variables:
+  company: amido
+  project: stacks
+  domain: webapp
+  # Versioning
+  version_major: 0
+  version_minor: 0
+  version_revision: $[counter(variables['version_minor'], 0)]
+
+  # Docker Config
+  docker_dockerfile_path: 'src/'
+  docker_image_name: stacks-webapp
+  docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
+  docker_container_registry_name: amidouksstacksacrdev
+
+  # DevOps Scripts Package Info
+  devops_file: 'scripts-1.2.84-master.tar.gz'
+  devops_container: packages
+  devops_storage_account: amidostacksuksdev
+  devops_rg: amido-stacks-rg-uks-dev
+  devops_artefact_name: DevOps
+
+# Tests
+# TODO: Calculate and devolve these into build template where feasible as parameters
+- group: amido-stacks-testing
+
+stages:
+- stage: Build
+  variables:
+  - group: amido-stacks-infra-credentials-nonprod
+  - group: amido-stacks-webapp
+  jobs:
+  # Set build number
+  - template: azDevOps/azure/templates/jobs/build-updatebuildnumber.yml@templates
+    parameters:
+      pool:
+        vmImage: ubuntu-18.04
+      build_number: $(docker_image_tag)
+
+  # Retrieve a blob file with only Azure credentials, extract it and publish as an artefact
+  - template: azDevOps/azure/templates/jobs/publish-blob-as-artefact.yml@templates
+    parameters:
+      pool:
+        vmImage: 'ubuntu-latest'
+      dependsOn: UpdateBuildNumber
+      Package_RG: $(devops_rg)
+      Package_storageAccount: $(devops_storage_account)
+      Package_Container: $(devops_container)
+      Package_File: $(devops_file)
+      Package_OutputFolder: $(Build.BinariesDirectory)
+      Package_OutputArtefact: '$(devops_artefact_name)'
+
+  # BUILD NPM
+  # TODO: change this to steps and feed upstream
+  - template: templates/jobs/build.yml
+    parameters:
+      pool:
+        vmImage: ubuntu-18.04
+      jobName: 'WebAppBuild'
+      dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
+      devops_artefact_name: '$(devops_artefact_name)'
+      # Docker Config
+      build_on_server: true
+      docker_build: true
+      # TODO: normalize this
+      docker_build_additional_args: ''
+      docker_workdir: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr
+      docker_imagename: $(docker_image_name)
+      docker_imagetag: $(docker_image_tag)
+      docker_containerregistryname: '$(Docker.ContainerRegistryName)'
+      # Vulnerability Scanning
+      vulnerability_scan: false
+      vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
+      # Sonar settings
+      static_code_analysis: false
+      # Should be hardcoded in your sonar-project.properties file
+      unit_test: true
+      projectRootDir: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr
+      unit_test_command: npm run test 
+      unit_test_project: '$(Test.UnitTestProjectPath)'
+      component_test: false
+      component_test_project: '$(Test.ComponentTestProjectPath)'
+      # Build Output File
+      build_file: false
+      build_file_path: '$(Build.SourcesDirectory)/deploy/k8s/cron_gdpr_scheduler'
+      build_file_artefact: 'webapp_template_build'
+      # Git Tag release
+      git_do_tag_release: false
+      git_release_tag: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
+      publish_packages_lerna: true
+      # Lerna step --from-git
+      lerna_command: 'npx lerna publish from-git --yes --no-git-tag-version --no-push'
+      lerna_rootDir: '$(Build.SourcesDirectory)'
