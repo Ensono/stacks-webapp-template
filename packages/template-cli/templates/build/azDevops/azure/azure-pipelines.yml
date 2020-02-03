@@ -20,7 +20,7 @@ resources:
     ref: refs/tags/v1.0.0
     # endpoint: williamayerst
 
-########## PART OF TEMPLATE
+  ########## PART OF TEMPLATE
   containers:
   - container: sonar_scanner
     image: dnitsch/build-server-stacks-webapp:0.0.2
@@ -40,17 +40,13 @@ variables:
   docker_image_name: stacks-webapp
   docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
   docker_container_registry_name: amidouksstacksacrdev
-
   # DevOps Scripts Package Info
+  # THIS NEEDS TO BE REMOVED
   devops_file: 'scripts-1.2.84-master.tar.gz'
   devops_container: packages
   devops_storage_account: amidostacksuksdev
   devops_rg: amido-stacks-rg-uks-dev
   devops_artefact_name: DevOps
-
-  # Tests
-  # TODO: Calculate and devolve these into build template where feasible as parameters
-  - group: amido-stacks-testing
 
 stages:
 - stage: Build
