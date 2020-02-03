@@ -104,7 +104,6 @@ jobs:
     - bash: | 
         set -x
         echo $(pwd)
-        su -
         node -v 
         npm -v
         uname -a
