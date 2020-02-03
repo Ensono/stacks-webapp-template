@@ -18,7 +18,7 @@ resources:
     type: github
     name: amido/stacks-pipeline-templates
     ref: refs/tags/v1.0.0
-    # endpoint: williamayerst
+    endpoint: williamayerst
 
   ########## PART OF TEMPLATE
   containers:
