@@ -1,0 +1,13 @@
+parameters:
+  pool:
+    vmImage: 'ubuntu-latest'
+  versionSpec: 12.x
+  jobName: 'UnitTests'
+
+jobs:
+  - job: ${{ parameters.jobName }}
+    pool: ${{ parameters.pool }}
+    steps:
+      - template: ../steps/build-test-jest.yml
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}

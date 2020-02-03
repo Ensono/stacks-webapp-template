@@ -15,59 +15,45 @@ Amido Stacks brings 10 years of client expertise to every project, providing fas
 
 ## Requirements
 
-[npx](https://www.npmjs.com/package/npx) we are using npx to execute and create the [template-cli](./packages/template-cli). 
-[Lerna](https://lernajs.io) and [Yarn](https://yarnpkg.com/) - follow the
-installation instructions for your OS
-[here](https://yarnpkg.com/lang/en/docs/install).
+We are supporting and running [node@12](https://nodejs.org/en/about/releases/).
 
-```
-yarn global add lerna
-```
+Please ensure that your local environment has the correct version
+[installed](https://nodejs.org/en/download/).
 
-**Make sure yarn workspaces are enabled!**
+We are leveraging [npm](https://www.npmjs.com/) for dependency management - follow the
+installation instructions for your OS [here](https://www.npmjs.com/get-npm).
 
-```
-yarn config set workspaces-experimental true
-```
+For package management, we are using [Lerna](https://lernajs.io) which can be installed using [npm](https://www.npmjs.com/package/lerna).
 
-## To create sample app locally
-
-See [template-cli](./packages/template-cli/README.md) for information.
+We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
 
 
 ## To start
 
-`yarn lerna:setup` to bootstrap the packages in the current Lerna repo. Installs
+`npm install` to install the dev dependencies from the root.
+
+`npm run postinstall` to bootstrap the packages in the current Lerna repo. Installs
 all of their dependencies and links any cross-dependencies.
+
+
+## To create the sample app locally
+
+See [template-cli](./packages/template-cli/README.md) for information.
+
 
 ## Tests
 
 ##### Static
 
-`yarn lint`: runs global linting from root level, ensuring all packages are
+`npm run lint`: runs global linting from root level, ensuring all packages are
 following conventions specified in [.eslintrc](.eslintrc).
-
-`yarn prettier`: runs formatting from root level, ensuring all packages are
+  
+`npm run prettier`: runs formatting from root level, ensuring all packages are
 following conventions specified in [.prettierrc](.prettierrc).
 
-`yarn validate`: ensures that the project adheres to Typescript checks,
+`npm run validate`: ensures that the project adheres to Typescript checks,
 formatting and linting rules.
 
-## Web Application
+##### Unit
 
-To run the web application from the root:
-
-```bash
-# To run locally:
-yarn dev
-```
-
-> To read more about the webapp click [here](./packages/webapp/README.md)
-
-### Node version
-
-We are supporting and running [node@12](https://nodejs.org/en/about/releases/).
-Please ensure that your local environment has the correct version
-[installed](https://nodejs.org/en/download/).
-
-
+`npm run test`: runs the unit tests for all packages.

@@ -152,11 +152,11 @@ tests/**/build
 tests/**/deploy
 tests/**/docs
 tests/**/src
+
+#TEMPLATE EXAMPLE CODE
 **/templates/**/__snapshots__
 
 # GENERATED OUTPUT
-# template-cli
-packages/template-cli/index.js
-packages/template-cli/index.d.ts
-packages/template-cli/domain/**/*.js
-packages/template-cli/domain/**/*.d.ts
+*.d.ts
+*.js
+!*.config.js
