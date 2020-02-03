@@ -1,4 +1,4 @@
-name: $(build.SourceBranchName)-init
+name: '$(build.sourcebranchname)-init'
 
 trigger:
   branches:
@@ -23,34 +23,34 @@ resources:
 ########## PART OF TEMPLATE
   containers:
   - container: sonar_scanner
-    image: dnitsch/build-server-stacks-webapp:0.0.2 # container with su -
+    image: dnitsch/build-server-stacks-webapp:0.0.2
 
 
 variables:
-  company: amido
-  project: stacks
-  domain: webapp
-  # Versioning
-  version_major: 0
-  version_minor: 0
-  version_revision: $[counter(variables['version_minor'], 0)]
+  - company: amido
+    project: stacks
+    domain: webapp
+    # Versioning
+    version_major: 0
+    version_minor: 0
+    version_revision: $[counter(variables['version_minor'], 0)]
 
-  # Docker Config
-  docker_dockerfile_path: 'src/'
-  docker_image_name: stacks-webapp
-  docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
-  docker_container_registry_name: amidouksstacksacrdev
+    # Docker Config
+    docker_dockerfile_path: 'src/'
+    docker_image_name: stacks-webapp
+    docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
+    docker_container_registry_name: amidouksstacksacrdev
 
-  # DevOps Scripts Package Info
-  devops_file: 'scripts-1.2.84-master.tar.gz'
-  devops_container: packages
-  devops_storage_account: amidostacksuksdev
-  devops_rg: amido-stacks-rg-uks-dev
-  devops_artefact_name: DevOps
+    # DevOps Scripts Package Info
+    devops_file: 'scripts-1.2.84-master.tar.gz'
+    devops_container: packages
+    devops_storage_account: amidostacksuksdev
+    devops_rg: amido-stacks-rg-uks-dev
+    devops_artefact_name: DevOps
 
-# Tests
-# TODO: Calculate and devolve these into build template where feasible as parameters
-- group: amido-stacks-testing
+  # Tests
+  # TODO: Calculate and devolve these into build template where feasible as parameters
+  - group: amido-stacks-testing
 
 stages:
 - stage: Build
@@ -114,7 +114,7 @@ stages:
       build_file_artefact: 'webapp_template_build'
       # Git Tag release
       git_do_tag_release: false
-      git_release_tag: '$(Version.Major).$(Version.Minor).$(Version.Revision)-$(build.sourcebranchname)'
+      git_release_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
       publish_packages_lerna: true
       # Lerna step --from-git
       lerna_command: 'npx lerna publish from-git --yes --no-git-tag-version --no-push'
