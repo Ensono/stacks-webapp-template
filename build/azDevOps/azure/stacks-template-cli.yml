@@ -7,8 +7,10 @@ trigger:
   paths:
     include:
     - deploy/*
-    - packages/template-cli/*
+    - packages/*
     - build/azDevOps/azure/stacks-template-cli.yml
+    exclude: 
+    - packages/template-cli/templates/*
 
 pr:
 - master
