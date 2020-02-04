@@ -101,7 +101,7 @@ stages:
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
       # Sonar settings
-      static_code_analysis: true
+      static_code_analysis: false
       # Should be hardcoded in your sonar-project.properties file
       unit_test: true
       projectRootDir: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr
@@ -116,7 +116,3 @@ stages:
       # Git Tag release
       git_do_tag_release: false
       git_release_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
-      publish_packages_lerna: true
-      # Lerna step --from-git
-      lerna_command: 'npx lerna publish from-git --yes --no-git-tag-version --no-push'
-      lerna_rootDir: '$(Build.SourcesDirectory)'

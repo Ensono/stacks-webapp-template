@@ -101,7 +101,7 @@ jobs:
 
 # SonarCloud Start
   - ${{ if eq(parameters.static_code_analysis, true) }}:
-    - bash: | 
+    - bash: |
         set -x
         echo $(pwd)
         node -v 
@@ -163,7 +163,6 @@ jobs:
       workingDirectory: ${{ parameters.lerna_rootDir }}
 
 # Publish Artefacts if required
-
   - ${{ if eq(parameters.functional_test, true) }}:
     - task: PublishBuildArtifacts@1
       displayName: 'Publish: Functional Tests Artifact'
