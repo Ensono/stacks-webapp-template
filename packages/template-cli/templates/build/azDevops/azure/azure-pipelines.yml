@@ -92,7 +92,7 @@ stages:
       dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
       devops_artefact_name: '$(devops_artefact_name)'
       # Docker Config
-      build_on_server: true
+      build_on_server: false
       docker_build: true
       # TODO: normalize this
       # docker_build_additional_args: ''
