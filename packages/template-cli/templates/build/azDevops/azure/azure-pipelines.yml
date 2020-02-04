@@ -84,7 +84,7 @@ stages:
   - template: templates/jobs/build.yml
     parameters:
       pool:
-        vmImage: $(pool_vm_image)
+        vmImage: ubuntu-18.04
       jobName: 'WebAppBuild'
       dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
       devops_artefact_name: '$(devops_artefact_name)'
@@ -130,7 +130,7 @@ stages:
       - name: BaseURL
         value: https://stacks-webapp.com/foo
     pool:
-      vmImage: $(pool_vm_image)
+      vmImage: ubuntu-18.04
     environment: dev
     strategy:
       runOnce:
@@ -140,8 +140,6 @@ stages:
           # TODO: change this to steps and feed upstream
           - template: templates/steps/deploy-node.yml
             parameters:
-              pool: 
-                vmImage: $(pool_vm_image)
               environment: 'dev'
               devops_artefact_name: '$(devops_artefact_name)'
               build_file: true
