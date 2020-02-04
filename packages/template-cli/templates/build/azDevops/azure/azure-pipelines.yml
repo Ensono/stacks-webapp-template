@@ -120,16 +120,16 @@ stages:
       git_release_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
 
 
-- stage: DeployDev
+- stage: dev
   variables:
   - group: amido-stacks-infra-credentials-nonprod
   - group: amido-stacks-webapp
   jobs:
-  - deployment: ${{ parameters.jobName }}
-    dependsOn: ${{ parameters.dependsOn }}
+  - deployment: Deploy Dev
+    dependsOn: ""
     variables:
       - name: BaseURL
-        value: ${{ parameters.test_baseurl }}
+        value: https://stacks-webapp.com/foo
     pool: $(pool_vm_image)
     environment: dev
     strategy:
