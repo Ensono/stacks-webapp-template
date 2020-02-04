@@ -31,10 +31,10 @@ export default app
 
     server.listen(port, err => {
       if (err) throw err
-      Logger._info(`> Ready on http://localhost:${port}`, 'server')
+      Logger.info(`> Ready on http://localhost:${port}`, 'server')
     })
   })
   .catch((ex: any) => {
-    Logger._error(ex.stack, 'server')
+    Logger.error(ex.stack, 'server')
     process.exit(1)
   })

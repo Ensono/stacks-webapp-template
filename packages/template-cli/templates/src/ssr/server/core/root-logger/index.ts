@@ -31,17 +31,20 @@ export const logger = winston.createLogger({
 });
 
 export const Logger = {
-  _out(type, message, label) {
+  out(type, message, label = 'root') {
     logger.log({ level: type, message: message, correlation_id: label });
   },
-  _info(message, label) {
+  info(message, label = 'root') {
     logger.log({ level: "info", message: message, correlation_id: label });
   },
-  _debug(message, label) {
+  debug(message, label = 'root') {
     logger.log({ level: "debug", message: message, correlation_id: label });
   },
-  _error(message, label) {
+  error(message, label = 'root') {
     logger.log({ level: "error", message: message, correlation_id: label });
+  },
+  warn(message, label = 'root') {
+    logger.log({ level: "warn", message: message, correlation_id: label });
   },
   stream: {
     write: function(message, encoding) {
