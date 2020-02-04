@@ -1,6 +1,6 @@
 parameters:
   pool:
-      vmImage: 'ubuntu-latest'
+    vmImage: 'ubuntu-latest'
   versionSpec: 12.x
   jobName: 'setMe'
   devops_artefact_name: 'DevOps'

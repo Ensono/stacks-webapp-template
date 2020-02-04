@@ -1,0 +1,17 @@
+apiVersion: Deployment
+kind: apps/v1
+metadata:
+  name: stacks-webapp
+spec:
+  template:
+    spec:
+      containers:
+        - name: web
+          volumeMounts:
+          - name: appsettings
+            mountPath: /opt/app/app.config.json
+            subPath: app.config.json 
+      volumes:
+        - name: appsettings
+          configMap:
+            name: appsettings

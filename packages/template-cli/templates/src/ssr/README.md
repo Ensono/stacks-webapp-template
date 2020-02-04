@@ -88,3 +88,9 @@ Alternatives to running in a container
 ```bash
 CMD ["pm2-runtime", "--json", "./ecosystem.yml", "--exp-backoff-restart-delay=500", "-a", "--update-env"]
 ```
+
+### Dockerfile Notes
+
+Best practice guidelines:
+  - Do not run app under root 
+  - To maximise 

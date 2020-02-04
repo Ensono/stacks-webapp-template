@@ -51,6 +51,9 @@ variables:
   devops_storage_account: amidostacksuksdev
   devops_rg: amido-stacks-rg-uks-dev
   devops_artefact_name: DevOps
+  # DEFAULT IMAGE RUNNER
+  pool_vm_image:
+      vmImage: ubuntu-18.04
 
 stages:
 - stage: Build
@@ -82,8 +85,7 @@ stages:
   # TODO: change this to steps and feed upstream
   - template: templates/jobs/build.yml
     parameters:
-      pool:
-        vmImage: ubuntu-18.04
+      pool: $(pool_vm_image)
       jobName: 'WebAppBuild'
       dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
       devops_artefact_name: '$(devops_artefact_name)'
@@ -109,9 +111,57 @@ stages:
       component_test: false
       component_test_project: '$(Test.ComponentTestProjectPath)'
       # Build Output File
-      build_file: false
-      build_file_path: '$(Build.SourcesDirectory)/deploy/k8s/cron_gdpr_scheduler'
+      # files to be persisted across stages
+      build_file: true
+      build_file_path: '$(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr/deploy/k8s/cron_gdpr_scheduler'
       build_file_artefact: 'webapp_template_build'
       # Git Tag release
       git_do_tag_release: false
       git_release_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
+
+
+- stage: DeployDev
+  variables:
+  - group: amido-stacks-infra-credentials-nonprod
+  - group: amido-stacks-webapp
+  jobs:
+  - deployment: ${{ parameters.jobName }}
+    dependsOn: ${{ parameters.dependsOn }}
+    variables:
+      - name: BaseURL
+        value: ${{ parameters.test_baseurl }}
+    pool: $(pool_vm_image)
+    environment: dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          # Deploy Dev
+          # TODO: change this to steps and feed upstream
+          - template: templates/steps/deploy-node.yml
+            parameters:
+              pool: $(pool_vm_image)
+              environment: 'dev'
+              devops_artefact_name: '$(devops_artefact_name)'
+              build_file: true
+              build_artefact: 'build'
+              test_artefact: 'tests'
+              test_baseurl: ''
+              functional_test: false
+              performance_test: false
+              smoke_test: false
+              # Kubernetes Config
+              kubernetes_clusterrg: 'amido-stacks-rg-uks-dev'
+              kubernetes_clustername: 'amido-stacks-aks-uks-dev'
+              kubernetes_image: stacks-webapp-app-image
+              docker_imagename: $(docker_image_name)
+              docker_imagetag: $(docker_image_tag)
+              docker_containerregistryname: $(docker_container_registry_name)
+              # Mutation Information
+              kubernetes_kustomize_filepath: 'kustomization/dev'
+              kubernetes_docker_registry: $(docker_container_registry_name).azurecr.io
+              appinsights_enabled: false
+              appinsights_accountName: ''
+              secureFile: ''
+              # ReleaseNote Information
+              releasenote: false
