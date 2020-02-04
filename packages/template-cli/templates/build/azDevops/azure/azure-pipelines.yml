@@ -53,7 +53,7 @@ variables:
   devops_artefact_name: DevOps
   # DEFAULT IMAGE RUNNER
   pool_vm_image:
-      vmImage: ubuntu-18.04
+    vmImage: ubuntu-18.04
 
 stages:
 - stage: Build
