@@ -10,6 +10,7 @@
     "postinstall": "lerna bootstrap",
     "release": "lerna version && lerna publish from-git --yes",
     "dev": "lerna run dev --stream",
+    "build": "lerna run build --stream",
     "test": "lerna run test --stream",
     "lint": "lerna run lint --stream",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
