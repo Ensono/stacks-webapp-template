@@ -43,6 +43,9 @@ variables:
   docker_image_name: stacks-webapp
   docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
   docker_container_registry_name: amidouksstacksacrdev
+  # BUILD ARTIFACTS across stages
+  build_artifact_deploy_path: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr/deploy/k8s/app
+  build_artifact_deploy_name: stacks-webapp
   # DevOps Scripts Package Info
   # THIS NEEDS TO BE REMOVED
   devops_file: 'scripts-1.2.84-master.tar.gz'
@@ -112,8 +115,8 @@ stages:
       # Build Output File
       # files to be persisted across stages
       build_file: true
-      build_file_path: '$(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr/deploy/k8s/cron_gdpr_scheduler'
-      build_file_artefact: 'webapp_template_build'
+      build_file_path: $(build_artifact_deploy_path)
+      build_file_artefact: $(build_artifact_deploy_name)
       # Git Tag release
       git_do_tag_release: false
       git_release_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
@@ -143,7 +146,7 @@ stages:
               environment: 'dev'
               devops_artefact_name: '$(devops_artefact_name)'
               build_file: true
-              build_artefact: 'build'
+              build_artefact: $(build_artifact_deploy_name)
               test_artefact: 'tests'
               test_baseurl: ''
               functional_test: false
