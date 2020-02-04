@@ -38,7 +38,6 @@ variables:
   version_major: 0
   version_minor: 0
   version_revision: $[counter(variables['version_minor'], 0)]
-
   # Docker Config
   docker_dockerfile_path: 'src/'
   docker_image_name: stacks-webapp
@@ -52,8 +51,7 @@ variables:
   devops_rg: amido-stacks-rg-uks-dev
   devops_artefact_name: DevOps
   # DEFAULT IMAGE RUNNER
-  pool_vm_image:
-    vmImage: ubuntu-18.04
+  pool_vm_image: ubuntu-18.04
 
 stages:
 - stage: Build
@@ -85,7 +83,8 @@ stages:
   # TODO: change this to steps and feed upstream
   - template: templates/jobs/build.yml
     parameters:
-      pool: $(pool_vm_image)
+      pool:
+        vmImage: $(pool_vm_image)
       jobName: 'WebAppBuild'
       dependsOn: GetPackage # Name of 'publish-blob-as-artefact' step above
       devops_artefact_name: '$(devops_artefact_name)'
@@ -130,7 +129,8 @@ stages:
     variables:
       - name: BaseURL
         value: https://stacks-webapp.com/foo
-    pool: $(pool_vm_image)
+    pool:
+      vmImage: $(pool_vm_image)
     environment: dev
     strategy:
       runOnce:
