@@ -1,17 +1,15 @@
 import morgan from "morgan";
 import { Logger } from "../../core/root-logger";
 
-let httpLogger;
-
-if (process.env.NODE_ENV === "production") {
-  httpLogger = morgan("common", {
-    skip: function(req, res) {
-      return res.statusCode < 400;
-    },
-    stream: Logger.stream
-  });
-} else {
-  httpLogger = morgan("common", { stream: Logger.stream });
-}
+const isProd = process.env.NODE_ENV === "production";
+const morganInstance = (options?: object) =>
+  morgan("combined", { stream: Logger.stream, ...options });
+const httpLogger = isProd
+  ? morganInstance({
+      skip: function(req, res) {
+        return res.statusCode < 400;
+      }
+    })
+  : morganInstance();
 
 export default httpLogger;
