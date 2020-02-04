@@ -140,7 +140,8 @@ stages:
           # TODO: change this to steps and feed upstream
           - template: templates/steps/deploy-node.yml
             parameters:
-              pool: $(pool_vm_image)
+              pool: 
+                vmImage: $(pool_vm_image)
               environment: 'dev'
               devops_artefact_name: '$(devops_artefact_name)'
               build_file: true
