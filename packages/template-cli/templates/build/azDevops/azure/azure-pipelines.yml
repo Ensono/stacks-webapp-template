@@ -95,7 +95,7 @@ stages:
       docker_workdir: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr
       docker_imagename: $(docker_image_name)
       docker_imagetag: $(docker_image_tag)
-      docker_containerregistryname: $(docker.docker_container_registry_name)
+      docker_containerregistryname: $(docker_container_registry_name)
       # Vulnerability Scanning
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
