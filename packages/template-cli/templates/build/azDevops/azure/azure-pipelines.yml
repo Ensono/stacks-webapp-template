@@ -44,7 +44,7 @@ variables:
   docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
   docker_container_registry_name: amidouksstacksacrdev
   # BUILD ARTIFACTS across stages
-  build_artifact_deploy_path: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr/deploy/k8s/app
+  build_artifact_deploy_path: $(Build.SourcesDirectory)/packages/template-cli/templates/deploy/k8s/app
   build_artifact_deploy_name: stacks-webapp
   # DevOps Scripts Package Info
   # THIS NEEDS TO BE REMOVED
