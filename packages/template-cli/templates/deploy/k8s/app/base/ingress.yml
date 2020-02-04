@@ -11,7 +11,7 @@ spec:
   - host: ""
     http:
       paths:
-      - path: /(/|$)(.*)
+      - path: /web(/|$)(.*)
         backend:
           serviceName: stacks-webapp
           servicePort: 3000
