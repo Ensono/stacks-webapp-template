@@ -17,8 +17,11 @@
   "dependencies": {
     "@types/fs-extra": "^8.0.1",
     "@types/prompts": "^2.0.3",
+    "@types/winston": "^2.4.4",
     "fs-extra": "^8.1.0",
-    "prompts": "^2.3.0"
+    "morgan": "^1.9.1",
+    "prompts": "^2.3.0",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
