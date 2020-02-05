@@ -59,7 +59,7 @@ steps:
     inputs:
       targetType: "filePath"
       filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Kubectl/inject-secrets-from-env-var.sh
-      arguments: $(Pipeline.Workspace)/cron_gdpr_build/${{ parameters.kubernetes_kustomize_filepath }}/secrets
+      arguments: $(Pipeline.Workspace)/${{ parameters.deploy_artifact_name }}/${{ parameters.kubernetes_kustomize_filepath }}/secrets
       failOnStderr: true
 
   ## Mutation
@@ -69,13 +69,13 @@ steps:
       targetType: "filePath"
       filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Kustomize/kustomize-annotate-version.sh
       arguments: $(Build.BinariesDirectory)/kustomize $(Docker.ImageTag)
-      workingDirectory: $(Pipeline.Workspace)/cron_gdpr_build/base
+      workingDirectory: $(Pipeline.Workspace)/${{ parameters.deploy_artifact_name }}/base
       failOnStderr: true
 
   - bash: |
       echo "Setting ${{ parameters.kubernetes_image }} to '${{ parameters.kubernetes_docker_registry }}'/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }}"
       $(Build.BinariesDirectory)/kustomize edit set image ${{ parameters.kubernetes_image }}='${{ parameters.kubernetes_docker_registry }}'/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }};
-    workingDirectory: $(Pipeline.Workspace)/${{ parameters.build_artefact }}/base
+    workingDirectory: $(Pipeline.Workspace)/${{ parameters.deploy_artifact_name }}/base
     displayName: "Mutate: Set Docker Image Version for ${{ parameters.kubernetes_image }}"
     failOnStderr: true
 
@@ -86,5 +86,5 @@ steps:
       targetType: "filePath"
       filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Kubectl/apply-with-kustomize.sh
       arguments: ./${{ parameters.kubernetes_kustomize_filepath }}
-      workingDirectory: $(Pipeline.Workspace)/${{ parameters.build_artefact }}
+      workingDirectory: $(Pipeline.Workspace)/${{ parameters.deploy_artifact_name }}
       failOnStderr: true
