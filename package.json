@@ -13,7 +13,8 @@
     "test": "lerna run test --stream",
     "lint": "lerna run lint --stream",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
-    "validate": "npm run prettier --list-different && npm run lint"
+    "validate": "npm run prettier --list-different && npm run lint",
+    "clean:tree": "git clean -idx"
   },
   "engines": {
     "node": ">=12.0",

@@ -6,7 +6,8 @@
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "next start",
     "lint": "node_modules/.bin/eslint",
-    "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir . --runInBand "
+    "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir . --runInBand ",
+    "clean:tree": "git clean -idx"
   },
   "engines": {
     "node": ">=12.0",
