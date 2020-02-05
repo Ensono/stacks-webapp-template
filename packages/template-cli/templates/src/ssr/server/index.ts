@@ -4,6 +4,8 @@ import bodyParser from 'body-parser'
 
 import helmetGuard from './middlewares/helmet'
 import errorHandler from './middlewares/error-handler'
+import httpLogger from './middlewares/http-logger'
+import logger from './core/root-logger'
 
 const port = parseInt(process.env.PORT || '3000', 10)
 const dev = process.env.NODE_ENV !== 'production'
@@ -16,6 +18,7 @@ export default app
   .then(() => {
     const server = express()
     server.use(helmetGuard)
+    server.use(httpLogger)
 
     server.use(bodyParser.urlencoded({extended: false}))
     server.use(bodyParser.json())
@@ -28,11 +31,10 @@ export default app
 
     server.listen(port, err => {
       if (err) throw err
-      // eslint-disable-next-line no-console
-      console.log(`> Ready on http://localhost:${port}`)
+      logger.info(`> Ready on http://localhost:${port}`, 'server')
     })
   })
   .catch((ex: any) => {
-    console.error(ex.stack)
+    logger.error(ex.stack, 'server')
     process.exit(1)
   })
