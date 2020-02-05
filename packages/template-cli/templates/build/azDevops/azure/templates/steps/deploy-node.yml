@@ -68,7 +68,7 @@ steps:
     inputs:
       targetType: "filePath"
       filePath: $(Pipeline.Workspace)/${{ parameters.devops_artefact_name }}/Kustomize/kustomize-annotate-version.sh
-      arguments: $(Build.BinariesDirectory)/kustomize $(Docker.ImageTag)
+      arguments: $(Build.BinariesDirectory)/kustomize ${{ parameters.docker_imagetag }}
       workingDirectory: $(Pipeline.Workspace)/${{ parameters.deploy_artifact_name }}/base
       failOnStderr: true
 
