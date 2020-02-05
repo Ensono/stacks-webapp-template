@@ -4,9 +4,9 @@
     "test": "node_modules/.bin/jest -c jest.config.js --rootDir .",
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
-    "build_ci": "next build",
     "start": "next start",
-    "lint": "node_modules/.bin/eslint"
+    "lint": "node_modules/.bin/eslint",
+    "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir . --runInBand "
   },
   "engines": {
     "node": ">=12.0",
@@ -14,12 +14,14 @@
   },
   "private": true,
   "dependencies": {
+    "isomorphic-unfetch": "^3.0.0",
     "next": "latest",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "isomorphic-unfetch": "^3.0.0"
+    "react-dom": "^16.7.0"
   },
   "devDependencies": {
+    "axios": "^0.19.2",
+    "@pact-foundation/pact": "^9.6.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@types/express": "^4.17.2",
@@ -41,6 +43,9 @@
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
+  },
+  "config": {
+    "pact_do_not_track": true
   },
   "license": "MIT",
   "repository": {
