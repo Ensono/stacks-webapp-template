@@ -46,7 +46,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: appinsights
-                  key: instrumentationkey
+                  key: INSTRUMENTATIONKEY
                     
           resources:
             limits:
