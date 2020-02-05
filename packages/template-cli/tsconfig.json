@@ -5,10 +5,14 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "inlineSourceMap": true,
-    "noEmit": true,
     "module": "commonjs",
     "types": ["jest"]
   },
-  "exclude": ["node_modules/**/*", "templates/**/*", "**/*.test.ts", "coverage/**/*"],
+  "exclude": [
+    "node_modules/**/*",
+    "templates/**/*",
+    "**/*.test.ts",
+    "coverage/**/*"
+  ],
   "include": ["src/jest.config.js", "**/*.ts", "**/*.tsx"]
 }
