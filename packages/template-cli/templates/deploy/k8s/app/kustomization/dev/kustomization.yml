@@ -5,7 +5,7 @@ bases:
 resources:
   - namespace.yml
 
-namespace: dev-booking
+namespace: dev-stacks-web-app
 commonLabels:
   environment: dev
 
@@ -22,17 +22,9 @@ secretGenerator:
     behavior: replace
     files:
       - secrets/APPINSIGHTS/INSTRUMENTATIONKEY
-
-  - name: cfcron
-    behavior: replace
-    files:
-      - secrets/CF_CRON/BATCH_SIZE
-
   # - name: CF_BOOKING_API_BASE_URL
-  - name: cfbookingapicron
+  - name: menuapi
     behavior: replace
     files:
-      - secrets/CF_BOOKING_API/BASE_URL
-      - secrets/CF_BOOKING_API/HEADER_NAME
-      - secrets/CF_BOOKING_API/GDPR_LIMIT
-      - secrets/CF_BOOKING_API/KEY
+      - secrets/MENU_API/BASE_URL
+      - secrets/MENU_API/KEY

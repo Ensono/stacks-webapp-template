@@ -1,5 +1,5 @@
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: stacks-webapp
   labels:
@@ -33,23 +33,20 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: ENVIRONMENT
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['environment']
             - name: NODE_ENV
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.labels['environment']
-              - name: RELEASE
-                valueFrom:
-                  fieldRef:
-                    fieldPath: metadata.annotations['release']
-              - name: APPINSIGHTS_INSTRUMENTATIONKEY
-                valueFrom:
-                  secretKeyRef:
-                    name: appinsights
-                    key: instrumentationkey
+            - name: RELEASE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['release']
+
+            - name: APPINSIGHTS_INSTRUMENTATIONKEY
+              valueFrom:
+                secretKeyRef:
+                  name: appinsights
+                  key: instrumentationkey
                     
           resources:
             limits:
