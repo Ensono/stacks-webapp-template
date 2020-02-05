@@ -27,7 +27,7 @@ parameters:
 
 steps:
   ## Prerequisites
-  - ${{ if eq(parameters.build_file, true) }}:
+  - ${{ if eq(parameters.download_deploy_artefact, true) }}:
       - download: current
         displayName: "Download: Build Artefacts"
         artifact: "${{ parameters.build_artefact }}"

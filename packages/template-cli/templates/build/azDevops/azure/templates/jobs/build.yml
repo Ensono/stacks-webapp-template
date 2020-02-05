@@ -48,9 +48,6 @@ parameters:
   # build output defaults 
   git_do_tag_release: false
   git_release_tag: ''
-  publish_packages_lerna: false
-  lerna_rootDir: ''
-  lerna_command: ''
 
 jobs:
 - job: ${{ parameters.jobName }}
@@ -164,15 +161,15 @@ jobs:
 
 # Publish Artefacts if required
   - ${{ if eq(parameters.functional_test, true) }}:
-    - task: PublishBuildArtifacts@1
+    - task: PublishPipelineArtifact@1
       displayName: 'Publish: Functional Tests Artifact'
       inputs:
-        PathtoPublish: '${{ parameters.functional_test_path }}'
-        ArtifactName: '${{ parameters.functional_test_artefact }}'
+        path: '${{ parameters.functional_test_path }}'
+        artifact: '${{ parameters.functional_test_artefact }}'
 
   - ${{ if eq(parameters.build_file, true) }}:
     - task: PublishPipelineArtifact@1
       displayName: 'Publish: Build Artefacts'
       inputs:
-        PathtoPublish: '${{ parameters.build_file_path }}'
-        ArtifactName: '${{ parameters.build_file_artefact }}'
+        path: '${{ parameters.build_file_path }}'
+        artifact: '${{ parameters.build_file_artefact }}'
