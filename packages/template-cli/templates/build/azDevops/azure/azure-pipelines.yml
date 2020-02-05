@@ -19,11 +19,6 @@ resources:
     name: amido/stacks-pipeline-templates
     ref: refs/tags/v1.0.0
     endpoint: williamayerst
-  # - repository: amido-mono-repo
-  #   type: git
-  #   name: amido/stacks-pipeline-templates
-  #   ref: refs/tags/v1.0.0
-  #   endpoint: williamayerst
 
   containers:
   - container: sonar_scanner
@@ -55,6 +50,8 @@ variables:
   devops_artefact_name: DevOps
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
+  # Test setup
+  deployed_base_url: https://stacks-webapp.com/foo
 
 stages:
 - stage: Build
@@ -73,7 +70,7 @@ stages:
   - template: azDevOps/azure/templates/jobs/publish-blob-as-artefact.yml@templates
     parameters:
       pool:
-        vmImage: 'ubuntu-latest'
+        vmImage: 'ubuntu-18.04'
       dependsOn: UpdateBuildNumber
       Package_RG: $(devops_rg)
       Package_storageAccount: $(devops_storage_account)
@@ -130,8 +127,7 @@ stages:
   - deployment: DeployDev
     dependsOn: ""
     variables:
-      - name: BaseURL
-        value: https://stacks-webapp.com/foo
+      - BaseURL: $(deployed_base_url)
     pool:
       vmImage: ubuntu-18.04
     environment: dev

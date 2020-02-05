@@ -1,7 +1,7 @@
 ############################################
 # AUTHENTICATION
 ############################################
-# RELAYING PURELY ON ENVIRONMENT VARIABLES as the user can control these from their own environment
+# RELYING PURELY ON ENVIRONMENT VARIABLES as the user can control these from their own environment
 ############################################
 # NAMING
 ############################################
@@ -57,6 +57,8 @@ variable "location_name_map" {
 # AZURE INFORMATION
 ############################################
 
+# RELYING PURELY ON ENVIRONMENT VARIABLES as the user can control these from their own environment
+
 ############################################
 # RESOURCE INFORMATION
 ############################################
@@ -75,7 +77,7 @@ variable "rg_name" {
 }
 
 ###########################
-# SPA
+# BLOB SETTINGS
 ##########################
 
 variable "index_document" {
@@ -93,18 +95,5 @@ variable "notfound_document" {
 variable "enabled" {
   type        = bool
   default     = true
-  description = "Enables or disables the static-website"
+  description = "Enables or disables the static-website setting of a BLOB container"
 }
-
-
-# locals {
-#   # // common //
-#   resource_prefix           = "${var.name_company}-${var.name_project}-${var.name_component}"
-#   resource_suffix           = "${var.location_name_map[var.resource_location]}-${var.name_environment}"
-
-#   # // resource group //
-#   resource_group_name       = "${local.resource_prefix}-rg-${local.resource_suffix}"
-
-#   # // storage account - static website hosting //
-#   storage_account_name      = "${var.name_company}${var.name_project}${var.name_component}sa${var.location_name_map[var.resource_location]}${var.name_environment}"
-# }
