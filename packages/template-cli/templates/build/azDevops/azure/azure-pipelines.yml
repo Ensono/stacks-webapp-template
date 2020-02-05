@@ -25,7 +25,6 @@ resources:
   #   ref: refs/tags/v1.0.0
   #   endpoint: williamayerst
 
-  ########## PART OF TEMPLATE
   containers:
   - container: sonar_scanner
     image: dnitsch/build-server-stacks-webapp:0.0.2
@@ -52,6 +51,7 @@ variables:
   devops_container: packages
   devops_storage_account: amidostacksuksdev
   devops_rg: amido-stacks-rg-uks-dev
+  # ONCE WE HEAR BACK ABOUT THE CONTAINERs RUNNING PROPERLY THIS NEEDS TO GO
   devops_artefact_name: DevOps
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
@@ -107,8 +107,8 @@ stages:
       static_code_analysis: false
       # Should be hardcoded in your sonar-project.properties file
       unit_test: true
-      projectRootDir: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr
-      unit_test_command: npm run test 
+      project_root_dir: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr
+      unit_test_command: npm run test
       unit_test_project: '$(Test.UnitTestProjectPath)'
       component_test: false
       component_test_project: '$(Test.ComponentTestProjectPath)'
@@ -145,7 +145,7 @@ stages:
             parameters:
               environment: 'dev'
               devops_artefact_name: '$(devops_artefact_name)'
-              build_file: true
+              download_deploy_artefact: true
               build_artefact: $(build_artifact_deploy_name)
               test_artefact: 'tests'
               test_baseurl: ''

@@ -5,7 +5,7 @@ parameters:
   devops_artefact_name: ""
   dependsOn: ""
   environment: ""
-  build_file: false
+  download_deploy_artefact: false
   build_artefact: ""
   docker_imagename: ""
   docker_imagetag: ""
