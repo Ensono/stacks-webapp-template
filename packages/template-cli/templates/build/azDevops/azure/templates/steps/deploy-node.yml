@@ -6,7 +6,7 @@ parameters:
   dependsOn: ""
   environment: ""
   download_deploy_artefact: false
-  build_artefact: ""
+  deploy_artifact_name: ""
   docker_imagename: ""
   docker_imagetag: ""
   docker_containerregistryname: ""
@@ -30,7 +30,7 @@ steps:
   - ${{ if eq(parameters.download_deploy_artefact, true) }}:
       - download: current
         displayName: "Download: Build Artefacts"
-        artifact: "${{ parameters.build_artefact }}"
+        artifact: "${{ parameters.deploy_artifact_name }}"
 
   # Download this artefact if functional or performance tests are enabled for this deployment
   - ? ${{ if or(eq(parameters.functional_test, true), eq(parameters.performance_test, true)) }}
