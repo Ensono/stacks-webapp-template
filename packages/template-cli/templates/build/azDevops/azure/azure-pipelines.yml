@@ -127,7 +127,7 @@ stages:
   - deployment: DeployDev
     dependsOn: ""
     variables:
-      - BaseURL: $(deployed_base_url)
+      BaseURL: $(deployed_base_url)
     pool:
       vmImage: ubuntu-18.04
     environment: dev
