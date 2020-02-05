@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: stacks-webapp
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+spec:
+  rules:
+  - host: ""
+    http:
+      paths:
+      - path: /web/stacks(/|$)(.*)
+        backend:
+          serviceName: stacks-webapp
+          servicePort: 80

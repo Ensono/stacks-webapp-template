@@ -1,6 +1,6 @@
 parameters:
   pool:
-      vmImage: 'ubuntu-latest'
+    vmImage: 'ubuntu-latest'
   versionSpec: 12.x
   jobName: 'setMe'
   devops_artefact_name: 'DevOps'
@@ -48,9 +48,6 @@ parameters:
   # build output defaults 
   git_do_tag_release: false
   git_release_tag: ''
-  publish_packages_lerna: false
-  lerna_rootDir: ''
-  lerna_command: ''
 
 jobs:
 - job: ${{ parameters.jobName }}
@@ -85,26 +82,25 @@ jobs:
       displayName: 'Build: Install Dev Dependencies'
       inputs:
         command: 'install' # Options: install, publish, custom
-        workingDir: ${{ parameters.projectRootDir }}
+        workingDir: ${{ parameters.project_root_dir }}
         verbose: false
         customRegistry: 'useNpmrc'
     
     - script: |
         npm run build
       displayName: 'Build: Run Transpile'
-      workingDirectory: ${{ parameters.projectRootDir }}
+      workingDirectory: ${{ parameters.project_root_dir }}
 
     - script: |
         ${{ parameters.unit_test_command }}
       displayName: 'Test: Unit tests'
-      workingDirectory: ${{ parameters.projectRootDir }}
+      workingDirectory: ${{ parameters.project_root_dir }}
 
 # SonarCloud Start
   - ${{ if eq(parameters.static_code_analysis, true) }}:
-    - bash: | 
+    - bash: |
         set -x
         echo $(pwd)
-        su -
         node -v 
         npm -v
         uname -a
@@ -114,13 +110,15 @@ jobs:
         chmod a+rwX /usr/local/bin/sonar-scanner
         /usr/local/bin/sonar-scanner
       displayName: 'Static Analysis: SonarScanner Run'
+      target: 
+        container: sonar_scanner
       env: 
         SONAR_HOST_URL: https://sonarcloud.io
         SONAR_TOKEN: $SONAR_TOKEN
         SONAR_PROJECT_KEY: $SONAR_PROJECT_KEY
         SONAR_ORGANIZATION: $SONAR_ORGANIZATION
         BUILD_NUMBER: $(Build.BuildNumber)
-      workingDirectory: ${{ parameters.projectRootDir }}
+      workingDirectory: ${{ parameters.project_root_dir }}
 
 # STEP build NPM for Azure registry 
   - ${{ if eq(parameters.build_on_server, true) }}:
@@ -129,7 +127,7 @@ jobs:
       inputs:
         command: 'custom' # Options: install, publish, custom
         customCommand: 'ci --only=prod'
-        workingDir: ${{ parameters.projectRootDir }}
+        workingDir: ${{ parameters.project_root_dir }}
         customRegistry: 'useNpmrc'
 
 # Build Docker Image, Scan and Push to Repository
@@ -153,7 +151,7 @@ jobs:
        git tag -a v${{ parameters.git_release_tag }} -m "CI generate"
        git push origin v${{ parameters.git_release_tag }}
       displayName: Git Tag release
-      workingDirectory: ${{ parameters.projectRootDir }}
+      workingDirectory: ${{ parameters.project_root_dir }}
 # Do Lerna release
   - ${{ if eq(parameters.publish_packages_lerna, true) }}:
     - bash: |
@@ -162,17 +160,16 @@ jobs:
       workingDirectory: ${{ parameters.lerna_rootDir }}
 
 # Publish Artefacts if required
-
   - ${{ if eq(parameters.functional_test, true) }}:
-    - task: PublishBuildArtifacts@1
+    - task: PublishPipelineArtifact@1
       displayName: 'Publish: Functional Tests Artifact'
       inputs:
-        PathtoPublish: '${{ parameters.functional_test_path }}'
-        ArtifactName: '${{ parameters.functional_test_artefact }}'
+        path: '${{ parameters.functional_test_path }}'
+        artifact: '${{ parameters.functional_test_artefact }}'
 
   - ${{ if eq(parameters.build_file, true) }}:
-    - task: PublishBuildArtifacts@1
+    - task: PublishPipelineArtifact@1
       displayName: 'Publish: Build Artefacts'
       inputs:
-        PathtoPublish: '${{ parameters.build_file_path }}'
-        ArtifactName: '${{ parameters.build_file_artefact }}'
+        path: '${{ parameters.build_file_path }}'
+        artifact: '${{ parameters.build_file_artefact }}'
