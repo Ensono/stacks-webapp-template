@@ -1,5 +1,5 @@
 import morgan from "morgan";
-import { Logger } from "../../core/root-logger";
+import Logger from "../../core/root-logger";
 
 const isProd = process.env.NODE_ENV === "production";
 const morganInstance = (options?: object) =>
