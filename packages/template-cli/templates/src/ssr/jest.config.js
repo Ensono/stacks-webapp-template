@@ -4,6 +4,7 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/__tests__/coverage/',
   ],
+  testMatch: ['**/*.test.(ts|tsx)'],
   testResultsProcessor: 'jest-sonar-reporter',
   coverageReporters: ['lcov'],
   collectCoverage: true,
