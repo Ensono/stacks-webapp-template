@@ -16,12 +16,6 @@ TypeScript support in Babel is transpilation, to ensure that Jest will
 type-check the tests as they are run we use
 [ts-jest](https://github.com/kulshekhar/ts-jest).
 
-We are using [Jest](https://jestjs.io/) for running all unit, component,
-integration and snapshot tests. Jest supports TypeScript via Babel. Because
-TypeScript support in Babel is transpilation, to ensure that Jest will
-type-check the tests as they are run we use
-[ts-jest](https://github.com/kulshekhar/ts-jest).
-
 To help that encourage good testing practices for React DOM testing, we are
 leveraging a helper library [react-testing-library](https://jestjs.io/).
 
@@ -93,4 +87,12 @@ CMD ["pm2-runtime", "--json", "./ecosystem.yml", "--exp-backoff-restart-delay=50
 
 Best practice guidelines:
   - Do not run app under root 
-  - To maximise 
+  - To maximise cache layer capacity we should copy over package.json into /tmp and build there
+
+### Consumer driven contract testing with Pact
+
+We are using Jest with pact-js to run the Pact tests.
+
+```bash
+npm run test:pact
+```
