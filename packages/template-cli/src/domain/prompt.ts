@@ -8,13 +8,6 @@ import { ExitMessage } from './model/cli_response'
 import FlowSelector from './selectors'
 import { WorkflowOptions, Workflow } from './model/workflow'
 
-// FLOW 
-// ProjectName 
-// project Type (SSR/CSR)
-// --> express with next
-// --> platform target (AKS)
-// --> deployment tooling (TFS)
-
 let userSelection: PromptAnswer = <PromptAnswer>{}
 let exitMessage: ExitMessage = <ExitMessage>{}
 
