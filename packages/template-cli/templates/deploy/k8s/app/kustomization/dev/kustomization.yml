@@ -9,13 +9,16 @@ namespace: dev-stacks-web-app
 commonLabels:
   environment: dev
 
+patchesJson6902:
+- path: ingress_patch.yml
+  target:
+    group: extensions
+    version: v1beta1
+    kind: Ingress
+    name: stacks-webapp
+
 patchesStrategicMerge:
   - deployment_patch.yml
-
-configMapGenerator:
-  - name: appsettings
-    files:
-      - app.config.json
 
 secretGenerator:
   - name: appinsights

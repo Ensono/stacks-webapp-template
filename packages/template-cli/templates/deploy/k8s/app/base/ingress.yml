@@ -4,6 +4,7 @@ metadata:
   name: stacks-webapp
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
 spec:
@@ -11,7 +12,7 @@ spec:
   - host: ""
     http:
       paths:
-      - path: /web(/|$)(.*)
+      - path: /web/stacks(/|$)(.*)
         backend:
           serviceName: stacks-webapp
-          servicePort: 3000
+          servicePort: 80

@@ -1,0 +1,32 @@
+- op: replace
+  path: /spec/rules/0/host
+  value: dev.amidostacks.com
+
+- op: add
+  path: /spec/tls
+  value:
+    - hosts:
+      - dev.amidostacks.com
+
+- op: add
+  path: /spec/rules/-
+  value:
+    host: "dev.azure.amidostacks.com"
+    http:
+      paths:
+      - path: /web/stacks(/|$)(.*)
+        backend:
+          serviceName: stacks-webapp
+          servicePort: 3000
+
+#for localhost tests
+- op: add
+  path: /spec/rules/-
+  value:
+    host: "dev.localhost"
+    http:
+      paths:
+      - path: /web/stacks(/|$)(.*)
+        backend:
+          serviceName: stacks-webapp
+          servicePort: 3000
