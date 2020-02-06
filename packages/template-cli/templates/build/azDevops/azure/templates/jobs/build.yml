@@ -120,6 +120,12 @@ jobs:
         BUILD_NUMBER: $(Build.BuildNumber)
       workingDirectory: ${{ parameters.project_root_dir }}
 
+# Consumer Contract Tests
+  - template: steps/test-contract-pact.yml
+    parameters:
+      versionSpec: ${{ parameterss.versionSpec }}
+      build_number: ${{ parameters.docker_imagetag }}
+
 # STEP build NPM for Azure registry 
   - ${{ if eq(parameters.build_on_server, true) }}:
     - task: Npm@1
