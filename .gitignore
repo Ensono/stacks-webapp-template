@@ -130,6 +130,9 @@ dist
 **/.vscode/launch.json
 **/.vscode/settings.json
 
+# IDE
+.idea
+
 # TERRAFORM
 **/.terraform/*
 

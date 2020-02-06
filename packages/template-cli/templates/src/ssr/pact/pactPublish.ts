@@ -5,7 +5,8 @@ export const publisher = new Publisher({
     pactFilesOrDirs: [provider.opts.dir],
     pactBroker: process.env.PACT_BROKER,
     pactBrokerToken: process.env.PACT_BEARER_TOKEN,
-    consumerVersion: process.env.BUILD_NUMBER || 'unknown'
+    consumerVersion: process.env.BUILD_NUMBER || 'unknown',
+    tags: ['local']
 })
 
 publisher.publish()

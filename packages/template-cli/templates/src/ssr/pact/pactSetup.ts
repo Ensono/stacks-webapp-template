@@ -1,7 +1,7 @@
 import { Pact } from '@pact-foundation/pact';
 import { resolve } from 'path';
 
-const port = 8989;
+const port = 8080;
 
 export const provider = new Pact({
     port,
@@ -10,6 +10,6 @@ export const provider = new Pact({
     spec: 2,
     cors: true,
     pactfileWriteMode: 'update',
-    consumer: 'yumido-webapp',
-    provider: 'menuapi',
+    consumer: 'GenericMenuConsumer',
+    provider: 'MenuAPI',
 });
