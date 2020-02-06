@@ -91,8 +91,32 @@ Best practice guidelines:
 
 ### Consumer driven contract testing with Pact
 
-We are using Jest with pact-js to run the Pact tests.
+_Note: The `beforeAll` and `afterAll` hooks in Jest is not before all tests but before each file._
+
+Consumer Driven Contract (CDC) Testing is a pattern that allows a consumer (i.e: a client) and a provider (i.e. an API provider) to communicate using an agreed contract (a pact).
+
+We are using Jest to wrap pact-js in order to create the interactions and generate the Pacts for the webapp as a consumer. Following the examples on [pact-js](https://github.com/pact-foundation/pact-js).
+
+There is full documentation for how contract testing works available on the [Pact website](https://docs.pact.io/how_pact_works).
+
+A global 'provider' variable is setup in the [pactSetup.ts](./pact/pactSetup.ts) file. Then the [pactTestWrapper.ts](./pact/pactTestWrapper.ts) ensures each test file will have the provider setup for them.
+
+The `pactFileWriteMode` option been set to `update` in the provider that the pacts append to. Please see [pactFileWriteMode](https://docs.pact.io/implementation_guides/ruby/configuration#pactfile_write_mode)
 
 ```bash
+# Generate and verify pacts against mock
 npm run test:pact
+```
+
+Due to the afterAll hooks in Jest not invoking after all tests, but before each file, there is a [pactPublish](./pact/pactPublish.ts) script to publish the pacts to the configured broker.
+
+```bash
+# Export broker credentials for running locally, or define in Azure Pipelines Library
+export PACT_BROKER= \
+PACT_BEARER_TOKEN= 
+``` 
+
+```bash
+# Publish the pacts to the configured broker
+npm run test:pact-publish
 ```
