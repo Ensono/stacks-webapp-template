@@ -17,4 +17,8 @@ Adding more steps
 ### Build container definitions
 All build containers used by the pipelines are stored and managed from `libs/images/*`, shbould you need to change or create an additional one please follow the existing structure and create a folder for your specific use case. 
 
-e.g. create a folder called `pip-cypress` and within it include a 
+These are meant to be used for public consumption and should not include any secrets or keys left in the container.
+
+DO NOT use `COPY` or `ADD` commands 
+
+e.g. create a folder called `pip-cypress` and within it include a Dockerfile and a README.
