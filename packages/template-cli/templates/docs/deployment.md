@@ -25,4 +25,12 @@ Current set up albeit all configurable is rigged to work with Azure, AKS, and AC
 ### Kustomize and Kubectl 
 K8s cluster is updated with Kustomize and does deploy time replacements of various components such as: host_urls, environment variables, etc...
 
-To gain a more in-depth understading please review the 
+To gain a more in-depth understading please review the build folder layout.
+
+### Variable declaration and extending
+
+TFS ONLY: 
+  - All variables should be declared at the global scope
+    - all steps and jobs should be passed as parameters 
+  - you can assign groups at a stage or job level 
+

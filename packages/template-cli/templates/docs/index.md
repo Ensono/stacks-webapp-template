@@ -18,11 +18,10 @@ The base domain code explanations and usage guides for extending can be found [h
 ## Deployment Code
 ---
 
-The base domain code explanations and usage guides for extending can be found [here](./deployment.md)
+The base deployment code explanations and usage guides for extending can be found [here](./deployment.md)
 
 
 ## Infrastructure Code 
 ---
 
 The base infrastracture layout and usage guides for extending can be found [here](./infrastructure.md)
-
