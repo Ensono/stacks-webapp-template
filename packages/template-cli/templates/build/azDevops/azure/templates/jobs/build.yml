@@ -121,7 +121,7 @@ jobs:
       workingDirectory: ${{ parameters.project_root_dir }}
 
 # Consumer Contract Tests
-  - template: templates/steps/test-contract-pact.yml
+  - template: ../steps/test-contract-pact.yml
     parameters:
       versionSpec: ${{ parameters.versionSpec }}
       build_number: ${{ parameters.docker_imagetag }}
