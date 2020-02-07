@@ -1,5 +1,5 @@
 import { copy, mkdir } from 'fs-extra'
-import { PromptAnswer } from '../model/prompt_answer'
+import { PromptAnswer } from '../../model/prompt_answer'
 import { resolve } from 'path'
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
@@ -17,16 +17,4 @@ function copyFilter(src: string, dest: string) {
     }
 }
 
-async function ssr_aks_tfs(instructions: PromptAnswer): Promise<object> {
-    try {
-        /**
-         * Creates a directory if not present
-         */
-        await copy(resolve(__dirname, TEMPLATES_DIRECTORY), resolve(process.cwd(), instructions.project_name ), {filter: copyFilter})
-        return instructions
-    } catch (ex) {
-        return ex
-    }
-}
-
-export { ssr_aks_tfs }
+export const ssr_aks_tfs = jest.fn((instructions: PromptAnswer): Promise<object> => Promise.resolve(instructions))
