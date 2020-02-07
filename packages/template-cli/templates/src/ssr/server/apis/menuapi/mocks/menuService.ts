@@ -1,4 +1,4 @@
-import axios, { AxiosPromise } from "axios"
+import axios from "axios"
 
 export class MenuService {
     private url: string
@@ -10,7 +10,7 @@ export class MenuService {
         this.port = endpoint.port
     }
 
-    public getMenu = (): AxiosPromise => {
+    public getMenu = () => {
         return axios.request({
             baseURL: `${this.url}:${this.port}`,
             headers: { Accept: "application/json" },
@@ -23,7 +23,7 @@ export class MenuService {
         })
     }
 
-    public getMenuById = (): AxiosPromise => {
+    public getMenuById = () => {
         return axios.request({
             baseURL: `${this.url}:${this.port}`,
             headers: { Accept: "application/json" },
