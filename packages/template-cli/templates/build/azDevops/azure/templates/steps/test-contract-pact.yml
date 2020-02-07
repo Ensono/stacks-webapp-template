@@ -1,0 +1,27 @@
+#
+# Steps consumer driven contract testing with Pact.
+#
+
+parameters:
+  versionSpec: ''
+  build_number: ''
+
+variables:
+  - group: amido-stacks-webapp
+
+  - name: source_branch_name
+    value: ${build.SourceBranchName}
+
+steps:
+  # Run Pact contract tests
+  - script: npm run test:pact
+    displayName: 'Run pact tests'
+
+  # Publish contracts to Pact broker
+  - script: npm run test:pact-publish
+    displayName: 'Publish pact tests'
+    env:
+      BUILD_NUMBER: ${{ parameters.build_number }}
+      SOURCE_BRANCH_NAME: ${{ source_branch_name }}
+      PACT_BROKER: $(PACT_BROKER)
+      PACT_BEARER_TOKEN: $(PACT_BEARER_TOKEN)
