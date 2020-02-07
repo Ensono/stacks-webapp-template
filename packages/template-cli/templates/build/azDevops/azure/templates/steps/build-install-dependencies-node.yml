@@ -1,0 +1,31 @@
+############################################################################################################
+# desc: Installs dependencies on the Node version of choice, builds/transpiles solution
+# params: Node version, working directory
+# return:
+# pre-reqs: dependency installation
+############################################################################################################
+
+parameters:
+  versionSpec: ''
+  workingDirectory: ''
+
+steps:
+  # Ensure Node.js 12 is actives
+  - task: NodeTool@0
+    inputs:
+      versionSpec:  ${{ parameters.versionSpec }}
+      customRegistry: 'useNpmrc'
+    displayName: 'Use Node.js ${{ parameters.versionSpec }}'
+
+  - task: Npm@1
+    displayName: 'Build: Install Dev Dependencies'
+    inputs:
+      command: 'install' # Options: install, publish, custom
+      workingDir: ${{ parameters.workingDirectory }}
+      verbose: false
+      customRegistry: 'useNpmrc'
+
+  - script: |
+      npm run build
+    displayName: 'Build: Run Transpile'
+    workingDirectory: ${{ parameters.workingDirectory }}
