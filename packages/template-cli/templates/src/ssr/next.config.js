@@ -9,7 +9,7 @@ module.exports = {
       compositions: path.join(__dirname, 'compositions'),
       components: path.join(__dirname, 'components'),
       constants: path.join(__dirname, 'constants'),
-      core: path.join(__dirname, 'server/core'),
+      config: path.join(__dirname, "config"),
     };
 
     return config;
