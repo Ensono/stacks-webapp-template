@@ -6,6 +6,7 @@ import helmetGuard from './middlewares/helmet'
 import errorHandler from './middlewares/error-handler'
 import httpLogger from './middlewares/http-logger'
 import logger from './core/root-logger'
+import api from './api'
 
 const port = parseInt(process.env.PORT || '3000', 10)
 const dev = process.env.NODE_ENV !== 'production'
@@ -18,14 +19,14 @@ export default app
   .then(() => {
     const server = express()
     server.use(helmetGuard)
-    server.use(httpLogger)
-
+    
     server.use(bodyParser.urlencoded({extended: false}))
     server.use(bodyParser.json())
+    server.use(/\/((?!_next).)*/, httpLogger)
 
-    server.get('/', (req, res) => app.render(req, res, '/', req.query))
-
-    server.all('*', (req, res) => handle(req, res))
+    server.use(api)
+    
+    server.get('*', (req, res) => handle(req, res))
 
     server.use(errorHandler)
 
