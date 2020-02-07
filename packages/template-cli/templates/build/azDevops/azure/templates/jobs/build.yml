@@ -2,6 +2,7 @@ parameters:
   pool:
     vmImage: 'ubuntu-latest'
   versionSpec: 12.x
+  project_root_dir: ''
   jobName: 'setMe'
   devops_artefact_name: 'DevOps'
   dependsOn: 'GetPackage'
@@ -25,21 +26,8 @@ parameters:
   Sonar_projectName: ''
   Sonar_projectVersion: ''
   # Testing
-  unit_test: false
-  unit_test_command: 'npm run unit_test'
-  unit_test_project: ''
-  component_test: false
-  component_test_project: ''
-  integration_test: false
-  integration_test_project: ''
-  integration_test_cosmosdb_secret: false
-  integration_test_cosmosdb_account: ''
-  integration_test_cosmosdb_database: ''
-  contract_test: false
-  contract_test_project: ''
-  functional_test: false
-  functional_test_path: ''
-  functional_test_artefact: ''
+  unit_test: true
+  contract_test: true
   # Build File Output
   build_file: false
   build_on_server: false
@@ -75,9 +63,9 @@ jobs:
 
       # Install dependencies
       - template: ../steps/build-install-dependencies-node.yml
-          parameters:
-            versionSpec: ${{ parameters.versionSpec }}
-            workingDirectory: ${{ parameters.project_root_dir }}
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          workingDirectory: ${{ parameters.project_root_dir }}
 
       # Linting and unit tests
       - ${{ if eq(parameters.unit_test, true) }}:
@@ -106,7 +94,7 @@ jobs:
             inputs:
               command: 'custom' # Options: install, publish, custom
               customCommand: 'ci --only=prod'
-              workingDir: ${{ parameters.project_root_dir }}
+              workingDirectory: ${{ parameters.project_root_dir }}
               customRegistry: 'useNpmrc'
 
       # Build Docker Image, Scan and Push to Repository
