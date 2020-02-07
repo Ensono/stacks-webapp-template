@@ -6,6 +6,7 @@
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "next start",
     "lint": "node_modules/.bin/eslint",
+    "validate": "echo 'This should be a validate linting task.'",
     "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir . --runInBand ",
     "test:pact-publish": "tsc ./pact/pactPublish.ts && node ./pact/pactPublish.js",
     "clean:tree": "git clean -idx"
