@@ -6,12 +6,6 @@ parameters:
   versionSpec: ''
   build_number: ''
 
-variables:
-  - group: amido-stacks-webapp
-
-  - name: source_branch_name
-    value: ${build.SourceBranchName}
-
 steps:
   # Run Pact contract tests
   - script: npm run test:pact
@@ -22,6 +16,6 @@ steps:
     displayName: 'Publish pact tests'
     env:
       BUILD_NUMBER: ${{ parameters.build_number }}
-      SOURCE_BRANCH_NAME: ${{ source_branch_name }}
+      SOURCE_BRANCH_NAME: ${build.SourceBranchName}
       PACT_BROKER: $(PACT_BROKER)
       PACT_BEARER_TOKEN: $(PACT_BEARER_TOKEN)
