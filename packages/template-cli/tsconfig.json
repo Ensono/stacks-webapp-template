@@ -4,7 +4,7 @@
     "baseUrl": "./",
     "rootDir": "./src",
     "outDir": "./dist",
-    "inlineSourceMap": true,
+    "noEmit": false,
     "module": "commonjs",
     "types": ["jest"]
   },
