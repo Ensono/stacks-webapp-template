@@ -1,54 +1,48 @@
 {
-    "testMatch": [
-        "**/*.test.(ts|tsx)",
-        "!**/*.test.pact.ts"
-    ],
-    "testPathIgnorePatterns": ["./.next/", "./node_modules/"],
-    "transform": {
-        "^.+\\.ts$": "ts-jest"
-    },
-    "preset": "ts-jest",
-    "moduleFileExtensions": [
-        "ts",
-        "tsx",
-        "js",
-        "jsx",
-        "json"
-    ],
-    "globals": {
-        "ts-jest": {
-            "tsConfig": "tsconfig.jest.json"
-        }
-    },
-    "testResultsProcessor": "jest-sonar-reporter",
-    "reporters": [
-        "default",
-        [
-            "jest-junit",
-            {
-                "outputName": "junit-test-report.xml"
-            }
-        ]
-    ],
-    "coverageReporters": [
-        "cobertura",
-        "lcov"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-        "**/*.{ts,tsx}",
-        "!**/*config.{js,json}",
-        "!**/coverage/**",
-        "!**/pact/**",
-        "!**/next-env.d.ts"
-    ],
-    "coverageDirectory": "<rootDir>/coverage/",
-    "coverageThreshold": {
-        "global": {
-            "statements": 0,
-            "branches": 0,
-            "functions": 0,
-            "lines": 0
-        }
+  "testMatch": ["**/*.test.(ts|tsx)", "!**/*.test.pact.ts"],
+  "testPathIgnorePatterns": ["./.next/", "./node_modules/"],
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  },
+  "preset": "ts-jest",
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"],
+  "moduleNameMapper": {
+    "^components(.*)$": "<rootDir>/components$1",
+    "^compositions(.*)$": "<rootDir>/compositions$1",
+    "^config(.*)$": "<rootDir>/config$1",
+    "^constants(.*)$": "<rootDir>/constants$1"
+  },
+  "globals": {
+    "ts-jest": {
+      "tsConfig": "tsconfig.jest.json"
     }
+  },
+  "testResultsProcessor": "jest-sonar-reporter",
+  "reporters": [
+    "default",
+    [
+      "jest-junit",
+      {
+        "outputName": "junit-test-report.xml"
+      }
+    ]
+  ],
+  "coverageReporters": ["cobertura", "lcov"],
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "**/*.{ts,tsx}",
+    "!**/*config.{js,json}",
+    "!**/coverage/**",
+    "!**/pact/**",
+    "!**/next-env.d.ts"
+  ],
+  "coverageDirectory": "<rootDir>/coverage/",
+  "coverageThreshold": {
+    "global": {
+      "statements": 0,
+      "branches": 0,
+      "functions": 0,
+      "lines": 0
+    }
+  }
 }
