@@ -14,13 +14,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": ["jest", "node"]
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)"],
   "include": [
     "next-env.d.ts",
     "next.config.js",
-    "jest.config.js",
     "**/*.ts",
     "**/*.tsx",
     "**/*.js"
