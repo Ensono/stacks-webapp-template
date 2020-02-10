@@ -80,6 +80,7 @@ jobs:
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               build_number: ${{ parameters.docker_imagetag }}
+              workingDirectory: ${{ parameters.project_root_dir }}
 
       # SonarCloud
       - ${{ if eq(parameters.static_code_analysis, true) }}:
