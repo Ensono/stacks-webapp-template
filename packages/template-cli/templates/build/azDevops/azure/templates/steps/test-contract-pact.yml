@@ -19,6 +19,6 @@ steps:
     workingDirectory: ${{ parameters.workingDirectory }}
     env:
       BUILD_NUMBER: ${{ parameters.build_number }}
-      SOURCE_BRANCH_NAME: ${build.SourceBranchName}
+      SOURCE_BRANCH_NAME: $(build.SourceBranchName)
       PACT_BROKER: $(PACT_BROKER)
       PACT_BEARER_TOKEN: $(PACT_BEARER_TOKEN)
