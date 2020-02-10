@@ -1,16 +1,15 @@
 {
-  "name": "amido-scaffolding-cli-webapp",
+  "name": "amido-scaffolding-cli",
   "version": "1.0.0",
   "description": "scaffolding-cli for amido-stacks created webapp",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "node_modules/.bin/jest -c jest.config.js --coverage",
     "test:watch": "node_modules/.bin/jest -c jest.config.js --coverage --watchAll",
     "view:coverage": "open coverage/lcov-report/index.html",
     "build": "tsc",
     "build:watch": "npm run build -- -w",
-    "clean:tree": "git clean -idx",
-    "start": "node index.js"
+    "clean:tree": "git clean -idx"
   },
   "author": "",
   "license": "MIT",

@@ -4,7 +4,6 @@ import { runCli } from './domain/prompt'
 
 // main
 (async () => {
-    // initial steps before handing over to a selector worker
     const default_project_name = basename(resolve(process.cwd()))
     const args = process.argv
     try {

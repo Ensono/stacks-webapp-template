@@ -19,7 +19,8 @@ export default app
   .then(() => {
     const server = express()
     server.use(helmetGuard)
-    
+    server.use(httpLogger)
+
     server.use(bodyParser.urlencoded({extended: false}))
     server.use(bodyParser.json())
     server.use(/\/((?!_next).)*/, httpLogger)

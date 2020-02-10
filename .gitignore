@@ -144,7 +144,7 @@ backend.local.tfvars
 
 # misc
 **/test-*
-**/*report.xml
+*report.xml
 **/.scannerwork
 **/.sonar
 
@@ -154,7 +154,7 @@ tests/**/docs
 tests/**/src
 
 #TEMPLATE EXAMPLE CODE
-**/templates/**/__snapshots__
+# **/templates/**/__snapshots__
 
 # GENERATED OUTPUT
 *.d.ts

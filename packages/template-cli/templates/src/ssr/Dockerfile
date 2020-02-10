@@ -1,10 +1,28 @@
-# Do the npm install in the full image
-# web template app
-FROM node:12.13.0-alpine
-WORKDIR /app/deployed/webapp
-COPY tsconfig.json /app/deployed
-COPY ./webapp .
+FROM node:12-buster
+
+RUN apt-get update -y &&  apt-get install dumb-init -y
+# use changes to package.json to force Docker not to use the cache
+# when we change our application's nodejs dependencies:
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install
+RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
+
+# NOW SET WORKING DIRECTORY COPY APP OVER
+WORKDIR /opt/app
+
+COPY . /opt/app
+
+# BUILD IN CONTAINER
+RUN node node_modules/.bin/next build
 
 EXPOSE 3000
 
-CMD ["npm run", "start"]
+# DO NOT RUN APP AS ROOT
+# node is a preset user in the image for user process
+USER node
+# BEST Practice for process management 
+# App should send a SIGHUP, SIGTERM if it bounced
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+
+# WE should not wrap 
+CMD ["node", "node_modules/.bin/next", "start"]
