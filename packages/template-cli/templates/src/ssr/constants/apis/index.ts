@@ -51,3 +51,4 @@ export interface Api {
   version: string;
   endpoints: Endpoint;
 }
+

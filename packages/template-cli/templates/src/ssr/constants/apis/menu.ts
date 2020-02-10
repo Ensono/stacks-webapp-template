@@ -1,7 +1,8 @@
 import { Api, HTTPMethod, buildExport } from ".";
+import conf from "../../config"
 
 class MenuApi implements Api {
-  baseURL = "http://dev.amidostacks.com/api/menu";
+  baseURL = conf.MENU_API_URL;
   version = "v1";
   endpoints = {
     getMenuList: {

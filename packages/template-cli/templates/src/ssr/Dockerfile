@@ -1,6 +1,6 @@
 FROM node:12-buster
 
-RUN apt-get update -y &&  apt-get install dumb-init -y
+RUN apt-get update -y && apt-get install dumb-init -y
 # use changes to package.json to force Docker not to use the cache
 # when we change our application's nodejs dependencies:
 ADD package.json /tmp/package.json

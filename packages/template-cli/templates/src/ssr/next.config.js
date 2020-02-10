@@ -20,6 +20,6 @@ module.exports = {
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    API_URL: process.env.API_URL,
+    MENU_API_URL: process.env.MENU_API_URL,
   },
 }

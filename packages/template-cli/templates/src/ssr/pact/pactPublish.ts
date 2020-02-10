@@ -1,5 +1,5 @@
 import { Publisher } from '@pact-foundation/pact-node'
-import { provider } from '../pact/pactSetup'
+import { provider } from './pactSetup'
 
 export const publisher = new Publisher({
     pactFilesOrDirs: [provider.opts.dir],
