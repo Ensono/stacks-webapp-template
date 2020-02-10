@@ -14,9 +14,7 @@ spec:
           env:
             - name: NODE_ENV
               value: development
-
             - name: MENU_API_URL
               value: menuapi.dev-menu
-
             - name: LOG_LEVEL
               value: debug

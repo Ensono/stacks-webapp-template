@@ -15,21 +15,12 @@ let worker_response = <SsrAdoResponse> {
     ok: true
 }
 
-
-
 jest.mock('../domain/workers/main_worker')
 let mainWorker = new MainWorker()
-// , () => {
-//     ssr_aks_tfs: jest.fn(() => {})
-// })
 
 describe("selector class tests", () => {
 
     describe("Positive assertions option_ssr_aks_azuredevops", () => {
-        // let selectedFlow: object
-        // beforeEach(async () => {
-        //     selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer)
-        // });
         it("should call the ssr_aks_tfs worker", async () => {
             MainWorker.prototype.ssr_aks_tfs = jest.fn().mockResolvedValue(mock_answer)
             let selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer)
