@@ -25,4 +25,4 @@ USER node
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 # WE should not wrap 
-CMD ["node", "node_modules/.bin/next", "start"]
+CMD ["node", "node_modules/.bin/nodemon"]
