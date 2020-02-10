@@ -13,6 +13,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "sourceMap": true,
     "jsx": "preserve",
     "isolatedModules": true,
     "types": ["jest", "node"],
