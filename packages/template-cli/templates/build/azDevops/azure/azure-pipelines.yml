@@ -105,7 +105,6 @@ stages:
       # Should be hardcoded in your sonar-project.properties file
       unit_test: true
       project_root_dir: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr
-      unit_test_command: npm run test
       unit_test_project: '$(Test.UnitTestProjectPath)'
       component_test: false
       component_test_project: '$(Test.ComponentTestProjectPath)'
