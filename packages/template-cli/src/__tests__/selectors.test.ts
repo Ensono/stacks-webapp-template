@@ -43,7 +43,6 @@ describe("selector class tests", () => {
             expect(selectedFlow).toBe(mock_answer)
         })
     })
-    // TODO: cli input test
     describe("Negative assertions", () => {
         it("should return a code of -1 when error occurs", async () => {
             MainWorker.prototype.ssr_aks_tfs = jest.fn().mockImplementationOnce(() => {

@@ -39,10 +39,14 @@ spec:
                   fieldPath: metadata.labels['environment']
             - name: LOG_LEVEL
               value: debug
+
             - name: RELEASE
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.annotations['release']
+            
+            - name: MENU_API_URL
+              value: http://dev.amidostacks.com/app/menu
 
             - name: APPINSIGHTS_INSTRUMENTATIONKEY
               valueFrom:

@@ -27,7 +27,6 @@ describe("prompt class tests", () => {
             expect(cliResult.code).toBe(0)
         })
     })
-    // TODO: cli input test
     describe("Negative assertions", () => {
         it("should return a code of 127 when excpetion is thrown", async () => {
             FlowSelector.option_ssr_aks_azuredevops = jest.fn().mockImplementationOnce(() => {
