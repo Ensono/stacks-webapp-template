@@ -2,8 +2,38 @@
 
 exports[`With React Testing Library Snapshot renders page 1`] = `
 <DocumentFragment>
-  <div>
-    Welcome to Stacks-react app! your current environment is: test
+  <div
+    class="MuiGrid-root css-1knxyyj MuiGrid-container"
+  >
+    Welcome to Stacks-react app! your current environment is: test 
+    <br />
+    <br />
+    <br />
+    <div
+      class="MuiGrid-root css-1hq8d8z MuiGrid-item"
+    >
+      <div
+        class="MuiBox-root MuiBox-root-252 css-irufoq"
+      >
+        <h1>
+          Get Menu List
+        </h1>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            get
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
   </div>
 </DocumentFragment>
 `;
