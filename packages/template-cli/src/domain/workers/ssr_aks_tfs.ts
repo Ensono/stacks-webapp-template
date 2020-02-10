@@ -2,7 +2,7 @@ import { copy, mkdir } from 'fs-extra'
 import { PromptAnswer } from '../model/prompt_answer'
 import { resolve } from 'path'
 
-const TEMPLATES_DIRECTORY = `../../templates/`
+const TEMPLATES_DIRECTORY = `../../../templates/`
 const ssr_aks_azdevops = {}
 
 function copyFilter(src: string, dest: string) {

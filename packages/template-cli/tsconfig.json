@@ -2,12 +2,17 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "rootDir": ".",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "inlineSourceMap": true,
-    "noEmit": false,
     "module": "commonjs",
     "types": ["jest"]
   },
-  "exclude": ["node_modules/**/*", "templates/**/*", "**/*.test.ts"],
-  "include": ["jest.config.js", "**/*.ts", "**/*.tsx"]
+  "exclude": [
+    "node_modules/**/*",
+    "templates/**/*",
+    "**/*.test.ts",
+    "coverage/**/*"
+  ],
+  "include": ["src/jest.config.js", "**/*.ts", "**/*.tsx"]
 }

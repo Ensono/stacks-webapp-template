@@ -15,7 +15,8 @@
     "resolveJsonModule": true,
     "jsx": "preserve",
     "isolatedModules": true,
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "keyofStringsOnly": true
   },
   "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)"],
   "include": [
