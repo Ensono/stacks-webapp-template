@@ -17,4 +17,20 @@ function copyFilter(src: string, dest: string) {
     }
 }
 
-export const ssr_aks_tfs = jest.fn((instructions: PromptAnswer): Promise<object> => Promise.resolve(instructions))
+export class MainWorker {
+    constructor() {
+    }
+    /**
+     * 
+     * @param instructions 
+     */
+    async ssr_aks_tfs(instructions: PromptAnswer): Promise<object> {
+        try {
+            return await jest.fn(() => Promise.resolve(instructions))
+        } catch (ex) {
+            return ex;
+        }
+    }
+}
+
+export default { MainWorker }

@@ -1,5 +1,6 @@
 import { copy, mkdir } from 'fs-extra'
 import { PromptAnswer } from '../model/prompt_answer'
+import { SsrAdoResponse, CliError } from '../model/workers'
 import { resolve } from 'path'
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
@@ -18,21 +19,28 @@ function copyFilter(src: string, dest: string) {
 }
 
 export class MainWorker {
-    constructor(private instructions: PromptAnswer) {
-    }
     /**
-     * 
-     * @param instructions 
+     * @param {PromptAnswer} instructions 
+     * @returns 
      */
-    async ssr_aks_tfs(): Promise<object> {
+    async ssr_aks_tfs(instructions: PromptAnswer): Promise<SsrAdoResponse> {
         try {
             /**
              * Creates a directory if not present
              */
-            await copy(resolve(__dirname, TEMPLATES_DIRECTORY), resolve(process.cwd(), this.instructions.project_name), {filter: copyFilter})
-            return this.instructions
+            await copy(resolve(__dirname, TEMPLATES_DIRECTORY), resolve(process.cwd(), instructions.project_name), {filter: copyFilter})
+
+            return <SsrAdoResponse>{
+                ok: true,
+                message: "directory created"
+            }
         } catch (ex) {
-            return ex
+            const cliErr = ex as CliError
+            return <SsrAdoResponse>{
+                ok: false,
+                code: ex.code || -1,
+                error: cliErr
+            };
         }
     }
 }

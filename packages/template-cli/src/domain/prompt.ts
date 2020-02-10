@@ -5,7 +5,6 @@ import cliQuestions from './config/questions'
 import { PromptQuestion } from './model/prompt_question'
 import { PromptAnswer } from './model/prompt_answer'
 import { ExitMessage } from './model/cli_response'
-import FlowSelector from './selectors'
 import { WorkflowOptions, Workflow } from './model/workflow'
 
 let userSelection: PromptAnswer = <PromptAnswer>{}

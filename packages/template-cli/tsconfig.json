@@ -6,10 +6,13 @@
     "outDir": "./dist",
     "noEmit": false,
     "module": "commonjs",
-    "types": ["jest"]
+    "types": ["jest"],
+    "inlineSourceMap": true,
+    "declarationMap": true
   },
   "exclude": [
     "node_modules/**/*",
+    "dist/**/*",
     "**/__mocks__/**/*",
     "templates/**/*",
     "**/*.test.ts",

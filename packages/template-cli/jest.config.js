@@ -1,5 +1,5 @@
 module.exports = {
-  roots: [`<rootDir>.`],
+  roots: [`<rootDir>/src`],
   transform: {
     '^.+.ts?$': 'ts-jest',
   },
@@ -7,6 +7,7 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/coverage/',
     '<rootDir>/templates/',
+    '<rootDir>/dist/'
   ],
   testResultsProcessor: 'jest-sonar-reporter',
   reporters: ['default', ['jest-junit', {outputName: 'junit-test-report.xml'}]],
