@@ -14,7 +14,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "keyofStringsOnly": true
   },
   "exclude": ["node_modules"],
   "include": [
