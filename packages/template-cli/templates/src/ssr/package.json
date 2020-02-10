@@ -4,6 +4,7 @@
     "test": "node_modules/.bin/jest -c jest.config.js --rootDir .",
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
+    "build_ci": "next build",
     "start": "next start",
     "lint": "node_modules/.bin/eslint",
     "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir . --runInBand ",
@@ -16,6 +17,10 @@
   },
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.27",
+    "@emotion/styled": "^10.0.27",
+    "@material-ui/core": "^4.9.1",
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "cross-env": "^6.0.3",
     "express": "^4.17.1",
@@ -28,7 +33,6 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "axios": "^0.19.2",
     "@pact-foundation/pact": "^9.6.1",
     "@pact-foundation/pact-node": "^10.2.4",
     "@testing-library/jest-dom": "^4.2.4",
@@ -49,9 +53,6 @@
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
-  },
-  "config": {
-    "pact_do_not_track": true
   },
   "license": "MIT",
   "repository": {
