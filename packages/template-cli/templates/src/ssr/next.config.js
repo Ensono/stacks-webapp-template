@@ -14,6 +14,7 @@ module.exports = {
 
     return config
   },
+  assetPrefix: process.env.APP_BASE_PATH || '',
   serverRuntimeConfig: {
     // Will only be available on the server side
     mySecret: 'secret',

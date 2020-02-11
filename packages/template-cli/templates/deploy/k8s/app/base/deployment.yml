@@ -36,15 +36,22 @@ spec:
             - name: NODE_ENV
               value: dev
             - name: LOG_LEVEL
-              value: debug            
+              value: debug
+            - name: PORT
+              value: '3000'
             - name: MENU_API_URL
-              value: 'http://dev.amidostacks.com/app/menu'
+              value: 'http://dev.amidostacks.com/api/menu'
+            - name: APP_BASE_PATH
+              value: ''
+            - name: APP_BASE_URL
+              value: 'http://localhost'
+
             - name: APPINSIGHTS_INSTRUMENTATIONKEY
               valueFrom:
                 secretKeyRef:
                   name: appinsights
                   key: INSTRUMENTATIONKEY
-
+          
           # Remove limits and let the Pods container get the default (800cpu)
           # resources:
           #   limits:

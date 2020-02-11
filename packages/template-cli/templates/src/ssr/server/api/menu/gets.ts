@@ -10,6 +10,9 @@ export default (router: Router) => {
   router.get(getMenuList.routeDefinition, async (req, res) => {
     try {
       logger.info(req.params.id);
+      logger.info(req.params);
+      logger.info(req.path);
+      logger.info(req.hostname);
       const response = await axios({
         url: getMenuList.url(),
         method: getMenuList.method

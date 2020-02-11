@@ -26,6 +26,7 @@
     "cross-env": "^6.0.3",
     "express": "^4.17.1",
     "helmet": "^3.21.1",
+    "http-proxy-middleware": "^0.20.0",
     "isomorphic-unfetch": "^3.0.0",
     "morgan": "^1.9.1",
     "next": "latest",
