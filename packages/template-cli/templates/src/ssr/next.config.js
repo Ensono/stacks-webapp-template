@@ -21,6 +21,6 @@ module.exports = {
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    MENU_API_URL: process.env.MENU_API_URL,
+    EXAMPLE_VAR_FOR_FE: 'define_me'
   },
 }

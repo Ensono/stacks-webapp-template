@@ -13,6 +13,7 @@ export default (router: Router) => {
       logger.info(req.params);
       logger.info(req.path);
       logger.info(req.hostname);
+      logger.info(getMenuList.url());
       const response = await axios({
         url: getMenuList.url(),
         method: getMenuList.method
@@ -20,7 +21,7 @@ export default (router: Router) => {
       res.send(response.data);
       logger.info(response.data, "debug-get-res");
     } catch (err) {
-      logger.error(err, "lallero");
+      logger.error(err, "axios-error");
       res.status(500).end();
     }
   });

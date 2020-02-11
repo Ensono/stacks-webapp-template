@@ -40,9 +40,9 @@ export default app
 
     server.use(errorHandler)
 
-    server.listen(port, err => {
+    server.listen(port, '127.0.0.1', err => {
       if (err) throw err
-      logger.info(`> Ready on ${conf.APP_BASE_URL}:${port}`, 'server')
+      logger.info(`> Ready on ${conf.APP_BASE_URL}:${port}/${conf.APP_BASE_PATH}`, 'server')
     })
   })
   .catch((ex: any) => {
