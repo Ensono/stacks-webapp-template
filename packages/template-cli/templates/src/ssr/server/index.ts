@@ -1,7 +1,7 @@
 import next from 'next'
 import express from 'express'
 import bodyParser from 'body-parser'
-// import proxyMiddleware from 'http-proxy-middleware'
+import proxyMiddleware from 'http-proxy-middleware'
 
 import helmetGuard from './middlewares/helmet'
 import errorHandler from './middlewares/error-handler'
@@ -30,7 +30,7 @@ export default app
     // server.use(
     //     proxyMiddleware("/", {
     //       target: `${conf.APP_BASE_URL}:${conf.PORT}/test/dontwork`,
-    //       // a few more options
+    //       pathRewrite: 
     //     }),
     //   )
 
