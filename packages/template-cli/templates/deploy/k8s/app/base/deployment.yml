@@ -45,13 +45,14 @@ spec:
                   name: appinsights
                   key: INSTRUMENTATIONKEY
 
-          resources:
-            limits:
-              cpu: 300m
-              memory: 300Mi
-            requests:
-              cpu: 300m
-              memory: 300Mi
+          # Remove limits and let the Pods container get the default (800cpu)
+          # resources:
+          #   limits:
+          #     cpu: 00m
+          #     memory: 300Mi
+          #   requests:
+          #     cpu: 300m
+          #     memory: 300Mi
 
           ports:
             - name: http
