@@ -18,8 +18,9 @@ export default (router: Router) => {
         url: getMenuList.url(),
         method: getMenuList.method
       });
-      res.send(response.data);
       logger.info(response.data, "debug-get-res");
+      res.send(response.data);
+      res.end();
     } catch (err) {
       logger.error(err, "axios-error");
       res.status(500).end();
@@ -36,6 +37,7 @@ export default (router: Router) => {
         method: getMenu.method
       });
       res.send(response);
+      res.end();
     } catch (err) {
       logger.error(err);
       res.status(500).end();
