@@ -15,6 +15,7 @@ export default (router: Router) => {
         method: getMenuList.method
       });
       res.send(response.data);
+      logger.info(response.data, "debug-get-res");
     } catch (err) {
       logger.error(err, "lallero");
       res.status(500).end();
