@@ -4,7 +4,7 @@ import conf from "../../config"
 class MenuApi implements Api {
     private appBasePath: string
     constructor(basePath: string) {
-        this.appBasePath = conf.APP_BASE_PATH
+        this.appBasePath = basePath
     }
     baseURL = conf.MENU_API_URL;
     version = "v1";
