@@ -1,18 +1,15 @@
-import { ssr_aks_tfs, csr_aks_tfs } from './workers/base_workflow_interface'
+import { MainWorker } from './workers/main_worker'
 import { PromptAnswer } from './model/prompt_answer'
+import { SsrAdoResponse } from './model/workers'
 
+let mainWorker = new MainWorker()
 
 export class FlowSelector {
-    static option_ssr_aks_azuredevops = async function(instructions: PromptAnswer): Promise<object> {
-        return await ssr_aks_tfs(instructions)
+    static async option_ssr_aks_azuredevops(instructions: PromptAnswer): Promise<SsrAdoResponse> {
+        return await mainWorker.ssr_aks_tfs(instructions)
     }
-    static option_csr_aks_azuredevops = async function(instructions: PromptAnswer): Promise<object> {
-        return await csr_aks_tfs(instructions)
-    }
-    
-    // static option_csr_aks_azuredevops =  async function(instructions: PromptAnswer): Promise<object> {
-    //     return await csr_aks_tfs(instructions)
-    // }
 }
 
-export default FlowSelector
+export default  {
+ FlowSelector
+}

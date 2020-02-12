@@ -4,12 +4,16 @@
     "baseUrl": "./",
     "rootDir": "./src",
     "outDir": "./dist",
-    "inlineSourceMap": true,
+    "noEmit": false,
     "module": "commonjs",
-    "types": ["jest"]
+    "types": ["jest"],
+    "inlineSourceMap": true,
+    "declarationMap": true
   },
   "exclude": [
     "node_modules/**/*",
+    "dist/**/*",
+    "**/__mocks__/**/*",
     "templates/**/*",
     "**/*.test.ts",
     "coverage/**/*"

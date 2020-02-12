@@ -31,5 +31,5 @@ secretGenerator:
 # alphanumeric character (e.g. 'example.com', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*')
 - name: menuapi
   files:
-  - secrets/MENU_API/BASE_URL
+  - secrets/MENU_API/URL
   - secrets/MENU_API/KEY

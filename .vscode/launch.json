@@ -1,0 +1,105 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "template-cli",
+      "program": "${workspaceFolder}/packages/template-cli/dist/index.js",
+      "cwd": "${workspaceFolder}/packages/template-cli",
+      "protocol": "inspector",
+      "outFiles": ["${workspaceFolder}/packages/template-cli/dist/*/.js"],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "env": {
+        "NODE_ENV": "dev",
+        "LOG_LEVEL": "debug",
+        "COMMAND_TO_RUN": "ininTemplateCli"
+      },
+      "args": [
+        "${workspaceFolder}/tests/sample_generated_app/sample.bootstrap.config.json"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "vscode-jest-tests",
+      "program": "${workspaceFolder}/packages/template-cli/node_modules/.bin/jest",
+      "protocol": "inspector",
+      "cwd": "${workspaceFolder}/packages/template-cli",
+      "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": false,
+      "outputCapture": "std",
+      "args": [
+        "--runInBand",
+        "--config jest.config.js",
+        // "--coverage",
+        "--env=node",
+        // "--ci",
+        "--colors",
+        // "${workspaceFolder}/packages/template-cli/src/__tests__/prompt.test.ts"
+        "${workspaceFolder}/packages/template-cli/src/__tests__/selectors.test.ts"
+      ],
+      "env": {
+        "NODE_ENV": "dev"
+      }
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Next: Chrome",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/packages/template-cli/templates/src/ssr"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next: Node",
+      "runtimeExecutable": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/next",
+      "runtimeArgs": [],
+      "env": {
+        "NODE_OPTIONS": "--inspect"
+      },
+      "port": 9229,
+      "console": "internalConsole",
+      "outputCapture": "std"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "templated-web-app",
+      "program": "${workspaceFolder}/packages/template-cli/templates/src/ssr/dist/server/index.js",
+      // "runtimeExecutable": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/ts-node",
+      "cwd": "${workspaceFolder}/packages/template-cli/templates/src/ssr",
+      "protocol": "inspector",
+      // "outFiles": [
+      //   "${workspaceFolder}/packages/template-cli/templates/src/ssr/dist/*/.js"
+      // ],
+      "sourceMaps": true,
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "preLaunchTask": "RunBuildTemplatedApp",
+      "env": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "debug",
+        "PORT": "3000",
+        "APP_BASE_PATH": "/foo",
+        "APP_BASE_URL": "http://localhost",
+        "MENU_API_URL": "http://dev.amidostacks.com/api/menu"
+      },
+      "args": [
+        // "--project tsconfig.server.json"
+      ]
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Next: Full",
+      "configurations": ["Next: Node", "Next: Chrome"]
+    }
+  ]
+}

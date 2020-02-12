@@ -34,15 +34,17 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: NODE_ENV
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['environment']
+              value: dev
             - name: LOG_LEVEL
               value: debug
-            - name: RELEASE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.annotations['release']
+            - name: PORT
+              value: '3000'
+            - name: MENU_API_URL
+              value: 'http://dev.amidostacks.com/api/menu'
+            - name: APP_BASE_PATH
+              value: '/web/stacks'
+            - name: APP_BASE_URL
+              value: 'http://localhost'
 
             - name: APPINSIGHTS_INSTRUMENTATIONKEY
               valueFrom:
@@ -50,35 +52,36 @@ spec:
                   name: appinsights
                   key: INSTRUMENTATIONKEY
 
-          resources:
-            limits:
-              cpu: 300m
-              memory: 300Mi
-            requests:
-              cpu: 300m
-              memory: 300Mi
+          # Remove limits and let the Pods container get the default (800cpu)
+          # resources:
+          #   limits:
+          #     cpu: 600m
+          #     memory: 500Mi
+          #   requests:
+          #     cpu: 400m
+          #     memory: 350Mi
 
           ports:
             - name: http
               containerPort: 3000
 
           livenessProbe:
-            failureThreshold: 3
+            failureThreshold: 10
             httpGet:
               path: /
               port: 3000
               scheme: HTTP
-            initialDelaySeconds: 10
-            periodSeconds: 10
+            initialDelaySeconds: 45
+            periodSeconds: 30
             successThreshold: 1
-            timeoutSeconds: 10
+            timeoutSeconds: 25
 
           readinessProbe:
-            failureThreshold: 3
+            failureThreshold: 10
             httpGet:
               path: /
               port: 3000
               scheme: HTTP
-            periodSeconds: 10
+            periodSeconds: 30
             successThreshold: 1
-            timeoutSeconds: 10
+            timeoutSeconds: 25

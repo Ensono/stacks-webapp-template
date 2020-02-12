@@ -14,12 +14,13 @@ module.exports = {
 
     return config
   },
+  assetPrefix: process.env.APP_BASE_PATH || '',
   serverRuntimeConfig: {
     // Will only be available on the server side
     mySecret: 'secret',
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    API_URL: process.env.API_URL,
+    EXAMPLE_VAR_FOR_FE: 'define_me',
   },
 }
