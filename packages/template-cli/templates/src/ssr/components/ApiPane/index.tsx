@@ -12,7 +12,7 @@ const ApiPane = (props: ApiPaneProps) => {
   const callApi = async () => {
     const res = await axios({
       method: myapi.method,
-      url: myapi.internalEndpoint(10)
+      url: myapi.internalEndpoint()
     });
     setState(res.data.results);
   };
