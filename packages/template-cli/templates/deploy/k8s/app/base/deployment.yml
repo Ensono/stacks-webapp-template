@@ -42,7 +42,7 @@ spec:
             - name: MENU_API_URL
               value: 'http://dev.amidostacks.com/api/menu'
             - name: APP_BASE_PATH
-              value: ''
+              value: '/web/stacks'
             - name: APP_BASE_URL
               value: 'http://localhost'
 
