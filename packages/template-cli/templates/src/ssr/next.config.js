@@ -22,5 +22,5 @@ module.exports = {
   publicRuntimeConfig: {
     // Will be available on both server and client
     EXAMPLE_VAR_FOR_FE: 'define_me',
-  },
+  }
 }

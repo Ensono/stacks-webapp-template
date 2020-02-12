@@ -4,7 +4,7 @@ import conf from "../../config"
 class CategoryApi implements Api {
     baseURL = "/";
     version = "v1";
-    basePath = conf.APP_BASE_PATH;
+    internalBasePath = conf.APP_BASE_PATH;
     endpoints = {
         getCategory: {
             routeDefinition: "getcategory/:id/:categoryId",
