@@ -49,6 +49,7 @@ export function buildExport(api: Api, endpoint: string) {
 export interface Api {
   baseURL: string;
   version: string;
+  basePath: string;
   endpoints: Endpoint;
 }
 
