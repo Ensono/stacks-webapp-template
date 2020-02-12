@@ -9,16 +9,10 @@ const getMenu = api("getMenu");
 export default (router: Router) => {
   router.get(getMenuList.routeDefinition, async (req, res) => {
     try {
-      logger.info(req.params.id);
-      logger.info(req.params);
-      logger.info(req.path);
-      logger.info(req.hostname);
-      logger.info(getMenuList.url());
       const response = await axios({
         url: getMenuList.url(),
         method: getMenuList.method
       });
-      logger.info(response.data, "debug-get-res");
       res.send(response.data);
       res.end();
     } catch (err) {
