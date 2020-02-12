@@ -5,8 +5,7 @@ const APP_ENVIRONMENT_VARIABLES = {
     APP_BASE_PATH: process.env.APP_BASE_PATH || '',
     MENU_API_URL: process.env.MENU_API_URL,
     LOG_LEVEL: process.env.LOG_LEVEL,
-    POD_NAME: process.env.POD_NAME,
-    FNC_NAME: process.env.FNC_NAME,
+    POD_NAME: process.env.POD_NAME
 };
 
 export default APP_ENVIRONMENT_VARIABLES;

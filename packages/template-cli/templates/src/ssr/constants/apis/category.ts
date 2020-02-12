@@ -9,7 +9,7 @@ class CategoryApi implements Api {
         getCategory: {
             routeDefinition: "getcategory/:id/:categoryId",
             getInternalURL: (id: string, categoryId: string) =>
-                `${this.basePath}/category/:${id}/:${categoryId}`,
+                `category/:${id}/:${categoryId}`,
             getExternalURL: (id: string, categoryId: string) =>
                 `menu/${id}/category/items/${categoryId}`,
             method: HTTPMethod.get
@@ -17,7 +17,7 @@ class CategoryApi implements Api {
         deleteCategory: {
             routeDefinition: "getcategory/:id/:categoryId",
             getInternalURL: (id: string, categoryId: string) =>
-                `${this.basePath}/category/:${id}/:${categoryId}`,
+                `category/:${id}/:${categoryId}`,
             getExternalURL: (id: string, categoryId: string) =>
                 `menu/${id}/category/items/${categoryId}`,
             method: HTTPMethod.delete
@@ -25,7 +25,7 @@ class CategoryApi implements Api {
         updateCategory: {
             routeDefinition: "getcategory/:id/:categoryId",
             getInternalURL: (id: string, categoryId: string) =>
-                `${this.basePath}/category/:${id}/:${categoryId}`,
+                `category/:${id}/:${categoryId}`,
             getExternalURL: (id: string, categoryId: string) =>
                 `menu/${id}/category/items/whatever/${categoryId}`,
             method: HTTPMethod.put
