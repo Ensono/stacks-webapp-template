@@ -52,4 +52,3 @@ export interface Api {
     internalBasePath: string;
     endpoints: Endpoint;
 }
-
