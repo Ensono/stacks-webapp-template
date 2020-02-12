@@ -3,6 +3,6 @@
   "jest.debugMode": false,
   "jest.runAllTestsFirst": true,
   "jest.coverageFormatter": "DefaultFormatter",
-  "jest.pathToConfig": "./packages/template-cli/jest.config.js",
+  "jest.pathToConfig": "./packages/template-cli/jest.config.js"
   // "jest.pathToJest": "./packages/template-cli/node_modules/.bin/jest",
 }

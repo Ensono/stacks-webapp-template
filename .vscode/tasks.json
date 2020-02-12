@@ -8,13 +8,18 @@
       "label": "RunBuildTemplatedApp",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "build", "--prefix", "packages/template-cli/templates/src/ssr"],
+      "args": [
+        "run",
+        "build",
+        "--prefix",
+        "packages/template-cli/templates/src/ssr"
+      ],
       "group": "build",
       "presentation": {
-          // Reveal the output only if unrecognized errors occur.
-          "reveal": "always"
+        // Reveal the output only if unrecognized errors occur.
+        "reveal": "always"
       },
-      // Use the standard 
+      // Use the standard
       "problemMatcher": "$eslint-compact"
     }
   ]
