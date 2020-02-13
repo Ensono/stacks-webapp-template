@@ -29,5 +29,5 @@ secretGenerator:
   - name: menuapi
     behavior: replace
     files:
-      - secrets/MENU_API/BASE_URL
+      - secrets/MENU_API/URL
       - secrets/MENU_API/KEY

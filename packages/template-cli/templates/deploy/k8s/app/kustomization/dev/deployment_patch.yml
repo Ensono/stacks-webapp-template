@@ -13,8 +13,12 @@ spec:
         - name: web
           env:
             - name: NODE_ENV
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['environment']
+              value: development
+            - name: MENU_API_URL
+              value: 'http://menuapi.dev-menu'
             - name: LOG_LEVEL
               value: debug
+            - name: APP_BASE_PATH
+              value: '/web/stacks'
+            - name: APP_BASE_URL
+              value: 'http://dev.amidostacks.com'

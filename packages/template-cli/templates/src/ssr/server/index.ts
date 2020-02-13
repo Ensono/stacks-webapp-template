@@ -1,14 +1,14 @@
 import next from 'next'
 import express from 'express'
 import bodyParser from 'body-parser'
-
 import helmetGuard from './middlewares/helmet'
 import errorHandler from './middlewares/error-handler'
 import httpLogger from './middlewares/http-logger'
 import logger from './core/root-logger'
 import api from './api'
+import conf from '../config'
 
-const port = parseInt(process.env.PORT || '3000', 10)
+const port = parseInt(conf.PORT || '3000', 10)
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({dev})
 const handle = app.getRequestHandler()
@@ -33,7 +33,7 @@ export default app
 
     server.listen(port, err => {
       if (err) throw err
-      logger.info(`> Ready on http://localhost:${port}`, 'server')
+      logger.info(`> Ready on ${conf.APP_BASE_URL}:${port}${conf.APP_BASE_PATH}`, 'server')
     })
   })
   .catch((ex: any) => {

@@ -24,7 +24,7 @@ const logger = winston.createLogger({
     consoleFormat,
   ),
   defaultMeta: {
-    service: process.env.POD_NAME || process.env.FNC_NAME || 'default',
+    service: process.env.POD_NAME || 'default',
   },
   transports: [new winston.transports.Console(options)],
 })

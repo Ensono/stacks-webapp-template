@@ -1,4 +1,4 @@
-import FlowSelector from "../selectors"
+import { FlowSelector }  from "../selectors"
 
 interface Workflow {
     [key: string]: Function
@@ -7,9 +7,7 @@ interface Workflow {
 function WorkflowOptions(): Workflow {
     return {
         ssr_aks_azdevops: FlowSelector.option_ssr_aks_azuredevops,
-        csr_aks_azdevops: FlowSelector.option_csr_aks_azuredevops
     }
 }
-
 
 export { Workflow, WorkflowOptions }

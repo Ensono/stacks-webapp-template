@@ -1,0 +1,26 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  // msbuild AnabodeMobile.Android.csproj /p:Configuration=Debug /t:Install
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "RunBuildTemplatedApp",
+      "type": "shell",
+      "command": "npm",
+      "args": [
+        "run",
+        "build",
+        "--prefix",
+        "packages/template-cli/templates/src/ssr"
+      ],
+      "group": "build",
+      "presentation": {
+        // Reveal the output only if unrecognized errors occur.
+        "reveal": "always"
+      },
+      // Use the standard
+      "problemMatcher": "$eslint-compact"
+    }
+  ]
+}

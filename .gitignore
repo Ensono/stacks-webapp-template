@@ -127,8 +127,10 @@ dist
 # VSCODE
 **/.vscode/chrome
 # include examples for these in the repo
-**/.vscode/launch.json
-**/.vscode/settings.json
+# **/.vscode/launch.json
+# **/.vscode/settings.json
+# K8s IDE
+*-pod-*.yaml
 
 # IDE
 .idea
@@ -164,3 +166,4 @@ tests/**/src
 *.d.ts
 *.js
 !*.config.js
+

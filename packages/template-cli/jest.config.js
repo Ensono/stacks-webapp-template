@@ -1,12 +1,13 @@
 module.exports = {
-  roots: [`<rootDir>.`],
+  roots: [`<rootDir>/src`],
   transform: {
-    '^.+.ts.?$': 'ts-jest',
+    '^.+.ts?$': 'ts-jest',
   },
   testPathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/coverage/',
     '<rootDir>/templates/',
+    '<rootDir>/dist/',
   ],
   testMatch: ['**/*.test.(ts|tsx)'],
   testResultsProcessor: 'jest-sonar-reporter',
@@ -30,5 +31,6 @@ module.exports = {
       lines: 0,
     },
   },
+  testEnvironment: 'node',
   verbose: true,
 }
