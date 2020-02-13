@@ -130,7 +130,7 @@ dist
 # **/.vscode/launch.json
 # **/.vscode/settings.json
 # K8s IDE
-*-pod-*.yaml
+pod-*.yaml
 
 # IDE
 .idea
@@ -166,4 +166,3 @@ tests/**/src
 *.d.ts
 *.js
 !*.config.js
-
