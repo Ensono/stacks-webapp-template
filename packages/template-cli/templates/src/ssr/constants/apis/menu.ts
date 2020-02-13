@@ -1,9 +1,6 @@
 import { Api, HTTPMethod, buildExport } from ".";
 import conf from "../../config"
 
-// TODO: remove this implementation
-let appBasePath: string = JSON.stringify(conf.APP_BASE_PATH)
-
 class MenuApi implements Api {
     baseURL = conf.MENU_API_URL;
     internalBasePath = conf.APP_BASE_PATH;
@@ -11,7 +8,7 @@ class MenuApi implements Api {
     endpoints = {
         getMenuList: {
             routeDefinition: '/menu', // this is how I expect it to be called
-            getInternalURL: () => `${appBasePath}/menu`, // this is to build the URL internally for the FE
+            getInternalURL: () => `menu`, // this is to build the URL internally for the FE
             getExternalURL: () => "menu", // this is the URL that will be called externally
             method: HTTPMethod.get
         },
