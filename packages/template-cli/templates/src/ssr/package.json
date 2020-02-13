@@ -8,7 +8,8 @@
     "lint": "node_modules/.bin/eslint",
     "validate": "echo 'This should be a validate linting task.'",
     "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir . --runInBand ",
-    "test:pact-publish": "tsc ./pact/pactPublish.ts && node ./pact/pactPublish.js",
+    "test:pact-publish": "node_modules/.bin/tsc ./pact/pactPublish.ts && node ./pact/pactPublish.js",
+    "test:pact-start-stub": "node_modules/.bin/tsc pact/packStubServer.ts && node pact/packStubServer.js",
     "clean:tree": "git clean -idx"
   },
   "engines": {

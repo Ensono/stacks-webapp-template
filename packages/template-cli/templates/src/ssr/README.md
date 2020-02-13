@@ -126,3 +126,31 @@ PACT_BEARER_TOKEN=
 # Publish the pacts to the configured broker
 npm run test:pact-publish
 ```
+
+#### Pact Stub Service
+Pact contracts are easily turned into locally running API stubs. They are great for using as a simple service to run integration tests against, whether with Jest, or with Cypress. This ensures that you can test your application without hitting the actual endpoint, and ensures the same response everytime, without duplicating mock definitions.
+
+If gives the consumer confidence that if the contract tests are passing with the provider, then the mocks should suffice to test parts of their application against.
+
+No more updating stub responses that go out of date. Hooray!
+
+The Pact files (.json) are generated when the Pact tests are run (`npm run tests:pact`), and are published to the broker on succeeding. In order to get the latest pact file to generate the stub service from, you can either:
+
+1. Run the tests, which will output the Pact .json files to [__tests__/pacts](./__tests__/pacts)
+2. Pull down the latest passing contracts from the broker (`https://PACT_BROKER/pacts/provider/PROVIDER/consumer/CONSUMER/latest`)
+
+Once the files are sourced, it's as simple as starting the stub service either from the npm script in CI, or by calling the [pactStubServer.ts](./pact/packStubServer.ts) from your test.
+
+```bash
+# To start the Pact stub server
+npm run test:pact-start-stub
+```
+
+To test the server:
+
+```bash
+# To test that the service is running and returning expected responses:
+curl -v localhost:8389/v1/menu/7f993e28-b9b1-4ea7-830b-b30f9758db68 -H "Accept: application/json"
+```
+
+Please remember to always stop your server once done testing.

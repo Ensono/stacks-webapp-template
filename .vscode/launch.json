@@ -89,7 +89,8 @@
         "PORT": "3000",
         "APP_BASE_PATH": "/foo",
         "APP_BASE_URL": "http://localhost",
-        "MENU_API_URL": "http://dev.amidostacks.com/api/menu"
+        "MENU_API_URL": "http://dev.amidostacks.com/api/menu",
+        "PACT_BROKER": "https://amido-stacks.pact.dius.com.au"
       },
       "args": [
         // "--project tsconfig.server.json"
