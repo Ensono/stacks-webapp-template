@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const conf = require('./config')
+// const conf = require('./config')
 
 // next.config.js
 module.exports = {
@@ -18,12 +18,12 @@ module.exports = {
   assetPrefix: process.env.APP_BASE_PATH || '',
   serverRuntimeConfig: {
     // Will only be available on the server side
-    ...conf,
+    // ...conf,
     mySecret: 'secret',
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
-    ...conf,
+    // ...conf,
     EXAMPLE_VAR_FOR_FE: 'define_me',
   },
 }

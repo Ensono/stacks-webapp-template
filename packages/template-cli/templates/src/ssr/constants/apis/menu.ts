@@ -8,7 +8,7 @@ class MenuApi implements Api {
     endpoints = {
         getMenuList: {
             routeDefinition: '/menu', // this is how I expect it to be called
-            getInternalURL: () => `/menu`, // this is to build the URL internally for the FE
+            getInternalURL: () => `menu`, // this is to build the URL internally for the FE
             getExternalURL: () => "menu", // this is the URL that will be called externally
             method: HTTPMethod.get
         },
