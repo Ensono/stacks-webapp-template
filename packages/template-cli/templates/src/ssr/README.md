@@ -1,5 +1,29 @@
 # Web Application
 
+## Implementatation details
+
+The template is a Server Side Rendered (SSR) implementation using:
+- [React.js](https://reactjs.org/) for the user interface (UI) 
+- React SSR framework [Next.js](https://nextjs.org/)
+- Nextjs using a [Custom Server](https://nextjs.org/docs/advanced-features/custom-server) with Node.js [Express.js](https://expressjs.com/)
+
+### Overview
+*TODO: This needs to be refined for those whom are using this solution*
+s
+1. How are definining the routing for API's? 
+   - menu.ts
+   - how do we extend the endpoints
+   - new API endpoints are then typeguarded to automatically get the internal endpoint
+   - one place to configure the mapping 
+   - route definition in the express definition
+   - internal: BFF, external: the actual API
+
+2. How does this run?
+
+3. How does the [next.config.js](/packages/template-cli/templates/src/ssr/next.config.js) work?
+  - Webpack additional config for Next.js, https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config.
+
+
 ## To run locally
 
 ```bash
