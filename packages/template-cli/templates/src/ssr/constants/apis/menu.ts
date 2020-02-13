@@ -2,7 +2,7 @@ import { Api, HTTPMethod, buildExport } from ".";
 import conf from "../../config"
 
 // TODO: remove this implementation
-let appBasePath: string = conf.APP_BASE_PATH
+let appBasePath: string = JSON.stringify(conf.APP_BASE_PATH)
 
 class MenuApi implements Api {
     baseURL = conf.MENU_API_URL;
