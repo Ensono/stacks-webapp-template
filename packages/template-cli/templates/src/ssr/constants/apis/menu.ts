@@ -1,6 +1,5 @@
 import { Api, HTTPMethod, buildExport } from ".";
 import conf from "../../config"
-import getConfig from 'next/config'
 
 
 // TODO: remove this implementation
@@ -14,7 +13,7 @@ class MenuApi implements Api {
     getMenuList: {
       routeDefinition: '/menu', // this is how I expect it to be called
       getInternalURL: () =>
-        `${getConfig().publicRuntimeConfig.APP_BASE_PATH_NEXT_CONFIG}/menu`, // this is to build the URL internally for the FE
+        '/menu', // this is to build the URL internally for the FE
       getExternalURL: () => 'menu', // this is the URL that will be called externally
       method: HTTPMethod.get,
     },
