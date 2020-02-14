@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders ApiPane 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiGrid-root css-1hq8d8z MuiGrid-item"
+  >
+    <div
+      class="MuiBox-root MuiBox-root-105 css-irufoq"
+    >
+      <h1>
+        Get Menu List
+      </h1>
+      <button
+        class="MuiButtonBase-root MuiButton-root MuiButton-text"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          get
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
