@@ -3,7 +3,6 @@ module.exports = {
   PORT: process.env.PORT,
   APP_BASE_URL: process.env.APP_BASE_URL,
   APP_BASE_PATH: process.env.APP_BASE_PATH || '',
-  APP_BASE_PATH1: process.env.APP_BASE_PATH1 || '',
   MENU_API_URL: process.env.MENU_API_URL,
   LOG_LEVEL: process.env.LOG_LEVEL,
   POD_NAME: process.env.POD_NAME,
