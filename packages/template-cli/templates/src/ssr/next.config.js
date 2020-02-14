@@ -21,6 +21,6 @@ module.exports = {
   },
   publicRuntimeConfig: {
     // Testing by hardcoding the values.
-    APP_BASE_PATH_NEXT_CONFIG: '/menu/stacks',
+    APP_BASE_PATH_NEXT_CONFIG: '/web/stacks',
   },
 }
