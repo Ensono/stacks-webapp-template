@@ -28,7 +28,7 @@ parameters:
   # Testing
   unit_test: true
   contract_test: true
-  contract_check_can_deploy: true
+  contract_check_can_deploy: false
   # Build File Output
   build_file: false
   build_on_server: false
