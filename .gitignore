@@ -167,4 +167,4 @@ tests/**/src
 *.js
 !*.config.js
 
-!**/templates/src/config/*.js
+!**/environment-configuration/*.js
