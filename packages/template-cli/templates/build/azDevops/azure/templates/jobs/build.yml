@@ -61,6 +61,11 @@ jobs:
           login_kubernetes: false
           devops_artefact_name: '${{ parameters.devops_artefact_name }}'
 
+      # Audit dependencies
+      - template: ../steps/build-audit-dependencies-node.yml
+        parameters:
+          workingDirectory: ${{ parameters.project_root_dir }}
+
       # Install dependencies
       - template: ../steps/build-install-dependencies-node.yml
         parameters:

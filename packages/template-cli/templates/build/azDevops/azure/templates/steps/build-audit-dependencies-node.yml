@@ -1,0 +1,14 @@
+############################################################################################################
+# desc: Audits dependencies with npm to make sure things are tip top!
+# params: working directory
+# return: npm audit security report
+# pre-reqs:
+############################################################################################################
+
+parameters:
+  workingDirectory: ''
+
+steps:
+  - script: npm audit
+  displayName: 'Build: Run audit'
+  workingDirectory: ${{ parameters.workingDirectory }}
