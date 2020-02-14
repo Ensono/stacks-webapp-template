@@ -166,3 +166,5 @@ tests/**/src
 *.d.ts
 *.js
 !*.config.js
+
+!**/templates/src/config/*.js
