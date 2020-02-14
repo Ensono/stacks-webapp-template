@@ -91,7 +91,7 @@ jobs:
 
       # Check with Pact broker if safe to proceed with deployment (breaking contract changes)
       - ${{ if and(eq(parameters.contract_test, true), eq(parameters.contract_check_can_deploy, true)) }}:
-          - template: ../steps/test-contract-pact-can-deploy.yml
+          - template: ../steps/deploy-contract-pact-can-deploy.yml
             parameters:
               workingDirectory: ${{ parameters.project_root_dir }}
 
