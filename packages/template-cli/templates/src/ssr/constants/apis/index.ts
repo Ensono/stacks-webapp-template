@@ -21,7 +21,7 @@ export function apiMethod(api: Api) {
 
 export function internalEndpoint(api: Api) {
     return endpoint => (...params: Array<any>) =>
-        `${api.endpoints[endpoint].getInternalURL(...params)}`
+        `${api.internalBasePath}/${api.endpoints[endpoint].getInternalURL(...params)}`
 }
 
 export function routeDefinition(api: Api) {
