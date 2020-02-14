@@ -1,8 +1,7 @@
 import pact, {CanDeploy, CanDeployPacticipant} from '@pact-foundation/pact-node'
-import {provider} from './pactSetup'
 
 const participant: CanDeployPacticipant = {
-  name: provider.opts.consumer,
+  name: process.env.PACT_CONSUMER,
   latest: true,
 }
 

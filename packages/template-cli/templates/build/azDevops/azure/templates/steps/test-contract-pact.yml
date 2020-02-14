@@ -15,6 +15,9 @@ steps:
   - script: npm run test:pact
     displayName: 'Run pact tests'
     workingDirectory: ${{ parameters.workingDirectory }}
+    env:
+      PACT_CONSUMER: $(PACT_CONSUMER)
+      PACT_PROVIDER: $(PACT_PROVIDER)
 
   # Publish contracts to Pact broker
   - script: npm run test:pact-publish
@@ -25,3 +28,5 @@ steps:
       SOURCE_BRANCH_NAME: $(build.SourceBranchName)
       PACT_BROKER: $(PACT_BROKER)
       PACT_BEARER_TOKEN: $(PACT_BEARER_TOKEN)
+      PACT_CONSUMER: $(PACT_CONSUMER)
+      PACT_PROVIDER: $(PACT_PROVIDER)
