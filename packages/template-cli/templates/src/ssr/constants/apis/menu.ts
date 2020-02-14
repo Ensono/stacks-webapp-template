@@ -2,9 +2,6 @@ import { Api, HTTPMethod, buildExport } from ".";
 import conf from "../../config"
 import getConfig from 'next/config'
 
-const {
-  publicRuntimeConfig: {APP_BASE_PATH_NEXT_CONFIG},
-} = getConfig()
 
 // TODO: remove this implementation
 let appBasePath: string = conf.APP_BASE_PATH
@@ -16,7 +13,8 @@ class MenuApi implements Api {
   endpoints = {
     getMenuList: {
       routeDefinition: '/menu', // this is how I expect it to be called
-      getInternalURL: () => `${APP_BASE_PATH_NEXT_CONFIG}/menu`, // this is to build the URL internally for the FE
+      getInternalURL: () =>
+        `${getConfig().publicRuntimeConfig.APP_BASE_PATH_NEXT_CONFIG}/menu`, // this is to build the URL internally for the FE
       getExternalURL: () => 'menu', // this is the URL that will be called externally
       method: HTTPMethod.get,
     },
