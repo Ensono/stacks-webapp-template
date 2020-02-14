@@ -16,7 +16,7 @@ const server = new CanDeploy({
     // You can deploy this
     // If output is not specified or is json, result describes the result of the check.
     // If outout is 'table', it is the human readable string returned by the check
-    // console.log(result)
+    console.log(result)
   })
   .catch((error: any) => {
     // You can't deploy this
@@ -25,9 +25,5 @@ const server = new CanDeploy({
     // if output is 'table', then the error will be a string describing the output from the binary,
 
     // In both cases, `error` will be an Error object if something went wrong during the check.
-    // console.log(error)
     console.log(`Error reason: ${error.output.summary.reason}`)
-    console.log(`Error reason: ${error.output.summary.failed}`)
-
-    process.exit(1)
   })

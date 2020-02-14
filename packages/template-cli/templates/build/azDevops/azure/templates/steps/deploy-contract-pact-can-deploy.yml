@@ -10,10 +10,11 @@ parameters:
 
 steps:
   # Check Pact broker if the consumer is safe to deploy with latest provider version
-  - script: npm run test:pact-can-i-deploy
+  - script: |
+      npm run test:pact-can-i-deploy \
+      exit $?
     displayName: 'Deploy: Can I Deploy?'
     workingDirectory: ${{ parameters.workingDirectory }}
     env:
       PACT_BROKER: $(PACT_BROKER)
       PACT_BEARER_TOKEN: $(PACT_BEARER_TOKEN)
-

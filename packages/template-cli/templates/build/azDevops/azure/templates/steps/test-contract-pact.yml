@@ -25,6 +25,3 @@ steps:
       SOURCE_BRANCH_NAME: $(build.SourceBranchName)
       PACT_BROKER: $(PACT_BROKER)
       PACT_BEARER_TOKEN: $(PACT_BEARER_TOKEN)
-
-  - bash: |
-       echo "Contract published and available at: $PACT_BROKER"
