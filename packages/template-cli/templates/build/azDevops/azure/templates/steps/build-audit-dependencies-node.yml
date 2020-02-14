@@ -9,6 +9,13 @@ parameters:
   workingDirectory: ''
 
 steps:
+  # Ensure Node.js 12 is actives
+  - task: NodeTool@0
+    inputs:
+      versionSpec:  ${{ parameters.versionSpec }}
+      customRegistry: 'useNpmrc'
+    displayName: 'Use Node.js ${{ parameters.versionSpec }}'
+
   - script: npm audit
-  displayName: 'Build: Run audit'
-  workingDirectory: ${{ parameters.workingDirectory }}
+    displayName: 'Build: Run audit'
+    workingDirectory: ${{ parameters.workingDirectory }}
