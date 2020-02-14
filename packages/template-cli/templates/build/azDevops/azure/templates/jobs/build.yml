@@ -64,6 +64,7 @@ jobs:
       # Audit dependencies
       - template: ../steps/build-audit-dependencies-node.yml
         parameters:
+          versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
 
       # Install dependencies
