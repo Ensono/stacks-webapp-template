@@ -20,7 +20,7 @@ module.exports = {
     mySecret: 'secret',
   },
   publicRuntimeConfig: {
-    // Will be available on both server and client
-    EXAMPLE_VAR_FOR_FE: 'define_me',
+    // Testing by hardcoding the values.
+    APP_BASE_PATH_NEXT_CONFIG: '/menu/stacks',
   },
 }
