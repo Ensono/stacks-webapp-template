@@ -1,0 +1,19 @@
+############################################################################################################
+# desc: Checks with Pact broker if the consumer is safe to deploy with latest consumer and provider versions
+# params: workingDirectory
+# return: Exit code 1 and logging if not safe to deploy, exit code 0 if safe.
+# pre-reqs: dependency installation, test-contract-pact
+############################################################################################################
+
+parameters:
+  workingDirectory: ''
+
+steps:
+  # Check Pact broker if the consumer is safe to deploy with latest provider version
+  - script: npm run test:pact-can-i-deploy
+    displayName: 'Deploy: Can I Deploy?'
+    workingDirectory: ${{ parameters.workingDirectory }}
+    env:
+      PACT_BROKER: $(PACT_BROKER)
+      PACT_BEARER_TOKEN: $(PACT_BEARER_TOKEN)
+

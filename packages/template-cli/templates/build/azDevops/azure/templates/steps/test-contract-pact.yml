@@ -1,6 +1,10 @@
-#
-# Steps consumer driven contract testing with Pact.
-#
+############################################################################################################
+# desc: Runs the consumer driven contract tests with Pact against a specified provider
+# params: Node version, workingDirectory, build_number
+# return: Publishes the contracts to the pact broker
+# pre-reqs: dependency installation
+############################################################################################################
+
 
 parameters:
   versionSpec: ''
@@ -22,3 +26,6 @@ steps:
       SOURCE_BRANCH_NAME: $(build.SourceBranchName)
       PACT_BROKER: $(PACT_BROKER)
       PACT_BEARER_TOKEN: $(PACT_BEARER_TOKEN)
+
+  - bash: |
+       echo "Contract published and available at: $PACT_BROKER"
