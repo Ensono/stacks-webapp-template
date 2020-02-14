@@ -16,7 +16,7 @@ module.exports = {
     return config
   },
   assetPrefix: process.env.APP_BASE_PATH || '',
-  target: "server",
+  target: 'server',
   serverRuntimeConfig: {
     // Will only be available on the server side
     ...conf,
