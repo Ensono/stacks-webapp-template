@@ -85,7 +85,7 @@ export interface Endpoint {
          */ 
         method: HTTPMethod;
         /**
-         * returns the built internalUrl called by the clientside code (axios)
+         * returns the built internalUrl called by the clientside code (axios) a.k.a BFF
          * NB: when deployed under a CDN or proxied path within an K8s cluster this will be included 
          * e.g. /web/ui/myroute => when called from client it should look like this https://app.example.com/web/ui/myroute
          * NB2: leave out the preceeding slash => getInternalURL: (id: string) => `deletemenu/${id}`,
@@ -135,7 +135,7 @@ TBD: implement a config map ?
 At application start a config object is created and used at runtime by various classes that need to access it, the app code should not reference the `process.env.*` at any point instead creating a binding of these values in the `environment-variables.ts` which are added into the final config object. 
 
 `baseURL` and `internalBasePath` within the `Api` subclassing should always point to a config value 
-e.g. 
+e.g. see snippet below
 ```javascript
 /**
  * potential replacement

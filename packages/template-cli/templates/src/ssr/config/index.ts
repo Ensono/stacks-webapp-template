@@ -4,9 +4,7 @@ const conf = {
     ...APP_ENVIRONMENT_VARIABLES,
     MY_STATIC_APP_VARIABLE: "anything static across environments goes here",
     DEVELOPMENT: process.env.NODE_ENV === "development",
-    PRODUCTION: process.env.NODE_ENV !== "development",
-    my_other_var: 'foo',
-    some_other: 'foobar'
+    PRODUCTION: process.env.NODE_ENV !== "development"
 };
 
 export default conf;
