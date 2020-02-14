@@ -23,7 +23,7 @@ export function apiMethod(api: Api) {
 export function internalEndpoint(api: Api) {
     return endpoint => (...params: Array<any>) =>
       `${
-        getConfig().publicRuntimeConfig.APP_BASE_PATH_NEXT_CONFIG
+        getConfig().publicRuntimeConfig.APP_BASE_PATH1
       }${api.endpoints[endpoint].getInternalURL(...params)}`
 }
 
