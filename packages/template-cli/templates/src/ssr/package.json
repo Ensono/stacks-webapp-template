@@ -2,6 +2,7 @@
   "name": "webapp",
   "scripts": {
     "test": "node_modules/.bin/jest -c jest.config.json --rootDir . --runInBand ",
+    "test:watch": "node_modules/.bin/jest -c jest.config.json --watchAll --rootDir . --runInBand ",
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "next start",
