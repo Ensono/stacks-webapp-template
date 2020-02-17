@@ -78,6 +78,9 @@ jobs:
         # aks_clustername: ''
       devops_artefact_name: '${{ parameters.devops_artefact_name }}'
 
+# Audit dependencies
+# We need to ensure that we pull in the build-audit-dependencies-node.yml to audit npm packages before installing.
+# This is best done when we publish the steps to the https://github.com/amido/stacks-pipeline-templates repo
 
 # Unit Test
   - ${{ if eq(parameters.unit_test, true) }}:

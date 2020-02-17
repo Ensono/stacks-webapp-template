@@ -10,6 +10,8 @@
     "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir . --runInBand ",
     "test:pact-publish": "node_modules/.bin/tsc ./pact/pactPublish.ts && node ./pact/pactPublish.js",
     "test:pact-start-stub": "node_modules/.bin/tsc pact/packStubServer.ts && node pact/packStubServer.js",
+    "test:pact-can-i-deploy": "node_modules/.bin/tsc pact/pactCanIDeploy.ts && node pact/pactCanIDeploy.js",
+    "test:pact-can-i-deploy-ci": "node_modules/.bin/pact-broker can-i-deploy --pacticipant $PACT_CONSUMER -l --broker-base-url $PACT_BROKER --broker-token $PACT_BEARER_TOKEN",
     "clean:tree": "git clean -idx"
   },
   "engines": {

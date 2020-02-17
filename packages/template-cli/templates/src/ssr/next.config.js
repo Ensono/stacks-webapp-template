@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const conf = require('../config')
+const conf = require('./environment-configuration')
 
 // next.config.js
 module.exports = {
