@@ -8,19 +8,12 @@ parameters:
 steps:
   - checkout: self
 
-  # Ensure Node.js 12 is active
-  - task: NodeTool@0
-    inputs:
-      versionSpec:  ${{ parameters.versionSpec }}
-      customRegistry: 'useNpmrc'
-    displayName: 'Use Node.js ${{ parameters.versionSpec }}'
-
-  # Run npm to install dev dependencies
   - task: Npm@1
-    displayName: 'Install dependencies'
+    displayName: 'Build: Install Dev Dependencies'
     inputs:
-      command: install
-      customRegistry: useNpmrc
+      command: 'install' # Options: install, publish, custom
+      verbose: false
+      customRegistry: 'useNpmrc'
 
   # Run tests with Jest
   - script: npm run validate
