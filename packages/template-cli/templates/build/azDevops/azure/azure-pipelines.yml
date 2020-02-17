@@ -9,8 +9,6 @@ trigger:
     # Amido Testing pipeline for E2E output of the CLI
     - packages/template-cli/templates/*
 
-# pr:
-# - master
 ###### PART OF AMIDO-STACKS
 resources:
   repositories:

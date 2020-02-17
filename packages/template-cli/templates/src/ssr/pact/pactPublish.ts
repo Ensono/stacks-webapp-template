@@ -7,6 +7,4 @@ export const publisher = new Publisher({
     pactBrokerToken: process.env.PACT_BEARER_TOKEN,
     consumerVersion: process.env.BUILD_NUMBER || 'unknown',
     tags: [process.env.SOURCE_BRANCH_NAME || 'local']
-})
-
-publisher.publish()
+}).publish()
