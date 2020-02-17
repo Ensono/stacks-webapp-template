@@ -21,7 +21,7 @@ steps:
     displayName: 'DEBUG'
     inputs:
       command: 'custom' # Options: install, publish, custom
-      customCommand: 'npm config ls -l'
+      customCommand: 'config ls -l'
       workingDir: ${{ parameters.workingDirectory }}
       verbose: true
       customRegistry: 'useNpmrc'
