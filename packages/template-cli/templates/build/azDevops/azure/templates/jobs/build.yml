@@ -17,6 +17,7 @@ parameters:
   vulnerability_scan: false
   vulnerability_workdir: ''
   #  Static Code Analysis
+  build_audit: false
   static_code_analysis: false
   static_code_analysis_build_path: ''
   Sonar_serviceConnection: ''
@@ -63,10 +64,11 @@ jobs:
           devops_artefact_name: '${{ parameters.devops_artefact_name }}'
 
       # Audit dependencies
-      - template: ../steps/build-audit-dependencies-node.yml
-        parameters:
-          versionSpec: ${{ parameters.versionSpec }}
-          workingDirectory: ${{ parameters.project_root_dir }}
+      - ${{ if eq(parameters.build_audit, true) }}:
+        - template: ../steps/build-audit-dependencies-node.yml
+          parameters:
+            versionSpec: ${{ parameters.versionSpec }}
+            workingDirectory: ${{ parameters.project_root_dir }}
 
       # Install dependencies
       - template: ../steps/build-install-dependencies-node.yml
