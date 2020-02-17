@@ -18,15 +18,6 @@ steps:
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   - task: Npm@1
-    displayName: 'DEBUG'
-    inputs:
-      command: 'custom' # Options: install, publish, custom
-      customCommand: 'config ls -l'
-      workingDir: ${{ parameters.workingDirectory }}
-      verbose: true
-      customRegistry: 'useNpmrc'
-
-  - task: Npm@1
     displayName: 'Build: Install Dev Dependencies'
     inputs:
       command: 'install' # Options: install, publish, custom
