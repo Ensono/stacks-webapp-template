@@ -38,7 +38,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@amido-stacks/eslint-config": "0.0.4",
+    "@amido-stacks/eslint-config": "^0.1.2",
     "@babel/core": "^7.8.4",
     "@pact-foundation/pact": "^9.6.1",
     "@pact-foundation/pact-node": "^10.2.4",
