@@ -1,5 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ApiPane fires api call on button click 1`] = `
+"Snapshot Diff:
+Compared values have no visual difference."
+`;
+
 exports[`renders ApiPane snapshot 1`] = `
 <DocumentFragment>
   <div

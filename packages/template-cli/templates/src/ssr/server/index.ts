@@ -26,14 +26,17 @@ export default app
     server.use(/\/((?!_next).)*/, httpLogger)
 
     server.use(api)
-    
+
     server.get('*', (req, res) => handle(req, res))
 
     server.use(errorHandler)
 
     server.listen(port, err => {
       if (err) throw err
-      logger.info(`> Ready on ${conf.APP_BASE_URL}:${port}${conf.APP_BASE_PATH}`, 'server')
+      logger.info(
+        `> Ready on ${conf.APP_BASE_URL}:${port}${conf.APP_BASE_PATH}`,
+        'server',
+      )
     })
   })
   .catch((ex: any) => {
