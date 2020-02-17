@@ -1,27 +1,24 @@
-#
-# Steps for building and testing using Jest. See jobs defined in install-build-test.yml
-#
+############################################################################################################
+# desc: Runs lower level tests (lint, unit) with Jest using npm, publishes results to Pipeline
+# params: Node version, workingDirectory
+# return: Unit test report, code coverage results
+# pre-reqs: dependency installation
+############################################################################################################
 
 parameters:
   versionSpec: ''
+  workingDirectory: ''
 
 steps:
-  - checkout: self
-
-  - task: Npm@1
-    displayName: 'Build: Install Dev Dependencies'
-    inputs:
-      command: 'install' # Options: install, publish, custom
-      verbose: false
-      customRegistry: 'useNpmrc'
-
   # Run tests with Jest
   - script: npm run validate
     displayName: 'Run linting'
+    workingDirectory: ${{ parameters.workingDirectory }}
 
   # Run tests with Jest
   - script: npm run test
     displayName: 'Run tests'
+    workingDirectory: ${{ parameters.workingDirectory }}
 
   # Publish CI test results
   - task: PublishTestResults@2
