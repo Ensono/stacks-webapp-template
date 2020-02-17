@@ -16,29 +16,31 @@ const ApiPane = (props: ApiPaneProps) => {
             method: myapi.method,
             url: myapi.internalEndpoint(),
           })
-          logger.info(res)
+          logger.info(res.data.results)
           res ? setState(res.data.results) : undefined
         } catch (err) {
           logger.error(err.message)
         }
     };
     return (
-        <Container item>
-            <Pane>
-                <h1>Get Menu List</h1>
-                <Button onClick={callApi}>{myapi.method}</Button>
-            </Pane>
-            {state && (
-                <Pane id="results">
-                    <ul>
-                        {state.map(item => (
-                            <li>{item.name}</li>
-                        ))}
-                    </ul>
-                </Pane>
-            )}
-        </Container>
-    );
+      <Container item>
+        <Pane>
+          <h1>Get Menu List</h1>
+          <Button data-testid="apiPaneBtn" onClick={callApi}>
+            {myapi.method}
+          </Button>
+        </Pane>
+        {state && (
+          <Pane data-testid="results">
+            <ul>
+              {state.map(item => (
+                <li key={item.id}>{item.name}</li>
+              ))}
+            </ul>
+          </Pane>
+        )}
+      </Container>
+    )
 };
 
 export default ApiPane;

@@ -1,8 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ApiPane fires api call on button click 1`] = `
+exports[`fires api call on button click 1`] = `
 "Snapshot Diff:
-Compared values have no visual difference."
+- First value
++ Second value
+
+@@ -22,7 +22,17 @@
+          <span
+            class=\\"MuiTouchRipple-root\\"
+          />
+        </button>
+      </div>
++     <div
++       class=\\"MuiBox-root MuiBox-root-295 css-irufoq\\"
++       data-testid=\\"results\\"
++     >
++       <ul>
++         <li>
++           Breakfast Menu
++         </li>
++       </ul>
++     </div>
+    </div>
+  </DocumentFragment>"
 `;
 
 exports[`renders ApiPane snapshot 1`] = `
@@ -18,6 +38,7 @@ exports[`renders ApiPane snapshot 1`] = `
       </h1>
       <button
         class="MuiButtonBase-root MuiButton-root MuiButton-text"
+        data-testid="apiPaneBtn"
         tabindex="0"
         type="button"
       >
