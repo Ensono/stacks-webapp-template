@@ -23,5 +23,6 @@
   "publishConfig": {
     "access": "private",
     "registry": "https://pkgs.dev.azure.com/amido-dev/Amido-Stacks/_packaging/stacks-webapp-feed/npm/registry/"
-  }
+  },
+  "gitHead": "d583c24c5eb2a9214381f705c6d9fbbed2cecd32"
 }
