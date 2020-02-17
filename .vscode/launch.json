@@ -48,26 +48,7 @@
         "NODE_ENV": "dev"
       }
     },
-    {
-      "type": "chrome",
-      "request": "launch",
-      "name": "Next: Chrome",
-      "url": "http://localhost:3000",
-      "webRoot": "${workspaceFolder}/packages/template-cli/templates/src/ssr"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Next: Node",
-      "runtimeExecutable": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/next",
-      "runtimeArgs": [],
-      "env": {
-        "NODE_OPTIONS": "--inspect"
-      },
-      "port": 9229,
-      "console": "internalConsole",
-      "outputCapture": "std"
-    },
+
     {
       "type": "node",
       "request": "launch",
@@ -87,7 +68,7 @@
         "NODE_ENV": "development",
         "LOG_LEVEL": "debug",
         "PORT": "3000",
-        "APP_BASE_PATH": "/foo",
+        "APP_BASE_PATH": "",
         "APP_BASE_URL": "http://localhost",
         "MENU_API_URL": "http://dev.amidostacks.com/api/menu",
         "PACT_BROKER": "https://amido-stacks.pact.dius.com.au"
@@ -95,12 +76,6 @@
       "args": [
         // "--project tsconfig.server.json"
       ]
-    }
-  ],
-  "compounds": [
-    {
-      "name": "Next: Full",
-      "configurations": ["Next: Node", "Next: Chrome"]
     }
   ]
 }

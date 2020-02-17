@@ -1,4 +1,4 @@
-import { Api, HTTPMethod, buildExport } from '.'
+import {Api, HTTPMethod, buildExport} from '.'
 import conf from '../../config'
 
 class MenuApi implements Api {
@@ -38,7 +38,6 @@ class MenuApi implements Api {
     },
   }
 }
-
 const menuApi = new MenuApi()
 export default (endpoint: keyof typeof menuApi.endpoints) =>
   buildExport(menuApi, endpoint)
