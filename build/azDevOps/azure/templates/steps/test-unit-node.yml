@@ -11,11 +11,6 @@ parameters:
 
 steps:
   # Run tests with Jest
-  - script: npm run validate
-    displayName: 'Run linting'
-    workingDirectory: ${{ parameters.workingDirectory }}
-
-  # Run tests with Jest
   - script: npm run test
     displayName: 'Run tests'
     workingDirectory: ${{ parameters.workingDirectory }}

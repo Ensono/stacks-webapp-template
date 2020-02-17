@@ -26,6 +26,9 @@ parameters:
   Sonar_projectKey: ''
   Sonar_projectName: ''
   Sonar_projectVersion: ''
+  #Linting and formatting validation
+  lint_formatting: ''
+  shared_eslint_config: ''
   # Testing
   unit_test: true
   contract_test: true
@@ -76,9 +79,17 @@ jobs:
           versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
 
+      # Linting and formatting validation
+      - ${{ if eq(parameters.lint_formatting, true) }}:
+          - template: ../steps/test-static-validate-node.yml
+            parameters:
+              versionSpec: ${{ parameters.versionSpec }}
+              workingDirectory: ${{ parameters.project_root_dir }}
+              lintingSharedConfigPackage: ${{ parameters.shared_eslint_config }}
+
       # Linting and unit tests
       - ${{ if eq(parameters.unit_test, true) }}:
-          - template: ../steps/test-lint-unit-node.yml
+          - template: ../steps/test-unit-node.yml
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}

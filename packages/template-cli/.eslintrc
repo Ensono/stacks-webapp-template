@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@amido-stacks/eslint-config"
+  ]
+}

@@ -30,9 +30,9 @@ jobs:
           versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
 
-      # Test: Linting and unit tests
+      # Test: Unit tests
       - ${{ if eq(parameters.unit_test, true) }}:
-          - template: ../steps/test-lint-unit-node.yml
+          - template: ../steps/test-unit-node.yml
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}
