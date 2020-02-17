@@ -20,6 +20,7 @@ variables:
   project: stacks
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
+  versionSpec: 12.x
 
 stages:
 - stage: Build
@@ -32,6 +33,7 @@ stages:
     parameters:
       pool:
         vmImage: $(pool_vm_image)
+      versionSpec: $(versionSpec)
       jobName: 'StacksTemplatePackages'
       project_root_dir: $(Build.SourcesDirectory)
       #  Static Code Analysis
