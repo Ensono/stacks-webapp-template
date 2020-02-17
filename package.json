@@ -15,6 +15,7 @@
     "lint": "lerna run lint --stream",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "validate": "npm run prettier --list-different && npm run lint",
+    "publish": "lerna publish --no-git-reset",
     "clean:tree": "git clean -idx"
   },
   "engines": {
