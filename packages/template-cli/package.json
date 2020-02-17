@@ -1,6 +1,6 @@
 {
   "name": "amido-scaffolding-cli",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "scaffolding-cli for amido-stacks created webapp",
   "main": "dist/index.js",
   "private": true,
