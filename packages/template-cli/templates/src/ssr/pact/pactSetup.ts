@@ -10,6 +10,6 @@ export const provider = new Pact({
     spec: 2,
     cors: true,
     pactfileWriteMode: 'update',
-    consumer: 'GenericMenuConsumer',
-    provider: 'MenuAPI',
+    consumer: process.env.PACT_CONSUMER,
+    provider: process.env.PACT_PROVIDER
 });

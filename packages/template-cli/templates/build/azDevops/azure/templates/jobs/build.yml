@@ -28,6 +28,7 @@ parameters:
   # Testing
   unit_test: true
   contract_test: true
+  contract_check_can_deploy: false
   # Build File Output
   build_file: false
   build_on_server: false
@@ -79,6 +80,12 @@ jobs:
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}
+      
+      # SonarCloud
+      - ${{ if eq(parameters.static_code_analysis, true) }}:
+          - template: ../steps/test-static-code-sonar.yml
+            parameters:
+              workingDirectory: ${{ parameters.project_root_dir }}
 
       # Consumer driven contract tests
       - ${{ if eq(parameters.contract_test, true) }}:
@@ -88,9 +95,9 @@ jobs:
               build_number: ${{ parameters.docker_imagetag }}
               workingDirectory: ${{ parameters.project_root_dir }}
 
-      # SonarCloud
-      - ${{ if eq(parameters.static_code_analysis, true) }}:
-          - template: ../steps/test-static-code-sonar.yml
+      # Check with Pact broker if safe to proceed with deployment (breaking contract changes)
+      - ${{ if and(eq(parameters.contract_test, true), eq(parameters.contract_check_can_deploy, true)) }}:
+          - template: ../steps/deploy-contract-pact-can-deploy.yml
             parameters:
               workingDirectory: ${{ parameters.project_root_dir }}
 
