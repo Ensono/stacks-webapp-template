@@ -21,7 +21,7 @@ steps:
     displayName: 'Publish: Publish packages using lerna'
     inputs:
       command: 'custom' # Options: install, publish, custom
-      customCommand: 'run install'
+      customCommand: 'run publish'
       workingDir: ${{ parameters.workingDirectory }}
       verbose: true
       customRegistry: 'useNpmrc'
