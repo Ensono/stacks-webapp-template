@@ -1,0 +1,33 @@
+############################################################################################################
+# desc: Runs linting with eslint shared config rule and formatting with prettier using npm
+# params: Node version, workingDirectory, lintingSharedConfigPackage
+# return: Unit test report, code coverage results
+# pre-reqs: dependency installation
+############################################################################################################
+
+parameters:
+  versionSpec: ''
+  workingDirectory: ''
+  lintingSharedConfigPackage: ''
+
+steps:
+  # Ensure Node.js 12 is actives
+  - task: NodeTool@0
+    inputs:
+      versionSpec:  ${{ parameters.versionSpec }}
+      customRegistry: 'useNpmrc'
+    displayName: 'Use Node.js ${{ parameters.versionSpec }}'
+
+  - task: Npm@1
+    displayName: 'Build: Install Peer Dependencies'
+    inputs:
+      command: 'custom' # Options: install, publish, custom
+      customCommand: 'npx install-peerdeps --save-dev ${{ parameters.workingDirectory }}'
+      workingDir: ${{ parameters.workingDirectory }}
+      verbose: true
+      customRegistry: 'useNpmrc'
+
+  # Run tests with Jest
+  - script: npm run validate
+    displayName: 'Run linting'
+    workingDirectory: ${{ parameters.workingDirectory }}

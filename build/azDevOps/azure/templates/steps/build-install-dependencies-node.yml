@@ -1,7 +1,7 @@
 ############################################################################################################
 # desc: Installs dependencies on the Node version of choice, builds/transpiles solution
 # params: Node version, working directory
-# return: .npmrc with npm credentials for task runners
+# return:
 # pre-reqs: dependency installation
 ############################################################################################################
 
@@ -17,19 +17,12 @@ steps:
       customRegistry: 'useNpmrc'
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
-  # If we are using a private or custom npm registry, then we must authenticate to embellish the .npmrc file with the credentials
-  # This is required for task runners, e.g. building docker images in bash.
-  # See https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/npm-authenticate for more information
-  - task: npmAuthenticate@0
-    inputs:
-      workingFile: ${{ parameters.workingDirectory }}/.npmrc
-
   - task: Npm@1
     displayName: 'Build: Install Dev Dependencies'
     inputs:
       command: 'install' # Options: install, publish, custom
       workingDir: ${{ parameters.workingDirectory }}
-      verbose: false
+      verbose: true
       customRegistry: 'useNpmrc'
 
   - script: |
