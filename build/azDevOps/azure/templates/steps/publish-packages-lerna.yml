@@ -17,11 +17,11 @@ steps:
       customRegistry: 'useNpmrc'
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
-    - task: Npm@1
-      displayName: 'Publish: Publish packages using lerna'
-      inputs:
-        command: 'custom' # Options: install, publish, custom
-        customCommand: 'run install'
-        workingDir: ${{ parameters.workingDirectory }}
-        verbose: true
-        customRegistry: 'useNpmrc'
+  - task: Npm@1
+    displayName: 'Publish: Publish packages using lerna'
+    inputs:
+      command: 'custom' # Options: install, publish, custom
+      customCommand: 'run install'
+      workingDir: ${{ parameters.workingDirectory }}
+      verbose: true
+      customRegistry: 'useNpmrc'
