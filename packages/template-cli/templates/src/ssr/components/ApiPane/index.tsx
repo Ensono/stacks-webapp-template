@@ -3,7 +3,7 @@ import { Container, Pane } from "./components";
 import { Button } from "@material-ui/core";
 import api from "constants/apis/menu";
 import axios from "axios";
-import logger from './../../server/core/root-logger';
+// import logger from './../../server/core/root-logger';
 
 type ApiPaneProps = {};
 
@@ -16,10 +16,10 @@ const ApiPane = (props: ApiPaneProps) => {
             method: myapi.method,
             url: myapi.internalEndpoint(),
           })
-          logger.info(res.data.results)
+          // logger.info(res.data.results)
           res ? setState(res.data.results) : undefined
         } catch (err) {
-          logger.error(err.message)
+          // logger.error(err.message)
         }
     };
     return (

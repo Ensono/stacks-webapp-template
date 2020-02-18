@@ -1,9 +1,9 @@
+import '@testing-library/jest-dom/extend-expect'
 import { fireEvent, render, screen, waitForElement } from '@testing-library/react'
 import axios from 'axios'
 import * as React from 'react'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import ApiPane from '.'
-import {toHaveTextContent} from '@testing-library/jest-dom'
 // jest.mock('axios', () => ({get: jest.fn()}))
 jest.mock('axios', () =>
   jest.fn(() =>
@@ -38,8 +38,7 @@ test('fires api call on button click', async () => {
   await waitForElement(() => screen.getByText('Breakfast Menu'))
   
   const resultNode = await screen.findByTestId('results')
-  expect.extend({toHaveTextContent})
-  // expect(resultNode).toHaveTextContent('Breakfast Menu')
+  expect(resultNode).toHaveTextContent('Breakfast Menu')
   expect(mockedAxios).toHaveBeenCalledTimes(1)
   
   // To match re-rendered DOM snapshot after the api response
