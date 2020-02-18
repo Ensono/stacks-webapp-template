@@ -18,8 +18,8 @@ steps:
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   - task: npmAuthenticate@0
-      inputs:
-        workingFile: ${{ parameters.workingDirectory }}
+    inputs:
+      workingFile: ${{ parameters.workingDirectory }}
 
   - task: Npm@1
     displayName: 'Build: Install Dev Dependencies'
