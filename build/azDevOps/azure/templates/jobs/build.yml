@@ -8,6 +8,8 @@ parameters:
   build_audit: false
   # Testing
   unit_test: false
+  # Publishing
+  publish_packages: false
 
 jobs:
   - job: ${{ parameters.jobName }}
@@ -33,6 +35,13 @@ jobs:
       # Test: Unit tests
       - ${{ if eq(parameters.unit_test, true) }}:
           - template: ../steps/test-unit-node.yml
+            parameters:
+              versionSpec: ${{ parameters.versionSpec }}
+              workingDirectory: ${{ parameters.project_root_dir }}
+
+      # Publish: Publish packages
+      - ${{ if eq(parameters.publish_packages, true) }}:
+          - template: ../steps/publish-packages-lerna.yml
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}

@@ -1,0 +1,27 @@
+############################################################################################################
+# desc: Publish changed packages using lerna
+# params: working directory
+# return: npm packages are published to the registry, version bumped in github
+# pre-reqs: Dependencies must be installed, .npmrc configured
+################s############################################################################################
+
+parameters:
+  versionSpec: ''
+  workingDirectory: ''
+
+steps:
+  # Ensure Node.js 12 is active
+  - task: NodeTool@0
+    inputs:
+      versionSpec:  ${{ parameters.versionSpec }}
+      customRegistry: 'useNpmrc'
+    displayName: 'Use Node.js ${{ parameters.versionSpec }}'
+
+    - task: Npm@1
+      displayName: 'Publish: Publish packages using lerna'
+      inputs:
+        command: 'custom' # Options: install, publish, custom
+        customCommand: 'run install'
+        workingDir: ${{ parameters.workingDirectory }}
+        verbose: true
+        customRegistry: 'useNpmrc'
