@@ -20,6 +20,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         </h1>
         <button
           class="MuiButtonBase-root MuiButton-root MuiButton-text"
+          data-testid="apiPaneBtn"
           tabindex="0"
           type="button"
         >
