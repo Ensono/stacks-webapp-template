@@ -11,7 +11,6 @@ parameters:
   docker_imagename: ''
   docker_imagetag: ''
   docker_containerregistryname: ''
-  # docker_workdir: ''
 
 steps:
   - task: Docker@2
