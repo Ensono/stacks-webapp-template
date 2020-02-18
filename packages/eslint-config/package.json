@@ -1,6 +1,6 @@
 {
   "name": "@amido-stacks/eslint-config",
-  "version": "0.0.6",
+  "version": "0.1.2",
   "description": "Shared linting config from amido stacks",
   "main": "index.js",
   "author": "https://amido.com",
@@ -12,7 +12,8 @@
     "eslint-config-prettier": "^6.9.0",
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-jest": "^23.3.0",
-    "eslint-plugin-react": "^7.17.0"
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-security": "^1.4.0"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,5 @@
     "access": "private",
     "registry": "https://pkgs.dev.azure.com/amido-dev/Amido-Stacks/_packaging/stacks-webapp-feed/npm/registry/"
   },
-  "gitHead": "9f8bbc7ad9c92af5ef255658fda67efea81a3944"
+  "gitHead": "d583c24c5eb2a9214381f705c6d9fbbed2cecd32"
 }

@@ -15,5 +15,28 @@ trigger:
 pr:
 - master
 
-jobs:
-  - template: templates/jobs/install-build-test.yml
+variables:
+  company: amido
+  project: stacks
+  # DEFAULT IMAGE RUNNER
+  pool_vm_image: ubuntu-18.04
+  versionSpec: 12.x
+
+stages:
+- stage: Build
+  variables:
+  - group: amido-stacks-infra-credentials-nonprod
+  - group: amido-stacks-webapp
+  
+  jobs:
+  - template: templates/jobs/build.yml
+    parameters:
+      pool:
+        vmImage: $(pool_vm_image)
+      versionSpec: $(versionSpec)
+      jobName: 'StacksTemplatePackages'
+      project_root_dir: $(Build.SourcesDirectory)
+      #  Static Code Analysis
+      build_audit: false
+      # Sonar settings
+      unit_test: true
