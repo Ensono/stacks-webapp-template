@@ -1,4 +1,5 @@
 FROM node:12-buster
+ARG NPM_TOKEN 
 
 RUN apt-get update -y && apt-get install dumb-init -y
 # use changes to package.json to force Docker not to use the cache
@@ -6,6 +7,7 @@ RUN apt-get update -y && apt-get install dumb-init -y
 ADD package.json /tmp/package.json
 ADD .npmrc /tmp/.npmrc
 RUN cd /tmp && npm install
+RUN rm -f .npmrc
 RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
 
 # NOW SET WORKING DIRECTORY COPY APP OVER

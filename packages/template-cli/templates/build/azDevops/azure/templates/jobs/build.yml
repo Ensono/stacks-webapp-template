@@ -8,7 +8,7 @@ parameters:
   dependsOn: 'GetPackage'
   # Docker Config
   docker_build: true
-  docker_build_additional_args: '.'
+  docker_build_additional_args: ''
   docker_workdir: ''
   docker_imagename: ''
   docker_imagetag: ''
