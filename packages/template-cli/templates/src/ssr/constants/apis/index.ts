@@ -24,7 +24,7 @@ export function internalEndpoint(api: Api) {
     return endpoint => (...params: Array<any>) =>
       `${
         getConfig().publicRuntimeConfig.APP_BASE_PATH
-      }${api.endpoints[endpoint].getInternalURL(...params)}`
+      }/${api.endpoints[endpoint].getInternalURL(...params)}`
 }
 
 export function routeDefinition(api: Api) {
