@@ -1,0 +1,44 @@
+############################################################################################################
+# desc: Builds the Docker image and pushes it to the Azure registry
+# params: workingDirectory, docker build arguments, docker image naming, registry name
+# return: Publishes the image to Azure registry
+# pre-reqs: 
+############################################################################################################
+
+parameters:
+  workingDirectory: ''
+  docker_build_additional_args: ''
+  docker_imagename: ''
+  docker_imagetag: ''
+  docker_containerregistryname: ''
+  # docker_workdir: ''
+
+steps:
+  - task: Docker@2
+    displayName: Login to ACR
+    inputs:
+      command: login
+      containerRegistry: ${{ parameters.docker_containerregistryname }}
+
+  - task: Docker@2
+    displayName: Build and push Container Image to Azure Registry
+    inputs:
+      command: buildAndPush
+      repository: ${{ parameters.docker_imagename }}
+      Dockerfile: ${{ parameters.workingDirectory }}
+      containerRegistry: ${{ parameters.docker_containerregistryname }}
+      tags: |
+        ${{ parameters.docker_imagetag }}
+        latest
+      arguments: ${{ parameters.docker_build_additional_args }}
+
+  # - bash: |
+  #     docker build ${{ parameters.docker_build_additional_args }} -t ${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:latest
+  #   displayName: Build Container Image
+  #   workingDirectory: ${{ parameters.workingDirectory }}
+
+  # - bash: |
+  #     az acr login --name ${{ parameters.docker_containerregistryname }} # this is super annoying
+  #     docker push ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}
+  #   displayName: Push Container Image to Azure Container Registry
+  #   workingDirectory: ${{ parameters.workingDirectory }}
