@@ -10,12 +10,16 @@ parameters:
   workingDirectory: ''
 
 steps:
-  # Ensure Node.js 12 is actives
+  # Ensure Node.js 12 is active
   - task: NodeTool@0
     inputs:
       versionSpec:  ${{ parameters.versionSpec }}
       customRegistry: 'useNpmrc'
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
+
+  - task: npmAuthenticate@0
+      inputs:
+        workingFile: ${{ parameters.workingDirectory }}
 
   - task: Npm@1
     displayName: 'Build: Install Dev Dependencies'
