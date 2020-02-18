@@ -164,6 +164,7 @@ tests/**/src
 
 # GENERATED OUTPUT
 *.d.ts
+!**/globals.d.ts
 *.js
 !*.config.js
 

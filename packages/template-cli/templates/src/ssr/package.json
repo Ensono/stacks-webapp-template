@@ -2,6 +2,7 @@
   "name": "webapp",
   "scripts": {
     "test": "node_modules/.bin/jest -c jest.config.json --rootDir . --runInBand ",
+    "test:watch": "node_modules/.bin/jest -c jest.config.json --watchAll --rootDir . --runInBand ",
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "node dist/server/index.js",
@@ -56,6 +57,7 @@
     "jest-sonar-reporter": "^2.0.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
+    "snapshot-diff": "^0.7.0",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.5"
