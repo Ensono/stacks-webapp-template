@@ -90,7 +90,7 @@ stages:
       build_on_server: false
       docker_build: true
       # TODO: normalize this
-      docker_build_additional_args: --build-arg NPM_TOKEN=$(NPM_TOKEN) .
+      docker_build_additional_args: '.'
       docker_workdir: $(Build.SourcesDirectory)/packages/template-cli/templates/src/ssr
       docker_imagename: $(docker_image_name)
       docker_imagetag: $(docker_image_tag)

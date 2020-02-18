@@ -1,5 +1,4 @@
 FROM node:12-buster
-ARG NPM_TOKEN 
 
 RUN apt-get update -y && apt-get install dumb-init -y
 # use changes to package.json to force Docker not to use the cache
