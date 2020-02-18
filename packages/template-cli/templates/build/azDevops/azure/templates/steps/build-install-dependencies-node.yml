@@ -19,7 +19,7 @@ steps:
 
   - task: npmAuthenticate@0
     inputs:
-      workingFile: ${{ parameters.workingDirectory }}
+      workingFile: ${{ parameters.workingDirectory }}/.npmrc
 
   - task: Npm@1
     displayName: 'Build: Install Dev Dependencies'
