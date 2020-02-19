@@ -157,6 +157,11 @@ variable "create_dns_zone" {
   default = true
 }
 
+variable "internal_dns_zone" {
+  type = string
+  default = ""  
+}
+
 ###########################
 # ACR SETTINGS
 ##########################
@@ -170,9 +175,25 @@ variable "acr_registry_name" {
   default = "myacrregistry" 
 }
 
+variable "registry_admin_enabled" {
+  type = bool
+  default = true
+}
+
+variable "registry_sku" {
+  type = string
+  default = "Standard"
+  
+}
+
 ###########################
 # AKS SETTINGS
 ##########################
+
+variable "create_aks" {
+  type = bool
+  default = true
+}
 
 variable "cluster_version" {
   type    = string
@@ -279,5 +300,8 @@ variable "vm_size" {
 # MISC SETTINGS
 ##########################
 
+variable "resource_namer" {
+  type = string
+  default = "genericname"  
+}
 
-# account_tier
