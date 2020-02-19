@@ -1,5 +1,5 @@
 import { Api, HTTPMethod, buildExport } from ".";
-import conf from "../../config"
+import conf from "../../environment-configuration"
 
 class CategoryApi implements Api {
     externalBaseURL = "/"

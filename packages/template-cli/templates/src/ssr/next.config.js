@@ -10,7 +10,7 @@ module.exports = {
             compositions: path.join(__dirname, "compositions"),
             components: path.join(__dirname, "components"),
             constants: path.join(__dirname, "constants"),
-            config: path.join(__dirname, "config"),
+            config: path.join(__dirname, "environment-configuration"),
             utils: path.join(__dirname, "utils"),
         }
 

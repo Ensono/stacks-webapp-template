@@ -6,7 +6,7 @@ import errorHandler from './middlewares/error-handler'
 import httpLogger from './middlewares/http-logger'
 import logger from './core/root-logger'
 import api from './api'
-import conf from '../config'
+import conf from '../environment-configuration'
 
 const port = parseInt(conf.PORT || '3000', 10)
 const dev = process.env.NODE_ENV !== 'production'

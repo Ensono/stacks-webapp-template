@@ -71,8 +71,7 @@
         "APP_BASE_PATH": "",
         "APP_BASE_URL": "http://localhost",
         "MENU_API_URL": "http://dev.amidostacks.com/api/menu",
-        "PACT_BROKER": "https://amido-stacks.pact.dius.com.au",
-        "APPINSIGHTS_INSTRUMENTATIONKEY": "b53e0182-a2a2-4158-bea6-c1e23c819222"
+        "PACT_BROKER": "https://amido-stacks.pact.dius.com.au"
       },
       "args": [
         // "--project tsconfig.server.json"

@@ -1,5 +1,5 @@
 import {Api, HTTPMethod, buildExport} from '.'
-import conf from '../../config'
+import conf from '../../environment-configuration'
 
 class MenuApi implements Api {
     externalBaseURL = conf.MENU_API_URL
