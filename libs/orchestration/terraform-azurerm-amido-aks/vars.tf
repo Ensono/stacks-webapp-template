@@ -64,7 +64,7 @@ variable "location_name_map" {
 ############################################
 
 variable "resource_group_location" {
-  type = string
+  type    = string
   default = "uksouth"
 }
 
@@ -97,7 +97,7 @@ variable "create_aks_spn" {
 
 variable "spn_url" {
   type    = string
-  default = "https://portal.azure.com"
+  default = "https://stacks.azure.com/foo"
 }
 
 variable "spn_name" {
@@ -111,7 +111,7 @@ variable "spn_password" {
 }
 
 variable "generate_password" {
-  type = bool
+  type    = bool
   default = true
 }
 
@@ -126,7 +126,7 @@ variable "create_aksvnet" {
 }
 
 variable "vnet_name" {
-  type = string
+  type    = string
   default = "changeme"
 }
 
@@ -135,12 +135,12 @@ variable "vnet_cidr" {
 }
 
 variable "subnet_prefixes" {
-  type = list(string)
+  type    = list(string)
   default = [""]
 }
 
 variable "subnet_names" {
-  type = list(string)
+  type    = list(string)
   default = [""]
 }
 
@@ -158,32 +158,32 @@ variable "create_dns_zone" {
 }
 
 variable "internal_dns_zone" {
-  type = string
-  default = ""  
+  type    = string
+  default = ""
 }
 
 ###########################
 # ACR SETTINGS
 ##########################
 variable "create_acr" {
-  type = bool
-  default = true  
+  type    = bool
+  default = true
 }
 
 variable "acr_registry_name" {
-  type = string
-  default = "myacrregistry" 
+  type    = string
+  default = "myacrregistry"
 }
 
 variable "registry_admin_enabled" {
-  type = bool
+  type    = bool
   default = true
 }
 
 variable "registry_sku" {
-  type = string
+  type    = string
   default = "Standard"
-  
+
 }
 
 ###########################
@@ -191,7 +191,7 @@ variable "registry_sku" {
 ##########################
 
 variable "create_aks" {
-  type = bool
+  type    = bool
   default = true
 }
 
@@ -255,6 +255,10 @@ variable "client_id" {
   type = string
 }
 
+variable "spn_object_id" {
+  type = string
+}
+
 variable "client_secret" {
   type = string
 }
@@ -265,25 +269,25 @@ variable "admin_username" {
 }
 
 variable "create_ssh_key" {
-  type = bool
-  default = true  
+  type    = bool
+  default = true
 }
 
 variable "advanced_networking_enabled" {
-  type = bool
+  type    = bool
   default = true
 }
 
 variable "dns_prefix" {
-  type = string 
+  type    = string
   default = "aks"
-  
+
 }
 
 variable "vm_size" {
-  type = string
+  type    = string
   default = "Standard_DS2_v2"
-  
+
 }
 
 # nodepool_type # "VirtualMachineScaleSets" # default
@@ -301,7 +305,16 @@ variable "vm_size" {
 ##########################
 
 variable "resource_namer" {
-  type = string
-  default = "genericname"  
+  type    = string
+  default = "genericname"
 }
 
+variable "retention_in_days" {
+  type    = number
+  default = 30
+}
+
+variable "log_application_type" {
+  type    = string
+  default = "other"
+}

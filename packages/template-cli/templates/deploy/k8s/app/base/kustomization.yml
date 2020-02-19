@@ -6,30 +6,34 @@ resources:
 - ingress.yml
 
 commonLabels:
-  app.kubernetes.io/name: stacks-webapp-template
   app.kubernetes.io/component: web
+  app.kubernetes.io/name: stacks-webapp-template
   app.kubernetes.io/part-of: stacks
 # environment: dev # applied by overlays for each environment
 commonAnnotations:
+  app.kubernetes.io/instance: stacks-webapp
+  app.kubernetes.io/managed-by: kustomize
+  applicationId: stacks/webapp-template
+  applicationName: stacks-webapp
+  customerID: amido
+  owner: amido/stacks
+  projectID: stacks
   role: web
   stage: devel
   tier: frontend
-  app.kubernetes.io/instance: stacks-webapp
-  app.kubernetes.io/managed-by: kustomize
-  projectID: stacks
-  applicationName: stacks-webapp
-  applicationId: stacks/webapp-template
-  customerID: amido
-  owner: amido/stacks
 
-secretGenerator:
-- name: appinsights # this is an internal k8s reference and cannot be uppercase
-  files:
-  - secrets/APPINSIGHTS/INSTRUMENTATIONKEY
 
 # Secret "cf_booking_api-hd25m4bmk7" is invalid: metadata.name: Invalid value: "cf_booking_api-hd25m4bmk7": a DNS-1123 subdomain must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an
 # alphanumeric character (e.g. 'example.com', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*')
-- name: menuapi
-  files:
+secretGenerator:
+- files:
+  - secrets/APPINSIGHTS/INSTRUMENTATIONKEY
+  name: appinsights
+- files:
   - secrets/MENU_API/URL
   - secrets/MENU_API/KEY
+  name: menuapi
+images:
+- name: stacks-webapp-app-image:tag
+  newName: bitnami/node-example
+  newTag: 0.0.1

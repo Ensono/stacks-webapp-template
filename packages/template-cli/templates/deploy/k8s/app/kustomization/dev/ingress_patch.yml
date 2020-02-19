@@ -1,17 +1,29 @@
 - op: replace
   path: /spec/rules/0/host
-  value: dev.amidostacks.com
+  value: app.nonprod.amidostacks.com
 
 - op: add
   path: /spec/tls
   value:
     - hosts:
       - dev.amidostacks.com
+      - nonprod.amidostacks.com
 
 - op: add
   path: /spec/rules/-
   value:
-    host: "dev.azure.amidostacks.com"
+    host: "dev.amidostacks.com"
+    http:
+      paths:
+      - path: /web/stacks(/|$)(.*)
+        backend:
+          serviceName: stacks-webapp
+          servicePort: 3000
+# 
+- op: add
+  path: /spec/rules/-
+  value:
+    host: "app.nonprod.amidostacks.com"
     http:
       paths:
       - path: /web/stacks(/|$)(.*)

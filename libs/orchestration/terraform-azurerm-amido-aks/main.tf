@@ -13,7 +13,7 @@ resource "azurerm_virtual_network" "default" {
   resource_group_name = var.resource_group_name
   address_space       = var.vnet_cidr
   location            = var.resource_group_location
-  depends_on = [ azurerm_resource_group.default ]
+  depends_on          = [azurerm_resource_group.default]
 }
 
 resource "azurerm_subnet" "default" {
@@ -53,20 +53,20 @@ resource "azurerm_dns_zone" "default" {
   count               = var.create_dns_zone ? 1 : 0
   name                = var.dns_zone
   resource_group_name = var.resource_group_name
-  depends_on = [ azurerm_resource_group.default ]
+  depends_on          = [azurerm_resource_group.default]
 }
 
 resource "azurerm_private_dns_zone" "default" {
   count               = var.create_dns_zone ? 1 : 0
   name                = var.internal_dns_zone
   resource_group_name = var.resource_group_name
-  depends_on = [ azurerm_resource_group.default ]
+  depends_on          = [azurerm_resource_group.default]
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "default" {
-  name    = var.resource_namer
-  virtual_network_id = azurerm_virtual_network.default.0.id
-  resource_group_name = var.resource_group_name
+  name                  = var.resource_namer
+  virtual_network_id    = azurerm_virtual_network.default.0.id
+  resource_group_name   = var.resource_group_name
   private_dns_zone_name = var.internal_dns_zone
 }
 
@@ -80,6 +80,38 @@ resource "azurerm_dns_a_record" "example" {
     azurerm_public_ip.default
   ]
 }
+
+##################################################
+# Observability
+
+resource "azurerm_log_analytics_workspace" "default" {
+  name                = var.resource_namer
+  resource_group_name = var.resource_group_name
+  location            = var.resource_group_location
+  sku                 = "PerGB2018"
+  retention_in_days   = var.retention_in_days
+}
+
+resource "azurerm_log_analytics_solution" "default" {
+  solution_name         = "ContainerInsights"
+  resource_group_name   = var.resource_group_name
+  location              = var.resource_group_location
+  workspace_resource_id = azurerm_log_analytics_workspace.default.id
+  workspace_name        = azurerm_log_analytics_workspace.default.name
+  plan {
+    publisher = "Microsoft"
+    product   = "OMSGallery/ContainerInsights"
+  }
+}
+
+resource "azurerm_application_insights" "default" {
+  name                = var.resource_namer
+  resource_group_name = var.resource_group_name
+  location            = var.resource_group_location
+  application_type    = var.log_application_type
+}
+
+##################################################
 
 # k8s identity
 
@@ -101,12 +133,12 @@ resource "tls_private_key" "ssh_key" {
 }
 
 resource "azurerm_public_ip" "default" {
-  count = 1
-  name = format("${var.resource_namer}-%d",count.index)
-  location = var.resource_group_location
+  count               = 1
+  name                = format("${var.resource_namer}-%d", count.index)
+  location            = var.resource_group_location
   resource_group_name = var.resource_group_name
-  allocation_method = "Static"
-  sku = "Standard"
+  allocation_method   = "Static"
+  sku                 = "Standard"
   # timeouts {
   #   delete = 5
   # }
@@ -136,7 +168,7 @@ resource "azurerm_kubernetes_cluster" "default" {
 
   default_node_pool {
     # TODO: variablise below:
-    availability_zones  = ["1","2","3"] # var.aks_azs
+    availability_zones = ["1", "2", "3"] # var.aks_azs
     # node_taints           = [] -> null
     # max_pods          = var.max_pods != 0 ? var.max_pods : 1
     # enable_node_public_ip = false
@@ -149,18 +181,30 @@ resource "azurerm_kubernetes_cluster" "default" {
     vm_size             = var.vm_size
     node_count          = var.min_nodes
     # vnet_subnet_id      = var.vnet_subnet_id
-    vnet_subnet_id      = azurerm_subnet.default.0.id
+    vnet_subnet_id = azurerm_subnet.default.0.id
   }
 
+  addon_profile {
+    http_application_routing {
+      enabled = false
+    }
+    kube_dashboard {
+      enabled = true
+    }
+    oms_agent {
+      enabled                    = true
+      log_analytics_workspace_id = azurerm_log_analytics_workspace.default.id
+    }
+  }
   network_profile {
-    network_plugin = var.advanced_networking_enabled ? "azure" : "kubenet"
-    network_policy = var.advanced_networking_enabled ? "azure" : null
+    network_plugin    = var.advanced_networking_enabled ? "azure" : "kubenet"
+    network_policy    = var.advanced_networking_enabled ? "azure" : null
     load_balancer_sku = "standard"
     # service_cidr    = "172.0.0.0/16"
 
-    load_balancer_profile {
-        outbound_ip_address_ids = azurerm_public_ip.default[*].id
-    }
+    # load_balancer_profile {
+    #   outbound_ip_address_ids = azurerm_public_ip.default[*].id
+    # }
   }
   # TODO: this should be changed to UserAssigned once available
   # SPN should be removed once out of preview
@@ -172,16 +216,21 @@ resource "azurerm_kubernetes_cluster" "default" {
   # [here](https://docs.microsoft.com/en-us/azure/aks/use-managed-identity)
   # this will be a more generic cloud approach
   service_principal {
+    # element(concat(azuread_application.spn.*.application_id, list("")), 0)
+    # client_id     = element(concat(azuread_application.spn.*.application_id, list("")), 0)
+    # client_secret = random_string.spn_password.0.result
     client_id     = var.client_id
     client_secret = var.client_secret
   }
+
   lifecycle {
     ignore_changes = [
-      default_node_pool.0.node_count
+      default_node_pool.0.node_count,
+      agent_pool_profile
     ]
   }
-  depends_on = [ 
+  depends_on = [
     azurerm_virtual_network.default,
     azurerm_public_ip.default
-   ]
+  ]
 }

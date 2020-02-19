@@ -99,7 +99,7 @@ stages:
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
       # Sonar settings
-      static_code_analysis: false
+      static_code_analysis: true
       #Linting and formatting validation
       lint_formatting: false
       shared_eslint_config: '@amido-stacks/eslint-config@latest'
