@@ -18,8 +18,11 @@ steps:
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   - script: |
-      git checkout -b release-$(Build.SourceBranchName) $(Build.SourceVersion)
-    displayName: Create release-$(Build.SourceBranchName) branch at $(Build.SourceVersion)
+      # git checkout -b release-$(Build.SourceBranchName) $(Build.SourceVersion)
+      # git update-index --assume-unchanged .npmrc
+      git checkout $(Build.SourceBranchName)
+      git reset --soft $($(Build.SourceVersion)
+    displayName: Ensure HEAD isn't detached for $(Build.SourceBranchName)
 
   - task: Npm@1
     displayName: 'Publish: Publish packages using lerna'
@@ -30,6 +33,6 @@ steps:
       verbose: true
       customRegistry: 'useNpmrc'
 
-  - script: |
-      git branch -d release-$(Build.SourceBranchName)
-    displayName: Delete release-$(Build.SourceBranchName)
+  # - script: |
+  #     git branch -d release-$(Build.SourceBranchName)
+  #   displayName: Delete release-$(Build.SourceBranchName)
