@@ -1,6 +1,6 @@
 ############################################################################################################
 # desc: Publish changed packages using lerna
-# params: working directory
+# params: versionSpec, working directory, GIT CONFIG as defined as ENV variables or in a pipeline library
 # return: npm packages are published to the registry, version bumped in github
 # pre-reqs: Dependencies must be installed, .npmrc configured
 ################s############################################################################################
@@ -10,18 +10,14 @@ parameters:
   workingDirectory: ''
 
 steps:
-  # Ensure Node.js 12 is active
-  - task: NodeTool@0
-    inputs:
-      versionSpec:  ${{ parameters.versionSpec }}
-      customRegistry: 'useNpmrc'
-    displayName: 'Use Node.js ${{ parameters.versionSpec }}'
-
+  # In order to Lerna to bump the version for the packages, we must ensure the following:
+  # 1. We are not in detached HEAD for the current commit SHA
+  # 2. We ignore the uncommitted .npmrc file changes as they contain credentials that shouldn't be committed
   - bash: |
-      git config --global user.email "williamayerst@github.com"
-      git config --global user.name "williamayerst"
+      git config --global user.email $(GIT_USER_EMAIL)
+      git config --global user.name $(GIT_USER_NAME)
       git remote rm origin
-      git remote add origin https://github.com/amido/stacks-webapp-template
+      git remote add origin $(GIT_ORIGIN)
       git remote -v
       git fetch
       branch=$(Build.SourceBranch)
@@ -29,8 +25,16 @@ steps:
       git checkout ${branch/refs\/heads\//''} 
       git reset --mixed $(Build.SourceVersion)
       git update-index --assume-unchanged .npmrc
-    displayName: Ensure HEAD isn't detached for $(Build.SourceBranch)
+    displayName: Configure Git for $(Build.SourceBranch)
 
+  # Ensure Node.js 12 is active
+  - task: NodeTool@0
+    inputs:
+      versionSpec:  ${{ parameters.versionSpec }}
+      customRegistry: 'useNpmrc'
+    displayName: 'Use Node.js ${{ parameters.versionSpec }}'
+
+  # Version the Lerna packages first, this will commit to the repo and update the changelog  
   - task: Npm@1
     displayName: 'Publish: Version packages using lerna'
     inputs:
@@ -40,6 +44,7 @@ steps:
       verbose: true
       customRegistry: 'useNpmrc'
 
+  # Publish the newly versioned packages to specified registries
   - task: Npm@1
     displayName: 'Publish: Publish packages using lerna'
     inputs:

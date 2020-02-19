@@ -10,6 +10,9 @@
     },
     "publish": {
       "allowBranch": ["master", "feature/*", "task/*"]
+    },
+    "version": {
+      "message": "chore(release): publish"
     }
   },
   "version": "independent"
