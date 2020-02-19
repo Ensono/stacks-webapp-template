@@ -19,9 +19,9 @@ steps:
 
   - bash: |
       branch=$(Build.SourceBranch)
-      echo ${branch/refs\/head\//''} 
-      echo ${$(Build.SourceBranch)/refs\/head\//''}
-      git checkout ${$(Build.SourceBranch)/refs\/head\//''}
+      echo ${branch/refs\/heads\//''} 
+      echo ${$(Build.SourceBranch)/refs\/heads\//''}
+      git checkout ${$(Build.SourceBranch)/refs\/heads\//''}
       git reset --mixed $(Build.SourceVersion)
       git update-index --assume-unchanged .npmrc
     displayName: Ensure HEAD isn't detached for $(Build.SourceBranch)
