@@ -18,11 +18,19 @@ steps:
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   - script: |
-      # git checkout -b release-$(Build.SourceBranchName) $(Build.SourceVersion)
-      # git update-index --assume-unchanged .npmrc
       git checkout $(Build.SourceBranchName)
-      git reset --soft $($(Build.SourceVersion)
+      git reset --mixed $(Build.SourceVersion)
+      git update-index --assume-unchanged .npmrc
     displayName: Ensure HEAD isn't detached for $(Build.SourceBranchName)
+
+  - task: Npm@1
+    displayName: 'Publish: Version packages using lerna'
+    inputs:
+      command: 'custom' # Options: install, publish, custom
+      customCommand: 'run version'
+      workingDir: ${{ parameters.workingDirectory }}
+      verbose: true
+      customRegistry: 'useNpmrc'
 
   - task: Npm@1
     displayName: 'Publish: Publish packages using lerna'
@@ -32,7 +40,3 @@ steps:
       workingDir: ${{ parameters.workingDirectory }}
       verbose: true
       customRegistry: 'useNpmrc'
-
-  # - script: |
-  #     git branch -d release-$(Build.SourceBranchName)
-  #   displayName: Delete release-$(Build.SourceBranchName)
