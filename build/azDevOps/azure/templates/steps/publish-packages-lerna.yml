@@ -17,6 +17,10 @@ steps:
       customRegistry: 'useNpmrc'
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
+  - script: |
+      git checkout -b release-$(Build.SourceBranchName) $(Build.SourceVersion)
+    displayName: Create release-$(Build.SourceBranchName) branch at $(Build.SourceVersion)
+
   - task: Npm@1
     displayName: 'Publish: Publish packages using lerna'
     inputs:
@@ -25,3 +29,7 @@ steps:
       workingDir: ${{ parameters.workingDirectory }}
       verbose: true
       customRegistry: 'useNpmrc'
+
+  - script: |
+      git branch -d release-$(Build.SourceBranchName)
+    displayName: Delete release-$(Build.SourceBranchName)
