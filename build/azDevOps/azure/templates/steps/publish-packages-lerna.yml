@@ -18,7 +18,8 @@ steps:
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   - script: |
-      echo 
+      branch=$(Build.SourceBranch)
+      echo ${branch/refs\/head\//''} 
       echo ${$(Build.SourceBranch)/refs\/head\//''}
       git checkout ${$(Build.SourceBranch)/refs\/head\//''}
       git reset --mixed $(Build.SourceVersion)
