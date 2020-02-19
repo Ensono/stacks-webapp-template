@@ -23,6 +23,7 @@ module.exports = {
     'plugin:jest/recommended',
     'plugin:import/typescript',
     'plugin:react/recommended',
+    'plugin:security/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
@@ -33,7 +34,7 @@ module.exports = {
   globals: {
     React: 'writable',
   },
-  plugins: ['react', 'jest', '@typescript-eslint'],
+  plugins: ['react', 'jest', '@typescript-eslint', "security"],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',

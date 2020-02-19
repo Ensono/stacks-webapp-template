@@ -10,29 +10,34 @@ const ApiPane = (props: ApiPaneProps) => {
     const myapi = api("getMenuList");
     const [state, setState] = useState(null);
     const callApi = async () => {
-        const res = await axios({
+        try {
+          const res = await axios({
             method: myapi.method,
-            url: myapi.internalEndpoint()
-        });
-        setState(res.data.results);
+            url: myapi.internalEndpoint(),
+          })
+          res ? setState(res.data.results) : undefined
+        } catch (err) {
+        }
     };
     return (
-        <Container item>
-            <Pane>
-                <h1>Get Menu List</h1>
-                <Button onClick={callApi}>{myapi.method}</Button>
-            </Pane>
-            {state && (
-                <Pane>
-                    <ul>
-                        {state.map(item => (
-                            <li>{item.name}</li>
-                        ))}
-                    </ul>
-                </Pane>
-            )}
-        </Container>
-    );
+      <Container item>
+        <Pane>
+          <h1>Get Menu List</h1>
+          <Button data-testid="apiPaneBtn" onClick={callApi}>
+            {myapi.method}
+          </Button>
+        </Pane>
+        {state && (
+          <Pane data-testid="results">
+            <ul>
+              {state.map(item => (
+                <li key={item.id}>{item.name}</li>
+              ))}
+            </ul>
+          </Pane>
+        )}
+      </Container>
+    )
 };
 
 export default ApiPane;

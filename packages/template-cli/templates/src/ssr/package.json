@@ -2,11 +2,13 @@
   "name": "webapp",
   "scripts": {
     "test": "node_modules/.bin/jest -c jest.config.json --rootDir . --runInBand ",
+    "test:watch": "node_modules/.bin/jest -c jest.config.json --watchAll --rootDir . --runInBand ",
     "dev": "nodemon",
     "build": "next build && tsc --project tsconfig.server.json",
-    "start": "next start",
-    "lint": "node_modules/.bin/eslint",
-    "validate": "echo 'This should be a validate linting task.'",
+    "start": "node dist/server/index.js",
+    "lint": "node_modules/.bin/eslint . -f codeframe",
+    "prettier": "node_modules/.bin/prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
+    "validate": "npm run prettier --list-different && npm run lint",
     "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir . --runInBand ",
     "test:pact-publish": "node_modules/.bin/tsc ./pact/pactPublish.ts && node ./pact/pactPublish.js",
     "test:pact-start-stub": "node_modules/.bin/tsc pact/packStubServer.ts && node pact/packStubServer.js",
@@ -37,6 +39,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@amido-stacks/eslint-config": "^0.1.2",
     "@babel/core": "^7.8.4",
     "@pact-foundation/pact": "^9.6.1",
     "@pact-foundation/pact-node": "^10.2.4",
@@ -49,11 +52,12 @@
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
-    "eslint": "^6.8.0",
     "jest": "^24.9.0",
     "jest-junit": "^10.0.0",
     "jest-sonar-reporter": "^2.0.0",
     "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "snapshot-diff": "^0.7.0",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.5"

@@ -8,7 +8,7 @@ parameters:
   dependsOn: 'GetPackage'
   # Docker Config
   docker_build: true
-  docker_build_additional_args: '.'
+  docker_build_additional_args: ''
   docker_workdir: ''
   docker_imagename: ''
   docker_imagetag: ''
@@ -17,6 +17,7 @@ parameters:
   vulnerability_scan: false
   vulnerability_workdir: ''
   #  Static Code Analysis
+  build_audit: false
   static_code_analysis: false
   static_code_analysis_build_path: ''
   Sonar_serviceConnection: ''
@@ -25,6 +26,9 @@ parameters:
   Sonar_projectKey: ''
   Sonar_projectName: ''
   Sonar_projectVersion: ''
+  #Linting and formatting validation
+  lint_formatting: ''
+  shared_eslint_config: ''
   # Testing
   unit_test: true
   contract_test: true
@@ -63,10 +67,11 @@ jobs:
           devops_artefact_name: '${{ parameters.devops_artefact_name }}'
 
       # Audit dependencies
-      - template: ../steps/build-audit-dependencies-node.yml
-        parameters:
-          versionSpec: ${{ parameters.versionSpec }}
-          workingDirectory: ${{ parameters.project_root_dir }}
+      - ${{ if eq(parameters.build_audit, true) }}:
+        - template: ../steps/build-audit-dependencies-node.yml
+          parameters:
+            versionSpec: ${{ parameters.versionSpec }}
+            workingDirectory: ${{ parameters.project_root_dir }}
 
       # Install dependencies
       - template: ../steps/build-install-dependencies-node.yml
@@ -74,9 +79,17 @@ jobs:
           versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
 
+      # Linting and formatting validation
+      - ${{ if eq(parameters.lint_formatting, true) }}:
+          - template: ../steps/test-static-validate-node.yml
+            parameters:
+              versionSpec: ${{ parameters.versionSpec }}
+              workingDirectory: ${{ parameters.project_root_dir }}
+              lintingSharedConfigPackage: ${{ parameters.shared_eslint_config }}
+
       # Linting and unit tests
       - ${{ if eq(parameters.unit_test, true) }}:
-          - template: ../steps/test-lint-unit-node.yml
+          - template: ../steps/test-unit-node.yml
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}
@@ -113,16 +126,13 @@ jobs:
 
       # Build Docker Image, Scan and Push to Repository
       - ${{ if eq(parameters.docker_build, true) }}:
-          - bash: |
-              docker build ${{ parameters.docker_build_additional_args }} -t ${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }} -t ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}:latest
-            displayName: Build Container Image
-            workingDirectory: ${{ parameters.docker_workdir }}
-
-          - bash: |
-              az acr login --name ${{ parameters.docker_containerregistryname }} # this is super annoying
-              docker push ${{ parameters.docker_containerregistryname }}.azurecr.io/${{ parameters.docker_imagename }}
-            displayName: Push Container Image to Azure Container Registry
-            workingDirectory: ${{ parameters.docker_workdir }}
+          - template: ../steps/build-container-image.yml
+            parameters:
+              workingDirectory: ${{ parameters.docker_workdir }}
+              docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
+              docker_imagename: ${{ parameters.docker_imagename }}
+              docker_imagetag: ${{ parameters.docker_imagetag }}
+              docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
 
       # Build Docker Image, Scan and Push to Repository
       - ${{ if eq(parameters.git_do_tag_release, true) }}:
@@ -133,6 +143,7 @@ jobs:
               git push origin v${{ parameters.git_release_tag }}
             displayName: Git Tag release
             workingDirectory: ${{ parameters.project_root_dir }}
+
       # Do Lerna release
       - ${{ if eq(parameters.publish_packages_lerna, true) }}:
           - bash: |
