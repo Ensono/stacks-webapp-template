@@ -18,6 +18,12 @@ steps:
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   - bash: |
+      git config --global user.email "williamayerst@github.com"
+      git config --global user.name "williamayerst"
+      git remote rm origin
+      git remote add origin https://github.com/amido/stacks-webapp-template
+      git remote -v
+      git fetch
       branch=$(Build.SourceBranch)
       echo ${branch/refs\/heads\//''}
       git checkout ${branch/refs\/heads\//''} 
