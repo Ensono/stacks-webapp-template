@@ -10,7 +10,7 @@ export enum HTTPMethod {
 
 export function apiURL(api: Api) {
     return endpoint => (...params: Array<any>) =>
-        `${api.baseURL}/${api.version}/${api.endpoints[endpoint].getExternalURL(
+        `${api.externalBaseURL}/${api.version}/${api.endpoints[endpoint].getExternalURL(
             ...params
         )}`;
 }
@@ -47,7 +47,7 @@ export function buildExport(api: Api, endpoint: string) {
 }
 
 export interface Api {
-    baseURL: string;
+    externalBaseURL: string;
     version: string;
     internalBasePath: string;
     endpoints: Endpoint;

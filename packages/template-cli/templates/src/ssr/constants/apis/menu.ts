@@ -2,7 +2,7 @@ import {Api, HTTPMethod, buildExport} from '.'
 import conf from '../../config'
 
 class MenuApi implements Api {
-  baseURL = conf.APP_BASE_URL
+  externalBaseURL = conf.MENU_API_URL;
   internalBasePath = conf.APP_BASE_PATH
   version = 'v1'
   endpoints = {

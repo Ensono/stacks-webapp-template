@@ -11,6 +11,7 @@ module.exports = {
             components: path.join(__dirname, "components"),
             constants: path.join(__dirname, "constants"),
             config: path.join(__dirname, "config"),
+            utils: path.join(__dirname, "utils"),
         }
 
         return config
