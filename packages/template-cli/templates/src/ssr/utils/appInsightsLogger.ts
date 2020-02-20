@@ -57,7 +57,7 @@ export const withApplicationInsights = (
             }
 
             public initializeAppInsights() {
-                if (IS_BROWSER && config.isEnabled && !appInsights) {
+                if (IS_BROWSER && config.isEnabled && !!config.instrumentationKey &&  !appInsights) {
                     appInsights = new ApplicationInsights({config})
                     appInsights.loadAppInsights()
                     window.appInsights = appInsights
