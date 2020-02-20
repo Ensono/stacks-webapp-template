@@ -13,7 +13,7 @@ steps:
   # In order to Lerna to bump the version for the packages, we must ensure the following:
   # 1. We are not in detached HEAD for the current commit SHA on master
   # 2. We ignore the uncommitted .npmrc file changes as they contain credentials that shouldn't be committed
-  # We ONLY publish packages from master
+  # We ONLY publish packages to a release branch once changes are merged into master. It's up to maintainers to merge the release-branch to master.
   - bash: |
       git config --global user.email $(GIT_USER_EMAIL)
       git config --global user.name $(GIT_USER_NAME)
@@ -21,10 +21,11 @@ steps:
       git remote add origin $(GIT_ORIGIN)
       git remote -v
       git fetch
-      git checkout master
+      SHA=$(Build.SourceVersion)
+      git checkout -b release-${SHA:0:7} master
       git reset --mixed $(Build.SourceVersion)
       git update-index --assume-unchanged .npmrc
-    displayName: Configure Git for deploying from master $(Build.SourceVersion)
+    displayName: Create release branch for $(Build.SourceVersion)
 
   # Ensure Node.js 12 is active
   - task: NodeTool@0
