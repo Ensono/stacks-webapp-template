@@ -167,5 +167,7 @@ tests/**/src
 !**/globals.d.ts
 *.js
 !*.config.js
+!**/config.js
+
 
 !**/environment-configuration/*.js

@@ -1,4 +1,5 @@
 import { Method } from "axios";
+import getConfig from 'next/config'
 
 export enum HTTPMethod {
     "get",
@@ -21,7 +22,9 @@ export function apiMethod(api: Api) {
 
 export function internalEndpoint(api: Api) {
     return endpoint => (...params: Array<any>) =>
-        `${api.internalBasePath}/${api.endpoints[endpoint].getInternalURL(...params)}`
+      `${
+        getConfig().publicRuntimeConfig.APP_BASE_PATH
+      }/${api.endpoints[endpoint].getInternalURL(...params)}`
 }
 
 export function routeDefinition(api: Api) {

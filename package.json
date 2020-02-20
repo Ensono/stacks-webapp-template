@@ -8,14 +8,14 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "lerna bootstrap",
-    "release": "lerna version && lerna publish from-git --yes",
     "dev": "lerna run dev --stream",
     "build": "lerna run build --stream",
     "test": "lerna run test --stream",
     "lint": "lerna run lint --stream",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "validate": "npm run prettier --list-different && npm run lint",
-    "publish": "lerna publish --no-git-reset --no-commit-hooks",
+    "version": "lerna version --conventional-commits --yes --no-commit-hooks",
+    "publish": "lerna publish from-git --no-git-reset --no-commit-hooks --yes --no-verify-access --no-verify-registry",
     "clean:tree": "git clean -idx"
   },
   "engines": {
