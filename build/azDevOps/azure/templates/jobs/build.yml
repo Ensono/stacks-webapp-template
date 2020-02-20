@@ -36,3 +36,10 @@ jobs:
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}
+
+      # Publish: Publish packages
+      - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+          - template: ../steps/publish-packages-lerna.yml
+            parameters:
+              versionSpec: ${{ parameters.versionSpec }}
+              workingDirectory: ${{ parameters.project_root_dir }}
