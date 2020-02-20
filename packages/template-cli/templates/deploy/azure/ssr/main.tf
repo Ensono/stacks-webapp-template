@@ -19,13 +19,13 @@ variable "vnet_cidr" {
 }
 
 module "sample_aks_bootstrap" {
-  source                  = "../../"
+  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=task/infra-from-scratch"
   resource_namer          = module.default_label.id
   create_rg               = true
   resource_group_name     = module.default_label.id
   resource_group_location = "uksouth"
   client_id               = data.azurerm_client_config.current.client_id
-  spn_object_id               = data.azurerm_client_config.current.object_id
+  spn_object_id           = data.azurerm_client_config.current.object_id
   client_secret           = var.client_secret
   # client_id            = var.create_aksspn ? module.aks-spn.spn_applicationid : var.cluster_spn_clientid
   # client_secret        = var.create_aksspn ? random_string.spn_password.0.result : var.cluster_spn_clientsecret

@@ -50,12 +50,6 @@ resource "azurerm_role_assignment" "cluster_spn_to_env_rg" {
   principal_id         = var.spn_object_id
 }
 
-# resource "azurerm_role_assignment" "amido_dev" {
-#   scope                = azurerm_resource_group.env.id
-#   role_definition_name = "Contributor"
-#   principal_id         = var.create_aksspn ? module.aks-spn.spn_objectid : var.cluster_spn_objectid
-# }
-
 resource "azurerm_role_assignment" "cluster_identity_to_dns_zone" {
   count                = var.create_dns_zone ? 1 : 0
   scope                = azurerm_dns_zone.default[0].id

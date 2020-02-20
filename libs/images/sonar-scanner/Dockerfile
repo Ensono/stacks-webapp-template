@@ -4,7 +4,7 @@ FROM amd64/openjdk:11.0.6-slim-buster
 ARG RELEASE=4.2.0.1873
 ARG NODE_VERSION=12.13.0
 
-LABEL maintainer="Amido Stacks <stacks@amido.com"
+LABEL maintainer="Amido Stacks <stacks@amido.com>"
 
 WORKDIR /root
 
