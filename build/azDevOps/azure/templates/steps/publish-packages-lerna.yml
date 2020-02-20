@@ -22,9 +22,10 @@ steps:
       git remote -v
       git fetch
       SHA=$(Build.SourceVersion)
-      git checkout -b release-${SHA:0:7} master
-      git reset --mixed $(Build.SourceVersion)
+      git checkout -b release-${SHA:0:7}
+      git reset --mixed $SHA
       git update-index --assume-unchanged .npmrc
+      git push -u origin release-${SHA:0:7}
     displayName: Create release branch for $(Build.SourceVersion)
 
   # Ensure Node.js 12 is active
