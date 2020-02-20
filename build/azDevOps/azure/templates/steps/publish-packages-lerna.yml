@@ -1,0 +1,54 @@
+############################################################################################################
+# desc: Publish changed packages using lerna
+# params: versionSpec, working directory, GIT CONFIG as defined as ENV variables or in a pipeline library
+# return: npm packages are published to the registry, version bumped in github
+# pre-reqs: Dependencies must be installed, .npmrc configured, changes are merged to master
+################s############################################################################################
+
+parameters:
+  versionSpec: ''
+  workingDirectory: ''
+
+steps:
+  # In order to Lerna to bump the version for the packages, we must ensure the following:
+  # 1. We are not in detached HEAD for the current commit SHA on master
+  # 2. We ignore the uncommitted .npmrc file changes as they contain credentials that shouldn't be committed
+  # We ONLY publish packages from master
+  - bash: |
+      git config --global user.email $(GIT_USER_EMAIL)
+      git config --global user.name $(GIT_USER_NAME)
+      git remote rm origin
+      git remote add origin $(GIT_ORIGIN)
+      git remote -v
+      git fetch
+      git checkout master
+      git reset --mixed $(Build.SourceVersion)
+      git update-index --assume-unchanged .npmrc
+    displayName: Configure Git for deploying from master $(Build.SourceVersion)
+
+  # Ensure Node.js 12 is active
+  - task: NodeTool@0
+    inputs:
+      versionSpec:  ${{ parameters.versionSpec }}
+      customRegistry: 'useNpmrc'
+    displayName: 'Use Node.js ${{ parameters.versionSpec }}'
+
+  # Version the Lerna packages first, this will commit to the repo and update the changelog  
+  - task: Npm@1
+    displayName: 'Publish: Version packages using lerna'
+    inputs:
+      command: 'custom' # Options: install, publish, custom
+      customCommand: 'run version'
+      workingDir: ${{ parameters.workingDirectory }}
+      verbose: true
+      customRegistry: 'useNpmrc'
+
+  # Publish the newly versioned packages to specified registries
+  - task: Npm@1
+    displayName: 'Publish: Publish packages using lerna'
+    inputs:
+      command: 'custom' # Options: install, publish, custom
+      customCommand: 'run publish'
+      workingDir: ${{ parameters.workingDirectory }}
+      verbose: true
+      customRegistry: 'useNpmrc'

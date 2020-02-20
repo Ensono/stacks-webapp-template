@@ -1,11 +1,8 @@
 # stacks-webapp-template
 
-![Stacks Webapp Template](.github/images/stacks_banner.png)
-
-Create SSR Node.js with React apps with no build configuration.
+Packages for templating SSR Node.js with React apps with little build configuration.
 
 ## Why?
-
 Every new project exists to solve a unique challenge 
 but requires common building blocks to get up and running.
 
@@ -24,23 +21,18 @@ We are leveraging [npm](https://www.npmjs.com/) for dependency management - foll
 installation instructions for your OS [here](https://www.npmjs.com/get-npm).
 
 ## Contribution guidelines
+
+Changes to this base repo flow through the Azure DevOps pipeline as defined in [build/azDevOps/azure](build/azDevOps/azure/).
+
 We enforce the use of [Conventional Commits](https://commitlint.js.org) with CommitLint at commit time. We also lint and test all code before committing.
 
 To link to an Azure Boards ticket, please include `AB#{id}` in your commit message. eg. `AB#1230`
 
+Please see [Stacks/CONTRIBUTING](https://github.com/amido/stacks/blob/master/.github/CONTRIBUTING.md) to find out more.
+
 
 ## To start
-
-`npm install` to install the dev dependencies from the root. This should invoke `npm run postinstall` automatically to bootstrap the packages in the current Lerna repo. Lerna installs
-all package dependencies and links any cross-dependencies.
-
-
-## To create the sample app locally
-For package management, we are using [Lerna](https://lernajs.io) which can be installed using [npm](https://www.npmjs.com/package/lerna).
-
-We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
-
-See [template-cli](./packages/template-cli/README.md) for information.
+`npm install` to install the dev dependencies from the root. This should invoke `npm run postinstall` automatically to bootstrap the packages in the current Lerna repo. Lerna installs all package dependencies and links any cross-dependencies.
 
 
 ## Tests
@@ -59,3 +51,10 @@ formatting and linting rules.
 ##### Unit
 
 `npm run test`: runs the unit tests for all packages.
+
+## To create the sample app locally
+For package management, we are using [Lerna](https://lernajs.io) which can be installed using [npm](https://www.npmjs.com/package/lerna).
+
+We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
+
+See [template-cli](./packages/template-cli/README.md) for information.

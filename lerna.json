@@ -9,7 +9,10 @@
       "sort": false
     },
     "publish": {
-      "allowBranch": ["master", "feature/*", "task/*"]
+      "allowBranch": ["master"]
+    },
+    "version": {
+      "message": "chore(release): publish"
     }
   },
   "version": "independent"
