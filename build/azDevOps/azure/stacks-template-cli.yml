@@ -40,5 +40,4 @@ stages:
       build_audit: false
       # Testing
       unit_test: true
-      # Publishing 
-      publish_packages: true
+      
