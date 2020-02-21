@@ -1,4 +1,5 @@
 {
   "fixturesFolder": "__tests__/cypress/fixtures",
-  "integrationFolder": "__tests__/cypress/integration"
+  "integrationFolder": "dist/__tests__/cypress/integration",
+  "$schema": "https://on.cypress.io/cypress.schema.json"
 }
