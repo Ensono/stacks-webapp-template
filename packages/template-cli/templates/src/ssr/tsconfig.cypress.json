@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.jest.json",
+  "compilerOptions": {
+    "outDir": "build",
+    "sourceMap": false
+  },
+  "include": [
+    "__tests__/cypress/integration/**/*.spec.ts"
+  ]
+}
