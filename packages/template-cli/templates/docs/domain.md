@@ -16,6 +16,8 @@ path such as `/web/app`.
 
 ##### logger
 
+Application insights
+
 ##### helmet
 
 ##### error-handler

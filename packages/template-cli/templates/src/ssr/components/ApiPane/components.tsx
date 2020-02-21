@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Box, Grid } from "@material-ui/core";
-import theme from "config/theme";
+import theme from "../../config/theme";
 
 export const Container = styled(Grid)`
   padding-bottom: ${theme.gutter};
