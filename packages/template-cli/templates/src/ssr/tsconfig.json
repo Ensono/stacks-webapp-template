@@ -16,7 +16,7 @@
     "sourceMap": true,
     "jsx": "preserve",
     "isolatedModules": true,
-    "types": ["jest", "node"],
+    "types": ["jest", "node", "cypress"],
     "keyofStringsOnly": true
   },
   "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)"],

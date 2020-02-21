@@ -1,0 +1,4 @@
+{
+  "fixturesFolder": "__tests__/cypress/fixtures",
+  "integrationFolder": "__tests__/cypress/integration"
+}
