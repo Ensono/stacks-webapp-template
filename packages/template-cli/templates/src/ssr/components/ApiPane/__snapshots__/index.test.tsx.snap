@@ -5,7 +5,7 @@ exports[`fires api call on button click 1`] = `
 - First value
 + Second value
 
-@@ -22,7 +22,17 @@
+@@ -22,7 +22,18 @@
           <span
             class=\\"MuiTouchRipple-root\\"
           />
@@ -13,9 +13,10 @@ exports[`fires api call on button click 1`] = `
       </div>
 +     <div
 +       class=\\"MuiBox-root MuiBox-root-295 css-irufoq\\"
-+       data-testid=\\"results\\"
 +     >
-+       <ul>
++       <ul
++         data-testid=\\"results\\"
++       >
 +         <li>
 +           Breakfast Menu
 +         </li>
