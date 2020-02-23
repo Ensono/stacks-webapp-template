@@ -155,6 +155,9 @@ backend.local.tfvars
 **/.sonar
 **/*.mp4
 
+# CYPRESS
+!**/plugins/*.js
+
 #TEMPLATE EXAMPLE CODE
 # **/templates/**/__snapshots__
 
