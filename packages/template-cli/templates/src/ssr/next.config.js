@@ -17,6 +17,8 @@ module.exports = {
         return config
     },
     assetPrefix: process.env.APP_BASE_PATH || "",
+    // Only include tsx files for serving, excluding the *.spec.ts files for Cypress
+    pageExtensions: ['tsx'],
     target: "server",
     serverRuntimeConfig: {
         // Will only be available on the server side

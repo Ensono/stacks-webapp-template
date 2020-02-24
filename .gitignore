@@ -170,3 +170,4 @@ backend.local.tfvars
 
 
 !**/environment-configuration/*.js
+.history/*.*

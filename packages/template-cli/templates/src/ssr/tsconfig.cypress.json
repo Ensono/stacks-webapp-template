@@ -5,7 +5,8 @@
     "baseUrl": "../node_modules",
     "target": "es5",
     "lib": ["es5", "dom"],
-    "sourceMap": false
+    "sourceMap": false,
+    "outDir": "dist/__tests__"
   },
   "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)"],
   "include": ["**/*.spec.ts"]

@@ -14,7 +14,7 @@
     "test:pact-start-stub": "node_modules/.bin/tsc pact/packStubServer.ts && node pact/packStubServer.js",
     "test:pact-can-i-deploy": "node_modules/.bin/tsc pact/pactCanIDeploy.ts && node pact/pactCanIDeploy.js",
     "test:pact-can-i-deploy-ci": "node_modules/.bin/pact-broker can-i-deploy --pacticipant $PACT_CONSUMER -l --broker-base-url $PACT_BROKER --broker-token $PACT_BEARER_TOKEN",
-    "test:cypress:compile": "node_modules/.bin/tsc --watch --project tsconfig.cypress.json", 
+    "test:cypress:compile": "node_modules/.bin/tsc --watch --project tsconfig.cypress.json",
     "test:cypress:run": "node_modules/.bin/tsc --project tsconfig.cypress.json && node_modules/.bin/cypress run",
     "test:cypress:open": "node_modules/.bin/tsc --project tsconfig.cypress.json && node_modules/.bin/cypress open",
     "clean:tree": "git clean -idx"
