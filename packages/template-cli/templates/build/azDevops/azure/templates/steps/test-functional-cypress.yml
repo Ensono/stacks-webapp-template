@@ -10,7 +10,7 @@ parameters:
   workingDirectory: ''
 
 steps:
-  # Run tests with Jest
+  # Compile Cypress Typscript tests
   - script: npm run test:cypress:compile
     displayName: 'Compile the Cypress tests'
     workingDirectory: ${{ parameters.workingDirectory }}
@@ -23,6 +23,23 @@ steps:
       ${{ each var in parameters.env_vars }}:
         ${{ var.key }}: ${{ var.value }}
 
+  # Publish Artifacts: Cypress will automatically capture screenshots when a failure happens
+  - task: PublishPipelineArtifact@1
+    inputs:
+      artifactName: 'screenshots'
+      targetPath: '${{ parameters.workingDirectory }}/__tests__/cypress/screenshots'
+    displayName: 'Publish Screenshots (Cypress)'
+    condition: failed()
+
+  # Publish Artifacts: Cypress records a video for each spec file when running tests
+  # Note: Video recording is not currently supported in Electron with the --headed flag
+  - task: PublishPipelineArtifact@1
+    inputs:
+      artifactName: 'videos'
+      targetPath: '${{ parameters.workingDirectory }}/__tests__/cypress/videos'
+    displayName: 'Publish Videos (Cypress)'
+    condition: failed()
+
   # Publish CI test results
   - task: PublishTestResults@2
     inputs:
@@ -31,9 +48,3 @@ steps:
       testRunTitle: 'Cypress Tests'
     displayName: 'Publish test results'
     condition: succeededOrFailed()
-
-  # Publish the code coverage results
-  - task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: Cobertura
-      summaryFileLocation: '**/cobertura-coverage.xml'
