@@ -12,6 +12,7 @@ class _App extends App {
         if (Component.getInitialProps) {
             pageProps = await Component.getInitialProps(ctx)
         }
+        console.log(getConfig().publicRuntimeConfig)
         return {pageProps}
     }
 
@@ -28,7 +29,5 @@ class _App extends App {
 // AppInsights are disabled for localhost
 export default withApplicationInsights({
     instrumentationKey: getConfig().publicRuntimeConfig.APPINSIGHTS_KEY,
-    isEnabled:
-        getConfig()?.publicRuntimeConfig?.APP_BASE_URL?.indexOf("localhost") !==
-        -1,
+    isEnabled: true,
 })(_App)
