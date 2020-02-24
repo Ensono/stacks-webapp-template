@@ -71,8 +71,10 @@ export const withApplicationInsights = (
             }
 
             public customTrace(msg: string) {
-                appInsights.trackTrace({message: msg, severityLevel: 1})
-                appInsights.flush()
+                if (appInsights) {
+                    appInsights.trackTrace({ message: msg, severityLevel: 1 })
+                    appInsights.flush()
+                }
             }
 
             public trackPageView() {
