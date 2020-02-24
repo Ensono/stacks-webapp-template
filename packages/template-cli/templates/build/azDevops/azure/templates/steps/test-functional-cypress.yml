@@ -14,9 +14,6 @@ steps:
   - script: npm run test:cypress:compile
     displayName: 'Compile the Cypress tests'
     workingDirectory: ${{ parameters.workingDirectory }}
-    env:
-      ${{ each var in parameters.env_vars }}:
-        ${{ var.key }}: ${{ var.value }}
 
   # Run tests with Cypress
   - script: npm run test:cypress
