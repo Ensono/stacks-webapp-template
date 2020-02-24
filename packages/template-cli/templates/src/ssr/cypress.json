@@ -1,6 +1,6 @@
 {
   "fixturesFolder": "__tests__/fixtures",
-  "integrationFolder": "dist/__tests__/cypress/integration",
+  "integrationFolder": "dist/pages",
   "supportFile": false,
   "pluginsFile": "__tests__/cypress/plugins/index.js",
   "$schema": "https://on.cypress.io/cypress.schema.json"

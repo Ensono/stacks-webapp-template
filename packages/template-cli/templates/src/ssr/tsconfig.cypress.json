@@ -7,5 +7,6 @@
     "lib": ["es5", "dom"],
     "sourceMap": false
   },
-  "include": ["__tests__/cypress/**/*.ts"]
+  "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)"],
+  "include": ["**/*.spec.ts"]
 }
