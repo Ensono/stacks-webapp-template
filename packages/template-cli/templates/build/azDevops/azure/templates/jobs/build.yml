@@ -105,6 +105,8 @@ jobs:
                 MENU_API_URL: "http://dev.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
                 NODE_ENV: dev
+                # avoid warnings about terminal
+                TERM: xterm
               workingDirectory: ${{ parameters.project_root_dir }}
       
       # SonarCloud
