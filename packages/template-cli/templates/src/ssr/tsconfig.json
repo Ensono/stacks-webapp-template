@@ -19,7 +19,7 @@
     "types": ["jest", "node", "cypress"],
     "keyofStringsOnly": true
   },
-  "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)", "**/*.spec.ts"],
+  "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)", "**/*.cy.ts"],
   "include": [
     "next-env.d.ts",
     "next.config.js",

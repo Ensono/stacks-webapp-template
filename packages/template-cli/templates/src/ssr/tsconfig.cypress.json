@@ -9,5 +9,5 @@
     "outDir": "dist/__tests__"
   },
   "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)"],
-  "include": ["**/*.spec.ts"]
+  "include": ["**/*.cy.ts"]
 }

@@ -3,5 +3,6 @@
   "integrationFolder": "dist/__tests__/pages",
   "supportFile": false,
   "pluginsFile": "__tests__/cypress/plugins/index.js",
+  "testFiles": "**/*.cy.js",
   "$schema": "https://on.cypress.io/cypress.schema.json"
 }
