@@ -4,5 +4,10 @@
   "supportFile": false,
   "pluginsFile": "__tests__/cypress/plugins/index.js",
   "testFiles": "**/*.cy.js",
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "cypress-junit-test-report.xml",
+    "toConsole": true
+  },
   "$schema": "https://on.cypress.io/cypress.schema.json"
 }

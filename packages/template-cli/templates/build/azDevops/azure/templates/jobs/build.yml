@@ -33,6 +33,7 @@ parameters:
   unit_test: true
   contract_test: true
   contract_check_can_deploy: false
+  e2e_test: true
   # Build File Output
   build_file: false
   build_on_server: false
@@ -92,6 +93,18 @@ jobs:
           - template: ../steps/test-unit-node.yml
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
+              workingDirectory: ${{ parameters.project_root_dir }}
+
+      # Functional tests (e2e)
+      - ${{ if eq(parameters.e2e_test, true) }}:
+          - template: ../steps/test-functional-cypress.yml
+            parameters:
+              env_vars: 
+                PORT: 3000
+                APP_BASE_URL: "http://localhost"
+                MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                APP_BASE_PATH: ""
+                NODE_ENV: dev
               workingDirectory: ${{ parameters.project_root_dir }}
       
       # SonarCloud

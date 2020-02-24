@@ -13,7 +13,7 @@ module.exports = {
     testResultsProcessor: "jest-sonar-reporter",
     reporters: [
         "default",
-        ["jest-junit", {outputName: "junit-test-report.xml"}],
+        ["jest-junit", {outputName: "jest-junit-test-report.xml"}],
     ],
     coverageReporters: ["cobertura", "lcov"],
     collectCoverage: true,
