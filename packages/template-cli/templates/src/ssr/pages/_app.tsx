@@ -12,7 +12,6 @@ class _App extends App {
         if (Component.getInitialProps) {
             pageProps = await Component.getInitialProps(ctx)
         }
-        console.log(getConfig().publicRuntimeConfig)
         return {pageProps}
     }
 
