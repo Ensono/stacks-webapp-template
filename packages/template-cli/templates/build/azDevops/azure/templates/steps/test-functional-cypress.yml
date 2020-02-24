@@ -1,0 +1,32 @@
+############################################################################################################
+# desc: Runs the function (e2e) tests with Cypress
+# params: Node version, workingDirectory, build_number
+# return: Publishes test results, screenshots and video recordings
+# pre-reqs: dependency installation, build webapp
+############################################################################################################
+
+parameters:
+  versionSpec: ''
+  build_number: ''
+  workingDirectory: ''
+
+steps:
+  # Run tests with Jest
+  - script: npm run start
+    displayName: 'Start webapp server'
+    workingDirectory: ${{ parameters.workingDirectory }}
+
+  # Publish CI test results
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: JUnit
+      testResultsFiles: '**/junit-test-report.xml'
+      testRunTitle: 'Jest Tests'
+    displayName: 'Publish test results'
+    condition: succeededOrFailed()
+
+  # Publish the code coverage results
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '**/cobertura-coverage.xml'
