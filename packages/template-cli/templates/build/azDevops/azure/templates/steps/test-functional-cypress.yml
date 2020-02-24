@@ -28,7 +28,7 @@ steps:
     inputs:
       testRunner: JUnit
       testResultsFiles: '**/*junit-test-report.xml'
-      testRunTitle: 'Jest Tests'
+      testRunTitle: 'Cypress Tests'
     displayName: 'Publish test results'
     condition: succeededOrFailed()
 
