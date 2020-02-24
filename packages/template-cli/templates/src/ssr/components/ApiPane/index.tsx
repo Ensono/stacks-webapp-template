@@ -28,8 +28,8 @@ const ApiPane = (props: ApiPaneProps) => {
           </Button>
         </Pane>
         {state && (
-          <Pane data-testid="results">
-            <ul>
+          <Pane>
+            <ul data-testid="results">
               {state.map(item => (
                 <li key={item.id}>{item.name}</li>
               ))}
