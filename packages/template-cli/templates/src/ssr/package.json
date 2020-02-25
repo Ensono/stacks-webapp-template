@@ -14,9 +14,10 @@
     "test:pact-start-stub": "node_modules/.bin/tsc pact/packStubServer.ts && node pact/packStubServer.js",
     "test:pact-can-i-deploy": "node_modules/.bin/tsc pact/pactCanIDeploy.ts && node pact/pactCanIDeploy.js",
     "test:pact-can-i-deploy-ci": "node_modules/.bin/pact-broker can-i-deploy --pacticipant $PACT_CONSUMER -l --broker-base-url $PACT_BROKER --broker-token $PACT_BEARER_TOKEN",
-    "test:cypress:compile": "node_modules/.bin/tsc --watch --project tsconfig.cypress.json",
+    "test:cypress:compile": "node_modules/.bin/tsc --project tsconfig.cypress.json",
     "test:cypress:run": "node_modules/.bin/tsc --project tsconfig.cypress.json && node_modules/.bin/cypress run",
     "test:cypress:open": "node_modules/.bin/tsc --project tsconfig.cypress.json && node_modules/.bin/cypress open",
+    "test:cypress": "node_modules/.bin/start-server-and-test start $APP_BASE_URL:$PORT test:cypress:run",
     "clean:tree": "git clean -idx"
   },
   "engines": {
@@ -63,6 +64,7 @@
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "snapshot-diff": "^0.7.0",
+    "start-server-and-test": "^1.10.8",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.5"

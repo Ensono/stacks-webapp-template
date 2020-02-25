@@ -24,7 +24,7 @@
     [
       "jest-junit",
       {
-        "outputName": "junit-test-report.xml"
+        "outputName": "jest-junit-test-report.xml"
       }
     ]
   ],

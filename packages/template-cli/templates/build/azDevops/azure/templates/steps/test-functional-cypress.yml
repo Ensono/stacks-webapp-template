@@ -1,26 +1,34 @@
 ############################################################################################################
-# desc: Runs lower level tests (lint, unit) with Jest using npm, publishes results to Pipeline
-# params: Node version, workingDirectory
-# return: Unit test report, code coverage results
-# pre-reqs: dependency installation
+# desc: Runs the function (e2e) tests with Cypress
+# params: Env vars, Node version, workingDirectory, build_number
+# return: Publishes test results, screenshots and video recordings
+# pre-reqs: dependency installation, build webapp
 ############################################################################################################
 
 parameters:
-  versionSpec: ''
+  env_vars: {}
   workingDirectory: ''
 
 steps:
   # Run tests with Jest
-  - script: npm run test
-    displayName: 'Run tests'
+  - script: npm run test:cypress:compile
+    displayName: 'Compile the Cypress tests'
     workingDirectory: ${{ parameters.workingDirectory }}
+
+  # Run tests with Cypress
+  - script: npm run test:cypress
+    displayName: 'Start webapp server and run Cypress tests'
+    workingDirectory: ${{ parameters.workingDirectory }}
+    env:
+      ${{ each var in parameters.env_vars }}:
+        ${{ var.key }}: ${{ var.value }}
 
   # Publish CI test results
   - task: PublishTestResults@2
     inputs:
       testRunner: JUnit
       testResultsFiles: '**/*junit-test-report.xml'
-      testRunTitle: 'Jest Tests'
+      testRunTitle: 'Cypress Tests'
     displayName: 'Publish test results'
     condition: succeededOrFailed()
 

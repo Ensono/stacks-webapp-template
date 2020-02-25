@@ -103,10 +103,8 @@ To open and run Cypress locally with live reload, after installing depend
 
 1. Install app dependencies `npm install`
 1. Build the webapp `npm run build`
-1. Start the server `run run start`
-1. Compile and watch for changes the `*.cy.ts` Cypress test files `npm run test:cypress:compile`
-1. Writing tests: Open Cypress with live-reloading and selector playground `npm run test:cypress:open`
-1. Running tests: Run Cypresss inline  `npm run test:cypress:run`
+1. Compile the `*.cy.ts` Cypress test files `npm run test:cypress:compile` (optional: pass `--watch` through to watch for changes)
+1. Start the server, run the tests headless, tear down the server: `npm run test:cypress`. When writing tests: Open Cypress with live-reloading and selector playground `npm run test:cypress:open`
 
 The `*.cy.ts` are located with the rendered Next.js [pages](./pages/).
 Environment configuration is pulled in using [Cypress plugin](./__tests__/cypress/plugins/index.js) from [environment-configuration](./environment-configuration/index.js). Note that the environment variables are required on the hosting platform, e.g. `export NODE_ENV=dev`
