@@ -15,8 +15,6 @@ import { configureAxe, toHaveNoViolations, JestAxe } from 'jest-axe';
 
 expect.extend(toHaveNoViolations)
 
-const jestAxeConfig: JestAxe = configureAxe({
+export const jestAxeConfig: JestAxe = configureAxe({
     rules: ["wcag2aa"]
 })
-
-export default { jestAxeConfig}
