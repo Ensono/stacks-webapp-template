@@ -16,7 +16,14 @@ path such as `/web/app`.
 
 ##### logger
 
-Application insights
+[Application insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
+is used to monitor both the node(express) instance and the NextJS client code
+running on the browser. AppInsights is configured with the `instrumentationKey`
+(or `process.env.APPINSIGHTS_KEY`) provided from the environment variables.
+AppInsights collects the console logs provided by the Winston. AppInsights on
+Client side is implemented using a React HOC(Higher order component) to the
+Next's `_app.ts`. All logs collected can be monitored at
+[Azure portal](https://portal.azure.com/)
 
 ##### helmet
 

@@ -48,6 +48,7 @@ export const withApplicationInsights = (
             public componentDidMount() {
                 this.initializeAppInsights()
                 this.trackPageView()
+                this.customTrace('AppInsights for Amido Stacks Initialized')
             }
 
             public componentDidCatch(error: Error) {
@@ -57,10 +58,22 @@ export const withApplicationInsights = (
             }
 
             public initializeAppInsights() {
-                if (IS_BROWSER && config.isEnabled && !!config.instrumentationKey &&  !appInsights) {
+                if (
+                    IS_BROWSER &&
+                    config.isEnabled &&
+                    !!config.instrumentationKey &&
+                    !appInsights
+                ) {
                     appInsights = new ApplicationInsights({config})
                     appInsights.loadAppInsights()
                     window.appInsights = appInsights
+                }
+            }
+
+            public customTrace(msg: string) {
+                if (appInsights) {
+                    appInsights.trackTrace({ message: msg, severityLevel: 1 })
+                    appInsights.flush()
                 }
             }
 
