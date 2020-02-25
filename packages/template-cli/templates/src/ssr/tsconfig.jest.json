@@ -2,5 +2,6 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "jsx": "react"
-  }
+  },
+  "include": ["__tests__/axe/jest-axe-setup.ts"]
 }
