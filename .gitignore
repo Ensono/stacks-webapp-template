@@ -153,11 +153,10 @@ backend.local.tfvars
 *report.xml
 **/.scannerwork
 **/.sonar
+**/*.mp4
 
-tests/**/build
-tests/**/deploy
-tests/**/docs
-tests/**/src
+# CYPRESS
+!**/plugins/*.js
 
 #TEMPLATE EXAMPLE CODE
 # **/templates/**/__snapshots__
@@ -171,3 +170,4 @@ tests/**/src
 
 
 !**/environment-configuration/*.js
+.history/*.*
