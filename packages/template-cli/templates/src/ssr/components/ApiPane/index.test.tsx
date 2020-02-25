@@ -4,7 +4,7 @@ import * as axios from 'axios'
 import * as React from 'react'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
 import ApiPane from '.'
-// jest.mock('axios', () => ({get: jest.fn()}))
+
 jest.mock('axios', () =>
   jest.fn(() =>
     Promise.resolve({
