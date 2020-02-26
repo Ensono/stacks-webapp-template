@@ -23,7 +23,8 @@ resources:
   - container: k8s_deploy
     image: dnitsch/ci-k8s-deploy:0.0.2
   - container: terraform
-    image: hashicorp/terraform:0.12.17
+    # image: hashicorp/terraform:0.12.17
+    image: dnitsch/ci-tf:0.12.17
 
 variables:
   company: amido

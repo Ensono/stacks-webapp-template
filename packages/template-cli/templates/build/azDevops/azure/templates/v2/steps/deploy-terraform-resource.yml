@@ -33,7 +33,7 @@ steps:
     # that must be inherited into this step!
     parameters:
       #  Terraform Config
-      terraform_artefact_path: ${{ parameters.terraform_artefact_path }}
+      terraform_working_dir: ${{ parameters.terraform_working_dir }}
       # Terraform State Config (Must already exist!)
       terraform_state_rg: ${{ parameters.terraform_state_rg }}
       terraform_state_storage: ${{ parameters.terraform_state_storage }}
