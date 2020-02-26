@@ -45,8 +45,8 @@ steps:
       terraform_backend_tenant_id: $(azure_tenant_id)
       terraform_backend_subscription_id: $(azure_subscription_id)
 
+      # echo "${{ parameters.azure_cli_providers }}"
   - bash: |
-      echo "${{ parameters.azure_cli_providers }}"
       az login --service-principal --username $(azure_client_id) --password $(azure_client_secret) --tenant $(azure_tenant_id)
       az feature register --namespace MSIPreview --name Microsoft.ContainerService
       az provider register -n Microsoft.ContainerService
