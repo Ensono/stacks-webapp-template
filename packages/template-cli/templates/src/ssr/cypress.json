@@ -1,0 +1,15 @@
+{
+  "fixturesFolder": "__tests__/fixtures",
+  "integrationFolder": "dist/__tests__/pages",
+  "supportFile": false,
+  "pluginsFile": "__tests__/cypress/plugins/index.js",
+  "testFiles": "**/*.cy.js",
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "cypress-junit-test-report.xml",
+    "toConsole": true
+  },
+  "screenshotsFolder": "__tests__/cypress/screenshots",
+  "videosFolder": "__tests__/cypress/videos",
+  "$schema": "https://on.cypress.io/cypress.schema.json"
+}

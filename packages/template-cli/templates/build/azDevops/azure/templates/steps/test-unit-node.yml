@@ -19,7 +19,7 @@ steps:
   - task: PublishTestResults@2
     inputs:
       testRunner: JUnit
-      testResultsFiles: '**/junit-test-report.xml'
+      testResultsFiles: '**/*junit-test-report.xml'
       testRunTitle: 'Jest Tests'
     displayName: 'Publish test results'
     condition: succeededOrFailed()

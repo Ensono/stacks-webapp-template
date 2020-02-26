@@ -9,7 +9,7 @@ The template is a Server Side Rendered (SSR) implementation using:
 
 ### Overview
 *TODO: This needs to be refined for those whom are using this solution*
-s
+
 1. How are definining the routing for API's? 
    - menu.ts
    - how do we extend the endpoints
@@ -29,62 +29,6 @@ s
 ```bash
 npm run dev
 ```
-
-## Testing
-
-#### Unit, Component and Snapshot Testing
-
-We are using [Jest](https://jestjs.io/) for running all unit, component,
-integration and snapshot tests. Jest supports TypeScript via Babel. Because
-TypeScript support in Babel is transpilation, to ensure that Jest will
-type-check the tests as they are run we use
-[ts-jest](https://github.com/kulshekhar/ts-jest).
-
-We are using [Jest](https://jestjs.io/) for running all unit, component,
-integration and snapshot tests. Jest supports TypeScript via Babel. Because
-TypeScript support in Babel is transpilation, to ensure that Jest will
-type-check the tests as they are run we use
-[ts-jest](https://github.com/kulshekhar/ts-jest).
-
-To help that encourage good testing practices for React DOM testing, we are
-leveraging a helper library [react-testing-library](https://jestjs.io/).
-
-`npm run test`: To run all unit tests. This will also run any snapshot tests.
-Snapshots are to be checked in and are found in
-[**snapshots**](__tests__/__snapshots__).
-
-> To run from root refer the [Readme](../../README.md)
-
-#### Static Testing
-
-There is support with [SonarCloud](https://sonarcloud.io/) for static analysis.
-We can run this with
-[SonarScanner Docker](https://github.com/SonarSource/sonar-scanner-cli-docker)
-
-In order to run, the export the followings environment variables for the
-SonarCloud Project:
-
-```bash
-export SONAR_TOKEN=
-export SONAR_PROJECT_NAME=
-export SONAR_PROJECT_KEY=
-export SONAR_ORGANIZATION=
-```
-
-To find this, please ensure that you sign up with GitHub to
-[Sonarcloud](https://sonarcloud.io).
-
-First generate the code coverage results, then run the SonarCloud scanner and
-push up the results:
-
-```bash
-npm run test
-docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -e BUILD_NUMBER=1.2.3 --rm -t -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
-docker run -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -e sonar.organization=$SONAR_ORGANIZATION
-```
-
-
-
 
 ## To build and run using Docker
 
@@ -118,6 +62,80 @@ CMD ["pm2-runtime", "--json", "./ecosystem.yml", "--exp-backoff-restart-delay=50
 Best practice guidelines:
   - Do not run app under root 
   - To maximise cache layer capacity we should copy over package.json into /tmp and build there
+
+
+## Testing
+
+### Unit, Component and Snapshot Testing
+
+We are using [Jest](https://jestjs.io/) for running all unit, component,
+integration and snapshot tests. Jest supports TypeScript via Babel. Because
+TypeScript support in Babel is transpilation, to ensure that Jest will
+type-check the tests as they are run we use
+[ts-jest](https://github.com/kulshekhar/ts-jest).
+
+We are using [Jest](https://jestjs.io/) for running all unit, component,
+integration and snapshot tests. Jest supports TypeScript via Babel. Because
+TypeScript support in Babel is transpilation, to ensure that Jest will
+type-check the tests as they are run we use
+[ts-jest](https://github.com/kulshekhar/ts-jest).
+
+To help that encourage good testing practices for React DOM testing, we are
+leveraging a helper library [react-testing-library](https://jestjs.io/).
+
+`npm run test`: To run all unit tests. This will also run any snapshot tests.
+Snapshots are to be checked in and are found in
+[**snapshots**](__tests__/__snapshots__).
+
+> To run from root refer the [Readme](../../README.md)
+
+### Functional Tests
+_Keywords: Functional automation, End to End, E2E_
+
+We are using [Cypress](https://docs.cypress.io/) for functional testing as much as possible. The key features of Cypress:
+* Integration testing with API testing support (Node.js)
+* Easy debugabillity (DOM snapshotting)
+* Selector playground
+* Great documentation
+* Best implementation of Live Reloading
+
+To open and run Cypress locally with live reload, after installing depend
+
+1. Install app dependencies `npm install`
+1. Build the webapp `npm run build`
+1. Compile the `*.cy.ts` Cypress test files `npm run test:cypress:compile` (optional: pass `--watch` through to watch for changes)
+1. Start the server, run the tests headless, tear down the server: `npm run test:cypress`. When writing tests: Open Cypress with live-reloading and selector playground `npm run test:cypress:open`
+
+The `*.cy.ts` are located with the rendered Next.js [pages](./pages/).
+Environment configuration is pulled in using [Cypress plugin](./__tests__/cypress/plugins/index.js) from [environment-configuration](./environment-configuration/index.js). Note that the environment variables are required on the hosting platform, e.g. `export NODE_ENV=dev`
+
+### Static Testing
+
+There is support with [SonarCloud](https://sonarcloud.io/) for static analysis.
+We can run this with
+[SonarScanner Docker](https://github.com/SonarSource/sonar-scanner-cli-docker)
+
+In order to run, the export the followings environment variables for the
+SonarCloud Project:
+
+```bash
+export SONAR_TOKEN=
+export SONAR_PROJECT_NAME=
+export SONAR_PROJECT_KEY=
+export SONAR_ORGANIZATION=
+```
+
+To find this, please ensure that you sign up with GitHub to
+[Sonarcloud](https://sonarcloud.io).
+
+First generate the code coverage results, then run the SonarCloud scanner and
+push up the results:
+
+```bash
+npm run test
+docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -e BUILD_NUMBER=1.2.3 --rm -t -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
+docker run -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -e sonar.organization=$SONAR_ORGANIZATION
+```
 
 ### Consumer driven contract testing with Pact
 

@@ -1,5 +1,5 @@
 import React from "react";
-import env from "config";
+import env from "../../environment-configuration";
 import ApiPane from "components/ApiPane";
 import { Container } from "./components";
 
