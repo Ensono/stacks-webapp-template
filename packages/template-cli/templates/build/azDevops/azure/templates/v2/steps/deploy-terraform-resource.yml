@@ -19,8 +19,15 @@ parameters:
   # Terraform Resource Specific Config
   terraform_extra_properties: {}
   terraform_output_commands: ''
+  azure_cli_providers: []
 
 steps:
+  # register providers 
+  # - ${{ if ge(parameters.download_deploy_artefact, true) }}:
+  #     - download: current
+  #       displayName: "Download: Build Artefacts"
+  #       artifact: "${{ parameters.deploy_artifact_name }}"
+
   - template: ../steps/deploy-terraform-init.yml
     # Terraform Backend & Azure Credential config comes via Variable Group
     # that must be inherited into this step!
@@ -38,9 +45,15 @@ steps:
       terraform_backend_tenant_id: $(azure_tenant_id)
       terraform_backend_subscription_id: $(azure_subscription_id)
 
-  - bash: terraform plan -input=false -out=tfplan
+  - bash: |
+      echo "${{ parameters.azure_cli_providers }}"
+      az login --service-principal --username $(azure_client_id) --password $(azure_client_secret) --tenant $(azure_tenant_id)
+      az feature register --namespace MSIPreview --name Microsoft.ContainerService
+      az provider register -n Microsoft.ContainerService
+      terraform plan -input=false -out=tfplan
     displayName: 'Terraform: Plan'
-    workingDirectory: ${{ parameters.terraform_artefact_path }}
+    target: terraform
+    workingDirectory: ${{ parameters.terraform_working_dir }}
     env:
       # Authentication (this comes from the AzureDevOps library as secured variables)
       ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
@@ -52,14 +65,16 @@ steps:
       ${{ each var in parameters.terraform_extra_properties }}:
         ${{ var.key }}: ${{ var.value }}
 
-  - task: ManualIntervention@8
-    inputs:
-      instructions: 'reject or resume'
-      onTimeout: 'reject'
+  # TODO: figure out how to do this...
+  # - task: ManualIntervention@8
+  #   inputs:
+  #     instructions: 'reject or resume'
+  #     onTimeout: 'reject'
 
   - bash: terraform apply tfplan
     displayName: 'Terraform: Apply'
-    workingDirectory: ${{ parameters.terraform_artefact_path }}
+    target: terraform
+    workingDirectory: ${{ parameters.terraform_working_dir }}
     env:
       # Authentication
       ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
@@ -73,5 +88,5 @@ steps:
 
   - bash: ${{ parameters.terraform_output_commands }}
     displayName: 'Terraform: Write Outputs to Variables'
-    workingDirectory: ${{ parameters.terraform_artefact_path }}
+    workingDirectory: ${{ parameters.terraform_working_dir }}
     name: ${{ parameters.terraform_output_artefact }}

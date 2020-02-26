@@ -25,3 +25,6 @@ RUN cd /tmp && \
     mv ./kustomize /usr/local/bin/kustomize && \
     kustomize version && \
     rm -f kustomize_v*_amd64.tar.gz 
+
+RUN cd /tmp && \
+    curl -sL https://aka.ms/InstallAzureCLIDeb | bash

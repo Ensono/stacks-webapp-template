@@ -21,7 +21,7 @@ resources:
 
   containers:
   - container: k8s_deploy
-    image: dnitsch/ci-k8s-deploy:0.0.1
+    image: dnitsch/ci-k8s-deploy:0.0.2
   - container: terraform
     image: hashicorp/terraform:0.12.17
 
@@ -76,6 +76,9 @@ stages:
                 company: 'amido'
                 project: 'stacks'
                 environment: ''
+                azure_cli_providers: [
+                  { name: MSIPreview, namespace: Microsoft.ContainerService }
+                ]
                 # Azure config
                 tags: ''
                 # Terraform Resource Specific Config
