@@ -33,6 +33,10 @@ steps:
       terraform_state_container: ${{ parameters.terraform_state_container }}
       terraform_state_key: ${{ parameters.terraform_state_key }}
       terraform_state_workspace: ${{ parameters.terraform_state_workspace }}
+      terraform_backend_client_id: $(azure_client_id)
+      terraform_backend_client_secret: $(azure_client_secret)
+      terraform_backend_tenant_id: $(azure_tenant_id)
+      terraform_backend_subscription_id: $(azure_subscription_id)
 
   - bash: terraform plan -input=false -out=tfplan
     displayName: 'Terraform: Plan'
