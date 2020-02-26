@@ -66,14 +66,8 @@ steps:
       ARM_CLIENT_ID: $(azure_client_id)
       ARM_CLIENT_SECRET: $(azure_client_secret)
       ARM_TENANT_ID: $(azure_tenant_id)
-      # Terraform
-      TF_VAR_name_company: ${{ parameters.company }}
-      TF_VAR_name_project: ${{ parameters.project }}
-      TF_VAR_name_environment: ${{ parameters.env }}
-      # Resource Group
-      TF_VAR_resource_group_location_env: ${{ parameters.location }}
-      TF_VAR_resource_group_tags: ${{ parameters.tags }}
       # Extra Parameters
+      # Business specific vars passed from pipeline
       ${{ each var in parameters.terraform_extra_properties }}:
         ${{ var.key }}: ${{ var.value }}
 
