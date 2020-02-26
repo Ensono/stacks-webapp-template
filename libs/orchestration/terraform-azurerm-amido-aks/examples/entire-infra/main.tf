@@ -9,6 +9,7 @@ module "default_label" {
   delimiter  = "-"
   tags       = var.tags
 }
+
 # if you do not set the 
 # `service_cidr`
 # `dns_service_ip`
@@ -27,6 +28,7 @@ module "sample_aks_bootstrap" {
   client_id               = data.azurerm_client_config.current.client_id
   spn_object_id               = data.azurerm_client_config.current.object_id
   client_secret           = var.client_secret
+  tenant_id            = data.azurerm_client_config.current.tenant_id
   # client_id            = var.create_aksspn ? module.aks-spn.spn_applicationid : var.cluster_spn_clientid
   # client_secret        = var.create_aksspn ? random_string.spn_password.0.result : var.cluster_spn_clientsecret
   cluster_version      = "1.15.7"

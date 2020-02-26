@@ -35,6 +35,52 @@ provider "azuread" {
 #   # }
 # }
 
+# KEY VAULT
+resource "azurerm_key_vault" "default" {
+  count                       = 1
+  name                        = var.resource_namer
+  location                    = var.resource_group_location
+  resource_group_name         = var.resource_group_name
+  enabled_for_disk_encryption = true
+  # current RG owner tenant ID
+  tenant_id                   = var.tenant_id
+  # soft_delete_enabled         = true
+  # purge_protection_enabled    = false
+
+  sku_name = "standard"
+
+  access_policy {
+    tenant_id = var.tenant_id
+    object_id = var.spn_object_id
+    # tenant_id = data.azurerm_client_config.current.tenant_id
+    # object_id = data.azurerm_client_config.current.service_principal_object_id
+
+    key_permissions = [
+      "get",
+    ]
+
+    secret_permissions = [
+      "get",
+    ]
+
+    storage_permissions = [
+      "get",
+    ]
+  }
+
+  network_acls {
+    default_action = "Deny"
+    bypass         = "AzureServices"
+  }
+
+  depends_on = [
+    azurerm_resource_group.default
+  ]
+
+  tags = {
+    environment = "Testing"
+  }
+}
 
 resource "azurerm_user_assigned_identity" "cluster_identity" {
   name                = var.resource_namer
@@ -42,8 +88,17 @@ resource "azurerm_user_assigned_identity" "cluster_identity" {
   location            = var.resource_group_location
 }
 
+
 resource "azurerm_role_assignment" "cluster_spn_to_env_rg" {
   scope                = azurerm_resource_group.default[0].id
+  role_definition_name = "Contributor"
+  # principal_id         = var.create_aksspn ? element(concat(azuread_service_principal.spn.*.id, list("")), 0) : var.cluster_spn_objectid
+  # principal_id         = element(concat(azuread_service_principal.spn.*.id, list("")), 0)
+  principal_id         = var.spn_object_id
+}
+
+resource "azurerm_role_assignment" "cluster_spn_to_keyvault" {
+  scope                = azurerm_key_vault.default[0].id
   role_definition_name = "Contributor"
   # principal_id         = var.create_aksspn ? element(concat(azuread_service_principal.spn.*.id, list("")), 0) : var.cluster_spn_objectid
   # principal_id         = element(concat(azuread_service_principal.spn.*.id, list("")), 0)

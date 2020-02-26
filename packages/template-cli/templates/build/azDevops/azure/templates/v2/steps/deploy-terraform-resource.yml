@@ -1,0 +1,79 @@
+parameters:
+  # Terraform Basic Config
+  terraform_working_dir: ''
+  terraform_output_artefact: 'tfoutputs'
+  # Terraform State Config
+  terraform_state_rg: ''
+  terraform_state_storage: ''
+  terraform_state_container: ''
+  terraform_state_key: ''
+  terraform_state_workspace: ''
+  # Global Config
+  company: 'amido'
+  project: 'stacks'
+  environment: ''
+  component: ''
+  # Azure config
+  location: 'uksouth'
+  tags: ''
+  # Terraform Resource Specific Config
+  terraform_extra_properties: {}
+  terraform_output_commands: ''
+
+steps:
+  - template: ../steps/deploy-terraform-init.yml
+    # Terraform Backend & Azure Credential config comes via Variable Group
+    # that must be inherited into this step!
+    parameters:
+      #  Terraform Config
+      terraform_artefact_path: ${{ parameters.terraform_artefact_path }}
+      # Terraform State Config (Must already exist!)
+      terraform_state_rg: ${{ parameters.terraform_state_rg }}
+      terraform_state_storage: ${{ parameters.terraform_state_storage }}
+      terraform_state_container: ${{ parameters.terraform_state_container }}
+      terraform_state_key: ${{ parameters.terraform_state_key }}
+      terraform_state_workspace: ${{ parameters.terraform_state_workspace }}
+
+  - bash: terraform plan -input=false -out=tfplan
+    displayName: 'Terraform: Plan'
+    workingDirectory: ${{ parameters.terraform_artefact_path }}
+    env:
+      # Authentication (this comes from the AzureDevOps library as secured variables)
+      ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+      ARM_CLIENT_ID: $(azure_client_id)
+      ARM_CLIENT_SECRET: $(azure_client_secret)
+      ARM_TENANT_ID: $(azure_tenant_id)
+      # Extra Parameters
+      # Business specific vars passed from pipeline
+      ${{ each var in parameters.terraform_extra_properties }}:
+        ${{ var.key }}: ${{ var.value }}
+
+  - task: ManualIntervention@8
+    inputs:
+      instructions: 'reject or resume'
+      onTimeout: 'reject'
+
+  - bash: terraform apply tfplan
+    displayName: 'Terraform: Apply'
+    workingDirectory: ${{ parameters.terraform_artefact_path }}
+    env:
+      # Authentication
+      ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+      ARM_CLIENT_ID: $(azure_client_id)
+      ARM_CLIENT_SECRET: $(azure_client_secret)
+      ARM_TENANT_ID: $(azure_tenant_id)
+      # Terraform
+      TF_VAR_name_company: ${{ parameters.company }}
+      TF_VAR_name_project: ${{ parameters.project }}
+      TF_VAR_name_environment: ${{ parameters.env }}
+      # Resource Group
+      TF_VAR_resource_group_location_env: ${{ parameters.location }}
+      TF_VAR_resource_group_tags: ${{ parameters.tags }}
+      # Extra Parameters
+      ${{ each var in parameters.terraform_extra_properties }}:
+        ${{ var.key }}: ${{ var.value }}
+
+  - bash: ${{ parameters.terraform_output_commands }}
+    displayName: 'Terraform: Write Outputs to Variables'
+    workingDirectory: ${{ parameters.terraform_artefact_path }}
+    name: ${{ parameters.terraform_output_artefact }}

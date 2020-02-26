@@ -19,6 +19,7 @@ variable "vnet_cidr" {
 }
 
 module "sample_aks_bootstrap" {
+  # source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=task/infra-from-scratch"
   source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=task/infra-from-scratch"
   resource_namer          = module.default_label.id
   create_rg               = true

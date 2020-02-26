@@ -1,0 +1,29 @@
+parameters:
+  # Terraform Basic Config
+  terraform_working_dir: ''
+  # Terraform State Config
+  terraform_state_rg: ''
+  terraform_state_storage: ''
+  terraform_state_container: ''
+  terraform_state_key: ''
+  terraform_state_workspace: ''
+
+steps:
+  - bash: |
+      terraform version
+      terraform init \
+      -backend-config="key=${{ parameters.terraform_state_key }}" \
+      -backend-config="storage_account_name=${{ parameters.terraform_state_storage }}" \
+      -backend-config="resource_group_name=${{ parameters.terraform_state_rg }}" \
+      -backend-config="container_name=${{ parameters.terraform_state_container }}"
+    displayName: 'Terraform: Initialise'
+    target: 
+      container: terraform
+    workingDirectory: ${{ parameters.terraform_working_dir }}
+
+  - bash: |
+      terraform workspace select ${{ parameters.terraform_state_workspace }} || terraform workspace new ${{ parameters.terraform_state_workspace }}
+    displayName: 'Terraform: Select Workspace'
+    target: 
+      container: terraform
+    workingDirectory: ${{ parameters.terraform_working_dir }}

@@ -63,41 +63,7 @@ variable "client_secret" {
   type = string
 }
 
-############################################
-# RESOURCE INFORMATION
-############################################
-
-# variable "resource_location" {
-#   default = "uksouth"
-# }
-
-# variable "resource_tags" {
-#   type = map(string)
-#   default = {}
-# }
-
-# variable "resource_group_name" {
-#   type = string
-# }
-
-# ###########################
-# # CONDITIONAL SETTINGS
-# ##########################
-# variable "create_rg" {
-#   type = bool
-#   default = true
-# }
-
-# variable "create_aksvnet" {
-#   type = bool
-#   default = true
-# }
-
-# ###########################
-# # IDENTITY SETTINGS
-# ##########################
-# variable "spn_url" {
-#   type = string
-#   default = "https://portal.azure.com"
-# }
-
+variable "resource_group_location" {
+  type = string
+  default = "uksouth"
+}

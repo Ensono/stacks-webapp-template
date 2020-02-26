@@ -68,6 +68,9 @@ resource "azurerm_private_dns_zone_virtual_network_link" "default" {
   virtual_network_id    = azurerm_virtual_network.default.0.id
   resource_group_name   = var.resource_group_name
   private_dns_zone_name = var.internal_dns_zone
+  depends_on = [
+    azurerm_virtual_network.default
+  ]
 }
 
 resource "azurerm_dns_a_record" "example" {
@@ -90,6 +93,9 @@ resource "azurerm_log_analytics_workspace" "default" {
   location            = var.resource_group_location
   sku                 = "PerGB2018"
   retention_in_days   = var.retention_in_days
+  depends_on = [
+    azurerm_resource_group.default
+  ]
 }
 
 resource "azurerm_log_analytics_solution" "default" {
@@ -102,6 +108,9 @@ resource "azurerm_log_analytics_solution" "default" {
     publisher = "Microsoft"
     product   = "OMSGallery/ContainerInsights"
   }
+  depends_on = [
+    azurerm_resource_group.default
+  ]
 }
 
 resource "azurerm_application_insights" "default" {
@@ -109,6 +118,9 @@ resource "azurerm_application_insights" "default" {
   resource_group_name = var.resource_group_name
   location            = var.resource_group_location
   application_type    = var.log_application_type
+  depends_on = [
+    azurerm_resource_group.default
+  ]
 }
 
 ##################################################

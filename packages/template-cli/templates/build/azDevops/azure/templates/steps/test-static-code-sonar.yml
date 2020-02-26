@@ -31,4 +31,3 @@ steps:
       SONAR_ORGANIZATION: $SONAR_ORGANIZATION
       BUILD_NUMBER: $(Build.BuildNumber)
     workingDirectory: ${{ parameters.workingDirectory }}
-

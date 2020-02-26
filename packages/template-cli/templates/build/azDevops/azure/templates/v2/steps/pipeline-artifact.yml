@@ -1,0 +1,11 @@
+parameters:
+  artifact_path: ''
+  artifact_name: 'generic'
+
+steps:
+  - ${{ if not(eq(parameters.artifact_path, '')) }}:
+      - task: PublishPipelineArtifact@1
+        displayName: 'Publish: ${{ parameters.artifact_name }}'
+        inputs:
+          path: '${{ parameters.artifact_path }}'
+          artifact: '${{ parameters.artifact_name }}'

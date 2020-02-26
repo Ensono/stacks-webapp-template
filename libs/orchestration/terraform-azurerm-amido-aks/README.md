@@ -37,14 +37,14 @@ alternatively you can run `az login`
 
 To get up and running locally you will want to create  a `terraform.tfvars` file 
 ```bash
-TFVAR_CONTENTS = '''
+TFVAR_CONTENTS='''
 vnet_id                 = "amido-stacks-vnet-uks-dev"
 rg_name                 = "amido-stacks-rg-uks-dev"
 resource_group_location = "uksouth"
 name_company            = "amido"
 name_project            = "stacks"
 name_component          = "spa"
-name_environment        = "dev"
+name_environment        = "dev" 
 '''
 $TFVAR_CONTENTS > terraform.tfvars
 ```
