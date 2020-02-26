@@ -61,7 +61,7 @@ stages:
         deploy:
           steps:
             # Create TF infra
-            - templates: templates/v2/steps/deploy-terraform-resource.yml
+            - template: templates/v2/steps/deploy-terraform-resource.yml
               parameters: 
                 # Terraform Basic Config
                 terraform_working_dir: '$(Build.SourcesDirectory)/packages/template-cli/templates/deploy/azure/ssr'
