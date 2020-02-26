@@ -11,6 +11,7 @@
  *
  * Documentation: https://github.com/dequelabs/axe-core/blob/develop-2x/doc/API.md#api-name-axeconfigure
  */
+
 import { configureAxe, toHaveNoViolations, JestAxe } from 'jest-axe';
 
 expect.extend(toHaveNoViolations)
