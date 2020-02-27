@@ -1,7 +1,5 @@
 {
-  "roots": [
-    "<rootDir>/src"
-  ],
+  "roots": ["<rootDir>/src"],
   "transform": {
     "^.+.ts?$": "ts-jest"
   },
@@ -11,9 +9,7 @@
     "<rootDir>/templates/",
     "<rootDir>/dist/"
   ],
-  "testMatch": [
-    "**/*.test.(ts|tsx)"
-  ],
+  "testMatch": ["**/*.test.(ts|tsx)"],
   "testResultsProcessor": "jest-sonar-reporter",
   "reporters": [
     "default",
@@ -24,10 +20,7 @@
       }
     ]
   ],
-  "coverageReporters": [
-    "cobertura",
-    "lcov"
-  ],
+  "coverageReporters": ["cobertura", "lcov"],
   "globals": {
     "ts-jest": {
       "tsConfig": "tsconfig.jest.json"
