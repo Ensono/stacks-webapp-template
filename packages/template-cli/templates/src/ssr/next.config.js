@@ -1,10 +1,10 @@
 const path = require("path")
-const webpack = require("webpack")
 const conf = require("./environment-configuration")
 
 // next.config.js
 module.exports = {
     webpack(config) {
+        // eslint-disable-next-line
         config.resolve.alias = {
             ...config.resolve.alias,
             compositions: path.join(__dirname, "compositions"),
@@ -18,7 +18,7 @@ module.exports = {
     },
     assetPrefix: process.env.APP_BASE_PATH || "",
     // Only include tsx files for serving, excluding the *.cy.ts files for Cypress
-    pageExtensions: ['tsx'],
+    pageExtensions: ["tsx"],
     target: "server",
     serverRuntimeConfig: {
         // Will only be available on the server side
