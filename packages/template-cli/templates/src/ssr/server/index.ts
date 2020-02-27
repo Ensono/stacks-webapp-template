@@ -8,7 +8,7 @@ import logger from "./core/root-logger"
 import api from "./api"
 import conf from "../environment-configuration"
 import * as appInsights from "applicationinsights"
-import * as path from "path"
+import {resolve} from "path"
 
 const port = parseInt(conf.PORT || "3000", 10)
 const dev = process.env.NODE_ENV !== "production"
@@ -37,7 +37,7 @@ export default app
             app.serveStatic(
                 req,
                 res,
-                path.resolve("./static/icons/favicon.ico"),
+                resolve("./static/icons/favicon.ico"),
             ),
         )
 
