@@ -12,7 +12,10 @@
     "^config(.*)$": "<rootDir>/config$1",
     "^constants(.*)$": "<rootDir>/constants$1"
   },
-  "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect", "./axe/jestAxeSetup.ts"],
+  "setupFilesAfterEnv": [
+    "@testing-library/jest-dom/extend-expect",
+    "./axe/jestAxeSetup.ts"
+  ],
   "globals": {
     "ts-jest": {
       "tsConfig": "tsconfig.jest.json"
