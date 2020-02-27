@@ -8,6 +8,7 @@ import logger from "./core/root-logger"
 import api from "./api"
 import conf from "../environment-configuration"
 import * as appInsights from "applicationinsights"
+import {resolve} from "path"
 
 const port = parseInt(conf.PORT || "3000", 10)
 const dev = process.env.NODE_ENV !== "production"
@@ -31,6 +32,14 @@ export default app
         server.use(bodyParser.urlencoded({extended: false}))
         server.use(bodyParser.json())
         server.use(/\/((?!_next).)*/, httpLogger)
+        
+        server.get(`/favicon.ico`, (req, res) =>
+            app.serveStatic(
+                req,
+                res,
+                resolve("./static/icons/favicon.ico"),
+            ),
+        )
 
         server.use(api)
 
