@@ -15,13 +15,6 @@ parameters:
 
 steps:
   - bash: |
-      set -x
-      echo $(pwd)
-      echo ${{ parameters.terraform_working_dir }}
-      echo $(Build.SourcesDirectory)
-      ls -Rat $(Build.SourcesDirectory)
-      ls -Rat $(pwd)
-      ls -lat ${{ parameters.terraform_working_dir }}
       terraform version
       terraform init \
       -backend-config="key=${{ parameters.terraform_state_key }}" \
@@ -35,7 +28,7 @@ steps:
     displayName: 'Terraform: Initialise'
     target: 
       container: terraform_custom
-    workingDirectory: $(Build.SourcesDirectory)
+    workingDirectory: ${{ parameters.terraform_working_dir }}
 
   - bash: |
       terraform workspace select ${{ parameters.terraform_state_workspace }} || terraform workspace new ${{ parameters.terraform_state_workspace }}

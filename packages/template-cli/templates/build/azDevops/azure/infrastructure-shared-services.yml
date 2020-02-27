@@ -23,7 +23,6 @@ resources:
   - container: k8s_deploy
     image: dnitsch/ci-k8s-deploy:0.0.2
   - container: terraform_custom
-    # image: hashicorp/terraform:0.12.17
     image: dnitsch/ci-tf:0.12.17
 
 variables:
@@ -63,6 +62,8 @@ stages:
           steps:
             - checkout: self
               persistCredentials: true
+              target:
+                container: terraform_custom
             # Create TF infra
             - template: templates/v2/steps/deploy-terraform-resource.yml
               parameters: 
