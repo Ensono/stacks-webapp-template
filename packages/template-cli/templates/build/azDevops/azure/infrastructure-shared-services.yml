@@ -61,7 +61,7 @@ stages:
       foo: bar 
     pool:
       vmImage: ubuntu-18.04
-    - steps:
+    steps:
       - checkout: self
         persistCredentials: true
         target:
