@@ -64,6 +64,6 @@ variable "client_secret" {
 }
 
 variable "resource_group_location" {
-  type = string
+  type    = string
   default = "uksouth"
 }
