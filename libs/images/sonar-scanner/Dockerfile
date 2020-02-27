@@ -18,7 +18,7 @@ RUN set -x && \
   unzip sonarscanner.zip && \
   rm sonarscanner.zip && \
   rm sonar-scanner-$RELEASE-linux/jre -rf && \
-#   ensure Sonar uses the provided Java for musl instead of a borked glibc one
+  # ensure Sonar uses the provided Java for musl instead of a borked glibc one
   sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner && \
   ln -sf /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner /usr/local/bin
 
