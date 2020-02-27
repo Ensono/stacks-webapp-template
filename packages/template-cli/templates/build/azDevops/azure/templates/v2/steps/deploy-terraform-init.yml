@@ -15,11 +15,12 @@ parameters:
 
 steps:
   - bash: |
-      set -x \
-      echo pwd \
-      echo ${{ parameters.terraform_working_dir }} \
-      ls -lat ${{ parameters.terraform_working_dir }} \
-      terraform version \
+      set -x
+      echo pwd
+      echo ${{ parameters.terraform_working_dir }}
+      echo $(Build.SourcesDirectory)
+      ls -lat ${{ parameters.terraform_working_dir }}
+      terraform version
       terraform init \
       -backend-config="key=${{ parameters.terraform_state_key }}" \
       -backend-config="storage_account_name=${{ parameters.terraform_state_storage }}" \
@@ -31,7 +32,7 @@ steps:
       -backend-config="client_secret=${{ parameters.terraform_backend_client_secret }}"
     displayName: 'Terraform: Initialise'
     target: terraform
-    # workingDirectory: ${{ parameters.terraform_working_dir }}
+    workingDirectory: $(Build.SourcesDirectory)
 
   - bash: |
       terraform workspace select ${{ parameters.terraform_state_workspace }} || terraform workspace new ${{ parameters.terraform_state_workspace }}
