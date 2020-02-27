@@ -19,7 +19,7 @@ steps:
       echo pwd
       echo ${{ parameters.terraform_working_dir }}
       echo $(Build.SourcesDirectory)
-      ls -lat $(Build.SourcesDirectory)/*
+      ls -Rat $(Build.SourcesDirectory)
       ls -lat ${{ parameters.terraform_working_dir }}
       terraform version
       terraform init \

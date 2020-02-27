@@ -65,7 +65,7 @@ stages:
             - template: templates/v2/steps/deploy-terraform-resource.yml
               parameters: 
                 # Terraform Basic Config
-                terraform_working_dir: '$(Build.SourcesDirectory)/packages/template-cli/templates/deploy/azure/ssr'
+                terraform_working_dir: 'packages/template-cli/templates/deploy/azure/ssr'
                 terraform_output_artefact: 'tfoutputs'
                 # Terraform State Config
                 terraform_state_rg: 'amido-stacks-rg-uks'
