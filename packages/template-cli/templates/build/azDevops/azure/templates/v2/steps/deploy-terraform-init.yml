@@ -15,7 +15,11 @@ parameters:
 
 steps:
   - bash: |
-      terraform version
+      set -x \
+      echo pwd
+      echo ${{ parameters.terraform_working_dir }} \
+      ls -lat ${{ parameters.terraform_working_dir }} \
+      terraform version \
       terraform init \
       -backend-config="key=${{ parameters.terraform_state_key }}" \
       -backend-config="storage_account_name=${{ parameters.terraform_state_storage }}" \
