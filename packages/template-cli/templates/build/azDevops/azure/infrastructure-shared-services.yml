@@ -49,8 +49,7 @@ stages:
   - group: amido-stacks-infra-credentials-nonprod
   - group: amido-stacks-webapp
   jobs:
-  - deployment: nonprod
-    dependsOn: ""
+  - dependsOn: ""
     variables:
       foo: bar 
     pool:
