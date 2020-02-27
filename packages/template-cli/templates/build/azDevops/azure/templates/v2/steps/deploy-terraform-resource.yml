@@ -50,15 +50,20 @@ steps:
       terraform_backend_tenant_id: ${{ parameters.terraform_backend_tenant_id }}
       terraform_backend_subscription_id: ${{ parameters.terraform_backend_subscription_id }}
 
-      # echo "${{ parameters.azure_cli_providers }}"
   - bash: |
       az login --service-principal --username $(azure_client_id) --password $(azure_client_secret) --tenant $(azure_tenant_id)
       az feature register --name MSIPreview --namespace Microsoft.ContainerService
       az provider register -n Microsoft.ContainerService
+      echo $(ARM_SUBSCRIPTION_ID)
       terraform plan -input=false -out=tfplan
     displayName: 'Terraform: Plan'
     workingDirectory: ${{ parameters.terraform_working_dir }}
     env:
+      # AUTH PARAMS
+      ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+      ARM_CLIENT_ID: $(azure_client_id)
+      ARM_CLIENT_SECRET: $(azure_client_secret)
+      ARM_TENANT_ID: $(azure_tenant_id)
       # Extra Parameters
       # Business specific vars passed from pipeline
       ${{ each var in parameters.terraform_extra_properties }}:
@@ -74,6 +79,11 @@ steps:
     displayName: 'Terraform: Apply'
     workingDirectory: ${{ parameters.terraform_working_dir }}
     env:
+      # AUTH PARAMS
+      ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+      ARM_CLIENT_ID: $(azure_client_id)
+      ARM_CLIENT_SECRET: $(azure_client_secret)
+      ARM_TENANT_ID: $(azure_tenant_id)
       # Extra Parameters
       # Business specific vars passed from pipeline
       ${{ each var in parameters.terraform_extra_properties }}:

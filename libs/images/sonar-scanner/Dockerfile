@@ -5,6 +5,8 @@ ARG RELEASE=4.2.0.1873
 ARG NODE_VERSION=12.13.0
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
+# this little nuget 
+LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/local/bin/node"
 
 WORKDIR /root
 
