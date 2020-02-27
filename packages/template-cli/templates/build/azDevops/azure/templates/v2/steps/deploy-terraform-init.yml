@@ -33,12 +33,13 @@ steps:
       -backend-config="client_id=${{ parameters.terraform_backend_client_id }}" \
       -backend-config="client_secret=${{ parameters.terraform_backend_client_secret }}"
     displayName: 'Terraform: Initialise'
-    target: terraform
+    target: 
+      container: terraform_custom
     workingDirectory: $(Build.SourcesDirectory)
 
   - bash: |
       terraform workspace select ${{ parameters.terraform_state_workspace }} || terraform workspace new ${{ parameters.terraform_state_workspace }}
     displayName: 'Terraform: Select Workspace'
     target: 
-      container: terraform
+      container: terraform_custom
     workingDirectory: ${{ parameters.terraform_working_dir }}

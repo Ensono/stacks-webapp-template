@@ -22,7 +22,7 @@ resources:
   containers:
   - container: k8s_deploy
     image: dnitsch/ci-k8s-deploy:0.0.2
-  - container: terraform
+  - container: terraform_custom
     # image: hashicorp/terraform:0.12.17
     image: dnitsch/ci-tf:0.12.17
 
@@ -61,11 +61,13 @@ stages:
       runOnce:
         deploy:
           steps:
+            - checkout: self
+              persistCredentials: true
             # Create TF infra
             - template: templates/v2/steps/deploy-terraform-resource.yml
               parameters: 
                 # Terraform Basic Config
-                terraform_working_dir: 'packages/template-cli/templates/deploy/azure/ssr'
+                terraform_working_dir: '$(Build.SourcesDirectory)/packages/template-cli/templates/deploy/azure/ssr'
                 terraform_output_artefact: 'tfoutputs'
                 # Terraform State Config
                 terraform_state_rg: 'amido-stacks-rg-uks'

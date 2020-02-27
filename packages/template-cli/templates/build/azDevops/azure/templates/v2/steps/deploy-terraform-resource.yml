@@ -52,7 +52,7 @@ steps:
       az provider register -n Microsoft.ContainerService
       terraform plan -input=false -out=tfplan
     displayName: 'Terraform: Plan'
-    target: terraform
+    target: terraform_custom
     workingDirectory: ${{ parameters.terraform_working_dir }}
     env:
       # Authentication (this comes from the AzureDevOps library as secured variables)
@@ -73,7 +73,7 @@ steps:
 
   - bash: terraform apply tfplan
     displayName: 'Terraform: Apply'
-    target: terraform
+    target: terraform_custom
     workingDirectory: ${{ parameters.terraform_working_dir }}
     env:
       # Authentication
