@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "private": true,
   "scripts": {
-    "test": "node_modules/.bin/jest -c jest.config.js --coverage",
-    "test:watch": "node_modules/.bin/jest -c jest.config.js --coverage --watchAll",
+    "test": "node_modules/.bin/jest -c jest.config.json --coverage",
+    "test:watch": "node_modules/.bin/jest -c jest.config.json --coverage --watchAll",
     "lint": "node_modules/.bin/eslint . -f codeframe",
     "view:coverage": "open coverage/lcov-report/index.html",
     "build": "tsc",

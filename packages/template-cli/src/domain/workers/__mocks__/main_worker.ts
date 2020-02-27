@@ -17,6 +17,8 @@ function copyFilter(src: string, dest: string) {
     }
 }
 
+
+
 export class MainWorker {
     constructor() {
     }

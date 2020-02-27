@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "noEmit": false,
     "module": "commonjs",
-    "types": ["jest"],
+    // "types": ["jest", "node"],
+    "allowSyntheticDefaultImports": true,
     "inlineSourceMap": true,
     "declarationMap": true
   },

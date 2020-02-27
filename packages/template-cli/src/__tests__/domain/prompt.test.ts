@@ -1,8 +1,8 @@
-import * as prompt from '../domain/prompt'
+import * as prompt from '../../domain/prompt'
 import { resolve } from 'path'
-import { ExitMessage } from '../domain/model/cli_response'
-import { PromptAnswer } from '../domain/model/prompt_answer'
-import { FlowSelector }from '../domain/selectors'
+import { ExitMessage } from '../../domain/model/cli_response'
+import { PromptAnswer } from '../../domain/model/prompt_answer'
+import { FlowSelector }from '../../domain/selectors'
 
 
 let mock_answer = <PromptAnswer>{
@@ -12,7 +12,7 @@ let mock_answer = <PromptAnswer>{
     deployment: "tfs"
 }
 
-jest.mock('../domain/selectors')
+jest.mock('../../domain/selectors')
 
 describe("prompt class tests", () => {
 

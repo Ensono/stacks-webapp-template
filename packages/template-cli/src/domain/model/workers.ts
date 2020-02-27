@@ -12,4 +12,4 @@ interface BaseResponse {
 
 interface SsrAdoResponse extends BaseResponse {}
 
-export { SsrAdoResponse, CliError }
+export { BaseResponse, SsrAdoResponse, CliError }
