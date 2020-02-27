@@ -3,6 +3,11 @@ parameters:
   terraform_working_dir: ''
   terraform_output_artefact: 'tfoutputs'
   # Terraform State Config
+  # DEFAULTING to globally available library
+  terraform_backend_client_id: $(azure_client_id)
+  terraform_backend_client_secret: $(azure_client_secret)
+  terraform_backend_tenant_id: $(azure_tenant_id)
+  terraform_backend_subscription_id: $(azure_subscription_id)
   terraform_state_rg: ''
   terraform_state_storage: ''
   terraform_state_container: ''
@@ -40,10 +45,10 @@ steps:
       terraform_state_container: ${{ parameters.terraform_state_container }}
       terraform_state_key: ${{ parameters.terraform_state_key }}
       terraform_state_workspace: ${{ parameters.terraform_state_workspace }}
-      terraform_backend_client_id: $(azure_client_id)
-      terraform_backend_client_secret: $(azure_client_secret)
-      terraform_backend_tenant_id: $(azure_tenant_id)
-      terraform_backend_subscription_id: $(azure_subscription_id)
+      terraform_backend_client_id: ${{ parameters.terraform_backend_client_id }}
+      terraform_backend_client_secret: ${{ parameters.terraform_backend_client_secret }}
+      terraform_backend_tenant_id: ${{ parameters.terraform_backend_tenant_id }}
+      terraform_backend_subscription_id: ${{ parameters.terraform_backend_subscription_id }}
 
       # echo "${{ parameters.azure_cli_providers }}"
   - bash: |

@@ -15,6 +15,6 @@ dnitsch/ci-tf:0.12.17
 
 ```bash
 docker build . -t dnitsch/ci-tf:latest
-docker tag 5043cdbf6f7a dnitsch/ci-tf:latest
+docker tag 11e4b30db926 dnitsch/ci-tf:latest
 docker push dnitsch/ci-tf:latest
 ```

@@ -8,8 +8,8 @@ LABEL maintainer="Amido Stacks <stacks@amido.com>"
 
 WORKDIR /root
 
-RUN apt-get update && \
-    apt-get upgrade && \
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
     apt-get install -y curl grep sed unzip && \
     apt-get clean
 
@@ -20,7 +20,9 @@ RUN set -x && \
   rm sonar-scanner-$RELEASE-linux/jre -rf && \
   # ensure Sonar uses the provided Java for musl instead of a borked glibc one
   sed -i 's/use_embedded_jre=true/use_embedded_jre=false/g' /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner && \
-  ln -sf /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner /usr/local/bin
+  ln -sf /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner /usr/local/bin && \
+  # mv /root/sonar-scanner-$RELEASE-linux/bin/sonar-scanner /usr/local/bin/sonar-scanner && \
+  chmod 777 /usr/local/bin/sonar-scanner
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs
@@ -35,4 +37,4 @@ ENV SONAR_RUNNER_HOME=/root/sonar-scanner-$RELEASE-linux
 ENV PATH $PATH:/root/sonar-scanner-$RELEASE-linux/bin
 
 # NVM installer
-CMD ["/bin/bash"]
+# CMD ["/bin/bash"]

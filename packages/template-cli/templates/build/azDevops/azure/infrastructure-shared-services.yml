@@ -64,8 +64,8 @@ stages:
     steps:
       - checkout: self
         persistCredentials: true
-        target:
-          container: terraform_custom
+        # target:
+        #   container: terraform_custom
       # Create TF infra
       - template: templates/v2/steps/deploy-terraform-resource.yml
         parameters: 
@@ -73,6 +73,10 @@ stages:
           terraform_working_dir: '$(Build.SourcesDirectory)/packages/template-cli/templates/deploy/azure/ssr'
           terraform_output_artefact: 'tfoutputs'
           # Terraform State Config
+          terraform_backend_client_id: $(azure_client_id)
+          terraform_backend_client_secret: $(azure_client_secret)
+          terraform_backend_tenant_id: $(azure_tenant_id)
+          terraform_backend_subscription_id: $(azure_subscription_id)
           terraform_state_rg: 'amido-stacks-rg-uks'
           terraform_state_storage: 'amidostackstfstategbl'
           terraform_state_container: 'tfstate'
