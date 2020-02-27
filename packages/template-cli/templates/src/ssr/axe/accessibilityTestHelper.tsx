@@ -9,7 +9,6 @@ expect.extend(toHaveNoViolations);
 export function accessibilityTestHelper(testComponent: React.ReactElement) {
 	it('passes accessibility checks', async () => {
         const { container } = render(testComponent);
-        console.log(container.innerHTML)
 		const results = await axe(container);
 		expect(results).toHaveNoViolations();
 		cleanup();
