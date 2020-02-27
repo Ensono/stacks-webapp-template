@@ -1,5 +1,6 @@
 name: '$(build.sourcebranchname)-init'
 
+pr: none
 trigger:
   branches:
     include:
