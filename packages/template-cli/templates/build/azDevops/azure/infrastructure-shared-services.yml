@@ -50,13 +50,13 @@ stages:
   - group: amido-stacks-webapp
   jobs:
   - job: DeployNonProd
-    container: 
-      image: dnitsch/ci-tf:0.12.17
-      env: 
-        ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
-        ARM_CLIENT_ID: $(azure_client_id)
-        ARM_CLIENT_SECRET: $(azure_client_secret)
-        ARM_TENANT_ID: $(azure_tenant_id)
+    # container: 
+    #   image: dnitsch/ci-tf:0.12.17
+    #   env: 
+    #     ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+    #     ARM_CLIENT_ID: $(azure_client_id)
+    #     ARM_CLIENT_SECRET: $(azure_client_secret)
+    #     ARM_TENANT_ID: $(azure_tenant_id)
     variables:
       foo: bar 
     pool:
@@ -64,8 +64,12 @@ stages:
     steps:
       - checkout: self
         persistCredentials: true
-        # target:
-        #   container: terraform_custom
+        env:
+          ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+          ARM_CLIENT_ID: $(azure_client_id)
+          ARM_CLIENT_SECRET: $(azure_client_secret)
+          ARM_TENANT_ID: $(azure_tenant_id)
+        target: terraform_custom
       # Create TF infra
       - template: templates/v2/steps/deploy-terraform-resource.yml
         parameters: 
