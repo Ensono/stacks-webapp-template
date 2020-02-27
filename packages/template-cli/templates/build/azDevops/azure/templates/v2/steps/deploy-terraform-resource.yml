@@ -48,7 +48,7 @@ steps:
       # echo "${{ parameters.azure_cli_providers }}"
   - bash: |
       az login --service-principal --username $(azure_client_id) --password $(azure_client_secret) --tenant $(azure_tenant_id)
-      az feature register --namespace MSIPreview --name Microsoft.ContainerService
+      az feature register --name MSIPreview --namespace Microsoft.ContainerService
       az provider register -n Microsoft.ContainerService
       terraform plan -input=false -out=tfplan
     displayName: 'Terraform: Plan'
