@@ -1,9 +1,6 @@
 parameters:
   aks_cluster_name: ''
-  ingress_definition: [
-    'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml',
-    'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/provider/cloud-generic.yaml'
-  ]
+  ingress_definition: []
       # ARR=(${{ parameters.ingress_definition }})
         # for i in "${${{ parameters.ingress_definition }}[@]}"
       # echo "${ARR[1]}"
@@ -12,9 +9,8 @@ parameters:
 steps:
   - ${{ each ingess in parameters.ingress_definition }}:
     - bash: |
-        echo "kubectl apply -f ${{ ingess }} --context ${{ parameters.aks_cluster_name }}"
         echo $FOO
-        echo $ARM_SUBSCRIPTION_ID
+        kubectl apply -f ${{ ingess }} --context ${{ parameters.aks_cluster_name }}
       displayName: 'K8s: Deploy Ingress-Nginx'
       workingDirectory: ${{ parameters.terraform_working_dir }}
       env:
