@@ -22,7 +22,7 @@ resources:
 
   containers:
   - container: sonar_scanner
-    image: dnitsch/build-server-stacks-webapp:0.0.3
+    image: dnitsch/build-server-stacks-webapp:0.0.4
 
 variables:
   company: amido

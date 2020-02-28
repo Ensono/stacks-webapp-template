@@ -12,9 +12,9 @@ USAGE:
 TODO: Interim dockerhub repo will be moved to Amido org eventually.
 
 ```bash
-docker build . -t amidodevelopment/build-server-stacks-webapp:latest
-docker tag $push_id amidodevelopment/build-server-stacks-webapp:latest
-docker push amidodevelopment/build-server-stacks-webapp:latest
+docker build . -t dnitsch/build-server-stacks-webapp:0.0.4
+docker tag 82e2729b5cef dnitsch/build-server-stacks-webapp:0.0.4
+docker push dnitsch/build-server-stacks-webapp:0.0.4
 ```
 
 
