@@ -31,6 +31,7 @@
   "collectCoverageFrom": [
     "**/*.{ts,tsx}",
     "!**/*config.{js,json}",
+    "!**/index.ts",
     "!**/coverage/**",
     "!**/templates/**",
     "!**/coverage/**",

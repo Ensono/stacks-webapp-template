@@ -29,8 +29,6 @@ module "sample_aks_bootstrap" {
   spn_object_id           = data.azurerm_client_config.current.object_id
   client_secret           = var.client_secret
   tenant_id               = data.azurerm_client_config.current.tenant_id
-  # client_id            = var.create_aksspn ? module.aks-spn.spn_applicationid : var.cluster_spn_clientid
-  # client_secret        = var.create_aksspn ? random_string.spn_password.0.result : var.cluster_spn_clientsecret
   cluster_version      = "1.15.7"
   name_environment     = "dev"
   name_project         = var.name_project
