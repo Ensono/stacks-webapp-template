@@ -3,32 +3,31 @@ import App from "next/app"
 import React from "react"
 import { withApplicationInsights } from "utils/appInsightsLogger"
 import getConfig from "next/config"
-import { createMuiTheme } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core'
+import { createMuiTheme } from "@material-ui/core/styles";
 
 const AmidoTheme = createMuiTheme({
     palette: {
-        primary: { main: '#000000' },
-        secondary: { main: '#FECB07' }
+        primary: { main: "#000000" },
+        secondary: { main: "#FECB07" }
     },
     overrides: {
         MuiButton: {
             root: {
-                borderRadius: '5px',
-                fontSize: '13px',
-                textTransform: 'none'
+                borderRadius: "5px",
+                fontSize: "13px",
+                textTransform: "none"
             },
             contained: {
-                boxShadow: '0px',
-                textTransform: 'uppercase'
+                boxShadow: "0px",
+                textTransform: "uppercase"
             }
         }
     },
     typography: {
         fontFamily: [
-            '"Work sans"',
-            'Arial'
-        ].join(','),
+            ""Work sans"",
+            "Arial"
+        ].join(","),
     },
 });
 
