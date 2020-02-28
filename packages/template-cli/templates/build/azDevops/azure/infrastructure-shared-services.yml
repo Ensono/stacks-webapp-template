@@ -133,7 +133,6 @@ stages:
       - template: templates/v2/steps/deploy-k8s-cluster.yml
         parameters: 
           aks_cluster_name: amido-stacks-dev-cycle2
-          ingress_definition: [
-            'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml',
-            'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/provider/cloud-generic.yaml'
-          ]
+          ingress_definition:
+            - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml'
+            - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/provider/cloud-generic.yaml'
