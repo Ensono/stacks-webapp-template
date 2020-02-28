@@ -8,7 +8,8 @@ parameters:
 steps:
   - bash: |
       ARR=${{ parameters.ingress_definition }}
-      echo "${ARR[@]}"
+      echo "${ARR[1]}"
+      echo "${ARR[2]}"
       for i in "${ARR[@]}"
       do 
           echo "kubectl apply -f $i --context ${{ parameters.aks_cluster_name }}"
