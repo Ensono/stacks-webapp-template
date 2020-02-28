@@ -1,0 +1,50 @@
+############################################################################################################
+# desc: Runs the function (e2e) tests with Cypress
+# params: Env vars, Node version, workingDirectory, build_number
+# return: Publishes test results, screenshots and video recordings
+# pre-reqs: dependency installation, build webapp
+############################################################################################################
+
+parameters:
+  env_vars: {}
+  workingDirectory: ''
+
+steps:
+  # Compile Cypress Typscript tests
+  - script: npm run test:cypress:compile
+    displayName: 'Compile the Cypress tests'
+    workingDirectory: ${{ parameters.workingDirectory }}
+
+  # Run tests with Cypress
+  - script: npm run test:cypress
+    displayName: 'Start webapp server and run Cypress tests'
+    workingDirectory: ${{ parameters.workingDirectory }}
+    env:
+      ${{ each var in parameters.env_vars }}:
+        ${{ var.key }}: ${{ var.value }}
+
+  # Publish Artifacts: Cypress will automatically capture screenshots when a failure happens
+  - task: PublishPipelineArtifact@1
+    inputs:
+      artifactName: 'screenshots'
+      targetPath: '${{ parameters.workingDirectory }}/__tests__/cypress/screenshots'
+    displayName: 'Publish Screenshots (Cypress)'
+    condition: failed()
+
+  # Publish Artifacts: Cypress records a video for each spec file when running tests
+  # Note: Video recording is not currently supported in Electron with the --headed flag
+  - task: PublishPipelineArtifact@1
+    inputs:
+      artifactName: 'videos'
+      targetPath: '${{ parameters.workingDirectory }}/__tests__/cypress/videos'
+    displayName: 'Publish Videos (Cypress)'
+    condition: failed()
+
+  # Publish CI test results
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: JUnit
+      testResultsFiles: '**/*junit-test-report.xml'
+      testRunTitle: 'Cypress Tests'
+    displayName: 'Publish test results'
+    condition: succeededOrFailed()

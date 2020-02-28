@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/amido-dev/Amido-Stacks/_apis/build/status/stacks-webapp-template-pipeline?branchName=master)](https://dev.azure.com/amido-dev/Amido-Stacks/_build/latest?definitionId=70&branchName=master)
+
 # stacks-webapp-template
 
 Packages for templating SSR Node.js with React apps with little build configuration.

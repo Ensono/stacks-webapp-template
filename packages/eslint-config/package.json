@@ -1,8 +1,8 @@
 {
   "name": "@amido-stacks/eslint-config",
-  "version": "0.3.0",
+  "version": "0.6.0",
   "description": "Shared linting config from amido stacks",
-  "main": "index.js",
+  "main": "eslintrc.js",
   "author": "https://amido.com",
   "license": "MIT",
   "peerDependencies": {

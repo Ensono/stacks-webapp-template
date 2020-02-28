@@ -14,6 +14,10 @@
     "test:pact-start-stub": "node_modules/.bin/tsc pact/packStubServer.ts && node pact/packStubServer.js",
     "test:pact-can-i-deploy": "node_modules/.bin/tsc pact/pactCanIDeploy.ts && node pact/pactCanIDeploy.js",
     "test:pact-can-i-deploy-ci": "node_modules/.bin/pact-broker can-i-deploy --pacticipant $PACT_CONSUMER -l --broker-base-url $PACT_BROKER --broker-token $PACT_BEARER_TOKEN",
+    "test:cypress:compile": "node_modules/.bin/tsc --project tsconfig.cypress.json",
+    "test:cypress:run": "node_modules/.bin/tsc --project tsconfig.cypress.json && node_modules/.bin/cypress run",
+    "test:cypress:open": "node_modules/.bin/tsc --project tsconfig.cypress.json && node_modules/.bin/cypress open",
+    "test:cypress": "node_modules/.bin/start-server-and-test start $APP_BASE_URL:$PORT test:cypress:run",
     "clean:tree": "git clean -idx"
   },
   "engines": {
@@ -25,7 +29,10 @@
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
     "@material-ui/core": "^4.9.1",
+    "@microsoft/applicationinsights-web": "^2.4.4",
+    "@types/applicationinsights": "^0.20.0",
     "@types/node": "^13.1.7",
+    "applicationinsights": "^1.7.2",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "cross-env": "^6.0.3",
@@ -39,7 +46,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@amido-stacks/eslint-config": "^0.1.2",
+    "@amido-stacks/eslint-config": "^0.6.0",
     "@babel/core": "^7.8.4",
     "@pact-foundation/pact": "^9.6.1",
     "@pact-foundation/pact-node": "^10.2.4",
@@ -52,12 +59,16 @@
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
+    "cypress": "^4.0.2",
+    "eslint-plugin-compat": "^3.5.1",
+    "eslint-plugin-security": "^1.4.0",
     "jest": "^24.9.0",
     "jest-junit": "^10.0.0",
     "jest-sonar-reporter": "^2.0.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "snapshot-diff": "^0.7.0",
+    "start-server-and-test": "^1.10.8",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.5"

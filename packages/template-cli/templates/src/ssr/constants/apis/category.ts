@@ -1,10 +1,10 @@
 import { Api, HTTPMethod, buildExport } from ".";
-import conf from "../../config"
+import conf from "../../environment-configuration"
 
 class CategoryApi implements Api {
-    baseURL = "/";
-    version = "v1";
-    internalBasePath = conf.APP_BASE_PATH;
+    externalBaseURL = "/"
+    version = "v1"
+    internalBasePath = conf.APP_BASE_PATH
     endpoints = {
         getCategory: {
             routeDefinition: "getcategory/:id/:categoryId",
@@ -12,7 +12,7 @@ class CategoryApi implements Api {
                 `category/:${id}/:${categoryId}`,
             getExternalURL: (id: string, categoryId: string) =>
                 `menu/${id}/category/items/${categoryId}`,
-            method: HTTPMethod.get
+            method: HTTPMethod.get,
         },
         deleteCategory: {
             routeDefinition: "getcategory/:id/:categoryId",
@@ -20,7 +20,7 @@ class CategoryApi implements Api {
                 `category/:${id}/:${categoryId}`,
             getExternalURL: (id: string, categoryId: string) =>
                 `menu/${id}/category/items/${categoryId}`,
-            method: HTTPMethod.delete
+            method: HTTPMethod.delete,
         },
         updateCategory: {
             routeDefinition: "getcategory/:id/:categoryId",
@@ -28,9 +28,9 @@ class CategoryApi implements Api {
                 `category/:${id}/:${categoryId}`,
             getExternalURL: (id: string, categoryId: string) =>
                 `menu/${id}/category/items/whatever/${categoryId}`,
-            method: HTTPMethod.put
-        }
-    };
+            method: HTTPMethod.put,
+        },
+    }
 }
 
 const categoryApi = new CategoryApi();
