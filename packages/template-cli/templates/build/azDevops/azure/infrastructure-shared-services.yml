@@ -129,10 +129,11 @@ stages:
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
         target: k8s_deploy
-      # Create TF infra
       - template: templates/v2/steps/deploy-k8s-cluster.yml
         parameters: 
           aks_cluster_name: amido-stacks-dev-cycle2
+          aks_resource_group_name: amido-stacks-dev-cycle2
           ingress_definition:
+            # TODO: make this a complex object so that additional args can be passed in 
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml'
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/provider/cloud-generic.yaml'
