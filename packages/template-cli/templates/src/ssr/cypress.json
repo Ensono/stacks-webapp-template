@@ -1,6 +1,6 @@
 {
   "fixturesFolder": "__tests__/fixtures",
-  "integrationFolder": "dist/__tests__/pages",
+  "integrationFolder": "dist/__tests__",
   "supportFile": false,
   "pluginsFile": "__tests__/cypress/plugins/index.js",
   "testFiles": "**/*.cy.js",

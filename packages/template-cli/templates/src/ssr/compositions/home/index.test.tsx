@@ -1,6 +1,7 @@
+import '@testing-library/jest-dom/extend-expect'
 import * as React from 'react';
 import { render } from '@testing-library/react';
-import App from '../pages/index';
+import App from '../../pages';
 
 const indexPageText = `Welcome to Stacks-react app! your current environment is: ${process.env.NODE_ENV}`;
 
