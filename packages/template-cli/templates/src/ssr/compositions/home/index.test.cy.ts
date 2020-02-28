@@ -6,6 +6,12 @@ Every test you write will include selectors for elements. Write selectors that a
 ✅ALWAYS add data-* attributes to make it easier to target elements
 */
 
+/// <reference types="cypress" />
+
+/**
+ * @type {Cypress.PluginConfig}
+ */
+
 describe("Given we open the Yumido webapp", () => {
     beforeEach(() => {
         cy.visit("")

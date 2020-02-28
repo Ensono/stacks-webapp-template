@@ -1,7 +1,7 @@
 {
   "fixturesFolder": "__tests__/fixtures",
   "integrationFolder": "dist/__tests__",
-  "supportFile": false,
+  "supportFile": "__tests__/cypress/support/index.js",
   "pluginsFile": "__tests__/cypress/plugins/index.js",
   "testFiles": "**/*.cy.js",
   "reporter": "junit",
