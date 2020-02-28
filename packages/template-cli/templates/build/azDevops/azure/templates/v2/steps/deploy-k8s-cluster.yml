@@ -11,12 +11,16 @@ steps:
   # Do Login
   - bash: |
       az -v
+      az login --service-principal --username $(azure_client_id) --password $(azure_client_secret) --tenant $(azure_tenant_id)
+      az account set -s $(azure_subscription_id)
       az aks get-credentials --overwrite-existing --resource-group ${{ parameters.aks_resource_group_name }} --name ${{ parameters.aks_cluster_name }}
+    displayName: 'K8s: Login AKS'
     env:
-      ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
-      ARM_CLIENT_ID: $(azure_client_id)
-      ARM_CLIENT_SECRET: $(azure_client_secret)
-      ARM_TENANT_ID: $(azure_tenant_id)
+      AZURE_CLOUD_NAME: AzureCloud
+      # ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+      # ARM_CLIENT_ID: $(azure_client_id)
+      # ARM_CLIENT_SECRET: $(azure_client_secret)
+      # ARM_TENANT_ID: $(azure_tenant_id)
 
   - ${{ each ingess in parameters.ingress_definition }}:
     - bash: |
