@@ -285,24 +285,12 @@ variable "advanced_networking_enabled" {
 variable "dns_prefix" {
   type    = string
   default = "aks"
-
 }
 
 variable "vm_size" {
   type    = string
   default = "Standard_DS2_v2"
-
 }
-
-# nodepool_type # "VirtualMachineScaleSets" # default
-#     enable_auto_scaling = true
-#     max_count           = var.max_nodes
-#     min_count           = var.min_nodes
-#     name                = "default"
-#     os_disk_size_gb     = var.os_disk_size
-#     vm_size             = var.agent_size
-#     vnet_subnet_id      = var.vnet_subnet_id
-
 
 ###########################
 # MISC SETTINGS

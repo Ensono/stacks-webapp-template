@@ -41,7 +41,10 @@
         "--env=node",
         // "--ci",
         "--colors",
-        "${workspaceFolder}/packages/template-cli/src/__tests__/domain/workers/main_worker.test.ts"
+        // "${workspaceFolder}/packages/template-cli/src/__tests__/index.test.ts"
+        // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/config/file_mapper.test.ts"
+        "${workspaceFolder}/packages/template-cli/src/__tests__/domain/workers/utils.test.ts"
+        // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/workers/main_worker.test.ts"
         // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/selectors.test.ts"
       ],
       "env": {

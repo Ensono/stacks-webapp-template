@@ -1,8 +1,9 @@
 {
   "roots": ["<rootDir>/src"],
   "transform": {
-    "^.+.ts?$": "ts-jest"
+    "^.+\\.ts$": "ts-jest"
   },
+  "preset": "ts-jest",
   "testPathIgnorePatterns": [
     "<rootDir>/node_modules/",
     "<rootDir>/coverage/",
@@ -38,7 +39,7 @@
   "coverageDirectory": "<rootDir>./coverage/",
   "coverageThreshold": {
     "global": {
-      "statements": 0,
+      "statements": 60,
       "branches": 0,
       "functions": 0,
       "lines": 0

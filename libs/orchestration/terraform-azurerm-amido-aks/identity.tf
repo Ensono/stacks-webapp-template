@@ -76,10 +76,6 @@ resource "azurerm_key_vault" "default" {
   depends_on = [
     azurerm_resource_group.default
   ]
-
-  tags = {
-    environment = "Testing"
-  }
 }
 
 resource "azurerm_user_assigned_identity" "cluster_identity" {
