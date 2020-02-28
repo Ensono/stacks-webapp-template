@@ -5,6 +5,7 @@
  */
 
 const conf = require("../../../environment-configuration")
+require("@applitools/eyes-cypress")(module)
 
 module.exports = (on, config) => {
     console.log(config) // see what all is in here!
