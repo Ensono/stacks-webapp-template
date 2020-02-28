@@ -5,36 +5,38 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
   <div
     class="MuiGrid-root css-1knxyyj MuiGrid-container"
   >
-    Welcome to Stacks-react app! your current environment is: test 
-    <br />
-    <br />
-    <br />
-    <div
-      class="MuiGrid-root css-1hq8d8z MuiGrid-item"
-    >
+    <main>
+      Welcome to Stacks-react app! your current environment is: dev 
+      <br />
+      <br />
+      <br />
       <div
-        class="MuiBox-root MuiBox-root-252 css-irufoq"
+        class="MuiGrid-root css-1hq8d8z MuiGrid-item"
       >
-        <h1>
-          Get Menu List
-        </h1>
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text"
-          data-testid="apiPaneBtn"
-          tabindex="0"
-          type="button"
+        <div
+          class="MuiBox-root MuiBox-root-252 css-irufoq"
         >
-          <span
-            class="MuiButton-label"
+          <h1>
+            Get Menu List
+          </h1>
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-text"
+            data-testid="apiPaneBtn"
+            tabindex="0"
+            type="button"
           >
-            get
-          </span>
-          <span
-            class="MuiTouchRipple-root"
-          />
-        </button>
+            <span
+              class="MuiButton-label"
+            >
+              get
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
+        </div>
       </div>
-    </div>
+    </main>
   </div>
 </DocumentFragment>
 `;
