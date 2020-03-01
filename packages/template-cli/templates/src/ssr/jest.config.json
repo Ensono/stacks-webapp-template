@@ -17,6 +17,7 @@
     "./axe/jestAxeSetup.ts"
   ],
   "globals": {
+    "window": {},
     "ts-jest": {
       "tsConfig": "tsconfig.jest.json"
     }
