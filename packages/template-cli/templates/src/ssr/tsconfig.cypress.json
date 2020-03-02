@@ -8,6 +8,8 @@
     "sourceMap": false,
     "outDir": "dist/__tests__"
   },
-  "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)"],
-  "include": ["**/*.cy.ts"]
+  "types": ["node", "cypress", "@applitools/eyes-cypress"],
+  "files": ["./node_modules/@applitools/eyes-cypress/eyes-index.d.ts"],
+  "include": ["**/*.cy.ts","**/*.cy.eyes.ts"],
+  "exclude": []
 }
