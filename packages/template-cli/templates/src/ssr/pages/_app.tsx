@@ -25,7 +25,7 @@ const AmidoTheme = createMuiTheme({
     },
     typography: {
         fontFamily: [
-            ""Work sans"",
+            "Work sans",
             "Arial"
         ].join(","),
     },
