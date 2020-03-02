@@ -37,7 +37,9 @@ steps:
   
   - bash: |
       echo $(pwd)
-      ./yaml-templating.sh ${{ parameters.base_external_dns_yaml }} ${{ parameters.external_dns_yaml }}
+      echo ${{ parameters.base_external_dns_yml }}
+      ls -lat ${{ parameters.base_external_dns_yml }}
+      ./yaml-templating.sh ${{ parameters.base_external_dns_yml }} ${{ parameters.external_dns_yml }}
     env:
       domain_filter: nonprod.amidostacks.com
       aks_resource_group: amido-stacks-dev-cycle2
