@@ -5,11 +5,13 @@ steps:
   # Do Login
   - bash: |
       echo $(pwd)
+      ls -Rat $(Agent.BuildDirectory)/s/
+      echo "now current directory"
       ls -Rlat .
       ls -Rat ../scripts
       chmod -R +x ../scripts
     displayName: 'K8s: Set AKS Scripts to eXecutable'
-    workingDirectory: ${{ parameters.scripts_dir }}
+    # workingDirectory: ${{ parameters.scripts_dir }}
     env:
       AZURE_CLOUD_NAME: AzureCloud
       ARM_SUBSCRIPTION_ID: $(azure_subscription_id)

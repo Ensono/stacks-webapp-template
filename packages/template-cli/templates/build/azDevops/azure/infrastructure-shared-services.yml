@@ -133,6 +133,7 @@ stages:
       - template: templates/v2/steps/aux-k8s-scripts.yml
         parameters:
           scripts_dir: $(Agent.BuildDirectory)/s/packages/template-cli/templates/build/azDevops/azure/templates/v2/steps
+
       - template: templates/v2/steps/deploy-k8s-cluster.yml
         parameters: 
           aks_cluster_name: amido-stacks-dev-cycle2
