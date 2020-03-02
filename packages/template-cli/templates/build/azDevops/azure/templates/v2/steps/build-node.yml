@@ -45,7 +45,7 @@ parameters:
 
 steps:
   # Login to Azure/AKS
-  - template: ../v2/steps/login-services.yml
+  - template: ./login-services.yml
     parameters:
       azure_tenant_id: '$(azure_tenant_id)'
       azure_subscription_id: '$(azure_subscription_id)'
