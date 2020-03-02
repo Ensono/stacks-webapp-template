@@ -116,8 +116,9 @@ stages:
     #     ARM_CLIENT_ID: $(azure_client_id)
     #     ARM_CLIENT_SECRET: $(azure_client_secret)
     #     ARM_TENANT_ID: $(azure_tenant_id)
+    dependsOn: "InfraNonProd"
     variables:
-      foo: bar 
+      foo: bar
     pool:
       vmImage: ubuntu-18.04
     steps:

@@ -1,0 +1,36 @@
+############################################################################################################
+# desc: Performs static code analysis using code coverage from Jest unit tests and SonarCloud
+# params: Working directory
+# return:
+# pre-reqs: dependency installation
+############################################################################################################
+
+parameters:
+  workingDirectory: ''
+
+# set -x
+# echo $(pwd)
+# node -v
+# npm -v
+# uname -a
+# lsb_release -a
+# echo $PATH
+# echo $(ls -lat /usr/local/bin/sonar-scanner)
+# chmod a+rwX /usr/local/bin/sonar-scanner
+# /usr/local/bin/sonar-scanner
+
+steps:
+# SonarCloud Start
+  - bash: |
+      sonar-scanner -v
+      sonar-scanner
+    displayName: 'Static Analysis: SonarScanner Run'
+    target:
+      container: sonar_scanner
+    env:
+      SONAR_HOST_URL: https://sonarcloud.io
+      SONAR_TOKEN: $SONAR_TOKEN
+      SONAR_PROJECT_KEY: $SONAR_PROJECT_KEY
+      SONAR_ORGANIZATION: $SONAR_ORGANIZATION
+      BUILD_NUMBER: $(Build.BuildNumber)
+    workingDirectory: ${{ parameters.workingDirectory }}
