@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.server.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "strict": true,
     "baseUrl": "../node_modules",

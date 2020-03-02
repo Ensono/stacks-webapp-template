@@ -32,11 +32,11 @@ describe("Given we open the Yumido webapp", () => {
         cy.eyesClose()
     })
 
-    it("renders the page and stubbed menu component in other browsers", () => {
+    it("renders the page and stubbed menu component in supported browsers", () => {
         let menuName: String = "Breakfast Menu"
 
         // Check the page renders on navigation
-        cy.eyesCheckWindow({tag: "home"})
+        cy.eyesCheckWindow({tag: "compositions/home"})
 
         cy.fixture("get-menu-response.json").as("menuResponse")
         cy.route({
@@ -47,7 +47,7 @@ describe("Given we open the Yumido webapp", () => {
 
         // Check the page renders the menu component on click
         cy.get("[data-testid=apiPaneBtn]").click()
-        cy.eyesCheckWindow({tag: "home > GET menu"})
+        cy.eyesCheckWindow({tag: "compositions/home > GET menu"})
 
         cy.wait("@getStubbedMenu").then(xhr => {
             cy.wrap(xhr.responseBody)
