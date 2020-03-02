@@ -2,8 +2,10 @@ FROM debian:10.3
 
 ARG KUBECTL_VERSION=1.15.1
 ARG KUSTOMIZE_VERSION=3.5.4
+ARG TYPESCRIPT_VERSION=3.7.5
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
+LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
 
 RUN apt-get update && \
     apt-get upgrade && \
@@ -28,3 +30,10 @@ RUN cd /tmp && \
 
 RUN cd /tmp && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    apt-get install -y nodejs && \
+    node -v && \
+    npm -v
+
+RUN npm install -g typescript@${TYPESCRIPT_VERSION}

@@ -13,7 +13,7 @@ USAGE:
 TODO: Interim dockerhub repo will be moved to Amido org eventually.
 
 ```bash
-docker build . -t dnitsch/ci-k8s-deploy:latest
-docker tag b91e23339cb9 dnitsch/ci-k8s-deploy:latest
-docker push dnitsch/ci-k8s-deploy:latest
+docker build . -t dnitsch/ci-k8s-deploy:0.0.3
+docker tag e48cfa4cf4ca dnitsch/ci-k8s-deploy:0.0.3
+docker push dnitsch/ci-k8s-deploy:0.0.3
 ```

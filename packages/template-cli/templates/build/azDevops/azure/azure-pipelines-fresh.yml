@@ -24,7 +24,7 @@ resources:
   - container: sonar_scanner
     image: dnitsch/build-server-stacks-webapp:0.0.4
   - container: k8s_deploy
-    image: dnitsch/ci-k8s-deploy:0.0.2
+    image: dnitsch/ci-k8s-deploy:0.0.3
   - container: terraform_custom
     image: dnitsch/ci-tf:0.12.17
 
@@ -42,7 +42,7 @@ variables:
   docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
   docker_container_registry_name: amidostacksdevcycle2
   # BUILD ARTIFACTS across stages
-  build_artifact_deploy_path: $(Build.SourcesDirectory)/packages/template-cli/templates/deploy/k8s/app
+  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/deploy/k8s/app
   build_artifact_deploy_name: stacks-webapp
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
