@@ -47,12 +47,36 @@ steps:
     workingDirectory: ${{ parameters.scripts_dir }}
 
   - bash: |
-      ./external-dns.sh ${{ parameters.aks_resource_group_name }} ${{ parameters.aks_cluster_name }} ${{ parameters.aks_dns_resource_group_name }} ${{ parameters.external_dns_yaml }}
+      ./external-dns.sh ${{ parameters.aks_resource_group_name }} \
+      ${{ parameters.aks_cluster_name }} \
+      ${{ parameters.aks_dns_resource_group_name }} \
+      ${{ parameters.external_dns_yml }}
     displayName: 'K8s: Deploy External DNS service'
     workingDirectory: ${{ parameters.scripts_dir }}
-    env: 
+    env:
       ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
       ARM_CLIENT_ID: $(azure_client_id)
       ARM_CLIENT_SECRET: $(azure_client_secret)
       ARM_TENANT_ID: $(azure_tenant_id)
-    
+
+  - bash: |
+      kubectl apply -f https://raw.githubusercontent.com/Azure/aad-pod-identity/master/deploy/infra/deployment-rbac.yaml --context ${{ parameters.aks_cluster_name }}
+      kubectl apply -f $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/aadpodidentity.yml --context ${{ parameters.aks_cluster_name }}
+      kubectl apply -f $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml --context ${{ parameters.aks_cluster_name }}
+    displayName: 'K8s: Deploy AAD pod identity'
+    workingDirectory: ${{ parameters.scripts_dir }}
+    env:
+      ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+      ARM_CLIENT_ID: $(azure_client_id)
+      ARM_CLIENT_SECRET: $(azure_client_secret)
+      ARM_TENANT_ID: $(azure_tenant_id)
+
+  - bash: |
+      kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/master/deploy/gatekeeper.yaml --context ${{ parameters.aks_cluster_name }}
+    displayName: 'K8s: Deploy Gatekeeper'
+    workingDirectory: ${{ parameters.scripts_dir }}
+    env:
+      ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+      ARM_CLIENT_ID: $(azure_client_id)
+      ARM_CLIENT_SECRET: $(azure_client_secret)
+      ARM_TENANT_ID: $(azure_tenant_id)
