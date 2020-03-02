@@ -7,6 +7,9 @@ parameters:
         # for i in "${${{ parameters.ingress_definition }}[@]}"
       # echo "${ARR[1]}"
       # echo "${ARR[2]}"
+  scripts_dir: ''
+  external_dns_yml: ''
+  base_external_dns_yml: ''
 
 steps:
   # Do Login
@@ -34,15 +37,17 @@ steps:
   
   - bash: |
       echo $(pwd)
-      ../scripts/yaml-templating.sh packages/template-cli/templates/build/azDevops/azure/templates/v2/k8s_manifests/external-dns.yml
+      ./yaml-templating.sh ${{ parameters.base_external_dns_yaml }} ${{ parameters.external_dns_yaml }}
     env:
       domain_filter: nonprod.amidostacks.com
       aks_resource_group: amido-stacks-dev-cycle2
     displayName: 'K8s: template external dns'
+    workingDirectory: ${{ parameters.scripts_dir }}
 
   - bash: |
-      ../scripts/external-dns.sh ${{ parameters.aks_resource_group_name }} ${{ parameters.aks_cluster_name }} ${{ parameters.aks_dns_resource_group_name }} 
+      ./external-dns.sh ${{ parameters.aks_resource_group_name }} ${{ parameters.aks_cluster_name }} ${{ parameters.aks_dns_resource_group_name }} ${{ parameters.external_dns_yaml }}
     displayName: 'K8s: Deploy External DNS service'
+    workingDirectory: ${{ parameters.scripts_dir }}
     env: 
       ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
       ARM_CLIENT_ID: $(azure_client_id)
