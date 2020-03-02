@@ -41,7 +41,7 @@ steps:
     displayName: 'K8s: template external dns'
 
   - bash: |
-      ../scripts/external-dns.sh ${{ parameter.aks_resource_group_name }} ${{ parameter.aks_cluster_name }} ${{ parameter.aks_dns_resource_group_name }} 
+      ../scripts/external-dns.sh ${{ parameters.aks_resource_group_name }} ${{ parameters.aks_cluster_name }} ${{ parameters.aks_dns_resource_group_name }} 
     displayName: 'K8s: Deploy External DNS service'
     env: 
       ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
