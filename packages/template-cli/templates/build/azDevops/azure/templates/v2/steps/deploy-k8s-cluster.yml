@@ -1,6 +1,7 @@
 parameters:
   aks_cluster_name: ''
   aks_resource_group_name: ''
+  aks_dns_resource_group_name: ''
   ingress_definition: []
       # ARR=(${{ parameters.ingress_definition }})
         # for i in "${${{ parameters.ingress_definition }}[@]}"
@@ -22,14 +23,29 @@ steps:
       # ARM_CLIENT_SECRET: $(azure_client_secret)
       # ARM_TENANT_ID: $(azure_tenant_id)
 
-  - ${{ each ingess in parameters.ingress_definition }}:
+  - ${{ each ingress in parameters.ingress_definition }}:
     - bash: |
         echo $FOO
-        kubectl apply -f ${{ ingess }} --context ${{ parameters.aks_cluster_name }}
+        kubectl apply -f ${{ ingress }} --context ${{ parameters.aks_cluster_name }}
       displayName: 'K8s: Deploy Ingress-Nginx'
       workingDirectory: ${{ parameters.terraform_working_dir }}
       env:
         FOO: BAR
+  
+  - bash: |
+      echo $(pwd)
+      ../scripts/yaml-templating.sh packages/template-cli/templates/build/azDevops/azure/templates/v2/k8s_manifests/external-dns.yml
+    env:
+      domain_filter: nonprod.amidostacks.com
+      aks_resource_group: amido-stacks-dev-cycle2
+    displayName: 'K8s: template external dns'
 
-# kubectl apply -f $i --context ${{ parameters.aks_cluster_name }}
-# kubectl apply -f ${{ parameters.ingress_definition }} --context ${{ parameters.aks_cluster_name }}
+  - bash: |
+      ../scripts/external-dns.sh ${{ parameter.aks_resource_group_name }} ${{ parameter.aks_cluster_name }} ${{ parameter.aks_dns_resource_group_name }} 
+    displayName: 'K8s: Deploy External DNS service'
+    env: 
+      ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+      ARM_CLIENT_ID: $(azure_client_id)
+      ARM_CLIENT_SECRET: $(azure_client_secret)
+      ARM_TENANT_ID: $(azure_tenant_id)
+    

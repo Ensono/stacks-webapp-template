@@ -7,12 +7,3 @@ describe("file_mapper tests", () => {
         expect(true).toBe(true)
     })
 })
-// function getSourceFolders(): Array<SourceStruct> {
-//     return [{
-//         path: "templates/build",
-//         replaceFiles: [""],
-//         replaceVals: [""]
-//     }]
-// }
-
-// export {BaseFlowType, FileMapper, getSourceFolders}
