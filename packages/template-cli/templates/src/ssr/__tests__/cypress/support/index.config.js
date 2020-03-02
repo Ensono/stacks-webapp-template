@@ -13,8 +13,5 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import Cypress Axe commands for testing accessibility
-import "cypress-axe"
-
 // Import Cypress Applitools commands for visual tests
 import "@applitools/eyes-cypress/commands"

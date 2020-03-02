@@ -99,15 +99,33 @@ We are using [Cypress](https://docs.cypress.io/) for functional testing as much 
 * Great documentation
 * Best implementation of Live Reloading
 
-To open and run Cypress locally with live reload, after installing depend
+Please read [Cypress - Best Practices](https://docs.cypress.io/guides/references/best-practices.html) for how to get the most out of Cypress.
 
+To open and run Cypress locally with live reload, after installing dependencies:
 1. Install app dependencies `npm install`
-1. Build the webapp `npm run build`
-1. Compile the `*.cy.ts` Cypress test files `npm run test:cypress:compile` (optional: pass `--watch` through to watch for changes)
-1. Start the server, run the tests headless, tear down the server: `npm run test:cypress`. When writing tests: Open Cypress with live-reloading and selector playground `npm run test:cypress:open`
+2. Build the webapp `npm run build`
+3. Compile the `*.cy.ts` Cypress test files `npm run test:cypress:compile` (optional: pass `--watch` through to watch for changes)
+4. Start the server, run the tests headless, tear down the server: `npm run test:cypress`. When writing tests: Open Cypress with live-reloading and selector playground `npm run test:cypress:open`
+
+To spin up the server locally, running Cypress headless, use: `npm run test:cypress:eyes`. This is the same for running in CI pipelines.
 
 The `*.cy.ts` are located with the rendered Next.js [pages](./pages/).
 Environment configuration is pulled in using [Cypress plugin](./__tests__/cypress/plugins/index.js) from [environment-configuration](./environment-configuration/index.js). Note that the environment variables are required on the hosting platform, e.g. `export NODE_ENV=dev`
+
+### Visual Testing
+_Keywords: visual regression testing, browser support, cross browser_
+
+We are using the [Applitools](https://applitools.com/) for visual testing. For the purposes of this demo app, we are using the free tier on the [stacks@amido.com](mailto: stacks@amido.com) Github account. This is free allowing for:
+* 1 user
+* 100 checkpoints per month
+
+Eyes-Cypress ships with official type declarations for TypeScript. This allows you to add eyes commands to your TypeScript tests. The configuration file has been added to the [tsconfig.cypress.json](./tsconfig.cypress.json).
+
+To run the visual tests follow steps above.
+
+To spin up the server locally, running Cypress headless, use: `npm run test:cypress:eyes`. This is the same for running in CI pipelines.
+
+The `*.cy.eyes.ts` tests are located with the rendered Next.js [pages](./pages/). Please ensure you follow naming conventions to ensure segregation of visual tests within CI.
 
 ### Static Testing
 

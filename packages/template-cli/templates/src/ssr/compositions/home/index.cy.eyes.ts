@@ -1,34 +1,42 @@
 /*
-Every test you write will include selectors for elements. Write selectors that are resilient to changes.
+Example using Applitools Eyes SDK for Cypress to ensure we can rendering the entire page in
+supported browsers.
 
-❌NEVER target elements based on CSS attributes such as: id, class, tag (e.g. cy.get('button').click(), cy.get('.btn.btn-large').click())
-❕SPARINGLY target elements on textContent if it won't change (e.g. cy.contains('Submit').click())
-✅ALWAYS add data-* attributes to make it easier to target elements
+Please where possible, use this as a final check, prioritising jest-axe tests with the React
+components. See axe/accessibilityTestHelper.tsx for more information.
+
+By minimum, we expect to support WCAG 2.1 Level AA ["wcag21aa"]
+
+For more: https://github.com/applitools/eyes.sdk.javascript1/tree/master/packages/eyes-cypress
 */
 
 /// <reference types="cypress" />
+/// <reference types="@applitools/eyes-cypress" />
 
 /**
  * @type {Cypress.PluginConfig}
-**/
+ **/
 
 describe("Given we open the Yumido webapp", () => {
     beforeEach(() => {
         cy.visit("")
         cy.server()
-    })
-    it("should call the Yumido API", () => {
-        cy.route("GET", "/menu").as("getMenu")
-        cy.get("[data-testid=apiPaneBtn]").click()
-
-        cy.wait("@getMenu").then(xhr => {
-            cy.wrap(xhr.status).should("eq", 200)
-            cy.wrap(xhr.responseBody).should("have.property", "results")
+        cy.eyesOpen({
+            appName: "Yumido Webapp",
+            envName: Cypress.env("NODE_ENV"),
+            browser: {name: "ie11", width: 800, height: 600}
         })
     })
 
-    it("should display stubbed menu name", () => {
+    afterEach(() => {
+        cy.eyesClose()
+    })
+
+    it("renders the page and stubbed menu component in other browsers", () => {
         let menuName: String = "Breakfast Menu"
+
+        // Check the page renders on navigation
+        cy.eyesCheckWindow({tag: "home"})
 
         cy.fixture("get-menu-response.json").as("menuResponse")
         cy.route({
@@ -37,7 +45,9 @@ describe("Given we open the Yumido webapp", () => {
             response: "@menuResponse", // and force the response to be: []
         }).as("getStubbedMenu")
 
+        // Check the page renders the menu component on click
         cy.get("[data-testid=apiPaneBtn]").click()
+        cy.eyesCheckWindow({tag: "home > GET menu"})
 
         cy.wait("@getStubbedMenu").then(xhr => {
             cy.wrap(xhr.responseBody)

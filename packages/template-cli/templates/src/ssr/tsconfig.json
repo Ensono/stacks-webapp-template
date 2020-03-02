@@ -16,10 +16,10 @@
     "sourceMap": true,
     "jsx": "preserve",
     "isolatedModules": true,
-    "types": ["jest", "node", "cypress"],
+    "types": ["jest", "node"],
     "keyofStringsOnly": true
   },
-  "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)", "**/*.cy.ts"],
+  "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)", "**/*.cy.ts", "**/*.cy.eyes.ts"],
   "include": [
     "next-env.d.ts",
     "next.config.js",
