@@ -10,11 +10,6 @@ parameters:
   workingDirectory: ''
 
 steps:
-  # Compile Cypress Typscript tests
-  - script: npm run test:cypress:compile
-    displayName: 'Compile the Cypress tests'
-    workingDirectory: ${{ parameters.workingDirectory }}
-
   # Run tests with Cypress
   - script: npm run test:cypress
     displayName: 'Start webapp server and run Cypress tests'

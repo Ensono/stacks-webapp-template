@@ -11,7 +11,6 @@ module.exports = (on, config) => {
     config.baseUrl = `${conf.APP_BASE_URL}:${conf.PORT}/${conf.APP_BASE_PATH}`
 
     //Pull in all the environment runtime configuration for the webapp
-    //Get the current branch git rev-parse --abbrev-ref HEAD
     config.env = {
         ...conf
     }

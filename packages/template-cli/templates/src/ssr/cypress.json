@@ -3,7 +3,7 @@
   "integrationFolder": "dist/__tests__",
   "supportFile": "__tests__/cypress/support/index.config.js",
   "pluginsFile": "__tests__/cypress/plugins/index.config.js",
-  "testFiles": ["**/*.cy.js","**/*.cy.eyes.js"],
+  "nodeVersion": "system",
   "reporter": "junit",
   "reporterOptions": {
     "mochaFile": "cypress-junit-test-report.xml",
