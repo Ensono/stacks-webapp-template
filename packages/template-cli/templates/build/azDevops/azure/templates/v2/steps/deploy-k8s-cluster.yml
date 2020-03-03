@@ -34,7 +34,7 @@ steps:
       workingDirectory: ${{ parameters.terraform_working_dir }}
       env:
         FOO: BAR
-  
+
   - bash: |
       echo $(pwd)
       echo ${{ parameters.base_external_dns_yml }}

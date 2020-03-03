@@ -76,28 +76,28 @@ resource "azurerm_key_vault" "default" {
   ]
 }
 
-resource "azurerm_user_assigned_identity" "cluster_identity" {
-  name                = var.resource_namer
-  resource_group_name = var.resource_group_name
-  location            = var.resource_group_location
-}
+# resource "azurerm_user_assigned_identity" "cluster_identity" {
+#   name                = var.resource_namer
+#   resource_group_name = var.resource_group_name
+#   location            = var.resource_group_location
+# }
 
 
-resource "azurerm_role_assignment" "cluster_spn_to_env_rg" {
-  scope                = azurerm_resource_group.default[0].id
-  role_definition_name = "Contributor"
-  principal_id         = var.spn_object_id
-}
+# resource "azurerm_role_assignment" "cluster_spn_to_env_rg" {
+#   scope                = azurerm_resource_group.default[0].id
+#   role_definition_name = "Contributor"
+#   principal_id         = var.spn_object_id
+# }
 
-resource "azurerm_role_assignment" "cluster_spn_to_keyvault" {
-  scope                = azurerm_key_vault.default[0].id
-  role_definition_name = "Contributor"
-  principal_id         = var.spn_object_id
-}
+# resource "azurerm_role_assignment" "cluster_spn_to_keyvault" {
+#   scope                = azurerm_key_vault.default[0].id
+#   role_definition_name = "Contributor"
+#   principal_id         = var.spn_object_id
+# }
 
-resource "azurerm_role_assignment" "cluster_identity_to_dns_zone" {
-  count                = var.create_dns_zone ? 1 : 0
-  scope                = azurerm_dns_zone.default[0].id
-  role_definition_name = "Contributor"
-  principal_id         = var.spn_object_id
-}
+# resource "azurerm_role_assignment" "cluster_identity_to_dns_zone" {
+#   count                = var.create_dns_zone ? 1 : 0
+#   scope                = azurerm_dns_zone.default[0].id
+#   role_definition_name = "Contributor"
+#   principal_id         = var.spn_object_id
+# }
