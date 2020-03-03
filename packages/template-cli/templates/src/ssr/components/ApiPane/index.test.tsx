@@ -1,8 +1,8 @@
 import { fireEvent, render, screen, waitForElement } from "@testing-library/react"
-import * as axios from 'axios'
-import * as React from 'react'
+import axios from 'axios'
+import React from 'react'
 import { toMatchDiffSnapshot } from 'snapshot-diff'
-import ApiPane from '.'
+import ApiPane from './index'
 
 jest.mock('axios', () =>
   jest.fn(() =>
@@ -23,12 +23,16 @@ jest.mock('axios', () =>
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
 test('renders ApiPane snapshot', () => {
-  const {asFragment} = render(<ApiPane />)
+  const {asFragment} = render(
+      <ApiPane getMenulist={jest.fn()} menuItems={[]} isLoading={false} />,
+  )
   expect(asFragment()).toMatchSnapshot()
 })
 
 test('fires api call on button click', async () => {
-  const {getByText,asFragment} = render(<ApiPane />)
+  const {getByText, asFragment} = render(
+      <ApiPane getMenulist={jest.fn()} menuItems={[]} isLoading={false} />,
+  )
   const firstRender = asFragment()
   
   fireEvent.click(screen.getByTestId('apiPaneBtn'))

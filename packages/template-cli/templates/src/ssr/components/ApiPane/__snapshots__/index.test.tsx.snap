@@ -46,13 +46,14 @@ exports[`renders ApiPane snapshot 1`] = `
         <span
           class="MuiButton-label"
         >
-          get
+          Get
         </span>
         <span
           class="MuiTouchRipple-root"
         />
       </button>
     </div>
+    0
   </div>
 </DocumentFragment>
 `;

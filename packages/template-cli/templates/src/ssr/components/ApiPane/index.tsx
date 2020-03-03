@@ -1,43 +1,42 @@
-import React, { useState } from "react";
-import { Container, Pane } from "./components";
-import { Button } from "@material-ui/core";
-import api from "constants/apis/menu";
-import axios from "axios";
+import { Button } from "@material-ui/core"
+import React from "react"
+import { Container, Pane } from "./components"
 
-type ApiPaneProps = {};
+type ApiPaneProps = {
+    getMenulist: Function
+    menuItems: []
+    isLoading: boolean
+}
 
-const ApiPane = (props: ApiPaneProps) => {
-    const myapi = api("getMenuList");
-    const [state, setState] = useState(null);
-    const callApi = async () => {
-        try {
-          const res = await axios({
-            method: myapi.method,
-            url: myapi.internalEndpoint(),
-          })
-          res ? setState(res.data.results) : undefined
-        } catch (err) {
-        }
-    };
+type menuItem = {
+    id: string
+    restaurantId: string
+    name: string
+    description: string
+    enabled: boolean
+}
+
+const ApiPane = ({getMenulist, menuItems, isLoading}: ApiPaneProps) => {
+    const callApi = async () =>  await getMenulist()
     return (
-      <Container item>
-        <Pane>
-          <h1>Get Menu List</h1>
-          <Button data-testid="apiPaneBtn" onClick={callApi}>
-            {myapi.method}
-          </Button>
-        </Pane>
-        {state && (
-          <Pane>
-            <ul data-testid="results">
-              {state.map(item => (
-                <li key={item.id}>{item.name}</li>
-              ))}
-            </ul>
-          </Pane>
-        )}
-      </Container>
+        <Container item>
+            <Pane>
+                <h1>Get Menu List</h1>
+                <Button data-testid="apiPaneBtn" onClick={callApi}>
+                    Get
+                </Button>
+            </Pane>
+            {menuItems && menuItems.length && (
+                <Pane>
+                    <ul data-testid="results">
+                        {menuItems.map((item: menuItem) => (
+                            <li key={item.id}>{item.name}</li>
+                        ))}
+                    </ul>
+                </Pane>
+            )}
+        </Container>
     )
-};
+}
 
-export default ApiPane;
+export default ApiPane

@@ -73,17 +73,5 @@ const appInsightsConfig = {
     instrumentationKey: getConfig().publicRuntimeConfig.APPINSIGHTS_KEY,
     isEnabled: true,
 }
-// AppInsights are disabled for localhost
-// export default withRedux(configureStore)(withReduxSaga(withApplicationInsights({
-//     instrumentationKey: getConfig().publicRuntimeConfig.APPINSIGHTS_KEY,
-//     isEnabled: true,
-// }))(_App))
-
-// export default withApplicationInsights({
-//     instrumentationKey: getConfig().publicRuntimeConfig.APPINSIGHTS_KEY,
-//     isEnabled: true,
-// })(withRedux(configureStore)(withReduxSaga(_App)))
-
-// export default withRedux(configureStore)(withReduxSaga(_App))
 
 export default withRedux(configureStore)(withReduxSaga(withApplicationInsights(appInsightsConfig)(_App)))
