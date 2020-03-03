@@ -5,11 +5,13 @@ import { Container } from "./components";
 
 const Home = () => (
   <Container container>
+    <main>
     Welcome to Stacks-react app! your current environment is: {env.NODE_ENV}{" "}
     <br />
     <br />
     <br />
     <ApiPane />
+    </main>
   </Container>
 );
 

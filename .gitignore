@@ -155,12 +155,6 @@ backend.local.tfvars
 **/.sonar
 **/*.mp4
 
-# CYPRESS
-!**/plugins/*.js
-
-#TEMPLATE EXAMPLE CODE
-# **/templates/**/__snapshots__
-
 # GENERATED OUTPUT
 *.d.ts
 !**/globals.d.ts
