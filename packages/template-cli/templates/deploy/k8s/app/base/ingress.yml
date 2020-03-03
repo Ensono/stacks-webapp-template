@@ -16,3 +16,11 @@ spec:
         backend:
           serviceName: stacks-webapp
           servicePort: 80
+# 
+  - host: ""
+    http:
+      paths:
+      - path: /web/stacks(/|$)(.*)
+        backend:
+          serviceName: stacks-webapp
+          servicePort: 80

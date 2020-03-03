@@ -1,6 +1,10 @@
 - op: replace
   path: /spec/rules/0/host
-  value: app.nonprod.amidostacks.com
+  value: "dev.amidostacks.com"
+
+- op: replace
+  path: /spec/rules/1/host
+  value: "app.nonprod.amidostacks.com"
 
 - op: add
   path: /spec/tls
