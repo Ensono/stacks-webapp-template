@@ -3,6 +3,7 @@ This website was created (with love) with [Docusaurus](https://docusaurus.io/).
 # What's In This Document
 
 - [What's In This Document](#whats-in-this-document)
+- [Publishing changes](#publishing-changes)
 - [Get Started in 5 Minutes](#get-started-in-5-minutes)
   - [Directory Structure](#directory-structure)
 - [Editing Content](#editing-content)
@@ -12,6 +13,20 @@ This website was created (with love) with [Docusaurus](https://docusaurus.io/).
   - [Adding items to your site's top navigation bar](#adding-items-to-your-sites-top-navigation-bar)
   - [Adding custom pages](#adding-custom-pages)
 - [Full Documentation](#full-documentation)
+
+# Publishing changes
+
+Docusaurus generates a static HTML website that is currently being served on github pages. See their [documentation](https://docusaurus.io/docs/en/publishing#using-github-pages) for more information on how to publish.
+
+To publish locally:
+1. `npm install`
+2. `npm run build`
+3. Substituting the <GIT_USER> for your username, publish the soolution
+    ```bash
+    GIT_USER=<GIT_USER> \
+      npm run publish-gh-pages
+    ```
+This will push the changes to the stacks-webapp-template[gh-pages](https://github.com/amido/stacks-webapp-template/tree/gh-pages) branch. If successful, changes will be public immediately at https://amido.github.io/stacks-webapp-template/.
 
 # Get Started in 5 Minutes
 
