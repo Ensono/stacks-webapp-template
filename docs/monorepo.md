@@ -1,3 +1,9 @@
+---
+id: monorepo
+title: Template Monorepo
+sidebar_label: Template Monorepo
+---
+
 # Monorepo structure
 <!-- TODO: change this around -->
 
@@ -14,29 +20,7 @@ At the moment, the project is comprised of:
 ## Sample Project Directory Structure:
 
 ```
-├── .gitignore
-├── lerna.json
-├── package.json
-├── packages
-│   ├── Webapp
-│   │   ├── __tests__
-│   │   │   ├── index.test.tsx
-│   │   ├── pages
-│   │   │   └── index.tsx
-│   │   ├── package.json
-│   │   ├── README.md
-│   │   ├── task -> ../../scripts/task
-│   │   └── Dockerfile
-│   ├── [sample Package]
-│   │   ├── README.md
-│   │   ├── __tests__
-│   │   ├── package.json
-│   │   ├── task -> ../../scripts/task
-│   │   └── Dockerfile
-├── README.md
-├── scripts
-│   └── task
-└── package-lock.json
+THIS NEEDS TO BE PRODUCED
 ```
 
 ## Approach

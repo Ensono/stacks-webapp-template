@@ -2,7 +2,7 @@
 Todo: Remove this documentation upon publishing the packages publically to npm. 
 -->
 
-> IMPORTANT: This is temporary documentation on how to pull and publish arifacts with Azure DevOps before we publish and open source them to our npm registry.
+> ⚠️ IMPORTANT: This is temporary documentation on how to pull and publish arifacts with Azure DevOps before we publish and open source them to our npm registry.
 
 ## Permissions
 

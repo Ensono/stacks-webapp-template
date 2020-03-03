@@ -1,4 +1,8 @@
-# Browser support
+---
+id: browser_support
+title: Browser Support
+sidebar_label: Browser Support
+---
 
 Given we are building a WebApp template designing for accessibility, we would
 like to have optionality to support broad range of browsers. We look to

@@ -1,12 +1,14 @@
-# Amido Stacks Webapp 
+---
+id: index
+title: About
+sidebar_label: About
+---
 
-Description:
-----
+## Amido Stacks Webapp
 
 The entire project is built around the generation of a completely useable scaffolding for sprint 0. The showcase of a react app, either SSR or CSR being deployed into an existing or brand new K8s cluster - depending on the choices that were made during the bootstrap CLI process.
 
-More details around the internal layout and how to contribute and extend the CLI process can be found [here](./cli.md)
-
+More details around the internal layout and how to contribute and extend the CLI process can be found [here](./monorepo.md)
 
 ### Deployment Concepts
 
@@ -17,14 +19,9 @@ To read and understand more about testing your contributed changes please go [he
 
 ### Infrastructure concepts
 
-All infrastructure tooling is done with Terraform, and uses workspaces as the main mechanism of segragating states. 
+All infrastructure tooling is done with Terraform, and uses workspaces as the main mechanism of segragating states:
 
-
-
-
-<!-- This will need to be updated and changed as we progress this along -->
 Current limitations:
----
   - SSR Only
   - AKS Only
-  - ...
+
