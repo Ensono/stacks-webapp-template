@@ -65,8 +65,8 @@ stages:
     #     ARM_TENANT_ID: $(azure_tenant_id)
     variables:
       foo: bar 
-    pool:
-      vmImage: ubuntu-18.04
+    pool: amido-stacks-local
+      # vmImage: ubuntu-18.04
     steps:
       - checkout: self
       - checkout: templates
@@ -127,8 +127,8 @@ stages:
     container: k8s_deploy
     variables:
       BaseURL: $(deployed_base_url)
-    pool:
-      vmImage: ubuntu-18.04
+    pool: amido-stacks-local
+      # vmImage: ubuntu-18.04
     environment: dev
     strategy:
       runOnce:
