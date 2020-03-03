@@ -33,7 +33,3 @@ secretGenerator:
   - secrets/MENU_API/URL
   - secrets/MENU_API/KEY
   name: menuapi
-images:
-- name: stacks-webapp-app-image:tag
-  newName: bitnami/node-example
-  newTag: 0.0.1
