@@ -7,6 +7,12 @@ metadata:
     app.kubernetes.io/component: web
     app.kubernetes.io/part-of: stacks
 spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: stacks-webapp
+      app.kubernetes.io/component: web
+      app.kubernetes.io/part-of: stacks
+      aadpodidbinding: stacks-webapp-identity
   template:
     metadata:
       labels:
