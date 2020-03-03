@@ -29,7 +29,7 @@ const siteConfig = {
   editUrl: '/edit/master/docs/', //Append to the repo URL for editing docs
 
   // Used for publishing and more
-  projectName: 'Amido Stacks',
+  projectName: 'stacks-webapp-template',
   organizationName: 'Amido', // Same as Github org
 
   // For no header links in the top nav bar -> headerLinks: [],
