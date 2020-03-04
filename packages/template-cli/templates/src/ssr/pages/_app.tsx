@@ -9,8 +9,6 @@ import withRedux from "next-redux-wrapper"
 import configureStore from '../state-management';
 import { Provider } from "react-redux"
 import {Store} from "redux"
-// import {AppWithStore} from "@Interfaces"
-// import {makeStore} from "@Redux"
 interface AppStore extends Store {
 }
 

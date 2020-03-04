@@ -2,28 +2,12 @@
 
 exports[`fires api call on button click 1`] = `
 "Snapshot Diff:
-- First value
-+ Second value
+Compared values have no visual difference."
+`;
 
-@@ -22,7 +22,18 @@
-          <span
-            class=\\"MuiTouchRipple-root\\"
-          />
-        </button>
-      </div>
-+     <div
-+       class=\\"MuiBox-root MuiBox-root-295 css-irufoq\\"
-+     >
-+       <ul
-+         data-testid=\\"results\\"
-+       >
-+         <li>
-+           Breakfast Menu
-+         </li>
-+       </ul>
-+     </div>
-    </div>
-  </DocumentFragment>"
+exports[`fires api call on button click 2`] = `
+"Snapshot Diff:
+Compared values have no visual difference."
 `;
 
 exports[`renders ApiPane snapshot 1`] = `

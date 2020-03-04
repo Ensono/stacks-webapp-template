@@ -4,7 +4,7 @@ import { Container, Pane } from "./components"
 
 type ApiPaneProps = {
     getMenulist: Function
-    menuItems: []
+    menuItems: { id: string; name: string; description: string; }[]
     isLoading: boolean
 }
 
