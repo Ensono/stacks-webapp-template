@@ -35,7 +35,7 @@ const siteConfig = {
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
     {doc: 'index', label: 'Docs'},
-    {doc: 'packages', label: 'Packages'},
+    {doc: 'monorepo', label: 'About Stacks'},
     {href: "https://github.com/amido/stacks", label: "GitHub" }
   ],
 

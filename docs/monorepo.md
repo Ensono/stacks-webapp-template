@@ -4,7 +4,6 @@ title: Template Monorepo
 sidebar_label: Template Monorepo
 ---
 
-# Monorepo structure
 <!-- TODO: change this around -->
 
 ## Description
