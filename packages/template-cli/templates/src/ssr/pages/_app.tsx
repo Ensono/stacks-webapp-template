@@ -1,7 +1,7 @@
 import {ThemeProvider} from "@material-ui/core/styles"
 import App, {AppInitialProps, AppContext} from "next/app"
 import React from "react"
-import {withApplicationInsights} from "utils/appInsightsLogger"
+import { withApplicationInsights } from "utils/appInsightsLogger"
 import getConfig from "next/config"
 import {createMuiTheme} from "@material-ui/core/styles"
 import withReduxSaga from "next-redux-saga"

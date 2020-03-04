@@ -15,6 +15,7 @@ eslint-config-prettier \
 eslint-plugin-jest \
 eslint-import-resolver-typescript \
 eslint-plugin-react \
+eslint-plugin-compat \
 ```
 
 ## Usage
