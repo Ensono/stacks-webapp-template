@@ -1,4 +1,3 @@
-# FROM hashicorp/terraform:0.12.17-buster
 FROM debian:10.3
 
 ARG TF_VERSION=0.12.17

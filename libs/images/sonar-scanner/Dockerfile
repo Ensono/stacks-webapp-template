@@ -31,13 +31,9 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs
 
 # DUMP OUT VERSIONS
-# RUN nvm --version && \
 RUN node -v && \
     npm -v
-    # sonar-scanner -v
 
 ENV SONAR_RUNNER_HOME=/opt/sonar-scanner-$RELEASE-linux
 ENV PATH $PATH:/opt/sonar-scanner-$RELEASE-linux/bin
 
-# NVM installer
-# CMD ["/bin/bash"]

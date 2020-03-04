@@ -8,17 +8,6 @@
 parameters:
   workingDirectory: ''
 
-# set -x
-# echo $(pwd)
-# node -v
-# npm -v
-# uname -a
-# lsb_release -a
-# echo $PATH
-# echo $(ls -lat /usr/local/bin/sonar-scanner)
-# chmod a+rwX /usr/local/bin/sonar-scanner
-# /usr/local/bin/sonar-scanner
-
 steps:
 # SonarCloud Start
   - bash: |

@@ -10,10 +10,10 @@ versions:
 USAGE:
 ---
 
-TODO: Interim dockerhub repo will be moved to Amido org eventually.
 
 ```bash
-docker build . -t dnitsch/ci-k8s-deploy:0.0.3
-docker tag e48cfa4cf4ca dnitsch/ci-k8s-deploy:0.0.3
-docker push dnitsch/ci-k8s-deploy:0.0.3
+docker build . -t amidostacks/ci-k8s
+docker tag e48cfa4cf4ca amidostacks/ci-k8s:0.0.1
+docker tag e48cfa4cf4ca amidostacks/ci-k8s:latest
+docker push amidostacks/ci-k8s:0.0.1
 ```

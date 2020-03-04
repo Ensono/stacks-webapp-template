@@ -27,12 +27,6 @@ parameters:
   azure_cli_providers: []
 
 steps:
-  # register providers 
-  # - ${{ if ge(parameters.download_deploy_artefact, true) }}:
-  #     - download: current
-  #       displayName: "Download: Build Artefacts"
-  #       artifact: "${{ parameters.deploy_artifact_name }}"
-
   - template: ../steps/deploy-terraform-init.yml
     # Terraform Backend & Azure Credential config comes via Variable Group
     # that must be inherited into this step!

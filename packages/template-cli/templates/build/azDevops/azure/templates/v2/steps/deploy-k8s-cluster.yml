@@ -3,10 +3,6 @@ parameters:
   aks_resource_group_name: ''
   aks_dns_resource_group_name: ''
   ingress_definition: []
-      # ARR=(${{ parameters.ingress_definition }})
-        # for i in "${${{ parameters.ingress_definition }}[@]}"
-      # echo "${ARR[1]}"
-      # echo "${ARR[2]}"
   scripts_dir: ''
   external_dns_yml: ''
   base_external_dns_yml: ''

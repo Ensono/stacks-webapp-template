@@ -1,9 +1,8 @@
 /// <reference types="jest" />
-// import * from '@types/jest'
 import { PromptAnswer } from '../../../domain/model/prompt_answer'
 import { SsrAdoResponse, BaseResponse } from '../../../domain/model/workers'
 import { Utils, copyFilter } from '../../../domain/workers/utils';
-// import * as fse from 'fs-extra'
+
 import * as fse from 'fs-extra'
 jest.mock('fs-extra')
 
