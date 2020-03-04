@@ -3,6 +3,7 @@ import createSagaMiddleware, {Task} from "redux-saga"
 import getConfig from "next/config"
 import rootReducer from "./root-reducer"
 import rootSaga from "./root-saga"
+import logger from "redux-logger"
 
 const IS_BROWSER = typeof window !== "undefined"
 
@@ -24,7 +25,7 @@ interface WithSagaTaskStore extends Store {
 const configureStore = (preloadedState: any = {}) => {
     const sagaMiddleware = createSagaMiddleware()
 
-    const middlewares = [sagaMiddleware]
+    const middlewares = [sagaMiddleware, logger]
     const middlewareEnhancer = applyMiddleware(...middlewares)
 
     const enhancers = [middlewareEnhancer]
