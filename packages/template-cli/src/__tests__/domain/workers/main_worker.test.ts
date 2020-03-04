@@ -20,12 +20,18 @@ let mainWorker = new MainWorker()
 describe("mainWorker class tests", () => {
 
     describe("Positive assertions ssr_aks_tfs", () => {
-        beforeEach(async () => {
-            Utils.copyWorker = jest.fn().mockResolvedValue(worker_response)
-        })
+        beforeEach(async () => {})
         it("should call the ssr_aks_tfs worker", async () => {
+            Utils.copyWorker = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `${mock_answer.project_name} created`})
+            })
+            Utils.moveWorker = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+
             let flow_ran: SsrAdoResponse = await mainWorker.ssr_aks_tfs(mock_answer)
             expect(Utils.copyWorker).toHaveBeenCalled()
+            expect(Utils.moveWorker).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("message")
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)

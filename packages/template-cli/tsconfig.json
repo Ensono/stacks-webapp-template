@@ -17,7 +17,8 @@
     "**/__mocks__/**/*",
     "templates/**/*",
     "**/*.test.ts",
-    "coverage/**/*"
+    "coverage/**/*",
+    "test-app-1"
   ],
   "include": ["src/jest.config.js", "**/*.ts", "**/*.tsx"]
 }
