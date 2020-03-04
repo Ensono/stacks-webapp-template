@@ -31,7 +31,7 @@ Our default export contains all of our ESLint rules. The configuration was built
     eslint-plugin-react \
     eslint-plugin-security \
     ```
-
+    
 ## Usage
 After installing, simply add a `.eslintrc` file the following to your project root (at the same level as `package.json`):
 
