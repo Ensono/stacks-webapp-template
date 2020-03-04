@@ -1,15 +1,18 @@
-interface CliError {
+export interface CliError {
     message: string
     stack: string
 }
 
-interface BaseResponse { 
+export interface BaseResponse { 
     ok: boolean,
-    message?: string,
+    message: string,
     code?: number
     error?: CliError
 }
 
-interface SsrAdoResponse extends BaseResponse {}
+export interface TempCopy extends BaseResponse{
+    temp_path: string
+    final_path: string
+}
 
-export { BaseResponse, SsrAdoResponse, CliError }
+export interface SsrAdoResponse extends BaseResponse {}
