@@ -3,7 +3,7 @@ id: cli
 title: CLI (Command Line Interface)
 sidebar_label: CLI
 ---
-## Generated output documentation process
+# CLI extensions process
 
 The cli process takes in either a config object or CLI answers that construct the same object.
 
