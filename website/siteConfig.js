@@ -10,83 +10,79 @@
 
 // List of projects/orgs using your project for the users page.
 const users = [
-  {
-    caption: 'next',
-    // You will need to prepend the image path with your baseUrl
-    // if it is not '/', like: '/test-site/img/image.jpg'.
-    // image: '/img/undraw_open_source.svg',
-    infoLink: 'https://www.next.co.uk',
-    pinned: true,
-  }
-];
+    {
+        caption: "next",
+        // You will need to prepend the image path with your baseUrl
+        // if it is not '/', like: '/test-site/img/image.jpg'.
+        // image: '/img/undraw_open_source.svg',
+        infoLink: "https://www.next.co.uk",
+        pinned: true,
+    },
+]
 
 const siteConfig = {
-  title: 'Amido Stacks Webapp', // Title for your website.
-  tagline: 'Amido Stacks Node.js with React SSR Template',
-  url: 'https://amido.github.io', // Org github.io custom URL
-  baseUrl: '/stacks-webapp-template/', // Base URL for project repo
-  projectBaseUrl: '/stacks',
-  editUrl: '/edit/master/docs/', //Append to the repo URL for editing docs
+    title: "Amido Stacks Webapp", // Title for your website.
+    tagline: "Amido Stacks Node.js with React SSR Template",
+    url: "https://amido.github.io", // Org github.io custom URL
+    baseUrl: "/stacks-webapp-template/", // Base URL for project repo
+    projectBaseUrl: "/stacks",
+    editUrl: "/edit/master/docs/", //Append to the repo URL for editing docs
 
-  // Used for publishing and more
-  projectName: 'stacks-webapp-template',
-  organizationName: 'Amido', // Same as Github org
+    // Used for publishing and more
+    projectName: "stacks-webapp-template",
+    organizationName: "Amido", // Same as Github org
 
-  // For no header links in the top nav bar -> headerLinks: [],
-  headerLinks: [
-    {doc: 'index', label: 'Docs'},
-    {doc: 'monorepo', label: 'About Stacks'},
-    {href: "https://github.com/amido/stacks", label: "GitHub" }
-  ],
-
-  // If you have users set above, you add it here:
-  users,
-
-  /* path to images for header/footer */
-  headerIcon: 'img/thumbnail_stacks.png', 
-  footerIcon: 'img/thumbnail_stacks.png',
-  favicon: 'img/favicon.ico',
-
-  /* Colors for website */
-  colors: {
-    primaryColor: '#000000',
-    secondaryColor: '#FECB07',
-  },
-
-  /* Custom fonts for website */
-  fonts: {
-    myFont: [
-      "Work sans"
+    // For no header links in the top nav bar -> headerLinks: [],
+    headerLinks: [
+        {doc: "index", label: "Docs"},
+        {doc: "monorepo", label: "About Stacks"},
+        {href: "https://github.com/amido/stacks", label: "GitHub"},
     ],
-    myOtherFont: [
-      "Arial"
-    ]
-  },
 
-  // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Amido Ltd`,
+    // If you have users set above, you add it here:
+    users,
 
-  // Add custom scripts here that would be placed in <script> tags.
-//   scripts: ['https://buttons.github.io/buttons.js'],
+    /* path to images for header/footer */
+    headerIcon: "img/thumbnail_stacks.png",
+    footerIcon: "img/thumbnail_stacks.png",
+    favicon: "img/favicon.ico",
 
-  onPageNav: 'separate',
-  cleanUrl: true,
-  ogImage: 'img/logo.png',
+    /* Colors for website */
+    colors: {
+        primaryColor: "#000000",
+        secondaryColor: "#FECB07",
+    },
 
-  // For sites with a sizable amount of content, set collapsible to true.
-  // Expand/collapse the links and subcategories under categories.
-  docsSideNavCollapsible: true,
+    /* Custom fonts for website */
+    fonts: {
+        myFont: ["Work sans"],
+        myOtherFont: ["Arial"],
+    },
 
-  // Show documentation's last contributor's name.
-  enableUpdateBy: true,
+    // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
+    copyright: `Copyright © ${new Date().getFullYear()} Amido Ltd`,
 
-  // Show documentation's last update time.
-  enableUpdateTime: true,
+    // Add custom scripts here that would be placed in <script> tags.
+    //   scripts: ['https://buttons.github.io/buttons.js'],
 
-  // You may provide arbitrary config keys to be used as needed by your
-  // template. For example, if you need your repo's URL...
-  repoUrl: 'https://github.com/amido/stacks-webapp-template',
-  baseRepoUrl:'https://github.com/amido/stacks'
-};
+    onPageNav: "separate",
+    cleanUrl: true,
+    ogImage: "img/logo.png",
 
-module.exports = siteConfig;
+    // For sites with a sizable amount of content, set collapsible to true.
+    // Expand/collapse the links and subcategories under categories.
+    docsSideNavCollapsible: true,
+
+    // Show documentation's last contributor's name.
+    enableUpdateBy: true,
+
+    // Show documentation's last update time.
+    enableUpdateTime: true,
+
+    // You may provide arbitrary config keys to be used as needed by your
+    // template. For example, if you need your repo's URL...
+    repoUrl: "https://github.com/amido/stacks-webapp-template",
+    baseRepoUrl: "https://github.com/amido/stacks",
+}
+
+module.exports = siteConfig
