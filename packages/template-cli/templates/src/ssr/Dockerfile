@@ -6,6 +6,7 @@ RUN apt-get update -y && apt-get install dumb-init -y
 ADD package.json /tmp/package.json
 ADD .npmrc /tmp/.npmrc
 RUN cd /tmp && npm install
+# RUN cd /tmp && npm ci --only=prod
 RUN rm -f .npmrc
 RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
 

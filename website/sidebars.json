@@ -1,0 +1,8 @@
+{
+  "docs": {
+    "Getting Started": ["index", "monorepo"],
+    "Guides": ["deployment","publishing"],
+    "Packages": ["packages"],
+    "Supporting Docs": ["browser_support", "infrastructure"]
+  }
+}

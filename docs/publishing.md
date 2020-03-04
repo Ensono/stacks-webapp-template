@@ -1,4 +1,8 @@
-# Publishing Packages
+---
+id: publishing
+title: Publishing Packages
+sidebar_label: Publishing Packages
+---
 
 For package management, we are using [Lerna](https://lernajs.io) which can be installed using [npm](https://www.npmjs.com/package/lerna).
 

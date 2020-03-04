@@ -6,8 +6,12 @@ metadata:
     app.kubernetes.io/name: stacks-webapp
     app.kubernetes.io/component: web
     app.kubernetes.io/part-of: stacks
+    aadpodidbinding: stacks-webapp-identity
 spec:
   template:
+    metadata:
+      labels:
+        aadpodidbinding: stacks-webapp-identity
     spec:
       containers:
         - name: web

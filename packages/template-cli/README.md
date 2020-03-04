@@ -1,6 +1,11 @@
-# template-cli
+---
+id: cli
+title: CLI (Command Line Interface)
+sidebar_label: CLI
+---
 
-Builds a Node.js with React SSR template from a command line interface (CLI).
+## Template CLI
+Builds a Node.js with React Server Side Rendered Webapp Template, with accompanying infrastruce code. All from your CLI.
 
 ## Dependencies
 

@@ -4,6 +4,10 @@
 
 Packages for templating SSR Node.js with React apps with little build configuration.
 
+## Documentation
+
+See [Amido Stacks Webapp](https://amido.github.io/stacks-webapp-template/) for docs.
+
 ## Why?
 Every new project exists to solve a unique challenge 
 but requires common building blocks to get up and running.

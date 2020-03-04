@@ -1,8 +1,14 @@
-# Templated Pipelines
+---
+id: deployment
+title: Deployment
+sidebar_label: Deployment
+---
 
-Whilst there is a full CI/CD process for contributed changes to ensure exisiting functionality doesn't break if you want to ensure your PR passes, please follow the steps in the [cli](./cli.md) docs to create a templated out app with and *-pipeline.yml and point to your own CI/CD tooling.
+## Templated Pipelines
 
-All changes need to be made inside the `packages/template-cli/templates/build/*`. 
+Whilst there is a full CI/CD process for contributed changes to ensure exisiting functionality doesn't break if you want to ensure your PR passes, please follow the steps in the [templated-cli](./packages.md) docs to create a templated out app with and *-pipeline.yml and point to your own CI/CD tooling.
+
+All changes need to be made inside the `packages/template-cli/templates/build/*`.
 
 Azure Devops (TFS) ONLY:
   - The generated pipeline yaml is only comprised of steps and jobs templated out from other repo 
