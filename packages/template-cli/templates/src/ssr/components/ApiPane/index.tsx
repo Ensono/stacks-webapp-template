@@ -5,10 +5,8 @@ import { Container, Pane } from "./components"
 
 type menuItem = {
     id: string
-    restaurantId: string
     name: string
     description: string
-    enabled: boolean
 }
 
 type ApiPaneProps = {
