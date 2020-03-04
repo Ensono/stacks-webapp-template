@@ -21,13 +21,32 @@ const AmidoTheme = createMuiTheme({
                 boxShadow: "0px",
                 textTransform: "uppercase"
             }
+        },
+        MuiListItem: {
+            root: {
+                marginTop: "20px"
+            }
         }
     },
     typography: {
         fontFamily: [
+            "Arial",
             "Work sans",
-            "Arial"
         ].join(","),
+        h2: {
+            fontSize: "24px",
+            marginBotton: "40px"
+        },
+        h3: {
+            fontSize: "18px",
+            fontWeight: 700,
+            marginBottom: "15px"
+        },
+        body1: {
+            fontSize: "13px",
+            fontWeight: 400,
+            overflowWrap: "break-word"
+        }
     },
 });
 

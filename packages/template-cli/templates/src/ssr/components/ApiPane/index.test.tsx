@@ -23,24 +23,21 @@ jest.mock('axios', () =>
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
 test('renders ApiPane snapshot', () => {
-  const {asFragment} = render(<ApiPane />)
+  const { asFragment } = render(<ApiPane />)
   expect(asFragment()).toMatchSnapshot()
 })
 
-test('fires api call on button click', async () => {
-  const {getByText,asFragment} = render(<ApiPane />)
+test('fires api call on mount', async () => {
+  const { getByText, asFragment } = render(<ApiPane />)
   const firstRender = asFragment()
-  
-  fireEvent.click(screen.getByTestId('apiPaneBtn'))
 
-  
   await waitForElement(() => screen.getByText('Breakfast Menu'))
-  
+
   const resultNode = await screen.findByTestId('results')
   expect(resultNode).toHaveTextContent('Breakfast Menu')
   expect(mockedAxios).toHaveBeenCalledTimes(1)
-  
+
   // To match re-rendered DOM snapshot after the api response
-  expect.extend({toMatchDiffSnapshot})
+  expect.extend({ toMatchDiffSnapshot })
   expect(firstRender).toMatchDiffSnapshot(asFragment())
 })
