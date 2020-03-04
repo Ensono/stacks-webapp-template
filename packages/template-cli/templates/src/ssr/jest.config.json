@@ -1,5 +1,9 @@
 {
-  "testMatch": ["**/*.test.(ts|tsx)", "!**/*.test.pact.ts", "!**/accessibilityHelper.test.tsx"],
+  "testMatch": [
+    "**/*.test.(ts|tsx)",
+    "!**/*.test.pact.ts",
+    "!**/accessibilityHelper.test.tsx"
+  ],
   "testPathIgnorePatterns": ["./.next/", "./node_modules/"],
   "transform": {
     "^.+\\.ts$": "ts-jest"
