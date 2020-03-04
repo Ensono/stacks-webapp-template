@@ -22,7 +22,6 @@ steps:
       git remote -v
       git fetch
       SHA=$(Build.SourceVersion)
-      git checkout -b release-${SHA:0:7}
       git reset --mixed $SHA
       git update-index --assume-unchanged .npmrc
     displayName: Get changes for master at SHA
