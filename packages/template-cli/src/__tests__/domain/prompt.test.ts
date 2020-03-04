@@ -17,10 +17,7 @@ jest.mock('../../domain/selectors')
 describe("prompt class tests", () => {
 
     describe("Positive assertions when run from config", () => {
-        // beforeEach(async () => {
-        //     cliResult = await prompt.runCli('test', [resolve(__dirname, 'sample.bootstrap-config.json')])
-        // });
-        it("option_ssr_aks_azuredevops should return an object with a code and message", async () => {
+        it("should return an object with a code and message", async () => {
             FlowSelector.option_ssr_aks_azuredevops = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({code: 0, message: ""})
             });
@@ -33,7 +30,7 @@ describe("prompt class tests", () => {
         })
     })
     describe("Negative assertions", () => {
-        it("option_ssr_aks_azuredevops should return a code of 127 when excpetion is thrown", async () => {
+        it("should return a response with an error code and an excpetion inside error", async () => {
             FlowSelector.option_ssr_aks_azuredevops = jest.fn().mockImplementationOnce(() => {
                 throw {code: 127, message: new Error("Something weird happened")};
             });

@@ -6,7 +6,7 @@ export interface CliError {
 export interface BaseResponse { 
     ok: boolean,
     message: string,
-    code?: number
+    code?: number | string
     error?: CliError
 }
 
