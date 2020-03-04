@@ -38,3 +38,5 @@ function WorkflowOptions(): Workflow {
 The implementation is down to user to implement generally this is a process of selecting folder structure based on your new additional logic.
 
 Utils class holds helper methods for operations with FS, such as create a copy of templates in `tmpdir` (OS agnostic) and then moving stuff around based on `FolderMap` defined within the worker method.
+
+<!-- try straight to master -->
