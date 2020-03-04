@@ -1,5 +1,5 @@
 interface ExitMessage {
-    code: number,
+    code: number | string,
     message: string
 }
 

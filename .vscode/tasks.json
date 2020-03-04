@@ -10,7 +10,7 @@
       "command": "npm",
       "args": [
         "run",
-        "build",
+        "build:watch",
         "--prefix",
         "packages/template-cli/templates/src/ssr"
       ],

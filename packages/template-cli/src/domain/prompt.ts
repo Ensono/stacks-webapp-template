@@ -6,6 +6,7 @@ import { PromptQuestion } from './model/prompt_question'
 import { PromptAnswer } from './model/prompt_answer'
 import { ExitMessage } from './model/cli_response'
 import { WorkflowOptions, Workflow } from './model/workflow'
+import { SsrAdoResponse } from './model/workers'
 
 let userSelection: PromptAnswer = <PromptAnswer>{}
 let exitMessage: ExitMessage = <ExitMessage>{}
@@ -64,9 +65,7 @@ async function getFromConfig(config_path: string): Promise<PromptAnswer> {
     } else {
         configSelection = JSON.parse(readFileSync(resolve(process.cwd(), config_path), 'utf-8').trim())
     }
-
     return configSelection;
-
 }
 
 async function selectFlow(selection: PromptAnswer): Promise<ExitMessage> {
@@ -75,10 +74,9 @@ async function selectFlow(selection: PromptAnswer): Promise<ExitMessage> {
     const workflows: Workflow = WorkflowOptions()
 
     try {
-        let message = await workflows[determined_choice](selection)
-        exitMessage.code = 0
-        exitMessage.message = message
-
+        let response = await workflows[determined_choice](selection)
+        exitMessage.code = response.code
+        exitMessage.message = response.message
     } catch (ex) {
         exitMessage.code = ex.code || -1
         exitMessage.message = ex.message
