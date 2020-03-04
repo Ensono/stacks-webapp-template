@@ -1,0 +1,31 @@
+############################################################################################################
+# desc: Runs lower level tests (lint, unit) with Jest using npm, publishes results to Pipeline
+# params: Node version, workingDirectory
+# return: Unit test report, code coverage results
+# pre-reqs: dependency installation
+############################################################################################################
+
+parameters:
+  versionSpec: ''
+  workingDirectory: ''
+
+steps:
+  # Run tests with Jest
+  - script: npm run test
+    displayName: 'Run tests'
+    workingDirectory: ${{ parameters.workingDirectory }}
+
+  # Publish CI test results
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: JUnit
+      testResultsFiles: '**/*junit-test-report.xml'
+      testRunTitle: 'Jest Tests'
+    displayName: 'Publish test results'
+    condition: succeededOrFailed()
+
+  # Publish the code coverage results
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: '**/cobertura-coverage.xml'

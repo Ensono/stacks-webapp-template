@@ -13,7 +13,6 @@ module.exports = {
             config: path.join(__dirname, "environment-configuration"),
             utils: path.join(__dirname, "utils"),
         }
-
         return config
     },
     assetPrefix: process.env.APP_BASE_PATH || "",
@@ -27,6 +26,7 @@ module.exports = {
     },
     publicRuntimeConfig: {
         // Will be available on both server and client
+        // only exposes staticly assigned/generated vars generated at build time to the client at runtime - BE CAREFUL with this
         ...conf,
         EXAMPLE_VAR_FOR_FE: "define_me",
     },

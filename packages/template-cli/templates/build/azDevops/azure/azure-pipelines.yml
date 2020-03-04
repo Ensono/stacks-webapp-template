@@ -1,5 +1,7 @@
 name: '$(build.sourcebranchname)-init'
 
+pr: none
+
 trigger:
   branches:
     include:
@@ -8,8 +10,6 @@ trigger:
     include:
     # Amido Testing pipeline for E2E output of the CLI
     - packages/template-cli/templates/*
-
-pr: none
 
 ###### PART OF AMIDO-STACKS
 resources:
@@ -22,7 +22,7 @@ resources:
 
   containers:
   - container: sonar_scanner
-    image: dnitsch/build-server-stacks-webapp:0.0.2
+    image: amidostacks/ci-sonarscanner:0.0.1
 
 variables:
   company: amido
@@ -101,7 +101,7 @@ stages:
       vulnerability_scan: false
       vulnerability_workdir: '$(Build.ArtifactStagingDirectory)'
       # Sonar settings
-      static_code_analysis: false
+      static_code_analysis: true
       #Linting and formatting validation
       lint_formatting: false
       shared_eslint_config: '@amido-stacks/eslint-config@latest'
@@ -119,7 +119,6 @@ stages:
       # Git Tag release
       git_do_tag_release: false
       git_release_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
-
 
 - stage: dev
   variables:

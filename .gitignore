@@ -165,3 +165,15 @@ backend.local.tfvars
 
 !**/environment-configuration/*.js
 .history/*.*
+
+
+# Docusaurus
+website/build/
+website/i18n
+website/node_modules
+website/package-lock.json
+yarn.lock
+!website/core/**/**.*
+!website/pages/**/**.*
+!website/siteConfig.js
+!website/static

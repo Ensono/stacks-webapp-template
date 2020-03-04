@@ -13,7 +13,7 @@ function cliQuestions(): Array<PromptQuestion> {
                 "title": "SSR", "description": "Serverside rendered", "value": "ssr"
             },
             {
-                "title": "CSR", "description": "Serverside rendered", "value": "csr"
+                "title": "CSR", "description": "Clientside rendered", "value": "csr"
             }
         ],
         "initial": 0
