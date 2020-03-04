@@ -30,7 +30,6 @@ interface Props
 const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
     return (
         <Container container>
-            <h2>Loading: {isLoading}</h2>
             Welcome to Stacks-react app! your current environment is:{" "}
             {env.NODE_ENV} <br />
             <br />

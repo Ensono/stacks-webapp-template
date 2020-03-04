@@ -39,7 +39,6 @@ const reducer = (state = initialState, action) => {
 }
 
 export function* requestMenuList() {
-    // const {phoneNumber, areaCode} = payload
     yield put(requestMenusListRoutine.request())
     try {
         const response = yield call(getMenus)

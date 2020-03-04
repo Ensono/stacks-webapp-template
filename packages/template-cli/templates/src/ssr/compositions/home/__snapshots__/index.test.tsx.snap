@@ -5,9 +5,6 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
   <div
     class="MuiGrid-root css-1knxyyj MuiGrid-container"
   >
-    <h2>
-      Loading: 
-    </h2>
     Welcome to Stacks-react app! your current environment is: test 
     <br />
     <br />
