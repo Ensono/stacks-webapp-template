@@ -64,3 +64,7 @@ For package management, we are using [Lerna](https://lernajs.io) which can be in
 We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
 
 See [template-cli](./packages/template-cli/README.md) for information.
+
+## Publishing
+
+We are also using Lerna to publish our packages, version control, and for changelogs. See the pipeline step [publish-packages-lerna.yml](./build/azDevOps/azure/templates/steps/publish-packages-lerna.yml) for more informatiion, and checkout the publishing docs on [publishing](./docs/publishing.md).

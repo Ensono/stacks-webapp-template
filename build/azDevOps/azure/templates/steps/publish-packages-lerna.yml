@@ -13,7 +13,7 @@ steps:
   # In order to Lerna to bump the version for the packages, we must ensure the following:
   # 1. We are not in detached HEAD for the current commit SHA on master
   # 2. We ignore the uncommitted .npmrc file changes as they contain credentials that shouldn't be committed
-  # We ONLY publish packages to a release branch once changes are merged into master. It's up to maintainers to merge the release-branch to master.
+  # We ONLY publish packages master once changes are merged into master.
   - bash: |
       git config --global user.email $(GIT_USER_EMAIL)
       git config --global user.name $(GIT_USER_NAME)
