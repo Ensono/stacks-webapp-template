@@ -24,4 +24,4 @@ function getSourceFolders(): Array<SourceStruct> {
     }]
 }
 
-export {BaseFlowType, FileMapper, getSourceFolders}
+export {BaseFlowType, FileMapper, getSourceFolders, SourceStruct}

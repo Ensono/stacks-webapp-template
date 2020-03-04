@@ -1,0 +1,79 @@
+parameters:
+  scripts_dir: ""
+  devops_artefact_name: ""
+  dependsOn: ""
+  environment: ""
+  download_deploy_artefact: false
+  deploy_artifact_name: ""
+  docker_imagename: ""
+  docker_imagetag: ""
+  docker_containerregistryname: ""
+  test_artefact: "tests"
+  test_baseurl: ""
+  functional_test: false
+  smoke_test: false
+  kubernetes_clusterrg: ""
+  kubernetes_clustername: ""
+  kubernetes_kustomize_filepath: ""
+  kubernetes_docker_registry: ""
+  kubernetes_image: stacks-webapp-app-image
+  appinsights_enabled: false
+  appinsights_accountName: ""
+  performance_test: false
+  secureFile: ""
+  secureFileDestinationName: ""
+
+steps:
+  ## Prerequisites
+  - ${{ if eq(parameters.download_deploy_artefact, true) }}:
+      - download: current
+        displayName: "Download: Build Artefacts"
+        artifact: "${{ parameters.deploy_artifact_name }}"
+
+  # Download this artefact if functional or performance tests are enabled for this deployment
+  - ? ${{ if or(eq(parameters.functional_test, true), eq(parameters.performance_test, true)) }}
+    : - download: current
+        displayName: "Download: Test Artefacts"
+        artifact: "${{ parameters.test_artefact }}"
+  # - template: ./
+
+  - template: ./login-services.yml
+    parameters:
+      # Azure
+      login_azure: true
+      azure_tenant_id: "$(azure_tenant_id)"
+      azure_subscription_id: "$(azure_subscription_id)"
+      azure_client_id: "$(azure_client_id)"
+      azure_client_secret: "$(azure_client_secret)"
+      # Kubernetes
+      login_kubernetes: true
+      aks_resource_group_name: "${{ parameters.kubernetes_clusterrg }}"
+      aks_cluster_name: "${{ parameters.kubernetes_clustername }}"
+
+  - bash: | 
+      ./inject-secrets-from-env-var.sh $(Pipeline.Workspace)/${{ parameters.deploy_artifact_name }}/${{ parameters.kubernetes_kustomize_filepath }}/secrets
+    displayName: "Mutate: Secrets from Environment Vars"
+    workingDirectory: ${{ parameters.scripts_dir}}
+    failOnStderr: true
+
+  ## Mutation
+  - bash: | 
+      kustomize edit add annotation version:${{ parameters.docker_imagetag }};
+      kustomize edit add annotation app.kubernetes.io/version:${{ parameters.docker_imagetag }};
+    displayName: "Mutate: Annotate Version Information"
+    workingDirectory: $(Pipeline.Workspace)/${{ parameters.deploy_artifact_name }}/base
+    failOnStderr: true
+
+  - bash: |
+      echo "Setting ${{ parameters.kubernetes_image }} to '${{ parameters.kubernetes_docker_registry }}'/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }}"
+      kustomize edit set image ${{ parameters.kubernetes_image }}='${{ parameters.kubernetes_docker_registry }}'/${{ parameters.docker_imagename }}:${{ parameters.docker_imagetag }};
+    workingDirectory: $(Pipeline.Workspace)/${{ parameters.deploy_artifact_name }}/base
+    displayName: "Mutate: Set Docker Image Version for ${{ parameters.kubernetes_image }}"
+    failOnStderr: true
+
+  ## Deployment
+  - bash: |
+      kubectl apply -k ${{ parameters.kubernetes_kustomize_filepath }}
+    displayName: "Deploy: Kubectl Apply with Kustomize"
+    workingDirectory: $(Pipeline.Workspace)/${{ parameters.deploy_artifact_name }}
+    failOnStderr: true

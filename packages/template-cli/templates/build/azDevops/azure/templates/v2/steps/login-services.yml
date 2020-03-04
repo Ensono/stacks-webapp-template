@@ -1,0 +1,28 @@
+parameters:
+  aks_resource_group_name: ''
+  aks_cluster_name: ''
+  azure_tenant_id: ''
+  azure_subscription_id: ''
+  azure_client_id: ''
+  azure_client_secret: ''
+  login_azure: false
+  login_kubernetes: false
+
+steps:
+  - ${{ if eq(parameters.login_azure, true) }}:
+      - bash: |
+          az login --service-principal --username ${{ parameters.azure_client_id }} \
+          --password ${{ parameters.azure_client_secret }} \
+          --tenant ${{ parameters.azure_tenant_id }}
+          az account set -s ${{ parameters.azure_subscription_id }}
+        displayName: 'Login: Azure'
+        env:
+          AZURE_CLOUD_NAME: AzureCloud
+
+  - ${{ if eq(parameters.login_kubernetes, true) }}:
+      - bash: |
+          az aks get-credentials --overwrite-existing --resource-group ${{ parameters.aks_resource_group_name }} --name ${{ parameters.aks_cluster_name }}
+        displayName: 'Login: AKS Kubernetes'
+        failOnStderr: true
+        env:
+          AZURE_CLOUD_NAME: AzureCloud

@@ -1,7 +1,7 @@
-import { FlowSelector } from '../domain/selectors'
-import { PromptAnswer } from '../domain/model/prompt_answer'
-import { MainWorker } from '../domain/workers/main_worker'
-import { CliError, SsrAdoResponse } from '../domain/model/workers'
+import { FlowSelector } from '../../domain/selectors'
+import { PromptAnswer } from '../../domain/model/prompt_answer'
+import { MainWorker } from '../../domain/workers/main_worker'
+import { CliError, SsrAdoResponse } from '../../domain/model/workers'
 
 let mock_answer = <PromptAnswer>{
     project_name: "foo",
@@ -15,7 +15,7 @@ let worker_response = <SsrAdoResponse> {
     ok: true
 }
 
-jest.mock('../domain/workers/main_worker')
+jest.mock('../../domain/workers/main_worker')
 let mainWorker = new MainWorker()
 
 describe("selector class tests", () => {
