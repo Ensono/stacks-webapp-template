@@ -2,11 +2,6 @@ import { Button } from "@material-ui/core"
 import React from "react"
 import { Container, Pane } from "./components"
 
-type ApiPaneProps = {
-    getMenulist: Function
-    menuItems: { id: string; name: string; description: string; }[]
-    isLoading: boolean
-}
 
 type menuItem = {
     id: string
@@ -14,6 +9,12 @@ type menuItem = {
     name: string
     description: string
     enabled: boolean
+}
+
+type ApiPaneProps = {
+    getMenulist: Function
+    menuItems: menuItem[]
+    isLoading: boolean
 }
 
 const ApiPane = ({getMenulist, menuItems, isLoading}: ApiPaneProps) => {
