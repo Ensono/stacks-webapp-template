@@ -6,7 +6,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
     class="MuiGrid-root css-1knxyyj MuiGrid-container"
   >
     <main>
-      Welcome to Stacks-react app! your current environment is: test 
+      Welcome to Stacks-react app! your current environment is: dev 
       <br />
       <br />
       <br />

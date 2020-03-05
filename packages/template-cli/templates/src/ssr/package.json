@@ -47,10 +47,9 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@amido-stacks/eslint-config": "^0.7.0",
+    "@amido-stacks/eslint-config": "^0.6.0",
     "@types/applicationinsights": "^0.20.0",
     "@types/node": "^13.1.7",
-    "@amido-stacks/eslint-config": "^0.6.0",
     "@applitools/eyes-cypress": "^3.9.13",
     "@babel/core": "^7.8.4",
     "@pact-foundation/pact": "^9.6.1",
