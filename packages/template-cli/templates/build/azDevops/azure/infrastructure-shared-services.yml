@@ -134,7 +134,7 @@ stages:
         target: k8s_deploy
       - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
         parameters:
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/templates/v2
+          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/
 
       - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
         parameters: 
@@ -145,6 +145,6 @@ stages:
             # TODO: make this a complex object so that additional args can be passed in 
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml'
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/provider/cloud-generic.yaml'
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/templates/v2/scripts
+          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
           base_external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/base_external-dns.yml
           external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/external-dns.yml
