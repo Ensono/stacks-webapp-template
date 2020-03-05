@@ -4,7 +4,6 @@ import { accessibilityTestHelper } from '../../__tests__/axe/accessibilityHelper
 
 accessibilityTestHelper(
     <ApiPane
-        getMenulist={jest.fn()}
         menuItems={[]}
         isLoading={false}
     />,

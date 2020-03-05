@@ -1,17 +1,16 @@
 import ApiPane from "components/ApiPane"
-import React, { FC } from "react"
-import { connect } from "react-redux"
-import { getError, getMenuItems, isLoading, requestMenusListRoutine } from "../../ducks/get-menus"
+import React, {useEffect, FC} from "react"
+import {connect} from "react-redux"
+import {
+    getError,
+    getMenuItems,
+    isLoading,
+    requestMenusListRoutine,
+} from "../../ducks/get-menus"
 import env from "../../environment-configuration"
-import { Container } from "./components"
+import {Container} from "./components"
 
-interface State {
-    isLoading: boolean
-    error: string
-    menuList: []
-}
-
-const mapStateToProps = (state: State) => {
+const mapStateToProps = state => {
     return {
         isLoading: isLoading(state),
         error: getError(state),
@@ -28,17 +27,16 @@ interface Props
         ReturnType<typeof mapDispatchToProps> {}
 
 const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
+    useEffect(() => {
+        getMenulist()
+    }, [])
     return (
         <Container container>
             Welcome to Stacks-react app! your current environment is:{" "}
             {env.NODE_ENV} <br />
             <br />
             <br />
-            <ApiPane
-                getMenulist={getMenulist}
-                menuItems={menuItems}
-                isLoading={isLoading}
-            />
+            <ApiPane menuItems={menuItems} isLoading={isLoading} />
         </Container>
     )
 }

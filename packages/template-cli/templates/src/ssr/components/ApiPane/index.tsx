@@ -1,38 +1,20 @@
-import { Button } from "@material-ui/core"
-import React from "react"
-import { Container, Pane } from "./components"
-
-
-type menuItem = {
-    id: string
-    name: string
-    description: string
-}
+import { Typography } from "@material-ui/core";
+import { RestaurantItemProps } from "interfaces/restaurant.interface";
+import React from "react";
+import RestaurantListComponent from '../RestaurantList';
+import { Container } from "./components";
 
 type ApiPaneProps = {
-    getMenulist: Function
-    menuItems: menuItem[]
+    menuItems: RestaurantItemProps[]
     isLoading: boolean
 }
 
-const ApiPane = ({getMenulist, menuItems, isLoading}: ApiPaneProps) => {
-    const callApi = async () =>  await getMenulist()
+const ApiPane = ({menuItems, isLoading}: ApiPaneProps) => {
     return (
         <Container item>
-            <Pane>
-                <h1>Get Menu List</h1>
-                <Button data-testid="apiPaneBtn" onClick={callApi}>
-                    Get
-                </Button>
-            </Pane>
+            <Typography variant="h2">Latest menus:</Typography>
             {menuItems && menuItems.length && (
-                <Pane>
-                    <ul data-testid="results">
-                        {menuItems.map((item: menuItem) => (
-                            <li key={item.id}>{item.name}</li>
-                        ))}
-                    </ul>
-                </Pane>
+                <RestaurantListComponent restaurantList={menuItems} />
             )}
         </Container>
     )

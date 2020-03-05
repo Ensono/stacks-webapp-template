@@ -12,28 +12,11 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
     <div
       class="MuiGrid-root css-1hq8d8z MuiGrid-item"
     >
-      <div
-        class="MuiBox-root MuiBox-root-252 css-irufoq"
+      <h2
+        class="MuiTypography-root MuiTypography-h2"
       >
-        <h1>
-          Get Menu List
-        </h1>
-        <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-text"
-          data-testid="apiPaneBtn"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="MuiButton-label"
-          >
-            Get
-          </span>
-          <span
-            class="MuiTouchRipple-root"
-          />
-        </button>
-      </div>
+        Latest menus:
+      </h2>
       0
     </div>
   </div>

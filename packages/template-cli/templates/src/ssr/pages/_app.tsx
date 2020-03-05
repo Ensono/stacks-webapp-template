@@ -1,21 +1,19 @@
 import {ThemeProvider} from "@material-ui/core/styles"
 import App, {AppInitialProps, AppContext} from "next/app"
 import React from "react"
-import { withApplicationInsights } from "utils/appInsightsLogger"
+import {withApplicationInsights} from "utils/appInsightsLogger"
 import getConfig from "next/config"
 import {createMuiTheme} from "@material-ui/core/styles"
 import withReduxSaga from "next-redux-saga"
 import withRedux from "next-redux-wrapper"
-import configureStore from '../state-management';
-import { Provider } from "react-redux"
+import configureStore from "../state-management"
+import {Provider} from "react-redux"
 import {Store} from "redux"
-interface AppStore extends Store {
-}
+interface AppStore extends Store {}
 
 export interface AppWithStore extends AppInitialProps {
-    store: AppStore;
+    store: AppStore
 }
-
 
 const AmidoTheme = createMuiTheme({
     palette: {
@@ -34,9 +32,28 @@ const AmidoTheme = createMuiTheme({
                 textTransform: "uppercase",
             },
         },
+        MuiListItem: {
+            root: {
+                marginTop: "20px",
+            },
+        },
     },
     typography: {
-        fontFamily: ["Work sans", "Arial"].join(","),
+        fontFamily: ["Arial", "Work sans"].join(","),
+        h2: {
+            fontSize: "24px",
+            marginBotton: "40px",
+        },
+        h3: {
+            fontSize: "18px",
+            fontWeight: 700,
+            marginBottom: "15px",
+        },
+        body1: {
+            fontSize: "13px",
+            fontWeight: 400,
+            overflowWrap: "break-word",
+        },
     },
 })
 
@@ -72,4 +89,6 @@ const appInsightsConfig = {
     isEnabled: true,
 }
 
-export default withRedux(configureStore)(withReduxSaga(withApplicationInsights(appInsightsConfig)(_App)))
+export default withRedux(configureStore)(
+    withReduxSaga(withApplicationInsights(appInsightsConfig)(_App)),
+)
