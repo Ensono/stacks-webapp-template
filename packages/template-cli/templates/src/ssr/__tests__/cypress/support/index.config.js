@@ -15,4 +15,3 @@
 
 // Import Cypress Applitools commands for visual tests
 import "@applitools/eyes-cypress/commands"
-
