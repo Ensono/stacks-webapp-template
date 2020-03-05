@@ -21,6 +21,11 @@ const users = [
 ]
 
 const siteConfig = {
+    /*
+    Important: Ensure we are not indexing with Search Engines.
+    */
+    noIndex: true,
+
     title: "Amido Stacks Webapp", // Title for your website.
     tagline: "Amido Stacks Node.js with React SSR Template",
     url: "https://amido.github.io", // Org github.io custom URL
