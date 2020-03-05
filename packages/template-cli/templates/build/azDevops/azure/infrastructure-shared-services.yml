@@ -76,7 +76,7 @@ stages:
       - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
         parameters: 
           # Terraform Basic Config
-          terraform_working_dir: '$(Build.SourcesDirectory)/packages/template-cli/templates/deploy/azure/ssr'
+          terraform_working_dir: '$(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/deploy/azure/ssr'
           terraform_output_artefact: 'tfoutputs'
           # Terraform State Config
           terraform_backend_client_id: $(azure_client_id)
