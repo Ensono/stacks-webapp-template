@@ -27,7 +27,7 @@ jobs:
 
       # Build: Install dependencies
       # - template: azDevOps/azure/templates/v2/steps/build-install-dependencies-node.yml@templates
-      - template: ../steps/build-install-dependencies-node.yml@templates
+      - template: ../steps/build-install-dependencies-node.yml
         parameters:
           versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
@@ -42,7 +42,7 @@ jobs:
       # Publish: Publish packages
       - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
           # - template: azDevOps/azure/templates/v2/steps/publish-packages-lerna.yml@templates
-          - template: ../steps/publish-packages-lerna.yml@templates
+          - template: ../steps/publish-packages-lerna.yml
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}

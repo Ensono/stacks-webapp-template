@@ -39,19 +39,21 @@ export class Utils {
                     to: val.replaceVals.to,
                     ignore: val.ignoreFiles,
                     countMatches: val.countMatches
-                } 
+                }
                 let files_replaced = await replace(options)
                 logger.debug(files_replaced)
             })
-
             fsResponse.ok = true
-            fsResponse.message = ''
+            fsResponse.message = 'replaced all occurences'
         }
         catch (ex) {
-
             logger.error(ex)
+            fsResponse.ok = false
+            fsResponse.code = ex.code || -1
+            fsResponse.message = ex.message
+            fsResponse.error = ex.stack
         }
-        return <BaseResponse>{ok: true}
+        return fsResponse
     } 
     public static async constructOutput(instruction_map: Array<FolderMap>, new_directory: string, temp_directory: string): Promise<BaseResponse> {
         let fsResponse: BaseResponse = <BaseResponse>{}
