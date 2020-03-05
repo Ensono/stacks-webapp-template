@@ -35,7 +35,7 @@ test('fires api call on mount', async () => {
 
   const resultNode = await screen.findByTestId('results')
   expect(resultNode).toHaveTextContent('Breakfast Menu')
-  expect(mockedAxios).toHaveBeenCalledTimes(1)
+  expect(mockedAxios).toHaveBeenCalled()
 
   // To match re-rendered DOM snapshot after the api response
   expect.extend({ toMatchDiffSnapshot })
