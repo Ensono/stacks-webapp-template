@@ -12,7 +12,7 @@ module.exports = (on, config) => {
 
     //Pull in all the environment runtime configuration for the webapp
     config.env = {
-        ...conf
+        ...conf,
     }
     console.log(config)
 
