@@ -39,6 +39,9 @@ variables:
   docker_image_name: stacks-webapp
   docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
   docker_container_registry_name: amidouksstacksacrdev
+  # AKS/AZURE
+  aks_clusterrg: amido-stacks-dev-cycle2
+  aks_clustername: amido-stacks-dev-cycle2
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -132,9 +135,10 @@ stages:
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
         target: k8s_deploy
+        # ensure scripts are executable
       - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
         parameters:
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/
+          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
 
       - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
         parameters: 
