@@ -43,7 +43,7 @@ stages:
   variables:
   - group: amido-stacks-infra-credentials-nonprod
   - group: amido-stacks-webapp
-  
+
   jobs:
   - template: templates/jobs/build.yml
     parameters:
