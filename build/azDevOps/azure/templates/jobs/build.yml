@@ -13,33 +13,36 @@ jobs:
   - job: ${{ parameters.jobName }}
     pool: ${{ parameters.pool }}
     continueOnError: false
+    container: k8s_deploy
     steps:
       - checkout: self
         persistCredentials: true
 
       # Build: Audit dependencies
       - ${{ if eq(parameters.build_audit, true) }}:
-        - template: ../steps/build-audit-dependencies-node.yml
+        - template: azDevOps/azure/templates/v2/steps/build-audit-dependencies-node.yml@templates
           parameters:
             versionSpec: ${{ parameters.versionSpec }}
             workingDirectory: ${{ parameters.project_root_dir }}
 
       # Build: Install dependencies
-      - template: ../steps/build-install-dependencies-node.yml
+      # - template: azDevOps/azure/templates/v2/steps/build-install-dependencies-node.yml@templates
+      - template: ../steps/build-install-dependencies-node.yml@templates
         parameters:
           versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
 
       # Test: Unit tests
       - ${{ if eq(parameters.unit_test, true) }}:
-          - template: ../steps/test-unit-node.yml
+          - template: azDevOps/azure/templates/v2/steps/test-unit-node.yml@templates
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}
 
       # Publish: Publish packages
       - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
-          - template: ../steps/publish-packages-lerna.yml
+          # - template: azDevOps/azure/templates/v2/steps/publish-packages-lerna.yml@templates
+          - template: ../steps/publish-packages-lerna.yml@templates
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}
