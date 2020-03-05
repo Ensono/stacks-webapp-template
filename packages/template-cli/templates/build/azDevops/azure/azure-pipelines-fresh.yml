@@ -17,7 +17,7 @@ resources:
   - repository: templates
     type: github
     name: amido/stacks-pipeline-templates
-    ref: refs/tags/v1.0.0
+    ref: refs/feature/cycle2
     endpoint: williamayerst
 
   containers:
@@ -44,6 +44,9 @@ variables:
   # BUILD ARTIFACTS across stages
   build_artifact_deploy_path: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/deploy/k8s/app
   build_artifact_deploy_name: stacks-webapp
+  # AKS/AZURE
+  aks_clusterrg: amido-stacks-dev-cycle2
+  aks_clustername: amido-stacks-dev-cycle2
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -75,7 +78,7 @@ stages:
         target: k8s_deploy
       # BUILD NPM
       # TODO: change this to steps and feed upstream
-      - template: templates/v2/steps/build-node.yml
+      - template: azDevOps/azure/templates/v2/steps/build-node.yml@templates
         parameters:
           # Docker Config
           build_on_server: false
@@ -142,14 +145,14 @@ stages:
             target: k8s_deploy
           # Deploy Dev
           # TODO: change this to steps and feed upstream
-          - template: templates/v2/steps/aux-k8s-scripts.yml
+          - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
             parameters:
-              scripts_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/templates/v2
+              scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
 
           - template: templates/v2/steps/deploy-k8s-app.yml
             parameters:
               environment: 'dev'
-              scripts_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/templates/v2/scripts
+              scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
               download_deploy_artefact: true
               deploy_artifact_name: $(build_artifact_deploy_name)
               test_artefact: 'tests'

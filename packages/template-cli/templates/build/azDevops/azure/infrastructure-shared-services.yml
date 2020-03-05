@@ -64,6 +64,7 @@ stages:
       vmImage: ubuntu-18.04
     steps:
       - checkout: self
+      - checkout: templates
         persistCredentials: true
         env:
           ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
@@ -72,7 +73,7 @@ stages:
           ARM_TENANT_ID: $(azure_tenant_id)
         target: terraform_custom
       # Create TF infra
-      - template: templates/v2/steps/deploy-terraform-resource.yml
+      - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
         parameters: 
           # Terraform Basic Config
           terraform_working_dir: '$(Build.SourcesDirectory)/packages/template-cli/templates/deploy/azure/ssr'
@@ -131,11 +132,11 @@ stages:
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
         target: k8s_deploy
-      - template: templates/v2/steps/aux-k8s-scripts.yml
+      - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
         parameters:
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/templates/v2
 
-      - template: templates/v2/steps/deploy-k8s-cluster.yml
+      - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
         parameters: 
           aks_cluster_name: amido-stacks-dev-cycle2
           aks_resource_group_name: amido-stacks-dev-cycle2
