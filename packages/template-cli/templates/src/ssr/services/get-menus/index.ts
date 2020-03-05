@@ -4,11 +4,10 @@ import api from "constants/apis/menu"
 export const getMenus = () => {
     const getMenuApi = api("getMenuList")
     return new Promise((resolve, reject) => {
-        axios({
-            method: getMenuApi.method,
-            url: getMenuApi.internalEndpoint(),
-        })
+        axios
+            .get(getMenuApi.internalEndpoint())
             .then(response => {
+                console.log(response)
                 const {data} = response
                 if (data) {
                     resolve(data)
