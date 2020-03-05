@@ -156,8 +156,8 @@ variables:
               performance_test: false
               smoke_test: false
               # Kubernetes Config
-              kubernetes_clusterrg: 'amido-stacks-dev-cycle2'
-              kubernetes_clustername: 'amido-stacks-dev-cycle2'
+              kubernetes_clusterrg: $(aks_clusterrg)
+              kubernetes_clustername: $(aks_clustername)
               kubernetes_image: stacks-webapp-app-image
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
