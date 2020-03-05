@@ -17,7 +17,7 @@ resources:
   - repository: templates
     type: github
     name: amido/stacks-pipeline-templates
-    ref: refs/feature/cycle2
+    ref: feature/cycle2
     endpoint: williamayerst
 
   containers:
