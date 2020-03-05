@@ -23,8 +23,7 @@
     "node_modules",
     "coverage",
     "**/*.test.(ts|tsx)",
-    "**/*.cy.ts",
-    "**/*.cy.eyes.ts"
+    "**/*.cy.*"
   ],
   "include": [
     "next-env.d.ts",
