@@ -1,9 +1,10 @@
 import { copy, move, remove } from 'fs-extra'
 import { tmpdir } from 'os'
 import { BaseResponse, TempCopy } from '../model/workers'
+import replace, { ReplaceInFileConfig } from 'replace-in-file'
 import { resolve } from 'path'
-import { PromptAnswer } from '../model/prompt_answer'
-import { FolderMap } from '../config/file_mapper'
+import { FolderMap, Replacetruct } from '../config/file_mapper'
+import logger from 'simple-winston-logger-abstraction'
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
 
@@ -25,14 +26,41 @@ export async function asyncForEach(array: Array<any>, callback: any) {
 }
 
 export class Utils {
-    static async moveWorker(instruction_map: Array<FolderMap>, new_directory: string, temp_directory: string): Promise<BaseResponse> {
+
+    public static async valueReplace(instruction_map: Array<Replacetruct>): Promise<BaseResponse> {
         let fsResponse: BaseResponse = <BaseResponse>{}
         try {
             // blanket copy templates out
-            await asyncForEach(instruction_map, async (record: FolderMap) => { //<{src: string, dest: string}>) => {
+            await asyncForEach(instruction_map, async (val: Replacetruct) => { //<{src: string, dest: string}>) => {
+                let options: ReplaceInFileConfig = {
+                    // files: resolve(base_path, val.replaceFiles[0]),
+                    files: val.replaceFiles,
+                    from: val.replaceVals.from,
+                    to: val.replaceVals.to,
+                    ignore: val.ignoreFiles,
+                    countMatches: val.countMatches
+                } 
+                let files_replaced = await replace(options)
+                logger.debug(files_replaced)
+            })
+
+            fsResponse.ok = true
+            fsResponse.message = ''
+        }
+        catch (ex) {
+
+            logger.error(ex)
+        }
+        return <BaseResponse>{ok: true}
+    } 
+    public static async constructOutput(instruction_map: Array<FolderMap>, new_directory: string, temp_directory: string): Promise<BaseResponse> {
+        let fsResponse: BaseResponse = <BaseResponse>{}
+        try {
+            // blanket copy templates out
+            await asyncForEach(instruction_map, async (val: FolderMap) => { //<{src: string, dest: string}>) => {
                 // need to use copy as move first deletes the directory and tries to insert it
                 // this will not work if you are moving a directory within the same parent
-                await move(resolve(temp_directory, record.src), resolve(new_directory, record.dest), { overwrite: true })
+                await move(resolve(temp_directory, val.src), resolve(new_directory, val.dest), { overwrite: true })
             })
             // DELETE TEMP from this point on as we don't need it anymore
             await remove(temp_directory)
@@ -48,7 +76,7 @@ export class Utils {
             return fsResponse
         }
     }
-    static async copyWorker(directory_name: string): Promise<TempCopy> {
+    public static async prepBase(directory_name: string): Promise<TempCopy> {
         /**
          * Creates a directory if not present
          */

@@ -33,7 +33,7 @@ describe("utils class tests", () => {
     describe("Positive assertions", () => {
         it("copyWorker should return success", async () => {
             const mockCopy = jest.spyOn(fse, 'copy')
-            let copy_ran: TempCopy = await Utils.copyWorker(mock_answer.project_name)
+            let copy_ran: TempCopy = await Utils.prepBase(mock_answer.project_name)
             expect(mockCopy).toHaveBeenCalled()
             expect(copy_ran).toHaveProperty("message")
             expect(copy_ran).toHaveProperty("ok")
@@ -44,7 +44,7 @@ describe("utils class tests", () => {
         })
         it("moveWorker should return success", async () => {
             const mockMove = jest.spyOn(fse, 'move')
-            let move_ran: BaseResponse = await Utils.moveWorker(ssr_tfs_aks, new_dir, "/tmp")
+            let move_ran: BaseResponse = await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
             expect(mockMove).toHaveBeenCalled()
             expect(mockMove).toHaveBeenCalledTimes(ssr_tfs_aks.length)
             expect(move_ran).toHaveProperty("message")
@@ -67,7 +67,7 @@ describe("utils class tests", () => {
             mockCopy.mockImplementationOnce(() => {
                 throw {code: "ENOENT", message: new Error("Something weird happened")}
             });
-            let copy_ran = await Utils.copyWorker(mock_answer.project_name)
+            let copy_ran = await Utils.prepBase(mock_answer.project_name)
             // expect(async () => { await Utils.copyWorker(mock_answer.project_name)}).rejects.toThrow(TempCopy)
             expect(mockCopy).toHaveBeenCalled()
             expect(copy_ran).toHaveProperty("code")
@@ -82,7 +82,7 @@ describe("utils class tests", () => {
             mockMove.mockImplementationOnce(() => {
                 throw {code: "ENOENT", message: new Error("Something weird happened")}
             });
-            let move_ran = await Utils.moveWorker(ssr_tfs_aks, new_dir, "/tmp")
+            let move_ran = await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
             // expect(async () => { await Utils.copyWorker(mock_answer.project_name)}).rejects.toThrow(TempCopy)
             expect(mockMove).toHaveBeenCalled()
             expect(move_ran).toHaveProperty("code")
