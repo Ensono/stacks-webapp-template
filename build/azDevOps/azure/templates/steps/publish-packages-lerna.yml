@@ -39,7 +39,7 @@ steps:
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   # Version the Lerna packages first, this will commit to the repo and update the changelog
-  - ${{ if not(eq(parameters.run_lerna_version, true)) }}:
+  - ${{ if eq(parameters.run_lerna_version, true) }}:
     - task: Npm@1
       displayName: 'Publish: Version packages using lerna'
       inputs:

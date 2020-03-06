@@ -1,7 +1,7 @@
 {
   "name": "@amido-stacks/scaffolding-cli",
   "version": "1.7.3",
-  "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing.",
+  "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
   "main": "dist/index.js",
   "scripts": {
     "test": "node_modules/.bin/jest -c jest.config.json --coverage",
