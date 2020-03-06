@@ -21,13 +21,13 @@ resources:
       type: github
       name: amido/stacks-pipeline-templates
       ref: feature/cycle2
-      endpoint: williamayerst
+      endpoint: amidostacks
 
   containers:
     - container: sonar_scanner
       image: amidostacks/ci-sonarscanner:0.0.1
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.1
+      image: amidostacks/ci-k8s:0.0.2
     - container: terraform_custom
       image: amidostacks/ci-tf:0.0.1
 

@@ -1,6 +1,6 @@
 {
   "name": "@amido-stacks/scaffolding-cli",
-  "version": "1.0.0",
+  "version": "1.7.3",
   "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
   "main": "dist/index.js",
   "scripts": {
@@ -36,5 +36,10 @@
     "jest-junit": "^10.0.0",
     "jest-sonar-reporter": "^2.0.0",
     "ts-jest": "^25"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amido/stacks-webapp-template.git",
+    "directory": "packages/template-cli"
   }
 }

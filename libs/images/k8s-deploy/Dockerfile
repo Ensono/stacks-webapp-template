@@ -9,7 +9,7 @@ LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
 
 RUN apt-get update && \
     apt-get upgrade && \
-    apt-get install -y curl grep sed unzip && \
+    apt-get install -y curl grep sed unzip git && \
     apt-get clean
 
 # INSTALL KUBECTL
