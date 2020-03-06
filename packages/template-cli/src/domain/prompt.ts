@@ -11,11 +11,7 @@ import { SsrAdoResponse } from './model/workers'
 let userSelection: PromptAnswer = <PromptAnswer>{}
 let exitMessage: ExitMessage = <ExitMessage>{}
 
-declare module Prompt {
-
-}
 /**
- * 
  * @param default_project_name 
  * @returns 
  */
