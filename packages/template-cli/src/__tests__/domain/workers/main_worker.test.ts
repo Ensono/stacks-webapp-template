@@ -22,16 +22,20 @@ describe("mainWorker class tests", () => {
     describe("Positive assertions ssr_aks_tfs", () => {
         beforeEach(async () => {})
         it("should call the ssr_aks_tfs worker", async () => {
-            Utils.copyWorker = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve({message: `${mock_answer.project_name} created`})
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `${mock_answer.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
             })
-            Utils.moveWorker = jest.fn().mockImplementationOnce(() => {
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve(worker_response)
             })
 
             let flow_ran: SsrAdoResponse = await mainWorker.ssr_aks_tfs(mock_answer)
-            expect(Utils.copyWorker).toHaveBeenCalled()
-            expect(Utils.moveWorker).toHaveBeenCalled()
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("message")
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
@@ -40,12 +44,12 @@ describe("mainWorker class tests", () => {
     })
     describe("Negative assertions", () => {
         it("ssr_aks_tfs should return a code of -1 when error occurs", async () => {
-            Utils.copyWorker = jest.fn().mockImplementationOnce(() => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 // throw <BaseResponse>{ok: false, code: -1, error: new Error("Something weird happened")};
                 throw new Error("Something weird happened");
             });
             let flow_ran: SsrAdoResponse = await mainWorker.ssr_aks_tfs(mock_answer)
-            expect(Utils.copyWorker).toHaveBeenCalled()
+            expect(Utils.prepBase).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("error")
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(false)

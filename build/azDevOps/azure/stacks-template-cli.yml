@@ -8,12 +8,28 @@ trigger:
     include:
     - deploy/*
     - packages/*
-    - build/azDevOps/azure/stacks-template-cli.yml
+    - build/*
     exclude: 
     - packages/template-cli/templates/*
 
 pr:
 - master
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: amido/stacks-pipeline-templates
+      ref: feature/cycle2
+      endpoint: williamayerst
+
+  containers:
+    - container: sonar_scanner
+      image: amidostacks/ci-sonarscanner:0.0.1
+    - container: k8s_deploy
+      image: amidostacks/ci-k8s:0.0.1
+    - container: terraform_custom
+      image: amidostacks/ci-tf:0.0.1
 
 variables:
   company: amido
@@ -27,7 +43,7 @@ stages:
   variables:
   - group: amido-stacks-infra-credentials-nonprod
   - group: amido-stacks-webapp
-  
+
   jobs:
   - template: templates/jobs/build.yml
     parameters:
