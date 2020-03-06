@@ -21,7 +21,7 @@ resources:
       type: github
       name: amido/stacks-pipeline-templates
       ref: feature/cycle2
-      endpoint: williamayerst
+      endpoint: amidostacks
 
   containers:
     - container: sonar_scanner
