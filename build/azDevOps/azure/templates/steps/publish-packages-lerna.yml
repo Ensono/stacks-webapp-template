@@ -21,11 +21,10 @@ steps:
       git remote add origin $(GIT_ORIGIN)
       git remote -v
       git fetch
+      git checkout master
       SHA=$(Build.SourceVersion)
-      git checkout -b release-${SHA:0:7}
       git reset --mixed $SHA
       git update-index --assume-unchanged .npmrc
-      git push -u origin release-${SHA:0:7}
     displayName: Get changes for master at SHA
 
   # Ensure Node.js 12 is active
