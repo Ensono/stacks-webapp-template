@@ -15,7 +15,7 @@
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "validate": "npm run prettier --list-different && npm run lint",
     "version": "lerna version --conventional-commits --yes --no-commit-hooks --no-git-tag-version",
-    "publish": "lerna publish from-git --ignore-prepublish --yes --no-verify-access --no-verify-registry",
+    "publish": "lerna publish from-git --ignore-prepublish --no-commit-hooks --yes --no-verify-access --no-verify-registry",
     "clean:tree": "git clean -idx"
   },
   "engines": {
