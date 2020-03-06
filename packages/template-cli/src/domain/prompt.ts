@@ -11,12 +11,15 @@ import { SsrAdoResponse } from './model/workers'
 let userSelection: PromptAnswer = <PromptAnswer>{}
 let exitMessage: ExitMessage = <ExitMessage>{}
 
+declare module Prompt {
+
+}
 /**
  * 
  * @param default_project_name 
  * @returns 
  */
-async function runCli(default_project_name: string, cli_args: Array<string>): Promise<ExitMessage> {
+export async function runCli(default_project_name: string, cli_args: Array<string>): Promise<ExitMessage> {
     // v0 of Question Selection
     // let user_selection: PromptAnswer
     if (cli_args.length > 0) {
@@ -84,4 +87,3 @@ async function selectFlow(selection: PromptAnswer): Promise<ExitMessage> {
     return exitMessage
 }
 
-export { runCli }

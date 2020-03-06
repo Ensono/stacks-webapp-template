@@ -17,7 +17,7 @@ resources:
   - repository: templates
     type: github
     name: amido/stacks-pipeline-templates
-    ref: refs/tags/v1.0.0
+    ref: feature/cycle2
     endpoint: williamayerst
 
   containers:
@@ -39,6 +39,9 @@ variables:
   docker_image_name: stacks-webapp
   docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
   docker_container_registry_name: amidouksstacksacrdev
+  # AKS/AZURE
+  aks_clusterrg: amido-stacks-dev-cycle2
+  aks_clustername: amido-stacks-dev-cycle2
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -64,6 +67,7 @@ stages:
       vmImage: ubuntu-18.04
     steps:
       - checkout: self
+      - checkout: templates
         persistCredentials: true
         env:
           ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
@@ -72,10 +76,10 @@ stages:
           ARM_TENANT_ID: $(azure_tenant_id)
         target: terraform_custom
       # Create TF infra
-      - template: templates/v2/steps/deploy-terraform-resource.yml
+      - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
         parameters: 
           # Terraform Basic Config
-          terraform_working_dir: '$(Build.SourcesDirectory)/packages/template-cli/templates/deploy/azure/ssr'
+          terraform_working_dir: '$(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/deploy/azure/ssr'
           terraform_output_artefact: 'tfoutputs'
           # Terraform State Config
           terraform_backend_client_id: $(azure_client_id)
@@ -131,11 +135,12 @@ stages:
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
         target: k8s_deploy
-      - template: templates/v2/steps/aux-k8s-scripts.yml
+        # ensure scripts are executable
+      - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
         parameters:
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/templates/v2
+          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
 
-      - template: templates/v2/steps/deploy-k8s-cluster.yml
+      - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
         parameters: 
           aks_cluster_name: amido-stacks-dev-cycle2
           aks_resource_group_name: amido-stacks-dev-cycle2
@@ -144,6 +149,6 @@ stages:
             # TODO: make this a complex object so that additional args can be passed in 
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml'
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/provider/cloud-generic.yaml'
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/templates/v2/scripts
+          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
           base_external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/base_external-dns.yml
           external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/external-dns.yml

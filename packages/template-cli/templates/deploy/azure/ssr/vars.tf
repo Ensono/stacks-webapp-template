@@ -8,18 +8,18 @@
 
 variable "name_company" {
   type    = string
-  default = "amido"
+  default = "replace_company"
 }
 
 variable "name_project" {
   type    = string
-  default = "stacks-node"
+  default = "replace_project"
 
 }
 
 variable "name_component" {
   type    = string
-  default = "infra"
+  default = "replace_component"
 }
 
 variable "stage" {
@@ -66,4 +66,5 @@ variable "client_secret" {
 variable "resource_group_location" {
   type    = string
   default = "uksouth"
+  # default = "replace_azure_location"
 }
