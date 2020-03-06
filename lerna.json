@@ -9,7 +9,7 @@
       "sort": false
     },
     "publish": {
-      "allowBranch": ["master", "release-*"]
+      "allowBranch": ["master"]
     },
     "version": {
       "message": "chore(release): publish"
