@@ -9,7 +9,7 @@ type ApiPaneProps = {
     isLoading: boolean
 }
 
-const ApiPane = ({menuItems, isLoading}: ApiPaneProps) => {
+export const ApiPane = ({menuItems, isLoading}: ApiPaneProps) => {
     return (
         <Container item>
             <Typography variant="h2">Latest menus:</Typography>
@@ -20,4 +20,3 @@ const ApiPane = ({menuItems, isLoading}: ApiPaneProps) => {
     )
 }
 
-export default ApiPane

@@ -1,6 +1,6 @@
 import { render, screen, waitForElement } from "@testing-library/react"
 import React from "react"
-import ApiPane from "./index"
+import {ApiPane} from "."
 const mockMenuItem = [
     {
         id: "e98583ad-0feb-4e48-9d4f-b20b09cb2633",
