@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.7.1](https://github.com/amido/stacks-webapp-template/compare/@amido-stacks/scaffolding-cli@1.7.0...@amido-stacks/scaffolding-cli@1.7.1) (2020-03-06)
+
+
+### Bug Fixes
+
+* local changes ([1105a76](https://github.com/amido/stacks-webapp-template/commit/1105a7673ef68fa0e3200424262f1145d8c64d85))
+
+
+
+
+
 # 1.7.0 (2020-03-06)
 
 
