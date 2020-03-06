@@ -11,11 +11,12 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
       <div
         class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
       >
-        <h3
-          class="MuiTypography-root MuiTypography-h3"
+        <h2
+          class="MuiTypography-root MuiTypography-h2"
+          style="margin: 0px auto;"
         >
           Yumido
-        </h3>
+        </h2>
       </div>
     </header>
     Welcome to Stacks-react app! your current environment is: test 

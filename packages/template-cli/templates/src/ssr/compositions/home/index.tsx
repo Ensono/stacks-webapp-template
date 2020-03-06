@@ -35,7 +35,7 @@ const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
         <Container container>
             <AppBar position="fixed" color="secondary">
                 <Toolbar>
-                    <Typography variant="h3">Yumido</Typography>
+                    <Typography variant="h2" style={{margin: "0 auto"}}>Yumido</Typography>
                 </Toolbar>
             </AppBar>
             Welcome to Stacks-react app! your current environment is:{" "}
