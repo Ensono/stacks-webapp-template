@@ -4,6 +4,7 @@ import { Utils, copyFilter } from './utils'
 import { FolderMap, Replacetruct, buildReplaceFoldersAndVals, BuildReplaceInput } from '../config/file_mapper'
 import logger from 'simple-winston-logger-abstraction'
 import { fileURLToPath } from 'url'
+import { ssr_aks_tfs_folder, ssr_aks_tfs_files } from '../config/worker_map'
 const ssr_aks_azdevops = {}
 
 export class MainWorker {
@@ -15,32 +16,9 @@ export class MainWorker {
     async ssr_aks_tfs<T>(instructions: PromptAnswer): Promise<SsrAdoResponse> {
         let selectedFlowResponse: SsrAdoResponse = <SsrAdoResponse>{}
         try {
-            // TODO: this can be done better elsewhere in static definitions
-            let folder_maps: Array<FolderMap> = [
-                { src: 'shared', dest: '' },
-                { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
-                { src: 'deploy/azure/ssr', dest: 'deploy/azure' },
-                { src: 'docs', dest: 'docs' },
-                { src: 'src/ssr', dest: 'src' }
-            ]
-            // TODO: this can be done elsewhere Further refactor this 
-            let buildInput: Array<BuildReplaceInput> = [
-                {
-                    files: ["**/*.md"],
-                    values: {
-                        "PROJECT_NAME": instructions.project_name
-                    }
-                },
-                {
-                    files: ["**/vars.tf"],
-                    values: {
-                        "replace_company_name": instructions.business?.company || "default",
-                        "replace_project_name": instructions.business?.project || "default",
-                        "replace_component_name": instructions.business?.component || "default",
-                        "replace_azure_location": instructions.cloud?.region || "uksouth"
-                    }
-                }
-            ]
+            let folder_maps: Array<FolderMap> = ssr_aks_tfs_folder()
+
+            let buildInput: Array<BuildReplaceInput> = ssr_aks_tfs_files(instructions.project_name, instructions.business, instructions.cloud)
 
             let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
 
