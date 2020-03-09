@@ -9,7 +9,7 @@
     "lint": "node_modules/.bin/eslint . -f codeframe",
     "prettier": "node_modules/.bin/prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "validate": "npm run prettier --list-different && npm run lint",
-    "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir __test__ --runInBand ",
+    "test:pact": "node_modules/.bin/jest --c jest-pact.config.json --rootDir __tests__ --runInBand",
     "test:pact-publish": "node_modules/.bin/tsc ./__tests__/pact/pactPublish.ts && node ./__tests__/pact/pactPublish.js",
     "test:pact-start-stub": "node_modules/.bin/tsc ./__tests__/pact/packStubServer.ts && node __tests__/pact/packStubServer.js",
     "test:pact-can-i-deploy": "node_modules/.bin/tsc ./__tests__/pact/pactCanIDeploy.ts && node __tests__/pact/pactCanIDeploy.js",

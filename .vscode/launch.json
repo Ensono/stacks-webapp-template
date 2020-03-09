@@ -52,7 +52,34 @@
         "NODE_ENV": "dev"
       }
     },
-
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "pact-test-jest",
+      "program": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/jest",
+      "protocol": "inspector",
+      "cwd": "${workspaceFolder}/packages/template-cli/templates/src/ssr",
+      "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": false,
+      "outputCapture": "std",
+      "args": [
+        "--runInBand",
+        "--config jest-pact.config.json",
+        "--rootDir=__tests__",
+        "--env=node",
+        "--colors",
+        "${workspaceFolder}/packages/template-cli/templates/src/ssr/__tests__/get-menu-by-id.test.pact.ts"
+      ],
+      "env": {
+        "CI": "true",
+        "NODE_ENV": "dev",
+        "PACT_CONSUMER": "GenericMenuConsumer",
+        "PACT_PROVIDER": "MenuApi",
+        "PACT_BROKER": "https://amido-stacks.pact.dius.com.au",
+        "PACT_BEARER_TOKEN": "r2xlwu-YY3_sl0o0s03O3g"
+      }
+    },
     {
       "type": "node",
       "request": "launch",
