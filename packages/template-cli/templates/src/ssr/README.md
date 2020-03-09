@@ -125,7 +125,16 @@ To run the visual tests follow steps above.
 
 To spin up the server locally, running Cypress headless, use: `npm run test:cypress:eyes`. This is the same for running in CI pipelines.
 
-The `*.cy.eyes.ts` tests are located with the rendered Next.js [pages](./pages/). Please ensure you follow naming conventions to ensure segregation of visual tests within CI.
+The `*.test.eyes.cy.ts` tests are located with the rendered Next.js [pages](./pages/). Please ensure you follow naming conventions to ensure segregation of visual tests within CI.
+
+
+### Accessibility Testing
+
+From the Deque famility of products, we are using [aXe](https://www.deque.com/axe/) for accessibility testing. When developing, we expect to support WCAG 2.1 Level AA ["wcag21aa"] at a minimum. 
+
+aXe tests are performed on two levels:
+1. first by rendering the React component and testing with Jest. See [index.axe.test.tsx](./components/ApiPane/index.axe.test.tsx) for example;
+2. second with Next rendering the entire page and tessting with Cypress. See  [index.test.axe.cy.ts](./compositions/home/index.test.axe.cy.ts) for example.
 
 ### Static Testing
 

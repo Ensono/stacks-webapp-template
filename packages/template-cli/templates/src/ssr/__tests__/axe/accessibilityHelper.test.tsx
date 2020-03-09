@@ -1,9 +1,18 @@
+/**
+ * Helper method to test rendered React component(s) against the
+ * aXe configuration. Includes automatic cleanup of the rendered component.
+ * Failing to do so after calling render could result in a 
+ * memory leak with tests which are not idempotent.
+ *
+ * Input Configuration: .jestAxeSetup.ts for configuration.
+ * 
+ * Documentation: https://github.com/dequelabs/axe-core/blob/develop-2x/doc/API.md#api-name-axeconfigure
+ */
+
 import * as React from 'react'
 import { render, cleanup } from '@testing-library/react'
 import { axe } from 'jest-axe'
 
-// Using the config in .jestAxeSetup.ts checks very minimally that the component meets the standards
-//Failing to call cleanup when you've called render could result in a memory leak and tests which are not "idempotent"
 export function accessibilityTestHelper(testComponent: React.ReactElement) {
 	it('passes accessibility checks', async () => {
         const { container } = render(testComponent)
