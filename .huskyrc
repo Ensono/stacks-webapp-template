@@ -1,6 +1,7 @@
 {
   "hooks": {
     "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+    "pre-push": "lerna version patch --yes",
     "pre-commit": "npm run prettier --list-different && npm run test"
   }
 }

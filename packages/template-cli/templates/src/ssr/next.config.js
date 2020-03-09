@@ -13,6 +13,15 @@ module.exports = {
             config: path.join(__dirname, "environment-configuration"),
             utils: path.join(__dirname, "utils"),
         }
+        // config.plugins.push(new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp:/moment$/ }))
+        // config.plugins.push(new webpack.IgnorePlugin(/\/*.test.\/*/, /components$*/ ))
+        // config.plugins.push(new webpack.IgnorePlugin(/\/*.test.\/*/, /components$*/ ))
+        // config.plugins.push(new webpack.IgnorePlugin(/.+?cypress(.*)/gim))
+        // config.plugins.push(new webpack.IgnorePlugin(/.+?jest(.*)/gim))
+        // config.plugins.push(new webpack.IgnorePlugin(/components.*\/*.test.*/))
+        // config.plugins.push(new webpack.IgnorePlugin({ resourceRegExp: /components.*\/*.test.*/}))
+        // /pages.*\/test.*/
+        // config.plugins.push(new webpack.IgnorePlugin(/\/*.cy.ts\//))
         return config
     },
     assetPrefix: process.env.APP_BASE_PATH || "",
