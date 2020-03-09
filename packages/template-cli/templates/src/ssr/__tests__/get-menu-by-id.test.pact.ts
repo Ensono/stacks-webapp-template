@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-expression object-literal-sort-keys max-classes-per-file no-empty */
 import { Interaction } from '@pact-foundation/pact'
-import { provider } from '../pact/pactSetup'
+import { provider } from './pact/pactSetup'
 
 import {MenuService} from '../server/apis/menuapi/mocks/menuService'
 
