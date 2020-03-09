@@ -7,6 +7,12 @@
     "isolatedModules": false,
     "noEmit": false
   },
-  "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)", "**/*.cy.ts", "**/*.js"],
+  "exclude": [
+    "node_modules",
+    "coverage",
+    "**/*.test.(ts|tsx)",
+    "**/*.cy.ts",
+    "**/*.js"
+  ],
   "include": ["server/**/*.ts"]
 }
