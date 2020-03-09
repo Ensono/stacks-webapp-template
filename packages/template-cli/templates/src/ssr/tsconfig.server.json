@@ -6,7 +6,7 @@
     "target": "es2017",
     "isolatedModules": false,
     "types": ["node"],
-    "noEmit": false,
+    "noEmit": false
   },
   "exclude": [
     "node_modules",
