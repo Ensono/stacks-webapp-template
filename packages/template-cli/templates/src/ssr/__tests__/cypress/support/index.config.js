@@ -12,6 +12,3 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-
-// Import Cypress Applitools commands for visual tests
-import "@applitools/eyes-cypress/commands"

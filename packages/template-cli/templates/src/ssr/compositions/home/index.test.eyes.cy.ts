@@ -17,6 +17,9 @@ For more: https://github.com/applitools/eyes.sdk.javascript1/tree/master/package
  * @type {Cypress.PluginConfig}
  **/
 
+// Import Cypress Applitools commands for visual tests
+import "@applitools/eyes-cypress/commands"
+
 describe("Given we open the Yumido webapp", () => {
     beforeEach(() => {
         cy.visit("")
