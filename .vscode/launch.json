@@ -77,7 +77,7 @@
         "PACT_CONSUMER": "GenericMenuConsumer",
         "PACT_PROVIDER": "MenuApi",
         "PACT_BROKER": "https://amido-stacks.pact.dius.com.au",
-        "PACT_BEARER_TOKEN": "r2xlwu-YY3_sl0o0s03O3g"
+        "PACT_BEARER_TOKEN": "FILL_ME_IN"
       }
     },
     {
