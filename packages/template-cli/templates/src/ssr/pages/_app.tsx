@@ -55,6 +55,6 @@ class _App extends App {
 
 // AppInsights are disabled for localhost
 export default withApplicationInsights({
-    instrumentationKey: getConfig().publicRuntimeConfig.APPINSIGHTS_KEY,
+    instrumentationKey: getConfig().publicRuntimeConfig.APPINSIGHTS_INSTRUMENTATIONKEY,
     isEnabled: true,
 })(_App)

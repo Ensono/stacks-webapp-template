@@ -21,9 +21,9 @@ export default app
     .then(() => {
         const server = express()
         server.use(helmetGuard)
-        if (conf.APPINSIGHTS_KEY) {
+        if (conf.APPINSIGHTS_INSTRUMENTATIONKEY) {
             appInsights
-                .setup(conf.APPINSIGHTS_KEY)
+                .setup(conf.APPINSIGHTS_INSTRUMENTATIONKEY)
                 .setAutoCollectConsole(true)
                 .start()
         }
