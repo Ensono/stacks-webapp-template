@@ -7,7 +7,7 @@ import httpLogger from "./middlewares/http-logger"
 import logger from "./core/root-logger"
 import api from "./api"
 import conf from "../environment-configuration"
-import * as appInsights from "applicationinsights"
+import appInsights from "applicationinsights"
 import {resolve} from "path"
 
 const port = parseInt(conf.PORT || "3000", 10)
