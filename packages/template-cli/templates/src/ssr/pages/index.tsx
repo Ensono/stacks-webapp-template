@@ -1,1 +1,1 @@
-export { default } from 'compositions/home';
+export {default} from "compositions/home"

@@ -21,6 +21,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
           aria-label="add"
           class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
           tabindex="0"
+          title="Create menu"
           type="button"
         >
           <span
@@ -49,13 +50,13 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
       <br />
       <br />
       <div
-        class="MuiGrid-root css-1hq8d8z MuiGrid-item"
+        class="MuiGrid-root css-t7xmz MuiGrid-item"
       >
-        <h1
-          class="MuiTypography-root MuiTypography-h1"
+        <h2
+          class="MuiTypography-root MuiTypography-h2"
         >
           Latest menus:
-        </h1>
+        </h2>
         0
       </div>
     </main>
