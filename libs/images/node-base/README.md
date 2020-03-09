@@ -20,4 +20,4 @@ docker push amidostacks/node:0.0.3
 
 
 cd $PATH_TO_MY_APP_ROOT
-docker run -it --rm -v $(pwd):/usr/src amidostacks/node:0.0.3 /bin/bash
+docker run -it --rm -v $(pwd):/opt/app amidostacks/node:0.0.3 /bin/bash

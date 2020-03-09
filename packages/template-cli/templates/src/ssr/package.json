@@ -17,7 +17,7 @@
     "test:cypress:compile": "node_modules/.bin/tsc --project tsconfig.cypress.json",
     "test:cypress:run": "node_modules/.bin/tsc --project tsconfig.cypress.json && node_modules/.bin/cypress run",
     "test:cypress:open": "node_modules/.bin/tsc --project tsconfig.cypress.json && node_modules/.bin/cypress open",
-    "test:cypress": "node_modules/.bin/start-server-and-test start $APP_BASE_URL:$PORT test:cypress:run",
+    "test:cypress": "env CI=true env APP_BASE_URL=http://localhost env PORT=3000 node_modules/.bin/start-server-and-test start $APP_BASE_URL:$PORT test:cypress:run",
     "clean:tree": "git clean -idx"
   },
   "engines": {
