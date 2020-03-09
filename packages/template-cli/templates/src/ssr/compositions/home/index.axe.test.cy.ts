@@ -16,7 +16,6 @@ For more: https://www.npmjs.com/package/cypress-axe
 /**
  * @type {Cypress.PluginConfig}
  */
-
 describe("Givens we open the Yumido webapp", () => {
     beforeEach(() => {
         cy.visit("")

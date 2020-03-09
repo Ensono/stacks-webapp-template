@@ -13,15 +13,11 @@ module.exports = {
             config: path.join(__dirname, "environment-configuration"),
             utils: path.join(__dirname, "utils"),
         }
-        // config.plugins.push(new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/, contextRegExp:/moment$/ }))
-        // config.plugins.push(new webpack.IgnorePlugin(/\/*.test.\/*/, /components$*/ ))
-        // config.plugins.push(new webpack.IgnorePlugin(/\/*.test.\/*/, /components$*/ ))
-        // config.plugins.push(new webpack.IgnorePlugin(/.+?cypress(.*)/gim))
-        // config.plugins.push(new webpack.IgnorePlugin(/.+?jest(.*)/gim))
-        // config.plugins.push(new webpack.IgnorePlugin(/components.*\/*.test.*/))
-        // config.plugins.push(new webpack.IgnorePlugin({ resourceRegExp: /components.*\/*.test.*/}))
-        // /pages.*\/test.*/
-        // config.plugins.push(new webpack.IgnorePlugin(/\/*.cy.ts\//))
+        /**
+         * additional info can be found here
+         * https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
+         * webpack(config, { webpack }) { } is passed in by default so don't require it
+         */
         return config
     },
     assetPrefix: process.env.APP_BASE_PATH || "",

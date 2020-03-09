@@ -5,13 +5,15 @@
     "outDir": "dist",
     "target": "es2017",
     "isolatedModules": false,
-    "noEmit": false
+    "types": ["node"],
+    "noEmit": false,
   },
   "exclude": [
     "node_modules",
     "coverage",
     "**/*.test.(ts|tsx)",
     "**/*.cy.ts",
+    "pact",
     "**/*.js"
   ],
   "include": ["server/**/*.ts"]

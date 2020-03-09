@@ -1,4 +1,5 @@
 **/.next
 **/npm-debug.log
 **/node_modules
+**/__tests__
 Dockerfile

@@ -11,6 +11,7 @@ RUN rm -f /tmp/.npmrc
 RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
 
 # USING GLOBALLY installed typescript
+# NB: if you are using an image which doesn't have TS installed globally change this
 RUN ln -s /usr/local/lib/node_modules/typescript /opt/app/node_modules/typescript && \
     ln -s /usr/local/lib/node_modules/@types/node /opt/app/node_modules/@types/node
 
@@ -25,7 +26,8 @@ USER node
 
 # BUILD IN CONTAINER
 # project seems to not do anything
-RUN node node_modules/.bin/next build && tsc --project tsconfig.server.json 
+RUN tsc --project tsconfig.server.json && \
+    node node_modules/.bin/next build
 
 EXPOSE 3000
 
