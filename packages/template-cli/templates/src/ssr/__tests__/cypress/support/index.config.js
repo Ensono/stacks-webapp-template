@@ -12,3 +12,6 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
+
+// Include the cypress-axe commands globally
+import 'cypress-axe'
