@@ -8,7 +8,7 @@ export default function RestaurantListItem(props: { restaurant: RestaurantItemPr
   return (
     <ListItem disableGutters={true} disabled={!restaurant.enabled}>
       <ListItemText>
-        <Typography component="h3" variant="h3" >{restaurant.name}</Typography>
+        <Typography component="h2" variant="h2" >{restaurant.name}</Typography>
         <ListItemText primary={`${restaurant.description}`} />
         <ListItemSecondaryAction>
           <IconButton edge="end" color="primary">

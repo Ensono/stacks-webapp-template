@@ -12,7 +12,7 @@ type ApiPaneProps = {
 export const ApiPane = ({menuItems, isLoading}: ApiPaneProps) => {
     return (
         <Container item>
-            <Typography variant="h2">Latest menus:</Typography>
+            <Typography variant="h1">Latest menus:</Typography>
             {!isLoading && menuItems && menuItems.length && (
                 <RestaurantListComponent restaurantList={menuItems} />
             )}

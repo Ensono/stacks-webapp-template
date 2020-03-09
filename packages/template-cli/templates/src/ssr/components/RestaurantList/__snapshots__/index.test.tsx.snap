@@ -18,11 +18,11 @@ Object {
             <span
               class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
             >
-              <h3
-                class="MuiTypography-root MuiTypography-h3"
+              <h2
+                class="MuiTypography-root MuiTypography-h2"
               >
                 c
-              </h3>
+              </h2>
               <div
                 class="MuiListItemText-root"
               >
@@ -72,11 +72,11 @@ Object {
             <span
               class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
             >
-              <h3
-                class="MuiTypography-root MuiTypography-h3"
+              <h2
+                class="MuiTypography-root MuiTypography-h2"
               >
                 c
-              </h3>
+              </h2>
               <div
                 class="MuiListItemText-root"
               >
@@ -134,11 +134,11 @@ Object {
           <span
             class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
           >
-            <h3
-              class="MuiTypography-root MuiTypography-h3"
+            <h2
+              class="MuiTypography-root MuiTypography-h2"
             >
               c
-            </h3>
+            </h2>
             <div
               class="MuiListItemText-root"
             >
@@ -188,11 +188,11 @@ Object {
           <span
             class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
           >
-            <h3
-              class="MuiTypography-root MuiTypography-h3"
+            <h2
+              class="MuiTypography-root MuiTypography-h2"
             >
               c
-            </h3>
+            </h2>
             <div
               class="MuiListItemText-root"
             >

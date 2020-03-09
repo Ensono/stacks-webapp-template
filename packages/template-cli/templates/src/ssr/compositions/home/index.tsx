@@ -34,11 +34,12 @@ const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
     return (
         <Container container>
             <Header />
-            Welcome to Stacks-react app! your current environment is:{" "}
-            {env.NODE_ENV} <br />
+            <main>
+            <br />
             <br />
             <br />
             <ApiPane menuItems={menuItems} isLoading={isLoading} />
+            </main>
         </Container>
     )
 }

@@ -44,20 +44,21 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         </button>
       </div>
     </header>
-    Welcome to Stacks-react app! your current environment is: test 
-    <br />
-    <br />
-    <br />
-    <div
-      class="MuiGrid-root css-1hq8d8z MuiGrid-item"
-    >
-      <h2
-        class="MuiTypography-root MuiTypography-h2"
+    <main>
+      <br />
+      <br />
+      <br />
+      <div
+        class="MuiGrid-root css-1hq8d8z MuiGrid-item"
       >
-        Latest menus:
-      </h2>
-      0
-    </div>
+        <h1
+          class="MuiTypography-root MuiTypography-h1"
+        >
+          Latest menus:
+        </h1>
+        0
+      </div>
+    </main>
   </div>
 </DocumentFragment>
 `;

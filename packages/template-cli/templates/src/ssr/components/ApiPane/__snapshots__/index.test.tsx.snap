@@ -5,11 +5,11 @@ exports[`renders ApiPane snapshot 1`] = `
   <div
     class="MuiGrid-root css-1hq8d8z MuiGrid-item"
   >
-    <h2
-      class="MuiTypography-root MuiTypography-h2"
+    <h1
+      class="MuiTypography-root MuiTypography-h1"
     >
       Latest menus:
-    </h2>
+    </h1>
     0
   </div>
 </DocumentFragment>
