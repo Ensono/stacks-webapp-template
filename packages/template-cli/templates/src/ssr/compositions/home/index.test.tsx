@@ -15,7 +15,7 @@ const initialState = {
   }
 }
 
-const indexPageText = `Welcome to Stacks-react app! your current environment is: ${process.env.NODE_ENV}`
+const indexPageText = `Yumido`
 
 
 test("With React Testing Library page renders tag type <div> with text", () => {
