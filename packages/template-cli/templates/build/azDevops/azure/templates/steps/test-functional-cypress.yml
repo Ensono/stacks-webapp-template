@@ -12,7 +12,7 @@ parameters:
 steps:
   # Run tests with Cypress
   - script: npm run test:cypress
-    displayName: 'Start webapp server and run Cypress tests'
+    displayName: 'Start webapp server and run functional Cypress tests'
     workingDirectory: ${{ parameters.workingDirectory }}
     env:
       ${{ each var in parameters.env_vars }}:
