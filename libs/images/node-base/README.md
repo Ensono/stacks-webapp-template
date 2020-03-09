@@ -18,6 +18,5 @@ docker tag 7a80ca09ba27 amidostacks/node:latest
 docker push amidostacks/node:0.0.3
 ```
 
-
 cd $PATH_TO_MY_APP_ROOT
 docker run -it --rm -v $(pwd):/opt/app amidostacks/node:0.0.3 /bin/bash
