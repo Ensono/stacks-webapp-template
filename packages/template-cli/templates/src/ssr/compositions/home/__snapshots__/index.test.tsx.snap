@@ -5,36 +5,58 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
   <div
     class="MuiGrid-root css-1knxyyj MuiGrid-container"
   >
+    <header
+      class="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorSecondary mui-fixed MuiPaper-elevation4"
+    >
+      <div
+        class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
+      >
+        <h2
+          class="MuiTypography-root MuiTypography-h2"
+          style="margin: 0px auto;"
+        >
+          Yumido
+        </h2>
+        <button
+          aria-label="add"
+          class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiFab-label"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root"
+              focusable="false"
+              role="presentation"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+              />
+            </svg>
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </header>
     <main>
-      Welcome to Stacks-react app! your current environment is: test 
       <br />
       <br />
       <br />
       <div
         class="MuiGrid-root css-1hq8d8z MuiGrid-item"
       >
-        <div
-          class="MuiBox-root MuiBox-root-252 css-irufoq"
+        <h1
+          class="MuiTypography-root MuiTypography-h1"
         >
-          <h1>
-            Get Menu List
-          </h1>
-          <button
-            class="MuiButtonBase-root MuiButton-root MuiButton-text"
-            data-testid="apiPaneBtn"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="MuiButton-label"
-            >
-              get
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </button>
-        </div>
+          Latest menus:
+        </h1>
+        0
       </div>
     </main>
   </div>
