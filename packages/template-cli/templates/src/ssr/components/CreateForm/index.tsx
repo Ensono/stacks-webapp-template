@@ -7,8 +7,10 @@ import Grid from "@material-ui/core/Grid"
 import {makeStyles} from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
-import React from "react"
-import {PrefixedLink as Link} from "components"
+import React, {FC, useCallback} from "react"
+import {connect} from "react-redux"
+import {isLoading, getError, addMenuRoutine} from "../../ducks/add-menu"
+import {openSnackbar} from "components/Notifier"
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -26,7 +28,30 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-export const CreateForm = () => {
+const mapStateToProps = state => {
+    return {
+        isLoading: isLoading(state),
+        error: getError(state),
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    addMenuItem: payload => dispatch(addMenuRoutine.trigger(payload)),
+})
+
+interface Props
+    extends ReturnType<typeof mapStateToProps>,
+        ReturnType<typeof mapDispatchToProps> {}
+
+const CreateForm: FC<Props> = ({ isLoading, error, addMenuItem }) => {
+    const handleFormSubmit = () => {
+            openSnackbar({message: "menu created"})
+            return addMenuItem({
+                name: "test1",
+                description: "test desc",
+                enabled: "true",
+            })
+        }
     const classes = useStyles()
     return (
         <Container component="main" maxWidth="xs">
@@ -75,7 +100,7 @@ export const CreateForm = () => {
                                 className={classes.submit}
                                 href="/"
                             >
-                                cancel
+                                CANCEL
                             </Button>
                         </Grid>
                         <Grid item>
@@ -83,6 +108,7 @@ export const CreateForm = () => {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
+                                onClick={handleFormSubmit}
                             >
                                 Save
                             </Button>
@@ -93,3 +119,5 @@ export const CreateForm = () => {
         </Container>
     )
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateForm)

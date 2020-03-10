@@ -10,6 +10,7 @@ import {withApplicationInsights} from "utils/appInsightsLogger"
 import theme from "../config/theme"
 import configureStore from "../state-management"
 import CssBaseline from "@material-ui/core/CssBaseline"
+import Notifier from "components/Notifier"
 
 interface AppStore extends Store {}
 
@@ -48,6 +49,7 @@ class _App extends App<AppWithStore> {
                     {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                     <CssBaseline />
                     <Component {...pageProps} />
+                    <Notifier />
                 </ThemeProvider>
             </Provider>
         )

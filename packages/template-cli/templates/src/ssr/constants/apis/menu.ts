@@ -32,7 +32,7 @@ class MenuApi implements Api {
         },
         addMenu: {
             routeDefinition: "/menu",
-            getInternalURL: () => "addmenu",
+            getInternalURL: () => "menu",
             getExternalURL: () => `menu`,
             method: HTTPMethod.post,
         },

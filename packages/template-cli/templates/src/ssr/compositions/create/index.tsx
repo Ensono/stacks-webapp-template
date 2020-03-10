@@ -1,4 +1,5 @@
-import { CreateForm, Layout } from "components"
+import { Layout } from "components"
+import CreateForm from "components/CreateForm"
 import React, { FC, useEffect } from "react"
 
 const Create: FC = () => {

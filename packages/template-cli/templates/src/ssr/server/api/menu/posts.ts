@@ -14,9 +14,12 @@ export default (router: Router) => {
                 method: addMenu.method,
                 data: body
             });
-            res.send(response);
+            const {data} = response
+            logger.info(response.data, "axios-res")
+            res.send(data || {})
+            res.end()
         } catch (err) {
-            logger.error(err);
+            logger.error(err, "axios-error")
             res.status(500).end();
         }
     });
