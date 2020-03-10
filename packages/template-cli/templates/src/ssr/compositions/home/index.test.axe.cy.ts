@@ -22,7 +22,7 @@ describe("Givens we open the Yumido webapp", () => {
         cy.server()
         cy.injectAxe()
     })
-    it("has no detectable a11y violations on load", () => {
+    it.skip("has no detectable a11y violations on load", () => {
         cy.fixture("get-menu-response.json").as("menuResponse")
         cy.route({
             method: "GET", // Route all GET requests
