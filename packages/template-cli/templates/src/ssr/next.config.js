@@ -13,6 +13,11 @@ module.exports = {
             config: path.join(__dirname, "environment-configuration"),
             utils: path.join(__dirname, "utils"),
         }
+        /**
+         * additional info can be found here
+         * https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
+         * webpack(config, { webpack }) { } is passed in by default so don't require it
+         */
         return config
     },
     assetPrefix: process.env.APP_BASE_PATH || "",

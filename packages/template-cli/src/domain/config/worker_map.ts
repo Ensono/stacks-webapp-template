@@ -7,15 +7,15 @@ import { BusinessSection, CloudSection } from "../model/prompt_answer"
 /**
  * Statically assign the folder mapping from temp to templated out directory
  */
-export const ssr_aks_tfs_folder = (): Array<FolderMap> =>  {
-        return [
-            { src: 'shared', dest: '' },
-            { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
-            { src: 'deploy/azure/ssr', dest: 'deploy/azure' },
-            { src: 'docs', dest: 'docs' },
-            { src: 'src/ssr', dest: 'src' }
-        ]
-    }
+export const ssr_aks_tfs_folder = (): Array<FolderMap> => {
+    return [
+        { src: 'shared', dest: '' },
+        { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
+        { src: 'deploy/azure/ssr', dest: 'deploy/azure' },
+        { src: 'docs', dest: 'docs' },
+        { src: 'src/ssr', dest: 'src' }
+    ]
+}
 
 /**
  * 
@@ -24,7 +24,7 @@ export const ssr_aks_tfs_folder = (): Array<FolderMap> =>  {
  * @param business_obj 
  * @param cloud_obj 
  */
-export const ssr_aks_tfs_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection ): Array<BuildReplaceInput> => {
+export const ssr_aks_tfs_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/*.md"],

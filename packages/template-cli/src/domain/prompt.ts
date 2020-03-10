@@ -16,8 +16,6 @@ let exitMessage: ExitMessage = <ExitMessage>{}
  * @returns 
  */
 export async function runCli(default_project_name: string, cli_args: Array<string>): Promise<ExitMessage> {
-    // v0 of Question Selection
-    // let user_selection: PromptAnswer
     if (cli_args.length > 0) {
         userSelection = await getFromConfig(cli_args[0])
     } else {

@@ -21,14 +21,14 @@ export default app
     .then(() => {
         const server = express()
         server.use(helmetGuard)
-        if (conf.APPINSIGHTS_KEY) {
+        server.use(httpLogger)
+        if (!process.env.CI) {
             appInsights
-                .setup(conf.APPINSIGHTS_KEY)
+                .setup()
                 .setAutoCollectConsole(true)
                 .start()
         }
-        server.use(httpLogger)
-
+        
         server.use(bodyParser.urlencoded({extended: false}))
         server.use(bodyParser.json())
         server.use(/\/((?!_next).)*/, httpLogger)
