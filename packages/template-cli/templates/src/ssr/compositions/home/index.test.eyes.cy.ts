@@ -46,18 +46,7 @@ describe("Given we open the Yumido webapp", () => {
             response: "@menuResponse", // and force the response to be: []
         }).as("getStubbedMenu")
 
-        // Check the page renders the menu component on click
-        cy.get("[data-testid=apiPaneBtn]").click()
         cy.eyesCheckWindow({tag: "compositions/home > GET menu"})
-
-        cy.wait("@getStubbedMenu").then(xhr => {
-            cy.wrap(xhr.responseBody)
-                .should("have.property", "results")
-                .and("be.an", "array")
-                .its(0)
-                .should("have.property", "name")
-                .and("be.eq", menuName)
-        })
 
         cy.get("[data-testid=results]").should("contain", menuName)
     })
