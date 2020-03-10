@@ -13,4 +13,3 @@ RUN apt-get update -y && \
 RUN npm install -g typescript@${TYPESCRIPT_VERSION} @types/node
 
 RUN chmod -R 777 /usr/local/lib/node_modules
-# RUN chown -R node:node /usr/local/lib/node_modules
