@@ -7,8 +7,16 @@ import httpLogger from "./middlewares/http-logger"
 import logger from "./core/root-logger"
 import api from "./api"
 import conf from "../environment-configuration"
-import appInsights from "applicationinsights"
+import * as AI from "applicationinsights"
 import {resolve} from "path"
+
+let appInsights = AI
+if (!process.env.CI) {
+    appInsights
+        .setup()
+        .setAutoCollectConsole(true)
+        .start()
+}
 
 const port = parseInt(conf.PORT || "3000", 10)
 const dev = process.env.NODE_ENV !== "production"
@@ -22,13 +30,6 @@ export default app
         const server = express()
         server.use(helmetGuard)
         server.use(httpLogger)
-        if (!process.env.CI) {
-            appInsights
-                .setup()
-                .setAutoCollectConsole(true)
-                .start()
-        }
-        
         server.use(bodyParser.urlencoded({extended: false}))
         server.use(bodyParser.json())
         server.use(/\/((?!_next).)*/, httpLogger)
