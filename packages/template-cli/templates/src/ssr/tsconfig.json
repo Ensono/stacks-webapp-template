@@ -20,7 +20,12 @@
     "types": ["node"],
     "keyofStringsOnly": true
   },
-  "exclude": ["node_modules", "coverage", "**/*.test.(ts|tsx)", "**/*.cy.ts"],
+  "exclude": [
+    "node_modules",
+    "coverage",
+    "**/*.test.(ts|tsx)",
+    "**/*.cy.*"
+  ],
   "include": [
     "next-env.d.ts",
     "next.config.js",
