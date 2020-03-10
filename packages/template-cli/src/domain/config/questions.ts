@@ -7,13 +7,13 @@ function cliQuestions(): Array<PromptQuestion> {
     return [{
         "type": "select",
         "name": "project_type",
-        "message": "Select JS Project type",
+        "message": "Select Project type",
         "choices": [
             {
-                "title": "SSR", "description": "Serverside rendered", "value": "ssr"
+                "title": "React SSR", "description": "Serverside rendered", "value": "ssr"
             },
             {
-                "title": "CSR", "description": "Clientside rendered", "value": "csr"
+                "title": "React CSR", "description": "Clientside rendered", "value": "csr"
             }
         ],
         "initial": 0
