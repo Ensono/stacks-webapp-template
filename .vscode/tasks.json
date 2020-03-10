@@ -21,6 +21,9 @@
       },
       // Use the standard
       "problemMatcher": "$eslint-compact"
+    },
+    {
+      "label": "BuildAndRun"
     }
   ]
 }
