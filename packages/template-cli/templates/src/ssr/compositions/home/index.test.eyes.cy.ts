@@ -25,9 +25,7 @@ describe("Given we open the Yumido webapp", () => {
         cy.visit("")
         cy.server()
         cy.eyesOpen({
-            appName: "Yumido Webapp",
-            envName: Cypress.env("NODE_ENV"),
-            browser: {name: "ie11", width: 800, height: 600}
+            browser: {name: "ie11", width: 800, height: 600},
         })
     })
 
