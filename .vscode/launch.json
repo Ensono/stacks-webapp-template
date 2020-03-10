@@ -96,7 +96,7 @@
         "LOG_LEVEL": "debug",
         "PORT": "3000",
         "CI": "true",
-        "APPINSIGHTS_INSTRUMENTATIONKEY":"",
+        "APPINSIGHTS_INSTRUMENTATIONKEY": "",
         "APP_BASE_PATH": "",
         "APP_BASE_URL": "http://localhost",
         "MENU_API_URL": "http://dev.amidostacks.com/api/menu",
