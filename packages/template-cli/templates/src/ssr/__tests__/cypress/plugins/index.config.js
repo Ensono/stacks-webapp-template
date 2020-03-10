@@ -31,5 +31,5 @@ module.exports = (on, config) => {
     return config
 }
 
-//Important: the eyes this code after the definition of module.exports
+// ⚠️ IMPORTANT: the eyes this code after the definition of module.exports
 require("@applitools/eyes-cypress")(module)

@@ -177,3 +177,7 @@ yarn.lock
 !website/pages/**/**.*
 !website/siteConfig.js
 !website/static
+
+
+# APPLITOOLS
+.applitools/
