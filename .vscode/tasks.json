@@ -26,12 +26,7 @@
       "label": "RunBuildCli",
       "type": "shell",
       "command": "npm",
-      "args": [
-        "run",
-        "build",
-        "--prefix",
-        "packages/template-cli"
-      ],
+      "args": ["run", "build", "--prefix", "packages/template-cli"],
       "group": "build",
       "presentation": {
         // Reveal the output only if unrecognized errors occur.
