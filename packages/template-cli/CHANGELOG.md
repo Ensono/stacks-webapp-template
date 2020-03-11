@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/amido/stacks-webapp-template/compare/@amido-stacks/scaffolding-cli@1.7.3...@amido-stacks/scaffolding-cli@1.8.0) (2020-03-10)
+
+
+### Bug Fixes
+
+* another bump and changelog commit ([8d223b2](https://github.com/amido/stacks-webapp-template/commit/8d223b2ac0ef0c5ecdb4bb4cc94ec8910f830509))
+* appinsights server implementation ([66ccc49](https://github.com/amido/stacks-webapp-template/commit/66ccc4976cacbc0cf510f1280119abaeba48432b))
+* ignore version task now ([d2fd073](https://github.com/amido/stacks-webapp-template/commit/d2fd07328b5993e7df60bad9034e822b4dcf0d64))
+* removed comments from domain/promt ([b84f319](https://github.com/amido/stacks-webapp-template/commit/b84f31984db4830b19d9b0e53ab7fae0766bd658))
+* skipping version ([3a984e2](https://github.com/amido/stacks-webapp-template/commit/3a984e27281d263c19aba62f19528ec6bb78f509))
+
+
+### Features
+
+* state management ([#66](https://github.com/amido/stacks-webapp-template/issues/66)) ([909be4c](https://github.com/amido/stacks-webapp-template/commit/909be4cd182687769b91234bf4b7e6e4de3ccc1d))
+
+
+
+
+
 ## [1.7.3](https://github.com/amido/stacks-webapp-template/compare/@amido-stacks/scaffolding-cli@1.7.0...@amido-stacks/scaffolding-cli@1.7.3) (2020-03-06)
 
 
