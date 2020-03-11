@@ -1,5 +1,5 @@
 {
-  "name": "@amido-stacks/eslint-config",
+  "name": "@amidostacks/eslint-config",
   "version": "0.18.1",
   "description": "Shared linting config from amido stacks",
   "main": "eslintrc.js",
@@ -16,6 +16,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-security": "^1.4.0"
   },
+  "homepage": "https://github.com/amido/stacks-webapp-template/tree/master/packages/eslint-config",
   "repository": {
     "type": "git",
     "url": "https://github.com/amido/stacks-webapp-template.git",
