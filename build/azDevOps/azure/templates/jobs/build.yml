@@ -20,7 +20,7 @@ jobs:
 
       # Build: Audit dependencies
       # Important: can only audit public packages in Azure Pipelines
-      - ${{ if ne(parameters.customRegistry, "useNpmrc") }}:
+      - ${{ if ne(parameters.customRegistry, 'useNpmrc') }}:
         - template: azDevOps/azure/templates/v2/steps/build-audit-dependencies-node.yml@templates
           parameters:
             versionSpec: ${{ parameters.versionSpec }}
