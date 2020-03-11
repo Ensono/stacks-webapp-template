@@ -16,8 +16,6 @@
     "validate": "npm run prettier --list-different && npm run lint",
     "version": "lerna version --conventional-commits --yes --no-commit-hooks --no-git-tag-version",
     "publish": "lerna publish from-git --no-git-reset --no-commit-hooks --yes --no-verify-access --no-verify-registry",
-    "pre:patch": "lerna version patch --yes",
-    "publish:ci": "lerna publish from-package --no-git-reset --no-commit-hooks --yes --no-verify-access --no-verify-registry",
     "clean:tree": "git clean -idx"
   },
   "engines": {
