@@ -7,9 +7,7 @@
 
 parameters:
   versionSpec: ''
-  run_lerna_version: false
   workingDirectory: ''
-  publishCommand: 'run publish'
 
 steps:
   # In order to Lerna to bump the version for the packages, we must ensure the following:
@@ -55,7 +53,7 @@ steps:
     displayName: 'Publish: Publish packages using lerna'
     inputs:
       command: 'custom' # Options: install, publish, custom
-      customCommand: ${{ parameters.publishCommand }}
+      customCommand: 'run publish'
       workingDir: ${{ parameters.workingDirectory }}
       verbose: true
       customRegistry: 'useNpmrc'
