@@ -46,5 +46,5 @@ jobs:
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}
-              publishCommand: 'run publish'
-              run_lerna_version: true
+              publishCommand: 'run publish:ci'
+              run_lerna_version: false
