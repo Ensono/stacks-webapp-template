@@ -63,6 +63,12 @@ From root, run: `npm run version`
 >When run with this flag, lerna version will use the Conventional Commits Specification to determine the version bump and generate CHANGELOG.md files. [2]
 [2]: https://github.com/lerna/lerna/tree/master/commands/version#--conventional-commits
 
+### Why not `lerna publish from-package`?
+
+1. It doesn't enforce the publishing after the tests have passed;
+2. Git then doens't become the sorce of truth (i.e. you can publish without commiting the change to Github);
+3. Lerna will need to commiting the `gitHead` SHA to the package.json of the package.
+
 ## Conventional Commits
 
 We generate our CHANGELOGS.md automagically based on the `git commit`. The commit itself communicates the **WHAT**, whereas commit message communicates the **WHY**.
