@@ -20,5 +20,5 @@ module.exports = {
     showLogs: true,
     saveDebugData: true,
     failCypressOnDiff: false, //If true, then the Cypress test fails if an eyes visual test fails. If false and an eyes test fails, then the Cypress test does not fail.
-    saveNewTests: true //New tests are saved by default
+    saveNewTests: true, //New tests are saved by default
 }

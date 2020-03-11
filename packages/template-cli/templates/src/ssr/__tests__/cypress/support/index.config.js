@@ -14,4 +14,4 @@
 // ***********************************************************
 
 // Include the cypress-axe commands globally
-import 'cypress-axe'
+import "cypress-axe"
