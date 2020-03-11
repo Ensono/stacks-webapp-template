@@ -16,13 +16,20 @@ For more: https://www.npmjs.com/package/cypress-axe
 /**
  * @type {Cypress.PluginConfig}
  */
-
 describe("Givens we open the Yumido webapp", () => {
     beforeEach(() => {
         cy.visit("")
+        cy.server()
         cy.injectAxe()
     })
-    it("has no detectable a11y violations on load", () => {
+    it.skip("has no detectable a11y violations on load", () => {
+        cy.fixture("get-menu-response.json").as("menuResponse")
+        cy.route({
+            method: "GET", // Route all GET requests
+            url: "/menu", // that have a URL that matches '/menu'
+            response: "@menuResponse", // and force the response to be: []
+        }).as("getStubbedMenu")
+        
         cy.configureAxe({
             rules: ["wcag21aa"]
           })

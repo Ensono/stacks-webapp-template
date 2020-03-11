@@ -24,7 +24,7 @@ export const ssr_aks_tfs_folder = (): Array<FolderMap> =>  {
  * @param business_obj 
  * @param cloud_obj 
  */
-export const ssr_aks_tfs_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection ): Array<BuildReplaceInput> => {
+export const ssr_aks_tfs_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/*.md"],

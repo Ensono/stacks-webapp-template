@@ -181,3 +181,6 @@ website/i18n
 website/node_modules
 website/package-lock.json
 yarn.lock
+
+# APPLITOOLS
+.applitools/

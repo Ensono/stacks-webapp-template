@@ -39,7 +39,7 @@
   "coverageReporters": ["cobertura", "lcov"],
   "collectCoverage": true,
   "collectCoverageFrom": [
-    "**/*.{ts,tsx}",
+    "**/*.test.{ts,tsx}",
     "!**/*config.{js,json}",
     "!**/coverage/**",
     "!**/pact/**",
