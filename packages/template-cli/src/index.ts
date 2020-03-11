@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { basename, resolve } from 'path'
 import { ExitMessage } from './domain/model/cli_response'
 import { runCli } from './domain/prompt'
