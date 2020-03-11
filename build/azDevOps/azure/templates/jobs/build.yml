@@ -4,8 +4,8 @@ parameters:
   versionSpec: ''
   project_root_dir: ''
   jobName: 'setMe'
-  #  Static Code Analysis
-  build_audit: false
+  # Custom registry (eg. private)
+  customRegistry: ''
   # Testing
   unit_test: false
 
@@ -19,11 +19,13 @@ jobs:
         persistCredentials: true
 
       # Build: Audit dependencies
-      - ${{ if eq(parameters.build_audit, true) }}:
+      # Important: can only audit public packages in Azure Pipelines
+      - ${{ if ne(parameters.customRegistry, "useNpmrc") }}:
         - template: azDevOps/azure/templates/v2/steps/build-audit-dependencies-node.yml@templates
           parameters:
             versionSpec: ${{ parameters.versionSpec }}
             workingDirectory: ${{ parameters.project_root_dir }}
+            customRegistry: ${{ parameters.project_root_dir }}
 
       # Build: Install dependencies
       # - template: azDevOps/azure/templates/v2/steps/build-install-dependencies-node.yml@templates
@@ -31,6 +33,7 @@ jobs:
         parameters:
           versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
+          customRegistry: ${{ parameters.customRegistry }}
 
       # Test: Unit tests
       - ${{ if eq(parameters.unit_test, true) }}:
@@ -47,3 +50,4 @@ jobs:
             parameters:
               versionSpec: ${{ parameters.versionSpec }}
               workingDirectory: ${{ parameters.project_root_dir }}
+              customRegistry: ${{ parameters.customRegistry }}
