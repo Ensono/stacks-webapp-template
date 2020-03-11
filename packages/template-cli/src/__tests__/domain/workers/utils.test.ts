@@ -9,6 +9,14 @@ import * as rif from 'replace-in-file'
 jest.mock('fs-extra')
 jest.mock('replace-in-file')
 
+
+const mockCopy = jest.spyOn(fse, 'copy')
+
+const mockMove = jest.spyOn(fse, 'move')
+
+const mockReplace = jest.spyOn(rif, 'default')
+
+
 let mock_answer = <PromptAnswer>{
     project_name: "foo",
     project_type: "boo",
@@ -34,9 +42,13 @@ let worker_response = <SsrAdoResponse> {
 }
 
 describe("utils class tests", () => {
+    beforeEach(() => {
+        mockCopy.mockClear()
+        mockMove.mockClear()
+        mockReplace.mockClear()
+    })
     describe("Positive assertions", () => {
         it("copyWorker should return success", async () => {
-            const mockCopy = jest.spyOn(fse, 'copy')
             let copy_ran: TempCopy = await Utils.prepBase(mock_answer.project_name)
             expect(mockCopy).toHaveBeenCalled()
             expect(copy_ran).toHaveProperty("message")
@@ -47,7 +59,6 @@ describe("utils class tests", () => {
             expect(copy_ran.message).toBe(`${mock_answer.project_name} created`)
         })
         it("moveWorker should return success", async () => {
-            const mockMove = jest.spyOn(fse, 'move')
             let move_ran: BaseResponse = await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
             expect(mockMove).toHaveBeenCalled()
             expect(mockMove).toHaveBeenCalledTimes(ssr_tfs_aks.length)
@@ -57,7 +68,6 @@ describe("utils class tests", () => {
             expect(move_ran.message).toBe(`${new_dir} populated with relevant files`)
         })
         it("valueReplace should return ok", async () => {
-            const mockReplace = jest.spyOn(rif, 'default')
             let replace_ran: BaseResponse = await Utils.valueReplace(mock_vals)
             expect(mockReplace).toHaveBeenCalled()
             expect(mockReplace).toHaveBeenCalledTimes(mock_vals.length)
@@ -65,7 +75,17 @@ describe("utils class tests", () => {
             expect(replace_ran).toHaveProperty("ok")
             expect(replace_ran.ok).toBe(true)
             expect(replace_ran.message).toBe(`replaced all occurences`)
+        })        
+        it("writeOutConfigFile should return success", async () => {
+            let move_ran: BaseResponse = await Utils.writeOutConfigFile("/tmp/foo.json", "my-app.config.json")
+            expect(mockCopy).toHaveBeenCalled()
+            expect(mockCopy).toHaveBeenCalledTimes(1)
+            expect(move_ran).toHaveProperty("message")
+            expect(move_ran).toHaveProperty("ok")
+            expect(move_ran.ok).toBe(true)
+            expect(move_ran.message).toMatch(`Sample config placed in current directory`)
         })
+
         it("copyFilter should return true for node_modules", () => {
             let processed: boolean = copyFilter("node_modules/foo", "/some/dir")
             expect(processed).toBe(false)
@@ -76,8 +96,12 @@ describe("utils class tests", () => {
         })
     })
     describe("Negative assertions", () => {
+        beforeEach(() => {
+            mockCopy.mockClear()
+            mockMove.mockClear()
+            mockReplace.mockClear()
+        })
         it("copyWorker should return a code of ENOENT when error occurs", async () => {
-            const mockCopy = jest.spyOn(fse, 'copy')
             mockCopy.mockImplementationOnce(() => {
                 throw {code: "ENOENT", message: new Error("Something weird happened")}
             });
@@ -90,9 +114,20 @@ describe("utils class tests", () => {
             expect(copy_ran.message).toBeInstanceOf(Error)
             expect(copy_ran.ok).toBe(false)
         })
-
+        it("writeOutConfigFile should return a code of ENOENT when error occurs", async () => {
+            mockCopy.mockImplementationOnce(() => {
+                throw {code: "ENOENT", message: new Error("Something weird happened")}
+            });
+            let copy_ran = await Utils.writeOutConfigFile("/tmp/foo.json", "my-app.config.json")
+            // expect(async () => { await Utils.copyWorker(mock_answer.project_name)}).rejects.toThrow(TempCopy)
+            expect(mockCopy).toHaveBeenCalled()
+            expect(copy_ran).toHaveProperty("code")
+            expect(copy_ran.code).toBe("ENOENT")
+            expect(copy_ran).toHaveProperty("error")
+            expect(copy_ran.message).toBeInstanceOf(Error)
+            expect(copy_ran.ok).toBe(false)
+        })
         it("moveWorker should return a code of ENOENT when error occurs", async () => {
-            const mockMove = jest.spyOn(fse, 'move')
             mockMove.mockImplementationOnce(() => {
                 throw {code: "ENOENT", message: new Error("Something weird happened")}
             });
@@ -106,7 +141,6 @@ describe("utils class tests", () => {
             expect(move_ran.ok).toBe(false)
         })
         it("valueReplace returns a structured error object", async () => {
-            const mockReplace = jest.spyOn(rif, 'default')
             mockReplace.mockImplementationOnce(() => {
                 throw {code: "ENOENT", message: new Error("Something weird happened")}
             });

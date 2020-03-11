@@ -1,10 +1,10 @@
-import { PromptAnswer } from '../../../domain/model/prompt_answer'
+import { CliAnswerModel } from '../../../domain/model/prompt_answer'
 import { SsrAdoResponse, BaseResponse } from '../../../domain/model/workers'
 import { MainWorker } from '../../../domain/workers/main_worker';
 import { Utils } from '../../../domain/workers/utils';
 jest.mock('../../../domain/workers/utils')
 
-let mock_answer = <PromptAnswer>{
+let mock_answer = <CliAnswerModel>{
     project_name: "foo",
     project_type: "boo",
     platform: "az",
@@ -39,7 +39,9 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("message")
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
-            expect(flow_ran.message).toBe(`${mock_answer.project_name} created`)
+            // expect.stringContaining(string)(flow_ran.message).toBe(`${mock_answer.project_name} created`)
+            expect(flow_ran.message).toMatch(`cd ${mock_answer.project_name}/src && npm install && npm run build && npm run start`)
+            // expect(flow_ran.message).stringContaining(`cd ${mock_answer.project_name}/src && npm install && npm run build && npm run start`)
         })
     })
     describe("Negative assertions", () => {

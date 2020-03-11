@@ -1,37 +1,32 @@
 import { FlowSelector } from '../../domain/selectors'
-import { PromptAnswer } from '../../domain/model/prompt_answer'
+import { CliAnswerModel } from '../../domain/model/prompt_answer'
 import { MainWorker } from '../../domain/workers/main_worker'
 import { CliError, SsrAdoResponse } from '../../domain/model/workers'
 
-let mock_answer = <PromptAnswer>{
+let mock_answer_ssr_aks_tfs = <CliAnswerModel>{
     project_name: "foo",
     project_type: "boo",
     platform: "az",
     deployment: "tfs"
 }
 
-let worker_response = <SsrAdoResponse> {
-    message: "success",
-    ok: true
-}
 
 jest.mock('../../domain/workers/main_worker')
-let mainWorker = new MainWorker()
 
 describe("selector class tests", () => {
 
     describe("Positive assertions option_ssr_aks_azuredevops", () => {
         it("should call the ssr_aks_tfs worker", async () => {
-            MainWorker.prototype.ssr_aks_tfs = jest.fn().mockResolvedValue(mock_answer)
-            let selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer)
+            MainWorker.prototype.ssr_aks_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer_ssr_aks_tfs)
             expect(MainWorker.prototype.ssr_aks_tfs).toHaveBeenCalledTimes(1)
             expect(MainWorker.prototype.ssr_aks_tfs).toHaveBeenCalled()
         })
-        it("should include the PromptAnswer keys", async () => {
-            MainWorker.prototype.ssr_aks_tfs = jest.fn().mockResolvedValue(mock_answer)
-            let selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer)
+        it("should include the CliAnswerModel keys", async () => {
+            MainWorker.prototype.ssr_aks_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer_ssr_aks_tfs)
             expect(selectedFlow).toHaveProperty("project_name")
-            expect(selectedFlow).toBe(mock_answer)
+            expect(selectedFlow).toBe(mock_answer_ssr_aks_tfs)
         })
     })
     describe("Negative assertions", () => {
@@ -39,7 +34,7 @@ describe("selector class tests", () => {
             MainWorker.prototype.ssr_aks_tfs = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve(<SsrAdoResponse>{ok: false, code: -1, error: new Error("Something weird happened") as CliError});
             });
-            let selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer)
+            let selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer_ssr_aks_tfs)
             expect(selectedFlow).toHaveProperty("ok")
             expect(selectedFlow.ok).toBe(false)
             expect(selectedFlow.error).toBeInstanceOf(Error)
