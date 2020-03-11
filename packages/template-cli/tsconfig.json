@@ -14,10 +14,16 @@
     "node_modules/**/*",
     "dist/**/*",
     "**/__mocks__/**/*",
+    "**/__tests__/**/*",
     "templates/**/*",
     "**/*.test.ts",
     "coverage/**/*",
     "test-app-1"
   ],
-  "include": ["src/jest.config.js", "**/*.ts", "**/*.tsx", "**/*.bootstrap-config.json"]
+  "include": [
+    "src/jest.config.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.bootstrap-config.json"
+  ]
 }
