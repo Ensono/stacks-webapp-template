@@ -43,7 +43,7 @@ steps:
       displayName: 'Publish: Version packages using lerna'
       inputs:
         command: 'custom' # Options: install, publish, custom
-        customCommand: 'run version'
+        customCommand: 'run version -- --allow-branch bug/1456' #Todo: revert this
         workingDir: ${{ parameters.workingDirectory }}
         verbose: true
         customRegistry: 'useNpmrc'

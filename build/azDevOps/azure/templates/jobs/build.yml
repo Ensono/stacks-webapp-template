@@ -40,7 +40,8 @@ jobs:
               workingDirectory: ${{ parameters.project_root_dir }}
 
       # Publish: Publish packages
-      - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      # Todo: remove this comment
+      # - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
           # - template: azDevOps/azure/templates/v2/steps/publish-packages-lerna.yml@templates
           - template: ../steps/publish-packages-lerna.yml
             parameters:
