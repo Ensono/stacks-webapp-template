@@ -4,10 +4,8 @@
     "target": "es5",
     "lib": ["es5", "dom"],
     "outDir": "../../dist/__tests__",
-    "types": ["node", "cypress", "cypress-axe", "@applitools/eyes-cypress",],
+    "types": ["node", "cypress", "cypress-axe", "@applitools/eyes-cypress"]
   },
-  "include": [
-    "../../**/*.cy.*"
-  ],
+  "include": ["../../**/*.cy.*"],
   "files": ["../../node_modules/@applitools/eyes-cypress/eyes-index.d.ts"]
 }
