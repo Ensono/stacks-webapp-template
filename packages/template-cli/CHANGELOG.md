@@ -3,6 +3,50 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/amido/stacks-webapp-template/compare/@amido-stacks/scaffolding-cli@1.7.3...@amido-stacks/scaffolding-cli@1.10.0) (2020-03-12)
+
+
+### Bug Fixes
+
+* another bump and changelog commit ([8d223b2](https://github.com/amido/stacks-webapp-template/commit/8d223b2ac0ef0c5ecdb4bb4cc94ec8910f830509))
+* appinsights server implementation ([66ccc49](https://github.com/amido/stacks-webapp-template/commit/66ccc4976cacbc0cf510f1280119abaeba48432b))
+* force bump of package from lerna ([14e1c07](https://github.com/amido/stacks-webapp-template/commit/14e1c0789a289effc02447c3d8a9357150273401))
+* ignore version task now ([d2fd073](https://github.com/amido/stacks-webapp-template/commit/d2fd07328b5993e7df60bad9034e822b4dcf0d64))
+* package name for eslint ([b3ec872](https://github.com/amido/stacks-webapp-template/commit/b3ec8725a6d8ebe8cf65c0c212914a303fa71fe7))
+* removed comments from domain/promt ([b84f319](https://github.com/amido/stacks-webapp-template/commit/b84f31984db4830b19d9b0e53ab7fae0766bd658))
+* skipping version ([3a984e2](https://github.com/amido/stacks-webapp-template/commit/3a984e27281d263c19aba62f19528ec6bb78f509))
+
+
+### Features
+
+* state management ([#66](https://github.com/amido/stacks-webapp-template/issues/66)) ([909be4c](https://github.com/amido/stacks-webapp-template/commit/909be4cd182687769b91234bf4b7e6e4de3ccc1d))
+
+
+
+
+
+# [1.9.0](https://github.com/amido/stacks-webapp-template/compare/@amido-stacks/scaffolding-cli@1.7.3...@amido-stacks/scaffolding-cli@1.9.0) (2020-03-12)
+
+
+### Bug Fixes
+
+* another bump and changelog commit ([8d223b2](https://github.com/amido/stacks-webapp-template/commit/8d223b2ac0ef0c5ecdb4bb4cc94ec8910f830509))
+* appinsights server implementation ([66ccc49](https://github.com/amido/stacks-webapp-template/commit/66ccc4976cacbc0cf510f1280119abaeba48432b))
+* force bump of package from lerna ([14e1c07](https://github.com/amido/stacks-webapp-template/commit/14e1c0789a289effc02447c3d8a9357150273401))
+* ignore version task now ([d2fd073](https://github.com/amido/stacks-webapp-template/commit/d2fd07328b5993e7df60bad9034e822b4dcf0d64))
+* package name for eslint ([b3ec872](https://github.com/amido/stacks-webapp-template/commit/b3ec8725a6d8ebe8cf65c0c212914a303fa71fe7))
+* removed comments from domain/promt ([b84f319](https://github.com/amido/stacks-webapp-template/commit/b84f31984db4830b19d9b0e53ab7fae0766bd658))
+* skipping version ([3a984e2](https://github.com/amido/stacks-webapp-template/commit/3a984e27281d263c19aba62f19528ec6bb78f509))
+
+
+### Features
+
+* state management ([#66](https://github.com/amido/stacks-webapp-template/issues/66)) ([909be4c](https://github.com/amido/stacks-webapp-template/commit/909be4cd182687769b91234bf4b7e6e4de3ccc1d))
+
+
+
+
+
 # [1.8.0](https://github.com/amido/stacks-webapp-template/compare/@amido-stacks/scaffolding-cli@1.7.3...@amido-stacks/scaffolding-cli@1.8.0) (2020-03-10)
 
 
