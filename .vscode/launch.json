@@ -13,15 +13,15 @@
       "protocol": "inspector",
       "outFiles": ["${workspaceFolder}/packages/template-cli/dist/*/.js"],
       "console": "internalConsole",
+      "preLaunchTask": "RunBuildCli",
       "outputCapture": "std",
+      "disableOptimisticBPs": false,
       "env": {
         "NODE_ENV": "dev",
         "LOG_LEVEL": "debug",
         "COMMAND_TO_RUN": "ininTemplateCli"
       },
-      "args": [
-        "${workspaceFolder}/tests/sample_generated_app/sample.bootstrap.config.json"
-      ]
+      "args": ["./src/__tests__/domain/test.bootstrap-config.json"]
     },
     {
       "type": "node",
@@ -41,29 +41,47 @@
         "--env=node",
         // "--ci",
         "--colors",
-        // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/prompt.test.ts"
-        "${workspaceFolder}/packages/template-cli/src/__tests__/index.test.ts"
-        // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/config/file_mapper.test.ts"
-        // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/workers/utils.test.ts"
-        // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/workers/main_worker.test.ts"
-        // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/selectors.test.ts"
+        "${workspaceFolder}/packages/template-cli/src/__tests__/domain/prompt.test.ts"
       ],
       "env": {
         "NODE_ENV": "dev"
       }
     },
-
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "pact-test-jest",
+      "program": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/jest",
+      "protocol": "inspector",
+      "cwd": "${workspaceFolder}/packages/template-cli/templates/src/ssr",
+      "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": false,
+      "outputCapture": "std",
+      "args": [
+        "--runInBand",
+        "--config jest-pact.config.json",
+        "--rootDir=__tests__",
+        "--env=node",
+        "--colors",
+        "${workspaceFolder}/packages/template-cli/templates/src/ssr/__tests__/get-menu-by-id.test.pact.ts"
+      ],
+      "env": {
+        "CI": "true",
+        "NODE_ENV": "dev",
+        "PACT_CONSUMER": "GenericMenuConsumer",
+        "PACT_PROVIDER": "MenuApi",
+        "PACT_BROKER": "https://amido-stacks.pact.dius.com.au",
+        "PACT_BEARER_TOKEN": "FILL_ME_IN"
+      }
+    },
     {
       "type": "node",
       "request": "launch",
       "name": "templated-web-app",
       "program": "${workspaceFolder}/packages/template-cli/templates/src/ssr/dist/server/index.js",
-      // "runtimeExecutable": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/ts-node",
       "cwd": "${workspaceFolder}/packages/template-cli/templates/src/ssr",
       "protocol": "inspector",
-      // "outFiles": [
-      //   "${workspaceFolder}/packages/template-cli/templates/src/ssr/dist/*/.js"
-      // ],
       "sourceMaps": true,
       "console": "internalConsole",
       "outputCapture": "std",
@@ -72,6 +90,8 @@
         "NODE_ENV": "development",
         "LOG_LEVEL": "debug",
         "PORT": "3000",
+        "CI": "true",
+        "APPINSIGHTS_INSTRUMENTATIONKEY": "",
         "APP_BASE_PATH": "",
         "APP_BASE_URL": "http://localhost",
         "MENU_API_URL": "http://dev.amidostacks.com/api/menu",

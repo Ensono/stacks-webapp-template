@@ -1,8 +1,19 @@
 {
-  "name": "@amido-stacks/scaffolding-cli",
-  "version": "1.7.3",
+  "name": "@amidostacks/scaffolding-cli",
+  "version": "1.12.0",
   "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
-  "main": "dist/index.js",
+  "preferGlobal": true,
+  "bin": {
+    "scaffolding-cli": "./dist/index.js",
+    "amido-scaffolding-cli": "./dist/index.js"
+  },
+  "files": [
+    "dist/index.js",
+    "dist/domain/",
+    "templates",
+    "src/index.ts",
+    "src/domain"
+  ],
   "scripts": {
     "test": "node_modules/.bin/jest -c jest.config.json --coverage",
     "test:watch": "node_modules/.bin/jest -c jest.config.json --coverage --watchAll",
@@ -17,8 +28,10 @@
   "dependencies": {
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
+    "@types/chalk": "^2.2.0",
+    "chalk": "^3.0.0",
     "fs-extra": "^8.1.0",
-    "prompts": "^2.3.0",
+    "prompts": "^2.3.1",
     "replace-in-file": "^5.0.2",
     "simple-winston-logger-abstraction": "^2.0.0",
     "typescript": "3.7.5"
@@ -37,6 +50,7 @@
     "jest-sonar-reporter": "^2.0.0",
     "ts-jest": "^25"
   },
+  "homepage": "https://github.com/amido/stacks-webapp-template/tree/master/packages/template-cli",
   "repository": {
     "type": "git",
     "url": "https://github.com/amido/stacks-webapp-template.git",

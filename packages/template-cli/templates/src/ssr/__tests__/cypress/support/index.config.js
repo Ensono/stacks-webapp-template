@@ -13,5 +13,5 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import Cypress Axe commands for testing accessibility
+// Include the cypress-axe commands globally
 import "cypress-axe"

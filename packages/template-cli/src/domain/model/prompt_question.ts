@@ -1,8 +1,8 @@
 interface BaseQuestion {
     name: string
-    type: string
+    type: string | Function
     message: string
-    initial?: string | number
+    initial?: string | number | boolean
 }
 
 interface SelectQuestionOptions {

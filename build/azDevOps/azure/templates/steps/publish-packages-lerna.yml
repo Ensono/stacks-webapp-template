@@ -59,3 +59,6 @@ steps:
       workingDir: ${{ parameters.workingDirectory }}
       verbose: true
       customRegistry: 'useNpmrc'
+    env:
+      GIT_COMMITTER_EMAIL: $(GIT_USER_EMAIL)
+      GIT_COMMITTER_NAME: $(GIT_USER_NAME)
