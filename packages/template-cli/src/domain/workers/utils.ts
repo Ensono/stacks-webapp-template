@@ -26,6 +26,20 @@ export async function asyncForEach(array: Array<any>, callback: any) {
 }
 
 export class Utils {
+    public static async writeOutConfigFile(configIn: string, configOut: string): Promise<BaseResponse> {
+        let fsResponse: BaseResponse = <BaseResponse>{}
+        try {
+            await copy(configIn, resolve(process.cwd(), configOut), {preserveTimestamps: true, dereference: false})
+            fsResponse.ok = true
+            fsResponse.message = 'Sample config placed in current directory'
+        } catch (ex) {
+            fsResponse.ok = false
+            fsResponse.code = ex.code || -1
+            fsResponse.message = ex.message
+            fsResponse.error = ex.stack
+        }
+        return fsResponse
+    }
 
     public static async valueReplace(instruction_map: Array<Replacetruct>): Promise<BaseResponse> {
         let fsResponse: BaseResponse = <BaseResponse>{}
@@ -103,9 +117,4 @@ export class Utils {
         }
 
     }
-}
-
-export default {
-    Utils,
-    copyFilter
 }
