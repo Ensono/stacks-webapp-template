@@ -7,9 +7,15 @@ import Grid from "@material-ui/core/Grid"
 import {makeStyles} from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
-import React, {FC, useCallback} from "react"
+import React, {FC, useState, useEffect} from "react"
 import {connect} from "react-redux"
-import {isLoading, getError, addMenuRoutine} from "../../ducks/add-menu"
+import {
+    addMenuRoutine,
+    getError,
+    isLoading,
+    getNewlycreatedMenuId,
+    getMenuAdded,
+} from "../../ducks/add-menu"
 import {openSnackbar} from "components/Notifier"
 
 const useStyles = makeStyles(theme => ({
@@ -32,6 +38,8 @@ const mapStateToProps = state => {
     return {
         isLoading: isLoading(state),
         error: getError(state),
+        menuId: getNewlycreatedMenuId(state),
+        added: getMenuAdded(state),
     }
 }
 
@@ -43,15 +51,42 @@ interface Props
     extends ReturnType<typeof mapStateToProps>,
         ReturnType<typeof mapDispatchToProps> {}
 
-const CreateForm: FC<Props> = ({ isLoading, error, addMenuItem }) => {
+const CreateForm: FC<Props> = ({
+    isLoading,
+    error,
+    addMenuItem,
+    menuId,
+    added,
+}) => {
+    const initialFormState = {
+        menu_name: "",
+        description: "",
+        enabled: false,
+    }
+    const [values, setValues] = useState(initialFormState)
+    useEffect(
+        () =>
+            menuId && added
+                ? openSnackbar({message: `${menuId} menu created`})
+                : undefined,
+        [menuId, added],
+    )
+
+    const handleInputChange = e => {
+        const {name, value, type, checked} = e.target
+        setValues({...values, [name]: type === "checkbox" ? checked : value})
+    }
     const handleFormSubmit = () => {
-            openSnackbar({message: "menu created"})
-            return addMenuItem({
-                name: "test1",
-                description: "test desc",
-                enabled: "true",
-            })
-        }
+        const {menu_name, description, enabled} = values
+
+        if (!menu_name || !description) return
+
+        return addMenuItem({
+            name: menu_name,
+            description: description,
+            enabled: enabled,
+        })
+    }
     const classes = useStyles()
     return (
         <Container component="main" maxWidth="xs">
@@ -70,6 +105,8 @@ const CreateForm: FC<Props> = ({ isLoading, error, addMenuItem }) => {
                         label="Menu name"
                         name="menu_name"
                         autoComplete="menu_name"
+                        onChange={handleInputChange}
+                        value={values.menu_name}
                         autoFocus
                     />
                     <TextField
@@ -85,10 +122,17 @@ const CreateForm: FC<Props> = ({ isLoading, error, addMenuItem }) => {
                         type="description"
                         id="description"
                         autoComplete="description"
+                        onChange={handleInputChange}
+                        value={values.description}
                     />
                     <FormControlLabel
                         control={
-                            <Checkbox value="remember" color="secondary" />
+                            <Checkbox
+                                name="enabled"
+                                color="secondary"
+                                checked={values.enabled}
+                                onChange={handleInputChange}
+                            />
                         }
                         label="Activate"
                     />

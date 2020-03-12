@@ -5,6 +5,7 @@ import {postMenu} from "../../services"
 
 export const addMenuRoutine = createRoutine("ADD_MENU")
 
+// TODO: Fake tenantId needs to be fixed with proper one.
 export const initialState = {
     loading: false,
     error: null,
@@ -13,10 +14,13 @@ export const initialState = {
     description: "",
     tenantId: "d290f1ee-6c54-4b01-90e6-d701748f0851",
     enabled: false,
+    menuId: "",
 }
 
 export const isLoading = state => state.addMenu.loading
 export const getError = state => state.addMenu.error
+export const getNewlycreatedMenuId = state => state.addMenu.menuId
+export const getMenuAdded = state => state.addMenu.added
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -35,32 +39,31 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 loading: false,
                 error: action.payload,
+                added: false
             }
         case addMenuRoutine.SUCCESS:
             return {
                 ...state,
                 loading: false,
                 error: null,
-                registered: true,
+                menuId: action.payload.id,
+                added: true
             }
         default:
             return state
     }
 }
 
-export function* requestAddMenu({ payload}) {
+export function* requestAddMenu({payload}) {
     yield put(addMenuRoutine.request())
-    // const {
-    //     postMenu: {payload},
-    // } = yield select()
     try {
         const response = yield call(
             postMenu,
             payload.name,
             payload.description,
             payload.enabled,
+            payload.id,
         )
-        debugger
         yield put(addMenuRoutine.success(response))
     } catch (error) {
         yield put(addMenuRoutine.failure(error))

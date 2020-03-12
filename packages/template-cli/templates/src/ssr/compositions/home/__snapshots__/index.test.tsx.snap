@@ -18,7 +18,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
           Yumido
         </h2>
         <button
-          aria-label="add"
+          aria-label="create menu button"
           class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
           tabindex="0"
           title="Create menu"

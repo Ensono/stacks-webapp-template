@@ -10,10 +10,14 @@ export default (router: Router) => {
         const { body } = req;
         try {
             const response = await axios({
+                method: "post",
                 url: addMenu.url(),
-                method: addMenu.method,
-                data: body
-            });
+                data: JSON.stringify(body),
+                headers: {
+                    accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            })
             const {data} = response
             logger.info(response.data, "axios-res")
             res.send(data || {})

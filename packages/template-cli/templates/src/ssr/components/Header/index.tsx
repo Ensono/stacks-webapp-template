@@ -17,7 +17,11 @@ export const Header = () => {
                 {!isCreatePage && (
                     <Link href="/create">
                         <Tooltip title="Create menu" aria-label="create menu">
-                            <Fab size="small" color="primary" aria-label="add">
+                            <Fab
+                                size="small"
+                                color="primary"
+                                aria-label="create menu button"
+                            >
                                 <AddIcon />
                             </Fab>
                         </Tooltip>
