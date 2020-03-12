@@ -20,10 +20,18 @@ For more: https://github.com/applitools/eyes.sdk.javascript1/tree/master/package
 // Import Cypress Applitools commands for visual tests
 import "@applitools/eyes-cypress/commands"
 
-describe("Given we open the Yumido webapp", () => {
+describe("/ (index)", () => {
     beforeEach(() => {
-        cy.visit("")
+        cy.fixture("get-menu-response.json").as("menuResponse")
         cy.server()
+        cy.route({
+            method: "GET", // Route all GET requests
+            url: "/menu", // that have a URL that matches '/menu'
+            response: "@menuResponse", // and force the response to be: []
+        }).as("getStubbedMenu")
+
+        cy.visit("")
+
         cy.eyesOpen({
             browser: {name: "ie11", width: 800, height: 600},
         })
@@ -33,20 +41,12 @@ describe("Given we open the Yumido webapp", () => {
         cy.eyesClose()
     })
 
-    it("renders the page and stubbed menu component in supported browsers", () => {
+    it("renders on load", () => {
         let menuName: String = "Breakfast Menu"
 
-        // Check the page renders on navigation
-        cy.eyesCheckWindow({tag: "compositions/home"})
+        cy.wait("@getStubbedMenu")
 
-        cy.fixture("get-menu-response.json").as("menuResponse")
-        cy.route({
-            method: "GET", // Route all GET requests
-            url: "/menu", // that have a URL that matches '/menu'
-            response: "@menuResponse", // and force the response to be: []
-        }).as("getStubbedMenu")
-
-        cy.eyesCheckWindow({tag: "compositions/home > GET menu"})
+        cy.eyesCheckWindow({tag: "/menu"})
 
         cy.get("[data-testid=results]").should("contain", menuName)
     })
