@@ -4,7 +4,7 @@ import { ExitMessage } from './domain/model/cli_response'
 import { runCli } from './domain/prompt'
 import chalk from 'chalk'
 
-// main
+// main cli entry
 (async () => {
     const default_project_name = basename(resolve(process.cwd()))
     const args = process.argv
