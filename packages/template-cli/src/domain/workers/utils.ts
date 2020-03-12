@@ -1,10 +1,11 @@
-import { copy, move, remove } from 'fs-extra'
+import { copy, move, remove, ensureDir} from 'fs-extra'
 import { tmpdir } from 'os'
 import { BaseResponse, TempCopy } from '../model/workers'
 import replace, { ReplaceInFileConfig } from 'replace-in-file'
 import { resolve } from 'path'
 import { FolderMap, Replacetruct } from '../config/file_mapper'
 import logger from 'simple-winston-logger-abstraction'
+import gitP, { SimpleGit, StatusResult } from 'simple-git/promise';
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
 
@@ -26,6 +27,34 @@ export async function asyncForEach(array: Array<any>, callback: any) {
 }
 
 export class Utils {
+    /**
+     * git clone an entire public repo to use as a template
+     * @param temp_directory 
+     * @param src_path_in_tmp 
+     * @param mono_repo_sub_folder_only 
+     */
+    public static async doGitClone(git_repo: string, temp_directory: string, src_path_in_tmp: string, ref_version: string = "origin/master"): Promise<BaseResponse> {
+        let gitResponse: BaseResponse = <BaseResponse>{}
+        try {
+            const gitDir: string = resolve(temp_directory, src_path_in_tmp)
+            await ensureDir(gitDir)
+            const git: SimpleGit = gitP(gitDir)
+            // clone without checkout
+            await git.clone(git_repo, gitDir, [`-n`])
+            // checkout specific version - allow this to be versioned with cli releases
+            // caller controls repo and ref
+            await git.checkout(ref_version)
+            gitResponse.ok = true
+            gitResponse.message = "Git Cloned from repo and checked out on specified head"
+        } catch (ex) {
+            gitResponse.ok = false
+            gitResponse.code = ex.code || -1
+            gitResponse.message = ex.message
+            gitResponse.error = ex.stack
+            // throw gitResponse
+        }
+        return gitResponse
+    }
     public static async writeOutConfigFile(configIn: string, configOut: string): Promise<BaseResponse> {
         let fsResponse: BaseResponse = <BaseResponse>{}
         try {
@@ -89,6 +118,7 @@ export class Utils {
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
             fsResponse.error = ex.stack
+            await remove(temp_directory)
             return fsResponse
         }
     }
@@ -100,6 +130,8 @@ export class Utils {
         try {
             let new_directory: string = resolve(process.cwd(), directory_name)
             let temp_directory: string = resolve(tmpdir(), directory_name)
+            // precaution to make sure no files from previous run are polluting the process
+            await remove(temp_directory)
             // blanket copy templates out
             await copy(resolve(__dirname, TEMPLATES_DIRECTORY), temp_directory, { filter: copyFilter })
 

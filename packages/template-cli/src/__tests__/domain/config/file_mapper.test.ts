@@ -11,7 +11,6 @@ describe("file_mapper tests", () => {
             }
         ]
         let test: Array<Replacetruct> = buildReplaceFoldersAndVals("/var/test/output", buildInput)
-        // expect(test).toBeInstanceOf(Array<SourceStruct>())
         expect(test.length).toBe(1)
     })
 })

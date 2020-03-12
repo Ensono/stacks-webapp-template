@@ -40,7 +40,7 @@ describe("prompt class tests", () => {
                 return Promise.resolve({ code: 0, message: "" })
             });
 
-            let cliResult: ExitMessage = await cliPrompt.runCli('test', [resolve(__dirname, 'test.bootstrap-config.json')])
+            let cliResult: ExitMessage = await cliPrompt.runCli('test', [resolve(__dirname, 'ssr.bootstrap-config.json')])
 
             expect(cliResult).toHaveProperty("code")
             expect(cliResult).toHaveProperty("message")
@@ -51,7 +51,7 @@ describe("prompt class tests", () => {
                 return Promise.resolve({ code: 0, message: "" })
             });
 
-            let cliResult: ExitMessage = await cliPrompt.runCli('test', ['src/__tests__/domain/test.bootstrap-config.json'])
+            let cliResult: ExitMessage = await cliPrompt.runCli('test', ['src/__tests__/domain/ssr.bootstrap-config.json'])
 
             expect(cliResult).toHaveProperty("code")
             expect(cliResult).toHaveProperty("message")
@@ -96,7 +96,7 @@ describe("prompt class tests", () => {
             FlowSelector.option_ssr_aks_azuredevops = jest.fn().mockImplementationOnce(() => {
                 throw { code: 127, message: new Error("Something weird happened") };
             });
-            let cliResult = await cliPrompt.runCli('test', [resolve(__dirname, 'test.bootstrap-config.json')])
+            let cliResult = await cliPrompt.runCli('test', [resolve(__dirname, 'ssr.bootstrap-config.json')])
             expect(cliResult).toHaveProperty("code")
             expect(FlowSelector.option_ssr_aks_azuredevops).toHaveBeenCalled()
             expect(cliResult.message).toHaveProperty("message")

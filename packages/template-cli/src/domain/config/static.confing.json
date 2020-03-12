@@ -1,0 +1,14 @@
+{
+  "netcore": {
+    "git_repo": "https://github.com/aspnet/samples.git",
+    "git_ref": "492e3e586a9e20a75dd55537e2acb9d5c011d0c0"
+  },
+  "java_spring": {
+    "git_repo": "https://github.com/spring-guides/gs-actuator-service.git",
+    "git_ref": "17bbbb65c1c641634a59568c2e3642ae59e2e7dd"
+  },
+  "csr": {
+    "git_repo": "https://github.com/facebook/create-react-app.git",
+    "git_ref": "master"
+  }
+}
