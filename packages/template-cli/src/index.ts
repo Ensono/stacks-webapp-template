@@ -6,7 +6,6 @@ import chalk from 'chalk'
 
 // main
 (async () => {
-    // let chalk = new chalk
     const default_project_name = basename(resolve(process.cwd()))
     const args = process.argv
     try {

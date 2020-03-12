@@ -33,7 +33,6 @@ export class Utils {
             fsResponse.ok = true
             fsResponse.message = 'Sample config placed in current directory'
         } catch (ex) {
-            // logger.error(ex)
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
@@ -118,9 +117,4 @@ export class Utils {
         }
 
     }
-}
-
-export default {
-    Utils,
-    copyFilter
 }
