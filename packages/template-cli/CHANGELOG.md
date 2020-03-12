@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.2](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.11.0...@amidostacks/scaffolding-cli@1.12.2) (2020-03-12)
+
+
+### Bug Fixes
+
+* lerna publish ([1f54436](https://github.com/amido/stacks-webapp-template/commit/1f54436fcbd0b1e3ac964fd67f194b80d941b2ce))
+
+
+
+
+
+## [1.12.1](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.11.0...@amidostacks/scaffolding-cli@1.12.1) (2020-03-12)
+
+
+### Bug Fixes
+
+* lerna publish ([1f54436](https://github.com/amido/stacks-webapp-template/commit/1f54436fcbd0b1e3ac964fd67f194b80d941b2ce))
+
+
+
+
+
 # 1.12.0 (2020-03-12)
 
 
