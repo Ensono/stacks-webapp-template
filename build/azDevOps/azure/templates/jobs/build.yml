@@ -45,6 +45,7 @@ jobs:
       # Publish: Publish packages
       # Todo: remove this comment
       # - ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+      # System.PullRequest.TargetBranch
           # - template: azDevOps/azure/templates/v2/steps/publish-packages-lerna.yml@templates
           - template: ../steps/publish-packages-lerna.yml
             parameters:
