@@ -4,6 +4,8 @@ title: CLI (Command Line Interface)
 sidebar_label: CLI
 ---
 
+Please read through the [template_cli](../../docs/cli-process.md) for more information.
+
 ## Template CLI
 
 Builds a Node.js with React Server Side Rendered Webapp Template, with accompanying infrastruce code. All from your CLI.
