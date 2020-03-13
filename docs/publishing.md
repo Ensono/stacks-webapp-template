@@ -63,11 +63,11 @@ From root, run: `npm run version`
 >When run with this flag, lerna version will use the Conventional Commits Specification to determine the version bump and generate CHANGELOG.md files. [2]
 [2]: https://github.com/lerna/lerna/tree/master/commands/version#--conventional-commits
 
-### Why not `lerna publish from-package`?
+### Why do we use `lerna publish from-package`?
 
-1. It doesn't enforce the publishing after the tests have passed;
-2. Git then doens't become the sorce of truth (i.e. you can publish without commiting the change to Github);
-3. Lerna will need to commiting the `gitHead` SHA to the package.json of the package.
+1. We reduce risk of Git conflicts;
+2. Lerna will need to commiting the `gitHead` SHA to the package.json of the package;
+3. If a publish fails, then it will try again.
 
 ## Conventional Commits
 
@@ -129,7 +129,7 @@ From root, run: `npm run publish`
 
 ### What does `publish` do?
 
-1. Publish packages tagged in the current commit (from-git).
+1. Publish packages tagged in the current commit (from-package).
 
 *Lerna will never publish packages which are marked as private ("private": true in the package.json).*
 
@@ -140,8 +140,8 @@ In order to Lerna to bump the version for the packages, we must ensure the follo
 1. We are not in detached HEAD for the current commit SHA on master *(`git status --porcelain` is true)*
 2. We ONLY publish packages from `master` once changes are merged into `master` and have passed all tests and reviews
 
-### Why do we use `lerna publish from-git`?
+### Why do we use `lerna publish from-package`?
 
-> This will identify packages tagged by lerna version and publish them to npm. This is useful in CI scenarios where you wish to manually increment versions, but have the package contents themselves consistently published by an automated process. [1]
+> keyword except the list of packages to publish is determined by inspecting each `package.json` and determining if any package version is not present in the registry. Any versions not present in the registry will be published. This is useful when a previous lerna publish failed to publish all packages to the registry. [1]
 
-[1]: https://github.com/lerna/lerna/tree/master/commands/publish#bump-from-git
+[1]: https://github.com/lerna/lerna/tree/master/commands/publish#bump-from-package
