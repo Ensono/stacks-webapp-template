@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.5](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.4...@amidostacks/scaffolding-cli@1.12.5) (2020-03-13)
+
+**Note:** Version bump only for package @amidostacks/scaffolding-cli
+
+
+
+
+
+## [1.12.4](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.3...@amidostacks/scaffolding-cli@1.12.4) (2020-03-13)
+
+
+### Bug Fixes
+
+* remove npmrc copy from dockerfile ([9f2b326](https://github.com/amido/stacks-webapp-template/commit/9f2b326420552993fc0534a8a372db8c3575a5b0))
+
+
+
+
+
+## [1.12.3](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.12.3) (2020-03-13)
+
+**Note:** Version bump only for package @amidostacks/scaffolding-cli
+
+
+
+
+
 ## [1.12.2](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.11.0...@amidostacks/scaffolding-cli@1.12.2) (2020-03-12)
 
 

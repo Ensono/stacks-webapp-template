@@ -8,9 +8,6 @@
       "concurrency": 8,
       "sort": false
     },
-    "publish": {
-      "allowBranch": ["master"]
-    },
     "version": {
       "message": "chore(release): publish"
     }

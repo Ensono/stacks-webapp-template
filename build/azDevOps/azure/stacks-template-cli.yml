@@ -52,8 +52,8 @@ stages:
       versionSpec: $(versionSpec)
       jobName: 'StacksTemplatePackages'
       project_root_dir: $(Build.SourcesDirectory)
-      #  Static Code Analysis
-      build_audit: false
+      # Custom registry for publishing
+      customRegistry: 'useNpmrc'
       # Testing
       unit_test: true
       
