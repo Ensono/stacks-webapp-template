@@ -15,21 +15,6 @@ steps:
   # 1. We are not in detached HEAD for the current commit SHA on master
   # 2. We ignore the uncommitted .npmrc file changes as they contain credentials that shouldn't be committed
   # We ONLY publish packages master once changes are merged into master.
-  - bash: |
-      set -x
-      echo $(GIT_USER_EMAIL)
-      echo $(GIT_USER_NAME)
-      git config --global user.email $(GIT_USER_EMAIL)
-      git config --global user.name $(GIT_USER_NAME)
-      git remote rm origin
-      git remote add origin $(GIT_ORIGIN)
-      git remote -v
-      git fetch
-      git checkout master
-      SHA=$(Build.SourceVersion)
-      git reset --mixed $SHA
-      git update-index --assume-unchanged .npmrc
-    displayName: Get changes for master at SHA
 
   # Ensure Node.js 12 is active
   - task: NodeTool@0
@@ -37,16 +22,6 @@ steps:
       versionSpec:  ${{ parameters.versionSpec }}
       customRegistry: ${{ parameters.customRegistry }}
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
-
-  # Version the Lerna packages first, this will commit to the repo and update the changelog
-  - task: Npm@1
-    displayName: 'Publish: Version packages using lerna'
-    inputs:
-      command: 'custom' # Options: install, publish, custom
-      customCommand: 'run version -- --allow-branch bug/1456' #Todo: revert this
-      workingDir: ${{ parameters.workingDirectory }}
-      verbose: true
-      customRegistry: ${{ parameters.customRegistry }}
 
   # Publish the newly versioned packages to specified registries
   - task: Npm@1
