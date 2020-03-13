@@ -8,12 +8,8 @@
       "concurrency": 8,
       "sort": false
     },
-    "publish": {
-      "allowBranch": ["master", "bug/1456"]
-    },
     "version": {
-      "message": "chore(release): publish",
-      "allowBranch": ["master", "bug/1456"]
+      "message": "chore(release): publish"
     }
   },
   "version": "independent"

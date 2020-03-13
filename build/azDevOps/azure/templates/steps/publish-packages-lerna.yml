@@ -1,5 +1,6 @@
 ############################################################################################################
-# desc: Publish changed packages using lerna
+# desc: Publish packages using lerna. IMPORTANT: The package versions must be bumped first and the changes
+# committed. This will ONLY look for changes between the package.json version and the registry.
 # params: versionSpec, working directory, GIT CONFIG as defined as ENV variables or in a pipeline library
 # return: npm packages are published to the registry, version bumped in github
 # pre-reqs: Dependencies must be installed, .npmrc configured, changes are merged to master
@@ -11,11 +12,6 @@ parameters:
   customRegistry: ''
 
 steps:
-  # In order to Lerna to bump the version for the packages, we must ensure the following:
-  # 1. We are not in detached HEAD for the current commit SHA on master
-  # 2. We ignore the uncommitted .npmrc file changes as they contain credentials that shouldn't be committed
-  # We ONLY publish packages master once changes are merged into master.
-
   # Ensure Node.js 12 is active
   - task: NodeTool@0
     inputs:
