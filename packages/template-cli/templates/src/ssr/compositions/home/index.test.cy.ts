@@ -11,32 +11,22 @@ Every test you write will include selectors for elements. Write selectors that a
  **/
 
 
-describe("Given we open the Yumido webapp", () => {
+describe("/ (index)", () => {
     beforeEach(() => {
-        cy.visit("")
-        cy.server()
-    })
-
-    //Todo: we need to change thesse witht Redux store
-    //https://github.com/cypress-io/cypress-example-recipes/tree/master/examples/blogs__testing-redux-store
-    it.skip("should call the Yumido API", () => {
-        cy.route("GET", "/menu").as("getMenu")
-
-        cy.wait("@getMenu").then(xhr => {
-            cy.wrap(xhr.status).should("eq", 200)
-            cy.wrap(xhr.responseBody).should("have.property", "results")
-        })
-    })
-
-    it.skip("should display stubbed menu name", () => {
-        let menuName: String = "Breakfast Menu"
-
+        // Loads the page and start listening for XHR requests
         cy.fixture("get-menu-response.json").as("menuResponse")
+        cy.server()
         cy.route({
             method: "GET", // Route all GET requests
             url: "/menu", // that have a URL that matches '/menu'
             response: "@menuResponse", // and force the response to be: []
         }).as("getStubbedMenu")
+
+        cy.visit("")
+    })
+
+    it("fetches menu on load", () => {
+        let menuName: String = "Breakfast Menu"
 
         cy.wait("@getStubbedMenu").then(xhr => {
             cy.wrap(xhr.responseBody)
@@ -48,6 +38,18 @@ describe("Given we open the Yumido webapp", () => {
         })
 
         cy.get("[data-testid=results]").should("contain", menuName)
+    })
+
+    it("fetches menu from API on reload", () => {
+        cy.wait("@getStubbedMenu") //resolve the stub first
+
+        cy.route("GET", "/menu").as("getMenu") //listen to XHR requests without stub
+        cy.reload(true) //force the reload without cache
+
+        cy.wait("@getMenu").then(xhr => {
+            cy.wrap(xhr.status).should("eq", 200)
+            cy.wrap(xhr.responseBody).should("have.property", "results")
+        })
     })
 })
 
