@@ -7,7 +7,7 @@ import { BusinessSection, CloudSection } from "../model/prompt_answer"
 /**
  * Statically assign the folder mapping from temp to templated out directory
  */
-export const ssr_aks_tfs_folder = (): Array<FolderMap> => {
+export const ssr_aks_tfs_folder = (): Array<FolderMap> =>  {
     return [
         { src: 'shared', dest: '' },
         { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
