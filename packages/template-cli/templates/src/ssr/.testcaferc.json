@@ -1,0 +1,5 @@
+{
+  "src": "__tests__/testcafe/*.ts",
+  "tsConfigPath": "__tests__/testcafe/tsconfig.testcafe.json",
+  "browsers": "chrome:headless"
+}

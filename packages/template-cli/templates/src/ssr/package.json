@@ -25,6 +25,7 @@
     "test:cypress:axe": "env CI=true node_modules/.bin/start-server-and-test start $APP_BASE_URL:$PORT test:cypress:axe:run",
     "test:cypress:eyes": "env CI=true node_modules/.bin/start-server-and-test start $APP_BASE_URL:$PORT test:cypress:eyes:run",
     "test:cypress:e2e": "env CI=true node_modules/.bin/start-server-and-test start $APP_BASE_URL:$PORT test:cypress:e2e:run",
+    "test:testcafe": "node_modules/.bin/testcafe",
     "clean:tree": "git clean -idx"
   },
   "engines": {
@@ -61,9 +62,6 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "typescript": "^3.7.5",
-    "@types/react-redux": "^7.1.7",
-    "@types/redux-logger": "^3.0.7",
     "@amidostacks/eslint-config": "^0.20.1",
     "@applitools/eyes-cypress": "^3.9.13",
     "@babel/core": "^7.8.4",
@@ -79,6 +77,8 @@
     "@types/jest-axe": "^3.2.1",
     "@types/node": "^13.1.7",
     "@types/react": "^16.9.17",
+    "@types/react-redux": "^7.1.7",
+    "@types/redux-logger": "^3.0.7",
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.22.0",
@@ -105,8 +105,10 @@
     "redux-mock-store": "^1.5.4",
     "snapshot-diff": "^0.7.0",
     "start-server-and-test": "^1.10.8",
+    "testcafe": "^1.8.2",
     "ts-jest": "^24.3.0",
-    "ts-node": "^8.5.4"
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.5"
   },
   "config": {
     "pact_do_not_track": true
