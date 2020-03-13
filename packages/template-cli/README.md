@@ -4,7 +4,10 @@ title: CLI (Command Line Interface)
 sidebar_label: CLI
 ---
 
+Please read through the [template_cli](../../docs/cli-process.md) for more information.
+
 ## Template CLI
+
 Builds a Node.js with React Server Side Rendered Webapp Template, with accompanying infrastruce code. All from your CLI.
 
 ## Dependencies
@@ -19,7 +22,7 @@ installation instructions for your OS [here](https://www.npmjs.com/get-npm).
 
 ## Create app from template
 
-Creates an amido-stacks template in your local directory much like express-generate with an addition of `build/, deploy/, docs/, src/` folders as per the Amido-Stacks standards.
+Creates an amidostacks template in your local directory much like express-generate with an addition of `build/, deploy/, docs/, src/` folders as per the Amido Stacks standards.
 
 1. Install dependencies required to generate the templated app:
 ```bash

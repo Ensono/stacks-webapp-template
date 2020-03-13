@@ -96,7 +96,7 @@ stages:
               static_code_analysis: true
               #Linting and formatting validation
               lint_formatting: false
-              shared_eslint_config: "@amido-stacks/eslint-config@latest"
+              shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
               unit_test: true
               project_root_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/src/ssr
