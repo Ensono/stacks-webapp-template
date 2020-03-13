@@ -32,7 +32,9 @@ Object {
               class="MuiListItemSecondaryAction-root"
             >
               <button
+                aria-label="edit"
                 class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-edgeEnd"
+                data-cy="editMenuItem"
                 tabindex="0"
                 type="button"
               >
@@ -89,7 +91,9 @@ Object {
             class="MuiListItemSecondaryAction-root"
           >
             <button
+              aria-label="edit"
               class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-edgeEnd"
+              data-cy="editMenuItem"
               tabindex="0"
               type="button"
             >
