@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-      "jsx": "react",
-      "jsxFactory": "myFactory",
-      "alwaysStrict": true
+    "jsx": "react",
+    "jsxFactory": "myFactory",
+    "alwaysStrict": true
   }
 }
