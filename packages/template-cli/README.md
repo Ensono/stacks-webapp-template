@@ -5,6 +5,7 @@ sidebar_label: CLI
 ---
 
 ## Template CLI
+
 Builds a Node.js with React Server Side Rendered Webapp Template, with accompanying infrastruce code. All from your CLI.
 
 ## Dependencies
