@@ -10,7 +10,7 @@ export default (router: Router) => {
         const { body } = req;
         try {
             const response = await axios({
-                method: "post",
+                method: addMenu.method,
                 url: addMenu.url(),
                 data: JSON.stringify(body),
                 headers: {
