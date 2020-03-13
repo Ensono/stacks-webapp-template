@@ -104,7 +104,6 @@ const CreateForm: FC<Props> = ({
                         id="name"
                         label="Menu name"
                         name="menu_name"
-                        autoComplete="menu_name"
                         onChange={handleInputChange}
                         value={values.menu_name}
                         autoFocus
@@ -121,7 +120,6 @@ const CreateForm: FC<Props> = ({
                         label="Description"
                         type="description"
                         id="description"
-                        autoComplete="description"
                         onChange={handleInputChange}
                         value={values.description}
                     />
