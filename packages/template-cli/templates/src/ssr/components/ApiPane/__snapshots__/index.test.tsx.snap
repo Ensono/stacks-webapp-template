@@ -3,7 +3,7 @@
 exports[`renders ApiPane snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="MuiGrid-root css-1hq8d8z MuiGrid-item"
+    class="MuiGrid-root css-t7xmz MuiGrid-item"
   >
     <h1
       class="MuiTypography-root MuiTypography-h1"
