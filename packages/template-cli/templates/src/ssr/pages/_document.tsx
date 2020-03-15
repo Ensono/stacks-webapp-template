@@ -12,6 +12,7 @@ export default class MyDocument extends Document {
                         name="theme-color"
                         content={theme.palette.primary.main}
                     />
+                    <link rel="shortcut icon" href="/static/icons/favicon.ico" />
                 </Head>
                 <body>
                     <Main />
