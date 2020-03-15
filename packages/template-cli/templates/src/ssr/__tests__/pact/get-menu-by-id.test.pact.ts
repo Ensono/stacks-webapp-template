@@ -1,8 +1,8 @@
 /* tslint:disable:no-unused-expression object-literal-sort-keys max-classes-per-file no-empty */
 import { Interaction } from '@pact-foundation/pact'
-import { provider } from './pact/pactSetup'
+import { provider } from './utils/pactSetup'
 
-import {MenuService} from '../server/apis/menuapi/mocks/menuService'
+import {MenuService} from './mocks/menuService'
 
 
 describe('Yumido Menu API', () => {
@@ -11,19 +11,11 @@ describe('Yumido Menu API', () => {
 
     menuService = new MenuService({ url, port: provider.opts.port })
 
-    //Todo: pull this in from common test fixure?
     const EXPECTED_BODY = {
-        "pageSize": 1,
-        "pageNumber": 1,
-        "results": [
-            {
-                "id": "1234",
-                "restaurantId": "1234",
-                "name": "Breakfast Menu",
-                "description": "Eggs, Bread, Coffee and more",
-                "enabled": true
-            }
-        ]
+        "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+        "name": "Burger Menu",
+        "description": "Cheese burger",
+        "enabled": true
     }
 
     afterEach(() => {
@@ -34,19 +26,18 @@ describe('Yumido Menu API', () => {
         beforeEach(() => {
             const interaction = new Interaction()
                 .given('An existing menu')
-                .uponReceiving('A request for all menus')
+                .uponReceiving('A request for a menu by ID')
                 .withRequest({
                     method: 'GET',
-                    path: '/v1/menu',
+                    path: '/v1/menu/7f993e28-b9b1-4ea7-830b-b30f9758db68',
                     headers: {
                         Accept: 'application/json',
-                    },
-                    query: 'pageSize=1&pageNumber=1'
+                    }
                 })
                 .willRespondWith({
                     status: 200,
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json; charset=utf-8',
                     },
                     body: EXPECTED_BODY,
                 })
@@ -55,9 +46,9 @@ describe('Yumido Menu API', () => {
         })
 
         it('sends a request according to contract', () => {
-            return menuService.getMenu()
+            return menuService.getMenuById()
                 .then((response: any) => {
-                    expect(response.headers["content-type"]).toEqual("application/json")
+                    expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8")
                     expect(response.status).toEqual(200)
                     expect(response.data).toEqual(EXPECTED_BODY)
             })

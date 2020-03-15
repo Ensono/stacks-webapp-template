@@ -10,9 +10,7 @@
       "request": "launch",
       "name": "Launch test files with TestCafe",
       "program": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/testcafe",
-      "args": [
-        "__tests__/testcafe/fixtures/get-menu.test.cf.ts"
-      ],
+      "args": ["__tests__/testcafe/fixtures/get-menu.test.cf.ts"],
       "console": "internalConsole",
       "cwd": "${workspaceFolder}/packages/template-cli/templates/src/ssr"
     },
@@ -23,9 +21,7 @@
       "program": "${workspaceFolder}/packages/template-cli/dist/index.js",
       "cwd": "${workspaceFolder}/packages/template-cli",
       "protocol": "inspector",
-      "outFiles": [
-        "${workspaceFolder}/packages/template-cli/dist/*/.js"
-      ],
+      "outFiles": ["${workspaceFolder}/packages/template-cli/dist/*/.js"],
       "console": "internalConsole",
       "preLaunchTask": "RunBuildCli",
       "outputCapture": "std",
@@ -35,9 +31,7 @@
         "LOG_LEVEL": "debug",
         "COMMAND_TO_RUN": "ininTemplateCli"
       },
-      "args": [
-        "./src/__tests__/domain/test.bootstrap-config.json"
-      ]
+      "args": ["./src/__tests__/domain/test.bootstrap-config.json"]
     },
     {
       "type": "node",
