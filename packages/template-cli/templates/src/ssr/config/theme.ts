@@ -33,11 +33,11 @@ const theme = createMuiTheme({
     },
     typography: {
         fontFamily: ["Arial", "Work sans"].join(","),
-        h2: {
+        h1: {
             fontSize: "24px",
             marginBotton: "40px",
         },
-        h3: {
+        h2: {
             fontSize: "18px",
             fontWeight: 700,
             marginBottom: "15px",
