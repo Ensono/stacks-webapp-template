@@ -12,7 +12,7 @@ test( testName, fn(t) ):
 */
 
 import { Selector } from "testcafe"
-import { getPathname } from "../utils/utils.cf"
+import { deleteMenu } from "../api/menu"
 
  //Todo: pull this in from env variables
 const hostname = "dev.amidostacks.com"
@@ -52,6 +52,5 @@ test
 
     })
     .after(async (t: any) => {
-        //Todo: make a call to the endpoint to delete this
-        console.log(t.ctx.menuId) 
+        const response = await deleteMenu(t.ctx.menuId)
     })

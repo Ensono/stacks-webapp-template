@@ -12,6 +12,9 @@
       "program": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/testcafe",
       "args": ["__tests__/testcafe/fixtures/get-menu.test.cf.ts"],
       "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": false,
+      "outputCapture": "std",
       "cwd": "${workspaceFolder}/packages/template-cli/templates/src/ssr"
     },
     {
