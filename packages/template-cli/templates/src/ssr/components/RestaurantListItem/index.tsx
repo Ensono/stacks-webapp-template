@@ -21,7 +21,13 @@ export default function RestaurantListItem(props: {
                 </Typography>
                 <ListItemText primary={`${restaurant.description}`} />
                 <ListItemSecondaryAction>
-                    <IconButton edge="end" color="primary" aria-label="edit" data-cy="editMenuItem">
+                    <IconButton
+                        edge="end"
+                        color="primary"
+                        aria-label="edit"
+                        data-cy="editMenuItem"
+                        disabled={true}
+                    >
                         <EditIcon />
                     </IconButton>
                 </ListItemSecondaryAction>

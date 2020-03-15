@@ -52,11 +52,11 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
       <div
         class="MuiGrid-root css-t7xmz MuiGrid-item"
       >
-        <h2
-          class="MuiTypography-root MuiTypography-h2"
+        <h1
+          class="MuiTypography-root MuiTypography-h1"
         >
           Latest menus:
-        </h2>
+        </h1>
         0
       </div>
     </main>
