@@ -33,13 +33,9 @@ export default app
         server.use(bodyParser.urlencoded({extended: false}))
         server.use(bodyParser.json())
         server.use(/\/((?!_next).)*/, httpLogger)
-        
-        server.get(`/favicon.ico`, (req, res) =>
-            app.serveStatic(
-                req,
-                res,
-                resolve("./static/icons/favicon.ico"),
-            ),
+
+        server.get(`${conf.APP_BASE_PATH}/favicon.ico`, (req, res) =>
+            app.serveStatic(req, res, resolve("./public/static/icons/favicon.ico")),
         )
 
         server.use(api)
