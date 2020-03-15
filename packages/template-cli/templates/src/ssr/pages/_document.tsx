@@ -2,6 +2,7 @@ import React from "react"
 import Document, {Head, Main, NextScript} from "next/document"
 import {ServerStyleSheets} from "@material-ui/core/styles"
 import theme from "../config/theme"
+import getConfig from "next/config"
 
 export default class MyDocument extends Document {
     render() {
@@ -10,9 +11,14 @@ export default class MyDocument extends Document {
                 <Head>
                     <meta
                         name="theme-color"
-                        content={theme.palette.primary.main}
+                        content={theme.palette.secondary.main}
                     />
-                    <link rel="shortcut icon" href="/static/icons/favicon.ico" />
+                    <link
+                        rel="shortcut icon"
+                        href={`/${
+                            getConfig().publicRuntimeConfig.APP_BASE_PATH
+                        }/static/icons/favicon.ico`}
+                    />
                 </Head>
                 <body>
                     <Main />
