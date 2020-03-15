@@ -20,7 +20,7 @@ import getConfig from "next/config"
 import {openSnackbar} from "components/Notifier"
 
 const {publicRuntimeConfig} = getConfig()
-const { APP_BASE_PATH } = publicRuntimeConfig
+const {APP_BASE_PATH} = publicRuntimeConfig
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -68,13 +68,15 @@ const CreateForm: FC<Props> = ({
         enabled: false,
     }
     const [values, setValues] = useState(initialFormState)
-    useEffect(
-        () =>
-            menuId && added
-                ? openSnackbar({message: `${menuId} menu created`})
-                : undefined,
-        [menuId, added],
-    )
+    useEffect(() => {
+        if (menuId && added) {
+            return openSnackbar({message: `${menuId} menu created`})
+        }
+        if (error) {
+            return openSnackbar({message: `New menu creation failed`})
+        }
+        return undefined
+    }, [menuId, added, error])
 
     const handleInputChange = e => {
         const {name, value, type, checked} = e.target
@@ -155,6 +157,9 @@ const CreateForm: FC<Props> = ({
                                 color="primary"
                                 className={classes.submit}
                                 onClick={handleFormSubmit}
+                                disabled={
+                                    !values.menu_name || !values.description
+                                }
                             >
                                 Save
                             </Button>
