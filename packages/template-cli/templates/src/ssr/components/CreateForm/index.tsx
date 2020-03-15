@@ -16,7 +16,11 @@ import {
     getNewlycreatedMenuId,
     getMenuAdded,
 } from "../../ducks/add-menu"
+import getConfig from "next/config"
 import {openSnackbar} from "components/Notifier"
+
+const {publicRuntimeConfig} = getConfig()
+const { APP_BASE_PATH } = publicRuntimeConfig
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -140,7 +144,7 @@ const CreateForm: FC<Props> = ({
                                 variant="outlined"
                                 color="primary"
                                 className={classes.submit}
-                                href="/"
+                                href={`/${APP_BASE_PATH}`}
                             >
                                 CANCEL
                             </Button>
