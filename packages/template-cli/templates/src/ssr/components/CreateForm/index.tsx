@@ -7,7 +7,8 @@ import Grid from "@material-ui/core/Grid"
 import {makeStyles} from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
-import React, {FC, useState, useEffect} from "react"
+import React, { FC, useState, useEffect } from "react"
+import Router from "next/router"
 import {connect} from "react-redux"
 import {
     addMenuRoutine,
@@ -146,7 +147,7 @@ const CreateForm: FC<Props> = ({
                                 variant="outlined"
                                 color="primary"
                                 className={classes.submit}
-                                href={`/${APP_BASE_PATH}`}
+                                onClick={() => Router.back()}
                             >
                                 CANCEL
                             </Button>
