@@ -28,7 +28,7 @@ export const postMenu = (
     return new Promise((resolve, reject) => {
         axios({
             method: "post",
-            url: addMenuApi.routeDefinition,
+            url: addMenuApi.internalEndpoint(),
             data: {
                 name,
                 description,

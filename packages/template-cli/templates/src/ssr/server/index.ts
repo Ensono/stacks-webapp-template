@@ -1,14 +1,13 @@
-import next from "next"
-import express from "express"
-import bodyParser from "body-parser"
-import helmetGuard from "./middlewares/helmet"
-import errorHandler from "./middlewares/error-handler"
-import httpLogger from "./middlewares/http-logger"
-import logger from "./core/root-logger"
-import api from "./api"
-import conf from "../environment-configuration"
 import * as AI from "applicationinsights"
-import {resolve} from "path"
+import bodyParser from "body-parser"
+import express from "express"
+import next from "next"
+import conf from "../environment-configuration"
+import api from "./api"
+import logger from "./core/root-logger"
+import errorHandler from "./middlewares/error-handler"
+import helmetGuard from "./middlewares/helmet"
+import httpLogger from "./middlewares/http-logger"
 
 let appInsights = AI
 if (!process.env.CI) {
@@ -33,14 +32,6 @@ export default app
         server.use(bodyParser.urlencoded({extended: false}))
         server.use(bodyParser.json())
         server.use(/\/((?!_next).)*/, httpLogger)
-        
-        server.get(`/favicon.ico`, (req, res) =>
-            app.serveStatic(
-                req,
-                res,
-                resolve("./static/icons/favicon.ico"),
-            ),
-        )
 
         server.use(api)
 
