@@ -8,12 +8,15 @@
 */
 
 import axios from "axios"
+import { environmentVariables } from "../environment-variables"
+
+const API_VERSION = "v1"
 
 export const deleteMenu = (menuId: string) => {
+    const MENU_API_ENDPOINT = `${environmentVariables.MENU_API_URL}/${API_VERSION}/menu/${menuId}`
     return new Promise((resolve, reject) => {
         axios
-            //Todo: pull this in with env variables
-            .delete(`http://dev.amidostacks.com/api/menu/v1/menu/${menuId}`)
+            .delete(`${MENU_API_ENDPOINT}`)
             .then(response => {
                 const {data, status} = response
                 if (status >= 200) {
