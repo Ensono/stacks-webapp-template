@@ -1,0 +1,18 @@
+{
+  "src": "./**/*.test.cf.ts",
+  "tsConfigPath": "tsconfig.testcafe.json",
+  "browsers": [
+    "chrome:headless",
+    "firefox:headless"
+  ],
+  "reporter": {
+    "name": "xunit",
+    "output": "testcafe-junit-test-report.xml"
+  },
+  "screenshots": {
+    "path": "./screenshots/",
+    "fullPage": true,
+    "pathPattern": "${DATE}_${TIME}/test-${TEST_INDEX}/${USERAGENT}/${FILE_INDEX}.png",
+    "takeOnFails": true
+  }
+}

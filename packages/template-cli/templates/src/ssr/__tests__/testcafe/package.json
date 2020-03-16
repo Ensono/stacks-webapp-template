@@ -1,0 +1,16 @@
+{
+  "name": "template-testcafe",
+  "version": "0.0.0",
+  "description": "Dove App E2E",
+  "private": true,
+  "scripts": {
+    "test:e2e": "testcafe"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "testcafe": "^1.8.2",
+    "typescript": "^3.7.5"
+  }
+}
