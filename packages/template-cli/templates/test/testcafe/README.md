@@ -71,18 +71,15 @@ In order to be able to run these tests across environments and as part of CI, we
 
 ### Build
 
+```bash
+npm install
 ```
+
+### Run
+```bash
 docker pull testcafe/testcafe:latest
 ```
 
 ```bash
-docker pull testcafe/testcafe
-```
-
-### Run
-
-To
-
-```bash
-docker run -e APP_BASE_URL=$APP_BASE_URL -e APP_BASE_PATH=$APP_BASE_PATH -e MENU_API_URL=$MENU_API_URL -it -v $(pwd):/tests testcafe/testcafe chromium /tests/**/*.test.cf.ts
+docker run -e APP_BASE_URL=$APP_BASE_URL -e APP_BASE_PATH=$APP_BASE_PATH -e MENU_API_URL=$MENU_API_URL -e NODE_ENV=$NODE_ENV -it -v $(pwd):/tests testcafe/testcafe chromium /tests/**/*.test.cf.ts
 ```
