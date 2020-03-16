@@ -57,20 +57,32 @@ export MENU_API_URL=http://dev.amidostacks.com/api/menu
 export APP_BASE_PATH=""
 ```
 
+```bash
+export APP_BASE_URL=http://dev.amidostacks.com \
+export APP_BASE_PATH=/web/stacks \
+export MENU_API_URL=http://dev.amidostacks.com/api/menu \
+export PORT= \
+export NODE_ENV=test
+```
+
 ## Running tests in Docker
 
 In order to be able to run these tests across environments and as part of CI, we need to use Docker to run them.
 
 ### Build
 
+```
+docker pull testcafe/testcafe:latest
+```
+
 ```bash
-docker build -t {{IMAGENAME}} .
+docker pull testcafe/testcafe
 ```
 
 ### Run
 
-You can use any of the available npm scripts, for example:
+To
 
 ```bash
-docker run -e APP_BASE_URL=X -e APP_BASE_PATH=X -e MENU_API_URL=X {{IMAGENAME}} npm test:e2e
+docker run -e APP_BASE_URL=$APP_BASE_URL -e APP_BASE_PATH=$APP_BASE_PATH -e MENU_API_URL=$MENU_API_URL -it -v $(pwd):/tests testcafe/testcafe chromium /tests/**/*.test.cf.ts
 ```

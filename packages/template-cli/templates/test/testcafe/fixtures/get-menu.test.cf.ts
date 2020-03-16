@@ -1,5 +1,5 @@
 /*
-* For selectors ssee the documentation on TestCafe: https://devexpress.github.io/testcafe/documentation/test-api/selecting-page-elements/selectors/
+* For selectors see the documentation on TestCafe: https://devexpress.github.io/testcafe/documentation/test-api/selecting-page-elements/selectors/
 
 * Document: https://devexpress.github.io/testcafe/documentation/test-api/test-code-structure.html
 
