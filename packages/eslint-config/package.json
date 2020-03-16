@@ -1,6 +1,6 @@
 {
   "name": "@amidostacks/eslint-config",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "description": "Shared linting config from amido stacks",
   "main": "eslintrc.js",
   "author": "https://amido.com",
@@ -24,5 +24,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "15e8fc25b5715fe95ec1b5db73f224894dc5e53d"
 }

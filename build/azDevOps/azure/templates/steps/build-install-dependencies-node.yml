@@ -8,22 +8,24 @@
 parameters:
   versionSpec: ''
   workingDirectory: ''
+  customRegistry: ''
 
 steps:
   # Ensure Node.js 12 is active
   - task: NodeTool@0
     inputs:
       versionSpec:  ${{ parameters.versionSpec }}
-      customRegistry: 'useNpmrc'
+      customRegistry: ${{ parameters.customRegistry }}
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   - task: Npm@1
     displayName: 'Build: Install Dev Dependencies'
     inputs:
-      command: 'install' # Options: install, publish, custom
+      # Options: install, publish, custom
+      command: 'install'
       workingDir: ${{ parameters.workingDirectory }}
       verbose: true
-      customRegistry: 'useNpmrc'
+      customRegistry: ${{ parameters.customRegistry }}
 
   - script: |
       npm run build

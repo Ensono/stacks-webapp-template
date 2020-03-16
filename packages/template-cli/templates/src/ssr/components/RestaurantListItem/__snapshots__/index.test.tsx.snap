@@ -32,8 +32,11 @@ Object {
               class="MuiListItemSecondaryAction-root"
             >
               <button
-                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-edgeEnd"
-                tabindex="0"
+                aria-label="edit"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary Mui-disabled MuiIconButton-edgeEnd Mui-disabled"
+                data-cy="editMenuItem"
+                disabled=""
+                tabindex="-1"
                 type="button"
               >
                 <span
@@ -51,9 +54,6 @@ Object {
                     />
                   </svg>
                 </span>
-                <span
-                  class="MuiTouchRipple-root"
-                />
               </button>
             </div>
           </span>
@@ -89,8 +89,11 @@ Object {
             class="MuiListItemSecondaryAction-root"
           >
             <button
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-edgeEnd"
-              tabindex="0"
+              aria-label="edit"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary Mui-disabled MuiIconButton-edgeEnd Mui-disabled"
+              data-cy="editMenuItem"
+              disabled=""
+              tabindex="-1"
               type="button"
             >
               <span
@@ -108,9 +111,6 @@ Object {
                   />
                 </svg>
               </span>
-              <span
-                class="MuiTouchRipple-root"
-              />
             </button>
           </div>
         </span>

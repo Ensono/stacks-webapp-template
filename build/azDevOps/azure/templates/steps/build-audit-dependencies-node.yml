@@ -8,13 +8,14 @@
 parameters:
   versionSpec: ''
   workingDirectory: ''
+  customRegistry: ''
 
 steps:
   # Ensure Node.js 12 is actives
   - task: NodeTool@0
     inputs:
       versionSpec:  ${{ parameters.versionSpec }}
-      customRegistry: 'useNpmrc'
+      customRegistry: ${{ parameters.customRegistry }}
     displayName: 'Use Node.js ${{ parameters.versionSpec }}'
 
   - script: npm audit

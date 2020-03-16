@@ -9,7 +9,7 @@ Todo: Remove this documentation upon publishing the packages publically to npm.
 Please ensure you have been added to the 
 `[Amido-Stacks]\Stacks Maintainers` project team in [Azure DevOps](https://dev.azure.com/amido-dev/Amido-Stacks). Stacks Maintainers have access to all Stacks artifacts.
 
-[@amido-stacks/eslint-config@latest](https://dev.azure.com/amido-dev/Amido-Stacks/_packaging?_a=package&feed=stacks-webapp-feed&package=%40amido-stacks%2Feslint-config&protocolType=Npm)
+[@amidostacks/eslint-config@latest](https://dev.azure.com/amido-dev/Amido-Stacks/_packaging?_a=package&feed=stacks-webapp-feed&package=%40amido-stacks%2Feslint-config&protocolType=Npm)
 
 
 ## Instructions

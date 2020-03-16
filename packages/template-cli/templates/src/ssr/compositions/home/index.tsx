@@ -1,5 +1,5 @@
 import {ApiPane, Header} from "components"
-import React, {useEffect, FC} from "react"
+import React, {FC, useEffect} from "react"
 import {connect} from "react-redux"
 import {
     getError,
@@ -7,9 +7,7 @@ import {
     isLoading,
     requestMenusListRoutine,
 } from "../../ducks/get-menus"
-import env from "../../environment-configuration"
 import {Container} from "./components"
-
 
 const mapStateToProps = state => {
     return {
@@ -35,10 +33,10 @@ const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
         <Container container>
             <Header />
             <main>
-            <br />
-            <br />
-            <br />
-            <ApiPane menuItems={menuItems} isLoading={isLoading} />
+                <br />
+                <br />
+                <br />
+                <ApiPane menuItems={menuItems} isLoading={isLoading} />
             </main>
         </Container>
     )

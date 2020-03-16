@@ -16,21 +16,9 @@ Shared ESLint config to guide a consistent code style across front end developme
 
 Our default export contains all of our ESLint rules. The configuration was built based on other open source configuration. To run and use with your project, we must install peer dependencies.
 
-1. To start run `npm install --save-dev @amido-stacks/eslint-config` to save as a dev dependency
+1. To start run `npm install --save-dev @amidostacks/eslint-config` to save as a dev dependency
 2. Install peer dependecies with the correct versions:
-   `npm info "@amido-stacks/eslint-config@latest" peerDependencies`
-
-    ```shell
-    npm install --save-dev \
-    @typescript-eslint/parser \
-    eslint \
-    eslint-config-airbnb \
-    eslint-config-prettier \
-    eslint-import-resolver-typescript \
-    eslint-plugin-jest \
-    eslint-plugin-react \
-    eslint-plugin-security \
-    ```
+   `npx install-peerdeps --dev @amidostacks/eslint-config`
     
 ## Usage
 After installing, simply add a `.eslintrc` file the following to your project root (at the same level as `package.json`):
@@ -38,7 +26,7 @@ After installing, simply add a `.eslintrc` file the following to your project ro
 ```json
 {
   "extends": [
-    "@amido-stacks/eslint-config"
+    "@amidostacks/eslint-config"
   ]
 }
 ```
