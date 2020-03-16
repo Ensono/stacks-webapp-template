@@ -27,7 +27,8 @@
           "description": "Cheese burger",
           "enabled": true
         }
-      }
+      },
+      "metadata": null
     },
     {
       "description": "A request for all menus",
@@ -58,7 +59,8 @@
             }
           ]
         }
-      }
+      },
+      "metadata": null
     }
   ],
   "metadata": {

@@ -1,0 +1,8 @@
+{
+  "testMatch": ["**/*.test.pact.ts"],
+  "setupFiles": ["./utils/pactSetup.ts"],
+  "setupFilesAfterEnv": ["./utils/pactTestWrapper.ts"],
+  "transform": {
+    "^.+\\.ts$": "ts-jest"
+  }
+}
