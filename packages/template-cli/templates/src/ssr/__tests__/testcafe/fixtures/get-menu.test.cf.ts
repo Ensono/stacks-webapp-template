@@ -16,7 +16,6 @@ import {deleteMenu} from "../api/menu"
 import {getAppUrl} from "../environment-variables"
 
 const url = getAppUrl().APP_URL
-console.log(`url: ${url}`)
 
 fixture`home`.page`${url}`
 
