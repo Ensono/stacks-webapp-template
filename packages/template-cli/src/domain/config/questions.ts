@@ -39,6 +39,12 @@ export function cliQuestions(): Array<PromptQuestion> {
                 },
                 {
                     "title": "React CSR", "description": "Clientside rendered", "value": "csr"
+                },
+                {
+                    "title": ".netcore", "description": ".Net Core API", "value": "netcore"
+                },
+                {
+                    "title": "Java Springboot", "description": "Java SpringBoot API", "value": "java_spring"
                 }
             ],
             "initial": 0
@@ -104,24 +110,16 @@ export function cliAdvancedQuestions(): Array<PromptQuestion> {
             "initial": 0
         },
         {
-            "type": "text",
+            "type": "confirm",
+            "name": "cloud_has_infrastructure",
+            "message": "Do you have existing K8s (AKS/EKS/GKE) Infrastructure that this component will be part of?",
+            "initial": true
+        },
+        {
+            "type": (prev: boolean) => prev ? "text" : "",
             "name": "cloud_resource_group",
-            "message": "Select Cloud region",
-            "choices": [
-                {
-                    "title": "UK South", "value": "uksouth"
-                },
-                {
-                    "title": "US South", "value": "ussouth"
-                },
-                {
-                    "title": "US East", "value": "useast"
-                },
-                {
-                    "title": "US West", "value": "uswest"
-                },
-            ],
-            "initial": 0
+            "message": "Please provide the resource group/vpc name",
+            "initial": "some-rg-azure"
         }
     ]
 }

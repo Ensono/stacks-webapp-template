@@ -1,17 +1,15 @@
-import { FolderMap, BuildReplaceInput } from "./file_mapper"
-import { BusinessSection, CloudSection } from "../model/prompt_answer"
+import { FolderMap, BuildReplaceInput } from "../file_mapper"
+import { BusinessSection, CloudSection } from "../../model/prompt_answer"
 
-// declare module FolderMapper {
-//     declare 
-// }
 /**
  * Statically assign the folder mapping from temp to templated out directory
  */
-export const ssr_aks_tfs_folder = (): Array<FolderMap> =>  {
+export const to_folders = (): Array<FolderMap> =>  {
     return [
         { src: 'shared', dest: '' },
         { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
         { src: 'deploy/azure/ssr', dest: 'deploy/azure' },
+        { src: 'deploy/k8s', dest: 'deploy/k8s' },
         { src: 'docs', dest: 'docs' },
         { src: 'src/ssr', dest: 'src' }
     ]
@@ -24,7 +22,7 @@ export const ssr_aks_tfs_folder = (): Array<FolderMap> =>  {
  * @param business_obj 
  * @param cloud_obj 
  */
-export const ssr_aks_tfs_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection): Array<BuildReplaceInput> => {
+export const in_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/*.md"],
@@ -33,12 +31,13 @@ export const ssr_aks_tfs_files = (project_name: string, business_obj?: BusinessS
             }
         },
         {
-            files: ["**/vars.tf"],
+            files: ["**/*.yml"],
             values: {
-                "replace_company_name": business_obj?.company || "default",
+                "amido-stacks-webapp": business_obj?.company || "default",
                 "replace_project_name": business_obj?.project || "default",
                 "replace_component_name": business_obj?.component || "default",
-                "replace_azure_location": cloud_obj?.region || "uksouth"
+                "replace_azure_location": cloud_obj?.region || "uksouth",
+                "stacks-webapp-template/packages/template-cli/templates/src/ssr": "git_object?/src"
             }
         }
     ]

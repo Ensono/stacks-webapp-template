@@ -9,6 +9,11 @@ export interface CloudSection {
     resource_group: string
 }
 
+export interface GitSection {
+    url: string
+    repo_name: string
+}
+
 export interface TerraformSection {
     backend_storage?: string
     // todo: more here
