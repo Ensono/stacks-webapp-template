@@ -97,14 +97,14 @@ stages:
               #Linting and formatting validation
               lint_formatting: false
               shared_eslint_config: "@amidostacks/eslint-config@latest"
-              # Should be hardcoded in your sonar-project.properties file
+              # Testing Config
               unit_test: true
               project_root_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/src/ssr
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
-              e2e_test: true
-              e2e_env_vars:
+              cypress_e2e_test: true
+              cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
                 MENU_API_URL: "http://dev.amidostacks.com/api/menu"
@@ -175,47 +175,16 @@ stages:
                     secureFile: ""
                     # ReleaseNote Information
                     releasenote: false
-# - stage: dev
-#   variables:
-#   - group: amido-stacks-infra-credentials-nonprod
-#   - group: amido-stacks-webapp
-#   jobs:
-#   - deployment: DeployDev
-#     dependsOn: ""
-#     variables:
-#       BaseURL: $(deployed_base_url)
-#     pool:
-#       vmImage: ubuntu-18.04
-#     environment: dev
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           # Deploy Dev
-#           # TODO: change this to steps and feed upstream
-#           - template: templates/steps/deploy-node.yml
-#             parameters:
-#               environment: 'dev'
-#               devops_artefact_name: '$(devops_artefact_name)'
-#               download_deploy_artefact: true
-#               deploy_artifact_name: $(build_artifact_deploy_name)
-#               test_artefact: 'tests'
-#               test_baseurl: ''
-#               functional_test: false
-#               performance_test: false
-#               smoke_test: false
-#               # Kubernetes Config
-#               kubernetes_clusterrg: 'amido-stacks-rg-uks-dev'
-#               kubernetes_clustername: 'amido-stacks-aks-uks-dev'
-#               kubernetes_image: stacks-webapp-app-image
-#               docker_imagename: $(docker_image_name)
-#               docker_imagetag: $(docker_image_tag)
-#               docker_containerregistryname: $(docker_container_registry_name)
-#               # Mutation Information
-#               kubernetes_kustomize_filepath: 'kustomization/dev'
-#               kubernetes_docker_registry: $(docker_container_registry_name).azurecr.io
-#               appinsights_enabled: false
-#               appinsights_accountName: ''
-#               secureFile: ''
-#               # ReleaseNote Information
-#               releasenote: false
+
+                - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app.yml@templates
+                  parameters:
+                    # TestCafe Config
+                    testcafe_e2e_test: true
+                    testcafe_e2e_env_vars:
+                      APP_BASE_URL: "http://dev.amidostacks.com"
+                      MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                      APP_BASE_PATH: "/web/stacks"
+                      NODE_ENV: test
+                      # avoid warnings about terminal
+                      TERM: xterm
+                    testcafe_workdir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/test/testcafe
