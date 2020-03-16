@@ -1,13 +1,14 @@
 {
   "src": "./**/*.test.cf.ts",
   "tsConfigPath": "tsconfig.testcafe.json",
-  "browsers": [
-    "chrome:headless",
-    "firefox:headless"
-  ],
+  "browsers": ["chrome:headless", "firefox:headless"],
   "reporter": {
     "name": "xunit",
     "output": "testcafe-junit-test-report.xml"
+  },
+  "engines": {
+    "node": ">=12.0",
+    "npm": ">=6.0"
   },
   "screenshots": {
     "path": "./screenshots/",

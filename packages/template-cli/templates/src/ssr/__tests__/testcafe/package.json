@@ -4,12 +4,18 @@
   "description": "Dove App E2E",
   "private": true,
   "scripts": {
-    "test:e2e": "testcafe"
+    "lint": "npx install-peerdeps -g @amidostacks/eslint-config && eslint . -f codeframe",
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
+    "validate": "npm run prettier --list-different && npm run lint",
+    "test:e2e": "node_modules/.bin/testcafe"
   },
   "dependencies": {
     "axios": "^0.19.2"
   },
   "devDependencies": {
+    "@amidostacks/eslint-config": "^0.20.1",
+    "dotenv": "^8.2.0",
+    "prettier": "^1.19.1",
     "testcafe": "^1.8.2",
     "typescript": "^3.7.5"
   }

@@ -11,46 +11,44 @@ test( testName, fn(t) ):
 
 */
 
-import { Selector } from "testcafe"
-import { deleteMenu } from "../api/menu"
+import {Selector} from "testcafe"
+import {deleteMenu} from "../api/menu"
+import {getAppUrl} from "../environment-variables"
 
- //Todo: pull this in from env variables
-const hostname = "dev.amidostacks.com"
-const pathname = "/web/stacks"
+const url = getAppUrl().APP_URL
+console.log(`url: ${url}`)
 
-fixture`home`.page
-`http://${hostname}${pathname}`
+fixture`home`.page`${url}`
 
 const menuList = Selector("[data-testid=results]")
 test("Returns the Latest menus component", async t => {
-    await t
-        .expect(menuList.innerText).contains("Breakfast Menu")
+    await t.expect(menuList.innerText).contains("Breakfast Menu")
 })
 
-test
-    ("Create a new Yumido menu", async t => {
-        const createMenu = Selector("[title='Create menu']")
-        const menuName = Selector("#name")    
-        const menuDesc = Selector("#description")
-        const menuActive = Selector("[name='enabled']")
-        const saveMenu = Selector(":nth-child(2) > .MuiButtonBase-root")
-        const snackBarMessage = Selector("#snackbar-message-id").innerText
-        
-        const testMenuName = "Automated Yumido Menu"
+test("Create a new Yumido menu", async t => {
+    const createMenu = Selector("[title='Create menu']")
+    const menuName = Selector("#name")
+    const menuDesc = Selector("#description")
+    const menuActive = Selector("[name='enabled']")
+    const saveMenu = Selector(":nth-child(2) > .MuiButtonBase-root")
+    const snackBarMessage = Selector("#snackbar-message-id").innerText
 
-        await t
-            .expect(menuList.innerText).notContains(testMenuName)
-            .click(createMenu)
-            .typeText(menuName, testMenuName)
-            .typeText(menuDesc, "A delicous array of funky FE flavours")
-            .click(menuActive)
-            .click(saveMenu)
-            .expect(snackBarMessage).contains("menu created")
+    const testMenuName = "Automated Yumido Menu"
 
-        // Saves the result in the test context so we can clean up the data after
-        t.ctx.menuId = (await snackBarMessage).split(" ", 1)
+    await t
+        .expect(menuList.innerText)
+        .notContains(testMenuName)
+        .click(createMenu)
+        .typeText(menuName, testMenuName)
+        .typeText(menuDesc, "A delicous array of funky FE flavours")
+        .click(menuActive)
+        .click(saveMenu)
+        .expect(snackBarMessage)
+        .contains("menu created")
 
-    })
-    .after(async (t: any) => {
-        const response = await deleteMenu(t.ctx.menuId)
-    })
+    // Saves the result in the test context so we can clean up the data after
+    t.ctx.menuId = (await snackBarMessage).split(" ", 1)
+}).after(async (t: any) => {
+    const response = await deleteMenu(t.ctx.menuId)
+    console.log(`deleteMenu response: ${response}`)
+})
