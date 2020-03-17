@@ -176,7 +176,7 @@ stages:
                     # ReleaseNote Information
                     releasenote: false
                                     # Functional tests running on deployed webapp
-                - ${{ if eq(parameters.testcafe_e2e_test, true) }}:
+                - ${{ if eq(testcafe_e2e_test, true) }}:
                     - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe@templates
                       parameters:
                         testcafe_e2e_env_vars:
