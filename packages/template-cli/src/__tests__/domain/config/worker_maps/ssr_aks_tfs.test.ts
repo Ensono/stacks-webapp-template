@@ -1,7 +1,9 @@
-import { FolderMap, BuildReplaceInput } from "../../../../domain/config/file_mapper"
+import { BuildReplaceInput } from "../../../../domain/config/file_mapper"
 import { BusinessSection, CloudSection } from "../../../../domain/model/prompt_answer"
 import { ssr } from '../../../../domain/config/worker_maps'
-
+import conf from  '../../../../domain/config/static.config.json'
+import { Static, FolderMap } from '../../../../domain/model/config';
+let staticConf: Static = conf as Static;
         
 let proj_name = "test-app-1"
 let biz: BusinessSection = {
@@ -28,19 +30,9 @@ let files: Array<BuildReplaceInput> = [
     }
 ]
 
-let folderMap: Array<FolderMap> = [
-    { src: 'shared', dest: '' },
-    { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
-    { src: 'deploy/azure/ssr', dest: 'deploy/azure' },
-    { src: 'deploy/k8s', dest: 'deploy/k8s' },
-    { src: 'docs', dest: 'docs' },
-    { src: 'src/ssr', dest: 'src' }
-]
-
 describe("ssr mapper tests", () => {
     it("to_folders return an array of objects", () => {
-        let test: Array<FolderMap> = ssr.to_folders()
-        expect(test).toStrictEqual(folderMap)
+        let test: Array<FolderMap> = staticConf.ssr.folder_map
         expect(test.length).toBe(6)
     }),
     it("in_files return an array of objects and cloud should be default", () => {

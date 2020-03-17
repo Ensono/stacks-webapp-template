@@ -1,19 +1,19 @@
 {
-  "project_name": "test-app-1",
-  "project_type": "ssr",
-  "platform": "aks",
-  "deployment": "azdevops",
+  "project_name": "replace_project_name",
+  "project_type": "replace_project_type",
+  "platform": "replace_platform",
+  "deployment": "replace_deployment",
   "advanced_config": true,
   "cloud": {
-    "region": "uksouth",
-    "resource_group": "string"
+    "region": "replace_cloud_region",
+    "resource_group": "replace_cloud_resource_group"
   },
   "business": {
-    "company": "string",
-    "project": "string",
-    "component": "string"
+    "company": "replace_business_company",
+    "project": "replace_business_project",
+    "component": "replace_business_component"
   },
   "terraform": {
-    "backend_storage": "blob_container"
+    "backend_storage": "replace_terraform_backend_storage"
   }
 }

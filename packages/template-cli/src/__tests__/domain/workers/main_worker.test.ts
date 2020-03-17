@@ -1,47 +1,139 @@
 import { CliAnswerModel } from '../../../domain/model/prompt_answer'
-import { SsrAdoResponse, BaseResponse } from '../../../domain/model/workers'
+import { CliResponse, BaseResponse } from '../../../domain/model/workers'
 import { MainWorker } from '../../../domain/workers/main_worker';
 import { Utils } from '../../../domain/workers/utils';
+import conf from  '../../../domain/config/static.config.json'
+import { Static } from '../../../domain/model/config';
+let staticConf: Static = conf as Static;
+
 jest.mock('../../../domain/workers/utils')
 
-let mock_answer = <CliAnswerModel>{
+let mock_answer_ssr = <CliAnswerModel>{
     project_name: "foo",
-    project_type: "boo",
-    platform: "az",
+    project_type: "ssr",
+    platform: "aks",
+    deployment: "tfs"
+}
+
+let mock_answer_csr = <CliAnswerModel>{
+    project_name: "foo",
+    project_type: "csr",
+    platform: "aks",
+    deployment: "tfs"
+}
+
+let mock_answer_java_spring = <CliAnswerModel>{
+    project_name: "foo",
+    project_type: "java_spring",
+    platform: "aks",
+    deployment: "tfs"
+}
+
+let mock_answer_netcore = <CliAnswerModel>{
+    project_name: "foo",
+    project_type: "netcore",
+    platform: "aks",
     deployment: "tfs"
 }
 
 let worker_response = <BaseResponse> {
-    message: `${mock_answer.project_name} created`,
+    message: `${mock_answer_ssr.project_name} created`,
     ok: true
 }
 
 let mainWorker = new MainWorker()
 describe("mainWorker class tests", () => {
 
-    describe("Positive assertions ssr_aks_tfs", () => {
+    describe("Positive assertions", () => {
         beforeEach(async () => {})
-        it("should call the ssr_aks_tfs worker", async () => {
+        it("ssr_aks_tfs should return success and user message for npm", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve({message: `${mock_answer.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
+                return Promise.resolve({message: `${mock_answer_ssr.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
             })
             Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve(worker_response)
             })
-
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve(worker_response)
             })
-
-            let flow_ran: SsrAdoResponse = await mainWorker.ssr_aks_tfs(mock_answer)
+            let flow_ran: CliResponse = await mainWorker.ssr_aks_tfs(mock_answer_ssr)
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.constructOutput).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("message")
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
-            // expect.stringContaining(string)(flow_ran.message).toBe(`${mock_answer.project_name} created`)
-            expect(flow_ran.message).toMatch(`cd ${mock_answer.project_name}/src && npm install && npm run build && npm run start`)
-            // expect(flow_ran.message).stringContaining(`cd ${mock_answer.project_name}/src && npm install && npm run build && npm run start`)
+            expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}/src && npm install && npm run build && npm run start`)
+        })
+        it("csr_aks_tfs should return success and user message for npm", async () => {
+            Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `foo`})
+            })
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `${mock_answer_ssr.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+
+            let flow_ran: CliResponse = await mainWorker.csr_aks_tfs(mock_answer_csr)
+            expect(Utils.doGitClone).toHaveBeenCalledWith(staticConf.csr.git_repo, "/var/test", staticConf.csr.local_path, staticConf.csr.git_ref)
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}/src && npm install && npm run stuff`)
+        })
+        it("netcore_aks_tfs should return success and user message for npm", async () => {
+            Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `foo`})
+            })
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `${mock_answer_ssr.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+
+            let flow_ran: CliResponse = await mainWorker.netcore_aks_tfs(mock_answer_netcore)
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.doGitClone).toHaveBeenCalledWith(staticConf.netcore.git_repo, "/var/test", staticConf.netcore.local_path, staticConf.netcore.git_ref)
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}/src`)
+            expect(flow_ran.message).toMatch(`dotnet clean && dotnet restore`)
+        })
+        it("java_spring_aks_tfs should return success and user message for npm", async () => {
+            Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `foo`})
+            })
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `${mock_answer_ssr.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+
+            let flow_ran: CliResponse = await mainWorker.java_spring_aks_tfs(mock_answer_java_spring)
+            expect(Utils.doGitClone).toHaveBeenCalledWith(staticConf.java_spring.git_repo, "/var/test", staticConf.java_spring.local_path, staticConf.java_spring.git_ref)
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}/src`)
+            expect(flow_ran.message).toMatch(`gradle build && gradle run `)
         })
     })
     describe("Negative assertions", () => {
@@ -50,7 +142,7 @@ describe("mainWorker class tests", () => {
                 // throw <BaseResponse>{ok: false, code: -1, error: new Error("Something weird happened")};
                 throw new Error("Something weird happened");
             });
-            let flow_ran: SsrAdoResponse = await mainWorker.ssr_aks_tfs(mock_answer)
+            let flow_ran: CliResponse = await mainWorker.ssr_aks_tfs(mock_answer_ssr)
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("error")
             expect(flow_ran).toHaveProperty("ok")

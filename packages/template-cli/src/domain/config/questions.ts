@@ -27,8 +27,14 @@ export function computedSelection(cliOrConfigAnswer: PromptAnswer): CliAnswerMod
 /**
  * Additional questions should be placed here as we are extending the program
  */
-export function cliQuestions(): Array<PromptQuestion> {
+export function cliQuestions(default_project_name: string): Array<PromptQuestion> {
     return [
+        {
+            "type": "text",
+            "name": "project_name",
+            "message": "Select Project Name (NB: Conform to language conventions - e.g. PascalCase for C# or snake_case for NodeJS)",
+            "initial": default_project_name
+        },
         {
             "type": "select",
             "name": "project_type",

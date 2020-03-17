@@ -15,4 +15,8 @@ export interface TempCopy extends BaseResponse{
     final_path: string
 }
 
-export interface SsrAdoResponse extends BaseResponse {}
+export interface ConfigResponse extends BaseResponse{
+    config_path: string
+}
+
+export interface CliResponse extends BaseResponse {}

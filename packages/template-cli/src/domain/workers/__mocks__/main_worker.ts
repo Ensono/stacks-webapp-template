@@ -1,5 +1,5 @@
 import { PromptAnswer } from '../../model/prompt_answer'
-import { BaseResponse, SsrAdoResponse, CliError } from '../../model/workers'
+import { BaseResponse, CliResponse, CliError } from '../../model/workers'
 
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
@@ -13,7 +13,7 @@ export class MainWorker {
      * @param instructions 
      */
     async ssr_aks_tfs(instructions: PromptAnswer): Promise<any> {
-        let mockRes: SsrAdoResponse = <SsrAdoResponse>{
+        let mockRes: CliResponse = <CliResponse>{
             ok: true,
             message: "" 
         }

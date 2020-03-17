@@ -1,19 +1,5 @@
-import { FolderMap, BuildReplaceInput } from "../file_mapper"
+import { BuildReplaceInput } from "../file_mapper"
 import { BusinessSection, CloudSection } from "../../model/prompt_answer"
-
-/**
- * Statically assign the folder mapping from temp to templated out directory
- */
-export const to_folders = (): Array<FolderMap> =>  {
-    return [
-        { src: 'shared', dest: '' },
-        { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
-        { src: 'deploy/azure/ssr', dest: 'deploy/azure' },
-        { src: 'deploy/k8s', dest: 'deploy/k8s' },
-        { src: 'docs', dest: 'docs' },
-        { src: 'src/netcore/samples/aspnetcore/security', dest: 'src' }
-    ]
-}
 
 /**
  * 

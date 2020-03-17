@@ -1,11 +1,13 @@
 import { copy, move, remove, ensureDir} from 'fs-extra'
 import { tmpdir } from 'os'
-import { BaseResponse, TempCopy } from '../model/workers'
+import { BaseResponse, TempCopy, ConfigResponse } from '../model/workers'
+import { FolderMap } from '../model/config'
 import replace, { ReplaceInFileConfig } from 'replace-in-file'
 import { resolve } from 'path'
-import { FolderMap, Replacetruct } from '../config/file_mapper'
+import { Replacetruct, replaceGeneratedConfig } from '../config/file_mapper'
 import logger from 'simple-winston-logger-abstraction'
 import gitP, { SimpleGit, StatusResult } from 'simple-git/promise';
+import { CliAnswerModel } from '../model/prompt_answer'
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
 
@@ -55,12 +57,19 @@ export class Utils {
         }
         return gitResponse
     }
-    public static async writeOutConfigFile(configIn: string, configOut: string): Promise<BaseResponse> {
-        let fsResponse: BaseResponse = <BaseResponse>{}
+    public static async writeOutConfigFile(configOut: string, instruction_map?: CliAnswerModel): Promise<ConfigResponse> {
+        let fsResponse: ConfigResponse = <ConfigResponse>{}
         try {
-            await copy(configIn, resolve(process.cwd(), configOut), {preserveTimestamps: true, dereference: false})
+            let configFile: string = resolve(process.cwd(), configOut)
+            let sampleConfig: string = resolve(__dirname, '../config/sample.bootstrap-config.json')
+            await copy(sampleConfig, configFile, {preserveTimestamps: true, dereference: false})
+            
+            if (instruction_map) {
+                await this.valueReplace(replaceGeneratedConfig(configFile, instruction_map))
+            }
             fsResponse.ok = true
             fsResponse.message = 'Sample config placed in current directory'
+            fsResponse.config_path = configFile
         } catch (ex) {
             fsResponse.ok = false
             fsResponse.code = ex.code || -1

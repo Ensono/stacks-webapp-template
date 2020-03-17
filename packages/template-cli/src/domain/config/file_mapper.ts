@@ -1,6 +1,9 @@
 // File Mapper
-import { map, forEach, keys } from 'lodash'
+import { map, forEach, keys, forOwn, get, join } from 'lodash'
 import { resolve } from 'path'
+import { CliOptions } from '../model/cli_response';
+import { CliAnswerModel } from '../model/prompt_answer';
+import { isObject, isString } from 'util';
 
 export enum BaseFlowType {
     BUILD = "build",
@@ -27,10 +30,7 @@ export interface BuildReplaceInput {
     values: BuildReplaceInputValues
     // [{files: ["README.md"], values: {find: "PROJECT_NAME", replace: instructions.project_name }}]
 }
-export interface FolderMap {
-    src: string
-    dest: string
-}
+
 export interface Replacetruct {
     replaceFiles: Array<string>
     replaceVals: ReplaceValMap
@@ -52,6 +52,33 @@ export function buildReplaceFoldersAndVals(base_path: string, replaceInput: Arra
                 }
             }]
         });
+    })
+    return replaceOutput
+}
+
+export function replaceGeneratedConfig(base_file: string, replaceInput: CliAnswerModel, ignoreFiles?: Array<string>, countMatches?: boolean): Array<Replacetruct> {
+    let replaceOutput: Array<Replacetruct> = new Array<Replacetruct>()
+    let objectKeys: Array<string> = Object.keys(replaceInput)
+    let cheatConfig: any = replaceInput as any
+    // forEach(keys(replaceInput), (input: typeof keys CliAnswerModel) => {
+    function closureStruct (replaceOutput: Array<Replacetruct>, replaceVal: string, propertyPath: string): Replacetruct {
+        return <Replacetruct>{
+            replaceFiles: [base_file], // map(input.files, (v) => {return resolve(base_path, v)}),
+            replaceVals: <ReplaceValMap>{
+                from: new RegExp(`replace_${replaceVal}`, 'gi'),
+                to: get(cheatConfig, propertyPath)
+            }
+        }
+    } 
+    
+    objectKeys.forEach((input: any) => {
+        if (isObject(cheatConfig[input])) {
+            Object.keys(cheatConfig[input]).forEach((deepKey: any) => {
+                replaceOutput = [...replaceOutput, closureStruct(replaceOutput, `${input}_${deepKey}`, `${input}.${deepKey}`)]
+            })
+        } else {
+            replaceOutput = [...replaceOutput, closureStruct(replaceOutput, input, input)]
+        }
     })
     return replaceOutput
 }

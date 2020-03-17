@@ -1,14 +1,22 @@
 /// <reference types="jest" />
 import { PromptAnswer } from '../../../domain/model/prompt_answer'
-import { SsrAdoResponse, BaseResponse, TempCopy } from '../../../domain/model/workers'
+import { CliResponse, BaseResponse, TempCopy } from '../../../domain/model/workers'
 import { Utils, copyFilter } from '../../../domain/workers/utils';
-
 import * as fse from 'fs-extra'
-import { FolderMap, Replacetruct } from '../../../domain/config/file_mapper';
+import { Replacetruct } from '../../../domain/config/file_mapper';
 import * as rif from 'replace-in-file'
+import gitP, { SimpleGit } from 'simple-git/promise';
+import { FolderMap } from '../../../domain/model/config';
+
 jest.mock('fs-extra')
 jest.mock('replace-in-file')
-
+jest.mock('simple-git/promise', () => {
+    const mGit = {
+        checkout: jest.fn(),
+        clone: jest.fn()
+    };
+    return jest.fn(() => mGit);
+});
 
 const mockCopy = jest.spyOn(fse, 'copy')
 
@@ -32,20 +40,24 @@ let ssr_tfs_aks: Array<FolderMap> = [
     { src: 'src/ssr', dest: 'src' }
 ]
 
+let temp_dir = "/tmp/my-app"
 let new_dir = "/var/test"
 
-let mock_vals: Array<Replacetruct> = [{"replaceFiles":["/some/dir/test-app-1/**/*.md"],"replaceVals":{"from":"foo","to":"test-app-1"}}]
+let mock_vals: Array<Replacetruct> = [{ "replaceFiles": ["/some/dir/test-app-1/**/*.md"], "replaceVals": { "from": "foo", "to": "test-app-1" } }]
 
-let worker_response = <SsrAdoResponse> {
+let worker_response = <CliResponse>{
     message: "success",
     ok: true
 }
+
+// let mockGit = gitP(temp_dir)
 
 describe("utils class tests", () => {
     beforeEach(() => {
         mockCopy.mockClear()
         mockMove.mockClear()
         mockReplace.mockClear()
+        // mockClone.mockClear()
     })
     describe("Positive assertions", () => {
         it("copyWorker should return success", async () => {
@@ -56,7 +68,7 @@ describe("utils class tests", () => {
             expect(copy_ran).toHaveProperty("temp_path")
             expect(copy_ran).toHaveProperty("final_path")
             expect(copy_ran.ok).toBe(true)
-            expect(copy_ran.message).toBe(`${mock_answer.project_name} created`)
+            expect(copy_ran.message).toMatch(`${mock_answer.project_name} created`)
         })
         it("moveWorker should return success", async () => {
             let move_ran: BaseResponse = await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
@@ -65,7 +77,7 @@ describe("utils class tests", () => {
             expect(move_ran).toHaveProperty("message")
             expect(move_ran).toHaveProperty("ok")
             expect(move_ran.ok).toBe(true)
-            expect(move_ran.message).toBe(`${new_dir} populated with relevant files`)
+            expect(move_ran.message).toMatch(`${new_dir} populated with relevant files`)
         })
         it("valueReplace should return ok", async () => {
             let replace_ran: BaseResponse = await Utils.valueReplace(mock_vals)
@@ -74,8 +86,8 @@ describe("utils class tests", () => {
             expect(replace_ran).toHaveProperty("message")
             expect(replace_ran).toHaveProperty("ok")
             expect(replace_ran.ok).toBe(true)
-            expect(replace_ran.message).toBe(`replaced all occurences`)
-        })        
+            expect(replace_ran.message).toMatch(`replaced all occurences`)
+        })
         it("writeOutConfigFile should return success", async () => {
             let move_ran: BaseResponse = await Utils.writeOutConfigFile("/tmp/foo.json", "my-app.config.json")
             expect(mockCopy).toHaveBeenCalled()
@@ -84,6 +96,16 @@ describe("utils class tests", () => {
             expect(move_ran).toHaveProperty("ok")
             expect(move_ran.ok).toBe(true)
             expect(move_ran.message).toMatch(`Sample config placed in current directory`)
+        })
+
+        it("doGitClone should return success", async () => {
+            let git_ran: BaseResponse = await Utils.doGitClone("https://git.repo/sample.git", temp_dir, "src/sample-test", "1234234523ew0ew0j8ewr0u8ewr80")
+            expect(gitP(temp_dir).clone).toHaveBeenCalledWith("https://git.repo/sample.git", `${temp_dir}/src/sample-test`, ["-n"])
+            expect(gitP(temp_dir).checkout).toHaveBeenCalledWith("1234234523ew0ew0j8ewr0u8ewr80")
+            expect(git_ran).toHaveProperty("message")
+            expect(git_ran).toHaveProperty("ok")
+            expect(git_ran.ok).toBe(true)
+            expect(git_ran.message).toMatch("Git Cloned from repo and checked out on specified head")
         })
 
         it("copyFilter should return true for node_modules", () => {
@@ -103,10 +125,9 @@ describe("utils class tests", () => {
         })
         it("copyWorker should return a code of ENOENT when error occurs", async () => {
             mockCopy.mockImplementationOnce(() => {
-                throw {code: "ENOENT", message: new Error("Something weird happened")}
+                throw { code: "ENOENT", message: new Error("Something weird happened") }
             });
             let copy_ran = await Utils.prepBase(mock_answer.project_name)
-            // expect(async () => { await Utils.copyWorker(mock_answer.project_name)}).rejects.toThrow(TempCopy)
             expect(mockCopy).toHaveBeenCalled()
             expect(copy_ran).toHaveProperty("code")
             expect(copy_ran.code).toBe("ENOENT")
@@ -116,10 +137,9 @@ describe("utils class tests", () => {
         })
         it("writeOutConfigFile should return a code of ENOENT when error occurs", async () => {
             mockCopy.mockImplementationOnce(() => {
-                throw {code: "ENOENT", message: new Error("Something weird happened")}
+                throw { code: "ENOENT", message: new Error("Something weird happened") }
             });
             let copy_ran = await Utils.writeOutConfigFile("/tmp/foo.json", "my-app.config.json")
-            // expect(async () => { await Utils.copyWorker(mock_answer.project_name)}).rejects.toThrow(TempCopy)
             expect(mockCopy).toHaveBeenCalled()
             expect(copy_ran).toHaveProperty("code")
             expect(copy_ran.code).toBe("ENOENT")
@@ -127,12 +147,21 @@ describe("utils class tests", () => {
             expect(copy_ran.message).toBeInstanceOf(Error)
             expect(copy_ran.ok).toBe(false)
         })
+        it("doGitClone should return a code when error occurs", async () => {
+            gitP(temp_dir).clone = jest.fn().mockImplementationOnce(() => {
+                throw { code: -127, message: new Error("Something weird happened") }
+            });
+            let git_ran: BaseResponse = await Utils.doGitClone("https://git.repo/sample.git", temp_dir, "src/sample-test", "1234234523ew0ew0j8ewr0u8ewr80")
+            expect(git_ran).toHaveProperty("code")
+            expect(git_ran.code).toBe(-127)
+            expect(git_ran).toHaveProperty("error")
+            expect(git_ran.ok).toBe(false)
+        })
         it("moveWorker should return a code of ENOENT when error occurs", async () => {
             mockMove.mockImplementationOnce(() => {
-                throw {code: "ENOENT", message: new Error("Something weird happened")}
+                throw { code: "ENOENT", message: new Error("Something weird happened") }
             });
             let move_ran = await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
-            // expect(async () => { await Utils.copyWorker(mock_answer.project_name)}).rejects.toThrow(TempCopy)
             expect(mockMove).toHaveBeenCalled()
             expect(move_ran).toHaveProperty("code")
             expect(move_ran.code).toBe("ENOENT")
@@ -142,7 +171,7 @@ describe("utils class tests", () => {
         })
         it("valueReplace returns a structured error object", async () => {
             mockReplace.mockImplementationOnce(() => {
-                throw {code: "ENOENT", message: new Error("Something weird happened")}
+                throw { code: "ENOENT", message: new Error("Something weird happened") }
             });
             let replace_ran: BaseResponse = await Utils.valueReplace(mock_vals)
             expect(mockReplace).toHaveBeenCalled()

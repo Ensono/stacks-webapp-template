@@ -1,7 +1,7 @@
 import { FlowSelector } from '../../domain/selectors'
 import { CliAnswerModel } from '../../domain/model/prompt_answer'
 import { MainWorker } from '../../domain/workers/main_worker'
-import { CliError, SsrAdoResponse } from '../../domain/model/workers'
+import { CliError, CliResponse } from '../../domain/model/workers'
 
 let mock_answer_ssr_aks_tfs = <CliAnswerModel>{
     project_name: "foo",
@@ -32,7 +32,7 @@ describe("selector class tests", () => {
     describe("Negative assertions", () => {
         it("should return a code of -1 when error occurs", async () => {
             MainWorker.prototype.ssr_aks_tfs = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(<SsrAdoResponse>{ok: false, code: -1, error: new Error("Something weird happened") as CliError});
+                return Promise.resolve(<CliResponse>{ok: false, code: -1, error: new Error("Something weird happened") as CliError});
             });
             let selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer_ssr_aks_tfs)
             expect(selectedFlow).toHaveProperty("ok")
