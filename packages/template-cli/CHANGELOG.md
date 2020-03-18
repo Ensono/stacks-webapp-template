@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.1](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.14.0...@amidostacks/scaffolding-cli@1.14.1) (2020-03-18)
+
+
+### Bug Fixes
+
+* removed completion() ([4d43487](https://github.com/amido/stacks-webapp-template/commit/4d434870168db3905c4fbc798edf791b53eed1d7))
+
+
+
+
+
 # [1.14.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.14.0) (2020-03-18)
 
 
