@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.13.0) (2020-03-18)
+
+
+### Bug Fixes
+
+* bugs on create page ([#86](https://github.com/amido/stacks-webapp-template/issues/86)) ([07903bb](https://github.com/amido/stacks-webapp-template/commit/07903bbb35c4650a1f3d714a1222d258fd8ca074))
+* tests and more decoupled logic ([2921c8c](https://github.com/amido/stacks-webapp-template/commit/2921c8c64ea588714e2ed3aa7bd30648a9086b79))
+* tests for extended cli ([#84](https://github.com/amido/stacks-webapp-template/issues/84)) ([dc34156](https://github.com/amido/stacks-webapp-template/commit/dc341567adcbdc7d3df3d94cd1b8ef5d5f7c4d79))
+
+
+### Features
+
+* create page route ([#79](https://github.com/amido/stacks-webapp-template/issues/79)) ([7adf6f4](https://github.com/amido/stacks-webapp-template/commit/7adf6f40793abec85baa24fc25e20b01e661c692))
+
+
+
+
+
 ## [1.12.5](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.4...@amidostacks/scaffolding-cli@1.12.5) (2020-03-13)
 
 **Note:** Version bump only for package @amidostacks/scaffolding-cli
