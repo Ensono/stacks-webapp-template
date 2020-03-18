@@ -80,7 +80,7 @@ stages:
               docker_build: true
               # TODO: normalize this
               docker_build_additional_args: "."
-              docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$($(self_repo_src)
+              docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
               docker_containerregistryname: $(docker_container_registry_name)
@@ -94,7 +94,7 @@ stages:
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Testing Config
               unit_test: true
-              project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$($(self_repo_src)
+              project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
