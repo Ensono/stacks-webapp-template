@@ -175,14 +175,21 @@ stages:
                     secureFile: ""
                     # ReleaseNote Information
                     releasenote: false
-
-                # Functional tests running on deployed webapp
-                - ${{ if eq(variables.testcafe_e2e_test, true) }}:
-                    - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
-                      parameters:
-                        testcafe_e2e_env_vars:
-                          APP_BASE_URL: "http://dev.amidostacks.com"
-                          MENU_API_URL: "http://dev.amidostacks.com/api/menu"
-                          APP_BASE_PATH: "/web/stacks"
-                          NODE_ENV: test
-                        testcafe_workdir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/test/testcafe
+            on:
+              success:
+                pool:
+                  vmImage: windows-2019
+                steps:
+                  - checkout: self
+                  - checkout: templates
+                  # Functional tests running on deployed webapp
+                  - ${{ if eq(variables.testcafe_e2e_test, true) }}:
+                      - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
+                        parameters:
+                          testcafe_e2e_env_vars:
+                            APP_BASE_URL: "http://dev.amidostacks.com"
+                            MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                            APP_BASE_PATH: "/web/stacks"
+                            NODE_ENV: test
+                          testcafe_workdir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/test/testcafe
+                          testcafe_browser_list: "all"
