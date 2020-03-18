@@ -74,7 +74,7 @@ stages:
             target: k8s_deploy
           # BUILD NPM
           # TODO: change this to steps and feed upstream
-          - template: templates/v2/steps/build-node.yml
+          - template: templates/steps/build-node.yml
             parameters:
               # Docker Config
               build_on_server: false
