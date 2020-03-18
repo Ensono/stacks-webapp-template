@@ -22,7 +22,7 @@ fixture`home`.page`${url}`
 
 const menuList = Selector("[data-testid=results]")
 test("Returns the Latest menus component", async t => {
-    await t.expect(menuList.innerText).contains("Breakfast Menu")
+    await t.expect(menuList.innerText).contains("Breakfast Menusss")
 })
 
 test("Create a new Yumido menu", async t => {

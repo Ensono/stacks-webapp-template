@@ -27,13 +27,24 @@ npm run lint
 npm test:e2e
 ```
 
-This should launch [TestCafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and run the tests in the browsers specified in [.testcaferc.json](./.testcaferc.json) in headless.
+This should launch [TestCafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and run the tests in the browsers specified in [.testcaferc.json](./.testcaferc.json) in headless mode.
+
+## Browser configuration
+
+We assume that most users will have Chrome installed on their operating system. If this is not the case, the base configuration file  
+  "browsers": [
+    "chrome:headless",
+    "firefox:headless"
+  ],
 
 To bypass the browser config in the [.testcaferc.json](./.testcaferc.json) config file, simply run passing in the browser arg:
 
 ```bash
-npm run test:e2e chrome
+npm run test:e2e -- chrome
 ```
+
+See [browsers](https://devexpress.github.io/testcafe/documentation/using-testcafe/common-concepts/browsers/) for more information.
+
 
 ## Environment variables
 
@@ -45,8 +56,7 @@ _Important: if you have defined an environment varibale, then `dotenv` will not 
 - Base URL: `process.env.APP_BASE_URL` (defaults to deployed dev environment `http://dev.amidostacks.com`)
 - Base URL: `process.env.APP_BASE_PATH` (optional, default to deployed dev environment `/web/stacks`)
 - Base URL API: `process.env.MENU_API_URL` (defaults to deployed dev environment `http://dev.amidostacks.com/api/menu`)
-- PORT: `process.env.PORT` (defaults to deployed dev environment `""`)
-- NODE_ENV: `process.env.NODE_ENV` (defaults to test `""`)
+- NODE_ENV: `process.env.NODE_ENV` (should be `production` for a deployed runnable webapp)
 
 An example of your environment varibale configuration for running against a locally hosted server:
 ``` bash
@@ -57,12 +67,13 @@ export MENU_API_URL=http://dev.amidostacks.com/api/menu
 export APP_BASE_PATH=""
 ```
 
+Alternately, an example of your environment varibale configuration for running against a deployed webapp instance:
+
 ```bash
+export NODE_ENV=production
 export APP_BASE_URL=http://dev.amidostacks.com \
 export APP_BASE_PATH=/web/stacks \
 export MENU_API_URL=http://dev.amidostacks.com/api/menu \
-export PORT= \
-export NODE_ENV=test
 ```
 
 ## Running tests in Docker
@@ -87,3 +98,4 @@ docker run -e APP_BASE_URL=$APP_BASE_URL -e APP_BASE_PATH=$APP_BASE_PATH -e MENU
 ### Running in CI/CD
 
 Currently, we are supporting running Azure Pipelines. Please refer to the [test-functional-testcafe.yml](https://github.com/amido/stacks-pipeline-templates/blob/feature/cycle2/azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml)
+
