@@ -9,7 +9,6 @@ import chalk from 'chalk'
 async function cliCommand(argv: CliOptions) {
     try {
         const default_project_name = basename(resolve(process.cwd()));
-        // let argv = giveMeArgs()
         let response: ExitMessage = <ExitMessage>{}
 
         if (argv.configfile) {
@@ -75,15 +74,7 @@ yargs
     .example('scaffolding-cli run', 'Run Scaffolding CLI with interactive prompts')
     .showHelpOnFail(true)
     .completion()
-    // .showHelp()
     .demandCommand()
     .epilog("Thanks")
-    // .demandOption("", "Either -c or -i is required")
     .help()
-    // .check(input => {
-    //     if (!input.interactive || !input.configfile) {
-    //         return true
-    //     }
-    // })
-    // .choices()
     .argv;

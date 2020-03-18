@@ -35,3 +35,9 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
     ]
 }
 
+export const response_message = (project_name: string): string  => {
+    return `Your directory has been created, you can now: \n
+---- \n
+cd ${project_name}/src && npm install && npm run stuff \n
+---- \n`
+}

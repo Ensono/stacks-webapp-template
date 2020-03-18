@@ -1,5 +1,5 @@
 /// <reference types="jest" />
-import { PromptAnswer } from '../../../domain/model/prompt_answer'
+import { PromptAnswer, CliAnswerModel } from '../../../domain/model/prompt_answer'
 import { CliResponse, BaseResponse, TempCopy } from '../../../domain/model/workers'
 import { Utils, copyFilter } from '../../../domain/workers/utils';
 import * as fse from 'fs-extra'
@@ -32,6 +32,13 @@ let mock_answer = <PromptAnswer>{
     deployment: "tfs"
 }
 
+let mock_cli_answer_model = <CliAnswerModel>{
+    project_name: "foo",
+    project_type: "boo",
+    platform: "az",
+    deployment: "tfs"
+}
+
 let ssr_tfs_aks: Array<FolderMap> = [
     { src: 'shared', dest: '' },
     { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
@@ -50,14 +57,11 @@ let worker_response = <CliResponse>{
     ok: true
 }
 
-// let mockGit = gitP(temp_dir)
-
 describe("utils class tests", () => {
     beforeEach(() => {
         mockCopy.mockClear()
         mockMove.mockClear()
         mockReplace.mockClear()
-        // mockClone.mockClear()
     })
     describe("Positive assertions", () => {
         it("copyWorker should return success", async () => {
@@ -89,7 +93,7 @@ describe("utils class tests", () => {
             expect(replace_ran.message).toMatch(`replaced all occurences`)
         })
         it("writeOutConfigFile should return success", async () => {
-            let move_ran: BaseResponse = await Utils.writeOutConfigFile("/tmp/foo.json", "my-app.config.json")
+            let move_ran: BaseResponse = await Utils.writeOutConfigFile("/tmp/foo.json", mock_cli_answer_model)
             expect(mockCopy).toHaveBeenCalled()
             expect(mockCopy).toHaveBeenCalledTimes(1)
             expect(move_ran).toHaveProperty("message")
@@ -125,7 +129,7 @@ describe("utils class tests", () => {
         })
         it("copyWorker should return a code of ENOENT when error occurs", async () => {
             mockCopy.mockImplementationOnce(() => {
-                throw { code: "ENOENT", message: new Error("Something weird happened") }
+                throw { code: "ENOENT", message: new Error("File Not found") }
             });
             let copy_ran = await Utils.prepBase(mock_answer.project_name)
             expect(mockCopy).toHaveBeenCalled()
@@ -139,7 +143,7 @@ describe("utils class tests", () => {
             mockCopy.mockImplementationOnce(() => {
                 throw { code: "ENOENT", message: new Error("Something weird happened") }
             });
-            let copy_ran = await Utils.writeOutConfigFile("/tmp/foo.json", "my-app.config.json")
+            let copy_ran = await Utils.writeOutConfigFile("/tmp/foo.json", mock_cli_answer_model)
             expect(mockCopy).toHaveBeenCalled()
             expect(copy_ran).toHaveProperty("code")
             expect(copy_ran.code).toBe("ENOENT")

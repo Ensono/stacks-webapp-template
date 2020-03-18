@@ -38,7 +38,7 @@ Please re-run the CLI with the following command. \n
 ----- \n
 npx @amido-stacks/scaffolding-cli run -c sample.bootstrap-config.json \n
 ----- \n
-NB: IF you haven't gone through the advanced setup - plese ensure you have replaced all the relevant values.
+NB: IF you haven't gone through the advanced setup - please ensure you have replaced all the relevant values.
 `
         return exitMessage;
     } catch (ex) {
@@ -97,20 +97,7 @@ async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {
 
     const workflows: Workflow = WorkflowOptions()
     try {
-//         if (selection.create_config) {
-//             // keeping it simple for now
-//             // writing out sample config without value replacement for now
-//             await Utils.writeOutConfigFile(resolve(__dirname, 'config/sample.bootstrap-config.json'), `${selection.project_name}.bootstrap-config.json`)
-//             console.log(chalk.yellowBright(
-// `Sample config file has been written out to current directory \n
-// Please re-run the CLI with the following command. \n
-// ----- \n
-// npx @amido-stacks/scaffolding-cli ${selection.project_name}.bootstrap-config.json \n
-// ----- \n
-// NB: IF you haven't gone through the advanced setup - plese ensure you have replaced all the relevant values.
-// `
-//             ))
-//         }
+
         let response = await workflows[determined_choice](selection)
         exitMessage.code = response.code
         exitMessage.message = response.message

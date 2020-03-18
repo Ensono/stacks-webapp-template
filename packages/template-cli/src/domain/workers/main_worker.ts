@@ -1,12 +1,10 @@
 import { CliAnswerModel } from '../model/prompt_answer'
-import { CliResponse, CliError, TempCopy, ConfigResponse } from '../model/workers'
+import { CliResponse, CliError, TempCopy } from '../model/workers'
 import { Utils } from './utils'
-import { Replacetruct, buildReplaceFoldersAndVals, BuildReplaceInput, replaceGeneratedConfig } from '../config/file_mapper'
-import {ssr, netcore, java_spring, csr } from '../config/worker_maps'
+import { Replacetruct, buildReplaceFoldersAndVals, BuildReplaceInput } from '../config/file_mapper'
+import {ssr, netcore, java_spring, csr, shared } from '../config/worker_maps'
 import conf from  '../config/static.config.json'
 import { Static } from '../model/config'
-import { resolve } from 'path'
-import { response_message } from '../config/worker_maps/ssr_aks_tfs'
 
 let staticConf: Static = conf as Static;
 
@@ -35,7 +33,7 @@ export class MainWorker {
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = response_message(instructions.project_name)
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, ssr.response_message(instructions.project_name), instructions.create_config)
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError
@@ -62,14 +60,14 @@ export class MainWorker {
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput)
 
             await Utils.valueReplace(val_maps)
+            if (instructions.create_config) {
+                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
+            }
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = 
-`Your directory has been created, you can now: \n
----- \n
-cd ${instructions.project_name}/src && export ASPNETCORE_ENVIRONMENT=Development && dotnet clean && dotnet restore && dotnet build && dotnet run \n
----- \n`
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, netcore.response_message(instructions.project_name), instructions.create_config)
+
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError
@@ -97,15 +95,15 @@ cd ${instructions.project_name}/src && export ASPNETCORE_ENVIRONMENT=Development
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput)
 
             await Utils.valueReplace(val_maps)
-
+           
+            if (instructions.create_config) {
+                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
+            }
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = 
-`Your directory has been created, you can now: \n
----- \n
-cd ${instructions.project_name}/src && gradle build && gradle run \n
----- \n`
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, java_spring.response_message(instructions.project_name), instructions.create_config)
+
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError
@@ -133,14 +131,15 @@ cd ${instructions.project_name}/src && gradle build && gradle run \n
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput)
 
             await Utils.valueReplace(val_maps)
+
+            if (instructions.create_config) {
+                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
+            }
+
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = 
-`Your directory has been created, you can now: \n
----- \n
-cd ${instructions.project_name}/src && npm install && npm run stuff \n
----- \n`
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, csr.response_message(instructions.project_name), instructions.create_config)
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError

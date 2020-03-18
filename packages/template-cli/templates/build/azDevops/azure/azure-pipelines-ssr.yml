@@ -10,13 +10,14 @@ trigger:
     include:
       - packages/template-cli/templates/*
 
-###### PART OF AMIDO-STACKS
 resources:
   repositories:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
       ref: feature/cycle2
+      # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
+      # REPOSITORY IS PUBLIC 
       endpoint: amidostacks
 
   containers:
@@ -80,7 +81,7 @@ stages:
             target: k8s_deploy
           # BUILD NPM
           # TODO: change this to steps and feed upstream
-          - template: azDevOps/azure/templates/v2/steps/build-node.yml@templates
+          - template: templates/v2/steps/build-node.yml
             parameters:
               # Docker Config
               build_on_server: false

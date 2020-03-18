@@ -27,7 +27,7 @@ describe("file_mapper tests", () => {
     it("computedSelection should return an array of objects and undefined item should return %REPLACE_ME%", () => {
         let test: CliAnswerModel = computedSelection(mock_answers)
         expect(test).toHaveProperty("business")
-        expect(test.business.project).toBe("%REPLACE_ME%")
+        expect(test.business.project).toMatch("REPLACE_ME")
     })
     
 })

@@ -20,10 +20,19 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
             files: ["**/*.yml"],
             values: {
                 "amido-stacks-webapp": business_obj?.company || "default",
+                "src/ssr": "src",
+                "- packages/template-cli/templates/": "- ",
+                "stacks-webapp-template/packages/template-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
+                "amido-stacks-dev-cycle2": cloud_obj?.resource_group || "default"
+                // "packages/template-cli/templates/*": ""
+            }
+        },
+        {
+            files: ["**/vars.tf"],
+            values: {
                 "replace_project_name": business_obj?.project || "default",
                 "replace_component_name": business_obj?.component || "default",
                 "replace_azure_location": cloud_obj?.region || "uksouth",
-                "stacks-webapp-template/packages/template-cli/templates/src/ssr": "git_object?/src"
             }
         }
     ]

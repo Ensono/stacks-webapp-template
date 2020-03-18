@@ -9,8 +9,20 @@
         "dest": "./"
       },
       {
-        "src": "build/azDevops/azure",
-        "dest": "build/azDevops/azure"
+        "src": "build/azDevops/azure/k8s_manifests",
+        "dest": "build/azDevops/azure/k8s_manifests"
+      },
+      {
+        "src": "build/azDevops/azure/templates",
+        "dest": "build/azDevops/azure/templates"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipelines-ssr.yml",
+        "dest": "build/azDevops/azure/app-pipeline.yml"
+      },
+      {
+        "src": "build/azDevops/azure/infrastructure-shared-services.yml",
+        "dest": "build/azDevops/azure/infra-pipeline.yml"
       },
       {
         "src": "deploy/azure/ssr",

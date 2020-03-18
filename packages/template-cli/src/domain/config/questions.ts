@@ -11,16 +11,16 @@ export function computedSelection(cliOrConfigAnswer: PromptAnswer): CliAnswerMod
         advanced_config: cliOrConfigAnswer.advanced_config,
         create_config: cliOrConfigAnswer.create_config,
         business: {
-            company: cliOrConfigAnswer?.business_company || "%REPLACE_ME%",
-            project: cliOrConfigAnswer?.business_project || "%REPLACE_ME%",
-            component: cliOrConfigAnswer?.business_component ||  "%REPLACE_ME%",
+            company: cliOrConfigAnswer?.business_company || "COMPANY_REPLACE_ME",
+            project: cliOrConfigAnswer?.business_project || "PROJECT_REPLACE_ME",
+            component: cliOrConfigAnswer?.business_component ||  "COMPONENT_REPLACE_ME",
         },
         cloud: {
-            resource_group: cliOrConfigAnswer?.cloud_resource_group || "%REPLACE_ME%",
-            region: cliOrConfigAnswer?.cloud_region || "%REPLACE_ME%"
+            resource_group: cliOrConfigAnswer?.cloud_resource_group || "RG_REPLACE_ME",
+            region: cliOrConfigAnswer?.cloud_region || "REGION_REPLACE_ME"
         },
         terraform: { 
-            backend_storage: cliOrConfigAnswer?.terraform_backend_storage || "%REPLACE_ME%"
+            backend_storage: cliOrConfigAnswer?.terraform_backend_storage || "BACKEND_STORAGE_REPLACE_ME"
         }
     }
 }
