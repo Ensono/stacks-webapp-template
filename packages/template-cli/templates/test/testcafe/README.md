@@ -57,6 +57,14 @@ export MENU_API_URL=http://dev.amidostacks.com/api/menu
 export APP_BASE_PATH=""
 ```
 
+```bash
+export APP_BASE_URL=http://dev.amidostacks.com \
+export APP_BASE_PATH=/web/stacks \
+export MENU_API_URL=http://dev.amidostacks.com/api/menu \
+export PORT= \
+export NODE_ENV=test
+```
+
 ## Running tests in Docker
 
 In order to be able to run these tests across environments and as part of CI, we need to use Docker to run them.
@@ -64,13 +72,18 @@ In order to be able to run these tests across environments and as part of CI, we
 ### Build
 
 ```bash
-docker build -t {{IMAGENAME}} .
+npm install
 ```
 
 ### Run
-
-You can use any of the available npm scripts, for example:
+```bash
+docker pull testcafe/testcafe:latest
+```
 
 ```bash
-docker run -e APP_BASE_URL=X -e APP_BASE_PATH=X -e MENU_API_URL=X {{IMAGENAME}} npm test:e2e
+docker run -e APP_BASE_URL=$APP_BASE_URL -e APP_BASE_PATH=$APP_BASE_PATH -e MENU_API_URL=$MENU_API_URL -e NODE_ENV=$NODE_ENV -it -v $(pwd):/tests testcafe/testcafe chromium /tests/**/*.test.cf.ts
 ```
+
+### Running in CI/CD
+
+Currently, we are supporting running Azure Pipelines. Please refer to the [test-functional-testcafe.yml](https://github.com/amido/stacks-pipeline-templates/blob/feature/cycle2/azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml)

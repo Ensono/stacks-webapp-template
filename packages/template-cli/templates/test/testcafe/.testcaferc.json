@@ -4,7 +4,7 @@
   "browsers": ["chrome:headless", "firefox:headless"],
   "reporter": {
     "name": "xunit",
-    "output": "testcafe-junit-test-report.xml"
+    "output": "testcafe-xunit-test-report.xml"
   },
   "engines": {
     "node": ">=12.0",
