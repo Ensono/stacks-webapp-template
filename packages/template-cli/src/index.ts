@@ -71,7 +71,7 @@ yargs
     .usage('Usage: npx @amidostacks/scaffolding-cli <command> [options]')
     .example('scaffolding-cli run -gsc', 'Dry run to only generate a sample config json')
     .example('scaffolding-cli run -c sample.bootstrap.config.json', 'Run Scaffolding CLI with a options specified in a config file')
-    .example('scaffolding-cli run', 'Run Scaffolding CLI with interactive prompts')
+    .example('scaffolding-cli run -i', 'Run Scaffolding CLI with interactive prompts')
     .showHelpOnFail(true)
     .completion()
     .demandCommand()
