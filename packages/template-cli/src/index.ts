@@ -73,7 +73,6 @@ yargs
     .example('scaffolding-cli run -c sample.bootstrap.config.json', 'Run Scaffolding CLI with a options specified in a config file')
     .example('scaffolding-cli run -i', 'Run Scaffolding CLI with interactive prompts')
     .showHelpOnFail(true)
-    .completion()
     .demandCommand()
     .epilog("Thanks")
     .help()
