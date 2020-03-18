@@ -11,24 +11,30 @@ export function computedSelection(cliOrConfigAnswer: PromptAnswer): CliAnswerMod
         advanced_config: cliOrConfigAnswer.advanced_config,
         create_config: cliOrConfigAnswer.create_config,
         business: {
-            company: cliOrConfigAnswer?.business_company || "%REPLACE_ME%",
-            project: cliOrConfigAnswer?.business_project || "%REPLACE_ME%",
-            component: cliOrConfigAnswer?.business_component ||  "%REPLACE_ME%",
+            company: cliOrConfigAnswer?.business_company || "COMPANY_REPLACE_ME",
+            project: cliOrConfigAnswer?.business_project || "PROJECT_REPLACE_ME",
+            component: cliOrConfigAnswer?.business_component ||  "COMPONENT_REPLACE_ME",
         },
         cloud: {
-            resource_group: cliOrConfigAnswer?.cloud_resource_group || "%REPLACE_ME%",
-            region: cliOrConfigAnswer?.cloud_region || "%REPLACE_ME%"
+            resource_group: cliOrConfigAnswer?.cloud_resource_group || "RG_REPLACE_ME",
+            region: cliOrConfigAnswer?.cloud_region || "REGION_REPLACE_ME"
         },
         terraform: { 
-            backend_storage: cliOrConfigAnswer?.terraform_backend_storage || "%REPLACE_ME%"
+            backend_storage: cliOrConfigAnswer?.terraform_backend_storage || "BACKEND_STORAGE_REPLACE_ME"
         }
     }
 }
 /**
  * Additional questions should be placed here as we are extending the program
  */
-export function cliQuestions(): Array<PromptQuestion> {
+export function cliQuestions(default_project_name: string): Array<PromptQuestion> {
     return [
+        {
+            "type": "text",
+            "name": "project_name",
+            "message": "Select Project Name (NB: Conform to language conventions - e.g. PascalCase for C# or snake_case for NodeJS)",
+            "initial": default_project_name
+        },
         {
             "type": "select",
             "name": "project_type",

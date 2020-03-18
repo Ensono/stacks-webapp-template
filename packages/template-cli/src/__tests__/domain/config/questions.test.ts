@@ -17,8 +17,8 @@ let mock_answers = <PromptAnswer>{
 
 describe("file_mapper tests", () => {
     it("cliQuestions should return an array of objects", () => {
-        let test: Array<PromptQuestion> = cliQuestions()
-        expect(test.length).toBe(5)
+        let test: Array<PromptQuestion> = cliQuestions(mock_answers.project_name)
+        expect(test.length).toBe(6)
     })
     it("cliAdvancedQuestions should return an array of objects", () => {
         let test: Array<PromptQuestion> = cliAdvancedQuestions()
@@ -27,7 +27,7 @@ describe("file_mapper tests", () => {
     it("computedSelection should return an array of objects and undefined item should return %REPLACE_ME%", () => {
         let test: CliAnswerModel = computedSelection(mock_answers)
         expect(test).toHaveProperty("business")
-        expect(test.business.project).toBe("%REPLACE_ME%")
+        expect(test.business.project).toMatch("REPLACE_ME")
     })
     
 })

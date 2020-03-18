@@ -8,16 +8,16 @@ trigger:
       - "*"
   paths:
     include:
-      # Amido Testing pipeline for E2E output of the CLI
       - packages/template-cli/templates/*
 
-###### PART OF AMIDO-STACKS
 resources:
   repositories:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
       ref: feature/cycle2
+      # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
+      # REPOSITORY IS PUBLIC 
       endpoint: amidostacks
 
   containers:
@@ -32,6 +32,9 @@ variables:
   company: amido
   project: stacks
   domain: webapp
+  # SelfConfig
+  self_repo: stacks-webapp-template/packages/template-cli/templates
+  self_repo_src: stacks-webapp-template/packages/template-cli/templates/src/ssr
   # Versioning
   version_major: 0
   version_minor: 0
@@ -40,13 +43,13 @@ variables:
   docker_dockerfile_path: "src/"
   docker_image_name: stacks-webapp
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
-  docker_container_registry_name: amidouksstacksacrdev
+  docker_container_registry_name: amidostacksdevcycle2
   # BUILD ARTIFACTS across stages
-  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/deploy/k8s/app
+  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
   build_artifact_deploy_name: stacks-webapp
   # AKS/AZURE
-  aks_clusterrg: amido-stacks-rg-uks-dev
-  aks_clustername: amido-stacks-aks-uks-dev
+  aks_clusterrg: amido-stacks-dev-cycle2
+  aks_clustername: amido-stacks-dev-cycle2
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -78,14 +81,14 @@ stages:
             target: k8s_deploy
           # BUILD NPM
           # TODO: change this to steps and feed upstream
-          - template: azDevOps/azure/templates/v2/steps/build-node.yml@templates
+          - template: templates/v2/steps/build-node.yml
             parameters:
               # Docker Config
               build_on_server: false
               docker_build: true
               # TODO: normalize this
               docker_build_additional_args: "."
-              docker_workdir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/src/ssr
+              docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo_src)
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
               docker_containerregistryname: $(docker_container_registry_name)
@@ -99,12 +102,12 @@ stages:
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
               unit_test: true
-              project_root_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/src/ssr
+              project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo_src)
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
-              cypress_e2e_test: true
-              cypress_e2e_env_vars:
+              e2e_test: true
+              e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
                 MENU_API_URL: "http://dev.amidostacks.com/api/menu"
@@ -131,7 +134,6 @@ stages:
         container: k8s_deploy
         variables:
           BaseURL: $(deployed_base_url)
-        # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
         environment: dev
@@ -168,54 +170,10 @@ stages:
                     docker_imagetag: $(docker_image_tag)
                     docker_containerregistryname: $(docker_container_registry_name)
                     # Mutation Information
-                    kubernetes_kustomize_filepath: "kustomization/dev"
+                    kubernetes_kustomize_filepath: kustomization/dev
                     kubernetes_docker_registry: $(docker_container_registry_name).azurecr.io
                     appinsights_enabled: false
                     appinsights_accountName: ""
                     secureFile: ""
                     # ReleaseNote Information
                     releasenote: false
-# - stage: dev
-#   variables:
-#   - group: amido-stacks-infra-credentials-nonprod
-#   - group: amido-stacks-webapp
-#   jobs:
-#   - deployment: DeployDev
-#     dependsOn: ""
-#     variables:
-#       BaseURL: $(deployed_base_url)
-#     pool:
-#       vmImage: ubuntu-18.04
-#     environment: dev
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           # Deploy Dev
-#           # TODO: change this to steps and feed upstream
-#           - template: templates/steps/deploy-node.yml
-#             parameters:
-#               environment: 'dev'
-#               devops_artefact_name: '$(devops_artefact_name)'
-#               download_deploy_artefact: true
-#               deploy_artifact_name: $(build_artifact_deploy_name)
-#               test_artefact: 'tests'
-#               test_baseurl: ''
-#               functional_test: false
-#               performance_test: false
-#               smoke_test: false
-#               # Kubernetes Config
-#               kubernetes_clusterrg: 'amido-stacks-rg-uks-dev'
-#               kubernetes_clustername: 'amido-stacks-aks-uks-dev'
-#               kubernetes_image: stacks-webapp-app-image
-#               docker_imagename: $(docker_image_name)
-#               docker_imagetag: $(docker_image_tag)
-#               docker_containerregistryname: $(docker_container_registry_name)
-#               # Mutation Information
-#               kubernetes_kustomize_filepath: 'kustomization/dev'
-#               kubernetes_docker_registry: $(docker_container_registry_name).azurecr.io
-#               appinsights_enabled: false
-#               appinsights_accountName: ''
-#               secureFile: ''
-#               # ReleaseNote Information
-#               releasenote: false

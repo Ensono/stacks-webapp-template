@@ -1,19 +1,5 @@
-import { FolderMap, BuildReplaceInput } from "../file_mapper"
+import { BuildReplaceInput } from "../file_mapper"
 import { BusinessSection, CloudSection } from "../../model/prompt_answer"
-
-/**
- * Statically assign the folder mapping from temp to templated out directory
- */
-export const to_folders = (): Array<FolderMap> =>  {
-    return [
-        { src: 'shared', dest: './' },
-        { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
-        { src: 'deploy/azure/ssr', dest: 'deploy/azure' },
-        { src: 'deploy/k8s', dest: 'deploy/k8s' },
-        { src: 'docs', dest: 'docs' },
-        { src: 'src/java_spring/complete', dest: 'src' }
-    ]
-}
 
 /**
  * 
@@ -40,4 +26,11 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
             }
         }
     ]
+}
+
+export const response_message = (project_name: string): string  => {
+    return `Your directory has been created, you can now: \n
+---- \n
+cd ${project_name}/src && gradle build && gradle run \n
+---- \n`
 }

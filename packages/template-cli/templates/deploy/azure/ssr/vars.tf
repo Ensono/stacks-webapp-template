@@ -8,18 +8,18 @@
 
 variable "name_company" {
   type    = string
-  default = "replace_company"
+  default = "replace_company_name"
 }
 
 variable "name_project" {
   type    = string
-  default = "replace_project"
+  default = "replace_project_name"
 
 }
 
 variable "name_component" {
   type    = string
-  default = "replace_component"
+  default = "replace_component_name"
 }
 
 variable "stage" {
@@ -34,23 +34,6 @@ variable "attributes" {
 variable "tags" {
   type    = map(string)
   default = {}
-}
-
-# Each region must have corresponding a shortend name for resource naming purposes
-variable "location_name_map" {
-  type = map(string)
-
-  default = {
-    northeurope   = "eun"
-    westeurope    = "euw"
-    uksouth       = "uks"
-    ukwest        = "ukw"
-    eastus        = "use"
-    eastus2       = "use2"
-    westus        = "usw"
-    eastasia      = "ase"
-    southeastasia = "asse"
-  }
 }
 
 ############################################

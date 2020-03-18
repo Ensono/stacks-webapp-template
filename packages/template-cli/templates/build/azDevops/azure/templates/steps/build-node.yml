@@ -1,0 +1,162 @@
+parameters:
+  pool:
+    vmImage: "ubuntu-latest"
+  versionSpec: 12.x
+  project_root_dir: ""
+  dependsOn: "GetPackage"
+  download_devops: true
+  # Custom registry (eg. private)
+  customRegistry: ""
+  # Docker Config
+  docker_build: true
+  docker_build_additional_args: ""
+  docker_workdir: ""
+  docker_imagename: ""
+  docker_imagetag: ""
+  docker_containerregistryname: ""
+  # Vulnerability Scanning
+  vulnerability_scan: false
+  vulnerability_workdir: ""
+  #  Static Code Analysis
+  static_code_analysis: false
+  static_code_analysis_build_path: ""
+  Sonar_serviceConnection: ""
+  Sonar_organization: ""
+  Sonar_scannerMode: ""
+  Sonar_projectKey: ""
+  Sonar_projectName: ""
+  Sonar_projectVersion: ""
+  # Linting and formatting validation
+  lint_formatting: ""
+  shared_eslint_config: ""
+  # Testing
+  unit_test: true
+  contract_test: true
+  audit_test: false
+  contract_check_can_deploy: false
+  cypress_e2e_test: true
+  cypress_e2e_env_vars: {}
+  # Build File Output
+  build_file: false
+  build_on_server: false
+  build_file_path: ""
+  build_file_artefact: ""
+  # build output defaults
+  git_do_tag_release: false
+  git_release_tag: ""
+
+steps:
+  # Login to Azure/AKS
+  - template: ./login-services.yml
+    parameters:
+      azure_tenant_id: "$(azure_tenant_id)"
+      azure_subscription_id: "$(azure_subscription_id)"
+      azure_client_id: "$(azure_client_id)"
+      azure_client_secret: "$(azure_client_secret)"
+      login_azure: true
+
+  # Audit dependencies
+  # Important: Down to the user to ensure that the registry they are using
+  # can support `npm audit`
+  - ${{ if eq(parameters.audit_test, true) }}:
+      - template: ./build-audit-dependencies-node.yml
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          workingDirectory: ${{ parameters.project_root_dir }}
+          customRegistry: ${{ parameters.customRegistry }}
+
+  # Install dependencies
+  - template: ./build-install-dependencies-node.yml
+    parameters:
+      versionSpec: ${{ parameters.versionSpec }}
+      workingDirectory: ${{ parameters.project_root_dir }}
+      customRegistry: ${{ parameters.customRegistry }}
+
+  # Linting and formatting validation
+  - ${{ if eq(parameters.lint_formatting, true) }}:
+      - template: ./test-static-validate-node.yml
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          workingDirectory: ${{ parameters.project_root_dir }}
+          lintingSharedConfigPackage: ${{ parameters.shared_eslint_config }}
+          customRegistry: ${{ parameters.customRegistry }}
+
+  # Linting and unit tests
+  - ${{ if eq(parameters.unit_test, true) }}:
+      - template: ./test-unit-node.yml
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # SonarCloud
+  - ${{ if eq(parameters.static_code_analysis, true) }}:
+      - template: ./test-static-code-sonar.yml
+        parameters:
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Consumer driven contract tests
+  - ${{ if eq(parameters.contract_test, true) }}:
+      - template: ./test-contract-pact.yml
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          build_number: ${{ parameters.docker_imagetag }}
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Check with Pact broker if safe to proceed with deployment (breaking contract changes)
+  - ${{ if and(eq(parameters.contract_test, true), eq(parameters.contract_check_can_deploy, true)) }}:
+      - template: ./deploy-contract-pact-can-deploy.yml
+        parameters:
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Functional tests running on locally built and hosted (undeployed)
+  - ${{ if eq(parameters.cypress_e2e_test, true) }}:
+      - template: ./test-functional-cypress.yml
+        parameters:
+          env_vars: ${{ parameters.cypress_e2e_env_vars}}
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # STEP build NPM for Azure registry
+  - ${{ if eq(parameters.build_on_server, true) }}:
+      - task: Npm@1
+        displayName: Build on ADO using custom feeds
+        inputs:
+          # Options: install, publish, custom
+          command: "custom"
+          customCommand: "ci --only=prod"
+          workingDirectory: ${{ parameters.project_root_dir }}
+          customRegistry: ${{ parameters.customRegistry }}
+
+  # Build Docker Image, Scan and Push to Repository
+  - ${{ if eq(parameters.docker_build, true) }}:
+      - template: ./build-container-image.yml
+        parameters:
+          workingDirectory: ${{ parameters.docker_workdir }}
+          docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
+          docker_imagename: ${{ parameters.docker_imagename }}
+          docker_imagetag: ${{ parameters.docker_imagetag }}
+          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
+
+  # Build Docker Image, Scan and Push to Repository
+  - ${{ if eq(parameters.git_do_tag_release, true) }}:
+      - bash: |
+          git config --global user.email "williamayerst@github.com"
+          git config --global user.name "williamayerst"
+          git tag -a v${{ parameters.git_release_tag }} -m "CI generate"
+          git push origin v${{ parameters.git_release_tag }}
+        displayName: Git Tag release
+        workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Publish Artefacts if required
+  - ${{ if eq(parameters.functional_test, true) }}:
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish: Functional Tests Artifact"
+        inputs:
+          path: "${{ parameters.functional_test_path }}"
+          artifact: "${{ parameters.functional_test_artefact }}"
+
+  - ${{ if eq(parameters.build_file, true) }}:
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish: Build Artefacts"
+        inputs:
+          path: "${{ parameters.build_file_path }}"
+          artifact: "${{ parameters.build_file_artefact }}"

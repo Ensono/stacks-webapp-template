@@ -8,7 +8,6 @@ trigger:
       - "*"
   paths:
     include:
-      # Amido Testing pipeline for E2E output of the CLI
       - packages/template-cli/templates/*
 
 ###### PART OF AMIDO-STACKS
@@ -32,6 +31,9 @@ variables:
   company: amido
   project: stacks
   domain: webapp
+  # SelfConfig
+  self_repo: stacks-webapp-template/packages/template-cli/templates
+  self_repo_src: stacks-webapp-template/packages/template-cli/templates/src/ssr
   # Versioning
   version_major: 0
   version_minor: 0
@@ -42,7 +44,7 @@ variables:
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
   docker_container_registry_name: amidostacksdevcycle2
   # BUILD ARTIFACTS across stages
-  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/deploy/k8s/app
+  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
   build_artifact_deploy_name: stacks-webapp
   # AKS/AZURE
   aks_clusterrg: amido-stacks-dev-cycle2
@@ -85,7 +87,7 @@ stages:
               docker_build: true
               # TODO: normalize this
               docker_build_additional_args: "."
-              docker_workdir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/src/ssr
+              docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo_src)
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
               docker_containerregistryname: $(docker_container_registry_name)
@@ -99,12 +101,12 @@ stages:
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
               unit_test: true
-              project_root_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/src/ssr
+              project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo_src)
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
-              e2e_test: true
-              e2e_env_vars:
+              cypress_e2e_test: true
+              cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
                 MENU_API_URL: "http://dev.amidostacks.com/api/menu"
@@ -131,7 +133,6 @@ stages:
         container: k8s_deploy
         variables:
           BaseURL: $(deployed_base_url)
-        # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
         environment: dev
@@ -168,7 +169,7 @@ stages:
                     docker_imagetag: $(docker_image_tag)
                     docker_containerregistryname: $(docker_container_registry_name)
                     # Mutation Information
-                    kubernetes_kustomize_filepath: "kustomization/dev"
+                    kubernetes_kustomize_filepath: kustomization/dev
                     kubernetes_docker_registry: $(docker_container_registry_name).azurecr.io
                     appinsights_enabled: false
                     appinsights_accountName: ""

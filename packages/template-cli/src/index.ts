@@ -1,19 +1,80 @@
 #!/usr/bin/env node
+import yargs from 'yargs'
 import { basename, resolve } from 'path'
-import { ExitMessage } from './domain/model/cli_response'
-import { runCli } from './domain/prompt'
+import { ExitMessage, CliOptions } from './domain/model/cli_response'
+import { runCli, runConfig, generateSampleConfig } from './domain/prompt'
 import chalk from 'chalk'
 
-// main cli entry
-(async () => {
-    const default_project_name = basename(resolve(process.cwd()))
-    const args = process.argv
+
+async function cliCommand(argv: CliOptions) {
     try {
-        const response: ExitMessage = await runCli(default_project_name, args.slice(2))
+        const default_project_name = basename(resolve(process.cwd()));
+        let response: ExitMessage = <ExitMessage>{}
+
+        if (argv.configfile) {
+            // run with a config file
+            response = await runConfig(argv)
+        } else if (argv.generatesampleconfig) {
+            // generate sample config without value replaced
+            response = await generateSampleConfig()
+        } else if (argv.interactive) {
+            // run cli flow
+            response = await runCli(default_project_name, argv)
+        } else {
+            console.log(chalk.cyan(yargs.showHelp())) //"Please select an appropriate option"
+            return process.exit(0)
+        }
         console.log(chalk.cyan(response.message))
         return process.exit(0)
     } catch (ex) {
-        console.log(ex.message)
+        let exCaught = ex as ExitMessage
+        console.log(chalk.red(exCaught.code))
+        console.log(chalk.red(exCaught.message))
         return process.exit(ex.code || -1)
     }
-})()
+}
+
+// main cli entry
+yargs
+    .scriptName('@amidostacks/scaffolding-cli')
+    .command(
+        'run [options]',
+        // ['run-cli'],
+        'Run CLI with options',
+        {},
+        cliCommand
+    )
+    .options({
+        configfile: {
+            alias: ['c', 'conf'],
+            type: 'string',
+            nargs: 1,
+            demandOption: false,
+            describe: "Path to config file that will be used in the scaffolding process",
+            description: 'Path to config file'
+        },
+        generatesampleconfig: {
+            alias: ['gsc', 'sampleconfig'],
+            type: 'boolean',
+            demandOption: false,
+            describe: "Genereta a sample config in the current directory",
+            description: 'Generate a sample to config file'
+        },
+        interactive: {
+            alias: ['i'],
+            type: 'boolean',
+            demandOption: false,
+            describe: "Run CLI through interactive prompts",
+            description: 'Run through the CLI interactively'
+        },
+    })
+    .usage('Usage: npx @amidostacks/scaffolding-cli <command> [options]')
+    .example('scaffolding-cli run -gsc', 'Dry run to only generate a sample config json')
+    .example('scaffolding-cli run -c sample.bootstrap.config.json', 'Run Scaffolding CLI with a options specified in a config file')
+    .example('scaffolding-cli run', 'Run Scaffolding CLI with interactive prompts')
+    .showHelpOnFail(true)
+    .completion()
+    .demandCommand()
+    .epilog("Thanks")
+    .help()
+    .argv;

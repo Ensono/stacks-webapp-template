@@ -1,19 +1,5 @@
-import { FolderMap, BuildReplaceInput } from "../file_mapper"
+import { BuildReplaceInput } from "../file_mapper"
 import { BusinessSection, CloudSection } from "../../model/prompt_answer"
-
-/**
- * Statically assign the folder mapping from temp to templated out directory
- */
-export const to_folders = (): Array<FolderMap> =>  {
-    return [
-        { src: 'shared', dest: '' },
-        { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
-        { src: 'deploy/azure/ssr', dest: 'deploy/azure' },
-        { src: 'deploy/k8s', dest: 'deploy/k8s' },
-        { src: 'docs', dest: 'docs' },
-        { src: 'src/ssr', dest: 'src' }
-    ]
-}
 
 /**
  * 
@@ -34,11 +20,27 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
             files: ["**/*.yml"],
             values: {
                 "amido-stacks-webapp": business_obj?.company || "default",
+                "src/ssr": "src",
+                "- packages/template-cli/templates/": "- ",
+                "stacks-webapp-template/packages/template-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
+                "amido-stacks-dev-cycle2": cloud_obj?.resource_group || "default"
+                // "packages/template-cli/templates/*": ""
+            }
+        },
+        {
+            files: ["**/vars.tf"],
+            values: {
                 "replace_project_name": business_obj?.project || "default",
                 "replace_component_name": business_obj?.component || "default",
                 "replace_azure_location": cloud_obj?.region || "uksouth",
-                "stacks-webapp-template/packages/template-cli/templates/src/ssr": "git_object?/src"
             }
         }
     ]
+}
+
+export const response_message = (project_name: string): string  => {
+    return `Your directory has been created, you can now: \n
+---- \n
+cd ${project_name}/src && npm install && npm run build && npm run start \n
+---- \n`
 }
