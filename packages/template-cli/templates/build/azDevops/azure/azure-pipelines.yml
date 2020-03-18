@@ -103,8 +103,8 @@ stages:
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
-              e2e_test: true
-              e2e_env_vars:
+              cypress_e2e_test: true
+              cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
                 MENU_API_URL: "http://dev.amidostacks.com/api/menu"
