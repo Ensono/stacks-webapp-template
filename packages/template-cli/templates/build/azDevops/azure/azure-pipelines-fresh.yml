@@ -51,8 +51,8 @@ variables:
   aks_clustername: amido-stacks-dev-cycle2
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
-  # Test setup
-  deployed_base_url: https://stacks-webapp.com/foo
+  # TestCafe E2E Tests
+  testcafe_e2e_test: true
 
 stages:
   - stage: CI
@@ -68,9 +68,6 @@ stages:
         #     ARM_CLIENT_ID: $(azure_client_id)
         #     ARM_CLIENT_SECRET: $(azure_client_secret)
         #     ARM_TENANT_ID: $(azure_tenant_id)
-        variables:
-          foo: bar
-        # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
         steps:
@@ -176,3 +173,21 @@ stages:
                     secureFile: ""
                     # ReleaseNote Information
                     releasenote: false
+            on:
+              success:
+                pool:
+                  vmImage: windows-2019
+                steps:
+                  - checkout: self
+                  - checkout: templates
+                  # Functional tests running on deployed webapp
+                  - ${{ if eq(variables.testcafe_e2e_test, true) }}:
+                      - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
+                        parameters:
+                          env_vars:
+                            APP_BASE_URL: "http://dev.amidostacks.com"
+                            MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                            APP_BASE_PATH: "/web/stacks"
+                            NODE_ENV: test
+                          workingDirectory: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/test/testcafe
+                          testcafe_browser_list: "all"
