@@ -54,13 +54,6 @@ stages:
   - group: amido-stacks-webapp
   jobs:
   - job: InfraNonProd
-    # container: 
-    #   image: amidostacks/ci-tf:0.0.1
-    #   env: 
-    #     ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
-    #     ARM_CLIENT_ID: $(azure_client_id)
-    #     ARM_CLIENT_SECRET: $(azure_client_secret)
-    #     ARM_TENANT_ID: $(azure_tenant_id)
     variables:
       foo: bar 
     pool:

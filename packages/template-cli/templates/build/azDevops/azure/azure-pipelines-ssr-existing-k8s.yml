@@ -16,6 +16,8 @@ resources:
       type: github
       name: amido/stacks-pipeline-templates
       ref: feature/cycle2
+      # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
+      # REPOSITORY IS PUBLIC 
       endpoint: amidostacks
 
   containers:
