@@ -73,7 +73,6 @@ stages:
             persistCredentials: true
             target: k8s_deploy
           # BUILD NPM
-          # TODO: change this to steps and feed upstream
           - template: templates/steps/build-node.yml
             parameters:
               # Docker Config
