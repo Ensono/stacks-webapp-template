@@ -7,7 +7,8 @@
     "lint": "npx install-peerdeps --dev @amidostacks/eslint-config && node_modules/.bin/eslint . -f codeframe",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "validate": "npm run prettier --list-different && npm run lint",
-    "test:e2e": "node_modules/.bin/testcafe"
+    "test:e2e": "node_modules/.bin/testcafe",
+    "clean:tree": "git clean -idx"
   },
   "dependencies": {
     "axios": "^0.19.2"
