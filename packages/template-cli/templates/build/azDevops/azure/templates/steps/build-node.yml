@@ -47,7 +47,7 @@ parameters:
 
 steps:
   # Login to Azure/AKS
-  - template: ./login-services.yml
+  - template: azDevOps/azure/templates/v2/steps/login-services.yml@templates
     parameters:
       azure_tenant_id: "$(azure_tenant_id)"
       azure_subscription_id: "$(azure_subscription_id)"
@@ -59,14 +59,14 @@ steps:
   # Important: Down to the user to ensure that the registry they are using
   # can support `npm audit`
   - ${{ if eq(parameters.audit_test, true) }}:
-      - template: ./build-audit-dependencies-node.yml
+      - template: azDevOps/azure/templates/v2/steps/build-audit-dependencies-node.yml@templates
         parameters:
           versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
           customRegistry: ${{ parameters.customRegistry }}
 
   # Install dependencies
-  - template: ./build-install-dependencies-node.yml
+  - template: azDevOps/azure/templates/v2/steps/build-install-dependencies-node.yml@templates
     parameters:
       versionSpec: ${{ parameters.versionSpec }}
       workingDirectory: ${{ parameters.project_root_dir }}
@@ -74,7 +74,7 @@ steps:
 
   # Linting and formatting validation
   - ${{ if eq(parameters.lint_formatting, true) }}:
-      - template: ./test-static-validate-node.yml
+      - template: azDevOps/azure/templates/v2/steps/test-static-validate-node.yml@templates
         parameters:
           versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
@@ -83,20 +83,20 @@ steps:
 
   # Linting and unit tests
   - ${{ if eq(parameters.unit_test, true) }}:
-      - template: ./test-unit-node.yml
+      - template: azDevOps/azure/templates/v2/steps/test-unit-node.yml@templates
         parameters:
           versionSpec: ${{ parameters.versionSpec }}
           workingDirectory: ${{ parameters.project_root_dir }}
 
   # SonarCloud
   - ${{ if eq(parameters.static_code_analysis, true) }}:
-      - template: ./test-static-code-sonar.yml
+      - template: azDevOps/azure/templates/v2/steps/test-static-code-sonar.yml@templates
         parameters:
           workingDirectory: ${{ parameters.project_root_dir }}
 
   # Consumer driven contract tests
   - ${{ if eq(parameters.contract_test, true) }}:
-      - template: ./test-contract-pact.yml
+      - template: azDevOps/azure/templates/v2/steps/test-contract-pact.yml@templates
         parameters:
           versionSpec: ${{ parameters.versionSpec }}
           build_number: ${{ parameters.docker_imagetag }}
@@ -104,13 +104,13 @@ steps:
 
   # Check with Pact broker if safe to proceed with deployment (breaking contract changes)
   - ${{ if and(eq(parameters.contract_test, true), eq(parameters.contract_check_can_deploy, true)) }}:
-      - template: ./deploy-contract-pact-can-deploy.yml
+      - template: azDevOps/azure/templates/v2/steps/deploy-contract-pact-can-deploy.yml@templates
         parameters:
           workingDirectory: ${{ parameters.project_root_dir }}
 
   # Functional tests running on locally built and hosted (undeployed)
   - ${{ if eq(parameters.cypress_e2e_test, true) }}:
-      - template: ./test-functional-cypress.yml
+      - template: azDevOps/azure/templates/v2/steps/test-functional-cypress.yml@templates
         parameters:
           env_vars: ${{ parameters.cypress_e2e_env_vars}}
           workingDirectory: ${{ parameters.project_root_dir }}
@@ -128,7 +128,7 @@ steps:
 
   # Build Docker Image, Scan and Push to Repository
   - ${{ if eq(parameters.docker_build, true) }}:
-      - template: ./build-container-image.yml
+      - template: azDevOps/azure/templates/v2/steps/build-container-image.yml@templates
         parameters:
           workingDirectory: ${{ parameters.docker_workdir }}
           docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
