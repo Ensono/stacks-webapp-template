@@ -1,3 +1,12 @@
+#############################################################################################################################
+# This is a generated file which includes some replacements.                                                                #
+# It is still very much recommended to go through this and ensure all variables are correct for your business/domain        #
+# All variables are defined in a global scope.                                                                              #
+# All Terraform produced resource names are using a labels module ensuring a predictable naming convention                  #
+# E.g.: variables for company, project, stage and component will produce a name of `$company-$project-$stage-$componenet`   #
+# NB: Some resources e.g. blob storage only allow for alpha numeric characters so the name is adjusted accordingly          #
+#  ==> `$company$project$stage$componenet`                                                                                  #
+#############################################################################################################################
 name: '$(build.sourcebranchname)-init'
 
 pr: none
@@ -11,7 +20,6 @@ trigger:
     - packages/template-cli/templates/build/*
     - packages/template-cli/templates/deploy/*
 
-###### PART OF AMIDO-STACKS
 resources:
   repositories:
   - repository: templates
@@ -30,18 +38,23 @@ variables:
   company: amido
   project: stacks
   domain: webapp
+  component: cycle2
   # Versioning
   version_major: 0
   version_minor: 0
   version_revision: $[counter(variables['version_minor'], 0)]
+  # SelfConfig
+  self_repo: stacks-webapp-template/packages/template-cli/templates
+  self_repo_tf_src: deploy/azure/ssr
   # Docker Config
   docker_dockerfile_path: 'src/'
   docker_image_name: stacks-webapp
   docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
   docker_container_registry_name: amidouksstacksacrdev
   # AKS/AZURE
-  aks_clusterrg: amido-stacks-dev-cycle2
-  aks_clustername: amido-stacks-dev-cycle2
+  aks_clusterrg_nonprod: amido-stacks-dev-cycle2
+  aks_clustername_nonprod: amido-stacks-dev-cycle2
+  aks_dns_resource_group_name_nonprod: amido-stacks-dev-cycle2
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -72,7 +85,7 @@ stages:
       - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
         parameters: 
           # Terraform Basic Config
-          terraform_working_dir: '$(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/deploy/azure/ssr'
+          terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
           terraform_output_artefact: 'tfoutputs'
           # Terraform State Config
           terraform_backend_client_id: $(azure_client_id)
@@ -98,9 +111,9 @@ stages:
             TF_VAR_client_secret: $(azure_client_secret),
             TF_VAR_tenant_id: $(azure_tenant_id),
             TF_VAR_resource_group_location: uksouth,
-            TF_VAR_name_company: amido,
-            TF_VAR_name_project: stacks,
-            TF_VAR_name_component: cycle2,
+            TF_VAR_name_company: $(company),
+            TF_VAR_name_project: $(project),
+            TF_VAR_name_component: $(component),
             TF_VAR_name_environment: dev,
             TF_VAR_stage: dev
           }
@@ -128,13 +141,13 @@ stages:
 
       - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
         parameters: 
-          aks_cluster_name: amido-stacks-dev-cycle2
-          aks_resource_group_name: amido-stacks-dev-cycle2
+          aks_cluster_name: $(aks_clusterrg_nonprod)
+          aks_resource_group_name: $(aks_clusterrg_nonprod)
           aks_dns_resource_group_name: amido-stacks-dev-cycle2
           ingress_definition:
             # TODO: make this a complex object so that additional args can be passed in 
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml'
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/provider/cloud-generic.yaml'
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
-          base_external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/base_external-dns.yml
-          external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/external-dns.yml
+          base_external_dns_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_external-dns.yml
+          external_dns_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml
