@@ -177,6 +177,13 @@ stages:
                 steps:
                   - checkout: self
                   - checkout: templates
+                  # What are the installed browsers on this image?
+                  - ${{ if eq(variables.testcafe_e2e_test, true) }}:
+                      - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
+                        parameters:
+                          workingDirectory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
+                          testcafe_browser_list: "--list-browsers"
+
                   # Functional tests running on deployed webapp
                   - ${{ if eq(variables.testcafe_e2e_test, true) }}:
                       - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
@@ -187,4 +194,4 @@ stages:
                             APP_BASE_PATH: "/web/stacks"
                             NODE_ENV: production
                           workingDirectory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
-                          testcafe_browser_list: "all"
+                          testcafe_browser_list: "chrome, firefox, ie"

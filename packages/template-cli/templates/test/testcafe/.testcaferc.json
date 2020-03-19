@@ -1,9 +1,7 @@
 {
   "src": "./**/*.test.cf.ts",
   "tsConfigPath": "tsconfig.testcafe.json",
-  "browsers": [
-    "chrome:headless"
-  ],
+  "browsers": ["chrome:headless"],
   "reporter": [
     {
       "name": "spec"
