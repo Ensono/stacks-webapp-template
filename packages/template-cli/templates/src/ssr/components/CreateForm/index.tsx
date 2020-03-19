@@ -71,7 +71,7 @@ const CreateForm: FC<Props> = ({
     const [values, setValues] = useState(initialFormState)
     useEffect(() => {
         if (menuId && added) {
-            setValues({...initialFormState})
+            setValues({ ...values, ...initialFormState })
             return openSnackbar({message: `${menuId} menu created`})
         }
         if (error) {
