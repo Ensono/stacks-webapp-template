@@ -33,7 +33,7 @@ export const Header = () => {
                                 color="primary"
                                 aria-label="create menu button"
                             >
-                                <AddIcon />
+                                <AddIcon data-testid="create_button"/>
                             </Fab>
                         </Tooltip>
                     </Link>
