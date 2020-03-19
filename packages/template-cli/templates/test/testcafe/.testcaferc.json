@@ -1,9 +1,7 @@
 {
   "src": "./**/*.test.cf.ts",
   "tsConfigPath": "tsconfig.testcafe.json",
-  "browsers": [
-    "chrome:headless"
-  ],
+  "browsers": ["chrome:headless"],
   "reporter": [
     {
       "name": "spec"
@@ -18,7 +16,6 @@
     "npm": ">=6.0"
   },
   "screenshots": {
-    "fullPage": true,
     "pathPattern": "${DATE}_${TIME}-test-${TEST_INDEX}-${USERAGENT}-${FILE_INDEX}.png",
     "takeOnFails": true
   }

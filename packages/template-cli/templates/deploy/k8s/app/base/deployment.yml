@@ -68,9 +68,12 @@ spec:
           livenessProbe:
             failureThreshold: 10
             httpGet:
-              path: /
+              path: /healthz
               port: 3000
               scheme: HTTP
+              httpHeaders:
+              - name: stacks-k8s-probe
+                value: live
             initialDelaySeconds: 45
             periodSeconds: 30
             successThreshold: 1
@@ -79,7 +82,7 @@ spec:
           readinessProbe:
             failureThreshold: 10
             httpGet:
-              path: /
+              path: /healthz
               port: 3000
               scheme: HTTP
             periodSeconds: 30

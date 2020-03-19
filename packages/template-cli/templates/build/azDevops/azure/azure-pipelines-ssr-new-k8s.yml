@@ -34,7 +34,7 @@ variables:
   domain: webapp
   # SelfConfig
   self_repo: stacks-webapp-template/packages/template-cli/templates
-  self_repo_src: stacks-webapp-template/packages/template-cli/templates/src/ssr
+  self_repo_src: src/ssr
   # Versioning
   version_major: 0
   version_minor: 0
@@ -62,13 +62,6 @@ stages:
       - group: amido-stacks-webapp
     jobs:
       - job: WebAppBuild
-        # container:
-        #   image: amidostacks/ci-tf:0.0.1
-        #   env:
-        #     ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
-        #     ARM_CLIENT_ID: $(azure_client_id)
-        #     ARM_CLIENT_SECRET: $(azure_client_secret)
-        #     ARM_TENANT_ID: $(azure_tenant_id)
         variables:
           foo: bar
         # pool: amido-stacks-local
@@ -80,15 +73,14 @@ stages:
             persistCredentials: true
             target: k8s_deploy
           # BUILD NPM
-          # TODO: change this to steps and feed upstream
-          - template: templates/v2/steps/build-node.yml
+          - template: templates/steps/build-node.yml
             parameters:
               # Docker Config
               build_on_server: false
               docker_build: true
               # TODO: normalize this
               docker_build_additional_args: "."
-              docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo_src)
+              docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
               docker_containerregistryname: $(docker_container_registry_name)
@@ -102,12 +94,12 @@ stages:
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
               unit_test: true
-              project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo_src)
+              project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
-              e2e_test: true
-              e2e_env_vars:
+              cypress_e2e_test: true
+              cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
                 MENU_API_URL: "http://dev.amidostacks.com/api/menu"
@@ -177,3 +169,21 @@ stages:
                     secureFile: ""
                     # ReleaseNote Information
                     releasenote: false
+            on:
+              success:
+                pool:
+                  vmImage: windows-2019
+                steps:
+                  - checkout: self
+                  - checkout: templates
+                  # Functional tests running on deployed webapp
+                  - ${{ if eq(variables.testcafe_e2e_test, true) }}:
+                      - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
+                        parameters:
+                          env_vars:
+                            APP_BASE_URL: "http://dev.amidostacks.com"
+                            MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                            APP_BASE_PATH: "/web/stacks"
+                            NODE_ENV: production
+                          workingDirectory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
+                          testcafe_browser_list: "chrome,firefox,ie"

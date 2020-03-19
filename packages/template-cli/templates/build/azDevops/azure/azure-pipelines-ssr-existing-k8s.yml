@@ -8,16 +8,16 @@ trigger:
       - "*"
   paths:
     include:
-      # Amido Testing pipeline for E2E output of the CLI
       - packages/template-cli/templates/*
 
-###### PART OF AMIDO-STACKS
 resources:
   repositories:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
       ref: feature/cycle2
+      # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
+      # REPOSITORY IS PUBLIC 
       endpoint: amidostacks
 
   containers:
@@ -36,13 +36,16 @@ variables:
   version_major: 0
   version_minor: 0
   version_revision: $[counter(variables['version_minor'], 0)]
+  # SelfConfig
+  self_repo: stacks-webapp-template/packages/template-cli/templates
+  self_repo_src: src/ssr
   # Docker Config
   docker_dockerfile_path: "src/"
   docker_image_name: stacks-webapp
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
   docker_container_registry_name: amidouksstacksacrdev
   # BUILD ARTIFACTS across stages
-  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/deploy/k8s/app
+  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
   build_artifact_deploy_name: stacks-webapp
   # AKS/AZURE
   aks_clusterrg: amido-stacks-rg-uks-dev
@@ -59,13 +62,6 @@ stages:
       - group: amido-stacks-webapp
     jobs:
       - job: WebAppBuild
-        # container:
-        #   image: amidostacks/ci-tf:0.0.1
-        #   env:
-        #     ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
-        #     ARM_CLIENT_ID: $(azure_client_id)
-        #     ARM_CLIENT_SECRET: $(azure_client_secret)
-        #     ARM_TENANT_ID: $(azure_tenant_id)
         variables:
           foo: bar
         # pool: amido-stacks-local
@@ -77,15 +73,14 @@ stages:
             persistCredentials: true
             target: k8s_deploy
           # BUILD NPM
-          # TODO: change this to steps and feed upstream
-          - template: azDevOps/azure/templates/v2/steps/build-node.yml@templates
+          - template: templates/steps/build-node.yml
             parameters:
               # Docker Config
               build_on_server: false
               docker_build: true
               # TODO: normalize this
               docker_build_additional_args: "."
-              docker_workdir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/src/ssr
+              docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
               docker_containerregistryname: $(docker_container_registry_name)
@@ -99,7 +94,7 @@ stages:
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Testing Config
               unit_test: true
-              project_root_dir: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/src/ssr
+              project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
@@ -191,5 +186,5 @@ stages:
                             MENU_API_URL: "http://dev.amidostacks.com/api/menu"
                             APP_BASE_PATH: "/web/stacks"
                             NODE_ENV: production
-                          workingDirectory: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/test/testcafe
-                          testcafe_browser_list: "all"
+                          workingDirectory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
+                          testcafe_browser_list: "chrome,firefox,ie"
