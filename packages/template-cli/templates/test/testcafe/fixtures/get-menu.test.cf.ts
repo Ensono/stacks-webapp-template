@@ -39,6 +39,7 @@ test("Create a new Yumido menu", async t => {
         .expect(menuList.innerText)
         .notContains(testMenuName)
         .click(createMenu)
+        .expect(menuName.exists).ok()
         .typeText(menuName, testMenuName)
         .typeText(menuDesc, "A delicous array of funky FE flavours")
         .click(menuActive)
