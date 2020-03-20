@@ -193,5 +193,5 @@ stages:
                             APP_BASE_PATH: "/web/stacks"
                             NODE_ENV: production
                           workingDirectory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
-                          testcafe_browser_list: "chrome,firefox,ie"
+                          testcafe_browser_list: "chrome,firefox"
 
