@@ -4,6 +4,8 @@ import {ServerStyleSheets} from "@material-ui/core/styles"
 import theme from "../config/theme"
 import getConfig from "next/config"
 
+const {publicRuntimeConfig} = getConfig()
+const {APP_BASE_URL, APP_BASE_PATH} = publicRuntimeConfig
 export default class MyDocument extends Document {
     render() {
         return (
@@ -14,10 +16,9 @@ export default class MyDocument extends Document {
                         content={theme.palette.secondary.main}
                     />
                     <link
-                        rel="shortcut icon"
-                        href={`/${
-                            getConfig().publicRuntimeConfig.APP_BASE_PATH
-                        }/static/icons/favicon.ico`}
+                        rel="icon"
+                        type="image/x-icon"
+                        href={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/favicon.ico`}
                     />
                 </Head>
                 <body>
