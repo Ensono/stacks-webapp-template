@@ -18,5 +18,8 @@
   "screenshots": {
     "pathPattern": "${DATE}_${TIME}-test-${TEST_INDEX}-${USERAGENT}-${FILE_INDEX}.png",
     "takeOnFails": true
-  }
+  },
+  "selectorTimeout": 30000,
+  "assertionTimeout": 30000,
+  "pageLoadTimeout": 30000
 }
