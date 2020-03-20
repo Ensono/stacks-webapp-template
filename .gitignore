@@ -184,3 +184,6 @@ yarn.lock
 
 # APPLITOOLS
 .applitools/
+
+# TESTCAFE
+**/screenshots/

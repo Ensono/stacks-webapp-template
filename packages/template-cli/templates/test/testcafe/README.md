@@ -24,7 +24,7 @@ npm run lint
 ### End to End (E2E) Tests
 
 ```bash
-npm test:e2e
+npm run test:e2e
 ```
 
 This should launch [TestCafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and run the tests in the browsers specified in [.testcaferc.json](./.testcaferc.json) in headless mode.
@@ -58,22 +58,25 @@ _Important: if you have defined an environment varibale, then `dotenv` will not 
 - Base URL API: `process.env.MENU_API_URL` (defaults to deployed dev environment `http://dev.amidostacks.com/api/menu`)
 - NODE_ENV: `process.env.NODE_ENV` (should be `production` for a deployed runnable webapp)
 
-An example of your environment varibale configuration for running against a locally hosted server:
+An example of your environment varibale configuration for running against a locally hosted server is as follows.
+
+For Linux/Mac (replacing `export` with `set` for Windows):
+
 ``` bash
-export NODE_ENV=development
-export PORT=3000
-export APP_BASE_URL=http://localhost
-export MENU_API_URL=http://dev.amidostacks.com/api/menu
+export NODE_ENV=development \
+export PORT=3000 \
+export APP_BASE_URL=http://localhost \
+export MENU_API_URL=http://dev.amidostacks.com/api/menu \
 export APP_BASE_PATH=""
 ```
 
 Alternately, an example of your environment varibale configuration for running against a deployed webapp instance:
 
 ```bash
-export NODE_ENV=production
+export NODE_ENV=production \
 export APP_BASE_URL=http://dev.amidostacks.com \
 export APP_BASE_PATH=/web/stacks \
-export MENU_API_URL=http://dev.amidostacks.com/api/menu \
+export MENU_API_URL=http://dev.amidostacks.com/api/menu
 ```
 
 ## Running tests in Docker
@@ -97,5 +100,37 @@ docker run -e APP_BASE_URL=$APP_BASE_URL -e APP_BASE_PATH=$APP_BASE_PATH -e MENU
 
 ### Running in CI/CD
 
-Currently, we are supporting running Azure Pipelines. Please refer to the [test-functional-testcafe.yml](https://github.com/amido/stacks-pipeline-templates/blob/feature/cycle2/azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml)
+Currently, we are supporting running Azure Pipelines. Please refer to the [test-functional-testcafe.yml](https://github.com/amido/stacks-pipeline-templates/blob/feature/cycle2/azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml) for information on the step.
 
+We run the TestCafe functional tests after successful deployment of the webapp to the cluster.
+
+The publishArtifact task ensures the screenshots are captured if an applicable test fails. These are available as artifacts in the pipeline.
+
+## Running with Lambdatest
+
+[Lambdatest](https://www.lambdatest.com) is a Cross Browser Testing Cloud platform, leveraging the running on 2000+ Real Browsers and Operating Systems Online.
+
+To run using [Lambdatest](https://accounts.lambdatest.com/dashboard), the following environment varibales must be enabled on the platform:
+
+For Linux/Mac (replacing `export` with `set` for Windows):
+
+```bash
+export LT_USERNAME= {your lambdatest username}
+export LT_ACCESS_KEY= {your lambdatest access_key}
+```
+
+Lambdatest will create a tunnel to run the tests and automatically record videos.
+
+### Running E2E tests
+
+```bash
+npm run test:e2e -- "lambdatest:IE@11.0:Windows 10"
+```
+
+The full list of browser configuration available can be found by running the following in the root:
+
+```bash
+node_modules/.bin/testcafe -b lambdatest
+```
+
+_Documentation: https://www.lambdatest.com/support/docs/npm-plugin-for-testcafe-integration-with-lambdatest/_
