@@ -12,11 +12,20 @@ describe("/create", () => {
             url: "/menu", // that have a URL that matches '/menu'
             response: "@menuResponse",
         }).as("addMenuItem")
-        cy.visit("")
 
+        cy.fixture("get-menu-response.json").as("menuResponse")
+        cy.server()
+        cy.route({
+            method: "GET", // Route all GET requests
+            url: "/menu", // that have a URL that matches '/menu'
+            response: "@menuResponse", // and force the response to be: []
+        }).as("getStubbedMenu")
+
+        cy.visit("")
     })
 
     it("can navigate to create menu page when clicking on the button on header", () => {
+        cy.wait("@getStubbedMenu")
         cy.get("[data-testid=create_button]").then($button => {
             if ($button.is(":visible")) {
                 assert.isOk("create button exists and active")
