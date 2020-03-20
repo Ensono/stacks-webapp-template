@@ -26,7 +26,7 @@ test("Returns the Latest menus component", async t => {
 })
 
 test("Create a new Yumido menu", async t => {
-    const createMenu = Selector("[title='Create menu']")
+    const createMenu = Selector("[aria-label='create menu button']")
     const menuName = Selector("#name")
     const menuDesc = Selector("#description")
     const menuActive = Selector("[name='enabled']")
@@ -39,6 +39,7 @@ test("Create a new Yumido menu", async t => {
         .expect(menuList.innerText)
         .notContains(testMenuName)
         .click(createMenu)
+        .expect(menuName.exists).ok()
         .typeText(menuName, testMenuName)
         .typeText(menuDesc, "A delicous array of funky FE flavours")
         .click(menuActive)
