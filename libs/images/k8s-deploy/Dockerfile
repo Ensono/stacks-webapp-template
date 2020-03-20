@@ -3,13 +3,14 @@ FROM debian:10.3
 ARG KUBECTL_VERSION=1.15.1
 ARG KUSTOMIZE_VERSION=3.5.4
 ARG TYPESCRIPT_VERSION=3.7.5
+ARG DOTNET_CORE_VERSION=3.1
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
 LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
 
 RUN apt-get update && \
     apt-get upgrade && \
-    apt-get install -y curl grep sed unzip git && \
+    apt-get install -y curl grep sed unzip git wget && \
     apt-get clean
 
 # INSTALL KUBECTL
@@ -37,3 +38,18 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     npm -v
 
 RUN npm install -g typescript@${TYPESCRIPT_VERSION}
+
+# DOTNET CORE env
+RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg && \
+    mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/ && \
+    wget -q https://packages.microsoft.com/config/debian/10/prod.list && \
+    mv prod.list /etc/apt/sources.list.d/microsoft-prod.list && \
+    chown root:root /etc/apt/trusted.gpg.d/microsoft.asc.gpg && \
+    chown root:root /etc/apt/sources.list.d/microsoft-prod.list
+
+
+# DOTNET SDK, runtime
+RUN apt-get install -y apt-transport-https && \
+    apt-get update -y && \
+    apt-get install -y dotnet-sdk-${DOTNET_CORE_VERSION} && \
+    apt-get install -y aspnetcore-runtime-${DOTNET_CORE_VERSION}
