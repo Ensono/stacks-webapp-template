@@ -148,6 +148,7 @@ exports[`renders form snapshot 1`] = `
           >
             <button
               class="MuiButtonBase-root MuiButton-root MuiButton-outlined makeStyles-submit-3 MuiButton-outlinedPrimary"
+              data-testid="cancel_btn"
               tabindex="0"
               type="button"
             >
@@ -166,6 +167,7 @@ exports[`renders form snapshot 1`] = `
           >
             <button
               class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-3 MuiButton-containedPrimary Mui-disabled Mui-disabled"
+              data-testid="save_btn"
               disabled=""
               tabindex="-1"
               type="button"
