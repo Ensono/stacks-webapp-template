@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.14.1](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.14.0...@amidostacks/scaffolding-cli@1.14.1) (2020-03-18)
+
+
+### Bug Fixes
+
+* removed completion() ([4d43487](https://github.com/amido/stacks-webapp-template/commit/4d434870168db3905c4fbc798edf791b53eed1d7))
+
+
+
+
+
+# [1.14.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.14.0) (2020-03-18)
+
+
+### Bug Fixes
+
+* added health endpoint to ssr app ([1c39b13](https://github.com/amido/stacks-webapp-template/commit/1c39b131b8715af9bc508d1ef700ddaca4b5c63d))
+* addressed comments ([d1016b1](https://github.com/amido/stacks-webapp-template/commit/d1016b15eb069d9cf72d6cd6653ea6f77bcab81c))
+* bugs on create page ([#86](https://github.com/amido/stacks-webapp-template/issues/86)) ([07903bb](https://github.com/amido/stacks-webapp-template/commit/07903bbb35c4650a1f3d714a1222d258fd8ca074))
+* examples in cli ([8bc0af1](https://github.com/amido/stacks-webapp-template/commit/8bc0af1c1ef313cddc6ac1d164b110ec6104e43a))
+* removed comments ([816565c](https://github.com/amido/stacks-webapp-template/commit/816565cbbd363eef710924d5abf3d9958691e2f5))
+* rename and reshuffle yamls ([59e08a5](https://github.com/amido/stacks-webapp-template/commit/59e08a58116f7306e2a9790081a2d4ea8cf8ed68))
+* tests for extended cli ([#84](https://github.com/amido/stacks-webapp-template/issues/84)) ([dc34156](https://github.com/amido/stacks-webapp-template/commit/dc341567adcbdc7d3df3d94cd1b8ef5d5f7c4d79))
+
+
+### Features
+
+* create page route ([#79](https://github.com/amido/stacks-webapp-template/issues/79)) ([7adf6f4](https://github.com/amido/stacks-webapp-template/commit/7adf6f40793abec85baa24fc25e20b01e661c692))
+
+
+
+
+
 # [1.13.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.13.0) (2020-03-18)
 
 

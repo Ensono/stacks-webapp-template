@@ -1,0 +1,22 @@
+{
+  "src": "./**/*.test.cf.ts",
+  "tsConfigPath": "tsconfig.testcafe.json",
+  "browsers": ["chrome:headless"],
+  "reporter": [
+    {
+      "name": "spec"
+    },
+    {
+      "name": "xunit",
+      "output": "testcafe-xunit-test-report.xml"
+    }
+  ],
+  "engines": {
+    "node": ">=12.0",
+    "npm": ">=6.0"
+  },
+  "screenshots": {
+    "pathPattern": "${DATE}_${TIME}-test-${TEST_INDEX}-${USERAGENT}-${FILE_INDEX}.png",
+    "takeOnFails": true
+  }
+}
