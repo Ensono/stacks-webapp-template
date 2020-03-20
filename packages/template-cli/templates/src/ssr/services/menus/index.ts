@@ -26,16 +26,13 @@ export const postMenu = (
 ) => {
     const addMenuApi = api("addMenu")
     return new Promise((resolve, reject) => {
-        axios({
-            method: "post",
-            url: addMenuApi.internalEndpoint(),
-            data: {
+        axios
+            .post(addMenuApi.internalEndpoint(), {
                 name,
                 description,
                 enabled,
                 tenantId,
-            },
-        })
+            })
             .then(response => {
                 console.log(response)
                 const {data} = response

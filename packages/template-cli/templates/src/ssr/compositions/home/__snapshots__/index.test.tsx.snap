@@ -15,7 +15,11 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
           class="MuiTypography-root MuiTypography-h2"
           style="margin: 0px auto;"
         >
-          Yumido
+          <a
+            class="css-15rvyqs"
+          >
+            Yumido
+          </a>
         </h2>
         <button
           aria-label="create menu button"
@@ -30,6 +34,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
             <svg
               aria-hidden="true"
               class="MuiSvgIcon-root"
+              data-testid="create_button"
               focusable="false"
               role="presentation"
               viewBox="0 0 24 24"
