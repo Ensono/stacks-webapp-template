@@ -71,6 +71,7 @@ const CreateForm: FC<Props> = ({
     const [values, setValues] = useState(initialFormState)
     useEffect(() => {
         if (menuId && added) {
+            setValues({ ...values, ...initialFormState })
             return openSnackbar({message: `${menuId} menu created`})
         }
         if (error) {
@@ -148,6 +149,7 @@ const CreateForm: FC<Props> = ({
                                 color="primary"
                                 className={classes.submit}
                                 onClick={() => Router.back()}
+                                data-testid="cancel_btn"
                             >
                                 CANCEL
                             </Button>
@@ -158,6 +160,7 @@ const CreateForm: FC<Props> = ({
                                 color="primary"
                                 className={classes.submit}
                                 onClick={handleFormSubmit}
+                                data-testid="save_btn"
                                 disabled={
                                     !values.menu_name || !values.description
                                 }
