@@ -27,7 +27,7 @@ async function cliCommand(argv: CliOptions) {
         }
 
         if (response.code != 0) {
-            console.log(chalk.red(final_error_message(response.message)))
+            console.log(chalk.red(final_error_message(response.message, response.code)))
             return process.exit(0)
         }
 

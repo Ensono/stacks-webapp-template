@@ -37,6 +37,7 @@
     "replace-in-file": "^5.0.2",
     "simple-git": "^1.132.0",
     "simple-winston-logger-abstraction": "^2.0.0",
+    "terminal-link": "^2.1.1",
     "typescript": "3.7.5",
     "yargs": "^15.3.1"
   },

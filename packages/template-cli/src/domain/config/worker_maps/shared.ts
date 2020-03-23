@@ -1,3 +1,5 @@
+import terminalLink from 'terminal-link'
+
 export const final_response_message = (project_name: string, message: string, config_created: boolean = false): string  => {
     let config_message = `----> \n
 Config file has been written out to current directory \n
@@ -9,7 +11,10 @@ NB: IF you haven't gone through the advanced setup - plese ensure you have repla
 
     let final = `${message} \n
 ---->
-    You can find quickstart guides and additional info here: https://github.com/amido/stacks-webapp-template/blob/master/packages/template-cli/templates/docs/index.md. \n
+Please open the entire templated out directory in your IDE, and poke around to understand the layout. \n
+    e.g.: \`code ${project_name}\` \n
+You can find quickstart guides and additional info ${terminalLink("here", "https://github.com/amido/stacks-webapp-template/blob/master/packages/template-cli/templates/docs/index.md")}. \n
+If you'd like to contribute please read the ${terminalLink("following", "https://github.com/amido/stacks-webapp-template/blob/master/docs/cli-process.md")} \n
 <----\n`
     if (config_created) {
         final += config_message
@@ -24,8 +29,7 @@ error: ${message} \n
 ${code ? "code: " + code : ""} \n
 <----- \n
 
-Please raise a bug if you think it's an issue with the CLI \n
-https://github.com/amido/stacks-webapp-template/issues \n
+Please raise a ${terminalLink("bug/issue", "https://github.com/amido/stacks-webapp-template/issues")} if you think it's an issue with the CLI \n
 
 Amido Stacks
 `
