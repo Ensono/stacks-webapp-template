@@ -45,6 +45,13 @@
     "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-license-ids",
     "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-license-ids/README.md"
   },
+  "spdx-ranges@2.1.1": {
+    "licenses": "(MIT AND CC-BY-3.0)",
+    "repository": "https://github.com/kemitchell/spdx-ranges.js",
+    "publisher": "The Linux Foundation",
+    "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-ranges",
+    "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-ranges/LICENSE.md"
+  },
   "tweetnacl@0.14.5": {
     "licenses": "Unlicense",
     "repository": "https://github.com/dchest/tweetnacl-js",
