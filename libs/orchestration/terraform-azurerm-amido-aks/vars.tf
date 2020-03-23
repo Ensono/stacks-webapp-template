@@ -139,6 +139,10 @@ variable "subnet_prefixes" {
   default = [""]
 }
 
+variable "subnet_front_end_prefix" {
+  type    = string
+}
+
 variable "subnet_names" {
   type    = list(string)
   default = [""]
