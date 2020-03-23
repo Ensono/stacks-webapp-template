@@ -68,7 +68,7 @@
         "dest": "build/azDevops/azure/app-pipeline.yml"
       },
       {
-        "src": "build/azDevops/azure/infrastructure-shared-services-csr.yml",
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-csr.yml",
         "dest": "build/azDevops/azure/infra-pipeline.yml"
       },
       {
