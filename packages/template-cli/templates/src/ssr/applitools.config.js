@@ -27,6 +27,5 @@ module.exports = {
 
     // For CI purposed: obtain the batch name and ID from the environment variables
     batchName: process.env.APPLITOOLS_BATCH_NAME,
-    batchId: process.env.APPLITOOLS_BATCH_ID
+    batchId: process.env.APPLITOOLS_BATCH_ID,
 }
-
