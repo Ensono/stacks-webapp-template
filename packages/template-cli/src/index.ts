@@ -4,6 +4,7 @@ import { basename, resolve } from 'path'
 import { ExitMessage, CliOptions } from './domain/model/cli_response'
 import { runCli, runConfig, generateSampleConfig } from './domain/prompt'
 import chalk from 'chalk'
+import { final_error_message } from './domain/config/worker_maps/shared'
 
 
 async function cliCommand(argv: CliOptions) {
@@ -24,12 +25,17 @@ async function cliCommand(argv: CliOptions) {
             console.log(chalk.cyan(yargs.showHelp())) //"Please select an appropriate option"
             return process.exit(0)
         }
+
+        if (response.code != 0) {
+            console.log(chalk.red(final_error_message(response.message)))
+            return process.exit(0)
+        }
+
         console.log(chalk.cyan(response.message))
         return process.exit(0)
     } catch (ex) {
         let exCaught = ex as ExitMessage
-        console.log(chalk.red(exCaught.code))
-        console.log(chalk.red(exCaught.message))
+        console.log(chalk.red(final_error_message(exCaught.message, exCaught.code)))
         return process.exit(ex.code || -1)
     }
 }
@@ -74,6 +80,6 @@ yargs
     .example('scaffolding-cli run -gsc', 'Dry run to only generate a sample config json')
     .showHelpOnFail(true)
     .demandCommand()
-    .epilog("Thanks")
+    .epilog("Amido Stacks - https://github.com/amido/stacks")
     .help()
     .argv;

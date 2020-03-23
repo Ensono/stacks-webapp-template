@@ -81,13 +81,13 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
             // "type": (prev: boolean) => prev ? "confirm" : "",
             "type": "confirm",
             "name": "create_config",
-            "message": "Create a JSON config",
+            "message": "Create a sample JSON config with all selected values for future runs of the CLI?",
             "initial": true
         },
         {
             "type": "confirm",
             "name": "advanced_config",
-            "message": "Enable Advanced Config ",
+            "message": "Enable Advanced Config? Specifying Cloud/Terraform/Business details",
             "initial": true
         }
     ]

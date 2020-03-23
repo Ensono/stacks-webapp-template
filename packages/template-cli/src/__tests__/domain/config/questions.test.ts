@@ -29,5 +29,4 @@ describe("file_mapper tests", () => {
         expect(test).toHaveProperty("business")
         expect(test.business.project).toMatch("REPLACE_ME")
     })
-    
 })
