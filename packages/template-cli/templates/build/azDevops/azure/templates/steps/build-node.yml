@@ -35,6 +35,7 @@ parameters:
   audit_test: false
   contract_check_can_deploy: false
   cypress_e2e_test: true
+  cypress_applitools_test: false
   cypress_e2e_env_vars: {}
   # Build File Output
   build_file: false
@@ -114,6 +115,11 @@ steps:
         parameters:
           env_vars: ${{ parameters.cypress_e2e_env_vars}}
           workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Visual regression tests running on locally built and hosted (undeployed)
+  - ${{ if eq(parameters.cypress_applitools_test, true) }}:
+      - task: ApplitoolsBuildTask@0
+        displayName: "Tests: Visual Regression with Applitools"
 
   # STEP build NPM for Azure registry
   - ${{ if eq(parameters.build_on_server, true) }}:
