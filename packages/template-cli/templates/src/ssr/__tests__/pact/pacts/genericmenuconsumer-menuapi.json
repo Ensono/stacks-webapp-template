@@ -61,6 +61,33 @@
         }
       },
       "metadata": null
+    },
+    {
+      "description": "Add a new menu item",
+      "providerState": "A new menu",
+      "request": {
+        "method": "POST",
+        "path": "/v1/menu",
+        "data": {
+          "name": "Breakfast Menu",
+          "description": "Breakfast Menu",
+          "enabled": true,
+          "tenantId": "1233"
+        },
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "id": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+        }
+      },
+      "metadata": null
     }
   ],
   "metadata": {
