@@ -7,7 +7,8 @@
   "author": "https://amido.com",
   "license": "MIT",
   "scripts": {
-    "postinstall": "lerna bootstrap",
+    "license:check": "license-checker --json --excludePrivatePackage --out package-licenses.json --exclude 'MIT, MIT OR X11, BSD, ISC, Apache-2.0'",
+    "postinstall": "lerna bootstrap && npm run license:check",
     "dev": "lerna run dev --stream",
     "build": "lerna run build --stream",
     "test": "lerna run test --stream",
@@ -43,7 +44,8 @@
     "lerna": "^3.20.2",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
-    "typescript": "3.7.5"
+    "typescript": "3.7.5",
+    "license-checker": "^25.0.1"
   },
   "dependencies": {}
 }
