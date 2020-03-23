@@ -194,6 +194,6 @@ stages:
                           testcafe_browser_list: "chrome,firefox"
                   - ${{ if eq(variables.lighthouse_audit, true) }}:
                       - task: Lighthouse@1
-                          inputs:
-                            url: "http://dev.amidostacks.com/web/stacks"
+                        inputs:
+                          url: "http://dev.amidostacks.com/web/stacks"
 
