@@ -17,7 +17,7 @@ You can find quickstart guides and additional info ${terminalLink("here", "https
 If you'd like to contribute please read the ${terminalLink("following", "https://github.com/amido/stacks-webapp-template/blob/master/docs/cli-process.md")} \n
 <----\n`
     if (config_created) {
-        final += config_message
+        return config_message + final
     }
     return final
 }
