@@ -1,7 +1,7 @@
 ---
 id: cache
-title: Server side cache
-sidebar_label: Cache
+title: Server Side Cache
+sidebar_label: Server Side Cache
 ---
 
 ## Cache server side
