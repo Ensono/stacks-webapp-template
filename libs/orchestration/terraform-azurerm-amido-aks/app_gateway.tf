@@ -15,7 +15,7 @@ resource "azurerm_subnet" "backend" {
 resource "azurerm_public_ip" "app_gateway" {
   name                 = var.resource_namer
   resource_group_name  = var.resource_group_name
-  virtual_network_name = var.vnet_name
+  location            = var.resource_group_location
   allocation_method    = "Dynamic"
 }
 
@@ -34,7 +34,7 @@ resource "azurerm_application_gateway" "network" {
   name                = var.resource_namer
   resource_group_name  = var.resource_group_name
 
-  location            = azurerm_resource_group.example.location
+  location            = var.resource_group_location
 
   sku {
     name     = "Standard_Small"
@@ -43,7 +43,7 @@ resource "azurerm_application_gateway" "network" {
   }
 
   gateway_ip_configuration {
-    name      = "my-gateway-ip-configuration"
+    name      = "${var.resource_namer}-gateway-ip-configuration"
     subnet_id = azurerm_subnet.frontend.id
   }
 
@@ -54,7 +54,7 @@ resource "azurerm_application_gateway" "network" {
 
   frontend_ip_configuration {
     name                 = local.frontend_ip_configuration_name
-    public_ip_address_id = azurerm_public_ip.example.id
+    public_ip_address_id = azurerm_public_ip.app_gateway.id
   }
 
   backend_address_pool {

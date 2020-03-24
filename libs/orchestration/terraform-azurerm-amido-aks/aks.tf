@@ -81,12 +81,17 @@ resource "azurerm_kubernetes_cluster" "default" {
       log_analytics_workspace_id = azurerm_log_analytics_workspace.default.id
     }
   }
+
+  role_based_access_control {
+    enabled = true
+
+  }
+
   network_profile {
     network_plugin    = var.advanced_networking_enabled ? "azure" : "kubenet"
     network_policy    = var.advanced_networking_enabled ? "azure" : null
-    load_balancer_sku = "standard"
+    load_balancer_sku = "basic"
     # service_cidr    = "172.0.0.0/16"
-
     # load_balancer_profile {
     #   outbound_ip_address_ids = azurerm_public_ip.default[*].id
     # }
@@ -101,17 +106,13 @@ resource "azurerm_kubernetes_cluster" "default" {
   # [here](https://docs.microsoft.com/en-us/azure/aks/use-managed-identity)
   # this will be a more generic cloud approach
   service_principal {
-    # element(concat(azuread_application.spn.*.application_id, list("")), 0)
-    # client_id     = element(concat(azuread_application.spn.*.application_id, list("")), 0)
-    # client_secret = random_string.spn_password.0.result
     client_id     = var.client_id
     client_secret = var.client_secret
   }
 
   lifecycle {
     ignore_changes = [
-      default_node_pool.0.node_count,
-      agent_pool_profile
+      default_node_pool.0.node_count
     ]
   }
   depends_on = [
