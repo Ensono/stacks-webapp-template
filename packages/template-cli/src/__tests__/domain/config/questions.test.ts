@@ -22,7 +22,7 @@ describe("file_mapper tests", () => {
     })
     it("cliAdvancedQuestions should return an array of objects", () => {
         let test: Array<PromptQuestion> = cliAdvancedQuestions()
-        expect(test.length).toBe(3)
+        expect(test.length).toBe(7)
     })
     it("computedSelection should return an array of objects and undefined item should return %REPLACE_ME%", () => {
         let test: CliAnswerModel = computedSelection(mock_answers)

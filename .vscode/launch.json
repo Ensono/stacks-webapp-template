@@ -26,7 +26,7 @@
       "protocol": "inspector",
       "outFiles": ["${workspaceFolder}/packages/template-cli/dist/*/.js"],
       "console": "internalConsole",
-      // "preLaunchTask": "RunBuildCli",
+      "preLaunchTask": "RunBuildCli",
       "outputCapture": "std",
       "sourceMaps": true,
       "disableOptimisticBPs": false,
@@ -39,7 +39,6 @@
         "run",
         "-c",
         "src/__tests__/domain/ssr.bootstrap-config.json"
-        // "--help"
       ]
     },
     {

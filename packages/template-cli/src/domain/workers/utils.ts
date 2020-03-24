@@ -94,8 +94,6 @@ export class Utils {
                     countMatches: val.countMatches
                 }
                 await replace(options)
-                // let files_replaced = await replace(options)
-                // logger.debug(files_replaced)
             })
             fsResponse.ok = true
             fsResponse.message = 'replaced all occurences'

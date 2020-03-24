@@ -125,7 +125,31 @@ export function cliAdvancedQuestions(): Array<PromptQuestion> {
             "type": (prev: boolean) => prev ? "text" : "",
             "name": "cloud_resource_group",
             "message": "Please provide the resource group/vpc name",
-            "initial": "some-rg-azure"
+            "initial": "replace-me-rg"
+        },
+        {
+            "type": "text",
+            "name": "business_company",
+            "message": "Please provide the company name (will be used namespacing conventions)",
+            "initial": "amido"
+        },
+        {
+            "type": "text",
+            "name": "business_project",
+            "message": "Please provide the project name (will be used namespacing conventions)",
+            "initial": "stacks"
+        },
+        {
+            "type": "text",
+            "name": "business_component",
+            "message": "Please provide the component name (will be used namespacing conventions)",
+            "initial": "cycle2"
+        },
+        {
+            "type": "text",
+            "name": "terraform_backend_storage",
+            "message": "Terraform backend state storage (Blob name)?",
+            "initial": "amidostackstfstategbl"
         }
     ]
 }
