@@ -4,4 +4,5 @@ terraform {
 }
 
 provider "azurerm" {
+  features {}
 }

@@ -25,6 +25,9 @@ USAGE:
 
 To activate the terraform backend for running locally we need to initialise the SPN with env vars to ensure you are running the same way as the pipeline that will ultimately be running any incremental changes.
 
+```bash
+docker run -it --rm -v $(pwd):/opt/tf-lib amidostacks/ci-tf:latest /bin/bash
+```
 
 ```bash 
 export ARM_CLIENT_ID=xxxx \

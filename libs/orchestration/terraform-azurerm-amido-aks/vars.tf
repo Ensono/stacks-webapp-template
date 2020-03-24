@@ -140,7 +140,7 @@ variable "subnet_prefixes" {
 }
 
 variable "subnet_front_end_prefix" {
-  type    = string
+  type = string
 }
 
 variable "subnet_names" {
