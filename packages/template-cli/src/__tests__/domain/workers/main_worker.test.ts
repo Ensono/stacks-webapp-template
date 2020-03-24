@@ -147,7 +147,6 @@ describe("mainWorker class tests", () => {
     describe("Negative assertions", () => {
         it("ssr_aks_tfs should return a code of -1 when error occurs", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
-                // throw <BaseResponse>{ok: false, code: -1, error: new Error("Something weird happened")};
                 throw new Error("Something weird happened");
             });
             let flow_ran: CliResponse = await mainWorker.ssr_aks_tfs(mock_answer_ssr)
@@ -161,7 +160,6 @@ describe("mainWorker class tests", () => {
         }),
         it("netcore_aks_tfs should return a code of -1 when error occurs", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
-                // throw <BaseResponse>{ok: false, code: -1, error: new Error("Something weird happened")};
                 throw new Error("Something weird happened");
             });
             let flow_ran: CliResponse = await mainWorker.netcore_aks_tfs(mock_answer_netcore)
@@ -175,7 +173,6 @@ describe("mainWorker class tests", () => {
         }),
         it("java_spring_aks_tfs should return a code of -1 when error occurs", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
-                // throw <BaseResponse>{ok: false, code: -1, error: new Error("Something weird happened")};
                 throw new Error("Something weird happened");
             });
             let flow_ran: CliResponse = await mainWorker.java_spring_aks_tfs(mock_answer_java_spring)
@@ -189,7 +186,6 @@ describe("mainWorker class tests", () => {
         }),
         it("csr_aks_tfs should return a code of -1 when error occurs", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
-                // throw <BaseResponse>{ok: false, code: -1, error: new Error("Something weird happened")};
                 throw new Error("Something weird happened");
             });
             let flow_ran: CliResponse = await mainWorker.csr_aks_tfs(mock_answer_csr)
