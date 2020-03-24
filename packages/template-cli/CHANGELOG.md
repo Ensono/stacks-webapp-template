@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.16.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.15.1...@amidostacks/scaffolding-cli@1.16.0) (2020-03-24)
+
+
+### Bug Fixes
+
+* addressed comments, expanded the Qs for other details ([85fa553](https://github.com/amido/stacks-webapp-template/commit/85fa5536d8236bb95cff7ef0e8a3afd1ca4b7d58))
+* comments removed from tests ([f4bafb7](https://github.com/amido/stacks-webapp-template/commit/f4bafb78b6db8d70d609759ee9282290c609e0e0))
+* updated ci-k8s deploy image with dotnet core ([#96](https://github.com/amido/stacks-webapp-template/issues/96)) ([92eb3c9](https://github.com/amido/stacks-webapp-template/commit/92eb3c95166851b10db22bbf374cbd41e4d258f6))
+
+
+### Features
+
+* added cache to the app root ([#100](https://github.com/amido/stacks-webapp-template/issues/100)) ([e4d05cd](https://github.com/amido/stacks-webapp-template/commit/e4d05cda31275001891beb6c0d68a53616c68561))
+* ui improvements ([#94](https://github.com/amido/stacks-webapp-template/issues/94)) ([3e9dac4](https://github.com/amido/stacks-webapp-template/commit/3e9dac420a119d07238ff3a1858f68d16b8be744))
+
+
+
+
+
 ## [1.15.1](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.15.0...@amidostacks/scaffolding-cli@1.15.1) (2020-03-23)
 
 

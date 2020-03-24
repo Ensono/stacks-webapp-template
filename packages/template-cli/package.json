@@ -1,6 +1,6 @@
 {
   "name": "@amidostacks/scaffolding-cli",
-  "version": "1.15.1",
+  "version": "1.16.0",
   "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
   "preferGlobal": true,
   "bin": {
