@@ -90,7 +90,7 @@ resource "azurerm_kubernetes_cluster" "default" {
   network_profile {
     network_plugin    = var.advanced_networking_enabled ? "azure" : "kubenet"
     network_policy    = var.advanced_networking_enabled ? "azure" : null
-    load_balancer_sku = "basic"
+    load_balancer_sku = "standard"
     # service_cidr    = "172.0.0.0/16"
     # load_balancer_profile {
     #   outbound_ip_address_ids = azurerm_public_ip.default[*].id
