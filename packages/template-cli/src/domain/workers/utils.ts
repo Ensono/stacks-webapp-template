@@ -48,14 +48,14 @@ export class Utils {
             await git.checkout(ref_version)
             gitResponse.ok = true
             gitResponse.message = "Git Cloned from repo and checked out on specified head"
+            return gitResponse
         } catch (ex) {
             gitResponse.ok = false
             gitResponse.code = ex.code || -1
             gitResponse.message = ex.message
             gitResponse.error = ex.stack
-            // throw gitResponse
+            throw gitResponse
         }
-        return gitResponse
     }
     public static async writeOutConfigFile(configOut: string, instruction_map?: CliAnswerModel): Promise<ConfigResponse> {
         let fsResponse: ConfigResponse = <ConfigResponse>{}
@@ -70,13 +70,14 @@ export class Utils {
             fsResponse.ok = true
             fsResponse.message = 'Sample config placed in current directory'
             fsResponse.config_path = configFile
+            return fsResponse
         } catch (ex) {
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
             fsResponse.error = ex.stack
+            throw fsResponse
         }
-        return fsResponse
     }
 
     public static async valueReplace(instruction_map: Array<Replacetruct>): Promise<BaseResponse> {
@@ -92,11 +93,11 @@ export class Utils {
                     ignore: val.ignoreFiles,
                     countMatches: val.countMatches
                 }
-                let files_replaced = await replace(options)
-                logger.debug(files_replaced)
+                await replace(options)
             })
             fsResponse.ok = true
             fsResponse.message = 'replaced all occurences'
+            return fsResponse
         }
         catch (ex) {
             logger.error(ex)
@@ -104,8 +105,8 @@ export class Utils {
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
             fsResponse.error = ex.stack
+            throw fsResponse
         }
-        return fsResponse
     } 
     public static async constructOutput(instruction_map: Array<FolderMap>, new_directory: string, temp_directory: string): Promise<BaseResponse> {
         let fsResponse: BaseResponse = <BaseResponse>{}
@@ -128,7 +129,7 @@ export class Utils {
             fsResponse.message = ex.message
             fsResponse.error = ex.stack
             await remove(temp_directory)
-            return fsResponse
+            throw fsResponse
         }
     }
     public static async prepBase(directory_name: string): Promise<TempCopy> {
@@ -154,7 +155,7 @@ export class Utils {
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
             fsResponse.error = ex.stack
-            return fsResponse
+            throw fsResponse
         }
 
     }

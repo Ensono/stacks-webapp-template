@@ -4,7 +4,7 @@
   "platform": "aks",
   "deployment": "azdevops",
   "advanced_config": true,
-  "create_config": true,
+  "create_config": false,
   "cloud": {
     "region": "uksouth",
     "resource_group": "string"

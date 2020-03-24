@@ -54,6 +54,8 @@ variables:
   pool_vm_image: ubuntu-18.04
   # TestCafe E2E Tests
   testcafe_e2e_test: true
+  # Lighthouse Audit
+  lighthouse_audit: true
 
 stages:
   - stage: CI
@@ -189,3 +191,8 @@ stages:
                             NODE_ENV: production
                           workingDirectory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
                           testcafe_browser_list: "chrome,firefox"
+                  # Lighthouse profiling audit
+                  - ${{ if eq(variables.lighthouse_audit, true) }}:
+                      - task: Lighthouse@1
+                        inputs:
+                          url: "http://dev.amidostacks.com/web/stacks"

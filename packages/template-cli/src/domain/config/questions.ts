@@ -81,13 +81,13 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
             // "type": (prev: boolean) => prev ? "confirm" : "",
             "type": "confirm",
             "name": "create_config",
-            "message": "Create a JSON config",
+            "message": "Create a sample JSON config with all selected values for future runs of the CLI?",
             "initial": true
         },
         {
             "type": "confirm",
             "name": "advanced_config",
-            "message": "Enable Advanced Config ",
+            "message": "Enable Advanced Config? Specifying Cloud/Terraform/Business details",
             "initial": true
         }
     ]
@@ -125,7 +125,31 @@ export function cliAdvancedQuestions(): Array<PromptQuestion> {
             "type": (prev: boolean) => prev ? "text" : "",
             "name": "cloud_resource_group",
             "message": "Please provide the resource group/vpc name",
-            "initial": "some-rg-azure"
+            "initial": "replace-me-rg"
+        },
+        {
+            "type": "text",
+            "name": "business_company",
+            "message": "Please provide the company name (will be used namespacing conventions)",
+            "initial": "amido"
+        },
+        {
+            "type": "text",
+            "name": "business_project",
+            "message": "Please provide the project name (will be used namespacing conventions)",
+            "initial": "stacks"
+        },
+        {
+            "type": "text",
+            "name": "business_component",
+            "message": "Please provide the component name (will be used namespacing conventions)",
+            "initial": "cycle2"
+        },
+        {
+            "type": "text",
+            "name": "terraform_backend_storage",
+            "message": "Terraform backend state storage (Blob name)?",
+            "initial": "amidostackstfstategbl"
         }
     ]
 }
