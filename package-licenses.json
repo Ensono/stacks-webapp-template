@@ -1,0 +1,62 @@
+{
+  "caniuse-db@1.0.30001022": {
+    "licenses": "CC-BY-4.0",
+    "repository": "https://github.com/Fyrd/caniuse",
+    "publisher": "Alexis Deveria",
+    "email": "adeveria@gmail.com",
+    "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/caniuse-db",
+    "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/caniuse-db/LICENSE"
+  },
+  "caniuse-lite@1.0.30001022": {
+    "licenses": "CC-BY-4.0",
+    "repository": "https://github.com/ben-eb/caniuse-lite",
+    "publisher": "Ben Briggs",
+    "email": "beneb.info@gmail.com",
+    "url": "http://beneb.info",
+    "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/caniuse-lite",
+    "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/caniuse-lite/LICENSE"
+  },
+  "mdn-browser-compat-data@0.0.84": {
+    "licenses": "CC0-1.0",
+    "repository": "https://github.com/mdn/browser-compat-data",
+    "publisher": "MDN Web Docs",
+    "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/mdn-browser-compat-data",
+    "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/mdn-browser-compat-data/LICENSE"
+  },
+  "npm-lifecycle@3.1.4": {
+    "licenses": "Artistic-2.0",
+    "repository": "https://github.com/npm/lifecycle",
+    "publisher": "Mike Sherov",
+    "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/npm-lifecycle",
+    "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/npm-lifecycle/LICENSE"
+  },
+  "spdx-exceptions@2.2.0": {
+    "licenses": "CC-BY-3.0",
+    "repository": "https://github.com/kemitchell/spdx-exceptions.json",
+    "publisher": "The Linux Foundation",
+    "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-exceptions",
+    "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-exceptions/README.md"
+  },
+  "spdx-license-ids@3.0.5": {
+    "licenses": "CC0-1.0",
+    "repository": "https://github.com/shinnn/spdx-license-ids",
+    "publisher": "Shinnosuke Watanabe",
+    "url": "https://github.com/shinnn",
+    "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-license-ids",
+    "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-license-ids/README.md"
+  },
+  "spdx-ranges@2.1.1": {
+    "licenses": "(MIT AND CC-BY-3.0)",
+    "repository": "https://github.com/kemitchell/spdx-ranges.js",
+    "publisher": "The Linux Foundation",
+    "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-ranges",
+    "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/spdx-ranges/LICENSE.md"
+  },
+  "tweetnacl@0.14.5": {
+    "licenses": "Unlicense",
+    "repository": "https://github.com/dchest/tweetnacl-js",
+    "publisher": "TweetNaCl-js contributors",
+    "path": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/tweetnacl",
+    "licenseFile": "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/node_modules/tweetnacl/LICENSE"
+  }
+}
