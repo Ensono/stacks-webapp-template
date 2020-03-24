@@ -131,59 +131,74 @@ describe("utils class tests", () => {
             mockCopy.mockImplementationOnce(() => {
                 throw { code: "ENOENT", message: new Error("File Not found") }
             });
-            let copy_ran = await Utils.prepBase(mock_answer.project_name)
-            expect(mockCopy).toHaveBeenCalled()
-            expect(copy_ran).toHaveProperty("code")
-            expect(copy_ran.code).toBe("ENOENT")
-            expect(copy_ran).toHaveProperty("error")
-            expect(copy_ran.message).toBeInstanceOf(Error)
-            expect(copy_ran.ok).toBe(false)
+            try {
+                await Utils.prepBase(mock_answer.project_name)
+            } catch (ex) {
+                expect(mockCopy).toHaveBeenCalled()
+                expect(ex).toHaveProperty("code")
+                expect(ex.code).toBe("ENOENT")
+                expect(ex).toHaveProperty("error")
+                expect(ex.message).toBeInstanceOf(Error)
+                expect(ex.ok).toBe(false)
+            }
         })
         it("writeOutConfigFile should return a code of ENOENT when error occurs", async () => {
             mockCopy.mockImplementationOnce(() => {
                 throw { code: "ENOENT", message: new Error("Something weird happened") }
             });
-            let copy_ran = await Utils.writeOutConfigFile("/tmp/foo.json", mock_cli_answer_model)
-            expect(mockCopy).toHaveBeenCalled()
-            expect(copy_ran).toHaveProperty("code")
-            expect(copy_ran.code).toBe("ENOENT")
-            expect(copy_ran).toHaveProperty("error")
-            expect(copy_ran.message).toBeInstanceOf(Error)
-            expect(copy_ran.ok).toBe(false)
+            try {
+                await Utils.writeOutConfigFile("/tmp/foo.json", mock_cli_answer_model)
+            } catch (ex) {
+                expect(mockCopy).toHaveBeenCalled()
+                expect(ex).toHaveProperty("code")
+                expect(ex).toHaveProperty("error")
+                expect(ex.code).toBe("ENOENT")
+                expect(ex.message).toBeInstanceOf(Error)
+                expect(ex.ok).toBe(false)
+            }
         })
         it("doGitClone should return a code when error occurs", async () => {
             gitP(temp_dir).clone = jest.fn().mockImplementationOnce(() => {
                 throw { code: -127, message: new Error("Something weird happened") }
             });
-            let git_ran: BaseResponse = await Utils.doGitClone("https://git.repo/sample.git", temp_dir, "src/sample-test", "1234234523ew0ew0j8ewr0u8ewr80")
-            expect(git_ran).toHaveProperty("code")
-            expect(git_ran.code).toBe(-127)
-            expect(git_ran).toHaveProperty("error")
-            expect(git_ran.ok).toBe(false)
+            try {
+                await Utils.doGitClone("https://git.repo/sample.git", temp_dir, "src/sample-test", "1234234523ew0ew0j8ewr0u8ewr80")
+            } catch (ex) {
+                expect(ex).toHaveProperty("code")
+                expect(ex.code).toBe(-127)
+                expect(ex).toHaveProperty("error")
+                expect(ex.ok).toBe(false)
+            }
         })
         it("moveWorker should return a code of ENOENT when error occurs", async () => {
             mockMove.mockImplementationOnce(() => {
                 throw { code: "ENOENT", message: new Error("Something weird happened") }
             });
-            let move_ran = await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
-            expect(mockMove).toHaveBeenCalled()
-            expect(move_ran).toHaveProperty("code")
-            expect(move_ran.code).toBe("ENOENT")
-            expect(move_ran).toHaveProperty("error")
-            expect(move_ran.message).toBeInstanceOf(Error)
-            expect(move_ran.ok).toBe(false)
+            try {
+                await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
+            } catch (ex) {
+                expect(mockMove).toHaveBeenCalled()
+                expect(ex).toHaveProperty("code")
+                expect(ex.code).toBe("ENOENT")
+                expect(ex).toHaveProperty("error")
+                expect(ex.message).toBeInstanceOf(Error)
+                expect(ex.ok).toBe(false)
+            }
         })
         it("valueReplace returns a structured error object", async () => {
             mockReplace.mockImplementationOnce(() => {
                 throw { code: "ENOENT", message: new Error("Something weird happened") }
             });
-            let replace_ran: BaseResponse = await Utils.valueReplace(mock_vals)
-            expect(mockReplace).toHaveBeenCalled()
-            expect(replace_ran).toHaveProperty("code")
-            expect(replace_ran.code).toBe("ENOENT")
-            expect(replace_ran).toHaveProperty("error")
-            expect(replace_ran.message).toBeInstanceOf(Error)
-            expect(replace_ran.ok).toBe(false)
+            try {
+                await Utils.valueReplace(mock_vals)
+            } catch (ex) {
+                expect(mockReplace).toHaveBeenCalled()
+                expect(ex).toHaveProperty("code")
+                expect(ex.code).toBe("ENOENT")
+                expect(ex).toHaveProperty("error")
+                expect(ex.message).toBeInstanceOf(Error)
+                expect(ex.ok).toBe(false)
+            }
         })
     })
 })

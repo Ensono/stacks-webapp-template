@@ -132,6 +132,18 @@ describe("prompt class tests", () => {
             expect(cliResult.message).toBeInstanceOf(Error)
             expect(cliResult.message).toHaveProperty("stack")
             expect(cliResult.code).toBe(127)
+        }),
+        it("When sample config generation is run an error should be returned", async () => {
+            Utils.writeOutConfigFile = jest.fn().mockImplementationOnce(() => {
+                throw { code: 127, message: new Error("Something weird happened") };
+            });
+            let cliResult = await generateSampleConfig()
+            expect(cliResult).toHaveProperty("code")
+            expect(Utils.writeOutConfigFile).toHaveBeenCalled()
+            expect(cliResult.message).toHaveProperty("message")
+            expect(cliResult.message).toBeInstanceOf(Error)
+            expect(cliResult.message).toHaveProperty("stack")
+            expect(cliResult.code).toBe(127)
         })
     })
 })

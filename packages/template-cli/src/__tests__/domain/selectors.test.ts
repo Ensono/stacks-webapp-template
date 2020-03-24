@@ -22,9 +22,30 @@ describe("selector class tests", () => {
             expect(MainWorker.prototype.ssr_aks_tfs).toHaveBeenCalledTimes(1)
             expect(MainWorker.prototype.ssr_aks_tfs).toHaveBeenCalled()
         })
+
+        it("should call the netcore_aks_tfs worker", async () => {
+            MainWorker.prototype.netcore_aks_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_netcore_aks_azuredevops(mock_answer_ssr_aks_tfs)
+            expect(MainWorker.prototype.netcore_aks_tfs).toHaveBeenCalledTimes(1)
+            expect(MainWorker.prototype.netcore_aks_tfs).toHaveBeenCalled()
+        })
+
+        it("should call the java_aks_tfs worker", async () => {
+            MainWorker.prototype.java_spring_aks_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_java_spring_aks_azuredevops(mock_answer_ssr_aks_tfs)
+            expect(MainWorker.prototype.java_spring_aks_tfs).toHaveBeenCalledTimes(1)
+            expect(MainWorker.prototype.java_spring_aks_tfs).toHaveBeenCalled()
+        })
+
+        it("should call the csr_aks_tfs worker", async () => {
+            MainWorker.prototype.csr_aks_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_csr_aks_azuredevops(mock_answer_ssr_aks_tfs)
+            expect(MainWorker.prototype.csr_aks_tfs).toHaveBeenCalledTimes(1)
+            expect(MainWorker.prototype.csr_aks_tfs).toHaveBeenCalled()
+        })
         it("should include the CliAnswerModel keys", async () => {
             MainWorker.prototype.ssr_aks_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
-            let selectedFlow = await FlowSelector.option_ssr_aks_azuredevops(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_csr_aks_azuredevops(mock_answer_ssr_aks_tfs)
             expect(selectedFlow).toHaveProperty("project_name")
             expect(selectedFlow).toBe(mock_answer_ssr_aks_tfs)
         })
