@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.17.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.17.0) (2020-03-25)
+
+
+### Bug Fixes
+
+* bugs on create page ([#86](https://github.com/amido/stacks-webapp-template/issues/86)) ([07903bb](https://github.com/amido/stacks-webapp-template/commit/07903bbb35c4650a1f3d714a1222d258fd8ca074))
+* pipelines debug ([#93](https://github.com/amido/stacks-webapp-template/issues/93)) ([31baacc](https://github.com/amido/stacks-webapp-template/commit/31baaccdc64364822a8d6f827ef0190c282cd426))
+* tests for extended cli ([#84](https://github.com/amido/stacks-webapp-template/issues/84)) ([dc34156](https://github.com/amido/stacks-webapp-template/commit/dc341567adcbdc7d3df3d94cd1b8ef5d5f7c4d79))
+* title element overwritten on tooltip ([#95](https://github.com/amido/stacks-webapp-template/issues/95)) ([9e2f338](https://github.com/amido/stacks-webapp-template/commit/9e2f338985393989a60ed9801acae38258781ea8))
+* updated ci-k8s deploy image with dotnet core ([#96](https://github.com/amido/stacks-webapp-template/issues/96)) ([92eb3c9](https://github.com/amido/stacks-webapp-template/commit/92eb3c95166851b10db22bbf374cbd41e4d258f6))
+
+
+### Features
+
+* added cache to the app root ([#100](https://github.com/amido/stacks-webapp-template/issues/100)) ([e4d05cd](https://github.com/amido/stacks-webapp-template/commit/e4d05cda31275001891beb6c0d68a53616c68561))
+* create page route ([#79](https://github.com/amido/stacks-webapp-template/issues/79)) ([7adf6f4](https://github.com/amido/stacks-webapp-template/commit/7adf6f40793abec85baa24fc25e20b01e661c692))
+* Lighthouse profile report in pipeline ([#101](https://github.com/amido/stacks-webapp-template/issues/101)) ([934511e](https://github.com/amido/stacks-webapp-template/commit/934511e4d351b409c5d3140a7d2d4ff07c384330))
+* ui improvements ([#94](https://github.com/amido/stacks-webapp-template/issues/94)) ([3e9dac4](https://github.com/amido/stacks-webapp-template/commit/3e9dac420a119d07238ff3a1858f68d16b8be744))
+
+
+
+
+
 # [1.16.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.15.1...@amidostacks/scaffolding-cli@1.16.0) (2020-03-24)
 
 

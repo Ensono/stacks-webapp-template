@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.5](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.19.0...@amidostacks/eslint-config@0.20.5) (2020-03-25)
+
+
+### Bug Fixes
+
+* version ([1f3f1ee](https://github.com/amido/stacks-webapp-template/commit/1f3f1ee661f29bdd2d16a11b7e5c1127f6cdf9b7))
+
+
+
+
+
 ## [0.20.4](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.19.0...@amidostacks/eslint-config@0.20.4) (2020-03-23)
 
 **Note:** Version bump only for package @amidostacks/eslint-config

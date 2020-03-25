@@ -10,6 +10,10 @@
     },
     "version": {
       "message": "chore(release): publish"
+    },
+    "bootstrap": {
+      "ignore": "",
+      "npmClientArgs": ["--no-package-lock"]
     }
   },
   "version": "independent"
