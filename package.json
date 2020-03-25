@@ -1,11 +1,12 @@
 {
-  "name": "amido-stacks",
+  "name": "amidostacks",
   "version": "1.0.0",
   "description": "Stacks web application template monorepo made with server side rendered React and node.js",
   "main": "",
   "repository": "https://github.com/amido/stacks-webapp-template.git",
   "author": "https://amido.com",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "license:check": "license-checker --json --excludePrivatePackage --out package-licenses.json --exclude 'MIT, MIT OR X11, BSD, ISC, Apache-2.0'",
     "postinstall": "lerna bootstrap",
@@ -16,7 +17,7 @@
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "validate": "npm run prettier --list-different && npm run lint",
     "version": "lerna version --conventional-commits --no-commit-hooks --yes --no-push",
-    "publish": "lerna publish from-package --no-git-reset --no-commit-hooks --no-verify-access --yes",
+    "publish": "lerna publish from-package --no-git-reset --no-commit-hooks --no-verify-access --ignore-prepublish --yes",
     "clean:tree": "git clean -idx"
   },
   "engines": {
