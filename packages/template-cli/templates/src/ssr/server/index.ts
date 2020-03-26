@@ -71,6 +71,14 @@ export default app
                 `> Ready on ${conf.APP_BASE_URL}:${port}${conf.APP_BASE_PATH}`,
                 "server",
             )
+            logger.info(
+                `running server in ${
+                    process.env.NODE_ENV !== "production"
+                        ? "dev"
+                        : "production"
+                }`,
+                " mode",
+            )
         })
     })
     .catch((ex: any) => {

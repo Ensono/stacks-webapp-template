@@ -1,5 +1,8 @@
 FROM amidostacks/node:0.0.3
 
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
 RUN apt-get update -y && apt-get install dumb-init -y
 # use changes to package.json to force Docker not to use the cache
 # when we change our application's nodejs dependencies:
