@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-expression object-literal-sort-keys max-classes-per-file no-empty */
-import { Interaction } from '@pact-foundation/pact'
+import { Interaction, Matchers } from '@pact-foundation/pact'
 import { provider } from './utils/pactSetup'
 
 import {MenuService} from './mocks/menuService'
@@ -11,12 +11,14 @@ describe('Yumido Menu API', () => {
 
     menuService = new MenuService({ url, port: provider.opts.port })
 
-    const EXPECTED_BODY = {
-        "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-        "name": "Burger Menu",
-        "description": "Cheese burger",
+    const MENU = {
+        "id": "e98583ad-0feb-4e48-9d4f-b20b09cb2633",
+        "name": "Breakfast Menu",
+        "description": "Eggs, Bread, Coffee and more",
         "enabled": true
     }
+
+    const getMenuExpectation = Matchers.like(MENU)
 
     afterEach(() => {
         return provider.verify()
@@ -29,7 +31,7 @@ describe('Yumido Menu API', () => {
                 .uponReceiving('A request for a menu by ID')
                 .withRequest({
                     method: 'GET',
-                    path: '/v1/menu/7f993e28-b9b1-4ea7-830b-b30f9758db68',
+                    path: '/v1/menu/e98583ad-0feb-4e48-9d4f-b20b09cb2633',
                     headers: {
                         Accept: 'application/json',
                     }
@@ -39,7 +41,7 @@ describe('Yumido Menu API', () => {
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
                     },
-                    body: EXPECTED_BODY,
+                    body: getMenuExpectation,
                 })
 
             return provider.addInteraction(interaction)
@@ -50,7 +52,7 @@ describe('Yumido Menu API', () => {
                 .then((response: any) => {
                     expect(response.headers["content-type"]).toEqual("application/json; charset=utf-8")
                     expect(response.status).toEqual(200)
-                    expect(response.data).toEqual(EXPECTED_BODY)
+                    expect(response.data).toEqual(MENU)
             })
         })
 

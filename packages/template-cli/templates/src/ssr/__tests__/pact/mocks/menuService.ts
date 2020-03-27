@@ -28,7 +28,7 @@ export class MenuService {
             baseURL: `${this.url}:${this.port}`,
             headers: { Accept: "application/json" },
             method: "GET",
-            url: "/v1/menu/7f993e28-b9b1-4ea7-830b-b30f9758db68"
+            url: "/v1/menu/e98583ad-0feb-4e48-9d4f-b20b09cb2633"
         })
     }
     

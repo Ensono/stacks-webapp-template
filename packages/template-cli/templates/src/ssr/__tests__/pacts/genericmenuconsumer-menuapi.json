@@ -7,29 +7,6 @@
   },
   "interactions": [
     {
-      "description": "A request for a menu by ID",
-      "providerState": "An existing menu",
-      "request": {
-        "method": "GET",
-        "path": "/v1/menu/7f993e28-b9b1-4ea7-830b-b30f9758db68",
-        "headers": {
-          "Accept": "application/json"
-        }
-      },
-      "response": {
-        "status": 200,
-        "headers": {
-          "Content-Type": "application/json; charset=utf-8"
-        },
-        "body": {
-          "id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
-          "name": "Burger Menu",
-          "description": "Cheese burger",
-          "enabled": true
-        }
-      }
-    },
-    {
       "description": "A request for all menus",
       "providerState": "An existing menu",
       "request": {
@@ -57,6 +34,34 @@
               "enabled": true
             }
           ]
+        }
+      }
+    },
+    {
+      "description": "A request for a menu by ID",
+      "providerState": "An existing menu",
+      "request": {
+        "method": "GET",
+        "path": "/v1/menu/e98583ad-0feb-4e48-9d4f-b20b09cb2633",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "id": "e98583ad-0feb-4e48-9d4f-b20b09cb2633",
+          "name": "Breakfast Menu",
+          "description": "Eggs, Bread, Coffee and more",
+          "enabled": true
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
         }
       }
     }
