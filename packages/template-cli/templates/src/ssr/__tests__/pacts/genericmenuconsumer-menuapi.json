@@ -64,6 +64,42 @@
           }
         }
       }
+    },
+    {
+      "description": "A request to retrieve 1 menu from the list",
+      "providerState": "A list of menus",
+      "request": {
+        "method": "GET",
+        "path": "/v1/menu",
+        "query": "pageSize=1&pageNumber=1",
+        "headers": {
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "pageSize": 1,
+          "pageNumber": 1,
+          "results": [
+            {
+              "id": "1234",
+              "restaurantId": "1234",
+              "name": "Breakfast Menu",
+              "description": "Eggs, Bread, Coffee and more",
+              "enabled": true
+            }
+          ]
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        }
+      }
     }
   ],
   "metadata": {

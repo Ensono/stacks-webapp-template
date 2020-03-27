@@ -1,4 +1,5 @@
 import axios from "axios"
+import { string } from "@pact-foundation/pact/dsl/matchers"
 
 export class MenuService {
     private url: string
@@ -23,15 +24,15 @@ export class MenuService {
         })
     }
 
-    public getMenuById = () => {
+    public getMenuById = (id:String) => {
         return axios.request({
             baseURL: `${this.url}:${this.port}`,
             headers: { Accept: "application/json" },
             method: "GET",
-            url: "/v1/menu/e98583ad-0feb-4e48-9d4f-b20b09cb2633"
+            url: `/v1/menu/${id}`
         })
     }
-    
+
     public addMenu = () => {
         return axios.request({
             baseURL: `${this.url}:${this.port}`,
