@@ -19,8 +19,7 @@ if (!process.env.CI) {
 }
 
 const port = parseInt(conf.PORT || "3000", 10)
-const dev = process.env.NODE_ENV !== "production"
-const app = next({dev})
+const app = next({dev: process.env.NODE_ENV !== "production"})
 const handle = app.getRequestHandler()
 app.renderOpts.poweredByHeader = false
 
@@ -71,6 +70,14 @@ export default app
             logger.info(
                 `> Ready on ${conf.APP_BASE_URL}:${port}${conf.APP_BASE_PATH}`,
                 "server",
+            )
+            logger.info(
+                `running server in ${
+                    process.env.NODE_ENV !== "production"
+                        ? "dev"
+                        : "production"
+                }`,
+                " mode",
             )
         })
     })

@@ -11,6 +11,7 @@ import theme from "../config/theme"
 import configureStore from "../state-management"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import Notifier from "components/Notifier"
+import Head from "next/head"
 
 interface AppStore extends Store {}
 
@@ -44,14 +45,20 @@ class _App extends App<AppWithStore> {
     render() {
         const {Component, pageProps, store} = this.props
         return (
-            <Provider store={store}>
-                <ThemeProvider theme={theme}>
-                    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                    <CssBaseline />
-                    <Component {...pageProps} />
-                    <Notifier />
-                </ThemeProvider>
-            </Provider>
+            <>
+                <Head>
+                    <title>Amido stacks</title>
+                </Head>
+
+                <Provider store={store}>
+                    <ThemeProvider theme={theme}>
+                        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                        <CssBaseline />
+                        <Component {...pageProps} />
+                        <Notifier />
+                    </ThemeProvider>
+                </Provider>
+            </>
         )
     }
 }
