@@ -44,6 +44,7 @@ module "sample_aks_bootstrap" {
   create_aksvnet       = true
   vnet_name            = module.default_label.id
   vnet_cidr            = var.vnet_cidr
+  subnet_front_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 3)
   subnet_prefixes      = ["${cidrsubnet(var.vnet_cidr.0, 4, 0)}", "${cidrsubnet(var.vnet_cidr.0, 4, 1)}", "${cidrsubnet(var.vnet_cidr.0, 4, 2)}"]
   subnet_names         = ["k8s1", "k8s2", "k8s3"]
   create_aks_spn       = true

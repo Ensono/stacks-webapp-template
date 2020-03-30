@@ -20,7 +20,7 @@ variable "vnet_cidr" {
 }
 
 module "sample_aks_bootstrap" {
-  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=feat/1357"
+  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=feat/1435"
   resource_namer          = module.default_label.id
   create_rg               = true
   resource_group_name     = module.default_label.id
@@ -42,6 +42,7 @@ module "sample_aks_bootstrap" {
   create_aksvnet       = true
   vnet_name            = module.default_label.id
   vnet_cidr            = var.vnet_cidr
+  subnet_front_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 3)
   subnet_prefixes      = ["${cidrsubnet(var.vnet_cidr.0, 4, 0)}", "${cidrsubnet(var.vnet_cidr.0, 4, 1)}", "${cidrsubnet(var.vnet_cidr.0, 4, 2)}"]
   subnet_names         = ["k8s1", "k8s2", "k8s3"]
   create_aks_spn       = true
