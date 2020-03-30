@@ -15,10 +15,32 @@ export default class MyDocument extends Document {
                         name="theme-color"
                         content={theme.palette.secondary.main}
                     />
+                    <meta
+                        name="viewport"
+                        content="initial-scale=1.0, width=device-width"
+                        key="viewport"
+                    />
                     <link
                         rel="icon"
                         type="image/x-icon"
                         href={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/favicon.ico`}
+                    />
+                    <meta
+                        property="og:image"
+                        content={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/favicon-96x96.png`}
+                    />
+                    <meta name="msapplication-TileColor" content="#000000" />
+                    <meta
+                        name="msapplication-config"
+                        content={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/browserconfig.xml`}
+                    />
+                    <link
+                        rel="manifest"
+                        href={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/manifest.json`}
+                    />
+                    <meta
+                        name="description"
+                        content="Amido stacks prototype project built using NextJS and Node"
                     />
                 </Head>
                 <body>
