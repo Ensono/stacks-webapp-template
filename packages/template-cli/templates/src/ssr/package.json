@@ -1,5 +1,6 @@
 {
-  "name": "webapp",
+  "name": "PROJECT_NAME",
+  "version": "0.1.0",
   "scripts": {
     "test": "node_modules/.bin/jest -c jest.config.json --rootDir . --runInBand ",
     "test:watch": "node_modules/.bin/jest -c jest.config.json --watchAll --rootDir . --runInBand ",
@@ -101,7 +102,7 @@
     "jest-junit": "^10.0.0",
     "jest-sonar-reporter": "^2.0.0",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.2",
     "redux-mock-store": "^1.5.4",
     "snapshot-diff": "^0.7.0",
     "start-server-and-test": "^1.10.8",
