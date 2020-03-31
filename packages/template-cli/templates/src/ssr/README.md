@@ -223,3 +223,6 @@ curl -v localhost:8389/v1/menu/7f993e28-b9b1-4ea7-830b-b30f9758db68 -H "Accept: 
 ```
 
 Please remember to always stop your server once done testing.
+
+## Other
+Please ensure that on first commit, the provided [.gitignore](../../shared/.gitignore) is included.
