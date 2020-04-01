@@ -1,17 +1,16 @@
-# K8s deployment container
+# Terraform deployment container
 
-provides a Kubectl cli  and Kustomize
+Provides a Terraform CLI
 
 versions:
-  - kubectl: v1.15.1
-  - kustomize v3.5.4
-
+  - terraform: 0.12.24
 
 USAGE:
 ---
 
 ```bash
-docker build . -t amidostacks/ci-tf:latest
-docker tag 11e4b30db926 amidostacks/ci-tf:latest
+docker build -t amidostacks/ci-tf:latest .
 docker push amidostacks/ci-tf:latest
+docker tag e5e317e45bc2 amidostacks/ci-tf:0.0.2
+docker push amidostacks/ci-tf:0.0.2
 ```
