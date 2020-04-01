@@ -10,23 +10,27 @@ sidebar_label: Publishing Packages
 
 1. Make changes and commit them to origin/branch
 2. Ensure your `git status` is porcelian
-3. On your local machine `npm run version`
+3. On your local machine
+   `npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease [--preid=<prerelease-id>] | from-git]`
 4. Commit the automatically generated changes
 5. Raise a PR to origin/master
 6. The CI pipeline will then publish the changes for you
 
 ## What registry are we using?
 
-All of our packages are opensource and can be found under the @amidostacks organisation on [npm](https://www.npmjs.com/settings/amidostacks/packages).
+All of our packages are opensource and can be found under the @amidostacks
+organisation on [npm](https://www.npmjs.com/settings/amidostacks/packages).
 
 ## Do I need access to the registry to be able to publish?
 
-No, the CI pipeline will publish for you. If you have maintainer access to the Github repo then you can commit your changes with the version bump, and let the pipeline do the rest (if it passes all the tests that is).
-
+No, the CI pipeline will publish for you. If you have maintainer access to the
+Github repo then you can commit your changes with the version bump, and let the
+pipeline do the rest (if it passes all the tests that is).
 
 ## Our Packages
 
-`stacks-webapp-template` is a [monorepo](./monorepo.md), meaning it is divided into independent sub-packages.
+`stacks-webapp-template` is a [monorepo](./monorepo.md), meaning it is divided
+into independent sub-packages.
 
 These packages can be found in the packages/ directory:
 
@@ -38,38 +42,59 @@ packages/
 
 ## Package Registry
 
-All our packages are publically available from `npm`: https://www.npmjs.com/org/amidostacks
-
+All our packages are publically available from `npm`:
+https://www.npmjs.com/org/amidostacks
 
 ## Package Management
 
-We are following in the footsteps of [create-react-app](https://github.com/facebook/create-react-app) and using [Lerna](https://lernajs.io) which can be installed using [npm](https://www.npmjs.com/package/lerna).
+We are following in the footsteps of
+[create-react-app](https://github.com/facebook/create-react-app) and using
+[Lerna](https://lernajs.io) which can be installed using
+[npm](https://www.npmjs.com/package/lerna).
 
-Lerna is configured to publish all changes in [packages](../packages) once any changes have passed the pipeline gates as defined in [build/azDevOps/azure](build/azDevOps/azure/). Note that it's then up the consumers of the packages to update their versions as needed.
+Lerna is configured to publish all changes in [packages](../packages) once any
+changes have passed the pipeline gates as defined in
+[build/azDevOps/azure](build/azDevOps/azure/). Note that it's then up the
+consumers of the packages to update their versions as needed.
 
 ## Automated Package Publishing
 
-Lerna is embedded as a step in the [monorepo](./monorepo.md) pipeline. Check out the pipeline step [publish-packages-lerna.yml](./build/azDevOps/azure/templates/steps/publish-packages-lerna.yml) for more informatiion on how this is done.
+Lerna is embedded as a step in the [monorepo](./monorepo.md) pipeline. Check out
+the pipeline step
+[publish-packages-lerna.yml](./build/azDevOps/azure/templates/steps/publish-packages-lerna.yml)
+for more informatiion on how this is done.
 
 This automates the following process:
 
-1. the version is bumped from the conventional commits `npm run version`
-2. `package.json` version is changed
-3. the changes are to be merged to master (CHANGELOG.md, version and gitHead, and the commit is tagged as a release in Github)
-4. in the pipeline, this triggers lerna to look for difference in package version and the registrry
+1. the version is bumped from the conventional commits
+   `npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease [--preid=<prerelease-id>] | from-git]`
+   ```js
+   // for example
+   npm version patch -m "Upgrade to %s for reasons"
+   ```
+2. `package.json` & `package-lock.json` version is changed
+3. the changes are to be merged to master (CHANGELOG.md, version and gitHead,
+   and the commit is tagged as a release in Github)
+4. in the pipeline, this triggers lerna to look for difference in package
+   version and the registry
 5. if changes are found the packages are published to the configured registry
 
 ### Why do version bumps require manual commit?
 
-Because we think it's up the the deveopers to ensure that they want to bump the version, based on their commit history.
+Because we think it's up the the deveopers to ensure that they want to bump the
+version, based on their commit history.
 
 ### Why have we automated publishing?
 
-We think it's good practice to test changes before publishing it to our [public npm registry](https://www.npmjs.com/settings/amidostacks/packages). so you know it's free of errors. We only publish from master in the pipeline.
+We think it's good practice to test changes before publishing it to our
+[public npm registry](https://www.npmjs.com/settings/amidostacks/packages). so
+you know it's free of errors. We only publish from master in the pipeline.
 
 ## Versioning
 
-We are versioning as a seperate script in order to support publishing from a CI pipeline, and to automate the creation of changelogs based on the commit history.
+We are versioning as a seperate script in order to support publishing from a CI
+pipeline, and to automate the creation of changelogs based on the commit
+history.
 
 From root, run: `npm run version`
 
@@ -83,37 +108,48 @@ The changes are then ready to be commited to the remote.
 
 ### Why do we use `lerna version --conventional-commits`?
 
->When run with this flag, lerna version will use the Conventional Commits Specification to determine the version bump and generate CHANGELOG.md files. [2]
-[2]: https://github.com/lerna/lerna/tree/master/commands/version#--conventional-commits
+> When run with this flag, lerna version will use the Conventional Commits
+> Specification to determine the version bump and generate CHANGELOG.md files.
+> [2][2]:
+> https://github.com/lerna/lerna/tree/master/commands/version#--conventional-commits
 
 ### Why do we use `lerna publish from-package`?
 
 1. We reduce risk of Git conflicts;
 2. The versioning can occur idependently;
-3. Lerna will need to commiting the `gitHead` SHA to the package.json of the package;
+3. Lerna will need to commiting the `gitHead` SHA to the package.json of the
+   package;
 4. If a publish fails, then it will try again.
 
 ## Conventional Commits
 
-We generate our CHANGELOGS.md automagically based on the `git commit`. The commit itself communicates the **WHAT**, whereas commit message communicates the **WHY**.
+We generate our CHANGELOGS.md automagically based on the `git commit`. The
+commit itself communicates the **WHAT**, whereas commit message communicates the
+**WHY**.
 
 ### What is a commit?
 
-[`git commit`](https://git-scm.com/docs/git-commit) is a git command that is used to record your changes to the local repository.
+[`git commit`](https://git-scm.com/docs/git-commit) is a git command that is
+used to record your changes to the local repository.
 
 ### Why are we using Conventional Commits?
 
-* Automatically generating CHANGELOGs.
-* Automatically determining a semantic version bump (based on the types of commits landed).
-* Communicating the nature of changes to teammates, the public, and other stakeholders.
-* Triggering publish processes.
-* Making it easier for people to contribute to your projects, by allowing them to explore a more structured commit history.
+- Automatically generating CHANGELOGs.
+- Automatically determining a semantic version bump (based on the types of
+  commits landed).
+- Communicating the nature of changes to teammates, the public, and other
+  stakeholders.
+- Triggering publish processes.
+- Making it easier for people to contribute to your projects, by allowing them
+  to explore a more structured commit history.
 
-_Source: https://www.conventionalcommits.org/en/v1.0.0/#why-use-conventional-commits_
+_Source:
+https://www.conventionalcommits.org/en/v1.0.0/#why-use-conventional-commits_
 
 ### How do we enforce Conventional Commits?
 
-We use precommit hooks with [Husky](https://github.com/typicode/husky) and [commitlint](https://github.com/conventional-changelog/commitlint).
+We use precommit hooks with [Husky](https://github.com/typicode/husky) and
+[commitlint](https://github.com/conventional-changelog/commitlint).
 
 ### What are the commit conventions format?
 
@@ -121,9 +157,9 @@ We use precommit hooks with [Husky](https://github.com/typicode/husky) and [comm
 
 Where:
 
-* [`'type'=`](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional#type-enum)
+- [`'type'=`](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional#type-enum)
   ```js
-  [
+  ;[
     'build',
     'ci',
     'chore',
@@ -134,14 +170,13 @@ Where:
     'refactor',
     'revert',
     'style',
-    'test'
-  ];
+    'test',
+  ]
   ```
-* `scope?=` optional, addresses the specific area of change, or feature
-* `subject=` why you are making the commit in the first place
+- `scope?=` optional, addresses the specific area of change, or feature
+- `subject=` why you are making the commit in the first place
 
-Examples:
-`chore: to run tests on travis ci`
+Examples: `chore: to run tests on travis ci`
 
 `fix(server): to send cors headers`
 
@@ -153,16 +188,24 @@ From root, run: `npm run publish`
 
 ### What does `publish` do?
 
-1. explicitly publish packages where the latest version is not present in the registry (from-package).
+1. explicitly publish packages where the latest version is not present in the
+   registry (from-package).
 
-*Lerna will never publish packages which are marked as private ("private": true in the package.json).*
+_Lerna will never publish packages which are marked as private ("private": true
+in the package.json)._
 
 ### What happens in CI?
 
-We check if the package version is up to date with the registry. If it's a head, then we publish the changes.
+We check if the package version is up to date with the registry. If it's a head,
+then we publish the changes.
 
 ### Why do we use `lerna publish from-package`?
 
-> keyword except the list of packages to publish is determined by inspecting each `package.json` and determining if any package version is not present in the registry. Any versions not present in the registry will be published. This is useful when a previous lerna publish failed to publish all packages to the registry. [1]
+> keyword except the list of packages to publish is determined by inspecting
+> each `package.json` and determining if any package version is not present in
+> the registry. Any versions not present in the registry will be published. This
+> is useful when a previous lerna publish failed to publish all packages to the
+> registry. [1]
 
-[1]: https://github.com/lerna/lerna/tree/master/commands/publish#bump-from-package
+[1]:
+  https://github.com/lerna/lerna/tree/master/commands/publish#bump-from-package
