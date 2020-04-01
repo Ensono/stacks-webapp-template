@@ -12,8 +12,7 @@ import { CliAnswerModel } from '../model/prompt_answer'
 const TEMPLATES_DIRECTORY = `../../../templates/`
 
 export function copyFilter(src: string, dest: string) {
-    if (src.indexOf("node_modules") > -1 ||
-        src.indexOf(".next") > -1 ||
+    if (src.indexOf(".next") > -1 ||
         src.indexOf("coverage") > -1 ||
         src.indexOf("dist") > -1) {
         return false
