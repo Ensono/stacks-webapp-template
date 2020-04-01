@@ -3,6 +3,62 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.9](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.3...@amidostacks/scaffolding-cli@1.18.9) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/scaffolding-cli
+
+
+
+
+
+## [1.18.8](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.3...@amidostacks/scaffolding-cli@1.18.8) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/scaffolding-cli
+
+
+
+
+
+## [1.18.7](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.3...@amidostacks/scaffolding-cli@1.18.7) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/scaffolding-cli
+
+
+
+
+
+## [1.18.6](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.3...@amidostacks/scaffolding-cli@1.18.6) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/scaffolding-cli
+
+
+
+
+
+## [1.18.5](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.3...@amidostacks/scaffolding-cli@1.18.5) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/scaffolding-cli
+
+
+
+
+
+## [1.18.4](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.3...@amidostacks/scaffolding-cli@1.18.4) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/scaffolding-cli
+
+
+
+
+
+## [1.18.3](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.2...@amidostacks/scaffolding-cli@1.18.3) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/scaffolding-cli
+
+
+
+
+
 ## [1.18.2](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.1...@amidostacks/scaffolding-cli@1.18.2) (2020-03-31)
 
 

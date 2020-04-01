@@ -51,7 +51,7 @@ See [browsers](https://devexpress.github.io/testcafe/documentation/using-testcaf
 ### E2E Tests
 We can use the [.env](./.env) file to specify defaults instead of exporting locally, or using your IDE.
 
-_Important: if you have defined an environment varibale, then `dotenv` will not override thi with the values in the `.env` file. The environment should always hold the source of truth._
+_⚠️ IMPORTANT: if you have defined an environment varibale, then `dotenv` will not override thi with the values in the `.env` file. The environment should always hold the source of truth._
 
 - Base URL: `process.env.APP_BASE_URL` (defaults to deployed dev environment `http://dev.amidostacks.com`)
 - Base URL: `process.env.APP_BASE_PATH` (optional, default to deployed dev environment `/web/stacks`)
