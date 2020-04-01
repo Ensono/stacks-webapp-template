@@ -1,6 +1,6 @@
 {
   "name": "@amidostacks/scaffolding-cli",
-  "version": "1.17.0",
+  "version": "1.18.2",
   "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
   "preferGlobal": true,
   "bin": {
@@ -61,5 +61,5 @@
     "url": "https://github.com/amido/stacks-webapp-template.git",
     "directory": "packages/template-cli"
   },
-  "gitHead": "62ab90463fab445c01d6579f6ee9893bba33aa12"
+  "gitHead": "f99b378f0dce3bd1585eff053d6368d21cb5e3d0"
 }
