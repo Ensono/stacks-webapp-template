@@ -1,6 +1,5 @@
 data "azurerm_client_config" "current" {}
 
-# Naming convention 
 module "default_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.16.0"
   namespace  = "${var.name_company}-${var.name_project}"
@@ -10,6 +9,7 @@ module "default_label" {
   delimiter  = "-"
   tags       = var.tags
 }
+
 # if you do not set the 
 # `service_cidr`
 # `dns_service_ip`
@@ -19,16 +19,18 @@ variable "vnet_cidr" {
   default = ["10.1.0.0/16"]
 }
 
-module "sample_aks_bootstrap" {
-  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=feat/1435"
-  resource_namer          = module.default_label.id
+module "sample_ssl_app_gateway" {
+  source                  = "../../"
+  resource_namer          = "${module.default_label.id}-letsencrypt"
   create_rg               = true
   resource_group_name     = module.default_label.id
   resource_group_location = "uksouth"
   client_id               = data.azurerm_client_config.current.client_id
-  spn_object_id           = data.azurerm_client_config.current.object_id
+  spn_object_id               = data.azurerm_client_config.current.object_id
   client_secret           = var.client_secret
-  tenant_id               = data.azurerm_client_config.current.tenant_id
+  tenant_id            = data.azurerm_client_config.current.tenant_id
+  # client_id            = var.create_aksspn ? module.aks-spn.spn_applicationid : var.cluster_spn_clientid
+  # client_secret        = var.create_aksspn ? random_string.spn_password.0.result : var.cluster_spn_clientsecret
   cluster_version      = "1.15.7"
   name_environment     = "dev"
   name_project         = var.name_project

@@ -71,17 +71,11 @@ for more informatiion on how this is done.
 
 This automates the following process:
 
-1. the version is bumped from the conventional commits
-   `npm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease [--preid=<prerelease-id>] | from-git]`
-   ```js
-   // for example
-   npm version patch -m "Upgrade to %s for reasons"
-   ```
-2. `package.json` & `package-lock.json` version is changed
-3. the changes are to be merged to master (CHANGELOG.md, version and gitHead,
-   and the commit is tagged as a release in Github)
+1. the version is bumped from the conventional commits `npm run version`
+2. `package.json` version is changed
+3. the changes are to be merged to master (CHANGELOG.md, version in packages)
 4. in the pipeline, this triggers lerna to look for difference in package
-   version and the registry
+   version and the registrry
 5. if changes are found the packages are published to the configured registry
 
 ### Why do version bumps require manual commit?
@@ -226,7 +220,8 @@ then we publish the changes.
 > is useful when a previous lerna publish failed to publish all packages to the
 > registry. [1]
 
-https://github.com/lerna/lerna/tree/master/commands/publish#bump-from-package
+[1]:
+  https://github.com/lerna/lerna/tree/master/commands/publish#bump-from-package
 
 ## Lessons learnt with Lerna
 
@@ -243,4 +238,3 @@ publishing in a pipeline. Namely the following:
 4. Lerna cannot version or publish in a detached HEAD state, making pipeline
    versioning and publishing really hard.
 5. It should probably just be done locally...
-   > > > > > > > e83234cdd8d464f9fd13b1fb905a2958050c871e

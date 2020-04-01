@@ -1,6 +1,6 @@
 FROM debian:10.3
 
-ARG TF_VERSION=0.12.17
+ARG TF_VERSION=0.12.24
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
 
@@ -10,7 +10,7 @@ RUN apt-get update && \
     apt-get clean
 
 RUN cd /tmp && \
-    curl -s -LO https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip && \
+    curl -sLO https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip && \
     unzip terraform_${TF_VERSION}_linux_amd64.zip &&\
     mv terraform /usr/local/bin/ && \
     terraform --version 
