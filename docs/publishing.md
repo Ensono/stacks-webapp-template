@@ -57,7 +57,7 @@ This automates the following process:
 
 1. the version is bumped from the conventional commits `npm run version`
 2. `package.json` version is changed
-3. the changes are to be merged to master (CHANGELOG.md, version and gitHead, and the commit is tagged as a release in Github)
+3. the changes are to be merged to master (CHANGELOG.md, version in packages)
 4. in the pipeline, this triggers lerna to look for difference in package version and the registrry
 5. if changes are found the packages are published to the configured registry
 
