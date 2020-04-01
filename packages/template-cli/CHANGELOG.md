@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.18.2](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.1...@amidostacks/scaffolding-cli@1.18.2) (2020-03-31)
+
+
+### Bug Fixes
+
+* include .gitignore ([f43b937](https://github.com/amido/stacks-webapp-template/commit/f43b937392865606702820493b0f93d432593250))
+
+
+
+
+
+## [1.18.1](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.0...@amidostacks/scaffolding-cli@1.18.1) (2020-03-31)
+
+
+### Bug Fixes
+
+* gitignore for template ([3485e95](https://github.com/amido/stacks-webapp-template/commit/3485e95c5076b197871888b4d77a4dda64c12a82))
+
+
+
+
+
 # [1.18.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.18.0) (2020-03-31)
 
 
