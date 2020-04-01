@@ -97,6 +97,10 @@ The changes are then ready to be commited to the remote.
 
 By default, lerna version will commit changes to package.json files and tag the release. Since we are publishing `from-package` and doing so in the pipeline, we would rather suggest creating a seperate Github release task that would run on successful Lerna publishing to the registry.
 
+### Why do we use `--no-push`?
+
+By default, lerna version will push the committed and tagged changes to the configured git remote. We disable this to ensure that the changelog and vrsion bumps are obvious on local, and it's up to the develop to commit them to their working branch.
+
 ## Conventional Commits
 
 We generate our CHANGELOGS.md automagically based on the `git commit`. The commit itself communicates the **WHAT**, whereas commit message communicates the **WHY**.

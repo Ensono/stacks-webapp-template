@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.15](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.20.9...@amidostacks/eslint-config@0.20.15) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/eslint-config
+
+
+
+
+
+## [0.20.14](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.20.9...@amidostacks/eslint-config@0.20.14) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/eslint-config
+
+
+
+
+
+## [0.20.13](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.20.9...@amidostacks/eslint-config@0.20.13) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/eslint-config
+
+
+
+
+
+## [0.20.12](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.20.9...@amidostacks/eslint-config@0.20.12) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/eslint-config
+
+
+
+
+
+## [0.20.11](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.20.9...@amidostacks/eslint-config@0.20.11) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/eslint-config
+
+
+
+
+
+## [0.20.10](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.20.9...@amidostacks/eslint-config@0.20.10) (2020-04-01)
+
+**Note:** Version bump only for package @amidostacks/eslint-config
+
+
+
+
+
 ## [0.20.9](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.20.8...@amidostacks/eslint-config@0.20.9) (2020-04-01)
 
 **Note:** Version bump only for package @amidostacks/eslint-config
