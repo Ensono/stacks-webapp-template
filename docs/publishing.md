@@ -166,3 +166,13 @@ We check if the package version is up to date with the registry. If it's a head,
 > keyword except the list of packages to publish is determined by inspecting each `package.json` and determining if any package version is not present in the registry. Any versions not present in the registry will be published. This is useful when a previous lerna publish failed to publish all packages to the registry. [1]
 
 [1]: https://github.com/lerna/lerna/tree/master/commands/publish#bump-from-package
+
+## Lessons learnt with Lerna
+
+We have encountered a lot of issues while using Lerna for versioning and publishing in a pipeline. Namely the following:
+
+1. Lerna expects master to be un protected and able to push to it - https://github.com/lerna/lerna/issues/1957
+2. When using `from-package` the GitHead SHA needs to be commited POST publishing to a registry. This requires the publish task in the pipeline to commit this to master.
+3. When using `from-package` the Git Tag needs to be commited POST publishing to registry. This requires custom tasks for tagging releases.
+4. Lerna cannot version or publish in a detached HEAD state, making pipeline versioning and publishing really hard.
+5. It should probably just be done locally...
