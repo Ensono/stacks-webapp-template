@@ -93,6 +93,10 @@ The changes are then ready to be commited to the remote.
 3. Lerna will need to commiting the `gitHead` SHA to the package.json of the package;
 4. If a publish fails, then it will try again.
 
+### Why do we use `--no-git-tag-version`?
+
+By default, lerna version will commit changes to package.json files and tag the release. Since we are publishing `from-package` and doing so in the pipeline, we would rather suggest creating a seperate Github release task that would run on successful Lerna publishing to the registry.
+
 ## Conventional Commits
 
 We generate our CHANGELOGS.md automagically based on the `git commit`. The commit itself communicates the **WHAT**, whereas commit message communicates the **WHY**.
