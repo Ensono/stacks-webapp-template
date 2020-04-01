@@ -9,6 +9,7 @@ Packages for templating SSR Node.js with React apps with little build configurat
 See [Amido Stacks Webapp](https://amido.github.io/stacks-webapp-template/) for docs.
 
 ## Why?
+
 Every new project exists to solve a unique challenge 
 but requires common building blocks to get up and running.
 
@@ -38,6 +39,7 @@ Please see [Stacks/CONTRIBUTING](https://github.com/amido/stacks/blob/master/.gi
 
 
 ## To start
+
 `npm install` to install the dev dependencies from the root. This should invoke `npm run postinstall` automatically to bootstrap the packages in the current Lerna repo. Lerna installs all package dependencies and links any cross-dependencies.
 
 
@@ -59,12 +61,13 @@ formatting and linting rules.
 `npm run test`: runs the unit tests for all packages.
 
 ## To create the sample app locally
+
 For package management, we are using [Lerna](https://lernajs.io) which can be installed using [npm](https://www.npmjs.com/package/lerna).
 
 We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
 
 See [template-cli](./packages/template-cli/README.md) for information.
 
-## Publishing
+## Versioning and Publishing [packages](./docs/packages.md)
 
 We are also using Lerna to publish our packages, version control, and for changelogs. For more informatiion checkout the publishing docs on [publishing](./docs/publishing.md).

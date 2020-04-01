@@ -22,7 +22,7 @@ const users = [
 
 const siteConfig = {
     /*
-    Important: Ensure we are not indexing with Search Engines.
+    ⚠️ IMPORTANT: Ensure we are not indexing with Search Engines.
     */
     noIndex: true,
 

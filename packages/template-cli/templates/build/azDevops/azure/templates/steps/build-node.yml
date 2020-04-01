@@ -57,7 +57,7 @@ steps:
       login_azure: true
 
   # Audit dependencies
-  # Important: Down to the user to ensure that the registry they are using
+  # ⚠️ IMPORTANT: Down to the user to ensure that the registry they are using
   # can support `npm audit`
   - ${{ if eq(parameters.audit_test, true) }}:
       - template: azDevOps/azure/templates/v2/steps/build-audit-dependencies-node.yml@templates
