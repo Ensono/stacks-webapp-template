@@ -38,6 +38,7 @@ resource "azurerm_public_ip" "default" {
 resource "azurerm_kubernetes_cluster" "default" {
   count               = var.create_aks ? 1 : 0
   name                = var.resource_namer
+  enable_pod_security_policy = true
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
   dns_prefix          = var.dns_prefix
@@ -112,7 +113,8 @@ resource "azurerm_kubernetes_cluster" "default" {
 
   lifecycle {
     ignore_changes = [
-      default_node_pool.0.node_count
+      default_node_pool.0.node_count,
+      windows_profile
     ]
   }
   depends_on = [

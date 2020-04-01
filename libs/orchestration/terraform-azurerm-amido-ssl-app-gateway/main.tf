@@ -24,6 +24,6 @@ resource "azurerm_storage_blob" "default" {
   storage_container_name = azurerm_storage_container.default.0.name
   content_type           = "text/html"
   type                   = "Block"
-  source                 = file("${abspath(path.module)}/data/test.html")
+  source                 = "${abspath(path.module)}/data/test.html"
 }
 
