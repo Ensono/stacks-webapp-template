@@ -4,7 +4,6 @@ title: eslint Configuration
 sidebar_label: Packages
 ---
 
-* While we remain private: [GETTING STARTED](./GETTING_STARTED.md)
 * Checkout our [CHANGELOG](./CHANGELOG.md) for latest changes
 * See the template-cli generated [templates project](../template-cli/templates/src/ssr/package.json) for example usage
 
@@ -18,9 +17,10 @@ Our default export contains all of our ESLint rules. The configuration was built
 
 1. To start run `npm install --save-dev @amidostacks/eslint-config` to save as a dev dependency
 2. Install peer dependecies with the correct versions:
-   `npx install-peerdeps --dev @amidostacks/eslint-config`
-    
+   `npx install-peerdeps --save-dev @amidostacks/eslint-config`
+
 ## Usage
+
 After installing, simply add a `.eslintrc` file the following to your project root (at the same level as `package.json`):
 
 ```json
@@ -38,10 +38,10 @@ In your `package.json` add a script to run linting:
   }
 ```
 
-## Publishing
+## Versioning and Publishing
 
-For information on how to publish changes to the linting rules, please see [Publishing Packages](../../docs/publishing.md).
+For information on how to version and publish changes to this package, please see [Publishing Packages](../../docs/publishing.md).
 
 ## Security
 
-We are using the `eslint-plugin-security` plugin to help idendity potentuiall security hotspots. See [Node Security](https://github.com/nodesecurity/eslint-plugin-security) for more information.
+We are using the `eslint-plugin-security` plugin to help idendity potential security hotspots. See [Node Security](https://github.com/nodesecurity/eslint-plugin-security) for more information.

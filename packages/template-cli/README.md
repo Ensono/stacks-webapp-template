@@ -86,3 +86,7 @@ npm run test
 ```
 
 We are using [Jest.js](https://jestjs.io/) for testing including code coverage.
+
+## Versioning and Publishing
+
+For information on how to version and publish changes to this package, please see [Publishing Packages](../../docs/publishing.md).
