@@ -4,5 +4,14 @@
   "setupFilesAfterEnv": ["./utils/pactTestWrapper.ts"],
   "transform": {
     "^.+\\.ts$": "ts-jest"
-  }
+  },
+  "reporters": [
+    "default",
+    [
+      "jest-junit",
+      {
+        "outputName": "pact-junit-test-report.xml"
+      }
+    ]
+  ]
 }
