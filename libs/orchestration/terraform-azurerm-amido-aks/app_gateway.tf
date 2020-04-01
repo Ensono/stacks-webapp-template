@@ -59,8 +59,10 @@ resource "azurerm_application_gateway" "network" {
 
   backend_address_pool {
     name = local.backend_address_pool_name
+    # fqdn_list = []
   }
 
+# 51.140.30.3 (0c2fb70b-9e60-4153-bd97-7ecb9ba2303a.cloudapp.net)
   backend_http_settings {
     name                  = local.http_setting_name
     cookie_based_affinity = "Disabled"

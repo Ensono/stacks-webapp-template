@@ -38,7 +38,7 @@ provider "azuread" {
 # KEY VAULT
 resource "azurerm_key_vault" "default" {
   count                       = 1
-  name                        = var.resource_namer
+  name                        = substr(var.resource_namer, 0, 24)
   location                    = var.resource_group_location
   resource_group_name         = var.resource_group_name
   enabled_for_disk_encryption = true
