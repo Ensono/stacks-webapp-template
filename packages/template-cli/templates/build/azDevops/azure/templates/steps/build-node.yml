@@ -33,7 +33,7 @@ parameters:
   unit_test: true
   contract_test: true
   audit_test: false
-  contract_check_can_deploy: false
+  contract_check_can_deploy: true
   cypress_e2e_test: true
   cypress_applitools_test: false
   cypress_e2e_env_vars: {}
