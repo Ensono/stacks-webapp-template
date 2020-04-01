@@ -112,6 +112,10 @@ describe("utils class tests", () => {
             expect(git_ran.message).toMatch("Git Cloned from repo and checked out on specified head")
         })
 
+        it("copyFilter should return true for dist", () => {
+            let processed: boolean = copyFilter("some/dist/foo", "/some/dir")
+            expect(processed).toBe(false)
+        })
         it("copyFilter should return false for none excluded dir", () => {
             let processed: boolean = copyFilter("user_code/foo", "/some/dir")
             expect(processed).toBe(true)
