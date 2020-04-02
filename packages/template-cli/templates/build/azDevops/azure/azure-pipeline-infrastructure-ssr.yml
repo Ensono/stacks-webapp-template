@@ -124,8 +124,8 @@ stages:
             TF_VAR_name_company: $(company),
             TF_VAR_name_project: $(project),
             TF_VAR_name_component: $(component),
-            TF_VAR_name_environment: dev,
-            TF_VAR_stage: dev,
+            TF_VAR_name_environment: nonprod,
+            TF_VAR_stage: nonprod,
             TF_VAR_dns_zone: nonprod.$(base_domain),
             TF_VAR_internal_dns_zone: nonprod.$(base_domain_internal)
           }
