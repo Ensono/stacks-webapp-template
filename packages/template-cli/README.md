@@ -44,10 +44,10 @@ $ npx ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-c
 ```
 
 4. Follow the CLI prompts to create a templated app with user defined configuration:
-- Project Name: _default_: current directory (will create a directory with this name)
-- Project Type: _default_: SSR (server side rendering)
-- Platform: _default_: AKS (Azure Kubernetes Service)
-- CI/CD Tooling: _default_: AzureDevOps
+   - Project Name: _default_: current directory (will create a directory with this name)
+   - Project Type: _default_: SSR (server side rendering)
+   - Platform: _default_: AKS (Azure Kubernetes Service)
+   - CI/CD Tooling: _default_: AzureDevOps
 
 5. Navigate to the created project directory to install template dependencies:
 e.g. ${SELECTED_DIR}/$PROJECT_NAME
@@ -63,7 +63,7 @@ $ npm run start
 ```
 Open Browser and hit [http://localhost:3000](http://localhost:3000)
 
-8. To get a local deployment open the following files and comment these lines
+7. To get a local deployment open the following files and uncomment these lines
 
 `${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/deploy/terraform/azure/provider.tf`
 ```terraform
@@ -89,7 +89,7 @@ Open Browser and hit [http://localhost:3000](http://localhost:3000)
 # }
 ```
 
-7. To test the deploy folder has been correctly provisioned prior to checking you need to at this point in time copy over a sample backend-config and terraform vars. Currently vars.tf and provider configuration is not automatically updated. 
+8. To test the deploy folder has been correctly provisioned prior to checking you need to at this point in time copy over a sample backend-config and terraform vars. Currently vars.tf and provider configuration is not automatically updated. 
 Future iterations will include this.
 
 The safest way to run and maintain this going forward is to rely on environment variables for credentials as that is the way the pipeline will trigger the executions of terraform. 
@@ -130,3 +130,7 @@ $ npm run test
 ```
 
 We are using [Jest.js](https://jestjs.io/) for testing including code coverage.
+
+## Versioning and Publishing
+
+For information on how to version and publish changes to this package, please see [Publishing Packages](../../docs/publishing.md).
