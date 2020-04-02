@@ -3,13 +3,15 @@ resource "azurerm_subnet" "frontend" {
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.vnet_name
   address_prefix       = var.subnet_front_end_prefix
+  depends_on          = [var.vnet_name]
 }
 
 resource "azurerm_subnet" "backend" {
   name                 = "backend"
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.vnet_name
-  address_prefix       = "10.254.2.0/24"
+  address_prefix       = var.subnet_backend_end_prefix
+  depends_on          = [var.vnet_name]
 }
 
 resource "azurerm_public_ip" "app_gateway" {

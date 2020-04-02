@@ -38,7 +38,7 @@ variables:
   company: amido
   project: stacks
   domain: webapp
-  component: cycle2
+  component: node
   # Versioning
   version_major: 0
   version_minor: 0
@@ -46,19 +46,26 @@ variables:
   # SelfConfig
   self_repo: stacks-webapp-template/packages/template-cli/templates
   self_repo_tf_src: deploy/azure/ssr
+  # TF STATE CONFIG
+  tf_state_rg: amido-stacks-rg-uks
+  tf_state_storage: amidostackstfstategbl
+  tf_state_container: tfstate
+  tf_state_key: sharedservices
   # Docker Config
   docker_dockerfile_path: 'src/'
   docker_image_name: stacks-webapp
   docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
-  docker_container_registry_name: amidouksstacksacrdev
+  docker_container_registry_name: amidostacksnonprodnode
   # AKS/AZURE
-  aks_clusterrg_nonprod: amido-stacks-dev-cycle2
-  aks_clustername_nonprod: amido-stacks-dev-cycle2
-  aks_dns_resource_group_name_nonprod: amido-stacks-dev-cycle2
+  aks_clusterrg_nonprod: amido-stacks-nonprod-node
+  aks_clustername_nonprod: amido-stacks-nonprod-node
+  aks_dns_resource_group_name_nonprod: amido-stacks-nonprod-node
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
-  # Test setup
   deployed_base_url: https://stacks-webapp.com/foo
+  # Ensure you find this definition in the K8s and Azure steps to prefix with desired subdomain assignment
+  base_domain: amidostacks.com
+  base_domain_internal: amidostacks.internal
 
 stages:
 - stage: nonprod
@@ -92,11 +99,11 @@ stages:
           terraform_backend_client_secret: $(azure_client_secret)
           terraform_backend_tenant_id: $(azure_tenant_id)
           terraform_backend_subscription_id: $(azure_subscription_id)
-          terraform_state_rg: 'amido-stacks-rg-uks'
-          terraform_state_storage: 'amidostackstfstategbl'
-          terraform_state_container: 'tfstate'
-          terraform_state_key: 'test-from-scratch'
-          terraform_state_workspace: 'dev'
+          terraform_state_rg: $(tf_state_rg)
+          terraform_state_storage: $(tf_state_storage)
+          terraform_state_container: $(tf_state_container)
+          terraform_state_key: $(tf_state_key)
+          terraform_state_workspace: nonprod
           # Global Config
           company: 'amido'
           project: 'stacks'
@@ -115,7 +122,9 @@ stages:
             TF_VAR_name_project: $(project),
             TF_VAR_name_component: $(component),
             TF_VAR_name_environment: dev,
-            TF_VAR_stage: dev
+            TF_VAR_stage: dev,
+            TF_VAR_dns_zone: nonprod.$(base_domain),
+            TF_VAR_internal_dns_zone: nonprod.$(base_domain_internal)
           }
           terraform_output_commands: ''
   - job: K8sNonProd
@@ -143,10 +152,10 @@ stages:
         parameters: 
           aks_cluster_name: $(aks_clusterrg_nonprod)
           aks_resource_group_name: $(aks_clusterrg_nonprod)
-          aks_dns_resource_group_name: amido-stacks-dev-cycle2
+          aks_dns_resource_group_name: $(aks_clusterrg_nonprod)
           aks_set_acr_perms: true
-          acr_name: amidostacksdevcycle2
-          acr_resource_group_name: amido-stacks-dev-cycle2
+          acr_name: $(acr_rg_nonprod)
+          acr_resource_group_name: $(aks_clusterrg_nonprod)
           ingress_definition:
             # TODO: make this a complex object so that additional args can be passed in 
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml'
@@ -154,3 +163,4 @@ stages:
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
           base_external_dns_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_external-dns.yml
           external_dns_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml
+          domain_filter: nonprod.$(base_domain)

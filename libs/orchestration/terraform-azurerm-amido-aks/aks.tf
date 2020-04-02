@@ -38,7 +38,6 @@ resource "azurerm_public_ip" "default" {
 resource "azurerm_kubernetes_cluster" "default" {
   count               = var.create_aks ? 1 : 0
   name                = var.resource_namer
-  enable_pod_security_policy = true
   location            = var.resource_group_location
   resource_group_name = var.resource_group_name
   dns_prefix          = var.dns_prefix
@@ -46,7 +45,6 @@ resource "azurerm_kubernetes_cluster" "default" {
 
   linux_profile {
     admin_username = var.admin_username
-
     ssh_key {
       key_data = chomp(tls_private_key.ssh_key[0].public_key_openssh)
     }
@@ -85,8 +83,9 @@ resource "azurerm_kubernetes_cluster" "default" {
 
   role_based_access_control {
     enabled = true
-
   }
+
+  enable_pod_security_policy = true
 
   network_profile {
     network_plugin    = var.advanced_networking_enabled ? "azure" : "kubenet"
@@ -107,8 +106,8 @@ resource "azurerm_kubernetes_cluster" "default" {
   # [here](https://docs.microsoft.com/en-us/azure/aks/use-managed-identity)
   # this will be a more generic cloud approach
   service_principal {
-    client_id     = var.client_id
-    client_secret = var.client_secret
+    client_id     = "msi"
+    client_secret = "null" # ==> MSI ignores this value and is managed by AAD
   }
 
   lifecycle {

@@ -37,8 +37,8 @@ module "sample_aks_bootstrap" {
   name_company            = var.name_company
   name_component          = var.name_component
   create_dns_zone         = true
-  dns_zone                = "nonprod.amidostacks.com"
-  internal_dns_zone       = "nonprod.amidostacks.internal"
+  dns_zone                = var.dns_zone
+  internal_dns_zone       = var.internal_dns_zone
   create_acr              = true
   acr_registry_name       = replace(module.default_label.id, "-", "")
   create_aksvnet          = true
@@ -58,5 +58,10 @@ module "sample_ssl_app_gateway" {
   resource_namer = "${module.default_label.id}-ssl"
   resource_group_name     = module.default_label.id
   resource_group_location = "uksouth"
-  create_ssl_cert   = true
+  create_ssl_cert         = true
+  vnet_name               = module.default_label.id
+  vnet_cidr               = var.vnet_cidr
+  subnet_front_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 3)
+  subnet_backend_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 4)
+  subnet_names            = ["k8s1", "k8s2", "k8s3"]
 }

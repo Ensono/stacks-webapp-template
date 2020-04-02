@@ -109,28 +109,32 @@ variable "create_ssl_cert" {
 #   default = true
 # }
 
-# variable "vnet_name" {
-#   type    = string
-#   default = "changeme"
-# }
+variable "vnet_name" {
+  type    = string
+  default = "changeme"
+}
 
-# variable "vnet_cidr" {
-#   type = list(string)
-# }
+variable "vnet_cidr" {
+  type = list(string)
+}
 
-# variable "subnet_prefixes" {
-#   type    = list(string)
-#   default = [""]
-# }
+variable "subnet_prefixes" {
+  type    = list(string)
+  default = [""]
+}
 
-# variable "subnet_front_end_prefix" {
-#   type = string
-# }
+variable "subnet_front_end_prefix" {
+  type = string
+}
 
-# variable "subnet_names" {
-#   type    = list(string)
-#   default = [""]
-# }
+variable "subnet_backend_end_prefix" {
+  type = string
+}
+
+variable "subnet_names" {
+  type    = list(string)
+  default = [""]
+}
 
 # ###########################
 # # DNS SETTINGS

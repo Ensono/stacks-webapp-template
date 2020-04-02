@@ -31,7 +31,7 @@ resources:
 variables:
   company: amido
   project: stacks
-  domain: webapp
+  domain: node
   # SelfConfig
   self_repo: stacks-webapp-template/packages/template-cli/templates
   self_repo_src: src/ssr
@@ -43,13 +43,13 @@ variables:
   docker_dockerfile_path: "src/"
   docker_image_name: stacks-webapp
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
-  docker_container_registry_name: amidostacksdevcycle2
+  docker_container_registry_name: amidostacksnonprodnode
   # BUILD ARTIFACTS across stages
   build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
   build_artifact_deploy_name: stacks-webapp
   # AKS/AZURE
-  aks_clusterrg: amido-stacks-dev-cycle2
-  aks_clustername: amido-stacks-dev-cycle2
+  aks_clusterrg: amido-stacks-nonprod-node
+  aks_clustername: amido-stacks-nonprod-node
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -196,4 +196,3 @@ stages:
                       - task: Lighthouse@1
                         inputs:
                           url: "http://dev.amidostacks.com/web/stacks"
-

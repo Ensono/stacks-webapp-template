@@ -51,3 +51,18 @@ variable "resource_group_location" {
   default = "uksouth"
   # default = "replace_azure_location"
 }
+
+variable "dns_zone" {
+  type    = string
+  default = "nonprod.amidostacks.com"
+}
+
+variable "create_dns_zone" {
+  type    = bool
+  default = true
+}
+
+variable "internal_dns_zone" {
+  type    = string
+  default = "nonprod.amidostacks.internal"
+}
