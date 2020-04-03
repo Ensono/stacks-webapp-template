@@ -66,3 +66,8 @@ variable "internal_dns_zone" {
   type    = string
   default = "nonprod.amidostacks.internal"
 }
+
+variable "pfx_password" {
+  type = string
+  default = "Password1"
+}
