@@ -158,7 +158,7 @@ stages:
           aks_resource_group_name: $(aks_clusterrg_nonprod)
           aks_dns_resource_group_name: $(aks_clusterrg_nonprod)
           aks_set_acr_perms: true
-          acr_name: $(acr_rg_nonprod)
+          acr_name: $(docker_container_registry_name)
           acr_resource_group_name: $(aks_clusterrg_nonprod)
           ingress_definition:
             # TODO: make this a complex object so that additional args can be passed in 
