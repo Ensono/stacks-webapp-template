@@ -17,12 +17,12 @@ We are using npx to execute and create the [template-cli](./packages/template-cl
 We are supporting and running [node@12](https://nodejs.org/en/about/releases/). Please ensure that your local environment has the correct version
 [installed](https://nodejs.org/en/download/).
 
-We are leveraging [npm](https://www.npmjs.com/) for dependency management - follow the
-installation instructions for your OS [here](https://www.npmjs.com/get-npm).
-
 ## Create app from template
 
 Creates an amidostacks template in your local directory much like express-generate with an addition of `build/, deploy/, docs/, src/` folders as per the Amido Stacks standards.
+
+There is already a prebuilt version of this up on npm, if you don't wish to build this locally you only need to execute steps 3, 4, 5 and 6
+
 
 1. Install dependencies required to generate the templated app:
 ```bash
@@ -40,7 +40,10 @@ $ npm run build:watch
 3. Change to a directory for testing - e.g. $HOME and run
 ```bash
 $ cd ${SELECTED_DIR}
+# for a local deployment
 $ npx ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-cli/dist/index.js run -i
+# for the npm repo
+npx @amidostacks/scaffolding-cli@latest run -i
 ```
 
 4. Follow the CLI prompts to create a templated app with user defined configuration:
