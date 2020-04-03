@@ -1,6 +1,6 @@
 import React from "react"
 import {AppProps, default as NextApp, AppContext} from "next/app"
-
+import * as packageConfig from "../package.json"
 import {
     ApplicationInsights,
     IConfiguration,
@@ -31,7 +31,8 @@ export const withApplicationInsights = (
     return (App: typeof NextApp) => {
         return class WithApplicationInsights extends React.Component<
             WithApplicationInsightsProps & AppProps
-        > {
+            > {
+            annotationString = `${packageConfig.name}: ${packageConfig.version}`
             public static getInitialProps = async (appCtx: AppContext) => {
                 let appProps = {pageProps: {}}
                 if (App.getInitialProps) {
@@ -48,7 +49,9 @@ export const withApplicationInsights = (
             public componentDidMount() {
                 this.initializeAppInsights()
                 this.trackPageView()
-                this.customTrace('AppInsights for Amido Stacks Initialized')
+                this.customTrace(
+                    `AppInsights for ${this.annotationString} Initialized`,
+                )
             }
 
             public componentDidCatch(error: Error) {
@@ -72,7 +75,10 @@ export const withApplicationInsights = (
 
             public customTrace(msg: string) {
                 if (appInsights) {
-                    appInsights.trackTrace({ message: msg, severityLevel: 1 })
+                    appInsights.trackTrace({
+                        message: msg.concat(this.annotationString),
+                        severityLevel: 1,
+                    })
                     appInsights.flush()
                 }
             }
@@ -85,6 +91,8 @@ export const withApplicationInsights = (
                         location.pathname
                     const properties = {
                         route: this.props.router.route,
+                        project_name: packageConfig.name,
+                        version: packageConfig.version
                     }
                     if (this.props.router.query) {
                         for (const key in this.props.router.query) {
