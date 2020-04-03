@@ -40,8 +40,6 @@ variable "tags" {
 # AZURE INFORMATION
 ############################################
 
-# RELYING PURELY ON ENVIRONMENT VARIABLES as the user can control these from their own environment
-
 variable "client_secret" {
   type = string
 }
@@ -49,7 +47,6 @@ variable "client_secret" {
 variable "resource_group_location" {
   type    = string
   default = "uksouth"
-  # default = "replace_azure_location"
 }
 
 variable "dns_zone" {
