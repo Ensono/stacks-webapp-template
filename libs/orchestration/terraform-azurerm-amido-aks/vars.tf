@@ -7,14 +7,17 @@
 ############################################
 
 variable "name_company" {
+  description = "Company Name - should/will be used in conventional resource naming"
   type = string
 }
 
 variable "name_project" {
+  description = "Project Name - should/will be used in conventional resource naming"
   type = string
 }
 
 variable "name_component" {
+  description = "Component Name - should/will be used in conventional resource naming. Typically this will be a logical name for this part of the system i.e. `API` || `middleware` or more generic like `Billing`"
   type = string
 }
 
@@ -36,23 +39,6 @@ variable "tags" {
   default = {}
 }
 
-# Each region must have corresponding a shortend name for resource naming purposes
-variable "location_name_map" {
-  type = map(string)
-
-  default = {
-    northeurope   = "eun"
-    westeurope    = "euw"
-    uksouth       = "uks"
-    ukwest        = "ukw"
-    eastus        = "use"
-    eastus2       = "use2"
-    westus        = "usw"
-    eastasia      = "ase"
-    southeastasia = "asse"
-  }
-}
-
 ############################################
 # AZURE INFORMATION
 ############################################
@@ -71,10 +57,6 @@ variable "resource_group_location" {
 variable "resource_group_tags" {
   type    = map(string)
   default = {}
-}
-
-variable "resource_group_name" {
-  type = string
 }
 
 ###########################

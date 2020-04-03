@@ -49,7 +49,19 @@ variable "client_secret" {
 ############################################
 # RESOURCE INFORMATION
 ############################################
+variable "resource_group_location" {
+  type    = string
+  default = "uksouth"
+}
 
+# variable "resource_group_tags" {
+#   type    = map(string)
+#   default = {}
+# }
+
+# variable "resource_group_name" {
+#   type = string
+# }
 
 # ###########################
 # # DNS SETTINGS
@@ -67,4 +79,10 @@ variable "create_dns_zone" {
 variable "internal_dns_zone" {
   type    = string
   default = "nonprod.amidostacks.internal"
+}
+
+
+variable "pfx_password" {
+  type = string
+  default = "Password1"
 }

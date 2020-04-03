@@ -6,7 +6,7 @@ LABEL maintainer="Amido Stacks <stacks@amido.com>"
 
 RUN apt-get update && \
     apt-get upgrade && \
-    apt-get install -y curl grep sed unzip git && \
+    apt-get install -y curl grep sed unzip git sudo && \
     apt-get clean
 
 RUN cd /tmp && \

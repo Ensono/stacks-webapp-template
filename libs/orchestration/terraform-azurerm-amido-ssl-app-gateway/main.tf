@@ -8,6 +8,11 @@ resource "azurerm_storage_account" "default" {
   access_tier              = "Hot"
   enable_https_traffic_only = false
   tags = {}
+  lifecycle {
+    ignore_changes = [
+      tags,
+    ]
+  }
 }
 
 resource "azurerm_storage_container" "default" {
@@ -24,6 +29,6 @@ resource "azurerm_storage_blob" "default" {
   storage_container_name = azurerm_storage_container.default.0.name
   content_type           = "text/html"
   type                   = "Block"
-  source                 = "${abspath(path.module)}/data/test.html"
+  source                 = "${abspath(path.module)}/data/static/test.html"
 }
 

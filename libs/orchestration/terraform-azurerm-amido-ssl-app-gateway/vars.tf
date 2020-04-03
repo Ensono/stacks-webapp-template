@@ -139,10 +139,10 @@ variable "subnet_names" {
 # ###########################
 # # DNS SETTINGS
 # ##########################
-# variable "dns_zone" {
-#   type    = string
-#   default = ""
-# }
+variable "dns_zone" {
+  type    = string
+  default = ""
+}
 
 # variable "create_dns_zone" {
 #   type    = bool
@@ -182,10 +182,9 @@ variable "subnet_names" {
 # # AKS SETTINGS
 # ##########################
 
-# variable "create_aks" {
-#   type    = bool
-#   default = true
-# }
+variable "aks_resource_group" {
+  type    = string
+}
 
 # variable "cluster_version" {
 #   type    = string
@@ -291,4 +290,9 @@ variable "subnet_names" {
 variable "resource_namer" {
   type    = string
   default = "genericname"
+}
+
+variable "pfx_password" {
+  type = string
+  default = "Password1"
 }

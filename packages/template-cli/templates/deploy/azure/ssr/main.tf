@@ -23,8 +23,7 @@ module "aks_bootstrap" {
   source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=feat/1435"
   resource_namer          = module.default_label.id
   create_rg               = true
-  resource_group_name     = module.default_label.id
-  resource_group_location = "uksouth"
+  resource_group_location = var.resource_group_location
   client_id               = data.azurerm_client_config.current.client_id
   spn_object_id           = data.azurerm_client_config.current.object_id
   client_secret           = var.client_secret
@@ -46,20 +45,22 @@ module "aks_bootstrap" {
   subnet_prefixes         = ["${cidrsubnet(var.vnet_cidr.0, 4, 0)}", "${cidrsubnet(var.vnet_cidr.0, 4, 1)}", "${cidrsubnet(var.vnet_cidr.0, 4, 2)}"]
   subnet_names            = ["k8s1", "k8s2", "k8s3"]
   create_aks_spn          = true
-  spn_name                = "foo-123"
   enable_auto_scaling     = true
   log_application_type    = "Node.JS"
 }
 
 module "ssl_app_gateway" {
   source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-ssl-app-gateway?ref=feat/1435"
-  resource_namer          = "${module.default_label.id}-ssl"
-  resource_group_name     = module.default_label.id
-  resource_group_location = "uksouth"
-  create_ssl_cert         = true
-  vnet_name               = module.default_label.id
-  vnet_cidr               = var.vnet_cidr
-  subnet_front_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 3)
+  resource_namer            = "${module.default_label.id}-ssl"
+  resource_group_name       = module.aks_bootstrap.resource_group_name
+  resource_group_location   = var.resource_group_location
+  create_ssl_cert           = true
+  vnet_name                 = module.aks_bootstrap.vnet_name
+  vnet_cidr                 = var.vnet_cidr
+  dns_zone                  = var.dns_zone
+  pfx_password              = var.pfx_password
+  aks_resource_group        = module.aks_bootstrap.aks_node_resource_group
+  subnet_front_end_prefix   = cidrsubnet(var.vnet_cidr.0, 4, 3)
   subnet_backend_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 4)
-  subnet_names            = ["k8s1", "k8s2", "k8s3"]
+  subnet_names              = ["k8s1", "k8s2", "k8s3"]
 }

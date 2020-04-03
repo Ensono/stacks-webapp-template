@@ -1,13 +1,16 @@
-# k8s identity
-
 # acr 
 resource "azurerm_container_registry" "registry" {
   count               = var.create_acr ? 1 : 0
   name                = replace(var.resource_namer, "-", "")
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.default.name
   location            = var.resource_group_location
   admin_enabled       = var.registry_admin_enabled
   sku                 = var.registry_sku
+  lifecycle {
+    ignore_changes = [
+      tags,
+    ]
+  }
 }
 
 # aks cluster
@@ -21,7 +24,7 @@ resource "azurerm_public_ip" "default" {
   count               = 1
   name                = format("${var.resource_namer}-%d", count.index)
   location            = var.resource_group_location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.default.name
   allocation_method   = "Static"
   sku                 = "Standard"
   # timeouts {
@@ -29,17 +32,17 @@ resource "azurerm_public_ip" "default" {
   # }
   lifecycle {
     create_before_destroy = true
+    ignore_changes = [
+      tags,
+    ]
   }
-  depends_on = [
-    azurerm_resource_group.default
-  ]
 }
 
 resource "azurerm_kubernetes_cluster" "default" {
   count               = var.create_aks ? 1 : 0
   name                = var.resource_namer
   location            = var.resource_group_location
-  resource_group_name = var.resource_group_name
+  resource_group_name = azurerm_resource_group.default.name
   dns_prefix          = var.dns_prefix
   kubernetes_version  = var.cluster_version
 
@@ -113,7 +116,8 @@ resource "azurerm_kubernetes_cluster" "default" {
   lifecycle {
     ignore_changes = [
       default_node_pool.0.node_count,
-      windows_profile
+      windows_profile,
+      tags
     ]
   }
   depends_on = [
