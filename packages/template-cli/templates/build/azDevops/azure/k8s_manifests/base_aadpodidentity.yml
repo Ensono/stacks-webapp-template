@@ -10,10 +10,10 @@
 apiVersion: "aadpodidentity.k8s.io/v1"
 kind: AzureIdentity
 metadata:
-  name: {identity_user_name}
+  name: ${identity_user_name}
   annotations:
     aadpodidentity.k8s.io/Behavior: namespaced
 spec:
   type: 0
-  ResourceID: {identity_user_id}
-  ClientID: {identity_client_id}
+  ResourceID: ${identity_user_id}
+  ClientID: ${identity_client_id}

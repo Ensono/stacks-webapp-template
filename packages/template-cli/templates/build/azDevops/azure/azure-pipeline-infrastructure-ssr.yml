@@ -131,18 +131,12 @@ stages:
             TF_VAR_internal_dns_zone: nonprod.$(base_domain_internal)
           }
           terraform_output_commands: |
-            set -x
-            terraform -v
-            terraform workspace list
             echo "Getting terraform output"
             raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
             readarray -t outputs <<<"$raw_tf"
             echo "$raw_tf"
             echo "${outputs[@]}"
-            for i in "${outputs[@]}"
-            do 
-              echo "$i"
-            done
+            for i in "${outputs[@]}"; do echo "$i"; done
   - job: K8sNonProd
     dependsOn: "InfraNonProd"
     variables:
