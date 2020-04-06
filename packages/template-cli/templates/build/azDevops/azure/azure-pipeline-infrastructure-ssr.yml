@@ -176,7 +176,6 @@ stages:
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml, 
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentity.yml,
               env_vars: {
-                # user_identity_id: $(tfoutputs.AKS_DEFAULT_USER_IDENTITY_ID),
                 user_identity_id: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_ID'] ],
                 identity_client_id:  $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_CLIENT_ID'] ],
                 identity_user_name: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_NAME'] ]
