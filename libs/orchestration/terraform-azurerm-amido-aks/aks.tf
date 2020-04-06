@@ -88,7 +88,7 @@ resource "azurerm_kubernetes_cluster" "default" {
     enabled = true
   }
 
-  enable_pod_security_policy = true
+  enable_pod_security_policy = false
 
   network_profile {
     network_plugin    = var.advanced_networking_enabled ? "azure" : "kubenet"
