@@ -32,3 +32,16 @@ output "resource_group_id" {
 output "aks_node_resource_group" {
   value = azurerm_kubernetes_cluster.default.0.node_resource_group
 }
+
+### Identity ###
+output "aks_default_user_identity_name" {
+  value = var.create_user_identiy ? azurerm_user_assigned_identity.default.0.name : ""
+}
+
+output "aks_default_user_identity_id" {
+  value = var.create_user_identiy ? azurerm_user_assigned_identity.default.0.id : ""
+}
+
+output "aks_default_user_identity_client_id" {
+  value = var.create_user_identiy ? azurerm_user_assigned_identity.default.0.client_id : ""
+}

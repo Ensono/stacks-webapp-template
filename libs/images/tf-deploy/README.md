@@ -22,8 +22,8 @@ USAGE:
 ```bash
 docker build -t amidostacks/ci-tf:latest .
 docker push amidostacks/ci-tf:latest
-docker tag e5e317e45bc2 amidostacks/ci-tf:0.0.2
-docker push amidostacks/ci-tf:0.0.2
+docker tag a0bfe04e7801 amidostacks/ci-tf:0.0.3
+docker push amidostacks/ci-tf:0.0.3
 ```
 
 run and test any changes locally

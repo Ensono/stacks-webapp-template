@@ -4,10 +4,10 @@ ARG TF_VERSION=0.12.24
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
 
-RUN apt-get update && \
-    apt-get upgrade && \
-    apt-get install -y curl grep sed unzip git sudo && \
-    apt-get clean
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install -y curl grep sed unzip git sudo jq
+RUN apt-get clean
 
 RUN cd /tmp && \
     curl -sLO https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${TF_VERSION}_linux_amd64.zip && \

@@ -10,10 +10,10 @@
 apiVersion: "aadpodidentity.k8s.io/v1"
 kind: AzureIdentity
 metadata:
-  name: static-pod-id
+  name: {identity_user_name}
   annotations:
     aadpodidentity.k8s.io/Behavior: namespaced
 spec:
-  type: 1
-  ResourceID: /subscriptions/dede7228-b81c-42e4-af31-b3ca3575c0a9/resourceGroups/amido-stacks-dev-cycle2/providers/Microsoft.ManagedIdentity/userAssignedIdentities/amido-stacks-dev-cycle2
-  ClientID: 4f405d6c-1e34-438c-9f3c-1c16c76e93b9
+  type: 0
+  ResourceID: {identity_user_id}
+  ClientID: {identity_client_id}

@@ -27,12 +27,11 @@ resources:
     name: amido/stacks-pipeline-templates
     ref: feature/cycle2
     endpoint: amidostacks
-
   containers:
   - container: k8s_deploy
     image: amidostacks/ci-k8s:0.0.1
   - container: terraform_custom
-    image: amidostacks/ci-tf:0.0.2
+    image: amidostacks/ci-tf:0.0.3
 
 variables:
   company: amido
@@ -129,7 +128,12 @@ stages:
             TF_VAR_dns_zone: nonprod.$(base_domain),
             TF_VAR_internal_dns_zone: nonprod.$(base_domain_internal)
           }
-          terraform_output_commands: ''
+          terraform_output_commands: |
+            tfs_vars=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
+            for i in "$tfs_vars"
+            do
+              echo "$i";
+            done;
   - job: K8sNonProd
     dependsOn: "InfraNonProd"
     variables:
@@ -151,6 +155,37 @@ stages:
       - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
         parameters:
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
+      
+      # Sample left for base K8s cluster bootstrap
+      - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
+        parameters: 
+          template_input: [
+            {
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_external-dns.yml, 
+              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml,
+              env_vars: {
+                domain_filter: nonprod.$(base_domain),
+                aks_resource_group: $(aks_clusterrg_nonprod)
+              }
+            },
+            {
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml, 
+              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentity.yml,
+              env_vars: {
+                user_identity_id: $AKS_DEFAULT_USER_IDENTITY_ID,
+                identity_client_id: $AKS_DEFAULT_USER_IDENTITY_CLIENT_ID,
+                identity_user_name: $AKS_DEFAULT_USER_IDENTITY_NAME
+
+              }
+            },
+            {
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentitybinding.yml, 
+              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml,
+              env_vars: {
+                identity_user_name: $AKS_DEFAULT_USER_IDENTITY_NAME
+              }
+            }
+          ]
 
       - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
         parameters: 
@@ -158,6 +193,7 @@ stages:
           aks_resource_group_name: $(aks_clusterrg_nonprod)
           aks_dns_resource_group_name: $(aks_clusterrg_nonprod)
           aks_set_acr_perms: false
+          aks_deploy_gatekeeper: false
           acr_name: $(docker_container_registry_name)
           acr_resource_group_name: $(aks_clusterrg_nonprod)
           ingress_definition:

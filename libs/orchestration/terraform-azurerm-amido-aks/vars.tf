@@ -72,7 +72,7 @@ variable "create_rg" {
 ###########################
 # IDENTITY SETTINGS
 ##########################
-variable "create_aks_spn" {
+variable "create_user_identiy" {
   type    = bool
   default = true
 }

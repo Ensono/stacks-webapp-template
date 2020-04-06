@@ -71,11 +71,6 @@ variable "dns_zone" {
   default = "nonprod.amidostacks.com"
 }
 
-variable "create_dns_zone" {
-  type    = bool
-  default = true
-}
-
 variable "internal_dns_zone" {
   type    = string
   default = "nonprod.amidostacks.internal"
@@ -84,4 +79,23 @@ variable "internal_dns_zone" {
 variable "pfx_password" {
   type = string
   default = "Password1"
+}
+
+
+# ###########################
+# # CONDITIONALS
+# ##########################
+variable "create_dns_zone" {
+  type    = bool
+  default = true
+}
+
+variable "create_aksvnet" {
+  type    = bool
+  default = true
+}
+
+variable "create_user_identiy" {
+  type    = bool
+  default = true
 }

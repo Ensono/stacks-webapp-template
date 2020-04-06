@@ -33,18 +33,18 @@ module "aks_bootstrap" {
   name_project            = var.name_project
   name_company            = var.name_company
   name_component          = var.name_component
-  create_dns_zone         = true
+  create_dns_zone         = var.create_dns_zone
   dns_zone                = var.dns_zone
   internal_dns_zone       = var.internal_dns_zone
   create_acr              = true
   acr_registry_name       = replace(module.default_label.id, "-", "")
-  create_aksvnet          = true
+  create_aksvnet          = var.create_aksvnet
   vnet_name               = module.default_label.id
   vnet_cidr               = var.vnet_cidr
   subnet_front_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 3)
   subnet_prefixes         = ["${cidrsubnet(var.vnet_cidr.0, 4, 0)}", "${cidrsubnet(var.vnet_cidr.0, 4, 1)}", "${cidrsubnet(var.vnet_cidr.0, 4, 2)}"]
   subnet_names            = ["k8s1", "k8s2", "k8s3"]
-  create_aks_spn          = true
+  create_user_identiy     = var.create_user_identiy
   enable_auto_scaling     = true
   log_application_type    = "Node.JS"
 }
@@ -63,14 +63,4 @@ module "ssl_app_gateway" {
   subnet_front_end_prefix   = cidrsubnet(var.vnet_cidr.0, 4, 3)
   subnet_backend_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 4)
   subnet_names              = ["k8s1", "k8s2", "k8s3"]
-}
-
-
-data "azurerm_public_ips" "aks" {
-  resource_group_name = module.aks_bootstrap.aks_node_resource_group
-  attached = true
-}
-
-output "test" {
-  value = data.azurerm_public_ips.aks.public_ips
 }
