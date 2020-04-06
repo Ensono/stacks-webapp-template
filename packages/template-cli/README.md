@@ -38,6 +38,7 @@ $ npm run build:watch
 ```
 
 3. Change to a directory for testing - e.g. $HOME and run
+
 ```bash
 $ cd ${SELECTED_DIR}
 # for a local deployment
@@ -47,7 +48,8 @@ npx @amidostacks/scaffolding-cli@latest run -i
 ```
 
 4. Follow the CLI prompts to create a templated app with user defined configuration:
-   - Project Name: _default_: current directory (will create a directory with this name)
+ssr this is why
+t   - Project Name: _default_: current directory (will create a directory with this name)
    - Project Type: _default_: SSR (server side rendering)
    - Platform: _default_: AKS (Azure Kubernetes Service)
    - CI/CD Tooling: _default_: AzureDevOps
@@ -100,10 +102,19 @@ The safest way to run and maintain this going forward is to rely on environment 
 Sample export script with correct environment vars:
 
 ```bash
+#WINDOWS: comment out the lines below
 $ export ARM_CLIENT_ID= \
 ARM_CLIENT_SECRET= \
 ARM_SUBSCRIPTION_ID= \
 ARM_TENANT_ID=
+##########################################################
+
+#WINDOWS: uncomment the following lines and fill in values
+# Set-Variable -Name "ARM_CLIENT_ID" -Value ""
+# Set-Variable -Name "ARM_CLIENT_SECRET" -Value ""
+# Set-Variable -Name "ARM_SUBSCRIPTION_ID" -Value ""
+# Set-Variable -Name "ARM_TENANT_ID" -Value ""
+##########################################################
 
 $ echo "
 vnet_id                 = \"amido-stacks-vnet-uks-dev\"
@@ -121,15 +132,6 @@ name_environment        = \"dev\"
 $ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/deploy/terraform/azure
 $ terraform init -backend-config=./backend.local.tfvars
 $ terraform plan
-```
-
-NB: as the module currently points to a private github repo you will need to supply credentials on the command line as part of the plan/apply
-
-## Testing
-
-```bash
-$ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-cli
-$ npm run test
 ```
 
 We are using [Jest.js](https://jestjs.io/) for testing including code coverage.
