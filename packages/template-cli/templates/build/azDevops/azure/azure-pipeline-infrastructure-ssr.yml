@@ -131,11 +131,8 @@ stages:
             TF_VAR_internal_dns_zone: nonprod.$(base_domain_internal)
           }
           terraform_output_commands: |
-            echo "Getting terraform output"
             raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
             readarray -t outputs <<<"$raw_tf"
-            echo "$raw_tf"
-            echo "${outputs[@]}"
             for i in "${outputs[@]}"; do echo "$i"; done
 
   - job: K8sNonProd
@@ -184,8 +181,8 @@ stages:
               }
             },
             {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml, 
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentity.yml,
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml,
+              out: "",
               env_vars: {
                 user_identity_id: $(AKS_DEFAULT_USER_IDENTITY_ID),
                 identity_client_id: $(AKS_DEFAULT_USER_IDENTITY_CLIENT_ID),
@@ -194,7 +191,6 @@ stages:
             },
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentitybinding.yml, 
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml,
               env_vars: {
                 identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
               }
