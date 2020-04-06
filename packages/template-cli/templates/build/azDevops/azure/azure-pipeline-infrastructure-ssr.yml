@@ -135,9 +135,9 @@ stages:
             terraform -v
             terraform workspace list
             echo "Getting terraform output"
-            terraform output -json
             raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
             readarray -t outputs <<<"$raw_tf"
+            echo "$raw_tf"
             echo "${outputs[@]}"
             for i in "${outputs[@]}"
             do 
