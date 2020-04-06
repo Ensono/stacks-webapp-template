@@ -133,12 +133,8 @@ stages:
           terraform_output_commands: |
             set -x
             echo "Getting terraform output"
-            tfs_vars=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
-            echo $tfs_vars
-            for i in "$tfs_vars"; do
-              echo "$i";
-            done;
-            echo $(tfoutputs.AKS_DEFAULT_USER_IDENTITY_ID)
+            readarray -t outputs < <(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
+            for i in "${outputs[@]}"; do echo "$i"; done
   - job: K8sNonProd
     dependsOn: "InfraNonProd"
     variables:
