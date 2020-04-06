@@ -132,8 +132,15 @@ stages:
           }
           terraform_output_commands: |
             set -x
+            terraform -v
+            terraform workspace list
             echo "Getting terraform output"
+            terraform output -json
+            test_out=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
+            echo $test_out
+            for i in {1..5}; do echo "count $i ---- test"; done
             readarray -t outputs < <(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
+            echo "${outputs[@]}"
             for i in "${outputs[@]}"; do echo "$i"; done
   - job: K8sNonProd
     dependsOn: "InfraNonProd"
