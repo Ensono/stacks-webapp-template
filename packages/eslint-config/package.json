@@ -5,6 +5,10 @@
   "main": "eslintrc.js",
   "author": "https://amido.com",
   "license": "MIT",
+  "scripts": {
+    "license:check:audit": "license-checker --production --relativeLicensePath --out ./packageLicensesAudit.json",
+    "license:check:allowed": "license-checker --production --onlyAllow='MIT;MIT*;ISC;BSD-3-Clause;BSD-2-Clause;Apache-2.0;Apache*'"
+  },
   "peerDependencies": {
     "@typescript-eslint/parser": "^2.15.0",
     "eslint": "^6.8.0",

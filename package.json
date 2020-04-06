@@ -8,7 +8,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "license:check": "license-checker --json --excludePrivatePackage --out package-licenses.json --exclude 'MIT, MIT OR X11, BSD, ISC, Apache-2.0'",
+    "license:check:audit": "lerna run license:check:audit",
+    "license:check:allowed": "lerna run license:check:allowed",
     "postinstall": "lerna bootstrap",
     "dev": "lerna run dev --stream",
     "build": "lerna run build --stream",
