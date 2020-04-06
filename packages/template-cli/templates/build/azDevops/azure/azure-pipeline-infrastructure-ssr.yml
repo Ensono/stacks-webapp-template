@@ -138,10 +138,11 @@ stages:
             echo "${outputs[@]}"
             for i in "${outputs[@]}"; do echo "$i"; done
   - job: K8sNonProd
-    dependsOn: "InfraNonProd"
+    dependsOn: InfraNonProd
     variables:
-      foo: bar
-      tf_outputs: $[ dependencies.InfraNonProd.outputs['tfoutputs'] ]
+      # tf_outputs: $[ dependencies.InfraNonProd.outputs['tfoutputs'] ]
+      ${{ each var in $[dependencies.InfraNonProd.outputs['tfoutputs']] }}:
+        ${{ var.key }}: ${{ var.value }}
     pool:
       vmImage: ubuntu-18.04
     container: k8s_deploy
@@ -156,8 +157,9 @@ stages:
           ARM_TENANT_ID: $(azure_tenant_id)
         target: k8s_deploy
       
-      - bash: | 
-          echo $(tf_outputs)
+      - bash: |
+          echo "NonProdInfrJobs"
+          echo "AKS_DEFAULT_USER_IDENTITY_ID $(AKS_DEFAULT_USER_IDENTITY_ID)"
         displayName: test
       # ensure scripts are executable
       - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
