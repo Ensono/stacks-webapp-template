@@ -129,11 +129,12 @@ stages:
             TF_VAR_internal_dns_zone: nonprod.$(base_domain_internal)
           }
           terraform_output_commands: |
+            echo "Getting terraform output"
             tfs_vars=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
-            for i in "$tfs_vars"
-            do
+            for i in "$tfs_vars"; do
               echo "$i";
             done;
+            echo $AKS_DEFAULT_USER_IDENTITY_ID
   - job: K8sNonProd
     dependsOn: "InfraNonProd"
     variables:
@@ -159,6 +160,7 @@ stages:
       # Sample left for base K8s cluster bootstrap
       - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
         parameters: 
+          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
           template_input: [
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_external-dns.yml, 
