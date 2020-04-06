@@ -16,7 +16,7 @@
   ],
   "scripts": {
     "license:check:audit": "license-checker --production --out ./packageLicensesAudit.json --excludePrivatePackages --relativeLicensePath",
-    "license:check:allowed": "license-checker --production --excludePrivatePackages --onlyAllow='MIT;MIT*;ISC;BSD-3-Clause;BSD-2-Clause;Apache-2.0;Apache*'",
+    "license:check:allowed": "license-checker --production --excludePrivatePackages --onlyAllow='MIT;MIT*;ISC;BSD-3-Clause;BSD-2-Clause;Apache-2.0;Apache*;CC-BY-4.0;WTFPL'",
     "test": "node_modules/.bin/jest -c jest.config.json --coverage",
     "test:watch": "node_modules/.bin/jest -c jest.config.json --coverage --watchAll",
     "lint": "node_modules/.bin/eslint . -f codeframe",
