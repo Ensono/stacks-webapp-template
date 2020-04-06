@@ -141,6 +141,7 @@ stages:
     dependsOn: "InfraNonProd"
     variables:
       foo: bar
+      tf_outputs: $[ dependencies.InfraNonProd.outputs['tfoutputs'] ]
     pool:
       vmImage: ubuntu-18.04
     container: k8s_deploy
@@ -154,7 +155,11 @@ stages:
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
         target: k8s_deploy
-        # ensure scripts are executable
+      
+      - bash: | 
+          echo $(tf_outputs)
+        displayName: test
+      # ensure scripts are executable
       - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
         parameters:
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
@@ -176,16 +181,16 @@ stages:
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml, 
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentity.yml,
               env_vars: {
-                user_identity_id: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_ID'] ],
-                identity_client_id:  $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_CLIENT_ID'] ],
-                identity_user_name: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_NAME'] ]
+                user_identity_id: "",
+                identity_client_id: "",
+                identity_user_name: ""
               }
             },
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentitybinding.yml, 
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml,
               env_vars: {
-                identity_user_name: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_NAME'] ]
+                identity_user_name: ""
               }
             }
           ]
