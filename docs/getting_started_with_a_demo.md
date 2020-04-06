@@ -13,7 +13,7 @@ As a general rule the steps to get one of our npm environments up and running ar
 
 There is already a prebuilt version of the template-cli up on npm, if you don't wish to build this locally you only need to execute steps 3, 4, 5 and 6
 
-readme location: `packages/template-cli/README.md` 
+readme location: [packages/template-cli/README.md](https://github.com/amido/stacks-webapp-template/blob/master/packages/template-cli/README.md)
 
 A browser window should open up and automatically havigate you to the correct place but if not go to 1 of the following URLs
 
