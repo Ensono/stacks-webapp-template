@@ -29,13 +29,13 @@ output "aks_node_resource_group" {
 
 ### Identity ###
 output "aks_default_user_identity_name" {
-  value = var.create_user_identiy ? module.aks_bootstrap.aks_default._user_identity_name : ""
+  value = var.create_user_identiy ? module.aks_bootstrap.aks_default_user_identity_name : ""
 }
 
 output "aks_default_user_identity_id" {
-  value = var.create_user_identiy ? module.aks_bootstrap.aks_default.aks_default_user_identity_id : ""
+  value = var.create_user_identiy ? module.aks_bootstrap.aks_default_user_identity_id : ""
 }
 
 output "aks_default_user_identity_client_id" {
-  value = var.create_user_identiy ? module.aks_bootstrap.aks_default.aks_default_user_identity_client_id : ""
+  value = var.create_user_identiy ? module.aks_bootstrap.aks_default_user_identity_client_id : ""
 }
