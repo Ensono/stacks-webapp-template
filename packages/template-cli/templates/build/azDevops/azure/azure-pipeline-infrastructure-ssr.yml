@@ -95,6 +95,8 @@ stages:
         parameters: 
           # Terraform Basic Config
           terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
+          # changing this would require changing the downstream consumers of these outputs
+          # 
           terraform_output_artefact: 'tfoutputs'
           # Terraform State Config
           terraform_backend_client_id: $(azure_client_id)
@@ -129,12 +131,14 @@ stages:
             TF_VAR_internal_dns_zone: nonprod.$(base_domain_internal)
           }
           terraform_output_commands: |
+            set -x
             echo "Getting terraform output"
             tfs_vars=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
+            echo $tfs_vars
             for i in "$tfs_vars"; do
               echo "$i";
             done;
-            echo $AKS_DEFAULT_USER_IDENTITY_ID
+            echo $(tfoutputs.AKS_DEFAULT_USER_IDENTITY_ID)
   - job: K8sNonProd
     dependsOn: "InfraNonProd"
     variables:
@@ -174,17 +178,16 @@ stages:
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml, 
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentity.yml,
               env_vars: {
-                user_identity_id: $AKS_DEFAULT_USER_IDENTITY_ID,
-                identity_client_id: $AKS_DEFAULT_USER_IDENTITY_CLIENT_ID,
-                identity_user_name: $AKS_DEFAULT_USER_IDENTITY_NAME
-
+                user_identity_id: $(tfoutputs.AKS_DEFAULT_USER_IDENTITY_ID),
+                identity_client_id: $(tfoutputs.AKS_DEFAULT_USER_IDENTITY_CLIENT_ID),
+                identity_user_name: $(tfoutputs.AKS_DEFAULT_USER_IDENTITY_NAME)
               }
             },
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentitybinding.yml, 
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml,
               env_vars: {
-                identity_user_name: $AKS_DEFAULT_USER_IDENTITY_NAME
+                identity_user_name: $(tfoutputs.AKS_DEFAULT_USER_IDENTITY_NAME)
               }
             }
           ]
