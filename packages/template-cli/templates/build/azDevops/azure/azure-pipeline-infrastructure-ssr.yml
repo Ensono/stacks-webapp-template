@@ -142,7 +142,6 @@ stages:
       AKS_DEFAULT_USER_IDENTITY_ID: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_ID'] ]
       AKS_DEFAULT_USER_IDENTITY_NAME: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_NAME'] ]
       AKS_INGRESS_PUBLIC_IP: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_INGRESS_PUBLIC_IP'] ]
-      AKS_INGRESS_PUBLIC_IP: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_INGRESS_PUBLIC_IP'] ]
       AKS_INGRESS_PRIVATE_IP: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_INGRESS_PRIVATE_IP'] ]
       # tf_outputs: $[ dependencies.InfraNonProd.outputs['tfoutputs'] ]
       # each var in $[ dependencies.InfraNonProd.outputs['tfoutputs'] ]:
