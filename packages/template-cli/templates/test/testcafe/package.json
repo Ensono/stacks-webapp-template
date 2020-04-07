@@ -7,6 +7,7 @@
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "validate": "npm run prettier --list-different",
     "test:e2e": "node_modules/.bin/testcafe",
+    "test:axe": "node_modules/.bin/testcafe ./**/*.test.axe.cf.ts",
     "clean:tree": "git clean -idx"
   },
   "dependencies": {
@@ -14,6 +15,8 @@
     "testcafe-browser-provider-lambdatest": "^2.0.1"
   },
   "devDependencies": {
+    "axe-core": "^3.5.3",
+    "axe-testcafe": "^3.0.0",
     "eslint": "^6.8.0",
     "prettier": "^1.19.1",
     "testcafe": "^1.8.3",
