@@ -47,7 +47,6 @@ resource "azurerm_key_vault" "default" {
   }
 }
 
-
 resource "azurerm_user_assigned_identity" "default" {
   count                       = var.create_user_identiy ? 1 : 0
   location                    = var.resource_group_location

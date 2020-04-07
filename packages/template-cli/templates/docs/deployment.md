@@ -27,6 +27,15 @@ K8s cluster is updated with Kustomize and does deploy time replacements of vario
 
 To gain a more in-depth understading please review the build folder layout.
 
+#### kube dashboard
+
+If you want to proxy to the kube dashboard you will need to run the below:
+
+```bash
+kubectl create clusterrolebinding kubernetes-dashboard -n kube-system --clusterrole=cluster-admin --serviceaccount=kube-system:kubernetes-dashboard
+```
+
+
 ### Variable declaration and extending
 
 TFS ONLY: 

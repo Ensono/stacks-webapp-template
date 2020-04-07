@@ -144,6 +144,15 @@ variable "dns_zone" {
   default = ""
 }
 
+variable "aks_ingress_private_ip" {
+  type = string
+}
+
+variable "aks_ingress_public_ip" {
+  type = string
+}
+
+
 # variable "create_dns_zone" {
 #   type    = bool
 #   default = true

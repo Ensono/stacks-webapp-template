@@ -45,7 +45,6 @@ resource "azurerm_kubernetes_cluster" "default" {
   resource_group_name = azurerm_resource_group.default.name
   dns_prefix          = var.dns_prefix
   kubernetes_version  = var.cluster_version
-
   linux_profile {
     admin_username = var.admin_username
     ssh_key {
@@ -68,7 +67,7 @@ resource "azurerm_kubernetes_cluster" "default" {
     vm_size             = var.vm_size
     node_count          = var.min_nodes
     # vnet_subnet_id      = var.vnet_subnet_id
-    vnet_subnet_id = azurerm_subnet.default.0.id
+    vnet_subnet_id      = azurerm_subnet.default.0.id
   }
 
   addon_profile {
@@ -124,4 +123,79 @@ resource "azurerm_kubernetes_cluster" "default" {
     azurerm_virtual_network.default,
     azurerm_public_ip.default
   ]
+}
+
+
+resource "azurerm_role_assignment" "acr" {
+  # scope                = data.azurerm_subscription.primary.id
+  count                 = var.create_acr ? 1 : 0
+  scope                = azurerm_container_registry.registry.0.id
+  role_definition_name = "Contributor"
+  # principal_id         = data.azurerm_client_config.example.object_id
+  principal_id         = azurerm_kubernetes_cluster.default.0.identity.0.principal_id # "64b47df4-b5e2-4f9f-990f-3dbb8ddebf7d"
+  depends_on = [
+    azurerm_kubernetes_cluster.default
+  ]
+}
+
+data "azurerm_resource_group" "aks_rg_id" {
+  name = azurerm_kubernetes_cluster.default.0.node_resource_group
+  depends_on = [
+    azurerm_kubernetes_cluster.default
+  ]
+}
+
+data "azurerm_user_assigned_identity" "aks_rg_id" {
+  name                = "${var.resource_namer}-agentpool"
+  resource_group_name = azurerm_kubernetes_cluster.default.0.node_resource_group
+  depends_on = [
+    azurerm_kubernetes_cluster.default
+  ]
+}
+
+resource "azurerm_role_assignment" "acr2" {
+  count                 = var.create_acr ? 1 : 0
+  scope                = azurerm_container_registry.registry.0.id
+  role_definition_name = "Contributor"
+  principal_id         = data.azurerm_user_assigned_identity.aks_rg_id.principal_id 
+  skip_service_principal_aad_check = true
+  depends_on = [
+    azurerm_kubernetes_cluster.default
+  ]
+  lifecycle {
+    ignore_changes = [name]
+  }
+}
+
+resource "azurerm_network_interface" "internal_ingress" {
+  name                = var.resource_namer
+  location            = var.resource_group_location
+  resource_group_name = azurerm_kubernetes_cluster.default.0.node_resource_group
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.default.0.id
+    private_ip_address_allocation = "Static"
+    private_ip_address            = cidrhost(var.subnet_prefixes.0, -3)
+  }
+  depends_on = [
+    azurerm_kubernetes_cluster.default
+  ]
+}
+
+resource "azurerm_public_ip" "external_ingress" {
+  count               = 1
+  name                = format("${var.resource_namer}-%d", count.index)
+  location            = var.resource_group_location
+  resource_group_name = azurerm_kubernetes_cluster.default.0.node_resource_group
+  allocation_method   = "Static"
+  sku                 = "Standard"
+  # timeouts {
+  #   delete = 5
+  # }
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes = [
+      tags,
+    ]
+  }
 }

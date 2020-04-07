@@ -190,6 +190,14 @@ variable cluster_name {
   default = "akscluster"
 }
 
+variable "tenant_id" {
+  type = string
+}
+
+variable "spn_object_id" {
+  type = string
+}
+
 # variable "cluster_location" {
 #   type    = string
 #   default = "uksouth"
@@ -236,20 +244,7 @@ variable "oms_ws_list_of_one" {
   default = [{}]
 }
 
-# SPN values
-variable "client_id" {
-  type = string
-}
-
-variable "tenant_id" {
-  type = string
-}
-
-variable "spn_object_id" {
-  type = string
-}
-
-variable "client_secret" {
+variable "aks_ingress_private_ip" {
   type = string
 }
 

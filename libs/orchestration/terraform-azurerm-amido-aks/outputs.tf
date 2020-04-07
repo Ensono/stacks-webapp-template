@@ -33,7 +33,15 @@ output "aks_node_resource_group" {
   value = azurerm_kubernetes_cluster.default.0.node_resource_group
 }
 
-### Identity ###
+##########azurerm_kubernetes_cluster.default.identity.principal_id
+output "aks_system_identity_principal_id" {
+  value = azurerm_kubernetes_cluster.default.0.identity.0.principal_id
+}
+
+#########################################
+############# Identity ##################
+### used for AAD Pod identity binding ###
+#########################################
 output "aks_default_user_identity_name" {
   value = var.create_user_identiy ? azurerm_user_assigned_identity.default.0.name : ""
 }
@@ -45,3 +53,13 @@ output "aks_default_user_identity_id" {
 output "aks_default_user_identity_client_id" {
   value = var.create_user_identiy ? azurerm_user_assigned_identity.default.0.client_id : ""
 }
+
+output "aks_ingress_private_ip" {
+  value = cidrhost(cidrsubnet(var.vnet_cidr.0, 4, 0), -3)
+}
+
+output "aks_ingress_public_ip" {
+  value = azurerm_public_ip.external_ingress.0.ip_address
+}
+
+

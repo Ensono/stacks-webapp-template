@@ -100,17 +100,19 @@ resource "azurerm_application_gateway" "network" {
     data     = filebase64("${abspath(path.root)}/certs/${var.dns_zone}.pfx")
     password = var.pfx_password
   }
+
   redirect_configuration {
     name = "letsencrypt_auth_challange"
     redirect_type = "Permanent"
     target_url  = "${azurerm_storage_account.default.0.primary_blob_endpoint}public"
+    include_path = true
+    include_query_string = true
   }
 
   url_path_map {
     name                               = "PathBasedRoutingRulePathMap"
     default_backend_address_pool_name  = local.backend_address_pool_name
     default_backend_http_settings_name = local.http_setting_name
-
     path_rule {
       name                       = "letsencrypt"
       redirect_configuration_name = "letsencrypt_auth_challange"
@@ -125,17 +127,30 @@ resource "azurerm_application_gateway" "network" {
 
   backend_address_pool {
     name = local.backend_address_pool_name
-    ip_addresses = [lookup(element(data.azurerm_public_ips.aks.public_ips, 0), "ip_address")]
+    ip_addresses = [var.aks_ingress_public_ip]
     # fqdns = [lookup(data.azurerm_public_ips.aks.public_ips.0, "fqdn")]
+  }
+
+  probe {
+    name = "k8s-probe"
+    host = "127.0.0.1"
+    protocol = "Http"
+    interval = 15
+    unhealthy_threshold = 4
+    timeout = 15
+    path = "/healthz"
+    match {
+      status_code = ["200"]
+    }
   }
 
   backend_http_settings {
     name                  = local.http_setting_name
     cookie_based_affinity = "Disabled"
-    path                  = "/path1/"
     port                  = 80
     protocol              = "Http"
-    request_timeout       = 1
+    request_timeout       = 10
+    probe_name            = "k8s-probe"
   }
 
   request_routing_rule {
@@ -150,10 +165,10 @@ resource "azurerm_application_gateway" "network" {
     name                       = "${local.request_routing_rule_name}-letsencrypt"
     rule_type                  = "PathBasedRouting"
     http_listener_name         = local.listener_name
-    backend_address_pool_name  = local.backend_address_pool_name
-    backend_http_settings_name = local.http_setting_name
+    redirect_configuration_name = "letsencrypt_auth_challange"
     url_path_map_name =  "PathBasedRoutingRulePathMap"
   }
+
   lifecycle {
     ignore_changes = [
       tags,
