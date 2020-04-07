@@ -71,3 +71,12 @@ See [template-cli](./packages/template-cli/README.md) for information.
 ## Versioning and Publishing [packages](./docs/packages.md)
 
 We are also using Lerna to publish our packages, version control, and for changelogs. For more informatiion checkout the publishing docs on [publishing](./docs/publishing.md).
+
+## Third-party dependencies
+
+We are using a number of dependencies, not all of which we have developed ourselves. To ensure that we are able to grant the users of these packages the ability to use them for commerical purposes, we audit the dependencies and their license types. See the scripts [license:check:allowed](./package.json) for the determined types.
+
+In general, the following license types are OK:
+`'MIT;MIT*;ISC;BSD-3-Clause;BSD-2-Clause;Apache-2.0;Apache*;CC-BY-4.0;WTFPL'`
+
+Please note that the checks for the licenses are run on pre-commit, therefore, on your local machine. See [Husky](https://github.com/typicode/husky) for more information, and refer to the configuration file at [.huskyrc](./.huskyrc).

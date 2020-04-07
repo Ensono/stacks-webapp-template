@@ -20,10 +20,10 @@ Our default export contains all of our ESLint rules. The configuration was built
 based on other open source configuration. To run and use with your project, we
 must install peer dependencies.
 
-1. To start run `npm install --save-dev @amidostacks/eslint-config` to save as a
+1. To start run `npm install --only=dev @amidostacks/eslint-config` to save as a
    dev dependency
 2. Install peer dependecies with the correct versions:
-   `npx install-peerdeps --save-dev @amidostacks/eslint-config`
+   `npx install-peerdeps --only=dev @amidostacks/eslint-config`
 
 ## Usage
 
