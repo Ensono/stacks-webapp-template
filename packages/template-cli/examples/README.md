@@ -17,7 +17,7 @@ sample myconfig.json
 ```
 
 ```bash
-npx @amido/template-cli myconfig.json
+npx @amidostacks/scaffolding-cli@latest run -c myconfig.json
 ```
 
 the location of the config file should either absolute or relative to where you are running the cli from

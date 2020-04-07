@@ -68,33 +68,7 @@ $ npm run start
 ```
 Open Browser and hit [http://localhost:3000](http://localhost:3000)
 
-7. To get a local deployment open the following files and uncomment these lines
-
-`${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/deploy/terraform/azure/provider.tf`
-```terraform
-   # resource_group_name  = "amido-stacks-rg-uks"
-   # storage_account_name = "amidostackstfstategbl"
-   # container_name       = "tfstate"
-   # # key                  = "spa-cycle-2"
-```
-
-`${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/deploy/terraform/azure/vars.tf`
-```terraform
-
-# locals {
-#   # // common //
-#   resource_prefix           = "${var.name_company}-${var.name_project}-${var.name_component}"
-#   resource_suffix           = "${var.location_name_map[var.resource_location]}-${var.name_environment}"
-
-#   # // resource group //
-#   resource_group_name       = "${local.resource_prefix}-rg-${local.resource_suffix}"
-
-#   # // storage account - static website hosting //
-#   storage_account_name      = "${var.name_company}${var.name_project}${var.name_component}sa${var.location_name_map[var.resource_location]}${var.name_environment}"
-# }
-```
-
-8. To test the deploy folder has been correctly provisioned prior to checking you need to at this point in time copy over a sample backend-config and terraform vars. Currently vars.tf and provider configuration is not automatically updated. 
+7. To test the deploy folder has been correctly provisioned prior to checking you need to at this point in time copy over a sample backend-config and terraform vars. Currently vars.tf and provider configuration is not automatically updated. 
 Future iterations will include this.
 
 The safest way to run and maintain this going forward is to rely on environment variables for credentials as that is the way the pipeline will trigger the executions of terraform. 
