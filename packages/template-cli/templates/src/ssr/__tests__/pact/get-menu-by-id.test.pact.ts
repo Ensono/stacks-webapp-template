@@ -1,4 +1,15 @@
 /* tslint:disable:no-unused-expression object-literal-sort-keys max-classes-per-file no-empty */
+
+/*
+* Example Pact test
+
+* Calls the ./mocks/menuService.ts Menu API when running locally.
+* When the tests pass, the contract will be written to ./pacts/<PACT_CONSUMER>-<PACT_PROVIDER>
+* ✅ Use Pact Matchers to ensure state change https://docs.pact.io/getting_started/matching
+* ✅ Ensure that the provider state has been configured by the Provider
+*/
+
+
 import {Interaction, Matchers} from "@pact-foundation/pact"
 import {provider} from "./utils/pactSetup"
 
@@ -17,7 +28,7 @@ describe("Yumido Menu API", () => {
         enabled: true,
     }
 
-    const getMenuExpectation = Matchers.like(MENU)
+    const getMenuExpectation = Matchers.like(MENU) //Using matches for state changes
 
     afterEach(() => {
         return provider.verify()
@@ -26,7 +37,7 @@ describe("Yumido Menu API", () => {
     describe("GET /menu{id}", () => {
         beforeEach(() => {
             const interaction = new Interaction()
-                .given("An existing menu")
+                .given("An existing menu") //Provider state
                 .uponReceiving("A request for a menu by ID")
                 .withRequest({
                     method: "GET",
