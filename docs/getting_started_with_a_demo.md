@@ -1,9 +1,20 @@
+---
+id: getting-started
+title: Using the CLI to Template an Application
+sidebar_label: Templating an Application
+---
+
 ## Getting started
 
+## Templating a webapp
+
 As a general rule the steps to get one of our npm environments up and running are
-* for local execution
+
+For local execution:
+
   1. Clone the project and navigate to the relavent path.
   2. run the following commands in the following order
+   
   ```bash
   $ npm install
   $ npm run build
@@ -11,15 +22,9 @@ As a general rule the steps to get one of our npm environments up and running ar
   $ npm npm run start
   ```
 
-There is already a prebuilt version of the template-cli up on npm, if you don't wish to build this locally you only need to execute steps 3, 4, 5 and 6
+All of our packages, including the `@amidostacks/scaffolding-api` are available on [npm](https://www.npmjs.com/package/@amidostacks/scaffolding-cli).
 
-readme location: [packages/template-cli/README.md](https://github.com/amido/stacks-webapp-template/blob/master/packages/template-cli/README.md)
+See the README for more information on generating the templates from the CLI: [packages/template-cli/README.md](https://github.com/amido/stacks-webapp-template/blob/master/packages/template-cli/README.md)
 
-A browser window should open up and automatically havigate you to the correct place but if not go to 1 of the following URLs
+Once built, when starting the server and webapp, Aa browser window should open up and automatically navigate you to the local instance, but if not the default URLS is `http://localhost:3000`.
 
-```
-http://localhost:3000
-http://localhost:3000
-```
-
-You should now see an empty react site and have some code to play around with, enjoy yourself :).

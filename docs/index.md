@@ -36,18 +36,6 @@ Now the team can decorate and customise for their client.
 * Re-usable and configurable boilerplates
 * Cloud first
 
-
-
-Values
-We have four key values in which we stand by:
-
-Start with the problem: Working together to make sure that technology choices are business outcome-driven and not tech for tech’s sake. The magic is understanding what your users want, knowing what technology is out there and gluing these technologies together in the most effective way.
-Technology agnostic: We are independent and not aligned to any product or solution (including the ones we open-source), allowing us to recommend what is right for our clients. With a plethora of cloud services in the marketplace, we will find the right mix of available solutions from the rich PaaS and SaaS market.
-People-first: As a people business, we place your customers and employees at the centre of any digital project or transformation. People are at the heart of everything we design and deliver.
-Pragmatic: All technology has its strengths but also its limitations. We focus on delivering solutions that work and on creating technology ecosystems that make the most of the technologies within them. We are honest about the value that can be delivered now but also work to ensure our solutions have the agility and scalability built in to meet the challenges of tomorrow.
-
-
-
 ### Amido Stacks Webapp
 
 The entire project is built around the generation of a completely useable scaffolding to get project teams started, quicker. The showcase of a react app, either SSR or CSR being deployed into an existing or brand new K8s cluster - depending on the choices that were made during the bootstrap CLI process.

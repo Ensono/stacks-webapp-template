@@ -1,3 +1,9 @@
+---
+id: monorepo
+title: Template Monorepo
+sidebar_label: Template Monorepo
+---
+
 # Monorepo structure
 
 ## Description
