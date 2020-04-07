@@ -167,7 +167,9 @@ stages:
         parameters:
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
       
+      #####
       # Sample left for base K8s cluster bootstrap
+      #####
       - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
         parameters: 
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
@@ -182,16 +184,15 @@ stages:
             },
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml,
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentity.yml,
+              out: "",
               env_vars: {
                 user_identity_id: $(AKS_DEFAULT_USER_IDENTITY_ID),
                 identity_client_id: $(AKS_DEFAULT_USER_IDENTITY_CLIENT_ID),
                 identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
               }
             },
-            {
+           {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentitybinding.yml, 
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml,
               env_vars: {
                 identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
               }
