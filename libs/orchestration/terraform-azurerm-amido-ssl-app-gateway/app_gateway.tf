@@ -103,7 +103,7 @@ resource "azurerm_application_gateway" "network" {
   redirect_configuration {
     name = "letsencrypt_auth_challange"
     redirect_type = "Permanent"
-    target_url  = "${azurerm_storage_account.default.0.primary_blob_endpoint}/public"
+    target_url  = "${azurerm_storage_account.default.0.primary_blob_endpoint}public"
   }
 
   url_path_map {
