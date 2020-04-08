@@ -19,7 +19,78 @@ At the moment, the project is comprised of:
 ## Sample Project Directory Structure:
 
 ```
-THIS NEEDS TO BE PRODUCED
+.
+├── Dockerfile
+├── README.md
+├── build
+│   └── azDevOps
+│       └── azure
+├── deploy
+│   ├── k8s
+│   │   ├── README.md
+│   │   └── webapp
+│   └── terraform
+│       └── azure
+├── docker-compose.yml
+├── docs
+│   ├── browser_support.md
+│   ├── ...
+├── examples
+│   └── README.md
+├── lerna.json
+├── libs
+│   ├── images
+│   │   ├── README.md
+│   │   ├── build-agent-tfs
+│   │   ├── k8s-deploy
+│   │   ├── node-base
+│   │   ├── sonar-scanner
+│   │   └── tf-deploy
+│   └── orchestration
+│       ├── README.md
+│       ├── terraform-azurerm-amido-aks
+│       ├── terraform-azurerm-amido-csr
+│       └── terraform-azurerm-amido-ssl-app-gateway
+├── package-licenses.json
+├── package-lock.json
+├── package.json
+├── packages
+│   ├── eslint-config
+│   │   ├── CHANGELOG.md
+│   │   ├── GETTING_STARTED.md
+│   │   ├── LICENSE.md
+│   │   ├── README.md
+│   │   ├── eslintrc.js
+│   │   ├── package-lock.json
+│   │   └── package.json
+│   ├── template-cli
+│   │   ├── CHANGELOG.md
+│   │   ├── LICENSE.md
+│   │   ├── README.md
+│   │   ├── coverage
+│   │   ├── jest.config.json
+│   │   ├── package-lock.json
+│   │   ├── package.json
+│   │   ├── src
+│   │   ├── templates
+│   │   ├── tsconfig.jest.json
+│   │   └── tsconfig.json
+│   └── tsconfig.json
+├── tests
+│   ├── sample_generated_app
+│   └── utils
+├── tsconfig.json
+└── website
+    ├── README.md
+    ├── build
+    │   └── stacks-webapp-template-gh-pages
+    ├── core
+    ├── package-lock.json
+    ├── package.json
+    ├── pages
+    ├── sidebars.json
+    ├── siteConfig.js
+    └── static
 ```
 
 ## Approach
@@ -31,5 +102,3 @@ THIS NEEDS TO BE PRODUCED
   - any new package should be added within the `packages` directory and follow
     the above structure.
 - All packages share the similar structure.
-- _Task_ script is used to define set of common tasks like `test`, `lint` and
-  `dev`. So any common task should be added in the script at the root level.

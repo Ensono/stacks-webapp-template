@@ -21,12 +21,12 @@ Docusaurus generates a static HTML website that is currently being served on git
 To publish locally:
 1. `npm install`
 2. `npm run build`
-3. Substituting the <GIT_USER> for your username, publish the soolution
+3. Substituting the <GIT_USER> for your username, publish the solution
     ```bash
     GIT_USER=<GIT_USER> \
-      npm run publish-gh-pages
+    npm run publish-gh-pages
     ```
-This will push the changes to the stacks-webapp-template[gh-pages](https://github.com/amido/stacks-webapp-template/tree/gh-pages) branch. If successful, changes will be public immediately at https://amido.github.io/stacks-webapp-template/.
+This will push the changes to the stacks-webapp-template [gh-pages](https://github.com/amido/stacks-webapp-template/tree/gh-pages) branch. If successful, changes will be public immediately at https://amido.github.io/stacks-webapp-template/.
 
 # Get Started in 5 Minutes
 

@@ -1,8 +1,8 @@
 {
   "docs": {
-    "Getting Started": ["index", "monorepo"],
-    "Guides": ["deployment", "publishing"],
-    "Packages": ["packages"],
-    "Supporting Docs": ["browser_support", "infrastructure", "cli-process"]
+    "Getting Started": ["index", "getting-started", "monorepo"],
+    "Guides": ["deployment", "publishing", "testing", "pipelines"],
+    "Packages": ["packages", "cli", "cache"],
+    "Supporting Docs": ["browser_support", "infrastructure", "faq"]
   }
 }
