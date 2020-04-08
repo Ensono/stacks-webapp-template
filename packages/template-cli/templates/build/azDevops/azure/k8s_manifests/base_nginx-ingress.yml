@@ -302,6 +302,8 @@ metadata:
   labels:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
+# annotations:
+#   service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   externalTrafficPolicy: Local
   type: LoadBalancer

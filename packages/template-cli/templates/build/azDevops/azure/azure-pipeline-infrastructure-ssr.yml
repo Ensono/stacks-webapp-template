@@ -175,6 +175,7 @@ stages:
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_external-dns.yml, 
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml,
+              displayName: ExternalDns,
               env_vars: {
                 domain_filter: nonprod.$(base_domain),
                 aks_resource_group: $(aks_clusterrg_nonprod)
@@ -182,7 +183,7 @@ stages:
             },
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml,
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentity.yml,
+              displayName: AADPodId,
               env_vars: {
                 user_identity_id: $(AKS_DEFAULT_USER_IDENTITY_ID),
                 identity_client_id: $(AKS_DEFAULT_USER_IDENTITY_CLIENT_ID),
@@ -191,14 +192,14 @@ stages:
             },
            {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentitybinding.yml, 
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml,
+              displayName: AADPodIdBinding,
               env_vars: {
                 identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
               }
             },
            {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_nginx-ingress.yml, 
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/nginx-ingress.yml,
+              displayName: NginxIngress,
               env_vars: {
                 aks_ingress_public_ip: $(AKS_INGRESS_PUBLIC_IP)
               }
