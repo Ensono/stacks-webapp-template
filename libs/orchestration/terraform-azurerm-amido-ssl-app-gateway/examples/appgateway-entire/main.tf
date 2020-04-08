@@ -22,7 +22,6 @@ variable "vnet_cidr" {
 module "aks_bootstrap" {
   source                  = "../../../terraform-azurerm-amido-aks"
   resource_namer          = module.default_label.id
-  create_rg               = true
   resource_group_location = var.resource_group_location
   spn_object_id           = data.azurerm_client_config.current.object_id
   tenant_id               = data.azurerm_client_config.current.tenant_id

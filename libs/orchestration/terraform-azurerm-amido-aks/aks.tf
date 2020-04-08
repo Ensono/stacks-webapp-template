@@ -54,10 +54,7 @@ resource "azurerm_kubernetes_cluster" "default" {
 
   default_node_pool {
     # TODO: variablise below:
-    availability_zones = ["1", "2", "3"] # var.aks_azs
-    # node_taints           = [] -> null
-    # max_pods          = var.max_pods != 0 ? var.max_pods : 1
-    # enable_node_public_ip = false
+    availability_zones = ["1", "2", "3"]
     type                = var.nodepool_type # "VirtualMachineScaleSets" # default
     enable_auto_scaling = var.enable_auto_scaling
     max_count           = var.max_nodes
@@ -66,7 +63,6 @@ resource "azurerm_kubernetes_cluster" "default" {
     os_disk_size_gb     = var.os_disk_size
     vm_size             = var.vm_size
     node_count          = var.min_nodes
-    # vnet_subnet_id      = var.vnet_subnet_id
     vnet_subnet_id      = azurerm_subnet.default.0.id
   }
 
@@ -131,8 +127,7 @@ resource "azurerm_role_assignment" "acr" {
   count                 = var.create_acr ? 1 : 0
   scope                = azurerm_container_registry.registry.0.id
   role_definition_name = "Contributor"
-  # principal_id         = data.azurerm_client_config.example.object_id
-  principal_id         = azurerm_kubernetes_cluster.default.0.identity.0.principal_id # "64b47df4-b5e2-4f9f-990f-3dbb8ddebf7d"
+  principal_id         = azurerm_kubernetes_cluster.default.0.identity.0.principal_id
   depends_on = [
     azurerm_kubernetes_cluster.default
   ]

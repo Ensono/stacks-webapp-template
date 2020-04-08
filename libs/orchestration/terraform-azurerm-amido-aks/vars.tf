@@ -31,10 +31,12 @@ variable "stage" {
 }
 
 variable "attributes" {
+  description = "Additional attributes for tagging"
   default = []
 }
 
 variable "tags" {
+  description = "Tags to be assigned to all resources, NB if global tagging is enabled these will get overwritten periodically"
   type    = map(string)
   default = {}
 }
@@ -50,82 +52,61 @@ variable "tags" {
 ############################################
 
 variable "resource_group_location" {
+  description = "Location of the RG"
   type    = string
   default = "uksouth"
 }
 
 variable "resource_group_tags" {
+  description = "Tags at a RG level"
   type    = map(string)
   default = {}
 }
-
-###########################
-# CONDITIONAL SETTINGS
-##########################
-variable "create_rg" {
-  type    = bool
-  default = true
-}
-
 
 
 ###########################
 # IDENTITY SETTINGS
 ##########################
 variable "create_user_identiy" {
+  description = "Creates a User Managed Identity - which can be used subsquently with AAD pod identity extensions"
   type    = bool
   default = true
 }
-
-variable "spn_url" {
-  type    = string
-  default = "https://stacks.azure.com/foo"
-}
-
-variable "spn_name" {
-  type    = string
-  default = "aksspn"
-}
-
-variable "spn_password" {
-  type    = string
-  default = "change12me"
-}
-
-variable "generate_password" {
-  type    = bool
-  default = true
-}
-
 
 ###########################
 # NETWORK SETTINGS
 ##########################
 
 variable "create_aksvnet" {
+  description = "Whether to create an AKS VNET specifically or use an existing one - if false you must supply an existing VNET name and a vnet_cidr for subnets"
   type    = bool
   default = true
 }
 
 variable "vnet_name" {
+  description = "VNET name if create_aks_vnet is false"
   type    = string
   default = "changeme"
 }
 
 variable "vnet_cidr" {
+  description = "CIDR block notation for VNET"
   type = list(string)
 }
 
 variable "subnet_prefixes" {
+  description = "Prefix for subnet - should be in the form of x.x.x.x/x"
   type    = list(string)
   default = [""]
 }
 
 variable "subnet_front_end_prefix" {
+  description = "Prefix for front end subnet - should be in the form of x.x.x.x/x"
   type = string
 }
 
 variable "subnet_names" {
+  description = "Names for subnets"
   type    = list(string)
   default = [""]
 }
@@ -134,16 +115,19 @@ variable "subnet_names" {
 # DNS SETTINGS
 ##########################
 variable "dns_zone" {
+  description = "Dns zone name - e.g. nonprod.domain.com, you should avoid using an APEX zone"
   type    = string
   default = ""
 }
 
 variable "create_dns_zone" {
+  description = "whether to create a DNS zone"
   type    = bool
   default = true
 }
 
 variable "internal_dns_zone" {
+  description = "Internal DNS zone name - e.g. nonprod.domain.internal"
   type    = string
   default = ""
 }
@@ -152,21 +136,25 @@ variable "internal_dns_zone" {
 # ACR SETTINGS
 ##########################
 variable "create_acr" {
+  description = "whether to create a ACR"
   type    = bool
   default = true
 }
 
 variable "acr_registry_name" {
+  description = "ACR name"
   type    = string
   default = "myacrregistry"
 }
 
 variable "registry_admin_enabled" {
+  description = "Whether ACR admin is enabled"
   type    = bool
   default = true
 }
 
 variable "registry_sku" {
+  description = "ACR SKU"
   type    = string
   default = "Standard"
 
@@ -177,16 +165,19 @@ variable "registry_sku" {
 ##########################
 
 variable "create_aks" {
+  description = "Whether KAS gets created"
   type    = bool
   default = true
 }
 
 variable "cluster_version" {
+  description = "Specify AKS cluster version - please refer to MS for latest updates on the available versions. NB: opt for stable versions where possible"
   type    = string
   default = "1.15.7"
 }
 
 variable cluster_name {
+  description = "Name for the cluster"
   default = "akscluster"
 }
 
@@ -276,8 +267,8 @@ variable "vm_size" {
 ###########################
 # MISC SETTINGS
 ##########################
-
 variable "resource_namer" {
+  description = "This should be a uniformly created string - ideally using something like cloudposse label module to ensure conventions on naming are followed throughout organization. this value is used in all the places within the module to name resources - additionally it changes the string to ensure it conforms to Azure standards where appropriate - i.e. blob/KV/ACR names are stripped of non alphanumeric characters and in some cases strings are sliced to conform to max char length"
   type    = string
   default = "genericname"
 }

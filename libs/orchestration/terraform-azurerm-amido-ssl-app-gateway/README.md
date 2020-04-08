@@ -31,7 +31,37 @@ $ dig TXT _acme-challenge.nonprod.amidostacks.com
 ```
 If all successful
 
-Continue...
 
-this will then create a certs directory which you can then place 
+## Providers
 
+| Name | Version |
+|------|---------|
+| azurerm | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:-----:|
+| aks\_ingress\_private\_ip | n/a | `string` | n/a | yes |
+| aks\_ingress\_public\_ip | n/a | `string` | n/a | yes |
+| aks\_resource\_group | n/a | `string` | n/a | yes |
+| attributes | n/a | `list` | `[]` | no |
+| create\_ssl\_cert | ########################## CONDITIONAL SETTINGS ######################### | `bool` | `true` | no |
+| dns\_zone | ########################### # DNS SETTINGS ########################## | `string` | `""` | no |
+| pfx\_password | n/a | `string` | `"Password1"` | no |
+| resource\_group\_location | n/a | `string` | `"uksouth"` | no |
+| resource\_group\_name | n/a | `string` | n/a | yes |
+| resource\_group\_tags | n/a | `map(string)` | `{}` | no |
+| resource\_namer | n/a | `string` | `"genericname"` | no |
+| stage | n/a | `string` | `"dev"` | no |
+| subnet\_backend\_end\_prefix | n/a | `string` | n/a | yes |
+| subnet\_front\_end\_prefix | n/a | `string` | n/a | yes |
+| subnet\_names | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| subnet\_prefixes | n/a | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| tags | n/a | `map(string)` | `{}` | no |
+| vnet\_cidr | n/a | `list(string)` | n/a | yes |
+| vnet\_name | n/a | `string` | `"changeme"` | no |
+
+## Outputs
+
+No output.
