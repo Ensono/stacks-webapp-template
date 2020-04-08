@@ -6,7 +6,7 @@ LABEL maintainer="Amido Stacks <stacks@amido.com>"
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get install -y curl grep sed unzip git sudo jq
+RUN apt-get install -y curl grep sed unzip git sudo jq gettext
 RUN apt-get clean
 
 RUN cd /tmp && \

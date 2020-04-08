@@ -7,5 +7,5 @@ metadata:
     aadpodidentity.k8s.io/Behavior: namespaced
 spec:
   type: 0
-  ResourceID: ${identity_user_id}
+  ResourceID: ${user_identity_id}
   ClientID: ${identity_client_id}
