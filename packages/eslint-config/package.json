@@ -1,10 +1,14 @@
 {
   "name": "@amidostacks/eslint-config",
-  "version": "0.20.4",
+  "version": "0.20.17",
   "description": "Shared linting config from amido stacks",
   "main": "eslintrc.js",
   "author": "https://amido.com",
   "license": "MIT",
+  "scripts": {
+    "license:check:audit": "license-checker --production --relativeLicensePath --out ./packageLicensesAudit.json",
+    "license:check:allowed": "license-checker --production --onlyAllow='MIT;MIT*;ISC;BSD-3-Clause;BSD-2-Clause;Apache-2.0;Apache*'"
+  },
   "peerDependencies": {
     "@typescript-eslint/parser": "^2.15.0",
     "eslint": "^6.8.0",
@@ -14,7 +18,11 @@
     "eslint-plugin-compat": "^3.5.1",
     "eslint-plugin-jest": "^23.3.0",
     "eslint-plugin-react": "^7.17.0",
-    "eslint-plugin-security": "^1.4.0"
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-import": "^2.19.1",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3"
   },
   "homepage": "https://github.com/amido/stacks-webapp-template/tree/master/packages/eslint-config",
   "repository": {
@@ -24,6 +32,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHead": "15e8fc25b5715fe95ec1b5db73f224894dc5e53d"
+  }
 }

@@ -1,5 +1,5 @@
 /*
-* Pulls in the base confifratio
+* Pulls in the base configuration
 */
 
 export const environmentVariables = {

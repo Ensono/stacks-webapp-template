@@ -76,7 +76,7 @@ typings/
 .cache
 
 # Next.js build output
-.next
+.next/
 out
 
 
@@ -187,3 +187,6 @@ yarn.lock
 
 # TESTCAFE
 **/screenshots/
+
+# AUDITS
+packageLicensesAudit.json

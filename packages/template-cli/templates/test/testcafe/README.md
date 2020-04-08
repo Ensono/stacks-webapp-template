@@ -29,6 +29,18 @@ npm run test:e2e
 
 This should launch [TestCafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and run the tests in the browsers specified in [.testcaferc.json](./.testcaferc.json) in headless mode.
 
+
+### Accessibility Tests with aXe
+
+```bash
+npm run test:axe
+```
+
+This should launch [TestCafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and run the tests in the browsers specified in [.testcaferc.json](./.testcaferc.json) in headless mode.
+
+This will validated using axe-core, from the Deque famility of products: [aXe](https://www.deque.com/axe/). When developing, we expect to support WCAG 2.1 Level AA ["wcag21aa"] at a minimum. Additional configuration can be changed by defining the [context and options](https://www.npmjs.com/package/axe-testcafe#axe-options).
+
+
 ## Browser configuration
 
 We assume that most users will have Chrome installed on their operating system. If this is not the case, the base configuration file  
@@ -51,7 +63,7 @@ See [browsers](https://devexpress.github.io/testcafe/documentation/using-testcaf
 ### E2E Tests
 We can use the [.env](./.env) file to specify defaults instead of exporting locally, or using your IDE.
 
-_Important: if you have defined an environment varibale, then `dotenv` will not override thi with the values in the `.env` file. The environment should always hold the source of truth._
+_⚠️ IMPORTANT: if you have defined an environment varibale, then `dotenv` will not override thi with the values in the `.env` file. The environment should always hold the source of truth._
 
 - Base URL: `process.env.APP_BASE_URL` (defaults to deployed dev environment `http://dev.amidostacks.com`)
 - Base URL: `process.env.APP_BASE_PATH` (optional, default to deployed dev environment `/web/stacks`)

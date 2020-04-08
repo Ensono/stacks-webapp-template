@@ -17,7 +17,7 @@ spec:
         - name: web
           env:
             - name: NODE_ENV
-              value: development
+              value: production
             - name: MENU_API_URL
               value: 'http://menuapi.dev-menu'
             - name: LOG_LEVEL

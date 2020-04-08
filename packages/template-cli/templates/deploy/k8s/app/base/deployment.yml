@@ -34,7 +34,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: NODE_ENV
-              value: dev
+              value: production
             - name: LOG_LEVEL
               value: debug
             - name: PORT

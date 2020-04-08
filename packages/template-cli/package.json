@@ -1,6 +1,6 @@
 {
   "name": "@amidostacks/scaffolding-cli",
-  "version": "1.18.9",
+  "version": "1.20.0",
   "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
   "bin": {
     "scaffolding-cli": "./dist/index.js",
@@ -14,9 +14,10 @@
     "src/domain"
   ],
   "scripts": {
+    "license:check:audit": "license-checker --production --out ./packageLicensesAudit.json --excludePrivatePackages --relativeLicensePath",
+    "license:check:allowed": "license-checker --production --excludePrivatePackages --onlyAllow='MIT;MIT*;ISC;BSD-3-Clause;BSD-2-Clause;Apache-2.0;Apache*;CC-BY-4.0;WTFPL'",
     "test": "node_modules/.bin/jest -c jest.config.json --coverage",
     "test:watch": "node_modules/.bin/jest -c jest.config.json --coverage --watchAll",
-    "lint": "node_modules/.bin/eslint . -f codeframe",
     "view:coverage": "open coverage/lcov-report/index.html",
     "build": "tsc",
     "build:watch": "npm run build -- -w",
@@ -59,6 +60,5 @@
     "type": "git",
     "url": "https://github.com/amido/stacks-webapp-template.git",
     "directory": "packages/template-cli"
-  },
-  "gitHead": "15e8fc25b5715fe95ec1b5db73f224894dc5e53d"
+  }
 }
