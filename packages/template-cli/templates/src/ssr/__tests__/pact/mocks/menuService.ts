@@ -1,5 +1,4 @@
 import axios from "axios"
-import { string } from "@pact-foundation/pact/dsl/matchers"
 
 export class MenuService {
     private url: string
