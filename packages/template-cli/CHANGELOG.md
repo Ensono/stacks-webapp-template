@@ -3,6 +3,77 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.21.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.21.0) (2020-04-08)
+
+
+### Bug Fixes
+
+* added display name to templating function ([205d7eb](https://github.com/amido/stacks-webapp-template/commit/205d7ebed3207477407158ce39680252c3fd5800))
+* additional debug output ([878e9c1](https://github.com/amido/stacks-webapp-template/commit/878e9c1a9000d04dfe3fe27078d60068a6597a21))
+* addresssed comments and cleaned up docs ([5a3e952](https://github.com/amido/stacks-webapp-template/commit/5a3e952061fa9125a3531c2a4fa43ebec88a4a8e))
+* adjusted test param to reflect change ([29cb5cf](https://github.com/amido/stacks-webapp-template/commit/29cb5cf27c3e0c595435b7fddee22f72de12e434))
+* app tf update ([2c878d1](https://github.com/amido/stacks-webapp-template/commit/2c878d1c04d6c82424a60c86c219f85d556b2577))
+* appgateway vars and added RBAC ([8b38e98](https://github.com/amido/stacks-webapp-template/commit/8b38e98321fd109c22238118fd9b78ed6c89d232))
+* bash array ([ef3991a](https://github.com/amido/stacks-webapp-template/commit/ef3991a9bf505e91d85a00900d2c263c383d56af))
+* bash array 4 ([e99b4b4](https://github.com/amido/stacks-webapp-template/commit/e99b4b4da56305bea94d980124f7a0622e67cd79))
+* bind all output variables ([b100706](https://github.com/amido/stacks-webapp-template/commit/b10070630bea26a486c587934797ab734b4c27be))
+* bugs on create page ([#86](https://github.com/amido/stacks-webapp-template/issues/86)) ([07903bb](https://github.com/amido/stacks-webapp-template/commit/07903bbb35c4650a1f3d714a1222d258fd8ca074))
+* change the value in template to a bash variable ([c6df7e5](https://github.com/amido/stacks-webapp-template/commit/c6df7e5388a0549c6967d10b699d3f89e566c224))
+* clean up of inputs ([88d1981](https://github.com/amido/stacks-webapp-template/commit/88d1981a24338c67bca91aee74f34660249333c3))
+* cross job dependency ([0b712ea](https://github.com/amido/stacks-webapp-template/commit/0b712eabedba8b28d5ce9cb52a20499e8e76c08a))
+* debug ([f28e2e2](https://github.com/amido/stacks-webapp-template/commit/f28e2e26d344da04b99759b24133b266e1f9409b))
+* dumping out all vars ([f09a9b3](https://github.com/amido/stacks-webapp-template/commit/f09a9b376150e0ceab45e1ec207146a29e176bb4))
+* eslint peer deps list ([#108](https://github.com/amido/stacks-webapp-template/issues/108)) ([165f57f](https://github.com/amido/stacks-webapp-template/commit/165f57f97b77657c3099a4ddd53211eac34e7060))
+* features added ([bd82b9a](https://github.com/amido/stacks-webapp-template/commit/bd82b9abdb5c53001bd335dd0132ed2ac24cc0b3))
+* gitignore for template ([3485e95](https://github.com/amido/stacks-webapp-template/commit/3485e95c5076b197871888b4d77a4dda64c12a82))
+* include .gitignore ([f43b937](https://github.com/amido/stacks-webapp-template/commit/f43b937392865606702820493b0f93d432593250))
+* lerna publishing  ([#104](https://github.com/amido/stacks-webapp-template/issues/104)) ([62ab904](https://github.com/amido/stacks-webapp-template/commit/62ab90463fab445c01d6579f6ee9893bba33aa12))
+* missing parameter in Tf K8s cluster ([a9d962a](https://github.com/amido/stacks-webapp-template/commit/a9d962a99c8abd067d76d8ac9cd374ef5d11a151))
+* more debugging in yaml ([9d5d006](https://github.com/amido/stacks-webapp-template/commit/9d5d006027cd122144c583284469154e794a4293))
+* output variable ([1c5a876](https://github.com/amido/stacks-webapp-template/commit/1c5a87697a4590f4e16d787a0864bda17ef04ef6))
+* pact contract tests ([#106](https://github.com/amido/stacks-webapp-template/issues/106)) ([e760545](https://github.com/amido/stacks-webapp-template/commit/e7605450892a855fa20c0bfe496c8a5be3f1aee5))
+* password ([fd9be66](https://github.com/amido/stacks-webapp-template/commit/fd9be66c581b8892a42157c31b9a1d8622dd2bec))
+* path for sample doc ([68b5202](https://github.com/amido/stacks-webapp-template/commit/68b5202bc4af936825cf877e842280a9bdbdeac1))
+* pipelines debug ([#93](https://github.com/amido/stacks-webapp-template/issues/93)) ([31baacc](https://github.com/amido/stacks-webapp-template/commit/31baaccdc64364822a8d6f827ef0190c282cd426))
+* publishing with lerna ([#109](https://github.com/amido/stacks-webapp-template/issues/109)) ([b266275](https://github.com/amido/stacks-webapp-template/commit/b2662750098ee6084e3308584c5ad654ba65c6d0))
+* remove nmprc file from template ([#113](https://github.com/amido/stacks-webapp-template/issues/113)) ([b043e82](https://github.com/amido/stacks-webapp-template/commit/b043e82146ce21f48559cd5eb4e9260c30daf085))
+* remove node_modules from filter ([0ad6a59](https://github.com/amido/stacks-webapp-template/commit/0ad6a59e452c91045859ad14f6b36db2aa957676))
+* remove perms using MSI ([f8b0978](https://github.com/amido/stacks-webapp-template/commit/f8b09783fa83503d9bee66968d430cf5b6f194aa))
+* removed gatekeeper from base cluster ([4c4d30b](https://github.com/amido/stacks-webapp-template/commit/4c4d30bb2539298694d9b840dbf48363992d563a))
+* removed incorrect yml syntax ([ecf9d01](https://github.com/amido/stacks-webapp-template/commit/ecf9d01bdbf99fce791448b04baa78189f2d3ecb))
+* renamed to nonprod as per documentation ([53d3701](https://github.com/amido/stacks-webapp-template/commit/53d370154258a783559e5f9f5cd71323d7fb0d14))
+* revert to full path for out yaml ([8110e77](https://github.com/amido/stacks-webapp-template/commit/8110e774ab9532c445daeae3c71ec380e6427acb))
+* reverted to supplying full file path for out yml ([5e145cf](https://github.com/amido/stacks-webapp-template/commit/5e145cf196bb85fd361dfc0f1d8bf1ecb49428b8))
+* run again ([f32bf24](https://github.com/amido/stacks-webapp-template/commit/f32bf247f57ff4caa2f70a38134f455b51f62c84))
+* run ssr infra ([d10daf6](https://github.com/amido/stacks-webapp-template/commit/d10daf64ad712b2d7757e2b97d9e371915535035))
+* set container at a job level ([c9872fd](https://github.com/amido/stacks-webapp-template/commit/c9872fd669c9666ff961dc9b1196fc3de4f119cb))
+* specificly bound outputs to job vars ([32960b3](https://github.com/amido/stacks-webapp-template/commit/32960b3bc8005b1a9e05bdfc544df772a875d401))
+* testing output ([149275a](https://github.com/amido/stacks-webapp-template/commit/149275aea5669da442951cde0e3f2f03e4812c6d))
+* testing templating function ([7f64a8b](https://github.com/amido/stacks-webapp-template/commit/7f64a8bb4ae754b169ae09b7276e65bcaa665b17))
+* tests for extended cli ([#84](https://github.com/amido/stacks-webapp-template/issues/84)) ([dc34156](https://github.com/amido/stacks-webapp-template/commit/dc341567adcbdc7d3df3d94cd1b8ef5d5f7c4d79))
+* title element overwritten on tooltip ([#95](https://github.com/amido/stacks-webapp-template/issues/95)) ([9e2f338](https://github.com/amido/stacks-webapp-template/commit/9e2f338985393989a60ed9801acae38258781ea8))
+* try working templator ([9f42d1c](https://github.com/amido/stacks-webapp-template/commit/9f42d1ca30514ff67be4a7d8f2f77940df7236f5))
+* typo ([3b1211b](https://github.com/amido/stacks-webapp-template/commit/3b1211b9c0223b0d93762df5c28649c1af15dc23))
+* update refs for templated tf libs ([5fa37ae](https://github.com/amido/stacks-webapp-template/commit/5fa37ae8920879065db365e26e1a5ea0fd2e293b))
+* updated ci-k8s deploy image with dotnet core ([#96](https://github.com/amido/stacks-webapp-template/issues/96)) ([92eb3c9](https://github.com/amido/stacks-webapp-template/commit/92eb3c95166851b10db22bbf374cbd41e4d258f6))
+* updated refs and containers ([3aac6dc](https://github.com/amido/stacks-webapp-template/commit/3aac6dc90942b29862e19f762894016475b2b668))
+* wrong registry command ([861aed6](https://github.com/amido/stacks-webapp-template/commit/861aed62a445827efc8f70cb389ed693b08609a0))
+
+
+### Features
+
+* added annotate string ([#107](https://github.com/amido/stacks-webapp-template/issues/107)) ([f605f9f](https://github.com/amido/stacks-webapp-template/commit/f605f9fc079dc77d4a4820c71af2b2b9387e9112))
+* added cache to the app root ([#100](https://github.com/amido/stacks-webapp-template/issues/100)) ([e4d05cd](https://github.com/amido/stacks-webapp-template/commit/e4d05cda31275001891beb6c0d68a53616c68561))
+* create page route ([#79](https://github.com/amido/stacks-webapp-template/issues/79)) ([7adf6f4](https://github.com/amido/stacks-webapp-template/commit/7adf6f40793abec85baa24fc25e20b01e661c692))
+* extend existing lib aks lib ([179b93a](https://github.com/amido/stacks-webapp-template/commit/179b93a656b836df67d50e5009500f54ae59d5a5))
+* Lighthouse profile report in pipeline ([#101](https://github.com/amido/stacks-webapp-template/issues/101)) ([934511e](https://github.com/amido/stacks-webapp-template/commit/934511e4d351b409c5d3140a7d2d4ff07c384330))
+* new set up ([4881cf3](https://github.com/amido/stacks-webapp-template/commit/4881cf3349d94bc9b721ce9ec1d51feba5f7e7d5))
+* ui improvements ([#94](https://github.com/amido/stacks-webapp-template/issues/94)) ([3e9dac4](https://github.com/amido/stacks-webapp-template/commit/3e9dac420a119d07238ff3a1858f68d16b8be744))
+
+
+
+
+
 # [1.20.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.20.0) (2020-04-01)
 
 
