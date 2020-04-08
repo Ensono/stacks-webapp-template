@@ -3,5 +3,5 @@ kind: AzureIdentityBinding
 metadata:
   name: stacks-webapp-azure-identity-binding
 spec:
-  AzureIdentity: static-pod-id
+  AzureIdentity: ${identity_user_name}
   Selector: stacks-webapp-identity

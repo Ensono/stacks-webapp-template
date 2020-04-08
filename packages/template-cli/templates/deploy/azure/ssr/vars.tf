@@ -40,8 +40,6 @@ variable "tags" {
 # AZURE INFORMATION
 ############################################
 
-# RELYING PURELY ON ENVIRONMENT VARIABLES as the user can control these from their own environment
-
 variable "client_secret" {
   type = string
 }
@@ -49,5 +47,37 @@ variable "client_secret" {
 variable "resource_group_location" {
   type    = string
   default = "uksouth"
-  # default = "replace_azure_location"
+}
+
+variable "dns_zone" {
+  type    = string
+  default = "nonprod.amidostacks.com"
+}
+
+variable "internal_dns_zone" {
+  type    = string
+  default = "nonprod.amidostacks.internal"
+}
+
+variable "pfx_password" {
+  type = string
+  default = "Password1"
+}
+
+# ###########################
+# # CONDITIONALS
+# ##########################
+variable "create_dns_zone" {
+  type    = bool
+  default = true
+}
+
+variable "create_aksvnet" {
+  type    = bool
+  default = true
+}
+
+variable "create_user_identiy" {
+  type    = bool
+  default = true
 }

@@ -26,12 +26,12 @@ resources:
     - container: k8s_deploy
       image: amidostacks/ci-k8s:0.0.1
     - container: terraform_custom
-      image: amidostacks/ci-tf:0.0.1
+      image: amidostacks/ci-tf:0.0.2
 
 variables:
   company: amido
   project: stacks
-  domain: webapp
+  domain: node
   # SelfConfig
   self_repo: stacks-webapp-template/packages/template-cli/templates
   self_repo_src: src/ssr
@@ -196,4 +196,3 @@ stages:
                       - task: Lighthouse@1
                         inputs:
                           url: "http://dev.amidostacks.com/web/stacks"
-

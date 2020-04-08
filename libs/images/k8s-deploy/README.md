@@ -14,9 +14,9 @@ USAGE:
 ---
 ```bash
 docker build -t amidostacks/ci-k8s .
-docker tag e3163d591dd2 amidostacks/ci-k8s:0.0.3
+docker tag 4cff9b2cbe24 amidostacks/ci-k8s:0.0.4
 docker push amidostacks/ci-k8s:latest
-docker push amidostacks/ci-k8s:0.0.3
+docker push amidostacks/ci-k8s:0.0.4
 ```
 
 Exposed args:

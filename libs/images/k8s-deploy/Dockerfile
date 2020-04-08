@@ -8,9 +8,9 @@ ARG DOTNET_CORE_VERSION=3.1
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
 LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
 
-RUN apt-get update && \
-    apt-get upgrade && \
-    apt-get install -y curl grep sed unzip git wget && \
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install -y curl grep sed unzip git wget gettext && \
     apt-get clean
 
 # INSTALL KUBECTL

@@ -36,23 +36,6 @@ variable "tags" {
   default = {}
 }
 
-# Each region must have corresponding a shortend name for resource naming purposes
-variable "location_name_map" {
-  type = map(string)
-
-  default = {
-    northeurope   = "eun"
-    westeurope    = "euw"
-    uksouth       = "uks"
-    ukwest        = "ukw"
-    eastus        = "use"
-    eastus2       = "use2"
-    westus        = "usw"
-    eastasia      = "ase"
-    southeastasia = "asse"
-  }
-}
-
 ############################################
 # AZURE INFORMATION
 ############################################
@@ -66,13 +49,13 @@ variable "client_secret" {
 ############################################
 # RESOURCE INFORMATION
 ############################################
+variable "resource_group_location" {
+  type    = string
+  default = "uksouth"
+}
 
-# variable "resource_location" {
-#   default = "uksouth"
-# }
-
-# variable "resource_tags" {
-#   type = map(string)
+# variable "resource_group_tags" {
+#   type    = map(string)
 #   default = {}
 # }
 
@@ -81,23 +64,38 @@ variable "client_secret" {
 # }
 
 # ###########################
-# # CONDITIONAL SETTINGS
+# # DNS SETTINGS
 # ##########################
-# variable "create_rg" {
-#   type = bool
-#   default = true
-# }
+variable "dns_zone" {
+  type    = string
+  default = "nonprod.amidostacks.com"
+}
 
-# variable "create_aksvnet" {
-#   type = bool
-#   default = true
-# }
+variable "internal_dns_zone" {
+  type    = string
+  default = "nonprod.amidostacks.internal"
+}
+
+variable "pfx_password" {
+  type = string
+  default = "Password1"
+}
+
 
 # ###########################
-# # IDENTITY SETTINGS
+# # CONDITIONALS
 # ##########################
-# variable "spn_url" {
-#   type = string
-#   default = "https://portal.azure.com"
-# }
+variable "create_dns_zone" {
+  type    = bool
+  default = true
+}
 
+variable "create_aksvnet" {
+  type    = bool
+  default = true
+}
+
+variable "create_user_identiy" {
+  type    = bool
+  default = true
+}
