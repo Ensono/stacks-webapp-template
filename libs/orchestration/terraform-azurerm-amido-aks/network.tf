@@ -98,14 +98,3 @@ resource "azurerm_private_dns_zone_virtual_network_link" "default" {
     ]
   }
 }
-
-# resource "azurerm_dns_a_record" "example" {
-#   name                = "test-1"
-#   zone_name           = azurerm_dns_zone.default.0.name
-#   resource_group_name = azurerm_resource_group.default.name
-#   ttl                 = 300
-#   records             = azurerm_public_ip.default[*].ip_address
-#   depends_on = [
-#     azurerm_public_ip.default
-#   ]
-# }

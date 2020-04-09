@@ -61,5 +61,3 @@ output "aks_ingress_private_ip" {
 output "aks_ingress_public_ip" {
   value = azurerm_public_ip.external_ingress.0.ip_address
 }
-
-

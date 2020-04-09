@@ -24,9 +24,9 @@ resources:
     - container: sonar_scanner
       image: amidostacks/ci-sonarscanner:0.0.1
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.1
+      image: amidostacks/ci-k8s:0.0.4
     - container: terraform_custom
-      image: amidostacks/ci-tf:0.0.2
+      image: amidostacks/ci-tf:0.0.3
 
 variables:
   company: amido
@@ -35,6 +35,12 @@ variables:
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_src: src/ssr
+  self_repo_tf_src: deploy/azure/app/kube
+  # TF STATE CONFIG
+  tf_state_rg: amido-stacks-rg-uks
+  tf_state_storage: amidostackstfstategbl
+  tf_state_container: tfstate
+  tf_state_key: stacks-webapp
   # Versioning
   version_major: 0
   version_minor: 0
@@ -50,6 +56,10 @@ variables:
   # AKS/AZURE
   aks_clusterrg: amido-stacks-nonprod-node
   aks_clustername: amido-stacks-nonprod-node
+  # Infra 
+  conventional_resource_namer: amido-stacks-nonprod-node
+  base_domain: nonprod.amidostacks.com
+  base_domain_internal: nonprod.amidostacks.internal
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -120,14 +130,79 @@ stages:
               # Git Tag release
               git_do_tag_release: false
               git_release_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
+          # you can define additional steps here
+      # you can define additional jobs here
 
   - stage: dev
     variables:
       - group: amido-stacks-infra-credentials-nonprod
       - group: amido-stacks-webapp
     jobs:
+      - job: AppInfraDev
+        variables:
+          foo: bar 
+        pool:
+          vmImage: ubuntu-18.04
+        container: terraform_custom
+        steps:
+          - checkout: self
+          - checkout: templates
+            persistCredentials: true
+            env:
+              ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
+              ARM_CLIENT_ID: $(azure_client_id)
+              ARM_CLIENT_SECRET: $(azure_client_secret)
+              ARM_TENANT_ID: $(azure_tenant_id)
+            # target: terraform_custom
+            target:
+              container: terraform_custom
+          # Create TF infra
+          - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
+            parameters: 
+              # Terraform Basic Config
+              terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
+              # changing this would require changing the downstream consumers of these outputs
+              # 
+              terraform_output_artefact: 'tfoutputs'
+              # Terraform State Config
+              terraform_backend_client_id: $(azure_client_id)
+              terraform_backend_client_secret: $(azure_client_secret)
+              terraform_backend_tenant_id: $(azure_tenant_id)
+              terraform_backend_subscription_id: $(azure_subscription_id)
+              terraform_state_rg: $(tf_state_rg)
+              terraform_state_storage: $(tf_state_storage)
+              terraform_state_container: $(tf_state_container)
+              terraform_state_key: $(tf_state_key)
+              # for branch based builds this can be $(Build.SourceBranchName)
+              terraform_state_workspace: dev
+              # Global Config
+              company: 'amido'
+              project: 'stacks'
+              environment: ''
+              azure_cli_providers: [
+                { name: MSIPreview, namespace: Microsoft.ContainerService }
+              ]
+              # Azure config
+              tags: ''
+              # Terraform Resource Specific Config
+              # -var "app_gateway_frontend_ip_name=amido-stacks-nonprod-node" 
+              # -var "dns_record=app" -var "resource_group_name=amido-stacks-nonprod-node" -var "dns_zone_name=nonprod.amidostacks.com"
+              terraform_extra_properties: {
+                TF_VAR_resource_group_location: uksouth,
+                TF_VAR_resource_group_name: $(conventional_resource_namer),
+                TF_VAR_name_company: $(company),
+                TF_VAR_name_project: $(project),
+                TF_VAR_name_component: $(component),
+                TF_VAR_name_environment: dev,
+                TF_VAR_app_gateway_frontend_ip_name: $(conventional_resource_namer),
+                TF_VAR_dns_record: app-dev,
+                TF_VAR_dns_zone_name: $(base_domain),
+                TF_VAR_internal_dns_zone_name: $(base_domain_internal)
+              }
+              terraform_output_commands: ""
+
       - deployment: DeployDev
-        dependsOn: ""
+        dependsOn: AppInfraDev
         container: k8s_deploy
         variables:
           BaseURL: $(deployed_base_url)

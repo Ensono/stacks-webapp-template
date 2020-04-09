@@ -20,24 +20,6 @@ resource "tls_private_key" "ssh_key" {
   algorithm = "RSA"
 }
 
-resource "azurerm_public_ip" "default" {
-  count               = 1
-  name                = format("${var.resource_namer}-%d", count.index)
-  location            = var.resource_group_location
-  resource_group_name = azurerm_resource_group.default.name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-  # timeouts {
-  #   delete = 5
-  # }
-  lifecycle {
-    create_before_destroy = true
-    ignore_changes = [
-      tags,
-    ]
-  }
-}
-
 resource "azurerm_kubernetes_cluster" "default" {
   count               = var.create_aks ? 1 : 0
   name                = var.resource_namer
@@ -116,8 +98,7 @@ resource "azurerm_kubernetes_cluster" "default" {
     ]
   }
   depends_on = [
-    azurerm_virtual_network.default,
-    azurerm_public_ip.default
+    azurerm_virtual_network.default
   ]
 }
 

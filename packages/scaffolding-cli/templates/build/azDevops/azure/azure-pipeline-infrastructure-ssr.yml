@@ -44,7 +44,7 @@ variables:
   version_revision: $[counter(variables['version_minor'], 0)]
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
-  self_repo_tf_src: deploy/azure/ssr
+  self_repo_tf_src: deploy/azure/infra/ssr
   # TF STATE CONFIG
   tf_state_rg: amido-stacks-rg-uks
   tf_state_storage: amidostackstfstategbl

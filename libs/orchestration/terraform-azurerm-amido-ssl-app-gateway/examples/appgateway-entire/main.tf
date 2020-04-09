@@ -49,7 +49,7 @@ module "aks_bootstrap" {
 
 module "ssl_app_gateway" {
   source                    = "../../"
-  resource_namer            = "${module.default_label.id}-ssl"
+  resource_namer            = "${module.default_label.id}"
   resource_group_name       = module.aks_bootstrap.resource_group_name
   resource_group_location   = var.resource_group_location
   create_ssl_cert           = true
