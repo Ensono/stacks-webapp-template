@@ -147,7 +147,7 @@ stages:
                   parameters:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
 
-                - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app.yml@templates
+                - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kustomize.yml@templates
                   parameters:
                     environment: "dev"
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
