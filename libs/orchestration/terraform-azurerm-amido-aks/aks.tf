@@ -100,13 +100,13 @@ resource "azurerm_kubernetes_cluster" "default" {
     type = "SystemAssigned"
   }
 
-  # TODO: remove this eventually 
-  # [here](https://docs.microsoft.com/en-us/azure/aks/use-managed-identity)
-  # this will be a more generic cloud approach
-  service_principal {
-    client_id     = "msi"
-    client_secret = "null" # ==> MSI ignores this value and is managed by AAD
-  }
+  # # TODO: remove this eventually 
+  # # [here](https://docs.microsoft.com/en-us/azure/aks/use-managed-identity)
+  # # this will be a more generic cloud approach
+  # service_principal {
+  #   client_id     = "msi"
+  #   client_secret = "null" # ==> MSI ignores this value and is managed by AAD
+  # }
 
   lifecycle {
     ignore_changes = [

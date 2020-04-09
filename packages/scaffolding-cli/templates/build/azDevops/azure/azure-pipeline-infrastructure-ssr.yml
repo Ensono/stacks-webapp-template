@@ -63,14 +63,13 @@ variables:
   pool_vm_image: ubuntu-18.04
   deployed_base_url: https://stacks-webapp.com/foo
   # Ensure you find this definition in the K8s and Azure steps to prefix with desired subdomain assignment
-  base_domain: amidostacks.com
-  base_domain_internal: amidostacks.internal
+  base_domain: nonprod.amidostacks.com
+  base_domain_internal: nonprod.amidostacks.internal
 
 stages:
 - stage: nonprod
   variables:
   - group: amido-stacks-infra-credentials-nonprod
-  - group: amido-stacks-webapp
   jobs:
   - job: InfraNonProd
     variables:
@@ -127,8 +126,8 @@ stages:
             TF_VAR_name_component: $(component),
             TF_VAR_name_environment: nonprod,
             TF_VAR_stage: nonprod,
-            TF_VAR_dns_zone: nonprod.$(base_domain),
-            TF_VAR_internal_dns_zone: nonprod.$(base_domain_internal)
+            TF_VAR_dns_zone: $(base_domain),
+            TF_VAR_internal_dns_zone: $(base_domain_internal)
           }
           terraform_output_commands: |
             raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
@@ -177,7 +176,7 @@ stages:
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml,
               displayName: ExternalDns,
               env_vars: {
-                domain_filter: nonprod.$(base_domain),
+                domain_filter: $(base_domain),
                 aks_resource_group: $(aks_clusterrg_nonprod)
               }
             },
@@ -225,4 +224,4 @@ stages:
             # TODO: make this a complex object so that additional args can be passed in
             - $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/nginx-ingress.yml
           external_dns_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml
-          domain_filter: nonprod.$(base_domain)
+          domain_filter: $(base_domain)

@@ -89,7 +89,8 @@ resource "azurerm_private_dns_zone_virtual_network_link" "default" {
   resource_group_name   = azurerm_resource_group.default.name
   private_dns_zone_name = var.internal_dns_zone
   depends_on = [
-    azurerm_virtual_network.default
+    azurerm_virtual_network.default,
+    azurerm_private_dns_zone.default.0
   ]
   lifecycle {
     ignore_changes = [

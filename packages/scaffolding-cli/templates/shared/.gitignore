@@ -10,7 +10,8 @@
 **/*.js
 **/*.jsx
 !*config.js
-!**/*-config/*.js
+!**/*-config*/*.js
+
 
 # logs
 *.log

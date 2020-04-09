@@ -26,8 +26,6 @@
   "author": "Amido Stacks <stacks@amido.com>",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
     "@types/chalk": "^2.2.0",
     "@types/minimist": "^1.2.0",
     "@types/yargs": "^15.0.4",
@@ -59,6 +57,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/amido/stacks-webapp-template.git",
-    "directory": "packages/template-cli"
+    "directory": "packages/scaffolding-cli"
   }
 }
