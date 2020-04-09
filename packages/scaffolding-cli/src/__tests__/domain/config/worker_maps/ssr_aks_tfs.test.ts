@@ -28,10 +28,10 @@ let files: Array<BuildReplaceInput> = [
         values: {
             "amido-stacks-webapp": biz.company,
             "src/ssr": "src",
-            "- packages/template-cli/templates/": "- ",
-            "stacks-webapp-template/packages/template-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
+            "- packages/scaffolding-cli/templates/": "- ",
+            "stacks-webapp-template/packages/scaffolding-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
             "amido-stacks-dev-cycle2": "default"
-            // "packages/template-cli/templates/*": ""
+            // "packages/scaffolding-cli/templates/*": ""
         }
     },
     {

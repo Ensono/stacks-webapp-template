@@ -8,7 +8,7 @@ trigger:
       - "*"
   paths:
     include:
-      - packages/template-cli/templates/*
+      - packages/scaffolding-cli/templates/*
 
 resources:
   repositories:
@@ -33,7 +33,7 @@ variables:
   project: stacks
   domain: node
   # SelfConfig
-  self_repo: stacks-webapp-template/packages/template-cli/templates
+  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_src: src/ssr
   # Versioning
   version_major: 0

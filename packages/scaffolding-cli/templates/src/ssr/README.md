@@ -27,7 +27,7 @@ _TODO: This needs to be refined for those whom are using this solution_
 2. How does this run?
 
 3. How does the
-   [next.config.js](/packages/template-cli/templates/src/ssr/next.config.js)
+   [next.config.js](/packages/scaffolding-cli/templates/src/ssr/next.config.js)
    work?
 
 - Webpack additional config for Next.js,

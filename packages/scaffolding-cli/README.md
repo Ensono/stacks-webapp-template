@@ -12,7 +12,7 @@ Builds a Node.js with React Server Side Rendered Webapp Template, with accompany
 
 ## Dependencies
 
-We are using npx to execute and create the [template-cli](./packages/template-cli) [npx](https://www.npmjs.com/package/npx).
+We are using npx to execute and create the [template-cli](./packages/scaffolding-cli) [npx](https://www.npmjs.com/package/npx).
 
 We are supporting and running [node@12](https://nodejs.org/en/about/releases/). Please ensure that your local environment has the correct version
 [installed](https://nodejs.org/en/download/).
@@ -26,14 +26,14 @@ There is already a prebuilt version of this up on npm, if you don't wish to buil
 
 1. Install dependencies required to generate the templated app:
 ```bash
-$ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-cli
+$ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/scaffolding-cli
 $ npm install
 $ npm run build
 ```
 
 2. Watch your build
 ```bash
-$ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-cli
+$ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/scaffolding-cli
 $ npm run build:watch
 ```
 
@@ -42,7 +42,7 @@ $ npm run build:watch
 ```bash
 $ cd ${SELECTED_DIR}
 # for a local deployment
-$ npx ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/template-cli/dist/index.js run -i
+$ npx ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/scaffolding-cli/dist/index.js run -i
 # for the npm repo
 npx @amidostacks/scaffolding-cli@latest run -i
 ```

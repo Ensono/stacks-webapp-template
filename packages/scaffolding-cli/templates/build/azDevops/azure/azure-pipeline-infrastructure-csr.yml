@@ -8,8 +8,8 @@ trigger:
   paths:
     include:
     # Amido Testing pipeline for E2E output of the CLI
-    - packages/template-cli/templates/build/*
-    - packages/template-cli/templates/deploy/*
+    - packages/scaffolding-cli/templates/build/*
+    - packages/scaffolding-cli/templates/deploy/*
 
 ###### PART OF AMIDO-STACKS
 resources:
@@ -73,7 +73,7 @@ stages:
       - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
         parameters: 
           # Terraform Basic Config
-          terraform_working_dir: '$(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/deploy/azure/ssr'
+          terraform_working_dir: '$(Agent.BuildDirectory)/s/stacks-webapp-template/packages/scaffolding-cli/templates/deploy/azure/ssr'
           terraform_output_artefact: 'tfoutputs'
           # Terraform State Config
           terraform_backend_client_id: $(azure_client_id)
@@ -137,5 +137,5 @@ stages:
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml'
             - 'https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/provider/cloud-generic.yaml'
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
-          base_external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/base_external-dns.yml
-          external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/template-cli/templates/build/azDevops/azure/k8s_manifests/external-dns.yml
+          base_external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/scaffolding-cli/templates/build/azDevops/azure/k8s_manifests/base_external-dns.yml
+          external_dns_yml: $(Agent.BuildDirectory)/s/stacks-webapp-template/packages/scaffolding-cli/templates/build/azDevops/azure/k8s_manifests/external-dns.yml

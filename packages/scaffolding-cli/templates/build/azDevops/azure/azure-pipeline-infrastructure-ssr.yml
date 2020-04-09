@@ -17,8 +17,8 @@ trigger:
   paths:
     include:
     # Amido Testing pipeline for E2E output of the CLI
-    - packages/template-cli/templates/build/*
-    - packages/template-cli/templates/deploy/*
+    - packages/scaffolding-cli/templates/build/*
+    - packages/scaffolding-cli/templates/deploy/*
 
 resources:
   repositories:
@@ -43,7 +43,7 @@ variables:
   version_minor: 0
   version_revision: $[counter(variables['version_minor'], 0)]
   # SelfConfig
-  self_repo: stacks-webapp-template/packages/template-cli/templates
+  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_tf_src: deploy/azure/ssr
   # TF STATE CONFIG
   tf_state_rg: amido-stacks-rg-uks

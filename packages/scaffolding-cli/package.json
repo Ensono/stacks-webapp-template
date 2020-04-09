@@ -53,7 +53,7 @@
     "jest-sonar-reporter": "^2.0.0",
     "ts-jest": "^25"
   },
-  "homepage": "https://github.com/amido/stacks-webapp-template/tree/master/packages/template-cli",
+  "homepage": "https://github.com/amido/stacks-webapp-template/tree/master/packages/scaffolding-cli",
   "repository": {
     "type": "git",
     "url": "https://github.com/amido/stacks-webapp-template.git",

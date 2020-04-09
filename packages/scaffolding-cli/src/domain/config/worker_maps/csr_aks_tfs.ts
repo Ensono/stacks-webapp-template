@@ -29,7 +29,7 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
                 "replace_project_name": business_obj?.project || "default",
                 "replace_component_name": business_obj?.component || "default",
                 "replace_azure_location": cloud_obj?.region || "uksouth",
-                "stacks-webapp-template/packages/template-cli/templates/src/ssr": "git_object?/src"
+                "stacks-webapp-template/packages/scaffolding-cli/templates/src/ssr": "git_object?/src"
             }
         }
     ]

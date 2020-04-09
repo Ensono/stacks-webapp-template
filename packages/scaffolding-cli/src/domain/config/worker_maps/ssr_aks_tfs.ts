@@ -20,11 +20,11 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
             files: ["**/*.yml"],
             values: {
                 "amido-stacks-webapp": business_obj?.company || "default",
-                "stacks-webapp-template/packages/template-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
+                "stacks-webapp-template/packages/scaffolding-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
                 "src/ssr": "src",
-                "- packages/template-cli/templates/": "- ",
+                "- packages/scaffolding-cli/templates/": "- ",
                 "amido-stacks-dev-cycle2": cloud_obj?.resource_group || "default"
-                // "packages/template-cli/templates/*": ""
+                // "packages/scaffolding-cli/templates/*": ""
             }
         },
         // this is unnecessary as the yml place the values in the tf at runtime
