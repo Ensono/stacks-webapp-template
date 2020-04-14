@@ -235,7 +235,7 @@ stages:
                         env_vars: {
                           namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
-                          k8s_image: $(k8s_docker_registry)/$(docker_imagename):$(docker_imagetag),
+                          k8s_image: '$(k8s_docker_registry)/$(docker_imagename):$(docker_imagetag)',
                           version: $(docker_imagetag),
                           role: $(role),
                           company: $(company),
