@@ -236,7 +236,7 @@ stages:
                           namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
                           k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
-                          version: $(docker_imagetag),
+                          version: $(docker_image_tag),
                           role: $(role),
                           company: $(company),
                           project: $(project),
@@ -266,7 +266,7 @@ stages:
                     kubernetes_clusterrg: $(aks_clusterrg)
                     kubernetes_clustername: $(aks_clustername)
                     # Mutation Information
-                    kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app_k8s/app_deploy.yml
+                    kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/app-deploy.yml
                     kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app_k8s # unnecessary
                     appinsights_enabled: false
                     appinsights_accountName: ""
