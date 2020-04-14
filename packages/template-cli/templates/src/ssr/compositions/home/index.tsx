@@ -1,4 +1,4 @@
-import {ApiPane, Header} from "components"
+import {ApiPane, Header, Search} from "components"
 import React, {FC, useEffect} from "react"
 import {connect} from "react-redux"
 import {
@@ -35,6 +35,8 @@ const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
             <main>
                 <br />
                 <br />
+                <br />
+                <Search />
                 <br />
                 <ApiPane menuItems={menuItems} isLoading={isLoading} />
             </main>
