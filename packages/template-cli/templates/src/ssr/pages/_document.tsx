@@ -1,5 +1,5 @@
 import React from "react"
-import Document, {Head, Main, NextScript} from "next/document"
+import Document, {Head, Main, NextScript, Html} from "next/document"
 import {ServerStyleSheets} from "@material-ui/core/styles"
 import theme from "../config/theme"
 import getConfig from "next/config"
@@ -9,7 +9,7 @@ const {APP_BASE_URL, APP_BASE_PATH} = publicRuntimeConfig
 export default class MyDocument extends Document {
     render() {
         return (
-            <html lang="en">
+            <Html lang="en">
                 <Head>
                     <meta
                         name="theme-color"
@@ -47,7 +47,7 @@ export default class MyDocument extends Document {
                     <Main />
                     <NextScript />
                 </body>
-            </html>
+            </Html>
         )
     }
 }

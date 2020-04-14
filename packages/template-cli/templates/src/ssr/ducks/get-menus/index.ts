@@ -7,13 +7,16 @@ export const requestMenusListRoutine = createRoutine("MENU")
 export const initialState = {
     loading: false,
     error: null,
-    menuItems: []
+    menuItems: [],
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case requestMenusListRoutine.TRIGGER:
-            return initialState
+            return {
+                ...initialState,
+                ...action.payload,
+            }
         case requestMenusListRoutine.REQUEST:
             return {
                 ...state,
@@ -38,10 +41,10 @@ const reducer = (state = initialState, action) => {
     }
 }
 
-export function* requestMenuList() {
+export function* requestMenuList({payload}) {
     yield put(requestMenusListRoutine.request())
     try {
-        const response = yield call(getMenus)
+        const response = yield call(getMenus, payload.searchTerm)
         yield put(requestMenusListRoutine.success(response))
     } catch (error) {
         yield put(requestMenusListRoutine.failure(error))

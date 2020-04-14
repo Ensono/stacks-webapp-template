@@ -18,7 +18,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    getMenulist: () => dispatch(requestMenusListRoutine.trigger()),
+    getMenulist: searchPayload =>
+        dispatch(requestMenusListRoutine.trigger(searchPayload)),
 })
 
 interface Props
@@ -27,17 +28,14 @@ interface Props
 
 const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
     useEffect(() => {
-        getMenulist()
+        getMenulist({searchTerm: ""})
     }, [])
     return (
         <Container container>
             <Header />
             <main>
                 <br />
-                <br />
-                <br />
-                <Search />
-                <br />
+                <Search getSearchResults={getMenulist} />
                 <ApiPane menuItems={menuItems} isLoading={isLoading} />
             </main>
         </Container>
