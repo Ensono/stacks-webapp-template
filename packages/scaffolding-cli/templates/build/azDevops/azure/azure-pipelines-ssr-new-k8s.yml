@@ -235,7 +235,7 @@ stages:
                         env_vars: {
                           namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
-                          k8s_image: '$(k8s_docker_registry)/$(docker_imagename):$(docker_imagetag)',
+                          k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
                           version: $(docker_imagetag),
                           role: $(role),
                           company: $(company),
@@ -265,10 +265,6 @@ stages:
                     # Kubernetes Config
                     kubernetes_clusterrg: $(aks_clusterrg)
                     kubernetes_clustername: $(aks_clustername)
-                    kubernetes_image: stacks-webapp-app-image
-                    docker_imagename: $(docker_image_name)
-                    docker_imagetag: $(docker_image_tag)
-                    docker_containerregistryname: $(docker_container_registry_name)
                     # Mutation Information
                     kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app_k8s/app_deploy.yml
                     kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app_k8s # unnecessary
