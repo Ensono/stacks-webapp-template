@@ -223,7 +223,7 @@ stages:
                   parameters:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
 
-                - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app.yml@templates
+                - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kubectl.yml@templates
                   parameters:
                     environment: "dev"
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
@@ -242,8 +242,9 @@ stages:
                     docker_imagetag: $(docker_image_tag)
                     docker_containerregistryname: $(docker_container_registry_name)
                     # Mutation Information
-                    kubernetes_kustomize_filepath: kustomization/dev
                     kubernetes_docker_registry: $(docker_container_registry_name).azurecr.io
+                    kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app_k8s/app_deploy.yml
+                    kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app_k8s # unnecessary
                     appinsights_enabled: false
                     appinsights_accountName: ""
                     secureFile: ""
