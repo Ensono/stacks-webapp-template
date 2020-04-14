@@ -32,6 +32,7 @@ variables:
   company: amido
   project: stacks
   domain: node
+  role: frontend
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_src: src/ssr
@@ -50,6 +51,7 @@ variables:
   docker_image_name: stacks-webapp
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
   docker_container_registry_name: amidostacksnonprodnode
+  k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   # BUILD ARTIFACTS across stages
   build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
   build_artifact_deploy_name: stacks-webapp
@@ -223,6 +225,32 @@ stages:
                   parameters:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
 
+                - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
+                  parameters: 
+                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+                    template_input: [
+                      {
+                        base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_app-deploy.yml, 
+                        displayName: AppDeployment,
+                        env_vars: {
+                          namespace: dev-stacks-webapp,
+                          dns_pointer: app.$(base_domain),
+                          k8s_image: $(k8s_docker_registry)/$(docker_imagename):$(docker_imagetag),
+                          version: $(docker_imagetag),
+                          role: $(role),
+                          company: $(company),
+                          project: $(project),
+                          domain: $(domain),
+                          component: web,
+                          app_name: webapp-template,
+                          resource_def_name: xx-replace-me,
+                          environment: dev,
+                          aadpodidentitybinding: stacks-webapp-identity,
+                          APPINSIGHTS_INSTRUMENTATIONKEY: $(APPINSIGHTS_INSTRUMENTATIONKEY)
+                        }
+                      }
+                    ]
+
                 - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kubectl.yml@templates
                   parameters:
                     environment: "dev"
@@ -242,7 +270,6 @@ stages:
                     docker_imagetag: $(docker_image_tag)
                     docker_containerregistryname: $(docker_container_registry_name)
                     # Mutation Information
-                    kubernetes_docker_registry: $(docker_container_registry_name).azurecr.io
                     kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app_k8s/app_deploy.yml
                     kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app_k8s # unnecessary
                     appinsights_enabled: false
