@@ -187,8 +187,6 @@ stages:
               # Azure config
               tags: ''
               # Terraform Resource Specific Config
-              # -var "app_gateway_frontend_ip_name=amido-stacks-nonprod-node" 
-              # -var "dns_record=app" -var "resource_group_name=amido-stacks-nonprod-node" -var "dns_zone_name=nonprod.amidostacks.com"
               terraform_extra_properties: {
                 TF_VAR_resource_group_location: uksouth,
                 TF_VAR_resource_group_name: $(conventional_resource_namer),
@@ -230,11 +228,12 @@ stages:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
                     template_input: [
                       {
-                        base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_app-deploy.yml, 
+                        base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_app-deploy.yml,
                         displayName: AppDeployment,
                         env_vars: {
                           namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
+                          k8s_app_path: /web/stacks,
                           k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
                           version: $(docker_image_tag),
                           role: $(role),
