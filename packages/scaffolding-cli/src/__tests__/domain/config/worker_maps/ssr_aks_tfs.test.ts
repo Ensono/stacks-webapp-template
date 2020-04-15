@@ -24,14 +24,20 @@ let files: Array<BuildReplaceInput> = [
         }
     },
     {
-        files: ["**/*.yml"],
+        files: ["**/package.json"],
         values: {
-            "amido-stacks-webapp": biz.company,
-            "src/ssr": "src",
-            "- packages/scaffolding-cli/templates/": "- ",
+            "PROJECT_NAME": proj_name
+        }
+    },
+    {
+        files: ["**/*-pipeline.yml"],
+        values: {
+            "amido-stacks-webapp": biz.company || "default",
             "stacks-webapp-template/packages/scaffolding-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
-            "amido-stacks-dev-cycle2": "default"
-            // "packages/scaffolding-cli/templates/*": ""
+            "src/ssr": "src",
+            "packages/scaffolding-cli/templates/": "",
+            "amido-stacks-nonprod-node": "REPLACE_ME_FOR_RG_NAME",
+            "amidostacksnonprodnode": "REPLACE_ME_FOR_ACR_NAME", // cloud_obj?.acr_name
         }
     },
     {

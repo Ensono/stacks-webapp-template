@@ -1,3 +1,12 @@
+#############################################################################################################################
+# This is a generated file which includes some replacements.                                                                #
+# It is still very much recommended to go through this and ensure all variables are correct for your business/domain        #
+# All variables are defined in a global scope.                                                                              #
+# All Terraform produced resource names are using a labels module ensuring a predictable naming convention                  #
+# E.g.: variables for company, project, stage and component will produce a name of `$company-$project-$stage-$componenet`   #
+# NB: Some resources e.g. blob storage only allow for alpha numeric characters so the name is adjusted accordingly          #
+#  ==> `$company$project$stage$componenet`                                                                                  #
+#############################################################################################################################
 name: "$(build.sourcebranchname)-init"
 
 pr: none
@@ -5,10 +14,10 @@ pr: none
 trigger:
   branches:
     include:
-      - "*"
+      - '*'
   paths:
     include:
-      - packages/scaffolding-cli/templates/*
+      - 'packages/scaffolding-cli/templates/*'
 
 resources:
   repositories:
@@ -37,24 +46,25 @@ variables:
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_src: src/ssr
   self_repo_tf_src: deploy/azure/app/kube
+  self_generic_name: stacks-webapp
   # TF STATE CONFIG
   tf_state_rg: amido-stacks-rg-uks
   tf_state_storage: amidostackstfstategbl
   tf_state_container: tfstate
-  tf_state_key: stacks-webapp
+  tf_state_key: $(self_generic_name)
   # Versioning
   version_major: 0
   version_minor: 0
   version_revision: $[counter(variables['version_minor'], 0)]
   # Docker Config
   docker_dockerfile_path: "src/"
-  docker_image_name: stacks-webapp
+  docker_image_name: $(self_generic_name)
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
   docker_container_registry_name: amidostacksnonprodnode
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   # BUILD ARTIFACTS across stages
   build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
-  build_artifact_deploy_name: stacks-webapp
+  build_artifact_deploy_name: $(self_generic_name)
   # AKS/AZURE
   aks_clusterrg: amido-stacks-nonprod-node
   aks_clustername: amido-stacks-nonprod-node
@@ -62,14 +72,18 @@ variables:
   conventional_resource_namer: amido-stacks-nonprod-node
   base_domain: nonprod.amidostacks.com
   base_domain_internal: nonprod.amidostacks.internal
+  # Dynamic vars for downstream purposes
+  # tf_workspace_suffix: $[]
+  # dns_suffix: ""
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
-  deployed_base_url: https://stacks-webapp.com/foo
+  # ADD Vars here
   # TestCafe E2E Tests
   testcafe_e2e_test: false
   # Lighthouse Audit
   lighthouse_audit: false
+
 
 stages:
   - stage: CI
@@ -178,8 +192,8 @@ stages:
               # for branch based builds this can be $(Build.SourceBranchName)
               terraform_state_workspace: dev
               # Global Config
-              company: 'amido'
-              project: 'stacks'
+              company: $(company)
+              project: $(project)
               environment: ''
               azure_cli_providers: [
                 { name: MSIPreview, namespace: Microsoft.ContainerService }
@@ -205,7 +219,7 @@ stages:
         dependsOn: AppInfraDev
         container: k8s_deploy
         variables:
-          BaseURL: $(deployed_base_url)
+          GLOBAL_VAR: FOO
         pool:
           vmImage: ubuntu-18.04
         environment: dev
@@ -265,8 +279,8 @@ stages:
                     kubernetes_clusterrg: $(aks_clusterrg)
                     kubernetes_clustername: $(aks_clustername)
                     # Mutation Information
-                    kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/app-deploy.yml
-                    kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app_k8s # unnecessary
+                    kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
+                    kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app # unnecessary
                     appinsights_enabled: false
                     appinsights_accountName: ""
                     secureFile: ""
