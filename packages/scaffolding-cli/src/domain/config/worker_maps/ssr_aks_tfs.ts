@@ -13,13 +13,13 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
         {
             files: ["**/*.md"],
             values: {
-                "PROJECT_NAME": project_name
+                "project_name": project_name
             }
         },
         {
             files: ["**/package.json"],
             values: {
-                "PROJECT_NAME": project_name
+                "project_name": project_name
             }
         },
         {

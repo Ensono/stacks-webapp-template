@@ -20,13 +20,13 @@ let files: Array<BuildReplaceInput> = [
     {
         files: ["**/*.md"],
         values: {
-            "PROJECT_NAME": proj_name
+            "project_name": proj_name
         }
     },
     {
         files: ["**/package.json"],
         values: {
-            "PROJECT_NAME": proj_name
+            "project_name": proj_name
         }
     },
     {
