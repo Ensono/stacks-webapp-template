@@ -41,7 +41,8 @@ describe("/ (index)", () => {
         cy.eyesClose()
     })
 
-    it("renders on load", () => {
+    // Skipping Applitools test due to using the trial account.
+    it.skip("renders on load", () => {
         let menuName: String = "Breakfast Menu"
 
         cy.wait("@getStubbedMenu")
