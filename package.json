@@ -47,7 +47,9 @@
     "license-checker": "^25.0.1",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
-    "typescript": "3.7.5"
-  },
-  "dependencies": {}
+    "typescript": "3.7.5",
+    "bufferutil": "^4.0.1",
+    "utf-8-validate": "^5.0.2",
+    "ws": "^7.2.3"
+  }
 }
