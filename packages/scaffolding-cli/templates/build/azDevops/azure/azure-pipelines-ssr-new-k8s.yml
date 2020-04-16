@@ -42,7 +42,9 @@ variables:
   project: stacks
   domain: node
   role: frontend
+  #
   # SelfConfig
+  # 
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_src: src/ssr
   self_repo_tf_src: deploy/azure/app/kube
@@ -66,6 +68,7 @@ variables:
   build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
   build_artifact_deploy_name: $(self_generic_name)
   # AKS/AZURE
+  # This will always be predictably named by setting your company - project - compnonent names in the infra-pipeline
   aks_clusterrg: amido-stacks-nonprod-node
   aks_clustername: amido-stacks-nonprod-node
   # Infra 
@@ -80,10 +83,9 @@ variables:
   # Test setup
   # ADD Vars here
   # TestCafe E2E Tests
-  testcafe_e2e_test: false
+  testcafe_e2e_test: true
   # Lighthouse Audit
-  lighthouse_audit: false
-
+  lighthouse_audit: true
 
 stages:
   - stage: CI
@@ -128,8 +130,8 @@ stages:
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
-              cypress_e2e_test: false
-              cypress_applitools_test: false
+              cypress_e2e_test: true
+              cypress_applitools_test: true
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
@@ -326,7 +328,7 @@ stages:
                       - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
                         parameters:
                           env_vars:
-                            APP_BASE_URL: "http://dev.amidostacks.com"
+                            APP_BASE_URL: "https://app.nonprod.amidostacks.com"
                             MENU_API_URL: "http://dev.amidostacks.com/api/menu"
                             APP_BASE_PATH: "/web/stacks"
                             NODE_ENV: production
@@ -335,4 +337,4 @@ stages:
                   - ${{ if eq(variables.lighthouse_audit, true) }}:
                       - task: Lighthouse@1
                         inputs:
-                          url: "http://dev.amidostacks.com/web/stacks"
+                          url: "https://app.nonprod.amidostacks.com/web/stacks"

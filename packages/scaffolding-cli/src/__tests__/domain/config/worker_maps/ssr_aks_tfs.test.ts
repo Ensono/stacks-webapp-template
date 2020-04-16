@@ -32,12 +32,15 @@ let files: Array<BuildReplaceInput> = [
     {
         files: ["**/*-pipeline.yml"],
         values: {
-            "amido-stacks-webapp": biz.company || "default",
             "stacks-webapp-template/packages/scaffolding-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
             "src/ssr": "src",
             "packages/scaffolding-cli/templates/": "",
             "amido-stacks-nonprod-node": "REPLACE_ME_FOR_RG_NAME",
             "amidostacksnonprodnode": "REPLACE_ME_FOR_ACR_NAME", // cloud_obj?.acr_name
+            "nonprod.amidostacks.com": "REPLACE_ME_FOR_DOMAIN",
+            "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
+            "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
+            "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES"
         }
     },
     {
