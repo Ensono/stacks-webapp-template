@@ -11,13 +11,7 @@ import { BusinessSection, CloudSection } from "../../model/prompt_answer"
 export const in_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection): Array<BuildReplaceInput> => {
     return [
         {
-            files: ["**/*.md"],
-            values: {
-                "project_name": project_name
-            }
-        },
-        {
-            files: ["**/package.json"],
+            files: ["**/*.md", "**/package.json", "**/*.properties"],
             values: {
                 "project_name": project_name
             }

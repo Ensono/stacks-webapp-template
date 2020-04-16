@@ -18,13 +18,7 @@ let cloud: CloudSection = <CloudSection>{
 
 let files: Array<BuildReplaceInput> = [
     {
-        files: ["**/*.md"],
-        values: {
-            "project_name": proj_name
-        }
-    },
-    {
-        files: ["**/package.json"],
+        files: ["**/*.md", "**/package.json", "**/*.properties"],
         values: {
             "project_name": proj_name
         }
