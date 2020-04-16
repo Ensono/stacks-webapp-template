@@ -90,6 +90,7 @@ variables:
 stages:
   - stage: CI
     variables:
+      # You can find notes in the READMEs around which values to use for each ENV variable group 
       - group: amido-stacks-infra-credentials-nonprod
       - group: amido-stacks-webapp
     jobs:

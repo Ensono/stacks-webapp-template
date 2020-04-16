@@ -70,6 +70,7 @@ variables:
 stages:
 - stage: nonprod
   variables:
+  # You can find notes in the READMEs around which values to use for each ENV variable group 
   - group: amido-stacks-infra-credentials-nonprod
   jobs:
   - job: InfraNonProd
@@ -143,9 +144,6 @@ stages:
       AKS_DEFAULT_USER_IDENTITY_NAME: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_NAME'] ]
       AKS_INGRESS_PUBLIC_IP: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_INGRESS_PUBLIC_IP'] ]
       AKS_INGRESS_PRIVATE_IP: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_INGRESS_PRIVATE_IP'] ]
-      # tf_outputs: $[ dependencies.InfraNonProd.outputs['tfoutputs'] ]
-      # each var in $[ dependencies.InfraNonProd.outputs['tfoutputs'] ]:
-      #   ${{ var.key }}: ${{ var.value }}
     pool:
       vmImage: ubuntu-18.04
     container: k8s_deploy
@@ -164,7 +162,7 @@ stages:
       - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
         parameters:
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
-      
+
       #####
       # Sample left for base K8s cluster bootstrap
       #####
