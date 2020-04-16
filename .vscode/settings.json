@@ -3,7 +3,7 @@
   "jest.debugMode": false,
   "jest.runAllTestsFirst": true,
   "jest.coverageFormatter": "DefaultFormatter",
-  "jest.pathToConfig": "./packages/template-cli/jest.config.json",
+  "jest.pathToConfig": "./packages/scaffolding-cli/jest.config.json",
   "jest.rootPath": "./packages/**/src",
   "jest.pathToJest": "node_modules/.bin/jest",
   "typescript.updateImportsOnFileMove.enabled": "prompt",

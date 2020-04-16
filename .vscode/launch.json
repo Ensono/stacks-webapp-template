@@ -9,22 +9,22 @@
       "protocol": "inspector",
       "request": "launch",
       "name": "Launch test files with TestCafe",
-      "program": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/testcafe",
+      "program": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/node_modules/.bin/testcafe",
       "args": ["__tests__/testcafe/fixtures/get-menu.test.cf.ts"],
       "console": "internalConsole",
       "internalConsoleOptions": "neverOpen",
       "disableOptimisticBPs": false,
       "outputCapture": "std",
-      "cwd": "${workspaceFolder}/packages/template-cli/templates/src/ssr"
+      "cwd": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr"
     },
     {
       "type": "node",
       "request": "launch",
       "name": "template-cli",
-      "program": "${workspaceFolder}/packages/template-cli/dist/index.js",
-      "cwd": "${workspaceFolder}/packages/template-cli",
+      "program": "${workspaceFolder}/packages/scaffolding-cli/dist/index.js",
+      "cwd": "${workspaceFolder}/packages/scaffolding-cli",
       "protocol": "inspector",
-      "outFiles": ["${workspaceFolder}/packages/template-cli/dist/*/.js"],
+      "outFiles": ["${workspaceFolder}/packages/scaffolding-cli/dist/*/.js"],
       "console": "internalConsole",
       "preLaunchTask": "RunBuildCli",
       "outputCapture": "std",
@@ -41,9 +41,9 @@
       "type": "node",
       "request": "launch",
       "name": "vscode-jest-tests",
-      "program": "${workspaceFolder}/packages/template-cli/node_modules/.bin/jest",
+      "program": "${workspaceFolder}/packages/scaffolding-cli/node_modules/.bin/jest",
       "protocol": "inspector",
-      "cwd": "${workspaceFolder}/packages/template-cli",
+      "cwd": "${workspaceFolder}/packages/scaffolding-cli",
       "console": "internalConsole",
       "internalConsoleOptions": "neverOpen",
       "disableOptimisticBPs": false,
@@ -55,9 +55,9 @@
         "--env=node",
         // "--ci",
         "--colors",
-        "${workspaceFolder}/packages/template-cli/src/__tests__/domain/config/file_mapper.test.ts"
-        // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/prompt.test.ts"
-        // "${workspaceFolder}/packages/template-cli/src/__tests__/domain/config/static.config.test.ts"
+        "${workspaceFolder}/packages/scaffolding-cli/src/__tests__/domain/config/file_mapper.test.ts"
+        // "${workspaceFolder}/packages/scaffolding-cli/src/__tests__/domain/prompt.test.ts"
+        // "${workspaceFolder}/packages/scaffolding-cli/src/__tests__/domain/config/static.config.test.ts"
       ],
       "env": {
         "NODE_ENV": "dev"
@@ -67,9 +67,9 @@
       "type": "node",
       "request": "launch",
       "name": "pact-test-jest",
-      "program": "${workspaceFolder}/packages/template-cli/templates/src/ssr/node_modules/.bin/jest",
+      "program": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/node_modules/.bin/jest",
       "protocol": "inspector",
-      "cwd": "${workspaceFolder}/packages/template-cli/templates/src/ssr",
+      "cwd": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr",
       "console": "internalConsole",
       "internalConsoleOptions": "neverOpen",
       "disableOptimisticBPs": false,
@@ -80,7 +80,7 @@
         "--rootDir=__tests__",
         "--env=node",
         "--colors",
-        "${workspaceFolder}/packages/template-cli/templates/src/ssr/__tests__/get-menu-by-id.test.pact.ts"
+        "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/__tests__/get-menu-by-id.test.pact.ts"
       ],
       "env": {
         "CI": "true",
@@ -95,8 +95,8 @@
       "type": "node",
       "request": "launch",
       "name": "templated-web-app",
-      "program": "${workspaceFolder}/packages/template-cli/templates/src/ssr/dist/server/index.js",
-      "cwd": "${workspaceFolder}/packages/template-cli/templates/src/ssr",
+      "program": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/dist/server/index.js",
+      "cwd": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr",
       "protocol": "inspector",
       "sourceMaps": true,
       "console": "internalConsole",

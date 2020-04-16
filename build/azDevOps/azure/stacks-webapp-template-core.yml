@@ -10,7 +10,7 @@ trigger:
     - packages/*
     - build/*
     exclude: 
-    - packages/template-cli/templates/*
+    - packages/scaffolding-cli/templates/*
 
 pr:
 - master

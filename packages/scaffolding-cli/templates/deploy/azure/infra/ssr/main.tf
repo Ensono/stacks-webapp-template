@@ -1,5 +1,6 @@
 data "azurerm_client_config" "current" {}
 
+# Naming convention 
 module "default_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.16.0"
   namespace  = "${var.name_company}-${var.name_project}"
@@ -20,7 +21,7 @@ variable "vnet_cidr" {
 }
 
 module "aks_bootstrap" {
-  source                  = "../../../terraform-azurerm-amido-aks"
+  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=feat/1684"
   resource_namer          = module.default_label.id
   resource_group_location = var.resource_group_location
   spn_object_id           = data.azurerm_client_config.current.object_id
@@ -48,7 +49,7 @@ module "aks_bootstrap" {
 }
 
 module "ssl_app_gateway" {
-  source                    = "../../"
+  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-ssl-app-gateway?ref=feat/1684"
   resource_namer            = "${module.default_label.id}"
   resource_group_name       = module.aks_bootstrap.resource_group_name
   resource_group_location   = var.resource_group_location
