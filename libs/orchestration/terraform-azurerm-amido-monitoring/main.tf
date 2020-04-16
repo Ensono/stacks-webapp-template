@@ -12,7 +12,6 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "default" {
   data_source_id = var.application_insights_id
   description    = "Query may access data within multiple resources"
   enabled        = true
-  # Count requests in multiple log resources and group into 5-minute bins by HTTP operation
   query = format(var.query, var.application_insights_id)
   severity    = 1
   frequency   = 5
@@ -22,9 +21,3 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "default" {
     threshold = 3
   }
 }
-
-#  let a=requests
-#    | where toint(resultCode) >= 500
-#    | extend fail=1; let b=app('%s').requests
-#    | where toint(resultCode) >= 500 | extend fail=1; a
-#    | join b on fail
