@@ -13,11 +13,11 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "default" {
   description    = "Query may access data within multiple resources"
   enabled        = true
   query = format(var.query, var.application_insights_id)
-  severity    = 1
-  frequency   = 5
-  time_window = 30
+  severity    = var.severity
+  frequency   = var.frequency
+  time_window = var.time_window
   trigger {
-    operator  = "GreaterThan"
-    threshold = 3
+    operator  = var.operator
+    threshold = var.threshold
   }
 }

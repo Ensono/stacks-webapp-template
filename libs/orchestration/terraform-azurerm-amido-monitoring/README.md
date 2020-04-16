@@ -64,6 +64,13 @@ To call the module you'll need:
  - resource group name
  - application insights id
  - query written in the kusto formatting
+ - trigger operator (defaults to greater than)
+ - trigger threshold (defaults to 3)
+ - time out window (defaults to 30)
+ - frequency (defaults to 5)
+ - severity (defaults to 1)
+
+It's also useful to know that the module predfines the trigger has been present without at metric trigger, should you wish to add one in you'll need to edit the monitoring.tf file
 
 Kusto is an SQL like language used, in this case, to query logs, you can get more information here
  - https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/get-started-queries
