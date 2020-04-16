@@ -39,19 +39,21 @@
   "coverageReporters": ["cobertura", "lcov"],
   "collectCoverage": true,
   "collectCoverageFrom": [
-    "**/*.test.{ts,tsx}",
+    "**/*.{ts,tsx}",
+    "!**/*.test.*",
+    "!<rootDir>/.*",
     "!**/*config.{js,json}",
-    "!**/coverage/**",
-    "!**/pact/**",
-    "!**/next-env.d.ts"
+    "!<rootDir>/coverage",
+    "!<rootDir>/__tests__/**/*",
+    "!<rootDir>/__mocks__/**/*"
   ],
   "coverageDirectory": "<rootDir>/coverage/",
   "coverageThreshold": {
     "global": {
-      "statements": 0,
-      "branches": 0,
-      "functions": 0,
-      "lines": 0
+      "statements": 1,
+      "branches": 1,
+      "functions": 1,
+      "lines": 1
     }
   }
 }
