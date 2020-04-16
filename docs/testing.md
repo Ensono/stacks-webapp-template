@@ -27,3 +27,13 @@ To be run on master once the pull request (PR) has been approved and passed all 
 The following demonstrates the series of quality gates that the webapp must pass through in order to successfully be deployed to a user facing environment (production).
 
 ![alt text](https://www.lucidchart.com/publicSegments/view/2094f5d4-eaca-417c-a51e-36bf79853373/image.png "Quality Gates")
+
+
+## Cypress
+
+### Dubugging Axe Failures
+
+> When accessibility violations are detected, your test will fail and an entry titled "A11Y ERROR!" will be added to the command log for each type of violation found (they will be above the failed assertion). Clicking on those will reveal more specifics about the error in the DevTools console.
+Source: [cypress-axe#standard-output](https://github.com/avanslaars/cypress-axe#standard-output)
+
+For information on how to fix the failure, follow the HelpUrl printed to the console.
