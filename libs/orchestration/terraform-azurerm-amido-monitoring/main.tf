@@ -1,35 +1,15 @@
-variable "alert_name" {
-}
-
-variable "location" {
-  default = "UK South"
-}
-
-
-resource "azurerm_resource_group" "default" {
-  name     = "monitoring-resources"
-  location = var.location
-}
-
-resource "azurerm_application_insights" "default" {
-  name                = "appinsights"
-  location            = var.location
-  resource_group_name = azurerm_resource_group.default.name
-  application_type    = "web"
-}
-
 resource "azurerm_monitor_scheduled_query_rules_alert" "default" {
   name                = var.alert_name
-  location            = azurerm_resource_group.default.location
-  resource_group_name = azurerm_resource_group.default.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
 
-  authorized_resource_ids = [azurerm_application_insights.default.id]
+  authorized_resource_ids = [var.application_insights_id]
   action {
     action_group           = []
     email_subject          = "Email Header"
     custom_webhook_payload = "{}"
   }
-  data_source_id = azurerm_application_insights.default.id
+  data_source_id = var.application_insights_id
   description    = "Query may access data within multiple resources"
   enabled        = true
   # Count requests in multiple log resources and group into 5-minute bins by HTTP operation
@@ -40,7 +20,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "default" {
     | where toint(resultCode) >= 500 | extend fail=1; a
     | join b on fail
 QUERY
-  , azurerm_application_insights.default.id)
+  , var.application_insights_id)
   severity    = 1
   frequency   = 5
   time_window = 30
