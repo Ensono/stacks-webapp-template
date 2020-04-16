@@ -12,7 +12,7 @@ resource "azurerm_application_insights" "monitoring" {
 }
 
 resource "azurerm_resource_group" "monitoring" {
-  name     = "monitoring-resources"
+  name     = "aidan-test-monitoring-resources"
   location = var.location
 }
 
@@ -40,5 +40,12 @@ module "query_alert" {
   alert_name = "aidan_test"
   resource_group_name = azurerm_resource_group.monitoring.name
   application_insights_id = azurerm_application_insights.monitoring.id
+  query = <<QUERY
+  let a=requests
+    | where toint(resultCode) >= 500
+    | extend fail=1; let b=app('%s').requests
+    | where toint(resultCode) >= 500 | extend fail=1; a
+    | join b on fail
+  QUERY
 }
 
