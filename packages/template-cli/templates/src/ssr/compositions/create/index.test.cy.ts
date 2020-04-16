@@ -17,7 +17,7 @@ describe("/create", () => {
         cy.server()
         cy.route({
             method: "GET", // Route all GET requests
-            url: "/menu", // that have a URL that matches '/menu'
+            url: "/menu*", // that have a URL that matches '/menu'
             response: "@menuResponse", // and force the response to be: []
         }).as("getStubbedMenu")
 
