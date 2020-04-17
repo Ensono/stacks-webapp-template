@@ -1,9 +1,5 @@
 [![Build Status](https://dev.azure.com/amido-dev/Amido-Stacks/_apis/build/status/stacks-webapp-template-pipeline?branchName=master)](https://dev.azure.com/amido-dev/Amido-Stacks/_build/latest?definitionId=70&branchName=master)
 
-[![npm](https://img.shields.io/npm/v/@amidostacks/scaffolding-cli)](https://www.npmjs.com/package/@amidostacks/scaffolding-cli)
-
-[![npm](https://img.shields.io/npm/dt/@amidostacks/scaffolding-cli)](https://www.npmjs.com/package/@amidostacks/scaffolding-cli)
-
 [![NPM](https://img.shields.io/npm/l/@amidostacks/scaffolding-cli)](LICENSE.md)
 
 # stacks-webapp-template
