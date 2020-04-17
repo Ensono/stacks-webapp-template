@@ -17,7 +17,7 @@ resource "azurerm_subnet" "backend" {
 resource "azurerm_public_ip" "app_gateway" {
   name                 = var.resource_namer
   resource_group_name  = var.resource_group_name
-  location            = var.resource_group_location
+  location             = var.resource_group_location
   allocation_method    = "Dynamic"
   lifecycle {
     ignore_changes = [
@@ -38,20 +38,6 @@ locals {
   request_routing_rule_name      = "${var.vnet_name}-rqrt"
   redirect_configuration_name    = "${var.vnet_name}-rdrcfg"
 }
-
-data "azurerm_lb" "aks" {
-  name                = "kubernetes"
-  resource_group_name = var.aks_resource_group
-}
-
-data "azurerm_public_ips" "aks" {
-  resource_group_name = var.aks_resource_group
-  attached = true
-}
-
-# output "test" {
-#   value = data.azurerm_public_ips.aks.public_ips
-# }
 
 resource "azurerm_application_gateway" "network" {
   name                = var.resource_namer
@@ -128,7 +114,6 @@ resource "azurerm_application_gateway" "network" {
   backend_address_pool {
     name = local.backend_address_pool_name
     ip_addresses = [var.aks_ingress_public_ip]
-    # fqdns = [lookup(data.azurerm_public_ips.aks.public_ips.0, "fqdn")]
   }
 
   probe {

@@ -12,7 +12,7 @@
         "run",
         "build",
         "--prefix",
-        "packages/template-cli/templates/src/ssr"
+        "packages/scaffolding-cli/templates/src/ssr"
       ],
       "group": "build",
       "presentation": {
@@ -26,7 +26,7 @@
       "label": "RunBuildCli",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "build", "--prefix", "packages/template-cli"],
+      "args": ["run", "build", "--prefix", "packages/scaffolding-cli"],
       "group": "build",
       "presentation": {
         // Reveal the output only if unrecognized errors occur.

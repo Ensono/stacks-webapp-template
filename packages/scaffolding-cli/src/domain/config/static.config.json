@@ -1,0 +1,159 @@
+{
+  "ssr": {
+    "git_repo": "",
+    "git_ref": "",
+    "local_path": "",
+    "folder_map": [
+      {
+        "src": "shared",
+        "dest": ""
+      },
+      {
+        "src": "build/azDevops/azure/k8s_manifests",
+        "dest": "build/azDevops/azure/k8s_manifests"
+      },
+      {
+        "src": "build/azDevops/azure/templates",
+        "dest": "build/azDevops/azure/templates"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
+        "dest": "build/azDevops/azure/app-pipeline.yml"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-ssr.yml",
+        "dest": "build/azDevops/azure/infra-pipeline.yml"
+      },
+      {
+        "src": "deploy/azure/infra/ssr",
+        "dest": "deploy/azure/infra"
+      },
+      {
+        "src": "deploy/k8s",
+        "dest": "deploy/k8s"
+      },
+      {
+        "src": "test",
+        "dest": "test"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
+      },
+      {
+        "src": "src/ssr",
+        "dest": "src"
+      }
+    ]
+  },
+  "csr": {
+    "git_repo": "https://github.com/facebook/create-react-app.git",
+    "git_ref": "v3.4.0",
+    "local_path": "src/cra",
+    "folder_map": [
+      {
+        "src": "shared",
+        "dest": "./"
+      },
+      {
+        "src": "build/azDevops/azure/k8s_manifests",
+        "dest": "build/azDevops/azure/k8s_manifests"
+      },
+      {
+        "src": "build/azDevops/azure/templates",
+        "dest": "build/azDevops/azure/templates"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
+        "dest": "build/azDevops/azure/app-pipeline.yml"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-csr.yml",
+        "dest": "build/azDevops/azure/infra-pipeline.yml"
+      },
+      {
+        "src": "deploy/azure/infra/csr",
+        "dest": "deploy/azure/infra"
+      },
+
+      {
+        "src": "docs",
+        "dest": "docs"
+      },
+      {
+        "src": "src/csr/package.json",
+        "dest": "src/package.json"
+      },
+      {
+        "src": "src/cra/packages/cra-template/template/public",
+        "dest": "src/public"
+      },
+      {
+        "src": "src/cra/packages/cra-template/template/src",
+        "dest": "src/src"
+      }
+    ]
+  },
+  "netcore": {
+    "git_repo": "https://github.com/aspnet/samples.git",
+    "git_ref": "492e3e586a9e20a75dd55537e2acb9d5c011d0c0",
+    "local_path": "src/netcore",
+    "folder_map": [
+      {
+        "src": "shared",
+        "dest": "./"
+      },
+      {
+        "src": "build/azDevops/azure",
+        "dest": "build/azDevops/azure"
+      },
+      {
+        "src": "deploy/azure/infra/ssr",
+        "dest": "deploy/azure/infra"
+      },
+      {
+        "src": "deploy/k8s",
+        "dest": "deploy/k8s"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
+      },
+      {
+        "src": "src/netcore/samples/aspnetcore/security",
+        "dest": "src"
+      }
+    ]
+  },
+  "java_spring": {
+    "git_repo": "https://github.com/spring-guides/gs-actuator-service.git",
+    "git_ref": "17bbbb65c1c641634a59568c2e3642ae59e2e7dd",
+    "local_path": "src/java_spring",
+    "folder_map": [
+      {
+        "src": "shared",
+        "dest": "./"
+      },
+      {
+        "src": "build/azDevops/azure",
+        "dest": "build/azDevops/azure"
+      },
+      {
+        "src": "deploy/azure/infra/ssr",
+        "dest": "deploy/azure/infra"
+      },
+      {
+        "src": "deploy/k8s",
+        "dest": "deploy/k8s"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
+      },
+      {
+        "src": "src/java_spring/complete",
+        "dest": "src"
+      }
+    ]
+  }
+}

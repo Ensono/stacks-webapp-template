@@ -1,0 +1,198 @@
+name: "$(build.sourcebranchname)-init"
+
+pr: none
+
+trigger:
+  branches:
+    include:
+      - "*"
+  paths:
+    include:
+      - packages/scaffolding-cli/templates/*
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: amido/stacks-pipeline-templates
+      ref: feature/cycle2
+      # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
+      # REPOSITORY IS PUBLIC 
+      endpoint: amidostacks
+
+  containers:
+    - container: sonar_scanner
+      image: amidostacks/ci-sonarscanner:0.0.1
+    - container: k8s_deploy
+      image: amidostacks/ci-k8s:0.0.1
+    - container: terraform_custom
+      image: amidostacks/ci-tf:0.0.1
+
+variables:
+  company: amido
+  project: stacks
+  domain: webapp
+  # Versioning
+  version_major: 0
+  version_minor: 0
+  version_revision: $[counter(variables['version_minor'], 0)]
+  # SelfConfig
+  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
+  self_repo_src: src/ssr
+  # Docker Config
+  docker_dockerfile_path: "src/"
+  docker_image_name: stacks-webapp
+  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
+  docker_container_registry_name: amidouksstacksacrdev
+  # BUILD ARTIFACTS across stages
+  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
+  build_artifact_deploy_name: stacks-webapp
+  # AKS/AZURE
+  aks_clusterrg: amido-stacks-rg-uks-dev
+  aks_clustername: amido-stacks-aks-uks-dev
+  # DEFAULT IMAGE RUNNER
+  pool_vm_image: ubuntu-18.04
+  # TestCafe E2E Tests
+  testcafe_e2e_test: true
+  # Lighthouse Audit
+  lighthouse_audit: true
+
+stages:
+  - stage: CI
+    variables:
+      - group: amido-stacks-infra-credentials-nonprod
+      - group: amido-stacks-webapp
+    jobs:
+      - job: WebAppBuild
+        variables:
+          foo: bar
+        # pool: amido-stacks-local
+        pool:
+          vmImage: ubuntu-18.04
+        steps:
+          - checkout: self
+          - checkout: templates
+            persistCredentials: true
+            target: k8s_deploy
+          # BUILD NPM
+          - template: templates/steps/build-node.yml
+            parameters:
+              # Docker Config
+              build_on_server: false
+              docker_build: true
+              # TODO: normalize this
+              docker_build_additional_args: "."
+              docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
+              docker_imagename: $(docker_image_name)
+              docker_imagetag: $(docker_image_tag)
+              docker_containerregistryname: $(docker_container_registry_name)
+              # Vulnerability Scanning
+              vulnerability_scan: false
+              vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
+              # Sonar settings
+              static_code_analysis: true
+              #Linting and formatting validation
+              lint_formatting: false
+              shared_eslint_config: "@amidostacks/eslint-config@latest"
+              # Testing Config
+              unit_test: true
+              project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
+              unit_test_project: "$(Test.UnitTestProjectPath)"
+              component_test: false
+              component_test_project: "$(Test.ComponentTestProjectPath)"
+              cypress_e2e_test: true
+              cypress_applitools_test: true
+              cypress_e2e_env_vars:
+                PORT: 3000
+                APP_BASE_URL: "http://localhost"
+                MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                APP_BASE_PATH: ""
+                NODE_ENV: dev
+                # avoid warnings about terminal
+                TERM: xterm
+              # Build Output File
+              # files to be persisted across stages
+              build_file: true
+              build_file_path: $(build_artifact_deploy_path)
+              build_file_artefact: $(build_artifact_deploy_name)
+              # Git Tag release
+              git_do_tag_release: false
+              git_release_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
+
+  - stage: dev
+    variables:
+      - group: amido-stacks-infra-credentials-nonprod
+      - group: amido-stacks-webapp
+    jobs:
+      - deployment: DeployDev
+        dependsOn: ""
+        container: k8s_deploy
+        variables:
+          BaseURL: $(deployed_base_url)
+        # pool: amido-stacks-local
+        pool:
+          vmImage: ubuntu-18.04
+        environment: dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                - checkout: templates
+                  persistCredentials: true
+                  target: k8s_deploy
+                # Deploy Dev
+                # TODO: change this to steps and feed upstream
+                - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
+                  parameters:
+                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
+
+                - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kustomize.yml@templates
+                  parameters:
+                    environment: "dev"
+                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+                    download_deploy_artefact: true
+                    deploy_artifact_name: $(build_artifact_deploy_name)
+                    test_artefact: "tests"
+                    test_baseurl: ""
+                    functional_test: false
+                    performance_test: false
+                    smoke_test: false
+                    # Kubernetes Config
+                    kubernetes_clusterrg: $(aks_clusterrg)
+                    kubernetes_clustername: $(aks_clustername)
+                    kubernetes_image: stacks-webapp-app-image
+                    docker_imagename: $(docker_image_name)
+                    docker_imagetag: $(docker_image_tag)
+                    docker_containerregistryname: $(docker_container_registry_name)
+                    # Mutation Information
+                    kubernetes_kustomize_filepath: "kustomization/dev"
+                    kubernetes_docker_registry: $(docker_container_registry_name).azurecr.io
+                    appinsights_enabled: false
+                    appinsights_accountName: ""
+                    secureFile: ""
+                    # ReleaseNote Information
+                    releasenote: false
+            on:
+              success:
+                pool:
+                  vmImage: windows-2019
+                steps:
+                  - checkout: self
+                  - checkout: templates
+                  # Functional tests running on deployed webapp
+                  - ${{ if eq(variables.testcafe_e2e_test, true) }}:
+                      - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
+                        parameters:
+                          env_vars:
+                            APP_BASE_URL: "http://dev.amidostacks.com"
+                            MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                            APP_BASE_PATH: "/web/stacks"
+                            NODE_ENV: production
+                          workingDirectory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
+                          testcafe_browser_list: "chrome,firefox"
+                  # Lighthouse profiling audit
+                  - ${{ if eq(variables.lighthouse_audit, true) }}:
+                      - task: Lighthouse@1
+                        inputs:
+                          url: "http://dev.amidostacks.com/web/stacks"
