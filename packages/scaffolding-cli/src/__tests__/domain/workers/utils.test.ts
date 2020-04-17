@@ -9,6 +9,7 @@ import * as rif from 'replace-in-file'
 import gitP, { SimpleGit } from 'simple-git/promise';
 import { FolderMap } from '../../../domain/model/config';
 import { Stats } from 'fs-extra';
+import { tmpdir } from 'os';
 
 jest.mock('fs-extra')
 jest.mock('replace-in-file')
@@ -43,7 +44,12 @@ let mock_cli_answer_model = <CliAnswerModel>{
     project_name: "foo",
     project_type: "boo",
     platform: "az",
-    deployment: "tfs"
+    deployment: "tfs",
+    business: {
+        company: "company",
+        component: "component",
+        project: "project"
+    }
 }
 
 let ssr_tfs_aks: Array<FolderMap> = [
@@ -69,7 +75,6 @@ describe("utils class tests", () => {
         mockCopy.mockClear()
         mockMove.mockClear()
         mockReplace.mockClear()
-        // mockReaddir.mockClear()
     })
     describe("Positive assertions", () => {
         it("copyWorker should return success", async () => {
@@ -120,6 +125,19 @@ describe("utils class tests", () => {
             expect(git_ran.message).toMatch("Git Cloned from repo and checked out on specified head")
         })
 
+        it.skip("fileNameReplace should return success", async () => {
+            mockReaddir.mockImplementationOnce(() => {
+                return Promise.resolve(["foo", "bar"])
+            })
+
+            let file_replacer_ran: BaseResponse = await Utils.fileNameReplace(tmpdir(), mock_cli_answer_model)
+            expect(mockReaddir).toHaveBeenCalled()
+            expect(file_replacer_ran).toHaveProperty("message")
+            expect(file_replacer_ran).toHaveProperty("ok")
+            expect(file_replacer_ran.ok).toBe(true)
+            expect(file_replacer_ran.message).toMatch("replaced all occurences")
+        })
+
         it("copyFilter should return true for dist", () => {
             let processed: boolean = copyFilter("some/dist/foo", "/some/dir")
             expect(processed).toBe(false)
@@ -130,24 +148,11 @@ describe("utils class tests", () => {
         })
 
         it.skip("renamerRecursion should call readdir", async () => {
-            // ensureDir(resolve(tmpdir(), directory_name))
             let test_path = __dirname
-            // mockStat.mockImplementationOnce(() => {
-            //     return Promise.resolve(<Stats>{
-            //         isDirectory: jest.fn().mockImplementation(() => false)
-            //     })
-            // });
-
             mockReaddir.mockImplementationOnce(() => {
                 return Promise.resolve(["__foo.cs"])
             });
-
-            // mockRename.mockImplementationOnce(() => {
-            //     Promise.resolve()
-            // });
-
             await renamerRecursion(test_path, "__foo", "bar")
-            // mockStat
             expect(mockReaddir).toHaveBeenCalled()
             expect(mockRename).toHaveBeenCalledTimes(1)
         })

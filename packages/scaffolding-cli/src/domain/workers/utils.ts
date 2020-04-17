@@ -30,7 +30,6 @@ export async function asyncForEach(array: Array<any>, callback: any) {
 }
 
 export async function renamerRecursion(in_path: string, match: string | RegExp, replace: string ): Promise<void> {
-
     let files: Array<string> = await readdir(in_path)
 
     await asyncForEach(files, async (f: string) =>  {

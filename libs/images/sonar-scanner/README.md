@@ -42,9 +42,7 @@ dotnet sonarscanner begin /k:"dotnet-api" /d:sonar.host.url=https://sonarcloud.i
 dotnet clean
 dotnet restore
 dotnet build
-dotnet test **/*Common.UnitTests.csproj
-dotnet test **/*CQRS.UnitTests.csproj
-dotnet test **/*Domain.UnitTests.csproj
+dotnet test
 dotnet sonarscanner end /d:sonar.login=my_token
 ```
 
