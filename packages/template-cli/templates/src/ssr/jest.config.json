@@ -1,10 +1,11 @@
 {
+  "roots": ["<rootDir>/."],
   "testMatch": [
     "**/*.test.(ts|tsx)",
     "!**/*.test.pact.ts",
     "!**/accessibilityHelper.test.tsx"
   ],
-  "testPathIgnorePatterns": ["./.next/", "./node_modules/"],
+  "testPathIgnorePatterns": ["<rootDir>/.next/", "<rootDir>/node_modules/"],
   "transform": {
     "^.+\\.ts$": "ts-jest"
   },
@@ -18,7 +19,7 @@
   },
   "setupFilesAfterEnv": [
     "@testing-library/jest-dom/extend-expect",
-    "./__tests__/axe/jestAxeSetup.ts"
+    "<rootDir>/__tests__/axe/jestAxeSetup.ts"
   ],
   "globals": {
     "window": {},
@@ -36,24 +37,25 @@
       }
     ]
   ],
-  "coverageReporters": ["cobertura", "lcov"],
+  "coverageReporters": ["text", "cobertura", "lcov"],
   "collectCoverage": true,
   "collectCoverageFrom": [
     "**/*.{ts,tsx}",
     "!**/*.test.*",
     "!<rootDir>/.*",
+    "!**/*.d.ts",
     "!**/*config.{js,json}",
-    "!<rootDir>/coverage",
-    "!<rootDir>/__tests__/**/*",
-    "!<rootDir>/__mocks__/**/*"
+    "!/coverage",
+    "!**/__tests__/**/*",
+    "!**/__mocks__/**/*"
   ],
   "coverageDirectory": "<rootDir>/coverage/",
   "coverageThreshold": {
     "global": {
-      "statements": 1,
-      "branches": 1,
-      "functions": 1,
-      "lines": 1
+      "statements": 80,
+      "branches": 80,
+      "functions": 80,
+      "lines": 80
     }
   }
 }

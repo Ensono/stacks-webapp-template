@@ -2,7 +2,7 @@
   "name": "PROJECT_NAME",
   "version": "0.1.0",
   "scripts": {
-    "test": "node_modules/.bin/jest -c jest.config.json --rootDir . --runInBand ",
+    "test": "node_modules/.bin/jest -c jest.config.json --runInBand ",
     "test:watch": "node_modules/.bin/jest -c jest.config.json --watchAll --rootDir . --runInBand ",
     "dev": "nodemon",
     "build": "tsc --project tsconfig.server.json && next build",
@@ -97,7 +97,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "eslint-plugin-security": "^1.4.0",
-    "jest": "^24.9.0",
+    "jest": "^25.3.0",
     "jest-axe": "^3.3.0",
     "jest-junit": "^10.0.0",
     "jest-sonar-reporter": "^2.0.0",
