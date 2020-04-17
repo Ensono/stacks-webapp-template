@@ -63,15 +63,15 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
             data-testid="search_btn"
           >
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined Mui-focused Mui-focused"
-              data-shrink="true"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+              data-shrink="false"
               for="search-bar"
               id="search-bar-label"
             >
               Search Menus
             </label>
             <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth Mui-focused Mui-focused MuiInputBase-formControl"
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
             >
               <input
                 aria-invalid="false"
@@ -86,7 +86,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
                 class="PrivateNotchedOutline-root-569 MuiOutlinedInput-notchedOutline"
               >
                 <legend
-                  class="PrivateNotchedOutline-legendLabelled-571 PrivateNotchedOutline-legendNotched-572"
+                  class="PrivateNotchedOutline-legendLabelled-571"
                 >
                   <span>
                     Search Menus
