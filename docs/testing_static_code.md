@@ -8,8 +8,8 @@ We are using [SonarQube](https://docs.sonarqube.org/) for static analysis. To en
 
 SonarCloud offers quality gates that ensure that your standards are adhered to before deploying.
 
- ![sonarcloud_example](assets/sonarcloud_overview.png)
- ![sonarcloud_github](assets/sonarcloud_github.png)
+ ![sonarcloud_example](https://amidostacksassets.blob.core.windows.net/docs/assets/sonarcloud_overview.png)
+ ![sonarcloud_github](https://amidostacksassets.blob.core.windows.net/docs/assets/sonarcloud_github.png)
 
 SonarCloud supports most languages.
 
