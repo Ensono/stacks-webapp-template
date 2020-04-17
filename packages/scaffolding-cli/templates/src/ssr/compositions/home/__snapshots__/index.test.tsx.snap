@@ -105,7 +105,11 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         >
           Latest menus:
         </h1>
-        0
+        <h2
+          class="MuiTypography-root MuiTypography-h2"
+        >
+          No results
+        </h2>
       </div>
     </main>
   </div>
