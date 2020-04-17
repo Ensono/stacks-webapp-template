@@ -1,5 +1,5 @@
 {
-  "project_name": "test-app-1",
+  "project_name": "test-app-1-netcore",
   "project_type": "netcore",
   "platform": "aks",
   "deployment": "azdevops",
@@ -10,8 +10,8 @@
     "resource_group": "string"
   },
   "business": {
-    "company": "string",
-    "project": "string",
+    "company": "compnay",
+    "project": "project",
     "component": "string"
   }
 }

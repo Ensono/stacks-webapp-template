@@ -1,12 +1,14 @@
 /// <reference types="jest" />
 import { PromptAnswer, CliAnswerModel } from '../../../domain/model/prompt_answer'
 import { CliResponse, BaseResponse, TempCopy } from '../../../domain/model/workers'
-import { Utils, copyFilter } from '../../../domain/workers/utils';
+import { Utils, copyFilter, renamerRecursion } from '../../../domain/workers/utils';
 import * as fse from 'fs-extra'
+import * as fs from 'fs'
 import { Replacetruct } from '../../../domain/config/file_mapper';
 import * as rif from 'replace-in-file'
 import gitP, { SimpleGit } from 'simple-git/promise';
 import { FolderMap } from '../../../domain/model/config';
+import { Stats } from 'fs-extra';
 
 jest.mock('fs-extra')
 jest.mock('replace-in-file')
@@ -24,6 +26,11 @@ const mockMove = jest.spyOn(fse, 'move')
 
 const mockReplace = jest.spyOn(rif, 'default')
 
+const mockReaddir = jest.spyOn(fs, 'readdir')
+
+const mockStat = jest.spyOn(fs, 'stat')
+
+const mockRename = jest.spyOn(fs, 'rename')
 
 let mock_answer = <PromptAnswer>{
     project_name: "foo",
@@ -62,6 +69,7 @@ describe("utils class tests", () => {
         mockCopy.mockClear()
         mockMove.mockClear()
         mockReplace.mockClear()
+        // mockReaddir.mockClear()
     })
     describe("Positive assertions", () => {
         it("copyWorker should return success", async () => {
@@ -119,6 +127,29 @@ describe("utils class tests", () => {
         it("copyFilter should return false for none excluded dir", () => {
             let processed: boolean = copyFilter("user_code/foo", "/some/dir")
             expect(processed).toBe(true)
+        })
+
+        it.skip("renamerRecursion should call readdir", async () => {
+            // ensureDir(resolve(tmpdir(), directory_name))
+            let test_path = __dirname
+            // mockStat.mockImplementationOnce(() => {
+            //     return Promise.resolve(<Stats>{
+            //         isDirectory: jest.fn().mockImplementation(() => false)
+            //     })
+            // });
+
+            mockReaddir.mockImplementationOnce(() => {
+                return Promise.resolve(["__foo.cs"])
+            });
+
+            // mockRename.mockImplementationOnce(() => {
+            //     Promise.resolve()
+            // });
+
+            await renamerRecursion(test_path, "__foo", "bar")
+            // mockStat
+            expect(mockReaddir).toHaveBeenCalled()
+            expect(mockRename).toHaveBeenCalledTimes(1)
         })
     })
     describe("Negative assertions", () => {

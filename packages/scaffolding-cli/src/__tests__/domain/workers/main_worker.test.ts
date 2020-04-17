@@ -108,7 +108,10 @@ describe("mainWorker class tests", () => {
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve(worker_response)
             })
-
+            Utils.fileNameReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            
             let flow_ran: CliResponse = await mainWorker.netcore_aks_tfs(mock_answer_netcore)
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.doGitClone).toHaveBeenCalledWith(staticConf.netcore.git_repo, "/var/test", staticConf.netcore.local_path, staticConf.netcore.git_ref)

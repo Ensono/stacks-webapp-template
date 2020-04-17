@@ -8,9 +8,9 @@ let staticConf: Static = conf as Static;
 
 let proj_name = "test-app-1"
 let biz: BusinessSection = {
-    company: "test",
-    project: "test2",
-    component: "test3"
+    company: "Test",
+    project: "Testproj",
+    component: "Test3"
 }
 let files: Array<BuildReplaceInput> = [
     {
@@ -20,12 +20,10 @@ let files: Array<BuildReplaceInput> = [
         }
     },
     {
-        files: ["**/vars.tf"],
+        files: ["**/*.cs", "**/*.sln", "**/Dockerfile", "**/*.csproj"],
         values: {
-            "replace_company_name": biz.company ,
-            "replace_project_name": biz.project,
-            "replace_component_name": biz.component,
-            "replace_azure_location": "uksouth"
+            "xxAMIDOxx": biz.company || "Company",
+            "xxSTACKSxx": biz.project || "Project",
         }
     }
 ]
@@ -34,7 +32,7 @@ let files: Array<BuildReplaceInput> = [
 describe("netcore mapper tests", () => {
     it("netcore config should return an array of folders to map", () => {
         let test: Array<FolderMap> = staticConf.netcore.folder_map
-        expect(test.length).toBe(6)
+        expect(test.length).toBe(10)
     }),
     it("in_files return an array of objects and cloud should be default", () => {
         let test: Array<BuildReplaceInput> = netcore.in_files(proj_name, biz)
