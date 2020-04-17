@@ -5,9 +5,8 @@ resource "azurerm_monitor_scheduled_query_rules_alert" "default" {
 
   authorized_resource_ids = [var.application_insights_id]
   action {
-    action_group           = []
-    email_subject          = "Email Header"
-    custom_webhook_payload = "{}"
+    action_group           = var.action_group
+    email_subject          = var.email_subject
   }
   data_source_id = var.application_insights_id
   description    = "Query may access data within multiple resources"

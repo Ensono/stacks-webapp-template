@@ -34,3 +34,12 @@ variable "operator" {
 variable "threshold" {
   default = 3
 }
+
+variable "action_group" {
+  default = []
+}
+
+variable "email_subject" {
+  default = "azure alert"  
+}
+
