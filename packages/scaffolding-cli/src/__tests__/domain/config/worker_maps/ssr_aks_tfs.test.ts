@@ -35,7 +35,9 @@ let files: Array<BuildReplaceInput> = [
             "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
             "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
             "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
-            "tf_state_key: demo-sharedservices": "tf_state_key: REPLACE_ME_FOR_STATE_KEY"
+            "tf_state_key: sharedservices": "tf_state_key: REPLACE_ME_FOR_STATE_KEY",
+            "deploy/azure/app/kube": "deploy/azure/app",
+            "terraform_state_workspace: sharedservices": "terraform_state_workspace: REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE"
         }
     },
     {

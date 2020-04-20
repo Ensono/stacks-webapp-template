@@ -43,7 +43,7 @@ spec:
         path: ${k8s_app_path}(/|$)(.*)
   tls:
   - hosts:
-    - nonprod.amidostacks.com
+    - ${tls_domain}
 
 --- 
 

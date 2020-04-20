@@ -1,4 +1,16 @@
 import terminalLink from 'terminal-link'
+import { BusinessSection, CloudSection } from '../../model/prompt_answer'
+import { BuildReplaceInput } from '../file_mapper'
+
+/**
+ * TODO: implement a shared in_files replace to minimize duplication
+ * @param project_name 
+ * @param business_obj 
+ * @param cloud_obj 
+ */
+// export const in_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection): Array<BuildReplaceInput> => {
+//     return []
+// }
 
 export const final_response_message = (project_name: string, message: string, config_created: boolean = false): string  => {
     let config_message = `----> \n

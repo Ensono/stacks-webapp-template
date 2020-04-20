@@ -22,13 +22,15 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
                 "stacks-webapp-template/packages/scaffolding-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
                 "src/ssr": "src",
                 "packages/scaffolding-cli/templates/": "",
-                "amido-stacks-nonprod-node": cloud_obj?.resource_group || "REPLACE_ME_FOR_RG_NAME",
+                "amido-stacks-nonprod-node": "REPLACE_ME_FOR_RG_NAME",
                 "amidostacksnonprodnode": "REPLACE_ME_FOR_ACR_NAME", // cloud_obj?.acr_name
                 "nonprod.amidostacks.com": "REPLACE_ME_FOR_DOMAIN",
                 "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
                 "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
                 "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
-                "tf_state_key: demo-sharedservices": "tf_state_key: REPLACE_ME_FOR_STATE_KEY"
+                "tf_state_key: sharedservices": "tf_state_key: REPLACE_ME_FOR_STATE_KEY",
+                "deploy/azure/app/kube": "deploy/azure/app",
+                "terraform_state_workspace: sharedservices": "terraform_state_workspace: REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE"
             }
         },
         // this is unnecessary as the yml place the values in the tf at runtime

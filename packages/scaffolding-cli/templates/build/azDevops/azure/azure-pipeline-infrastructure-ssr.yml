@@ -16,7 +16,6 @@ trigger:
     - "*"
   paths:
     include:
-    # Amido Testing pipeline for E2E output of the CLI
     - packages/scaffolding-cli/templates/build/*
     - packages/scaffolding-cli/templates/deploy/*
 
