@@ -58,8 +58,9 @@ export class MainWorker {
             await Utils.constructOutput(staticConf.netcore.folder_map, new_directory.final_path, new_directory.temp_path)
 
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput)
-
+            
             await Utils.valueReplace(val_maps)
+            await Utils.fileNameReplace(new_directory.final_path, instructions)
             if (instructions.create_config) {
                 await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             }

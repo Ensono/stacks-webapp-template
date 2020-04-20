@@ -1,12 +1,15 @@
 /// <reference types="jest" />
 import { PromptAnswer, CliAnswerModel } from '../../../domain/model/prompt_answer'
 import { CliResponse, BaseResponse, TempCopy } from '../../../domain/model/workers'
-import { Utils, copyFilter } from '../../../domain/workers/utils';
+import { Utils, copyFilter, renamerRecursion } from '../../../domain/workers/utils';
 import * as fse from 'fs-extra'
+import * as fs from 'fs'
 import { Replacetruct } from '../../../domain/config/file_mapper';
 import * as rif from 'replace-in-file'
 import gitP, { SimpleGit } from 'simple-git/promise';
 import { FolderMap } from '../../../domain/model/config';
+import { Stats } from 'fs-extra';
+import { tmpdir } from 'os';
 
 jest.mock('fs-extra')
 jest.mock('replace-in-file')
@@ -24,6 +27,11 @@ const mockMove = jest.spyOn(fse, 'move')
 
 const mockReplace = jest.spyOn(rif, 'default')
 
+const mockReaddir = jest.spyOn(fs, 'readdir')
+
+const mockStat = jest.spyOn(fs, 'stat')
+
+const mockRename = jest.spyOn(fs, 'rename')
 
 let mock_answer = <PromptAnswer>{
     project_name: "foo",
@@ -36,7 +44,12 @@ let mock_cli_answer_model = <CliAnswerModel>{
     project_name: "foo",
     project_type: "boo",
     platform: "az",
-    deployment: "tfs"
+    deployment: "tfs",
+    business: {
+        company: "company",
+        component: "component",
+        project: "project"
+    }
 }
 
 let ssr_tfs_aks: Array<FolderMap> = [
@@ -112,6 +125,19 @@ describe("utils class tests", () => {
             expect(git_ran.message).toMatch("Git Cloned from repo and checked out on specified head")
         })
 
+        it.skip("fileNameReplace should return success", async () => {
+            mockReaddir.mockImplementationOnce(() => {
+                return Promise.resolve(["foo", "bar"])
+            })
+
+            let file_replacer_ran: BaseResponse = await Utils.fileNameReplace(tmpdir(), mock_cli_answer_model)
+            expect(mockReaddir).toHaveBeenCalled()
+            expect(file_replacer_ran).toHaveProperty("message")
+            expect(file_replacer_ran).toHaveProperty("ok")
+            expect(file_replacer_ran.ok).toBe(true)
+            expect(file_replacer_ran.message).toMatch("replaced all occurences")
+        })
+
         it("copyFilter should return true for dist", () => {
             let processed: boolean = copyFilter("some/dist/foo", "/some/dir")
             expect(processed).toBe(false)
@@ -119,6 +145,16 @@ describe("utils class tests", () => {
         it("copyFilter should return false for none excluded dir", () => {
             let processed: boolean = copyFilter("user_code/foo", "/some/dir")
             expect(processed).toBe(true)
+        })
+
+        it.skip("renamerRecursion should call readdir", async () => {
+            let test_path = __dirname
+            mockReaddir.mockImplementationOnce(() => {
+                return Promise.resolve(["__foo.cs"])
+            });
+            await renamerRecursion(test_path, "__foo", "bar")
+            expect(mockReaddir).toHaveBeenCalled()
+            expect(mockRename).toHaveBeenCalledTimes(1)
         })
     })
     describe("Negative assertions", () => {

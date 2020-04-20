@@ -1,6 +1,6 @@
 {
   "name": "@amidostacks/scaffolding-cli",
-  "version": "1.21.0",
+  "version": "1.21.1",
   "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
   "bin": {
     "scaffolding-cli": "./dist/index.js",
@@ -31,6 +31,7 @@
     "@types/yargs": "^15.0.4",
     "chalk": "^3.0.0",
     "fs-extra": "^8.1.0",
+    "lodash": "^4.17.15",
     "prompts": "^2.3.1",
     "replace-in-file": "^5.0.2",
     "simple-git": "^1.132.0",
