@@ -60,17 +60,16 @@ terraform init -backend-config=./backend.local.tfvars
 | tls | n/a |
 
 To call the module you'll need:
- - your alert name
- - resource group name
- - application insights id
- - query written in the kusto formatting
- - trigger operator (defaults to greater than)
- - trigger threshold (defaults to 3)
- - time out window (defaults to 30)
- - frequency (defaults to 5)
- - severity (defaults to 1)
+| Name | Description | Notes |
+|------|-------------|-------|
+| alert_name | The name of the alert you wish to create | |
+| resource_group_name | The name of you the resource group you wish to use | you may need to create one but otherwise put the name into the monitoring resource_group data lookup|
+| application_insights_id | the application insights id you wish to use | if you don't have one you'll need to create it otherwise use the azurerm_application_insights monitoring data lookup |
+| query | this is a query written in Azures log query language Kusto | see this URL if you need more information https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/get-started-queries |
+| operator | the operator for the trigger | defaults to greater than |
+| threshold | the threshold for the trigger | basically when this will alert |
+| time_window | the timeout window for the alert | |
+| frequency | the frequency of the check in minuites | defaults to 5 |
+| severity | the severity of the alert, 0 to 4 | defaults to 1 |
 
-It's also useful to know that the module predfines the trigger has been present without at metric trigger, should you wish to add one in you'll need to edit the monitoring.tf file
-
-Kusto is an SQL like language used, in this case, to query logs, you can get more information here
- - https://docs.microsoft.com/en-us/azure/azure-monitor/log-query/get-started-queries
+It's also useful to know that the module predfines the trigger with just the operator and threshold and no metric_trigger. Should you wish to have a metric trigger you'll need to edit the monitoring.tf file.

@@ -1,19 +1,25 @@
-data "azurerm_client_config" "current" {}
+# edit everything that has <EDIT_ME:> with the required data
 
 variable "location" {
-  default = "UK South"
+  default = "uksouth"
+}
+
+data "azurerm_client_config" "current" {}
+
+data "azurerm_resource_group" "monitoring" {
+  name = "<EDIT_ME: RESOURCE GROUP NAME>"
+}
+
+data "azurerm_application_insights" "monitoring" {
+  name                = "<EDIT_ME: APPLICATION INSIGHTS NAME>"
+  resource_group_name = data.azurerm_resource_group.monitoring.name
 }
 
 resource "azurerm_application_insights" "monitoring" {
   name                = "appinsights"
   location            = var.location
-  resource_group_name = azurerm_resource_group.monitoring.name
+  resource_group_name = data.azurerm_resource_group.monitoring.name
   application_type    = "web"
-}
-
-resource "azurerm_resource_group" "monitoring" {
-  name     = "aidan-test-monitoring-resources"
-  location = var.location
 }
 
 module "default_label" {
@@ -26,20 +32,11 @@ module "default_label" {
   tags       = var.tags
 }
 
-# if you do not set the 
-# `service_cidr`
-# `dns_service_ip`
-# `docker_bridge_cidr` 
-# AKS will default to ==> 10.0.0.0/16
-variable "vnet_cidr" {
-  default = ["10.1.0.0/16"]
-}
-
 module "query_alert" {
   source = "../../"
-  alert_name = "aidan_test"
-  resource_group_name = azurerm_resource_group.monitoring.name
-  application_insights_id = azurerm_application_insights.monitoring.id
+  alert_name = "test_alert"
+  resource_group_name = data.azurerm_resource_group.monitoring.name
+  application_insights_id = data.azurerm_application_insights.monitoring.id
   query = <<QUERY
   let a=requests
     | where toint(resultCode) >= 500

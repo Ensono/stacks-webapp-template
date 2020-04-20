@@ -1,16 +1,6 @@
-variable "location" {
-  default = "UK South"
-}
-
-variable "alert_name" {
-}
-
-variable "resource_group_name" {
-}
-
-variable "application_insights_id" {
-}
-
+############################################
+# NAMING
+############################################
 variable "query" {
   
 }
@@ -43,3 +33,23 @@ variable "email_subject" {
   default = "azure alert"  
 }
 
+############################################
+# AZURE INFORMATION
+############################################
+
+############################################
+# RESOURCE INFORMATION
+############################################
+
+variable "resource_group_name" {
+}
+
+variable "application_insights_id" {
+}
+
+variable "location" {
+  default = "UK South"
+}
+
+variable "alert_name" {
+}
