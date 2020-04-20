@@ -1,11 +1,15 @@
 import axios from "axios"
 import api from "constants/apis/menu"
 
-export const getMenus = () => {
+export const getMenus = (searchTerm) => {
     const getMenuApi = api("getMenuList")
     return new Promise((resolve, reject) => {
         axios
-            .get(getMenuApi.internalEndpoint())
+            .get(getMenuApi.internalEndpoint(), {
+                params: {
+                    searchTerm,
+                },
+            })
             .then(response => {
                 const {data} = response
                 if (data) {

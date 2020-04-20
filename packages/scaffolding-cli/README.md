@@ -4,27 +4,39 @@ title: CLI (Command Line Interface)
 sidebar_label: CLI
 ---
 
-Please read through the [template_cli](../../docs/cli-process.md) for more information.
+[![npm](https://img.shields.io/npm/v/@amidostacks/scaffolding-cli)](https://www.npmjs.com/package/@amidostacks/scaffolding-cli)
+
+[![npm](https://img.shields.io/npm/dt/@amidostacks/scaffolding-cli)](https://www.npmjs.com/package/@amidostacks/scaffolding-cli)
+
+Please read through the [template_cli](../../docs/cli-process.md) for more
+information.
 
 ## Template CLI
 
-Builds a Node.js with React Server Side Rendered Webapp Template, with accompanying infrastruce code. All from your CLI.
+Builds a Node.js with React Server Side Rendered Webapp Template, with
+accompanying infrastruce code. All from your CLI.
 
 ## Dependencies
 
-We are using npx to execute and create the [template-cli](./packages/scaffolding-cli) [npx](https://www.npmjs.com/package/npx).
+We are using npx to execute and create the
+[template-cli](./packages/scaffolding-cli)
+[npx](https://www.npmjs.com/package/npx).
 
-We are supporting and running [node@12](https://nodejs.org/en/about/releases/). Please ensure that your local environment has the correct version
+We are supporting and running [node@12](https://nodejs.org/en/about/releases/).
+Please ensure that your local environment has the correct version
 [installed](https://nodejs.org/en/download/).
 
 ## Create app from template
 
-Creates an amidostacks template in your local directory much like express-generate with an addition of `build/, deploy/, docs/, src/` folders as per the Amido Stacks standards.
+Creates an amidostacks template in your local directory much like
+express-generate with an addition of `build/, deploy/, docs/, src/` folders as
+per the Amido Stacks standards.
 
-There is already a prebuilt version of this up on npm, if you don't wish to build this locally you only need to execute steps 3, 4, 5 and 6
-
+There is already a prebuilt version of this up on npm, if you don't wish to
+build this locally you only need to execute steps 3, 4, 5 and 6
 
 1. Install dependencies required to generate the templated app:
+
 ```bash
 $ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/scaffolding-cli
 $ npm install
@@ -32,12 +44,13 @@ $ npm run build
 ```
 
 2. Watch your build
+
 ```bash
 $ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/scaffolding-cli
 $ npm run build:watch
 ```
 
-3. Change to a directory for testing - e.g. $HOME and run
+3. Change to a directory for testing - e.g. \$HOME and run
 
 ```bash
 $ cd ${SELECTED_DIR}
@@ -47,31 +60,39 @@ $ npx ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/scaffoldin
 npx @amidostacks/scaffolding-cli@latest run -i
 ```
 
-4. Follow the CLI prompts to create a templated app with user defined configuration:
-ssr this is why
-t   - Project Name: _default_: current directory (will create a directory with this name)
+4. Follow the CLI prompts to create a templated app with user defined
+   configuration: ssr this is why t - Project Name: _default_: current directory
+   (will create a directory with this name)
+
    - Project Type: _default_: SSR (server side rendering)
    - Platform: _default_: AKS (Azure Kubernetes Service)
    - CI/CD Tooling: _default_: AzureDevOps
 
 5. Navigate to the created project directory to install template dependencies:
-e.g. ${SELECTED_DIR}/$PROJECT_NAME
+   e.g. ${SELECTED_DIR}/$PROJECT_NAME
+
 ```bash
 $ cd ${SELECTED_DIR}/$PROJECT_NAME/src/
 $ npm install
 ```
 
 6. Build and run the app:
+
 ```bash
 $ npm run build
 $ npm run start
 ```
+
 Open Browser and hit [http://localhost:3000](http://localhost:3000)
 
-7. To test the deploy folder has been correctly provisioned prior to checking you need to at this point in time copy over a sample backend-config and terraform vars. Currently vars.tf and provider configuration is not automatically updated. 
-Future iterations will include this.
+7. To test the deploy folder has been correctly provisioned prior to checking
+   you need to at this point in time copy over a sample backend-config and
+   terraform vars. Currently vars.tf and provider configuration is not
+   automatically updated. Future iterations will include this.
 
-The safest way to run and maintain this going forward is to rely on environment variables for credentials as that is the way the pipeline will trigger the executions of terraform. 
+The safest way to run and maintain this going forward is to rely on environment
+variables for credentials as that is the way the pipeline will trigger the
+executions of terraform.
 
 Sample export script with correct environment vars:
 
@@ -101,7 +122,6 @@ name_environment        = \"dev\"
 " > ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/deploy/terraform/azure/backend.local.tfvars
 ```
 
-
 ```bash
 $ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/deploy/terraform/azure
 $ terraform init -backend-config=./backend.local.tfvars
@@ -112,4 +132,5 @@ We are using [Jest.js](https://jestjs.io/) for testing including code coverage.
 
 ## Versioning and Publishing
 
-For information on how to version and publish changes to this package, please see [Publishing Packages](../../docs/publishing.md).
+For information on how to version and publish changes to this package, please
+see [Publishing Packages](../../docs/publishing.md).

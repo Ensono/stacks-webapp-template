@@ -1,4 +1,4 @@
-import {ApiPane, Header} from "components"
+import {ApiPane, Header, Search} from "components"
 import React, {FC, useEffect} from "react"
 import {connect} from "react-redux"
 import {
@@ -18,7 +18,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    getMenulist: () => dispatch(requestMenusListRoutine.trigger()),
+    getMenulist: searchPayload =>
+        dispatch(requestMenusListRoutine.trigger(searchPayload)),
 })
 
 interface Props
@@ -27,15 +28,14 @@ interface Props
 
 const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
     useEffect(() => {
-        getMenulist()
+        getMenulist({searchTerm: ""})
     }, [])
     return (
         <Container container>
             <Header />
             <main>
                 <br />
-                <br />
-                <br />
+                <Search getSearchResults={getMenulist} />
                 <ApiPane menuItems={menuItems} isLoading={isLoading} />
             </main>
         </Container>

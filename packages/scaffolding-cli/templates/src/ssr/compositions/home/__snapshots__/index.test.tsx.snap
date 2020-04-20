@@ -52,8 +52,51 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
     </header>
     <main>
       <br />
-      <br />
-      <br />
+      <div
+        class="MuiContainer-root MuiContainer-maxWidthSm"
+      >
+        <div
+          class="MuiBox-root MuiBox-root-510"
+        >
+          <div
+            class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
+            data-testid="search_btn"
+          >
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+              data-shrink="false"
+              for="search-bar"
+              id="search-bar-label"
+            >
+              Search Menus
+            </label>
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
+            >
+              <input
+                aria-invalid="false"
+                class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputTypeSearch"
+                id="search-bar"
+                name="seach_menus"
+                type="search"
+                value=""
+              />
+              <fieldset
+                aria-hidden="true"
+                class="PrivateNotchedOutline-root-569 MuiOutlinedInput-notchedOutline"
+              >
+                <legend
+                  class="PrivateNotchedOutline-legendLabelled-571"
+                >
+                  <span>
+                    Search Menus
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         class="MuiGrid-root css-t7xmz MuiGrid-item"
       >
@@ -62,7 +105,11 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         >
           Latest menus:
         </h1>
-        0
+        <h2
+          class="MuiTypography-root MuiTypography-h2"
+        >
+          No results
+        </h2>
       </div>
     </main>
   </div>

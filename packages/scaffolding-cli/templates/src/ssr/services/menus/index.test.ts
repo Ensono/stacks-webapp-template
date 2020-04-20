@@ -17,7 +17,7 @@ afterEach(() => {
 })
 
 test("should call the getMenus API", async () => {
-    getMenus()
+    getMenus('')
     expect(mock).toHaveBeenCalled()
 })
 
