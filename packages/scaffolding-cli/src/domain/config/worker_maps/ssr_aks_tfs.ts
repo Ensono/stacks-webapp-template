@@ -27,7 +27,8 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
                 "nonprod.amidostacks.com": "REPLACE_ME_FOR_DOMAIN",
                 "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
                 "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
-                "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES"
+                "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
+                "tf_state_key: demo-sharedservices": "tf_state_key: REPLACE_ME_FOR_STATE_KEY"
             }
         },
         // this is unnecessary as the yml place the values in the tf at runtime

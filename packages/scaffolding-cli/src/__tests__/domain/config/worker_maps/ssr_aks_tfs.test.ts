@@ -34,7 +34,8 @@ let files: Array<BuildReplaceInput> = [
             "nonprod.amidostacks.com": "REPLACE_ME_FOR_DOMAIN",
             "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
             "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
-            "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES"
+            "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
+            "tf_state_key: demo-sharedservices": "tf_state_key: REPLACE_ME_FOR_STATE_KEY"
         }
     },
     {
