@@ -36,7 +36,6 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
               class="MuiSvgIcon-root"
               data-testid="create_button"
               focusable="false"
-              role="presentation"
               viewBox="0 0 24 24"
             >
               <path

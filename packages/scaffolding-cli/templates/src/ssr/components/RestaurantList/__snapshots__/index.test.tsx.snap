@@ -16,7 +16,7 @@ Object {
             class="MuiListItemText-root"
           >
             <span
-              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
             >
               <h2
                 class="MuiTypography-root MuiTypography-h2"
@@ -27,7 +27,7 @@ Object {
                 class="MuiListItemText-root"
               >
                 <span
-                  class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+                  class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                 >
                   d
                 </span>
@@ -50,7 +50,6 @@ Object {
                       aria-hidden="true"
                       class="MuiSvgIcon-root"
                       focusable="false"
-                      role="presentation"
                       viewBox="0 0 24 24"
                     >
                       <path
@@ -70,7 +69,7 @@ Object {
             class="MuiListItemText-root"
           >
             <span
-              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+              class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
             >
               <h2
                 class="MuiTypography-root MuiTypography-h2"
@@ -81,7 +80,7 @@ Object {
                 class="MuiListItemText-root"
               >
                 <span
-                  class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+                  class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
                 >
                   d
                 </span>
@@ -104,7 +103,6 @@ Object {
                       aria-hidden="true"
                       class="MuiSvgIcon-root"
                       focusable="false"
-                      role="presentation"
                       viewBox="0 0 24 24"
                     >
                       <path
@@ -132,7 +130,7 @@ Object {
           class="MuiListItemText-root"
         >
           <span
-            class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
           >
             <h2
               class="MuiTypography-root MuiTypography-h2"
@@ -143,7 +141,7 @@ Object {
               class="MuiListItemText-root"
             >
               <span
-                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
               >
                 d
               </span>
@@ -166,7 +164,6 @@ Object {
                     aria-hidden="true"
                     class="MuiSvgIcon-root"
                     focusable="false"
-                    role="presentation"
                     viewBox="0 0 24 24"
                   >
                     <path
@@ -186,7 +183,7 @@ Object {
           class="MuiListItemText-root"
         >
           <span
-            class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+            class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
           >
             <h2
               class="MuiTypography-root MuiTypography-h2"
@@ -197,7 +194,7 @@ Object {
               class="MuiListItemText-root"
             >
               <span
-                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1"
+                class="MuiTypography-root MuiListItemText-primary MuiTypography-body1 MuiTypography-displayBlock"
               >
                 d
               </span>
@@ -220,7 +217,6 @@ Object {
                     aria-hidden="true"
                     class="MuiSvgIcon-root"
                     focusable="false"
-                    role="presentation"
                     viewBox="0 0 24 24"
                   >
                     <path
