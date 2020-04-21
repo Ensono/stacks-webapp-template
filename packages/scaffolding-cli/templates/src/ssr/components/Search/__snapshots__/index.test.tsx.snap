@@ -27,7 +27,7 @@ exports[`renders ApiPane snapshot 1`] = `
             aria-invalid="false"
             class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputTypeSearch"
             id="search-bar"
-            name="seach_menus"
+            name="SearchTerm"
             type="search"
             value=""
           />
