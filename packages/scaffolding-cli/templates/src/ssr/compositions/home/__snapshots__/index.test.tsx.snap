@@ -56,7 +56,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         class="MuiContainer-root MuiContainer-maxWidthSm"
       >
         <div
-          class="MuiBox-root MuiBox-root-510"
+          class="MuiBox-root MuiBox-root-518"
         >
           <div
             class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
@@ -74,6 +74,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
             >
               <input
+                aria-describedby="search-bar-helper-text"
                 aria-invalid="false"
                 class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputTypeSearch"
                 id="search-bar"
@@ -83,10 +84,10 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
               />
               <fieldset
                 aria-hidden="true"
-                class="PrivateNotchedOutline-root-569 MuiOutlinedInput-notchedOutline"
+                class="PrivateNotchedOutline-root-577 MuiOutlinedInput-notchedOutline"
               >
                 <legend
-                  class="PrivateNotchedOutline-legendLabelled-571"
+                  class="PrivateNotchedOutline-legendLabelled-579"
                 >
                   <span>
                     Search Menus
@@ -94,6 +95,12 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
                 </legend>
               </fieldset>
             </div>
+            <p
+              class="MuiFormHelperText-root MuiFormHelperText-contained"
+              id="search-bar-helper-text"
+            >
+              Search terms are case sensitive and partial matches are not searched
+            </p>
           </div>
         </div>
       </div>
