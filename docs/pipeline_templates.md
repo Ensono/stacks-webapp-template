@@ -1,5 +1,5 @@
 ---
-id: pipelines
+id: pipeline_templates
 title: Pipeline Templates
 sidebar_label: Pipeline Templates
 ---
@@ -17,7 +17,7 @@ Assuming that you will be consuming the templates from the public [repo](https:/
 
  Once a token is generated, the service connection can be configured for the project. Instructions can be found at [Manage Service Connections](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints?view=azure-devops&tabs=yaml#create-a-service-connection).
 
- ![service_connections](assets/service_connection_adding.gif)
+ ![service_connections](https://amidostacksassets.blob.core.windows.net/docs/assets/service_connection_adding.gif)
 
 ```yaml
 resources:
