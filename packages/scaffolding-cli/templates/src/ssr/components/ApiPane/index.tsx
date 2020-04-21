@@ -14,7 +14,10 @@ export const ApiPane = ({menuItems, isLoading}: ApiPaneProps) => {
         <Container item>
             <Typography variant="h1">Latest menus:</Typography>
             {isLoading && <CircularProgress size={26} />}
-            {!isLoading && menuItems && menuItems.length && (
+            {!isLoading && menuItems?.length == 0 && (
+                <Typography variant="h2">No results</Typography>
+            )}
+            {!isLoading && menuItems?.length >= 1 && (
                 <RestaurantListComponent restaurantList={menuItems} />
             )}
         </Container>

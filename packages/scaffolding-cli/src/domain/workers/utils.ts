@@ -1,12 +1,13 @@
-import { copy, move, remove, ensureDir} from 'fs-extra'
+import { copy, move, remove, ensureDir, rename, stat, readdir, Stats} from 'fs-extra'
 import { tmpdir } from 'os'
+import { startCase, toLower } from 'lodash'
 import { BaseResponse, TempCopy, ConfigResponse } from '../model/workers'
 import { FolderMap } from '../model/config'
 import replace, { ReplaceInFileConfig } from 'replace-in-file'
 import { resolve } from 'path'
 import { Replacetruct, replaceGeneratedConfig } from '../config/file_mapper'
 import logger from 'simple-winston-logger-abstraction'
-import gitP, { SimpleGit, StatusResult } from 'simple-git/promise';
+import gitP, { SimpleGit } from 'simple-git/promise';
 import { CliAnswerModel } from '../model/prompt_answer'
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
@@ -14,6 +15,7 @@ const TEMPLATES_DIRECTORY = `../../../templates/`
 export function copyFilter(src: string, dest: string) {
     if (src.indexOf(".next") > -1 ||
         src.indexOf("coverage") > -1 ||
+        src.indexOf(".terraform") > -1 ||
         src.indexOf("dist") > -1) {
         return false
     } else {
@@ -25,6 +27,20 @@ export async function asyncForEach(array: Array<any>, callback: any) {
     for (let index = 0; index < array.length; index++) {
         await callback(array[index], index, array)
     }
+}
+
+export async function renamerRecursion(in_path: string, match: string | RegExp, replace: string ): Promise<void> {
+    let files: Array<string> = await readdir(in_path)
+
+    await asyncForEach(files, async (f: string) =>  {
+        let path = resolve(in_path, f)
+        let file: Stats = await stat(path)
+        let newPath = resolve(in_path, f.replace(match, replace))
+        await rename(path, newPath);
+        if (file.isDirectory()) {
+            await renamerRecursion(newPath, match, replace);
+        }
+    })
 }
 
 export class Utils {
@@ -71,6 +87,27 @@ export class Utils {
             fsResponse.config_path = configFile
             return fsResponse
         } catch (ex) {
+            fsResponse.ok = false
+            fsResponse.code = ex.code || -1
+            fsResponse.message = ex.message
+            fsResponse.error = ex.stack
+            throw fsResponse
+        }
+    }
+    public static async fileNameReplace(src_dir: string, instruction_map: CliAnswerModel): Promise<BaseResponse> {
+        let fsResponse: BaseResponse = <BaseResponse>{}
+        try {
+            const replace: string = `${startCase(toLower(instruction_map.business.company))}.${startCase(toLower(instruction_map.business.project))}`
+            const match: string = 'xxAMIDOxx.xxSTACKSxx'
+            const dir: string = `${src_dir}/src`
+            await renamerRecursion(dir, match, replace)
+
+            fsResponse.ok = true
+            fsResponse.message = 'replaced all occurences'
+            return fsResponse
+        }
+        catch (ex) {
+            logger.error(ex)
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
@@ -156,6 +193,5 @@ export class Utils {
             fsResponse.error = ex.stack
             throw fsResponse
         }
-
     }
 }

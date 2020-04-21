@@ -12,6 +12,10 @@ import reducer, {
 
 const mockInitialState = {loading: false, error: "b", menuItems: []}
 
+const mockPayload = {
+    searchTerm: "test",
+}
+
 test("the reducer should return the current state", () => {
     expect(reducer(mockInitialState, {type: "TEST"})).toEqual({
         loading: false,
@@ -58,9 +62,9 @@ test("SUCCESS action should set the right state", () => {
 })
 
 test('sagas should dispatch the "success" action on successful response', () => {
-    const gen = requestMenuList()
+    const gen = requestMenuList({payload: mockPayload})
     expect(gen.next().value).toEqual(put(requestMenusListRoutine.request()))
-    expect(gen.next().value).toEqual(call(getMenus))
+    expect(gen.next().value).toEqual(call(getMenus, mockPayload.searchTerm))
     expect(gen.next("response").value).toEqual(
         put(requestMenusListRoutine.success("response")),
     )
@@ -68,9 +72,9 @@ test('sagas should dispatch the "success" action on successful response', () => 
 })
 
 test('sagas should dispatch the "failure" action', () => {
-    const gen = requestMenuList()
+    const gen = requestMenuList({payload: mockPayload})
     expect(gen.next().value).toEqual(put(requestMenusListRoutine.request()))
-    expect(gen.next().value).toEqual(call(getMenus))
+    expect(gen.next().value).toEqual(call(getMenus, mockPayload.searchTerm))
     expect(gen.throw("internal_server_error").value).toEqual(
         put(requestMenusListRoutine.failure("internal_server_error")),
     )

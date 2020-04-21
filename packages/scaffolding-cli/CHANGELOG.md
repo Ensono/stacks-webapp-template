@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.21.1](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.21.1) (2020-04-17)
+
+
+### Bug Fixes
+
+* netcore adjustement for folder renaming ([c6a421d](https://github.com/amido/stacks-webapp-template/commit/c6a421df30865a2feb4c27cd64339cac2ac83880))
+
+
+
+
+
 # [1.21.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.21.0) (2020-04-08)
 
 

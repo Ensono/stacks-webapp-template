@@ -4,6 +4,10 @@ title: eslint Configuration
 sidebar_label: Packages
 ---
 
+[![npm](https://img.shields.io/npm/v/@amidostacks/eslint-config)](https://www.npmjs.com/package/@amidostacks/eslint-config)
+
+[![npm](https://img.shields.io/npm/dt/@amidostacks/scaffolding-cli)](https://www.npmjs.com/package/@amidostacks/scaffolding-cli)
+
 - Checkout our [CHANGELOG](./CHANGELOG.md) for latest changes
 - See the template-cli generated
   [templates project](../template-cli/templates/src/ssr/package.json) for

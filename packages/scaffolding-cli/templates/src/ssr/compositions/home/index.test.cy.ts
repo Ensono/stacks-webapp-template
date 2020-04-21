@@ -10,7 +10,6 @@ Every test you write will include selectors for elements. Write selectors that a
  * @type {Cypress.PluginConfig}
  **/
 
-
 describe("/ (index)", () => {
     beforeEach(() => {
         // Loads the page and start listening for XHR requests
@@ -18,7 +17,7 @@ describe("/ (index)", () => {
         cy.server()
         cy.route({
             method: "GET", // Route all GET requests
-            url: "/menu", // that have a URL that matches '/menu'
+            url: "/menu*", // that have a URL that matches '/menu'
             response: "@menuResponse", // and force the response to be: []
         }).as("getStubbedMenu")
 
@@ -43,12 +42,20 @@ describe("/ (index)", () => {
     it("fetches menu from API on reload", () => {
         cy.wait("@getStubbedMenu") //resolve the stub first
 
-        cy.route("GET", "/menu").as("getMenu") //listen to XHR requests without stub
+        cy.route("GET", "/menu*").as("getMenu") //listen to XHR requests without stub
         cy.reload(true) //force the reload without cache
 
         cy.wait("@getMenu").then(xhr => {
             cy.wrap(xhr.status).should("eq", 200)
             cy.wrap(xhr.responseBody).should("have.property", "results")
+        })
+    })
+
+    it("search textField change fires api requests", () => {
+        cy.wait("@getStubbedMenu") //resolve the stub first
+        cy.get("#search-bar").should("be.visible").type("T")
+        cy.wait("@getStubbedMenu").should((xhr) => {
+            expect(xhr.url).to.match(/=T$/)
         })
     })
 })

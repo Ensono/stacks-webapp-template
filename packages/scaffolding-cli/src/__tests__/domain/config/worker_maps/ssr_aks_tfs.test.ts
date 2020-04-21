@@ -50,7 +50,7 @@ let files: Array<BuildReplaceInput> = [
 describe("ssr mapper tests", () => {
     it("to_folders return an array of objects", () => {
         let test: Array<FolderMap> = staticConf.ssr.folder_map
-        expect(test.length).toBe(10)
+        expect(test.length).toBe(11)
     }),
     it("in_files return an array of objects and cloud should be default", () => {
         let test: Array<BuildReplaceInput> = ssr.in_files(proj_name, biz)
