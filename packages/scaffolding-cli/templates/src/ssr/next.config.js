@@ -1,6 +1,6 @@
 const path = require("path")
 const conf = require("./environment-configuration")
-
+let {APPINSIGHTS_INSTRUMENTATIONKEY, ...publicConf} = conf
 // next.config.js
 module.exports = {
     webpack(config) {
@@ -26,13 +26,13 @@ module.exports = {
     target: "server",
     serverRuntimeConfig: {
         // Will only be available on the server side
-        ...conf,
+        APPINSIGHTS_KEY: APPINSIGHTS_INSTRUMENTATIONKEY,
         mySecret: "secret",
     },
     publicRuntimeConfig: {
         // Will be available on both server and client
         // only exposes staticly assigned/generated vars generated at build time to the client at runtime - BE CAREFUL with this
-        ...conf,
+        ...publicConf,
         EXAMPLE_VAR_FOR_FE: "define_me",
     },
 }
