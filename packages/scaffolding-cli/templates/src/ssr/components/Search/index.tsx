@@ -1,5 +1,5 @@
 import {Box, Container, TextField} from "@material-ui/core"
-import debounce from "lodash/debounce"
+import {debounce} from "lodash"
 import React, {useCallback, useEffect, useState} from "react"
 
 export function Search(props) {
@@ -27,6 +27,7 @@ export function Search(props) {
                     variant="outlined"
                     data-testid="search_btn"
                     margin="normal"
+                    helperText="Search terms are case sensitive and partial matches are not searched"
                     onChange={evt => setSearchTerm(evt.target.value)}
                 />
             </Box>
