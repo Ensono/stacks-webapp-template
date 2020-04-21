@@ -1,10 +1,8 @@
 ---
-id: infrastructure
+id: infrastructure_code
 title: Infrastructure
 sidebar_label: Infrastructure
 ---
-
-## Infrastructure
 
 <!--
 Ensure we put in lots of information about our Infrastructure. Including:

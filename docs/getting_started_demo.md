@@ -1,7 +1,12 @@
+---
+id: getting_started_demo
+title: Demo - Using the scaffolding-cli to build an application
+sidebar_label: Demo - Using the scaffolding-cli to build an application
+---
+
 [![npm](https://img.shields.io/npm/dt/@amidostacks/scaffolding-cli)](https://www.npmjs.com/package/@amidostacks/scaffolding-cli)
 
-Please read through the [scaffolding-cli](../../docs/cli_process.md) for more
-information.
+Please refer to the [scaffolding-cli](https://github.com/amido/stacks-webapp-template/tree/master/packages/scaffolding-cli) package for more information.
 
 ## Scaffolding-cli
 
@@ -125,4 +130,4 @@ We are using [Jest.js](https://jestjs.io/) for testing including code coverage.
 ## Versioning and Publishing
 
 For information on how to version and publish changes to this package, please
-see [Publishing Packages](../../docs/publishing.md).
+see [Publishing Packages](./publishing.md).

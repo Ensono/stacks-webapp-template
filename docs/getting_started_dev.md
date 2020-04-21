@@ -1,7 +1,7 @@
 ---
-id: getting-started
-title: Using the CLI to Template an Application
-sidebar_label: Templating an Application
+id: getting_started_dev
+title: Dev - Using the repo to build an application
+sidebar_label: Dev - Using the repo to build an application
 ---
 
 ## Getting started
@@ -27,4 +27,3 @@ All of our packages, including the `@amidostacks/scaffolding-api` are available 
 See the README for more information on generating the templates from the CLI: [packages/scaffolding-cli/README.md](https://github.com/amido/stacks-webapp-template/blob/master/packages/scaffolding-cli/README.md)
 
 Once built, when starting the server and webapp, Aa browser window should open up and automatically navigate you to the local instance, but if not the default URLS is `http://localhost:3000`.
-

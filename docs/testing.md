@@ -21,7 +21,6 @@ After which, we have two different processes, one for pre-deployment tests (unit
 
 To be run on master once the pull request (PR) has been approved and passed all pre-deployment tests.
 
-
 ## Quality Gates
 
 The following demonstrates the series of quality gates that the webapp must pass through in order to successfully be deployed to a user facing environment (production).

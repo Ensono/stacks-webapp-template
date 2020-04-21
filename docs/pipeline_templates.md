@@ -1,5 +1,5 @@
 ---
-id: pipelines
+id: pipeline_templates
 title: Pipeline Templates
 sidebar_label: Pipeline Templates
 ---
