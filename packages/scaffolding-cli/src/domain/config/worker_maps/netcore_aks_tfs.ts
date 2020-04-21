@@ -1,6 +1,6 @@
 import { BuildReplaceInput } from "../file_mapper"
 import { BusinessSection, CloudSection } from "../../model/prompt_answer"
-
+import { startCase, toLower } from 'lodash'
 /**
  * 
  * Statically assign the file mapping from temp and the Key/Value mapp of strings to replace in file
@@ -17,12 +17,10 @@ export const in_files = (project_name: string, business_obj?: BusinessSection, c
             }
         },
         {
-            files: ["**/vars.tf"],
+            files: ["**/*.cs", "**/*.sln", "**/Dockerfile", "**/*.csproj"],
             values: {
-                "replace_company_name": business_obj?.company || "default",
-                "replace_project_name": business_obj?.project || "default",
-                "replace_component_name": business_obj?.component || "default",
-                "replace_azure_location": cloud_obj?.region || "uksouth"
+                "xxAMIDOxx": startCase(toLower(business_obj?.company)) || "Company",
+                "xxSTACKSxx": startCase(toLower(business_obj?.project)) || "Project",
             }
         }
     ]
