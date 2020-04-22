@@ -151,4 +151,3 @@ It's important to get the `PACT_CONSUMER` and `PACT_PROVIDER` names correct, as 
 
 ⚠️ /pacts: these are checked in for reference only. Please do not changed the outputted .json files. They are created on successful test runs by Pact. These will be published to the broker upon successful run in the pipeline, with the corresponding version tags.
 
-
