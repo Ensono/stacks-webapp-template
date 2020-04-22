@@ -1,5 +1,4 @@
 import pact, {CanDeploy, CanDeployPacticipant} from "@pact-foundation/pact-node"
-import {json} from "body-parser"
 
 const participant: CanDeployPacticipant = {
     name: process.env.PACT_CONSUMER,
