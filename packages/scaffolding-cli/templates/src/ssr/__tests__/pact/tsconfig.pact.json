@@ -2,11 +2,7 @@
   "compilerOptions": {
     "outDir": "",
     "target": "es5",
-    "types": [
-      "node", "jest"
-    ]
+    "types": ["node", "jest"]
   },
-  "exclude": [
-    "**/*test.pact.ts"
-  ]
+  "exclude": ["**/*test.pact.ts"]
 }
