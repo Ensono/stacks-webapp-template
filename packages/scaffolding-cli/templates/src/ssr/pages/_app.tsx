@@ -64,7 +64,8 @@ class _App extends App<AppWithStore> {
 }
 
 const appInsightsConfig = {
-    instrumentationKey: getConfig().publicRuntimeConfig.APPINSIGHTS_KEY,
+    instrumentationKey: getConfig().serverRuntimeConfig
+        .APPINSIGHTS_INSTRUMENTATIONKEY,
     isEnabled: true,
 }
 
