@@ -67,7 +67,7 @@ variables:
   version_minor: 0
   version_revision: $[counter(variables['version_minor'], 0)]
   # Docker Config
-  docker_dockerfile_path: "src/"
+  docker_dockerfile_path: "src/api"
   docker_image_name: $(self_generic_name)
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
   docker_container_registry_name: $(company)$(project)nonprod$(domain)
@@ -114,7 +114,7 @@ stages:
             persistCredentials: true
             target: k8s_deploy
           # BUILD NPM
-          - template: templates/steps/build-node.yml
+          - template: templates/steps/build-netcore.yml
             parameters:
               # Docker Config
               build_on_server: false
@@ -129,26 +129,14 @@ stages:
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
               # Sonar settings
-              static_code_analysis: true
+              static_code_analysis: false
               #Linting and formatting validation
               lint_formatting: false
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
-              unit_test: true
+              unit_test: false
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               unit_test_project: "$(Test.UnitTestProjectPath)"
-              component_test: false
-              component_test_project: "$(Test.ComponentTestProjectPath)"
-              cypress_e2e_test: true
-              cypress_applitools_test: true
-              cypress_e2e_env_vars:
-                PORT: 3000
-                APP_BASE_URL: "http://localhost"
-                MENU_API_URL: "http://dev.amidostacks.com/api/menu"
-                APP_BASE_PATH: ""
-                NODE_ENV: dev
-                # avoid warnings about terminal
-                TERM: xterm
               # Build Output File
               # files to be persisted across stages
               build_file: true
@@ -165,7 +153,7 @@ stages:
       - group: amido-stacks-infra-credentials-nonprod
       - group: amido-stacks-demo-api
     jobs:
-      - job: AppInfraDev
+      - job: ApiInfraDev
         variables:
           foo: bar 
         pool:

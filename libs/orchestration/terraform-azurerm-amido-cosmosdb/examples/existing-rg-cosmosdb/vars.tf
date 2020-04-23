@@ -13,18 +13,23 @@ variable "name_company" {
 
 variable "name_project" {
   type    = string
-  default = "stacks-node"
+  default = "stacks"
 
 }
 
 variable "name_component" {
   type    = string
-  default = "infra"
+  default = "api"
+}
+
+variable "name_environment" {
+  type    = string
+  default = "api"
 }
 
 variable "stage" {
   type    = string
-  default = "nonprod"
+  default = "dev"
 }
 
 variable "attributes" {
@@ -40,11 +45,6 @@ variable "tags" {
 # AZURE INFORMATION
 ############################################
 
-# RELYING PURELY ON ENVIRONMENT VARIABLES as the user can control these from their own environment
-
-variable "client_secret" {
-  type = string
-}
 
 ############################################
 # RESOURCE INFORMATION
@@ -77,7 +77,7 @@ variable "internal_dns_zone" {
 }
 
 variable "pfx_password" {
-  type = string
+  type    = string
   default = "Password1"
 }
 

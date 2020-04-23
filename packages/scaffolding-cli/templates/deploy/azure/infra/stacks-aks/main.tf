@@ -68,3 +68,10 @@ module "ssl_app_gateway" {
   subnet_backend_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 4)
   subnet_names              = ["k8s1"]
 }
+
+####
+# Additional modules need to go here as they can be re-used across app deployments
+# Additional user defined resources
+####
+
+# e.g. Azure frontdoor etc...

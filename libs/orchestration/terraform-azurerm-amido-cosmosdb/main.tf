@@ -1,23 +1,14 @@
 ##################################################
-# ResourceGroups
-##################################################
-
-resource "azurerm_resource_group" "default" {
-  name     = local.resource_group_name_env
-  location = var.resource_group_location_env
-  tags     = var.resource_group_tags
-}
-
-##################################################
 # CosmosDB Resources
 ##################################################
 
 resource "azurerm_cosmosdb_account" "default" {
-  name                = local.cosmosdb_account_name
-  location            = azurerm_resource_group.env.location
-  resource_group_name = azurerm_resource_group.env.name
-  offer_type          = "Standard"
-  kind                = "GlobalDocumentDB"
+  count               = var.create_cosmosdb ? 1 : 0
+  name                = var.resource_namer
+  resource_group_name = var.resource_group_name
+  location            = var.resource_group_location
+  offer_type          = var.cosmosdb_offer_type
+  kind                = var.cosmosdb_kind
 
   enable_automatic_failover = true
 
@@ -28,23 +19,24 @@ resource "azurerm_cosmosdb_account" "default" {
   }
 
   geo_location {
-    location          = azurerm_resource_group.env.location
+    location          = var.resource_group_location
     failover_priority = 0
   }
-
 }
 
 resource "azurerm_cosmosdb_sql_database" "default" {
-  name                = var.cosmosDBdatabaseName
-  resource_group_name = azurerm_cosmosdb_account.account.resource_group_name
-  account_name        = azurerm_cosmosdb_account.account.name
+  count               = var.create_cosmosdb ? 1 : 0
+  name                = var.resource_namer
+  resource_group_name = azurerm_cosmosdb_account.default.0.resource_group_name
+  account_name        = azurerm_cosmosdb_account.default.0.name
 }
 
+# TODO: make this an array of maps
 resource "azurerm_cosmosdb_sql_container" "default" {
+  count               = var.create_cosmosdb ? 1 : 0
   name                = var.cosmosdb_sql_container
-  resource_group_name = azurerm_cosmosdb_account.account.resource_group_name
-  account_name        = azurerm_cosmosdb_account.account.name
-  database_name       = azurerm_cosmosdb_sql_database.db.name
-  partition_key_path  = "/id"
+  resource_group_name = azurerm_cosmosdb_account.default.0.resource_group_name
+  account_name        = azurerm_cosmosdb_account.default.0.name
+  database_name       = azurerm_cosmosdb_sql_database.default.0.name
+  partition_key_path  = var.cosmosdb_sql_container_partition_key
 }
-
