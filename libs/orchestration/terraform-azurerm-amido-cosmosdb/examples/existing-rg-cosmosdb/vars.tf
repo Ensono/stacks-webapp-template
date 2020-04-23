@@ -8,29 +8,23 @@
 
 variable "name_company" {
   type    = string
-  default = "replace_company_name"
+  default = "amido"
 }
 
 variable "name_project" {
   type    = string
-  default = "replace_project_name"
+  default = "stacks-node"
 
 }
 
 variable "name_component" {
   type    = string
-  default = "replace_component_name"
+  default = "infra"
 }
-
-variable "name_environment" {
-  type    = string
-  default = "nonprod"
-}
-
 
 variable "stage" {
   type    = string
-  default = "dev"
+  default = "nonprod"
 }
 
 variable "attributes" {
@@ -46,15 +40,32 @@ variable "tags" {
 # AZURE INFORMATION
 ############################################
 
+# RELYING PURELY ON ENVIRONMENT VARIABLES as the user can control these from their own environment
+
 variable "client_secret" {
   type = string
 }
 
+############################################
+# RESOURCE INFORMATION
+############################################
 variable "resource_group_location" {
   type    = string
   default = "uksouth"
 }
 
+# variable "resource_group_tags" {
+#   type    = map(string)
+#   default = {}
+# }
+
+# variable "resource_group_name" {
+#   type = string
+# }
+
+# ###########################
+# # DNS SETTINGS
+# ##########################
 variable "dns_zone" {
   type    = string
   default = "nonprod.amidostacks.com"
@@ -69,6 +80,7 @@ variable "pfx_password" {
   type = string
   default = "Password1"
 }
+
 
 # ###########################
 # # CONDITIONALS
@@ -86,19 +98,4 @@ variable "create_aksvnet" {
 variable "create_user_identiy" {
   type    = bool
   default = true
-}
-
-variable "cluster_version" {
-  type = string
-  default = 1.16.7
-}
-
-variable "create_acr" {
-  type = bool
-  default = false  
-}
-
-variable "acr_resource_group" {
-  type = string 
-  default = ""  
 }

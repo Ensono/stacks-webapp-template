@@ -63,6 +63,7 @@ variables:
   aks_clusterrg_nonprod: $(company)-$(project)-nonprod-$(domain)
   aks_clustername_nonprod: $(company)-$(project)-nonprod-$(domain)
   aks_dns_resource_group_name_nonprod: $(company)-$(project)-nonprod-$(domain)
+  aks_cluster_version: "1.16.7"
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   deployed_base_url: https://stacks-webapp.com/foo
@@ -130,6 +131,8 @@ stages:
             TF_VAR_name_project: $(project),
             TF_VAR_name_component: $(domain),
             TF_VAR_name_environment: nonprod,
+            TF_VAR_create_acr: true,
+            TF_VAR_cluster_version: $(aks_cluster_version),
             TF_VAR_stage: nonprod,
             TF_VAR_dns_zone: $(base_domain),
             TF_VAR_internal_dns_zone: $(base_domain_internal)

@@ -1,7 +1,7 @@
 # acr 
 resource "azurerm_container_registry" "registry" {
   count               = var.create_acr ? 1 : 0
-  name                = replace(var.resource_namer, "-", "")
+  name                = var.acr_registry_name
   resource_group_name = azurerm_resource_group.default.name
   location            = var.resource_group_location
   admin_enabled       = var.registry_admin_enabled
@@ -82,14 +82,6 @@ resource "azurerm_kubernetes_cluster" "default" {
     type = "SystemAssigned"
   }
 
-  # # TODO: remove this eventually 
-  # # [here](https://docs.microsoft.com/en-us/azure/aks/use-managed-identity)
-  # # this will be a more generic cloud approach
-  # service_principal {
-  #   client_id     = "msi"
-  #   client_secret = "null" # ==> MSI ignores this value and is managed by AAD
-  # }
-
   lifecycle {
     ignore_changes = [
       default_node_pool.0.node_count,
@@ -102,11 +94,15 @@ resource "azurerm_kubernetes_cluster" "default" {
   ]
 }
 
+# perform lookup on existing ACR for stages where we don't want to create an ACR
+data "azurerm_container_registry" "acr_registry" {
+  count = var.create_acr ? 0 : 1
+  name = var.acr_registry_name
+  resource_group_name = var.acr_resource_group
+}
 
 resource "azurerm_role_assignment" "acr" {
-  # scope                = data.azurerm_subscription.primary.id
-  count                 = var.create_acr ? 1 : 0
-  scope                = azurerm_container_registry.registry.0.id
+  scope                = var.create_acr ? azurerm_container_registry.registry.0.id : data.azurerm_container_registry.acr_registry.0.id
   role_definition_name = "Contributor"
   principal_id         = azurerm_kubernetes_cluster.default.0.identity.0.principal_id
   depends_on = [
@@ -130,8 +126,7 @@ data "azurerm_user_assigned_identity" "aks_rg_id" {
 }
 
 resource "azurerm_role_assignment" "acr2" {
-  count                 = var.create_acr ? 1 : 0
-  scope                = azurerm_container_registry.registry.0.id
+  scope                = var.create_acr ? azurerm_container_registry.registry.0.id : data.azurerm_container_registry.acr_registry.0.id
   role_definition_name = "Contributor"
   principal_id         = data.azurerm_user_assigned_identity.aks_rg_id.principal_id 
   skip_service_principal_aad_check = true

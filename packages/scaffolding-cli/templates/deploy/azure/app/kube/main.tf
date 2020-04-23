@@ -16,7 +16,7 @@ module "default_label" {
 }
 
 # We are keeping this as a lookup
-# since proper conventions for naming of resources shuld be followed 
+# since proper conventions for naming of resources should be followed 
 # and things can always be looked up without resorting to cross state searches
 data "azurerm_public_ip" "app_gateway" {
   name                = var.app_gateway_frontend_ip_name
@@ -42,4 +42,3 @@ resource "azurerm_dns_a_record" "example" {
 #   source = "narens_module" 
 # }
 
-# t12p -var "app_gateway_frontend_ip_name=amido-stacks-nonprod-node" -var "dns_record=app" -var "resource_group_name=amido-stacks-nonprod-node" -var "dns_zone_name=nonprod.amidostacks.com"
