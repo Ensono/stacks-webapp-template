@@ -1,17 +1,17 @@
 {
-  "project_name": "test-app-1-netcore",
-  "project_type": "netcore",
+  "project_name": "test-app-1",
+  "project_type": "ssr",
   "platform": "aks",
   "deployment": "azdevops",
   "advanced_config": true,
   "create_config": false,
-  "cloud": {
-    "region": "uksouth",
-    "resource_group": "string"
-  },
-  "business": {
-    "company": "compnay",
-    "project": "project",
-    "component": "string"
-  }
+  "cloud_region": "uksouth",
+  "cloud_resource_group": "string",
+  "business_company": "company",
+  "business_project": "project",
+  "business_domain": "api",
+  "business_component": "billing",
+  "source_control_repo_type": "github",
+  "source_control_repo_name": "Name-Of-Repo",
+  "source_control_repo_url": "https://github/sample.git"
 }

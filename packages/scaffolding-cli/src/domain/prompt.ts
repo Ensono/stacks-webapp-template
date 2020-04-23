@@ -83,13 +83,14 @@ async function advancedCliQuestion(basicSelection: PromptAnswer): Promise<Prompt
  * @param config_path 
  */
 async function getFromConfig(config_path: string): Promise<CliAnswerModel> {
-   let configSelection: CliAnswerModel
+   let configSelection: PromptAnswer
     if (isAbsolute(config_path)){
         configSelection = JSON.parse(readFileSync(config_path, 'utf-8').trim())
     } else {
         configSelection = JSON.parse(readFileSync(resolve(process.cwd(), config_path),'utf-8').trim())
     }
-    return configSelection;
+
+    return computedSelection(configSelection);
 }
 
 async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {

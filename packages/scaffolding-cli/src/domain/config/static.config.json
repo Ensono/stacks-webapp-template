@@ -21,11 +21,11 @@
         "dest": "build/azDevops/azure/app-pipeline.yml"
       },
       {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-ssr.yml",
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
         "dest": "build/azDevops/azure/infra-pipeline.yml"
       },
       {
-        "src": "deploy/azure/infra/ssr",
+        "src": "deploy/azure/infra/stacks-aks",
         "dest": "deploy/azure/infra"
       },
       {

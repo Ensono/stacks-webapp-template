@@ -13,11 +13,11 @@ pr: none
 trigger:
   branches:
     include:
-    - "*"
+    - '*'
   paths:
     include:
-    - packages/scaffolding-cli/templates/build/*
-    - packages/scaffolding-cli/templates/deploy/*
+    - 'packages/scaffolding-cli/templates/build/*'
+    - 'packages/scaffolding-cli/templates/deploy/*'
 
 resources:
   repositories:
@@ -35,30 +35,34 @@ resources:
 variables:
   company: amido
   project: stacks
-  domain: webapp
-  component: node
+  domain: node
+  component: webapp
   # Versioning
   version_major: 0
   version_minor: 0
   version_revision: $[counter(variables['version_minor'], 0)]
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
-  self_repo_tf_src: deploy/azure/infra/ssr
+  self_repo_tf_src: deploy/azure/infra/stacks-aks
   # TF STATE CONFIG
   tf_state_rg: amido-stacks-rg-uks
   tf_state_storage: amidostackstfstategbl
   tf_state_container: tfstate
+  # Stacks operates Terraform states based on workspaces **IT IS VERY IMPORTANT** that you ensure a unique name for each application definition
+  # Furthermore **IT IS VERY IMPORTANT** that you change the name of a workspace for each deployment stage
+  # there are some best practices around this if you are going for feature based environments
+  # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
+  # **`terraform_state_workspace: `** all states will be saved under this key for this definition
+  # avoid running anything past dev that is not on master
+  # sample value: sharedservices
   tf_state_key: sharedservices
   # Docker Config
-  docker_dockerfile_path: 'src/'
-  docker_image_name: stacks-webapp
-  docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
-  docker_container_registry_name: amidostacksnonprodnode
+  docker_container_registry_name: $(company)$(project)nonprod$(domain)
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - compnonent names above 
-  aks_clusterrg_nonprod: amido-stacks-nonprod-node
-  aks_clustername_nonprod: amido-stacks-nonprod-node
-  aks_dns_resource_group_name_nonprod: amido-stacks-nonprod-node
+  aks_clusterrg_nonprod: $(company)-$(project)-nonprod-$(domain)
+  aks_clustername_nonprod: $(company)-$(project)-nonprod-$(domain)
+  aks_dns_resource_group_name_nonprod: $(company)-$(project)-nonprod-$(domain)
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   deployed_base_url: https://stacks-webapp.com/foo

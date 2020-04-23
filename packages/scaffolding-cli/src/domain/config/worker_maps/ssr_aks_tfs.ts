@@ -1,5 +1,5 @@
 import { BuildReplaceInput } from "../file_mapper"
-import { BusinessSection, CloudSection } from "../../model/prompt_answer"
+import { BusinessSection, CloudSection, TerraformSection, SourceControlSection } from "../../model/prompt_answer"
 
 /**
  * 
@@ -8,38 +8,16 @@ import { BusinessSection, CloudSection } from "../../model/prompt_answer"
  * @param business_obj 
  * @param cloud_obj 
  */
-export const in_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection): Array<BuildReplaceInput> => {
+export const in_files = ({ project_name, business_obj, cloud_obj, terraform_obj, scm_obj }: { project_name: string; business_obj?: BusinessSection; cloud_obj?: CloudSection; terraform_obj?: TerraformSection; scm_obj?: SourceControlSection }): Array<BuildReplaceInput> => {
     return [
-        {
-            files: ["**/*.md", "**/package.json", "**/*.properties"],
-            values: {
-                "project_name": project_name
-            }
-        },
         {
             files: ["**/*-pipeline.yml"],
             values: {
-                "stacks-webapp-template/packages/scaffolding-cli/templates": "REPLACE_ME_FOR_REPO_NAME",
                 "src/ssr": "src",
-                "packages/scaffolding-cli/templates/": "",
-                "amido-stacks-nonprod-node": "REPLACE_ME_FOR_RG_NAME",
-                "amidostacksnonprodnode": "REPLACE_ME_FOR_ACR_NAME", // cloud_obj?.acr_name
-                "nonprod.amidostacks.com": "REPLACE_ME_FOR_DOMAIN",
-                "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
                 "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
-                "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
-                "tf_state_key: sharedservices": "tf_state_key: REPLACE_ME_FOR_STATE_KEY",
+                "tf_state_key: stacks-webapp": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_MY_APP%`,
                 "deploy/azure/app/kube": "deploy/azure/app",
-                "terraform_state_workspace: sharedservices": "terraform_state_workspace: REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE"
-            }
-        },
-        // this is unnecessary as the yml place the values in the tf at runtime
-        {
-            files: ["**/vars.tf"],
-            values: {
-                "replace_project_name": business_obj?.project || "default",
-                "replace_component_name": business_obj?.component || "default",
-                "replace_azure_location": cloud_obj?.region || "uksouth",
+                "terraform_state_workspace: dev": "terraform_state_workspace: %REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE%"
             }
         }
     ]

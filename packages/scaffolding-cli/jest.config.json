@@ -40,7 +40,7 @@
   "coverageDirectory": "<rootDir>./coverage/",
   "coverageThreshold": {
     "global": {
-      "statements": 90,
+      "statements": 80,
       "branches": 0,
       "functions": 0,
       "lines": 0
