@@ -3,11 +3,11 @@ using OpenQA.Selenium.Chrome;
 
 namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
 {
-    public class WebDriverFactory
+  public class WebDriverFactory
+  {
+    public static IWebDriver GetWebDriver()
     {
-        public static IWebDriver GetWebDriver()
-        {
-            return new ChromeDriver();
-        }
+      return new ChromeDriver();
     }
+  }
 }

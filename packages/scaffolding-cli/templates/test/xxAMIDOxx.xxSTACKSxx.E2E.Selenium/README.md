@@ -216,6 +216,10 @@ This is where all the step definitions are created.
 
 https://github.com/thangchung/awesome-dotnet-core
 
+## C# Coding Standards and Naming Conventions
+
+See https://github.com/ktaranov/naming-convention/blob/master/C%23%20Coding%20Standards%20and%20Naming%20Conventions.md for best practices.
+
 ## Contributing
 
 See our contribution guidelines at [www.github/amido/stacks](https://github.com/amido/stacks) for more information!
