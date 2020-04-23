@@ -238,3 +238,20 @@ publishing in a pipeline. Namely the following:
 4. Lerna cannot version or publish in a detached HEAD state, making pipeline
    versioning and publishing really hard.
 5. It should probably just be done locally...
+
+## FAQ
+
+Q: What happens if the pipeline fails with error about working tree with uncommitted changes?
+A: If you see the following error in the logs on the `Publish: Publish packages using lerna` task:
+
+```log
+lerna ERR! EUNCOMMIT Working tree has uncommitted changes, please commit or remove the following changes before continuing:
+lerna ERR! EUNCOMMIT  M package-lock.json
+```
+
+This could mean that that the monorepo root `package.json` and `package-lock.json` are out of sync on `master` branch. Try deleting the `package-lock.json` and re-installing depedencies, and test then the new lock file.
+
+```bash
+stacks-webapp-template $ rm package-lock.json
+stacks-webapp-template $ npm install
+```
