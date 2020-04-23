@@ -11,6 +11,12 @@ import { BusinessSection, CloudSection, TerraformSection, SourceControlSection }
 export const in_files = ({ project_name, business_obj, cloud_obj, terraform_obj, scm_obj }: { project_name: string; business_obj?: BusinessSection; cloud_obj?: CloudSection; terraform_obj?: TerraformSection; scm_obj?: SourceControlSection }): Array<BuildReplaceInput> => {
     return [
         {
+            files: ["**/package.json"],
+            values: {
+                "project_name": project_name
+            }
+        },
+        {
             files: ["**/*-pipeline.yml"],
             values: {
                 "src/ssr": "src",

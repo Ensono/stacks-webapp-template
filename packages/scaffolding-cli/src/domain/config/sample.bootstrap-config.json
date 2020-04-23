@@ -11,9 +11,9 @@
   "business_project": "replace_business_project",
   "business_domain": "replace_business_domain",
   "business_component": "replace_business_component",
-  "source_control_repo_type": "github",
-  "source_control_repo_name": "my-repo-git",
-  "source_control_repo_url": "https://github/sample.git",
+  "source_control_repo_type": "replace_source_control_repo_type",
+  "source_control_repo_name": "replace_source_control_repo_name",
+  "source_control_repo_url": "replace_source_control_repo_url",
   "terraform_backend_storage": "replace_terraform_backend_storage",
   "terraform_backend_storage_rg": "replace_terraform_backend_storage_rg",
   "terraform_backend_storage_container": "replace_terraform_backend_storage_container"

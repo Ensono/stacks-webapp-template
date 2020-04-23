@@ -11,7 +11,7 @@ import { BuildReplaceInput } from '../file_mapper'
 export const in_files = ({ project_name, business_obj, cloud_obj, terraform_obj, scm_obj }: { project_name: string; business_obj?: BusinessSection; cloud_obj?: CloudSection; terraform_obj?: TerraformSection; scm_obj?: SourceControlSection }): Array<BuildReplaceInput> => {
     return [
         {
-            files: ["**/*.md", "**/package.json", "**/*.properties"],
+            files: ["**/*.md", "**/*.properties"],
             values: {
                 "project_name": project_name
             }

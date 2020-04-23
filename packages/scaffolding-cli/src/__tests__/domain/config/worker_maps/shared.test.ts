@@ -32,7 +32,7 @@ let terraform_obj: TerraformSection = <TerraformSection>{
 
 let files: Array<BuildReplaceInput> = [
     {
-        files: ["**/*.md", "**/package.json", "**/*.properties"],
+        files: ["**/*.md", "**/*.properties"],
         values: {
             "project_name": test_project_name
         }

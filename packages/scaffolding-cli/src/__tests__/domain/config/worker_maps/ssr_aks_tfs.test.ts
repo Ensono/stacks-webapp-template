@@ -20,6 +20,12 @@ let cloud: CloudSection = <CloudSection>{
 
 let files: Array<BuildReplaceInput> = [
     {
+        files: ["**/package.json"],
+        values: {
+            "project_name": proj_name
+        }
+    },
+    {
         files: ["**/*-pipeline.yml"],
         values: {
             "src/ssr": "src",
