@@ -3,6 +3,42 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.22.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.2...@amidostacks/scaffolding-cli@1.22.0) (2020-04-24)
+
+
+### Bug Fixes
+
+* acr pointer in base yml ([958523a](https://github.com/amido/stacks-webapp-template/commit/958523a9c403176f160b150def9aa1c372c08e5a))
+* additional notes around app level deployments ([d0ddcda](https://github.com/amido/stacks-webapp-template/commit/d0ddcda99b38918e70a0958195bf0401b78c9ad1))
+* apiVersion for cluster external-dns ([df4b13f](https://github.com/amido/stacks-webapp-template/commit/df4b13fa0c903d2808bee4b60c02cbb6eb627547))
+* array for fileNameReplace function ([c6f3f7a](https://github.com/amido/stacks-webapp-template/commit/c6f3f7a12df0068e96644e499e7ef773a3b01180))
+* change the output to be dynamic in infra aks ([6756491](https://github.com/amido/stacks-webapp-template/commit/67564918acfaf0c395b9bef1ce8401dad7a4bceb))
+* change to number aks cluster version ([5135103](https://github.com/amido/stacks-webapp-template/commit/513510352033b1150aa4090a22f5b1b49edce2da))
+* changed back to string  duh ([a817c9b](https://github.com/amido/stacks-webapp-template/commit/a817c9b840d541fc5fa7193b8816dbe03ca983f3))
+* cluster update and naming convention updated ([16947c3](https://github.com/amido/stacks-webapp-template/commit/16947c3543459b02759f56dbc3a428f50b4279e4))
+* dependcy mapping in TF for outputs ([32d9cf8](https://github.com/amido/stacks-webapp-template/commit/32d9cf8fbc2c711610f11ad33a1fda5ab974364d))
+* docs and shared file replace ([9715361](https://github.com/amido/stacks-webapp-template/commit/9715361e1cc03e5d05081146bf40717fdb1e8e63))
+* emergency ([0829467](https://github.com/amido/stacks-webapp-template/commit/0829467e340630267078e709cb2db7265d7f6e28))
+* ensure app workspaces are unique ([02562e5](https://github.com/amido/stacks-webapp-template/commit/02562e5b8ea6cde478ae78b7bb42f45a280420df))
+* external-dns latest k8s implementation ([f19184c](https://github.com/amido/stacks-webapp-template/commit/f19184ca2f53f53e4415c2d8dc4f29d61c1f3484))
+* netcore own yaml ([a147d40](https://github.com/amido/stacks-webapp-template/commit/a147d403689b36e3b3e935fe8f3c3a54d27f5b88))
+* removed app Insights key from public ([#125](https://github.com/amido/stacks-webapp-template/issues/125)) ([bb16b1a](https://github.com/amido/stacks-webapp-template/commit/bb16b1a63d47618d82f94bb395e306e8bd792236))
+* sonar smells ([173ee85](https://github.com/amido/stacks-webapp-template/commit/173ee850c8b4a77fd9c4724ef9e747c2b6ddd595))
+* upgrade cluster ([c51f690](https://github.com/amido/stacks-webapp-template/commit/c51f690e94fea7a442bce4dd47efdcbac83e42bc))
+* user module updated with outputs ([147d5be](https://github.com/amido/stacks-webapp-template/commit/147d5be2896274f87d11d2d2a39b51094573d85c))
+
+
+### Features
+
+* bootstrap selenium framework ([596fce5](https://github.com/amido/stacks-webapp-template/commit/596fce588bb6784fe4898d4c996a8daf4cdfba52))
+* Search ([#119](https://github.com/amido/stacks-webapp-template/issues/119)) ([d4dbf04](https://github.com/amido/stacks-webapp-template/commit/d4dbf04cd4cbdd761de962f0c8388f02b6489497))
+* search helper text ([#124](https://github.com/amido/stacks-webapp-template/issues/124)) ([fa89290](https://github.com/amido/stacks-webapp-template/commit/fa89290a74062e7de46be859c3b2fda1b2eb475e))
+* search input throttled. ([#123](https://github.com/amido/stacks-webapp-template/issues/123)) ([86842b7](https://github.com/amido/stacks-webapp-template/commit/86842b7c5b885d3c140c47eea0ed3126e680cfa4))
+
+
+
+
+
 ## [1.21.1](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.21.1) (2020-04-17)
 
 
