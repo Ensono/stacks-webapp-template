@@ -33,11 +33,6 @@ React in production mode and optimizes the build for the best performance.
 The build is minified and the filenames include the hashes.<br /> Your app is
 ready to be deployed!
 
-### Analyzing the Bundle Size
-
-This section has moved here:
-https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
 ### Making a Progressive Web App
 
 This section has moved here:
