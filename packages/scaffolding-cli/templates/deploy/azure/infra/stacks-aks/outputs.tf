@@ -41,12 +41,10 @@ output "aks_cluster_name" {
 
 output "acr_resource_group_name" {
   value = module.aks_bootstrap.acr_resource_group_name
-
 }
 
 output "acr_registry_name" {
   value = module.aks_bootstrap.acr_registry_name
-
 }
 
 ### Identity ###
