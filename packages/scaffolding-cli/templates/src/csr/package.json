@@ -144,5 +144,9 @@
     "presets": [
       "react-app"
     ]
+  },
+  "license": "MIT",
+  "repository": {
+    "url": "git://github.com/amido/stacks-webapp-template"
   }
 }
