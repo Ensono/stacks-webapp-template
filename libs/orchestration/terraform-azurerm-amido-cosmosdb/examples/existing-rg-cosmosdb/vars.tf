@@ -54,14 +54,22 @@ variable "resource_group_location" {
   default = "uksouth"
 }
 
-# variable "resource_group_tags" {
-#   type    = map(string)
-#   default = {}
-# }
+# Each region must have corresponding a shortend name for resource naming purposes 
+variable "location_name_map" {
+  type = map(string)
 
-# variable "resource_group_name" {
-#   type = string
-# }
+  default = {
+    northeurope   = "eun"
+    westeurope    = "euw"
+    uksouth       = "uks"
+    ukwest        = "ukw"
+    eastus        = "use"
+    eastus2       = "use2"
+    westus        = "usw"
+    eastasia      = "ase"
+    southeastasia = "asse"
+  }
+}
 
 # ###########################
 # # DNS SETTINGS

@@ -78,15 +78,7 @@ variable "create_cosmosdb" {
   default = true
 }
 
-
 ###########################
-
-# locals {
-#   cosmosdb_account_name            = "${var.name_company}${var.name_platform}${var.name_component}cda${var.location_name_map[var.resource_group_location_env]}${var.name_environment}"
-#   cosmosdb_table_name             = "${var.name_company}${var.name_platform}${var.name_component}cdt${var.location_name_map[var.resource_group_location_env]}${var.name_environment}"
-#   cosmosdb_db_name             = "${var.name_company}${var.name_platform}${var.name_component}cdb${var.location_name_map[var.resource_group_location_env]}${var.name_environment}"
-#   resource_group_name_env      = "${var.name_company}-${var.name_platform}-${var.name_component}-rg-${var.location_name_map[var.resource_group_location_env]}-${var.name_environment}"
-# }
 
 variable "resource_namer" {
   type    = string

@@ -9,7 +9,7 @@ module "default_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.16.0"
   namespace  = "${var.name_company}-${var.name_project}"
   stage      = var.stage
-  name       = var.name_component
+  name       = "${lookup(var.location_name_map, var.resource_group_location, "uksouth")}-${var.name_component}"
   attributes = var.attributes
   delimiter  = "-"
   tags       = var.tags
@@ -39,12 +39,12 @@ resource "azurerm_dns_a_record" "example" {
 # Additional modules need to go here as they can be re-used across app deployments
 #### 
 # module "observability" {
-#   source = "narens_module" 
+#   source = "git://...." 
 # }
 
 module "cosmosdb" {
   source                               = "../../"
-  create_cosmosdb                      = true
+  create_cosmosdb                      = var.create_cosmosdb
   resource_namer                       = module.default_label.id
   name_environment                     = "dev-feature"
   name_project                         = var.name_project

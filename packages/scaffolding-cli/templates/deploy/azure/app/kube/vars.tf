@@ -36,6 +36,23 @@ variable "tags" {
   default = {}
 }
 
+# Each region must have corresponding a shortend name for resource naming purposes 
+variable "location_name_map" {
+  type = map(string)
+
+  default = {
+    northeurope   = "eun"
+    westeurope    = "euw"
+    uksouth       = "uks"
+    ukwest        = "ukw"
+    eastus        = "use"
+    eastus2       = "use2"
+    westus        = "usw"
+    eastasia      = "ase"
+    southeastasia = "asse"
+  }
+}
+
 ############################################
 # AZURE INFORMATION
 ############################################
@@ -71,3 +88,21 @@ variable "internal_dns_zone_name" {
   type    = string
   default = "nonprod.amidostacks.internal"
 }
+
+variable "resource_group_location" {
+  type    = string
+  default = "uksouth"
+}
+
+variable "resource_group_name" {
+  type = string
+}
+
+###########################
+# CONDITIONAL SETTINGS
+##########################
+variable "create_cosmosdb" {
+  type    = bool
+  default = true
+}
+

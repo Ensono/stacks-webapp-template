@@ -3,9 +3,9 @@ data "azurerm_client_config" "current" {}
 # Naming convention 
 module "default_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.16.0"
-  namespace  = "${var.name_company}-${var.name_project}"
+  namespace  = format("%s-%s", var.name_company, var.name_project)
   stage      = var.stage
-  name       = var.name_component
+  name       = "${lookup(var.location_name_map, var.resource_group_location, "uksouth")}-${var.name_component}"
   attributes = var.attributes
   delimiter  = "-"
   tags       = var.tags
