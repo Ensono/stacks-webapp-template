@@ -15,6 +15,32 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Pages
       wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(5));
     }
 
+    public void Select(By locator)
+    {
+      SelectElementWhenClickable(locator);
+    }
+
+    public void Click(By locator)
+    {
+      ClickElementWhenVisible(locator);
+    }
+
+    public bool Displayed(By locator)
+    {
+      WaitForElementToBeVisible(locator);
+      return true;
+    }
+
+    public void TypeText(By locator, string text)
+    {
+      SendKeysToElementWhenVisible(locator, text);
+    }
+
+    public string Text(By locator)
+    {
+      return GetElementTextWhenVisible(locator);
+    }
+
     protected void WaitForElementToBeVisible(By locator, int timeoutSeconds = 5)
     {
       wait.Timeout = TimeSpan.FromSeconds(timeoutSeconds);

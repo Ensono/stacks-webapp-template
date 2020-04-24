@@ -9,10 +9,5 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Components
     }
 
     public By createMenu = By.CssSelector("[data-testid='create_button']");
-
-    public void Click(By locator)
-    {
-      ClickElementWhenVisible(locator);
-    }
   }
 }

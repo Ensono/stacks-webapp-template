@@ -9,10 +9,5 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Components
     }
 
     public By message = By.Id("snackbar-message-id");
-
-    public string Text(By locator)
-    {
-      return GetElementTextWhenVisible(locator);
-    }
   }
 }

@@ -10,7 +10,7 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Steps
 
     public CreateMenu(SeleniumWrapper seleniumWrapper)
     {
-      this.user = seleniumWrapper;
+      user = seleniumWrapper;
     }
 
     #region Step Definitions

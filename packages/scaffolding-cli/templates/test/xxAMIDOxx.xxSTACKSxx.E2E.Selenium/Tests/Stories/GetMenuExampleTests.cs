@@ -1,7 +1,7 @@
 using TestStack.BDDfy;
-using Xunit;
 using xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Fixtures;
 using xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Steps;
+using Xunit;
 
 namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Stories
 {
@@ -17,8 +17,8 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Stories
 
     public GetMenuExampleTests(BaseSetup fixture)
     {
-      this.fixtures = fixture;
-      steps = new CreateMenu(fixture.seleniumWrapper);
+      fixtures = fixture;
+      steps = new CreateMenu(fixture.SeleniumWrapper);
     }
 
     [Fact]

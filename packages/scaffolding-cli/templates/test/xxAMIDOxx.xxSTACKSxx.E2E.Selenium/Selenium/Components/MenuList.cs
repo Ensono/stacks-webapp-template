@@ -9,11 +9,5 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Components
     }
 
     public By menuList = By.CssSelector("[data-testid='results']");
-
-    public bool Displayed(By locator)
-    {
-      WaitForElementToBeVisible(locator);
-      return true;
-    }
   }
 }
