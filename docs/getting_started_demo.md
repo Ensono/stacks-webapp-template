@@ -29,35 +29,11 @@ Creates an amidostacks template in your local directory much like
 express-generate with an addition of `build/, deploy/, docs/, src/` folders as
 per the Amido Stacks standards.
 
-There is already a prebuilt version of this up on npm, if you don't wish to
-build this locally you only need to execute steps 3, 4, 5 and 6
-
-1. Install dependencies required to generate the templated app:
-
 ```bash
-$ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/scaffolding-cli
-$ npm install
-$ npm run build
-```
-
-2. Watch your build
-
-```bash
-$ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/scaffolding-cli
-$ npm run build:watch
-```
-
-3. Change to a directory for testing - e.g. \$HOME and run
-
-```bash
-$ cd ${SELECTED_DIR}
-# for a local deployment
-$ npx ${YOUR_GIT_STACKS_WEB_APP_PATH}/stacks-webapp-template/packages/scaffolding-cli/dist/index.js run -i
-# for the npm repo
 npx @amidostacks/scaffolding-cli@latest run -i
 ```
 
-4. Follow the CLI prompts to create a templated app with user defined
+1. Follow the CLI prompts to create a templated app with user defined
    configuration: ssr this is why t - Project Name: _default_: current directory
    (will create a directory with this name)
 
@@ -65,7 +41,7 @@ npx @amidostacks/scaffolding-cli@latest run -i
    - Platform: _default_: AKS (Azure Kubernetes Service)
    - CI/CD Tooling: _default_: AzureDevOps
 
-5. Navigate to the created project directory to install template dependencies:
+2. Navigate to the created project directory to install template dependencies:
    e.g. ${SELECTED_DIR}/$PROJECT_NAME
 
 ```bash
@@ -124,10 +100,3 @@ $ cd ${YOUR_GIT_STACKS_WEB_APP_PATH}/deploy/terraform/azure
 $ terraform init -backend-config=./backend.local.tfvars
 $ terraform plan
 ```
-
-We are using [Jest.js](https://jestjs.io/) for testing including code coverage.
-
-## Versioning and Publishing
-
-For information on how to version and publish changes to this package, please
-see [Publishing Packages](./publishing.md).
