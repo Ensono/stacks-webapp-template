@@ -63,7 +63,7 @@ variables:
   aks_clusterrg_nonprod: $(company)-$(project)-nonprod-$(domain)
   aks_clustername_nonprod: $(company)-$(project)-nonprod-$(domain)
   aks_dns_resource_group_name_nonprod: $(company)-$(project)-nonprod-$(domain)
-  aks_cluster_version: 1.16.7
+  aks_cluster_version: "1.16.7"
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   deployed_base_url: https://stacks-webapp.com/foo
