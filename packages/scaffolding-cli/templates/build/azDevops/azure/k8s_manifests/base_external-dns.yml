@@ -9,20 +9,15 @@ metadata:
   name: external-dns
 rules:
 - apiGroups: [""]
-  resources: ["services"]
+  resources: ["services","endpoints","pods"]
   verbs: ["get","watch","list"]
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get","watch","list"]
-- apiGroups: ["extensions"]
-  resources: ["ingresses"]
+- apiGroups: ["extensions"] 
+  resources: ["ingresses"] 
   verbs: ["get","watch","list"]
 - apiGroups: [""]
   resources: ["nodes"]
   verbs: ["list"]
-
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
@@ -35,9 +30,7 @@ subjects:
 - kind: ServiceAccount
   name: external-dns
   namespace: default
-
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -45,6 +38,9 @@ metadata:
 spec:
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: external-dns
   template:
     metadata:
       labels:
@@ -60,7 +56,6 @@ spec:
         - --domain-filter=${domain_filter}
         - --provider=azure
         - --azure-resource-group=${aks_resource_group}
-        - --log-level=debug
         volumeMounts:
         - name: azure-config-file
           mountPath: /etc/kubernetes
