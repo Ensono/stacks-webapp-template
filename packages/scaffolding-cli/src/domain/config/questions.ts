@@ -59,6 +59,9 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
                 },
                 {
                     "title": "Java Springboot", "description": "Java SpringBoot API", "value": "java_spring"
+                },
+                {
+                    "title": ".netcore Selenium", "description": ".Net Core Selenium E2E Test Template Framework", "value": "netcore_selenium"
                 }
             ],
             "initial": 0
