@@ -62,9 +62,6 @@ variables:
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - stage - location - compnonent names above
   # IT IS SET per stage as an output to be consumed by deploy stage
-  # aks_clusterrg_nonprod: ""
-  # aks_clustername_nonprod: ""
-  # aks_dns_resource_group_name_nonprod: ""
   aks_cluster_version: "1.16.7"
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
@@ -156,6 +153,7 @@ stages:
       AKS_RESOURCE_GROUP: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_RESOURCE_GROUP_NAME'] ]
       AKS_CLUSTER_NAME: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_CLUSTER_NAME'] ]
       ACR_REGISTRY_NAME: $[ dependencies.InfraNonProd.outputs['tfoutputs.ACR_REGISTRY_NAME'] ]
+      # if you have extended the infra definition and assigned output variables you can specify them here
     pool:
       vmImage: ubuntu-18.04
     container: k8s_deploy

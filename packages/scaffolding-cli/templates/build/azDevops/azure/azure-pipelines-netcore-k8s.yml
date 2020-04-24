@@ -70,7 +70,7 @@ variables:
   docker_dockerfile_path: "src/api"
   docker_image_name: $(self_generic_name)
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
-  docker_container_registry_name: $(company)$(project)nonprod$(domain)
+  docker_container_registry_name: $(company)$(project)nonproduks$(domain)
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   # BUILD ARTIFACTS across stages
   build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
