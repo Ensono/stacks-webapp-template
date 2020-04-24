@@ -61,11 +61,11 @@ export function replaceGeneratedConfig(base_file: string, replaceInput: CliAnswe
     let objectKeys: Array<string> = Object.keys(replaceInput)
     let cheatConfig: any = replaceInput as any
     // forEach(keys(replaceInput), (input: typeof keys CliAnswerModel) => {
-    function closureStruct (replaceOutput: Array<Replacetruct>, replaceVal: string, propertyPath: string): Replacetruct {
+    function closureStruct (replaceVal: string, propertyPath: string): Replacetruct {
         return <Replacetruct>{
             replaceFiles: [base_file], // map(input.files, (v) => {return resolve(base_path, v)}),
             replaceVals: <ReplaceValMap>{
-                from: new RegExp(`replace_${replaceVal}`, 'gi'),
+                from: new RegExp(`replace_${replaceVal}`, 'i'),
                 to: get(cheatConfig, propertyPath)
             }
         }
@@ -74,10 +74,10 @@ export function replaceGeneratedConfig(base_file: string, replaceInput: CliAnswe
     objectKeys.forEach((input: any) => {
         if (isObject(cheatConfig[input])) {
             Object.keys(cheatConfig[input]).forEach((deepKey: any) => {
-                replaceOutput = [...replaceOutput, closureStruct(replaceOutput, `${input}_${deepKey}`, `${input}.${deepKey}`)]
+                replaceOutput = [...replaceOutput, closureStruct(`${input}_${deepKey}`, `${input}.${deepKey}`)]
             })
         } else {
-            replaceOutput = [...replaceOutput, closureStruct(replaceOutput, input, input)]
+            replaceOutput = [...replaceOutput, closureStruct(input, input)]
         }
     })
     return replaceOutput

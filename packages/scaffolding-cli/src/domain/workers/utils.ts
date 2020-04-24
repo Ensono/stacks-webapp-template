@@ -29,16 +29,16 @@ export async function asyncForEach(array: Array<any>, callback: any) {
     }
 }
 
-export async function renamerRecursion(in_path: string, match: string | RegExp, replace: string ): Promise<void> {
+export async function renamerRecursion(in_path: string, match: string | RegExp, replace_string: string ): Promise<void> {
     let files: Array<string> = await readdir(in_path)
 
     await asyncForEach(files, async (f: string) =>  {
         let path = resolve(in_path, f)
         let file: Stats = await stat(path)
-        let newPath = resolve(in_path, f.replace(match, replace))
+        let newPath = resolve(in_path, f.replace(match, replace_string))
         await rename(path, newPath);
         if (file.isDirectory()) {
-            await renamerRecursion(newPath, match, replace);
+            await renamerRecursion(newPath, match, replace_string);
         }
     })
 }
@@ -97,10 +97,10 @@ export class Utils {
     public static async fileNameReplace(src_dir: string, instruction_map: CliAnswerModel): Promise<BaseResponse> {
         let fsResponse: BaseResponse = <BaseResponse>{}
         try {
-            const replace: string = `${startCase(toLower(instruction_map.business.company))}.${startCase(toLower(instruction_map.business.project))}`
+            const replace_string: string = `${startCase(toLower(instruction_map.business.company))}.${startCase(toLower(instruction_map.business.project))}`
             const match: string = 'xxAMIDOxx.xxSTACKSxx'
             const dir: string = `${src_dir}/src`
-            await renamerRecursion(dir, match, replace)
+            await renamerRecursion(dir, match, replace_string)
 
             fsResponse.ok = true
             fsResponse.message = 'replaced all occurences'
