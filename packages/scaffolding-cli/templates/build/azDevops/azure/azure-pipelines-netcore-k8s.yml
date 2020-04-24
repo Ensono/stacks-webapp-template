@@ -77,10 +77,10 @@ variables:
   build_artifact_deploy_name: $(self_generic_name)
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - compnonent names in the infra-pipeline
-  aks_clusterrg: $(company)-$(project)-nonprod-$(domain)
-  aks_clustername: $(company)-$(project)-nonprod-$(domain)
+  aks_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
+  aks_clustername: $(company)-$(project)-nonprod-uks-$(domain)
   # Infra 
-  conventional_resource_namer: $(company)-$(project)-nonprod-$(domain)
+  conventional_resource_namer: $(company)-$(project)-nonprod-uks-$(domain)
   base_domain: nonprod.amidostacks.com
   base_domain_internal: nonprod.amidostacks.internal
   # Dynamic vars for downstream purposes

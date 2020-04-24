@@ -25,6 +25,30 @@ output "resource_group_id" {
   depends_on = [azurerm_resource_group.default]
 }
 
+output "aks_resource_group_name" {
+  description = "Created AKS resource group Name"
+  value = var.create_aks ? azurerm_kubernetes_cluster.0.default.resource_group_name : ""
+  depends_on = [azurerm_resource_group.default]
+}
+
+output "aks_cluster_name" {
+  description = "Created AKS resource group Name"
+  value = var.create_aks ? azurerm_kubernetes_cluster.0.default.name : ""
+  depends_on = [azurerm_resource_group.default]
+}
+
+output "acr_resource_group_name" {
+  description = "Created ACR resource group Name"
+  value = var.create_acr ? azurerm_container_registry.registry.0.resource_group_name : var.acr_resource_group
+  depends_on = [azurerm_resource_group.default]
+}
+
+output "acr_registry_name" {
+  description = "Created ACR name"
+  value = var.create_acr ? azurerm_container_registry.registry.0.name : var.acr_registry_name
+  depends_on = [azurerm_resource_group.default]
+}
+
 # output "aks_vmss" {
 #   value = azurerm_kubernetes_cluster.default.
 # }
