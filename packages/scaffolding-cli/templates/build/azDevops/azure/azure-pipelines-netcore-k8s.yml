@@ -102,7 +102,7 @@ stages:
       - group: amido-stacks-infra-credentials-nonprod
       - group: amido-stacks-webapp
     jobs:
-      - job: WebAppBuild
+      - job: ApiBuild
         variables:
           foo: bar
         # pool: amido-stacks-local
@@ -206,6 +206,7 @@ stages:
                 TF_VAR_name_company: $(company),
                 TF_VAR_name_project: $(project),
                 TF_VAR_name_component: $(component),
+                TF_VAR_create_cosmosdb: true,
                 TF_VAR_name_environment: dev,
                 TF_VAR_app_gateway_frontend_ip_name: $(conventional_resource_namer),
                 TF_VAR_dns_record: api,
