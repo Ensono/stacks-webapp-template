@@ -158,7 +158,7 @@ backend.local.tfvars
 # GENERATED OUTPUT
 *.d.ts
 !**/globals.d.ts
-# *.js
+*.js
 !*.config.js
 !**/config.js
 
