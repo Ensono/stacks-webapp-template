@@ -106,7 +106,7 @@ variable "create_user_identiy" {
 }
 
 variable "cluster_version" {
-  type = string
+  type = number
   default = 1.16.7
 }
 
