@@ -174,31 +174,9 @@ aXe tests are performed on two levels:
 
 ### Static Testing
 
-There is support with [SonarCloud](https://sonarcloud.io/) for static analysis.
-We can run this with
-[SonarScanner Docker](https://github.com/SonarSource/sonar-scanner-cli-docker)
+For more information about the running using amidostacks/ci-sonarscanner, please refer to: [amidostacks/ci-sonarscanner](https://hub.docker.com/repository/docker/amidostacks/ci-sonarscanner)
 
-In order to run, the export the followings environment variables for the
-SonarCloud Project:
-
-```bash
-export SONAR_TOKEN=
-export SONAR_PROJECT_NAME=
-export SONAR_PROJECT_KEY=
-export SONAR_ORGANIZATION=
-```
-
-To find this, please ensure that you sign up with GitHub to
-[Sonarcloud](https://sonarcloud.io).
-
-First generate the code coverage results, then run the SonarCloud scanner and
-push up the results:
-
-```bash
-npm run test
-docker run -e SONAR_HOST_URL=https://sonarcloud.io -e SONAR_TOKEN=$SONAR_TOKEN -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_PROJECT_KEY=$SONAR_PROJECT_KEY -e SONAR_ORGANIZATION=$SONAR_ORGANIZATION -e BUILD_NUMBER=1.2.3 --rm -t -v $(pwd):/usr/src sonarsource/sonar-scanner-cli
-docker run -it -v $(pwd):/usr/src sonarsource/sonar-scanner-cli -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY -e sonar.organization=$SONAR_ORGANIZATION
-```
+For general information about setting up and using SonarQube for static analysis, please refer to the [docs/test_static_code](https://github.com/amido/stacks-webapp-template/tree/master/docstest_static_code.md)
 
 ### Consumer driven contract testing with Pact
 

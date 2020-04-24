@@ -1,8 +1,9 @@
 ---
-id: cli
+id: cli_process
 title: CLI (Command Line Interface)
 sidebar_label: CLI
 ---
+
 # CLI extensions process
 
 ### Config object 

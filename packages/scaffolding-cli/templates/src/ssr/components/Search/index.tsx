@@ -1,7 +1,19 @@
-import { Box, Container, TextField } from "@material-ui/core"
-import React from "react"
+import {Box, Container, TextField} from "@material-ui/core"
+import {debounce} from "lodash"
+import React, {useCallback, useEffect, useState} from "react"
 
-export const Search = props => {
+export function Search(props) {
+    const [searchTerm, setSearchTerm] = useState("")
+    const debouncedSearchResult = useCallback(
+        debounce((text: any) => {
+            props.getSearchResults({searchTerm: text})
+        }, 500),
+        [],
+    )
+
+    useEffect(() => {
+        debouncedSearchResult(searchTerm)
+    }, [searchTerm, debouncedSearchResult])
 
     return (
         <Container maxWidth="sm">
@@ -9,15 +21,14 @@ export const Search = props => {
                 <TextField
                     id="search-bar"
                     label="Search Menus"
-                    name="seach_menus"
+                    name="SearchTerm"
                     type="search"
                     fullWidth={true}
                     variant="outlined"
                     data-testid="search_btn"
                     margin="normal"
-                    onChange={event =>
-                        props.getSearchResults({searchTerm: event.target.value})
-                    }
+                    helperText="Search terms are case sensitive and partial matches are not searched"
+                    onChange={evt => setSearchTerm(evt.target.value)}
                 />
             </Box>
         </Container>

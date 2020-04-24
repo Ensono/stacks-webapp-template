@@ -16,7 +16,7 @@ Shared ESLint config to guide a consistent code style across front end developme
 
 📖 [Read the Docs](https://github.com/amido/stacks-webapp-template/blob/master/packages/eslint-config/README.md)
 
-### `template-cli`
+### `scaffolding-cli`
 
 Builds a Node.js with React Server Side Rendered Webapp Template, with accompanying infrastructure code. All from your CLI.
 

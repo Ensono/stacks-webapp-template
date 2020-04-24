@@ -1,22 +1,14 @@
----
-id: cli
-title: CLI (Command Line Interface)
-sidebar_label: CLI
----
-
-[![npm](https://img.shields.io/npm/v/@amidostacks/scaffolding-cli)](https://www.npmjs.com/package/@amidostacks/scaffolding-cli)
-
 [![npm](https://img.shields.io/npm/dt/@amidostacks/scaffolding-cli)](https://www.npmjs.com/package/@amidostacks/scaffolding-cli)
 
-Please read through the [template_cli](../../docs/cli-process.md) for more
+Please read through the [scaffolding-cli](../../docs/cli_process.md) for more
 information.
 
-## Template CLI
+## Scaffolding-cli
 
 Builds a Node.js with React Server Side Rendered Webapp Template, with
 accompanying infrastruce code. All from your CLI.
 
-## Dependencies
+## Getting Started
 
 We are using npx to execute and create the
 [template-cli](./packages/scaffolding-cli)
@@ -26,7 +18,7 @@ We are supporting and running [node@12](https://nodejs.org/en/about/releases/).
 Please ensure that your local environment has the correct version
 [installed](https://nodejs.org/en/download/).
 
-## Create app from template
+## Create a SSR webapp from template
 
 Creates an amidostacks template in your local directory much like
 express-generate with an addition of `build/, deploy/, docs/, src/` folders as

@@ -24,10 +24,11 @@ exports[`renders ApiPane snapshot 1`] = `
           class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
         >
           <input
+            aria-describedby="search-bar-helper-text"
             aria-invalid="false"
             class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputTypeSearch"
             id="search-bar"
-            name="seach_menus"
+            name="SearchTerm"
             type="search"
             value=""
           />
@@ -44,6 +45,12 @@ exports[`renders ApiPane snapshot 1`] = `
             </legend>
           </fieldset>
         </div>
+        <p
+          class="MuiFormHelperText-root MuiFormHelperText-contained"
+          id="search-bar-helper-text"
+        >
+          Search terms are case sensitive and partial matches are not searched
+        </p>
       </div>
     </div>
   </div>
