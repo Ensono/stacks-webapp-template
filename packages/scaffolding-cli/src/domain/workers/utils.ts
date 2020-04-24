@@ -94,13 +94,15 @@ export class Utils {
             throw fsResponse
         }
     }
-    public static async fileNameReplace(src_dir: string, instruction_map: CliAnswerModel): Promise<BaseResponse> {
+    public static async fileNameReplace(src_dir: Array<string>, instruction_map: CliAnswerModel): Promise<BaseResponse> {
         let fsResponse: BaseResponse = <BaseResponse>{}
         try {
             const replace_string: string = `${startCase(toLower(instruction_map.business.company))}.${startCase(toLower(instruction_map.business.project))}`
             const match: string = 'xxAMIDOxx.xxSTACKSxx'
-            const dir: string = `${src_dir}/src`
-            await renamerRecursion(dir, match, replace_string)
+            // const dir: string = `${src_dir}`
+            await asyncForEach(src_dir, async (dir: string) => {
+                await renamerRecursion(dir, match, replace_string)
+            })
 
             fsResponse.ok = true
             fsResponse.message = 'replaced all occurences'

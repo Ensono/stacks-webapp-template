@@ -136,6 +136,10 @@
         "dest": "deploy/k8s"
       },
       {
+        "src": "test",
+        "dest": "test"
+      },
+      {
         "src": "docs",
         "dest": "docs"
       },

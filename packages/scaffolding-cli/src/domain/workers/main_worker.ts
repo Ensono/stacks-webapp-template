@@ -87,7 +87,7 @@ export class MainWorker {
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput)
 
             await Utils.valueReplace(val_maps)
-            await Utils.fileNameReplace(new_directory.final_path, instructions)
+            await Utils.fileNameReplace([`${new_directory.final_path}/src`, `${new_directory.final_path}/test`], instructions)
             if (instructions.create_config) {
                 await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             }
