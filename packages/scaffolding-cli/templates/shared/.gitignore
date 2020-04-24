@@ -27,4 +27,3 @@ __tests__/cypress/videos
 # production
 .next
 /dist
-/build/
