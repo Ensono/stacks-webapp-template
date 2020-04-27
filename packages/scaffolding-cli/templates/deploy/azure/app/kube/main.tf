@@ -27,7 +27,7 @@ data "azurerm_public_ip" "app_gateway" {
 # TODO: build out application level modules 
 # e.g. cosmos, DNS, redis, etc.. 
 #### 
-resource "azurerm_dns_a_record" "example" {
+resource "azurerm_dns_a_record" "default" {
   name                = var.dns_record
   zone_name           = var.dns_zone_name
   resource_group_name = var.resource_group_name
@@ -43,7 +43,7 @@ resource "azurerm_dns_a_record" "example" {
 # }
 
 module "cosmosdb" {
-  source                               = "../../"
+  source                               = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-cosmosdb?ref=task/1684-part2"
   create_cosmosdb                      = var.create_cosmosdb
   resource_namer                       = module.default_label.id
   name_environment                     = "dev-feature"
