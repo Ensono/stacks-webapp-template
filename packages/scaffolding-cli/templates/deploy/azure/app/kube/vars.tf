@@ -89,15 +89,6 @@ variable "internal_dns_zone_name" {
   default = "nonprod.amidostacks.internal"
 }
 
-variable "resource_group_location" {
-  type    = string
-  default = "uksouth"
-}
-
-variable "resource_group_name" {
-  type = string
-}
-
 ###########################
 # CONDITIONAL SETTINGS
 ##########################
