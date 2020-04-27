@@ -63,7 +63,7 @@ variable "resource_group_location" {
 }
 
 variable "resource_group_name" {
-  description = "RG name of where you want to deploying addition app level resources"
+  description = "RG name of where you want to be deploying app level resources, can be left blank and "
   type = string   
 }
 
@@ -93,7 +93,13 @@ variable "internal_dns_zone_name" {
 # CONDITIONAL SETTINGS
 ##########################
 variable "create_cosmosdb" {
+  description = "Whether to create a cosmosdb or not for this application"
   type    = bool
   default = true
 }
 
+variable "use_existing_resource_group" {
+  description = "Whether to create a resource group for application level resources, if set to true and `resource_group_name` is not specified it will create a resource group for you. Ensure you specify resource group when setting to true"
+  type    = bool
+  default = true
+}
