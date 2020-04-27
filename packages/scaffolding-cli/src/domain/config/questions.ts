@@ -32,13 +32,13 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
         {
             "type": "text",
             "name": "project_name",
-            "message": "Select Project Name (NB: Conform to language conventions - e.g. PascalCase for C# or snake_case for NodeJS)",
+            "message": "Create project name (NB: Conform to language conventions - e.g. PascalCase for C# or snake_case for NodeJS)",
             "initial": default_project_name
         },
         {
             "type": "select",
             "name": "project_type",
-            "message": "Select Project type",
+            "message": "Define project type",
             "choices": [
                 {
                     "title": "React SSR", "description": "Serverside rendered", "value": "ssr"
@@ -58,7 +58,7 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
         {
             "type": "select",
             "name": "platform",
-            "message": "Select Target Platform",
+            "message": "Define target platform",
             "choices": [
                 {
                     "title": "AKS", "description": "Azure Kubernetes", "value": "aks"
@@ -69,7 +69,7 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
         {
             "type": "select",
             "name": "deployment",
-            "message": "Select Target Deployment",
+            "message": "Define target deployment",
             "choices": [
                 {
                     "title": "AzureDevOps", "description": "Azure Devops/VSTS/TFS", "value": "azdevops"
@@ -81,13 +81,13 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
             // "type": (prev: boolean) => prev ? "confirm" : "",
             "type": "confirm",
             "name": "create_config",
-            "message": "Create a sample JSON config with all selected values for future runs of the CLI?",
+            "message": "Create a sample JSON config (with all selected values for future runs of the CLI)?",
             "initial": true
         },
         {
             "type": "confirm",
             "name": "advanced_config",
-            "message": "Enable Advanced Config? Specifying Cloud/Terraform/Business details",
+            "message": "Enable Advanced Config (specifying cloud/Terraform/business details)?",
             "initial": true
         }
     ]
@@ -118,7 +118,7 @@ export function cliAdvancedQuestions(): Array<PromptQuestion> {
         {
             "type": "confirm",
             "name": "cloud_has_infrastructure",
-            "message": "Do you have existing K8s (AKS/EKS/GKE) Infrastructure that this component will be part of?",
+            "message": "Do you have existing Kubernetes infrastructure (AKS/EKS/GKE) that this component will be part of?",
             "initial": true
         },
         {
@@ -130,25 +130,25 @@ export function cliAdvancedQuestions(): Array<PromptQuestion> {
         {
             "type": "text",
             "name": "business_company",
-            "message": "Please provide the company name (will be used namespacing conventions)",
+            "message": "Please provide the company name (will use namespacing conventions)",
             "initial": "amido"
         },
         {
             "type": "text",
             "name": "business_project",
-            "message": "Please provide the project name (will be used namespacing conventions)",
+            "message": "Please provide the project name (will use namespacing conventions)",
             "initial": "stacks"
         },
         {
             "type": "text",
             "name": "business_component",
-            "message": "Please provide the component name (will be used namespacing conventions)",
+            "message": "Please provide the component name (will use namespacing conventions)",
             "initial": "cycle2"
         },
         {
             "type": "text",
             "name": "terraform_backend_storage",
-            "message": "Terraform backend state storage (Blob name)?",
+            "message": "Terraform backend state storage (blob name)?",
             "initial": "amidostackstfstategbl"
         }
     ]
