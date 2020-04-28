@@ -8,18 +8,23 @@
 
 variable "name_company" {
   type    = string
-  default = "replace_company_name"
+  default = "amido"
 }
 
 variable "name_project" {
   type    = string
-  default = "replace_project_name"
+  default = "stacks"
 
 }
 
 variable "name_component" {
   type    = string
-  default = "replace_component_name"
+  default = "api"
+}
+
+variable "name_environment" {
+  type    = string
+  default = "api"
 }
 
 variable "stage" {
@@ -40,15 +45,35 @@ variable "tags" {
 # AZURE INFORMATION
 ############################################
 
-variable "client_secret" {
-  type = string
-}
 
+############################################
+# RESOURCE INFORMATION
+############################################
 variable "resource_group_location" {
   type    = string
   default = "uksouth"
 }
 
+# Each region must have corresponding a shortend name for resource naming purposes 
+variable "location_name_map" {
+  type = map(string)
+
+  default = {
+    northeurope   = "eun"
+    westeurope    = "euw"
+    uksouth       = "uks"
+    ukwest        = "ukw"
+    eastus        = "use"
+    eastus2       = "use2"
+    westus        = "usw"
+    eastasia      = "ase"
+    southeastasia = "asse"
+  }
+}
+
+# ###########################
+# # DNS SETTINGS
+# ##########################
 variable "dns_zone" {
   type    = string
   default = "nonprod.amidostacks.com"
@@ -60,9 +85,10 @@ variable "internal_dns_zone" {
 }
 
 variable "pfx_password" {
-  type = string
+  type    = string
   default = "Password1"
 }
+
 
 # ###########################
 # # CONDITIONALS

@@ -141,6 +141,12 @@ variable "create_acr" {
   default = true
 }
 
+variable "acr_resource_group" {
+  description = "Supply your own resource group name for ACR"
+  type    = string
+  default = ""
+}
+
 variable "acr_registry_name" {
   description = "ACR name"
   type    = string
@@ -157,7 +163,6 @@ variable "registry_sku" {
   description = "ACR SKU"
   type    = string
   default = "Standard"
-
 }
 
 ###########################

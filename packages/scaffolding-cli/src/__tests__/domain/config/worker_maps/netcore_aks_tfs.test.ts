@@ -10,13 +10,14 @@ let proj_name = "test-app-1"
 let biz: BusinessSection = {
     company: "Test",
     project: "Testproj",
-    component: "Test3"
+    component: "Test3",
+    domain: "Domain"
 }
 let files: Array<BuildReplaceInput> = [
     {
         files: ["**/*.md"],
         values: {
-            "PROJECT_NAME": "test-app-1"
+            "PROJECT_NAME": proj_name
         }
     },
     {
@@ -32,10 +33,10 @@ let files: Array<BuildReplaceInput> = [
 describe("netcore mapper tests", () => {
     it("netcore config should return an array of folders to map", () => {
         let test: Array<FolderMap> = staticConf.netcore.folder_map
-        expect(test.length).toBe(10)
+        expect(test.length).toBe(11)
     }),
     it("in_files return an array of objects and cloud should be default", () => {
-        let test: Array<BuildReplaceInput> = netcore.in_files(proj_name, biz)
+        let test: Array<BuildReplaceInput> = netcore.in_files({ project_name: proj_name, business_obj: biz})
         expect(test).toStrictEqual(files)
     })
 })

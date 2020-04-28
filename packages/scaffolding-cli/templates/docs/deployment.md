@@ -7,6 +7,7 @@ Current set up albeit all configurable is rigged to work with Azure, AKS, and AC
 - Build 
   - unit test
   - pact broker tests
+  - regression tests
   - pacakge auditing
   - build for docker container 
     - typescript compile
@@ -15,17 +16,20 @@ Current set up albeit all configurable is rigged to work with Azure, AKS, and AC
   - vulnerability scan on the packaged container
   - deploy to registry (defaults to ACR)
 - Deploy Dev 
+  - create/check any application level infrastructure
+    - Cache/DNS record
   - deploy to an AKS Cluster
   - run integration tests
-  - 
 - Deploy Prod 
+  - create/check any application level infrastructure
+    - Cache/DNS record
   - deploy to an AKS Cluster
   - run smoke tests
 
 ### Kustomize and Kubectl 
-K8s cluster is updated with Kustomize and does deploy time replacements of various components such as: host_urls, environment variables, etc...
-
-To gain a more in-depth understading please review the build folder layout.
+Currenty we support 2 ways of deploying your application into the K8s cluster 1 using Kustomize (part of Kubernetes since version 1.14)
+  - K8s cluster is updated with Kustomize and does deploy time replacements of various components such as: host_urls, environment variables, etc... To gain a more  in-depth understading please review the `deploy/k8s/app/base` & `deploy/k8s/app/kustomize` folders. The downside is that each environment will have to be statically defined so makes it hard for any ad hoc environments, the upside is that the original yaml can be used as is.
+  - Kubectl apply on a templated out yaml file - using templating task. Upside of this approach is that your app is visibly defined in a single place and it can create any number of environments based on input to the same definition. Downside it cannot be run as is as it contains unreplaced variables 
 
 #### kube dashboard
 

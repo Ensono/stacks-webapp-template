@@ -3,9 +3,9 @@ data "azurerm_client_config" "current" {}
 # Naming convention 
 module "default_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.16.0"
-  namespace  = "${var.name_company}-${var.name_project}"
+  namespace  = format("%s-%s", var.name_company, var.name_project)
   stage      = var.stage
-  name       = var.name_component
+  name       = "${lookup(var.location_name_map, var.resource_group_location, "uksouth")}-${var.name_component}"
   attributes = var.attributes
   delimiter  = "-"
   tags       = var.tags
@@ -21,21 +21,24 @@ variable "vnet_cidr" {
 }
 
 module "aks_bootstrap" {
-  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=0.0.1"
+  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=0.0.2"
   resource_namer          = module.default_label.id
   resource_group_location = var.resource_group_location
   spn_object_id           = data.azurerm_client_config.current.object_id
   tenant_id               = data.azurerm_client_config.current.tenant_id
-  cluster_version         = "1.15.7"
-  name_environment        = "nonprod"
+  cluster_version         = var.cluster_version
+  name_environment        = var.name_environment
   name_project            = var.name_project
   name_company            = var.name_company
   name_component          = var.name_component
   create_dns_zone         = var.create_dns_zone
   dns_zone                = var.dns_zone
   internal_dns_zone       = var.internal_dns_zone
-  create_acr              = true
+  create_acr              = var.create_acr
   acr_registry_name       = replace(module.default_label.id, "-", "")
+  # ACR doesn't need to exist across environments
+  # creating multiple would break the build once deploy multiple times same binary principle
+  acr_resource_group      = var.acr_resource_group == "" ? module.default_label.id : var.acr_resource_group
   create_aksvnet          = var.create_aksvnet
   vnet_name               = module.default_label.id
   vnet_cidr               = var.vnet_cidr
@@ -49,7 +52,7 @@ module "aks_bootstrap" {
 }
 
 module "ssl_app_gateway" {
-  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-ssl-app-gateway?ref=0.0.1"
+  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-ssl-app-gateway?ref=0.0.2"
   resource_namer            = "${module.default_label.id}"
   resource_group_name       = module.aks_bootstrap.resource_group_name
   resource_group_location   = var.resource_group_location
@@ -65,3 +68,10 @@ module "ssl_app_gateway" {
   subnet_backend_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 4)
   subnet_names              = ["k8s1"]
 }
+
+####
+# Additional modules need to go here as they can be re-used across app deployments
+# Additional user defined resources
+####
+
+# e.g. Azure frontdoor etc...

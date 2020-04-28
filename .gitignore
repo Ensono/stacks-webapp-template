@@ -162,10 +162,8 @@ backend.local.tfvars
 !*.config.js
 !**/config.js
 
-
 !**/environment-configuration/*.js
 .history/*.*
-
 
 # Docusaurus
 !website/core/**/**.*
