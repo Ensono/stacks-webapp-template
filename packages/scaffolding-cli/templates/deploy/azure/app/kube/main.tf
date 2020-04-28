@@ -1,5 +1,6 @@
 ########
-# Application level stuff will live here   
+# Application level stuff will live here
+# Each module is conditionally created within this app infra definition interface and can be re-used across app types e.g. SSR webapp, API only
 ########
 
 data "azurerm_client_config" "current" {}
@@ -15,24 +16,44 @@ module "default_label" {
   tags       = var.tags
 }
 
-# We are keeping this as a lookup
-# since proper conventions for naming of resources should be followed 
-# and things can always be looked up without resorting to cross state searches
-data "azurerm_public_ip" "app_gateway" {
-  name                = var.app_gateway_frontend_ip_name
-  resource_group_name = var.resource_group_name
+locals {
+  create_resource_group = var.use_existing_resource_group && var.resource_group_name != "" ? false : true
+  resource_group_name = var.use_existing_resource_group && var.resource_group_name != "" ? var.resource_group_name : module.default_label.id
+}
+
+resource "azurerm_resource_group" "default" {
+  count    = local.create_resource_group ? 1 : 0
+  name     = local.resource_group_name
+  location = var.resource_group_location
+  tags     = var.tags
 }
 
 ####
-# TODO: build out application level modules 
-# e.g. cosmos, DNS, redis, etc.. 
+# app level DNS can/should be controlled from here
+# an alternative way of managing this would be through K8s operators
+# [TODO]: examples can be found in the deploy folders
 #### 
-resource "azurerm_dns_a_record" "example" {
+resource "azurerm_dns_a_record" "default" {
   name                = var.dns_record
   zone_name           = var.dns_zone_name
-  resource_group_name = var.resource_group_name
+  resource_group_name = local.resource_group_name
   ttl                 = 300
   records             = [data.azurerm_public_ip.app_gateway.ip_address]
+}
+
+module "cosmosdb" {
+  source                               = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-cosmosdb?ref=0.0.2"
+  create_cosmosdb                      = var.create_cosmosdb
+  resource_namer                       = module.default_label.id
+  name_environment                     = "dev-feature"
+  name_project                         = var.name_project
+  name_company                         = var.name_company
+  name_component                       = var.name_component
+  resource_group_name                  = local.resource_group_name
+  cosmosdb_sql_container               = "Menu"
+  cosmosdb_sql_container_partition_key = "/id"
+  cosmosdb_kind                        = "GlobalDocumentDB"
+  cosmosdb_offer_type                  = "Standard"
 }
 
 ####
@@ -42,19 +63,6 @@ resource "azurerm_dns_a_record" "example" {
 #   source = "git://...." 
 # }
 
-module "cosmosdb" {
-  source                               = "../../"
-  create_cosmosdb                      = var.create_cosmosdb
-  resource_namer                       = module.default_label.id
-  name_environment                     = "dev-feature"
-  name_project                         = var.name_project
-  name_company                         = var.name_company
-  name_component                       = var.name_component
-  resource_group_name                  = azurerm_resource_group.default.name
-  cosmosdb_sql_container               = "Menu"
-  cosmosdb_sql_container_partition_key = "/id"
-  cosmosdb_kind                        = "GlobalDocumentDB"
-  cosmosdb_offer_type                  = "Standard"
-}
-
+#### 
 # Additional user defined resources or modules can go here
+####

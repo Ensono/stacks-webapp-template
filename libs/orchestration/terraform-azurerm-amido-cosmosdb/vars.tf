@@ -75,7 +75,7 @@ variable "resource_group_name" {
 ##########################
 variable "create_cosmosdb" {
   type    = bool
-  default = true
+  default = false
 }
 
 ###########################

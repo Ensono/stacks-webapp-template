@@ -81,7 +81,7 @@ spec:
 
 --- 
 
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
@@ -90,12 +90,9 @@ metadata:
     applicationId: ${project}/${app_name}
     applicationName: ${project}-${app_name}
     customerID: ${company}
-    deployment.kubernetes.io/revision: "4"
     owner: ${company}/${project}
     projectID: ${project}
     version: ${version}
-  creationTimestamp: "2020-04-08T18:34:35Z"
-  generation: 4
   labels:
     aadpodidbinding: ${aadpodidentitybinding}
     app.kubernetes.io/component: ${component}

@@ -194,6 +194,7 @@ export class MainWorker {
 
             await Utils.valueReplace(val_maps)
             await Utils.fileNameReplace([`${new_directory.final_path}`], instructions)
+            
             if (instructions.create_config) {
                 await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             }
