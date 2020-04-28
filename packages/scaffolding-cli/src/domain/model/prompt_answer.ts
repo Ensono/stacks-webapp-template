@@ -26,7 +26,6 @@ export interface TerraformSection {
     backend_storage_rg: string
     backend_storage_container?: string
 }
-
 export interface BaseAnswer { 
     project_name: string,
     project_type: string,

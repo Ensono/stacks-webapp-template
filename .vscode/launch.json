@@ -20,7 +20,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "template-cli",
+      "name": "scaffolding-cli",
       "program": "${workspaceFolder}/packages/scaffolding-cli/dist/index.js",
       "cwd": "${workspaceFolder}/packages/scaffolding-cli",
       "protocol": "inspector",

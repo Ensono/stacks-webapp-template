@@ -4,7 +4,7 @@ import { Static } from '../../../domain/model/config';
 
 let staticConf: Static = conf as Static;
 
-let currentSupportedPaths = [ "ssr", "csr", "netcore", "java_spring" ]
+let currentSupportedPaths = [ "ssr", "csr", "netcore", "java_spring", "netcore_selenium" ]
 
 let confKeys = Object.keys(staticConf)
 
@@ -14,7 +14,7 @@ describe("StaticConfig tests", () => {
      * this needs to be manually bumped on purpose everytime a new option is added
      */
     it("staticConf return an object with only specified keys", () => {
-        expect(confKeys.length).toBe(4)
+        expect(confKeys.length).toBe(5)
         expect(confKeys).toEqual(expect.arrayContaining(currentSupportedPaths))
     })
     it("staticConf MUST contain folder_map key as an array", () => {
