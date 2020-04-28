@@ -85,6 +85,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: cosmosdb
+  namespace: ${namespace}
 type: Opaque
 stringData:
   key: ${cosmosdb_key}
@@ -100,12 +101,9 @@ metadata:
     applicationId: ${project}/${app_name}
     applicationName: ${project}-${app_name}
     customerID: ${company}
-    deployment.kubernetes.io/revision: "4"
     owner: ${company}/${project}
     projectID: ${project}
     version: ${version}
-  creationTimestamp: "2020-04-08T18:34:35Z"
-  generation: 4
   labels:
     aadpodidbinding: ${aadpodidentitybinding}
     app.kubernetes.io/component: ${component}
@@ -190,16 +188,13 @@ spec:
 
           ports:
             - name: http
-              containerPort: 3000
+              containerPort: 80
           livenessProbe:
             failureThreshold: 10
             httpGet:
-              path: /healthz
-              port: 3000
+              path: /health
+              port: 80
               scheme: HTTP
-              httpHeaders:
-              - name: stacks-k8s-probe
-                value: live
             initialDelaySeconds: 45
             periodSeconds: 30
             successThreshold: 1
@@ -207,8 +202,8 @@ spec:
           readinessProbe:
             failureThreshold: 10
             httpGet:
-              path: /healthz
-              port: 3000
+              path: /health
+              port: 80
               scheme: HTTP
             periodSeconds: 30
             successThreshold: 1
