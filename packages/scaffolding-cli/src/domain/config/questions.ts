@@ -38,7 +38,7 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
         {
             "type": "select",
             "name": "project_type",
-            "message": "Define project type",
+            "message": "Select project type",
             "choices": [
                 {
                     "title": "React SSR", "description": "Serverside rendered", "value": "ssr"
@@ -58,7 +58,7 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
         {
             "type": "select",
             "name": "platform",
-            "message": "Define target platform",
+            "message": "Select target platform",
             "choices": [
                 {
                     "title": "AKS", "description": "Azure Kubernetes", "value": "aks"
@@ -69,7 +69,7 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
         {
             "type": "select",
             "name": "deployment",
-            "message": "Define target deployment",
+            "message": "Select target deployment",
             "choices": [
                 {
                     "title": "AzureDevOps", "description": "Azure Devops/VSTS/TFS", "value": "azdevops"
@@ -81,13 +81,13 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
             // "type": (prev: boolean) => prev ? "confirm" : "",
             "type": "confirm",
             "name": "create_config",
-            "message": "Create a sample JSON config (with all selected values for future runs of the CLI)?",
+            "message": "Create a JSON config (with all selected values for future runs of the CLI)?",
             "initial": true
         },
         {
             "type": "confirm",
             "name": "advanced_config",
-            "message": "Enable Advanced Config (specifying cloud/Terraform/business details)?",
+            "message": "Continue to Advanced Config (specifying cloud/Terraform/business details)?",
             "initial": true
         }
     ]
