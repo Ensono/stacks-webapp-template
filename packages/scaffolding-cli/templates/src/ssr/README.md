@@ -1,6 +1,6 @@
-# Web Application
+# Server Side Rendering Web Application
 
-## Implementatation details
+## Implementation details
 
 The template is a Server Side Rendered (SSR) implementation using:
 
@@ -174,10 +174,15 @@ aXe tests are performed on two levels:
 
 ### Static Testing
 
-For more information about the running using amidostacks/ci-sonarscanner, please refer to: [amidostacks/ci-sonarscanner](https://hub.docker.com/repository/docker/amidostacks/ci-sonarscanner)
+For more information about the running using amidostacks/ci-sonarscanner, please
+refer to:
+[amidostacks/ci-sonarscanner](https://hub.docker.com/repository/docker/amidostacks/ci-sonarscanner)
 
-For general information about setting up and using SonarQube for static analysis, please refer to the [docs/test_static_code](https://github.com/amido/stacks-webapp-template/tree/master/docstest_static_code.md)
+For general information about setting up and using SonarQube for static
+analysis, please refer to the
+[docs/test_static_code](https://github.com/amido/stacks-webapp-template/tree/master/docstest_static_code.md)
 
 ### Consumer driven contract testing with Pact
 
-Please refer to the very verbose documentation in [__tests__/pact/README](./__tests__/pact/README.md).
+Please refer to the very verbose documentation in
+[**tests**/pact/README](./__tests__/pact/README.md).

@@ -115,7 +115,7 @@ dist
 /reports
 
 # production
-
+build/
 
 # misc
 .DS_Store
