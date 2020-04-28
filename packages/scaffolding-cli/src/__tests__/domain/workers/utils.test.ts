@@ -130,7 +130,7 @@ describe("utils class tests", () => {
                 return Promise.resolve(["foo", "bar"])
             })
 
-            let file_replacer_ran: BaseResponse = await Utils.fileNameReplace(tmpdir(), mock_cli_answer_model)
+            let file_replacer_ran: BaseResponse = await Utils.fileNameReplace([tmpdir()], mock_cli_answer_model)
             expect(mockReaddir).toHaveBeenCalled()
             expect(file_replacer_ran).toHaveProperty("message")
             expect(file_replacer_ran).toHaveProperty("ok")

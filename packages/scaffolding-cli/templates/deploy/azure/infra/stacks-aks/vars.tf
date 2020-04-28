@@ -22,6 +22,12 @@ variable "name_component" {
   default = "replace_component_name"
 }
 
+variable "name_environment" {
+  type    = string
+  default = "nonprod"
+}
+
+
 variable "stage" {
   type    = string
   default = "dev"
@@ -57,49 +63,59 @@ variable "location_name_map" {
 # AZURE INFORMATION
 ############################################
 
+variable "client_secret" {
+  type = string
+}
+
 variable "resource_group_location" {
   type    = string
   default = "uksouth"
 }
 
-variable "resource_group_name" {
-  description = "RG name of where you want to be deploying app level resources, can be left blank and "
-  type = string   
-}
-
-variable "app_gateway_frontend_ip_name" {
-  description = ""
-  type = string  
-}
-
-variable "dns_record" {
-  description = ""
-  type = string
-  default = "app" 
-}
-
-
-variable "dns_zone_name" {
+variable "dns_zone" {
   type    = string
   default = "nonprod.amidostacks.com"
 }
 
-variable "internal_dns_zone_name" {
+variable "internal_dns_zone" {
   type    = string
   default = "nonprod.amidostacks.internal"
 }
 
-###########################
-# CONDITIONAL SETTINGS
-##########################
-variable "create_cosmosdb" {
-  description = "Whether to create a cosmosdb or not for this application"
+variable "pfx_password" {
+  type = string
+  default = "Password1"
+}
+
+# ###########################
+# # CONDITIONALS
+# ##########################
+variable "create_dns_zone" {
   type    = bool
   default = true
 }
 
-variable "use_existing_resource_group" {
-  description = "Whether to create a resource group for application level resources, if set to true and `resource_group_name` is not specified it will create a resource group for you. Ensure you specify resource group when setting to true"
+variable "create_aksvnet" {
   type    = bool
   default = true
+}
+
+variable "create_user_identiy" {
+  type    = bool
+  default = true
+}
+
+variable "cluster_version" {
+  type = string
+  default = "1.16.7"
+}
+
+variable "create_acr" {
+  type = bool
+  default = false  
+}
+
+variable "acr_resource_group" {
+  type = string 
+  default = ""  
 }
