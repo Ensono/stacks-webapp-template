@@ -21,11 +21,11 @@
         "dest": "build/azDevops/azure/app-pipeline.yml"
       },
       {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-ssr.yml",
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
         "dest": "build/azDevops/azure/infra-pipeline.yml"
       },
       {
-        "src": "deploy/azure/infra/ssr",
+        "src": "deploy/azure/infra/stacks-aks",
         "dest": "deploy/azure/infra"
       },
       {
@@ -116,15 +116,15 @@
         "dest": "build/azDevops/azure/templates"
       },
       {
-        "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
-        "dest": "build/azDevops/azure/app-pipeline.yml"
+        "src": "build/azDevops/azure/azure-pipelines-netcore-k8s.yml",
+        "dest": "build/azDevops/azure/api-pipeline.yml"
       },
       {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-ssr.yml",
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
         "dest": "build/azDevops/azure/infra-pipeline.yml"
       },
       {
-        "src": "deploy/azure/infra/ssr",
+        "src": "deploy/azure/infra/stacks-aks",
         "dest": "deploy/azure/infra"
       },
       {
@@ -134,6 +134,10 @@
       {
         "src": "deploy/k8s",
         "dest": "deploy/k8s"
+      },
+      {
+        "src": "test",
+        "dest": "test"
       },
       {
         "src": "docs",

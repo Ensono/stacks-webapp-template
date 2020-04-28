@@ -33,8 +33,9 @@ module "aks_bootstrap" {
   create_dns_zone         = var.create_dns_zone
   dns_zone                = var.dns_zone
   internal_dns_zone       = var.internal_dns_zone
-  create_acr              = true
+  create_acr              = var.create_acr
   acr_registry_name       = replace(module.default_label.id, "-", "")
+  acr_resource_group      = module.default_label.id
   create_aksvnet          = var.create_aksvnet
   vnet_name               = module.default_label.id
   vnet_cidr               = var.vnet_cidr

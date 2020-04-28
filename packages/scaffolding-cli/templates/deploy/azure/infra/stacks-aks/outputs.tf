@@ -23,16 +23,28 @@ output "resource_group_id" {
   value = module.aks_bootstrap.resource_group_id
 }
 
-# output "aks_vmss" {
-#   value = azurerm_kubernetes_cluster.default.
-# }
-
 output "aks_node_resource_group" {
   value = module.aks_bootstrap.aks_node_resource_group
 }
 
 output "aks_system_identity_principal_id" {
   value = module.aks_bootstrap.aks_system_identity_principal_id
+}
+
+output "aks_resource_group_name" {
+  value = module.aks_bootstrap.aks_resource_group_name
+}
+
+output "aks_cluster_name" {
+  value = module.aks_bootstrap.aks_cluster_name
+}
+
+output "acr_resource_group_name" {
+  value = module.aks_bootstrap.acr_resource_group_name
+}
+
+output "acr_registry_name" {
+  value = module.aks_bootstrap.acr_registry_name
 }
 
 ### Identity ###

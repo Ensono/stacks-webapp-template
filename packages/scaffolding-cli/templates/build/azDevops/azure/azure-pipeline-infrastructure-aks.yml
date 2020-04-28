@@ -13,12 +13,11 @@ pr: none
 trigger:
   branches:
     include:
-    - "*"
+    - '*'
   paths:
     include:
-    # Amido Testing pipeline for E2E output of the CLI
-    - packages/scaffolding-cli/templates/build/*
-    - packages/scaffolding-cli/templates/deploy/*
+    - 'packages/scaffolding-cli/templates/build/*'
+    - 'packages/scaffolding-cli/templates/deploy/*'
 
 resources:
   repositories:
@@ -36,30 +35,34 @@ resources:
 variables:
   company: amido
   project: stacks
-  domain: webapp
-  component: node
+  domain: node
+  component: webapp
   # Versioning
   version_major: 0
   version_minor: 0
   version_revision: $[counter(variables['version_minor'], 0)]
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
-  self_repo_tf_src: deploy/azure/infra/ssr
+  self_repo_tf_src: deploy/azure/infra/stacks-aks
   # TF STATE CONFIG
   tf_state_rg: amido-stacks-rg-uks
   tf_state_storage: amidostackstfstategbl
   tf_state_container: tfstate
+  # Stacks operates Terraform states based on workspaces **IT IS VERY IMPORTANT** that you ensure a unique name for each application definition
+  # Furthermore **IT IS VERY IMPORTANT** that you change the name of a workspace for each deployment stage
+  # there are some best practices around this if you are going for feature based environments
+  # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
+  # **`terraform_state_workspace: `** all states will be saved under this key for this definition
+  # avoid running anything past dev that is not on master
+  # sample value: sharedservices
   tf_state_key: sharedservices
   # Docker Config
-  docker_dockerfile_path: 'src/'
-  docker_image_name: stacks-webapp
-  docker_image_tag: '$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)'
-  docker_container_registry_name: amidostacksnonprodnode
+  # SEE OUTPUTTED VALUE from Infra Bootstrap stage
+  # docker_container_registry_name: ""
   # AKS/AZURE
-  # This will always be predictably named by setting your company - project - compnonent names above 
-  aks_clusterrg_nonprod: amido-stacks-nonprod-node
-  aks_clustername_nonprod: amido-stacks-nonprod-node
-  aks_dns_resource_group_name_nonprod: amido-stacks-nonprod-node
+  # This will always be predictably named by setting your company - project - stage - location - compnonent names above
+  # IT IS SET per stage as an output to be consumed by deploy stage
+  aks_cluster_version: "1.16.7"
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   deployed_base_url: https://stacks-webapp.com/foo
@@ -125,8 +128,10 @@ stages:
             TF_VAR_resource_group_location: uksouth,
             TF_VAR_name_company: $(company),
             TF_VAR_name_project: $(project),
-            TF_VAR_name_component: $(component),
+            TF_VAR_name_component: $(domain),
             TF_VAR_name_environment: nonprod,
+            TF_VAR_create_acr: true,
+            TF_VAR_cluster_version: $(aks_cluster_version),
             TF_VAR_stage: nonprod,
             TF_VAR_dns_zone: $(base_domain),
             TF_VAR_internal_dns_zone: $(base_domain_internal)
@@ -144,6 +149,11 @@ stages:
       AKS_DEFAULT_USER_IDENTITY_NAME: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_NAME'] ]
       AKS_INGRESS_PUBLIC_IP: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_INGRESS_PUBLIC_IP'] ]
       AKS_INGRESS_PRIVATE_IP: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_INGRESS_PRIVATE_IP'] ]
+      RESOURCE_GROUP: $[ dependencies.InfraNonProd.outputs['tfoutputs.RESOURCE_GROUP_NAME'] ]
+      AKS_RESOURCE_GROUP: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_RESOURCE_GROUP_NAME'] ]
+      AKS_CLUSTER_NAME: $[ dependencies.InfraNonProd.outputs['tfoutputs.AKS_CLUSTER_NAME'] ]
+      ACR_REGISTRY_NAME: $[ dependencies.InfraNonProd.outputs['tfoutputs.ACR_REGISTRY_NAME'] ]
+      # if you have extended the infra definition and assigned output variables you can specify them here
     pool:
       vmImage: ubuntu-18.04
     container: k8s_deploy
@@ -176,7 +186,7 @@ stages:
               displayName: ExternalDns,
               env_vars: {
                 domain_filter: $(base_domain),
-                aks_resource_group: $(aks_clusterrg_nonprod)
+                aks_resource_group: $(AKS_RESOURCE_GROUP)
               }
             },
             {
@@ -207,9 +217,9 @@ stages:
       - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
         parameters: 
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
-          aks_cluster_name: $(aks_clusterrg_nonprod)
-          aks_resource_group_name: $(aks_clusterrg_nonprod)
-          aks_dns_resource_group_name: $(aks_clusterrg_nonprod)
+          aks_cluster_name: $(AKS_CLUSTER_NAME)
+          aks_resource_group_name: $(AKS_RESOURCE_GROUP)
+          aks_dns_resource_group_name: $(AKS_RESOURCE_GROUP)
           aks_set_acr_perms: false
           aks_deploy_gatekeeper: false
           aks_aad_pod_identity: true
@@ -218,7 +228,7 @@ stages:
             aad_id_binding_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml
           }
           acr_name: $(docker_container_registry_name)
-          acr_resource_group_name: $(aks_clusterrg_nonprod)
+          acr_resource_group_name: $(AKS_RESOURCE_GROUP)
           ingress_definition:
             # TODO: make this a complex object so that additional args can be passed in
             - $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/nginx-ingress.yml
