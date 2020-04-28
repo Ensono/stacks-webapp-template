@@ -1,6 +1,6 @@
 {
   "project_name": "test-app-1",
-  "project_type": "ssr",
+  "project_type": "netcore_selenium",
   "platform": "aks",
   "deployment": "azdevops",
   "advanced_config": true,
