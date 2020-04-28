@@ -20,7 +20,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "template-cli",
+      "name": "scaffolding-cli",
       "program": "${workspaceFolder}/packages/scaffolding-cli/dist/index.js",
       "cwd": "${workspaceFolder}/packages/scaffolding-cli",
       "protocol": "inspector",
@@ -35,7 +35,11 @@
         "LOG_LEVEL": "debug",
         "COMMAND_TO_RUN": "ininTemplateCli"
       },
-      "args": ["run", "-c", "src/__tests__/domain/ssr.bootstrap-config.json"]
+      "args": [
+        "run",
+        "-c",
+        "src/__tests__/domain/netcore_selenium.bootstrap-config.json"
+      ]
     },
     {
       "type": "node",

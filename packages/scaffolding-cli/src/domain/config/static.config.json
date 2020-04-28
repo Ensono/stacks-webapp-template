@@ -149,6 +149,17 @@
       }
     ]
   },
+  "netcore_selenium": {
+    "git_repo": "",
+    "git_ref": "",
+    "local_path": "",
+    "folder_map": [
+      {
+        "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium",
+        "dest": ""
+      }
+    ]
+  },
   "java_spring": {
     "git_repo": "https://github.com/spring-guides/gs-actuator-service.git",
     "git_ref": "17bbbb65c1c641634a59568c2e3642ae59e2e7dd",
