@@ -8,6 +8,8 @@ let staticConf: Static = conf as Static;
 
 jest.mock('../../../domain/workers/utils')
 
+//TODO: parametise these tests
+
 let mock_answer_ssr = <CliAnswerModel>{
     project_name: "foo",
     project_type: "ssr",
@@ -35,6 +37,14 @@ let mock_answer_java_spring = <CliAnswerModel>{
 let mock_answer_netcore = <CliAnswerModel>{
     project_name: "foo",
     project_type: "netcore",
+    platform: "aks",
+    deployment: "tfs",
+    create_config: true
+}
+
+let mock_answer_netcore_selenium = <CliAnswerModel>{
+    project_name: "foo",
+    project_type: "netcore_selenium",
     platform: "aks",
     deployment: "tfs",
     create_config: true
@@ -145,6 +155,26 @@ describe("mainWorker class tests", () => {
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}/src`)
             expect(flow_ran.message).toMatch(`gradle build && gradle run `)
+        })
+        it("netcore_selenium_tfs should return success and user message for npm", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `${mock_answer_ssr.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            
+            let flow_ran: CliResponse = await mainWorker.netcore_selenium_tfs(mock_answer_netcore_selenium)
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}`)
+            expect(flow_ran.message).toMatch(`dotnet restore && dotnet test`)
         })
     })
     describe("Negative assertions", () => {

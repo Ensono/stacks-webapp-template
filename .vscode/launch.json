@@ -20,7 +20,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "template-cli",
+      "name": "scaffolding-cli",
       "program": "${workspaceFolder}/packages/scaffolding-cli/dist/index.js",
       "cwd": "${workspaceFolder}/packages/scaffolding-cli",
       "protocol": "inspector",
@@ -38,7 +38,7 @@
       "args": [
         "run",
         "-c",
-        "src/__tests__/domain/netcore.bootstrap-config.json"
+        "src/__tests__/domain/netcore_selenium.bootstrap-config.json"
       ]
     },
     {
