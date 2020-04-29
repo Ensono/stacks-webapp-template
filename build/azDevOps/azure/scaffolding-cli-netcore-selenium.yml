@@ -36,8 +36,8 @@ steps:
       sample_config: 'netcore_selenium.bootstrap-config.json'
       sample_config_path: $(sample_config_directory)
 
-    - template: azDevOps/azure/templates/v2/steps/build-test-dotnet.yml@templates
-      parameters:
-        test_path: '$(working_directory)/test-app-1'
-        package_path: '$(working_directory)/test-app-1'
-        dotnet_core_version: $(dotnet_core_version)
+  - template: azDevOps/azure/templates/v2/steps/build-test-dotnet.yml@templates
+    parameters:
+      test_path: '$(working_directory)/test-app-1'
+      package_path: '$(working_directory)/test-app-1'
+      dotnet_core_version: $(dotnet_core_version)
