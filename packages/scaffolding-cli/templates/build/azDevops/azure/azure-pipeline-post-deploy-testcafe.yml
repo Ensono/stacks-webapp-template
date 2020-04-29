@@ -13,19 +13,31 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.1.0
+      ref: feat/reporting
       endpoint: amidostacks
+
+variables:
+  # SelfConfig
+  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
+  working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
 
 steps:
   - checkout: self
   - checkout: templates
-  # Functional tests running on deployed webapp
+
   - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
     parameters:
       env_vars:
-        APP_BASE_URL: "https://app.nonprod.amidostacks.com/web/stacks"
-        MENU_API_URL: "http://dev.amidostacks.com/api/menu"
-        APP_BASE_PATH: "/web/stacks"
+        APP_BASE_URL: 'https://app.nonprod.amidostacks.com/web/stacks'
+        MENU_API_URL: 'http://dev.amidostacks.com/api/menu'
+        APP_BASE_PATH: '/web/stacks'
         NODE_ENV: production
-      workingDirectory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
-      testcafe_browser_list: "chrome,firefox"
+      working_directory: ${{ parameters.working_directory }}
+      testcafe_browser_list: 'chrome,firefox'
+
+  - template: azDevOps/azure/templates/v2/steps/test-publish-test-reports-blob.yml@templates
+    parameters:
+      test_tool_name: testcafe
+      artifacts:
+        screenshots: '${{ parameters.working_directory }}/screenshots'
+      working_directory: ${{ parameters.working_directory }}
