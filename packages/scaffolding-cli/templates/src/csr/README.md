@@ -1,5 +1,8 @@
 # Client Side Rendering Web Application
 
+CSR webapp is bootstrapped from
+[Create-React-App](https://create-react-app.dev/docs/getting-started)
+
 ## Implementation details
 
 The template is a Client Side Rendered (CSR) implementation using:
@@ -13,7 +16,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+[http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 The page will reload if you make edits.<br /> You will also see any lint errors
 in the console.
