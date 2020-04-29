@@ -27,7 +27,7 @@ variables:
 steps:
   - checkout: self
   - checkout: templates
-  - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
+  - template: azDevOps/azure/templates/v2/steps/build-test-dotnet.yml@templates
     parameters:
       test_path: ${working_directory}
       package_path: ${working_directory}
