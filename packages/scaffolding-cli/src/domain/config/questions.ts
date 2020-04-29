@@ -14,16 +14,24 @@ export function computedSelection(cliOrConfigAnswer: PromptAnswer): CliAnswerMod
             company: cliOrConfigAnswer?.business_company || "COMPANY_REPLACE_ME",
             project: cliOrConfigAnswer?.business_project || "PROJECT_REPLACE_ME",
             component: cliOrConfigAnswer?.business_component ||  "COMPONENT_REPLACE_ME",
+            domain: cliOrConfigAnswer?.business_domain ||  "DOMAIN_REPLACE_ME"
         },
         cloud: {
             resource_group: cliOrConfigAnswer?.cloud_resource_group || "RG_REPLACE_ME",
             region: cliOrConfigAnswer?.cloud_region || "REGION_REPLACE_ME"
         },
         terraform: { 
-            backend_storage: cliOrConfigAnswer?.terraform_backend_storage || "BACKEND_STORAGE_REPLACE_ME"
+            backend_storage: cliOrConfigAnswer?.terraform_backend_storage || "BACKEND_STORAGE_REPLACE_ME",
+            backend_storage_rg: cliOrConfigAnswer?.terraform_backend_storage_rg || "BACKEND_STORAGE_RG_REPLACE_ME",
+            backend_storage_container: cliOrConfigAnswer?.terraform_backend_storage_container || "BACKEND_STORAGE_CONTAINER_REPLACE_ME",
+        },
+        source_control: {
+            repo_type: cliOrConfigAnswer?.source_control_repo_type || "SCM_TYPE_REPLACE_ME",
+            repo_name: cliOrConfigAnswer?.source_control_repo_name || "REPO_NAME_REPLACE_ME"
         }
     }
 }
+
 /**
  * Additional questions should be placed here as we are extending the program
  */
@@ -51,6 +59,9 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
                 },
                 {
                     "title": "Java Springboot", "description": "Java SpringBoot API", "value": "java_spring"
+                },
+                {
+                    "title": ".netcore Selenium", "description": ".Net Core Selenium E2E Test Template Framework", "value": "netcore_selenium"
                 }
             ],
             "initial": 0

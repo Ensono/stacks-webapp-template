@@ -4,26 +4,27 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+**/node_modules
 
 # js files excluding config
 **/*.js
 **/*.jsx
 !*config.js
 !**/*-config*/*.js
+!**/config*/*.js
 
 
 # logs
 *.log
 
 # testing
-/coverage
-__tests__/coverage
-__tests__/logs
-__tests__/cypress/screenshots
-__tests__/cypress/videos
+**/coverage
+**/__tests__/coverage
+**/__tests__/logs
+**/__tests__/cypress/screenshots
+**/__tests__/cypress/videos
 **/*test-report.xml
 
 # production
-.next
-/dist
+**/.next
+**/dist

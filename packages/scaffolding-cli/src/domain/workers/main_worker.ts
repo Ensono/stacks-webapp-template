@@ -2,8 +2,8 @@ import { CliAnswerModel } from '../model/prompt_answer'
 import { CliResponse, CliError, TempCopy } from '../model/workers'
 import { Utils } from './utils'
 import { Replacetruct, buildReplaceFoldersAndVals, BuildReplaceInput } from '../config/file_mapper'
-import {ssr, netcore, java_spring, csr, shared } from '../config/worker_maps'
-import conf from  '../config/static.config.json'
+import { ssr, netcore, java_spring, csr, shared, netcore_selenium } from '../config/worker_maps'
+import conf from '../config/static.config.json'
 import { Static } from '../model/config'
 
 let staticConf: Static = conf as Static;
@@ -18,13 +18,27 @@ export class MainWorker {
         let selectedFlowResponse: CliResponse = <CliResponse>{}
         try {
 
-            let buildInput: Array<BuildReplaceInput> = ssr.in_files(instructions.project_name, instructions.business, instructions.cloud)
+            let sharedBuildInput: Array<BuildReplaceInput> = shared.in_files({
+                project_name: instructions.project_name,
+                business_obj: instructions.business,
+                cloud_obj: instructions.cloud,
+                terraform_obj: instructions.terraform,
+                scm_obj: instructions.source_control
+            })
+
+            let buildInput: Array<BuildReplaceInput> = ssr.in_files({
+                project_name: instructions.project_name,
+                business_obj: instructions.business,
+                cloud_obj: instructions.cloud,
+                terraform_obj: instructions.terraform,
+                scm_obj: instructions.source_control
+            }).concat(sharedBuildInput)
 
             let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
 
             await Utils.constructOutput(staticConf.ssr.folder_map, new_directory.final_path, new_directory.temp_path)
 
-            let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput)
+            let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
 
             await Utils.valueReplace(val_maps)
             if (instructions.create_config) {
@@ -48,8 +62,21 @@ export class MainWorker {
     async netcore_aks_tfs(instructions: CliAnswerModel): Promise<CliResponse> {
         let selectedFlowResponse: CliResponse = <CliResponse>{}
         try {
-            let buildInput: Array<BuildReplaceInput> = netcore.in_files(instructions.project_name, instructions.business, instructions.cloud)
-            
+
+            let sharedBuildInput: Array<BuildReplaceInput> = shared.in_files({
+                project_name: instructions.project_name,
+                business_obj: instructions.business,
+                cloud_obj: instructions.cloud,
+                terraform_obj: instructions.terraform,
+                scm_obj: instructions.source_control
+            })
+
+            let buildInput: Array<BuildReplaceInput> = netcore.in_files({
+                project_name: instructions.project_name,
+                business_obj: instructions.business,
+                cloud_obj: instructions.cloud
+            }).concat(sharedBuildInput)
+
             let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
             // git clone node_repo custom app src
             // src_path_in_tmp should be statically defined in each method
@@ -58,9 +85,9 @@ export class MainWorker {
             await Utils.constructOutput(staticConf.netcore.folder_map, new_directory.final_path, new_directory.temp_path)
 
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput)
-            
+
             await Utils.valueReplace(val_maps)
-            await Utils.fileNameReplace(new_directory.final_path, instructions)
+            await Utils.fileNameReplace([`${new_directory.final_path}/src`, `${new_directory.final_path}/test`], instructions)
             if (instructions.create_config) {
                 await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             }
@@ -85,7 +112,7 @@ export class MainWorker {
         try {
 
             let buildInput: Array<BuildReplaceInput> = java_spring.in_files(instructions.project_name, instructions.business, instructions.cloud)
-            
+
             let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
             // git clone node_repo custom app src
             // src_path_in_tmp should be statically defined in each method
@@ -96,7 +123,8 @@ export class MainWorker {
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput)
 
             await Utils.valueReplace(val_maps)
-           
+            await Utils.fileNameReplace([new_directory.final_path], instructions)            
+
             if (instructions.create_config) {
                 await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             }
@@ -121,7 +149,7 @@ export class MainWorker {
         try {
 
             let buildInput: Array<BuildReplaceInput> = csr.in_files(instructions.project_name, instructions.business, instructions.cloud)
-            
+
             let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
             // git clone node_repo custom app src
             // src_path_in_tmp should be statically defined in each method
@@ -141,6 +169,40 @@ export class MainWorker {
             selectedFlowResponse.ok = true
             // Control the output message from each method
             selectedFlowResponse.message = shared.final_response_message(instructions.project_name, csr.response_message(instructions.project_name), instructions.create_config)
+            return selectedFlowResponse
+        } catch (ex) {
+            const cliErr = ex as CliError
+            return <CliResponse>{
+                ok: false,
+                code: ex.code || -1,
+                message: ex.message,
+                error: cliErr
+            };
+        }
+    }
+
+    async netcore_selenium_tfs(instructions: CliAnswerModel): Promise<CliResponse> {
+        let selectedFlowResponse: CliResponse = <CliResponse>{}
+        try {
+            let buildInput: Array<BuildReplaceInput> = netcore_selenium.in_files(instructions.project_name, instructions.business, instructions.cloud)
+
+            let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
+
+            await Utils.constructOutput(staticConf.netcore_selenium.folder_map, new_directory.final_path, new_directory.temp_path)
+
+            let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
+
+            await Utils.valueReplace(val_maps)
+            await Utils.fileNameReplace([`${new_directory.final_path}`], instructions)
+            
+            if (instructions.create_config) {
+                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
+            }
+            selectedFlowResponse.code = 0
+            selectedFlowResponse.ok = true
+            // Control the output message from each method
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, netcore_selenium.response_message(instructions.project_name), instructions.create_config)
+
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError
