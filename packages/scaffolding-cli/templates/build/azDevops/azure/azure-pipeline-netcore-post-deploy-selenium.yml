@@ -20,7 +20,7 @@ resources:
       endpoint: amidostacks
 
 variables:
-  dotnet_core_version: 2.2.x
+  dotnet_core_version: '3.1.0'
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   working_directory: '$(Agent.BuildDirectory)/s/$(self_repo)/test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium'
 
