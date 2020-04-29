@@ -25,6 +25,10 @@ steps:
   - checkout: self
   - checkout: templates
 
+  - bash: |
+      echo "working_directory: ${working_directory}" \
+      echo "self_repo: ${self_repo}"
+
   - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
     parameters:
       env_vars:
