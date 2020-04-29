@@ -19,7 +19,7 @@ resources:
 variables:
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
-  working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
+  working_directory: '$(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe'
 
 steps:
   - checkout: self
