@@ -32,12 +32,12 @@ steps:
         MENU_API_URL: 'http://dev.amidostacks.com/api/menu'
         APP_BASE_PATH: '/web/stacks'
         NODE_ENV: production
-      working_directory: ${{ parameters.working_directory }}
+      working_directory: ${working_directory}
       testcafe_browser_list: 'chrome,firefox'
 
   - template: azDevOps/azure/templates/v2/steps/test-publish-test-reports-blob.yml@templates
     parameters:
       test_tool_name: testcafe
       artifacts:
-        screenshots: '${{ parameters.working_directory }}/screenshots'
-      working_directory: ${{ parameters.working_directory }}
+        screenshots: '${working_directory}/screenshots'
+      working_directory: ${working_directory}
