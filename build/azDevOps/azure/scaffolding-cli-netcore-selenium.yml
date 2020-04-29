@@ -23,7 +23,7 @@ variables:
   dotnet_core_version: '3.1.x'
   working_directory: '$(Agent.BuildDirectory)/s'
   self_repo: stacks-webapp-template/packages/scaffolding-cli
-  sample_config_directory: '$(working_directory)$(self_repo)/src/__tests__/domain'
+  sample_config_directory: '$(working_directory)/$(self_repo)/src/__tests__/domain'
   version_spec: 12.x
 
 steps:
