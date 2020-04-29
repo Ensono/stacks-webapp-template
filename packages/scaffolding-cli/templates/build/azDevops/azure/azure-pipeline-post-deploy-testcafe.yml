@@ -28,7 +28,7 @@ steps:
   - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
     parameters:
       env_vars:
-        APP_BASE_URL: 'https://app.nonprod.amidostacks.com/web/stacks'
+        APP_BASE_URL: 'https://app.nonprod.amidostacks.com'
         MENU_API_URL: 'http://dev.amidostacks.com/api/menu'
         APP_BASE_PATH: '/web/stacks'
         NODE_ENV: production
