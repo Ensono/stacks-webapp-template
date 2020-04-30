@@ -17,10 +17,6 @@ resources:
       endpoint: amidostacks
 
 variables:
-  - company: amido
-  - project: stacks
-
-  # SelfConfig
   - name: self_repo
     value: stacks-webapp-template/packages/scaffolding-cli/templates
   - name: working_directory
