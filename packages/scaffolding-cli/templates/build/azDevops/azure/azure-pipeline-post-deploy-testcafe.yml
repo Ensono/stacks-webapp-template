@@ -17,9 +17,22 @@ resources:
       endpoint: amidostacks
 
 variables:
+  - company: amido
+  - project: stacks
+
   # SelfConfig
-  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
-  working_directory: '$(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe'
+  - name: self_repo
+    value: stacks-webapp-template/packages/scaffolding-cli/templates
+  - name: working_directory
+    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe'
+
+  # Resource Test Results Blob Storage Container
+  - name: test_results_storage
+    value: amidostacksnonprodtests
+  - name: test_results_container
+    value: 'testresults'
+  - name: test_results_blob_service_connection
+    value: amidostacksnonprodtestingdemo
 
 steps:
   - checkout: self
@@ -41,3 +54,7 @@ steps:
       artifacts:
         screenshots: '$(working_directory)/screenshots'
       working_directory: $(working_directory)
+      test_results_storage: $(test_results_storage)
+      test_results_container: $(test_results_container)
+      test_results_blob_service_connection: $(test_results_blob_service_connection)
+      test_results_path: ${{ parameters.working_directory }}
