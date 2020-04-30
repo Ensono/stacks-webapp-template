@@ -3,7 +3,7 @@ import AddIcon from "@material-ui/icons/Add"
 import React from "react"
 import {Wrapper} from "./components"
 
-const title = "Yumido"
+const title = require("../../../package.json").name
 
 const Header = () => {
     return (
