@@ -1,5 +1,5 @@
 pool:
-  vmImage: 'ubuntu-18.04'
+  vmImage: windows-2019 # Because of the publishing of test reports
 
 resources:
   pipelines:
