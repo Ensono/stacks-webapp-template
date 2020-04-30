@@ -53,4 +53,5 @@ steps:
       test_results_storage: $(test_results_storage)
       test_results_container: $(test_results_container)
       test_results_blob_service_connection: $(test_results_blob_service_connection)
-      test_results_path: ${{ parameters.working_directory }}
+      test_results_path: $(working_directory)
+      test_results_blob_prefix: $(Build.BuildNumber)
