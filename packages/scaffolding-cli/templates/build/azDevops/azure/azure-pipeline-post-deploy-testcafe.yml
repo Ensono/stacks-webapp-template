@@ -24,11 +24,11 @@ variables:
 
   # Resource Test Results Blob Storage Container
   - name: test_results_storage
-    value: amidostacksnonproddemote
+    value: amidostacksnonprodtests
   - name: test_results_container
     value: 'testresults'
-  - name: test_results_blob_service_connection
-    value: amido-stacks-nonprod-demo-testing
+
+  - group: amido-stacks-infra-credentials-nonprod
 
 steps:
   - checkout: self
@@ -52,6 +52,5 @@ steps:
       working_directory: $(working_directory)
       test_results_storage: $(test_results_storage)
       test_results_container: $(test_results_container)
-      test_results_blob_service_connection: $(test_results_blob_service_connection)
       test_results_path: $(working_directory)
       test_results_blob_prefix: $(Build.BuildNumber)
