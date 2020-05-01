@@ -1,13 +1,6 @@
 ############################################
 # AUTHENTICATION
 ############################################
-variable "client_id" {}
-
-variable "client_secret" {}
-
-variable "tenant_id" {}
-
-variable "subscription_id" {}
 ############################################
 # NAMING
 ############################################
@@ -74,10 +67,6 @@ variable "resource_location" {
 variable "resource_tags" {
   type    = map(string)
   default = {}
-}
-
-variable "rg_name" {
-  type = string
 }
 
 ###########################
