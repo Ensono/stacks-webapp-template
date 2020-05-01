@@ -24,11 +24,11 @@ variables:
 
   # Resource Test Results Blob Storage Container
   - name: test_results_storage
-    value: amidostacksnonprodtests
+    value: amidostacksnonproddemote
   - name: test_results_container
     value: 'testresults'
   - name: test_results_blob_service_connection
-    value: amidostacksnonprodtestingdemo
+    value: amido-stacks-nonprod-demo-testing
 
 steps:
   - checkout: self
