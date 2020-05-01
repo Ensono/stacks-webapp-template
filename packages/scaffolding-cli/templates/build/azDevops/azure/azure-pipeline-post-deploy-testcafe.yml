@@ -1,6 +1,8 @@
 pool:
   vmImage: ubuntu-18.04
 
+# Triggered on success of the deployment pipleine
+# Change the source to point to the required previous pipeline
 resources:
   pipelines:
     - pipeline: azure-pipeline-post-deploy-testcafe
@@ -13,7 +15,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: feat/reporting
+      ref: refs/tag/v1.2.0
       endpoint: amidostacks
 
 variables:
@@ -28,12 +30,14 @@ variables:
   - name: test_results_container
     value: 'testresults'
 
+  # Resource management connection
   - group: amido-stacks-infra-credentials-nonprod
 
 steps:
   - checkout: self
   - checkout: templates
 
+  # Run tests with TestCafe
   - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
     parameters:
       env_vars:
@@ -44,6 +48,7 @@ steps:
       working_directory: $(working_directory)
       testcafe_browser_list: 'chrome:headless'
 
+  # Upload test results in pipeline, as artifacts, and html report to blob storage
   - template: azDevOps/azure/templates/v2/steps/test-publish-test-reports-blob.yml@templates
     parameters:
       test_tool_name: testcafe
