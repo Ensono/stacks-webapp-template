@@ -149,6 +149,17 @@
       }
     ]
   },
+  "js_testcafe": {
+    "git_repo": "",
+    "git_ref": "",
+    "local_path": "",
+    "folder_map": [
+      {
+        "src": "test/testcafe",
+        "dest": ""
+      }
+    ]
+  },
   "netcore_selenium": {
     "git_repo": "",
     "git_ref": "",
