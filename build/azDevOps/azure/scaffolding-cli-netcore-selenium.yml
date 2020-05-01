@@ -1,3 +1,10 @@
+############################################################################################################
+# desc: Example standalone pipeline running E2E tests with .NET Selenium Framework 
+# return: templated solution that builds, and tests in pipeline
+# pre-reqs: published packages and templates, example config file
+############################################################################################################
+
+
 pr: none
 
 trigger:
@@ -6,7 +13,7 @@ trigger:
       - '*'
   paths:
     include:
-      - 'packages/scaffolding-cli/templates/test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium/*'
+      - '**/*/xxAMIDOxx.xxSTACKSxx.E2E.Selenium/*'
 
 pool:
   vmImage: 'ubuntu-18.04'
@@ -16,7 +23,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: feat/reporting
+      ref: refs/tag/v1.2.0
       endpoint: amidostacks
 
 variables:
