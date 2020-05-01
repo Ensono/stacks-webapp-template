@@ -214,6 +214,37 @@ export class MainWorker {
             };
         }
     }
+    async ssr_gke_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        let selectedFlowResponse: CliResponse = <CliResponse>{}
+        try {
+            let buildInput: Array<BuildReplaceInput> = netcore_selenium.in_files(instructions.project_name, instructions.business, instructions.cloud)
+
+            let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
+
+            await Utils.constructOutput(staticConf.gke_ssr.folder_map, new_directory.final_path, new_directory.temp_path)
+
+            let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
+
+            await Utils.valueReplace(val_maps)
+            await Utils.fileNameReplace([`${new_directory.final_path}`], instructions)
+            
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
+            selectedFlowResponse.code = 0
+            selectedFlowResponse.ok = true
+            // Control the output message from each method
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, netcore_selenium.response_message(instructions.project_name), instructions.create_config)
+
+            return selectedFlowResponse
+        } catch (ex) {
+            const cliErr = ex as CliError
+            return <CliResponse>{
+                ok: false,
+                code: ex.code || -1,
+                message: ex.message,
+                error: cliErr
+            };
+        }
+    }
 }
 
 export default {

@@ -190,5 +190,56 @@
         "dest": "src"
       }
     ]
+  },
+  "gke_ssr": {
+    "git_repo": "",
+    "git_ref": "",
+    "local_path": "",
+    "folder_map": [
+      {
+        "src": "shared",
+        "dest": ""
+      },
+      {
+        "src": "build/azDevops/azure/k8s_manifests",
+        "dest": "build/azDevops/gcp/k8s_manifests"
+      },
+      {
+        "src": "build/azDevops/azure/templates",
+        "dest": "build/azDevops/gcp/templates"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
+        "dest": "build/azDevops/gcp/app-pipeline.yml"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-gke.yml",
+        "dest": "build/azDevops/gcp/infra-pipeline.yml"
+      },
+      {
+        "src": "deploy/gcp/infra/stacks-aks",
+        "dest": "deploy/gcp/infra"
+      },
+      {
+        "src": "deploy/gcp/app/kube",
+        "dest": "deploy/gcp/app"
+      },
+      {
+        "src": "deploy/k8s",
+        "dest": "deploy/k8s"
+      },
+      {
+        "src": "test",
+        "dest": "test"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
+      },
+      {
+        "src": "src/ssr",
+        "dest": "src"
+      }
+    ]
   }
 }

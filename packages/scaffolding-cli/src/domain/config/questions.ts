@@ -62,6 +62,9 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
                 },
                 {
                     "title": ".netcore Selenium", "description": ".Net Core Selenium E2E Test Template Framework", "value": "netcore_selenium"
+                },
+                {
+                    "title": "Infra only", "description": "Sharedservices infrastructure only", "value": "infra_only"
                 }
             ],
             "initial": 0
@@ -73,6 +76,9 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
             "choices": [
                 {
                     "title": "AKS", "description": "Azure Kubernetes", "value": "aks"
+                },
+                {
+                    "title": "GKE", "description": "Google Kubernetes Engine", "value": "gke"
                 }
             ],
             "initial": 0

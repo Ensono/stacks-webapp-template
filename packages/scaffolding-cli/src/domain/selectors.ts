@@ -20,6 +20,9 @@ export class FlowSelector {
     static async option_netcore_selenium_aks_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
         return await mainWorker.netcore_selenium_tfs(instructions)
     }
+    static async option_ssr_gke_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return await mainWorker.ssr_gke_azdevops(instructions)
+    }
 }
 
 export default  {
