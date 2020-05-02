@@ -1,3 +1,5 @@
+[![Maintained by Amido](https://img.shields.io/badge/Maintained%20by-Amido-yellow)](https://amido.com/)
+
 # Client Side Rendering Web Application
 
 CSR webapp is bootstrapped from

@@ -1,5 +1,5 @@
+[![Maintained by Amido](https://img.shields.io/badge/Maintained%20by-Amido-yellow)](https://amido.com/)
 [![Build Status](https://dev.azure.com/amido-dev/Amido-Stacks/_apis/build/status/stacks-webapp-template-pipeline?branchName=master)](https://dev.azure.com/amido-dev/Amido-Stacks/_build/latest?definitionId=70&branchName=master)
-
 [![NPM](https://img.shields.io/npm/l/@amidostacks/scaffolding-cli)](LICENSE.md)
 
 # stacks-webapp-template
