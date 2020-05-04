@@ -1,3 +1,5 @@
+[![Maintained by Amido](https://img.shields.io/badge/Maintained%20by-Amido-yellow)](https://amido.com/)
+
 # Client Side Rendering Web Application
 
 CSR webapp is bootstrapped from
@@ -30,7 +32,7 @@ for more information.
 
 ### `npm run build`
 
-Builds the app for production to the `out` folder.<br /> It correctly bundles
+Builds the app for production to the `dist` folder.<br /> It correctly bundles
 React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br /> Your app is
