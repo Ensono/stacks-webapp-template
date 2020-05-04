@@ -41,9 +41,8 @@ export class MainWorker {
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
 
             await Utils.valueReplace(val_maps)
-            if (instructions.create_config) {
-                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            }
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
+            
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
