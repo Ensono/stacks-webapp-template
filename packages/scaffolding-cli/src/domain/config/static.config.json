@@ -79,7 +79,6 @@
         "src": "deploy/azure/infra/csr",
         "dest": "deploy/azure/infra"
       },
-
       {
         "src": "docs",
         "dest": "docs"
@@ -191,7 +190,7 @@
       }
     ]
   },
-  "gke_ssr": {
+  "ssr_gke": {
     "git_repo": "",
     "git_ref": "",
     "local_path": "",
@@ -217,16 +216,16 @@
         "dest": "build/azDevops/gcp/infra-pipeline.yml"
       },
       {
-        "src": "deploy/gcp/infra/stacks-aks",
+        "src": "deploy/gcp/infra/stacks-gke",
         "dest": "deploy/gcp/infra"
       },
       {
-        "src": "deploy/gcp/app/kube",
+        "src": "deploy/azure/app/kube",
         "dest": "deploy/gcp/app"
       },
       {
-        "src": "deploy/k8s",
-        "dest": "deploy/k8s"
+        "src": "deploy/k8s/app",
+        "dest": "deploy/k8s/app"
       },
       {
         "src": "test",
@@ -239,6 +238,33 @@
       {
         "src": "src/ssr",
         "dest": "src"
+      }
+    ]
+  },
+  "aks_infra": {
+    "git_repo": "",
+    "git_ref": "",
+    "local_path": "",
+    "folder_map": [
+      {
+        "src": "shared",
+        "dest": ""
+      },
+      {
+        "src": "build/azDevops/azure/k8s_manifests",
+        "dest": "build/azDevops/azure/k8s_manifests"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
+        "dest": "build/azDevops/azure/infra-pipeline.yml"
+      },
+      {
+        "src": "deploy/azure/infra/stacks-aks",
+        "dest": "deploy/azure/infra"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
       }
     ]
   }

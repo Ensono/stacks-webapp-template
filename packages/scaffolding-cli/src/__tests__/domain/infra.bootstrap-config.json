@@ -1,6 +1,6 @@
 {
-  "project_name": "test-app-1",
-  "project_type": "netcore",
+  "project_name": "test-app-infra-only",
+  "project_type": "infra",
   "platform": "aks",
   "deployment": "azdevops",
   "advanced_config": true,

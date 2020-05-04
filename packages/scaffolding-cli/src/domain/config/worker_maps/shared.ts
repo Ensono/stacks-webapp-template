@@ -45,7 +45,7 @@ export const final_response_message = (project_name: string, message: string, co
     let config_message = `----> \n
 Config file has been written out to current directory \n
 Please re-run the CLI with the following command. \n
-npx @amidostacks/scaffolding-cli ${project_name}.bootstrap-config.json \n
+npx @amidostacks/scaffolding-cli run -c ${project_name}.bootstrap-config.json \n
 <----- \n
 NB: IF you haven't gone through the advanced setup - plese ensure you have replaced all the relevant values.
     `

@@ -72,11 +72,11 @@ export class Utils {
             throw gitResponse
         }
     }
-    public static async writeOutConfigFile(configOut: string, instruction_map?: CliAnswerModel): Promise<ConfigResponse> {
+    public static async writeOutConfigFile(configOut: string, instruction_map?: CliAnswerModel, type_override: string = ""): Promise<ConfigResponse> {
         let fsResponse: ConfigResponse = <ConfigResponse>{}
         try {
             let configFile: string = resolve(process.cwd(), configOut)
-            let sampleConfig: string = resolve(__dirname, '../config/sample.bootstrap-config.json')
+            let sampleConfig: string = resolve(__dirname, `../config/sample${type_override}.bootstrap-config.json`)
             await copy(sampleConfig, configFile, {preserveTimestamps: true, dereference: false})
             
             if (instruction_map) {
@@ -129,6 +129,7 @@ export class Utils {
                     from: val.replaceVals.from,
                     to: val.replaceVals.to,
                     ignore: val.ignoreFiles,
+                    allowEmptyPaths: true,
                     countMatches: val.countMatches
                 }
                 await replace(options)

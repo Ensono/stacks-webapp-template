@@ -1,4 +1,4 @@
-import { runCli, runConfig, generateSampleConfig } from '../../domain/prompt'
+import { runCli, runConfig } from '../../domain/prompt'
 import * as prompt from 'prompts'
 import { resolve } from 'path'
 import { ExitMessage, CliOptions } from '../../domain/model/cli_response'
@@ -106,19 +106,6 @@ describe("prompt class tests", () => {
             expect(cliResult).toHaveProperty("message")
             expect(cliResult.code).toBe(0)
         })
-        it("When run with -gsc flag", async () => {
-            Utils.writeOutConfigFile = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve({})
-            })
-
-            mockPrompt.mockClear()
-
-            let cliResult: ExitMessage = await generateSampleConfig()
-            expect(mockPrompt).not.toHaveBeenCalled()
-            expect(cliResult).toHaveProperty("code")
-            expect(cliResult).toHaveProperty("message")
-            expect(cliResult.code).toBe(0)
-        })
     })
     describe("Negative assertions", () => {
         it("When run from config should return a response with an error code and an excpetion inside error", async () => {
@@ -128,18 +115,6 @@ describe("prompt class tests", () => {
             let cliResult = await runConfig(cliOptsConfigFileSsr)
             expect(cliResult).toHaveProperty("code")
             expect(FlowSelector.option_ssr_aks_azuredevops).toHaveBeenCalled()
-            expect(cliResult.message).toHaveProperty("message")
-            expect(cliResult.message).toBeInstanceOf(Error)
-            expect(cliResult.message).toHaveProperty("stack")
-            expect(cliResult.code).toBe(127)
-        }),
-        it("When sample config generation is run an error should be returned", async () => {
-            Utils.writeOutConfigFile = jest.fn().mockImplementationOnce(() => {
-                throw { code: 127, message: new Error("Something weird happened") };
-            });
-            let cliResult = await generateSampleConfig()
-            expect(cliResult).toHaveProperty("code")
-            expect(Utils.writeOutConfigFile).toHaveBeenCalled()
             expect(cliResult.message).toHaveProperty("message")
             expect(cliResult.message).toBeInstanceOf(Error)
             expect(cliResult.message).toHaveProperty("stack")

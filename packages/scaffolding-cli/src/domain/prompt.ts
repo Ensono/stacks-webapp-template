@@ -28,26 +28,6 @@ export async function runConfig(cli_args: CliOptions): Promise<ExitMessage> {
     return await selectFlow(cliModifiedSelection)
 }
 
-export async function generateSampleConfig (): Promise<ExitMessage> {
-    try {
-        await Utils.writeOutConfigFile(`sample.bootstrap-config.json`)
-        exitMessage.code = 0
-        exitMessage.message = 
-`Sample config file has been written out to current directory \n
-Please re-run the CLI with the following command. \n
------ \n
-npx @amido-stacks/scaffolding-cli run -c sample.bootstrap-config.json \n
------ \n
-NB: IF you haven't gone through the advanced setup - please ensure you have replaced all the relevant values.
-`
-        return exitMessage;
-    } catch (ex) {
-        exitMessage.code = ex.code || -1
-        exitMessage.message = ex.error?.message || ex.message
-        return exitMessage
-    }
-}
-
 /**
  * @private
  * @param default_project_name
@@ -116,4 +96,3 @@ async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {
         return exCaught
     }
 }
-

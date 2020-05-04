@@ -82,6 +82,43 @@ describe("mainWorker class tests", () => {
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}/src && npm install && npm run build && npm run start`)
         })
+        it("ssr_gke_tfs should return success and user message for npm", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `${mock_answer_ssr.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            let flow_ran: CliResponse = await mainWorker.ssr_gke_tfs(mock_answer_ssr)
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}/src && npm install && npm run build && npm run start`)
+        })
+
+        it("infra_aks_azdevops should return success and user message for npm", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `${mock_answer_ssr.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(worker_response)
+            })
+            let flow_ran: CliResponse = await mainWorker.infra_aks_azdevops(mock_answer_ssr)
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}/deploy`)
+        })
         it("csr_aks_tfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})
