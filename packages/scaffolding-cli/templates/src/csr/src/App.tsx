@@ -1,16 +1,25 @@
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/core/styles"
 import React from "react"
+import {Helmet} from "react-helmet"
 import "./App.css"
 import Header from "./components/Header"
+import Search from "./components/Search"
 import theme from "./constants/theme"
 
 function App() {
     return (
-        <MuiThemeProvider theme={theme}>
-            <div className="App">
+        <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Amido stacks CSR</title>
+            </Helmet>
+            <MuiThemeProvider theme={theme}>
                 <Header />
-            </div>
-        </MuiThemeProvider>
+                <br />
+                <br />
+                <Search />
+            </MuiThemeProvider>
+        </>
     )
 }
 
