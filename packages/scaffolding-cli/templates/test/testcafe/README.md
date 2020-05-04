@@ -1,4 +1,6 @@
-# Template Functional Automation Test Framework
+# PROJECT_NAME TestCafe Automation Test Framework (Typescript)
+
+Templated sample TestCafe automation framework for PROJECT_NAME, bootstrapped using `@amidostacks/scaffolding-cli`.
 
 ## Getting started
 
@@ -10,17 +12,6 @@ Ensure that [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) are
 npm install
 ```
 
-To install peer dependencies for linting:
-```bash
-npx install-peerdeps --save-dev @amidostacks/eslint-config
-```
-
-### Linting
-
-```bash
-npm run lint
-```
-
 ### End to End (E2E) Tests
 
 ```bash
@@ -29,17 +20,15 @@ npm run test:e2e
 
 This should launch [TestCafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and run the tests in the browsers specified in [.testcaferc.json](./.testcaferc.json) in headless mode.
 
-
 ### Accessibility Tests with aXe
 
 ```bash
 npm run test:axe
 ```
 
-This should launch [TestCafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and run the tests in the browsers specified in [.testcaferc.json](./.testcaferc.json) in headless mode.
+This will launch [TestCafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and run the tests in the browsers specified in [.testcaferc.json](./.testcaferc.json) in headless mode.
 
 This will validated using axe-core, from the Deque famility of products: [aXe](https://www.deque.com/axe/). When developing, we expect to support WCAG 2.1 Level AA ["wcag21aa"] at a minimum. Additional configuration can be changed by defining the [context and options](https://www.npmjs.com/package/axe-testcafe#axe-options).
-
 
 ## Browser configuration
 
@@ -57,10 +46,10 @@ npm run test:e2e -- chrome
 
 See [browsers](https://devexpress.github.io/testcafe/documentation/using-testcafe/common-concepts/browsers/) for more information.
 
-
 ## Environment variables
 
 ### E2E Tests
+
 We can use the [.env](./.env) file to specify defaults instead of exporting locally, or using your IDE.
 
 _⚠️ IMPORTANT: if you have defined an environment varibale, then `dotenv` will not override thi with the values in the `.env` file. The environment should always hold the source of truth._
@@ -133,7 +122,7 @@ export LT_ACCESS_KEY= {your lambdatest access_key}
 
 Lambdatest will create a tunnel to run the tests and automatically record videos.
 
-### Running E2E tests
+### Running E2E tests with LambdaTest
 
 ```bash
 npm run test:e2e -- "lambdatest:IE@11.0:Windows 10"
@@ -146,3 +135,17 @@ node_modules/.bin/testcafe -b lambdatest
 ```
 
 _Documentation: https://www.lambdatest.com/support/docs/npm-plugin-for-testcafe-integration-with-lambdatest/_
+
+
+### Optional: Linting
+
+To install peer dependencies for linting:
+```bash
+npx install-peerdeps --save-dev @amidostacks/eslint-config
+```
+
+### Linting
+
+```bash
+npm run lint
+```
