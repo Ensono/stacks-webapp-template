@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "",
+    "outDir": "dist",
     "target": "es5",
     "types": ["node", "jest"]
   },

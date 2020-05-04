@@ -1,0 +1,34 @@
+{
+  "name": "@amidostacks/pact-config",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node_modules/.bin/tsc --project tsconfig.pact.json",
+    "test:pact-start-stub": "npm run build && node dist/utils/pactStubServer.js",
+    "clean:tree": "git clean -idx"
+  },
+  "engines": {
+    "node": ">=12.0",
+    "npm": ">=6.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
+  "devDependencies": {
+    "@pact-foundation/pact": "^9.6.1",
+    "@pact-foundation/pact-node": "^10.2.4",
+    "@types/jest": "^24.9.1",
+    "jest": "^25.3.0",
+    "jest-junit": "^10.0.0",
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.5"
+  },
+  "config": {
+    "pact_do_not_track": true
+  },
+  "license": "MIT",
+  "repository": {
+    "url": "git://github.com/amido/stacks-webapp-template"
+  }
+}
