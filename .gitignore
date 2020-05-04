@@ -114,8 +114,6 @@ dist
 /coverage
 /reports
 
-# production
-
 # misc
 .DS_Store
 .env.local

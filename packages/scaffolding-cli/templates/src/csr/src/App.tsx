@@ -1,25 +1,25 @@
+import {ThemeProvider as MuiThemeProvider} from "@material-ui/core/styles"
 import React from "react"
-import logo from "./logo.svg"
+import {Helmet} from "react-helmet"
 import "./App.css"
+import Header from "./components/Header"
+import Search from "./components/Search"
+import theme from "./constants/theme"
 
 function App() {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Amido stacks CSR</title>
+            </Helmet>
+            <MuiThemeProvider theme={theme}>
+                <Header />
+                <br />
+                <br />
+                <Search />
+            </MuiThemeProvider>
+        </>
     )
 }
 

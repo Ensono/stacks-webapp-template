@@ -1,4 +1,9 @@
+using System;
+using System.Threading.Tasks;
 using Shouldly;
+using System.Net.Http;
+using xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Api.Builders.Http;
+using xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Configuration;
 using xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium;
 using xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Components;
 
@@ -7,10 +12,17 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Steps
   public class CreateMenu
   {
     private readonly SeleniumWrapper user;
+    private HttpResponseMessage response;
+    private readonly ConfigModel config;
+    private readonly string menuApiUrl;
+    private const string menuPath = "v1/menu/";
+    public string menuId;
 
     public CreateMenu(SeleniumWrapper seleniumWrapper)
     {
       user = seleniumWrapper;
+      config = ConfigAccessor.GetApplicationConfiguration();
+      menuApiUrl = config.MenuApiUrl;
     }
 
     #region Step Definitions
@@ -46,8 +58,17 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Steps
       var snackbar = new Notifier(user.Instance());
 
       snackbar.Text(snackbar.message).ShouldContain("menu created");
+      menuId = snackbar.Text(snackbar.message).Split(" ", 3)[0];
     }
     #endregion Then
+
+    #region TearDown
+    public async Task TearDownCreatedMenu()
+    {
+      response = await HttpRequestFactory.Delete(menuApiUrl, $"{menuPath}{menuId}");
+      Console.WriteLine($"Successfully deleted menuId ={menuId}");
+    }
+    #endregion TearDown
 
     #endregion Step Definitions
   }
