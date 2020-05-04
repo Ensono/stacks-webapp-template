@@ -157,6 +157,10 @@
       {
         "src": "test/testcafe",
         "dest": ""
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-post-deploy-testcafe.yml",
+        "dest": "build/azDevops/azure/azure-pipeline-post-deploy-testcafe.yml"
       }
     ]
   },

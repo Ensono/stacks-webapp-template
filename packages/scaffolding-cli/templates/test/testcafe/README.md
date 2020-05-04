@@ -75,7 +75,7 @@ Alternately, an example of your environment varibale configuration for running a
 
 ```bash
 export NODE_ENV=production \
-export APP_BASE_URL=http://dev.amidostacks.com \
+export APP_BASE_URL=https://app.nonprod.amidostacks.com \
 export APP_BASE_PATH=/web/stacks \
 export MENU_API_URL=http://dev.amidostacks.com/api/menu
 ```
