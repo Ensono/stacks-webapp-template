@@ -1,4 +1,9 @@
+[![Maintained by Amido](https://img.shields.io/badge/Maintained%20by-Amido-yellow)](https://amido.com/)
+
 # Client Side Rendering Web Application
+
+CSR webapp is bootstrapped from
+[Create-React-App](https://create-react-app.dev/docs/getting-started)
 
 ## Implementation details
 
@@ -13,7 +18,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+[http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 The page will reload if you make edits.<br /> You will also see any lint errors
 in the console.
@@ -27,7 +32,7 @@ for more information.
 
 ### `npm run build`
 
-Builds the app for production to the `out` folder.<br /> It correctly bundles
+Builds the app for production to the `dist` folder.<br /> It correctly bundles
 React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br /> Your app is
