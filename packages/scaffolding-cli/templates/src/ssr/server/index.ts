@@ -12,10 +12,7 @@ import cacheableResponse from "cacheable-response"
 
 let appInsights = AI
 if (!process.env.CI) {
-    appInsights
-        .setup()
-        .setAutoCollectConsole(true)
-        .start()
+    appInsights.setup().setAutoCollectConsole(true).start()
 }
 
 const port = parseInt(conf.PORT || "3000", 10)
@@ -38,7 +35,7 @@ const ssrCache = cacheableResponse({
         return {data}
     },
     send: ({data, res}) => res.send(data),
-    getKey:(req) => undefined,
+    getKey: req => undefined,
 })
 
 export default app
@@ -73,9 +70,7 @@ export default app
             )
             logger.info(
                 `running server in ${
-                    process.env.NODE_ENV !== "production"
-                        ? "dev"
-                        : "production"
+                    process.env.NODE_ENV !== "production" ? "dev" : "production"
                 }`,
                 " mode",
             )
