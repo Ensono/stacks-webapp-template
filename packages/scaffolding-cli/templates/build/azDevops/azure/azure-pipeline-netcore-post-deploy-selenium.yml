@@ -1,0 +1,35 @@
+pr: none
+
+trigger:
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - 'packages/scaffolding-cli/templates/*'
+
+pool:
+  vmImage: 'ubuntu-18.04'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: amido/stacks-pipeline-templates
+      ref: feat/reporting
+      endpoint: amidostacks
+
+variables:
+  dotnet_core_version: '3.1.x'
+  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
+  working_directory: '$(Agent.BuildDirectory)/s/$(self_repo)/test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium'
+
+steps:
+  - checkout: self
+  - checkout: templates
+  - template: azDevOps/azure/templates/v2/steps/build-test-dotnet.yml@templates
+    parameters:
+      test_path: $(working_directory)
+      package_path: $(working_directory)
+      package_feed: ''
+      dotnet_core_version: $(dotnet_core_version)

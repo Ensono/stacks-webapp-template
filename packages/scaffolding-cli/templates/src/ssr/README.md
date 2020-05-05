@@ -1,3 +1,5 @@
+[![Maintained by Amido](https://img.shields.io/badge/Maintained%20by-Amido-yellow)](https://amido.com/)
+
 # Server Side Rendering Web Application
 
 ## Implementation details
