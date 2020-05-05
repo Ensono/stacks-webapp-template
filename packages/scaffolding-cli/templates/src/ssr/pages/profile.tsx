@@ -14,13 +14,11 @@ const Profile = ({user: props}) => {
 
             {props.user && (
                 <div>
-                    <h2>
-                        <Picture
-                            src={props.user.picture}
-                            alt={props.user.displayName}
-                        />{" "}
-                        Hello, {props.user.displayName}
-                    </h2>
+                    <Picture
+                        src={props.user.picture}
+                        alt={props.user.displayName}
+                    />{" "}
+                    <h2>Hello, {props.user.displayName}</h2>
                     <p>This is what we know about you:</p>
                     <ul>
                         {Object.keys(props.user).map(key => (

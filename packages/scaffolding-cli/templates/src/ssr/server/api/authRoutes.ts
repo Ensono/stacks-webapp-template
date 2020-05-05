@@ -1,7 +1,7 @@
 import {Router} from "express"
 import passport from "passport"
 import getConfig from "next/config"
-// const router = express.Router()
+import logger from "../core/root-logger"
 
 export default (router: Router) => {
     router.get(
@@ -9,7 +9,10 @@ export default (router: Router) => {
         passport.authenticate("auth0", {
             scope: "openid email profile",
         }),
-        (req, res) => res.redirect("/"),
+        (req, res) => {
+            logger.info("/login route")
+            return res.redirect("/")
+        },
     )
 
     router.get("/callback", (req: any, res, next) => {
@@ -17,8 +20,12 @@ export default (router: Router) => {
             if (err) return next(err)
             if (!user) return res.redirect("/login")
             req.logIn(user, err => {
-                if (err) return next(err)
-                res.redirect("/")
+                if (err) {
+                    logger.error(err)
+                    return next(err)
+                }
+                logger.info("code exchange success")
+                res.redirect("/profile")
             })
         })(req, res, next)
     })
@@ -26,9 +33,13 @@ export default (router: Router) => {
     router.get("/logout", (req: any, res) => {
         req.logout()
         const {publicRuntimeConfig} = getConfig()
-        const {AUTH0_DOMAIN, AUTH0_CLIENT_ID, BASE_URL} = publicRuntimeConfig
+        const {
+            AUTH0_DOMAIN,
+            AUTH0_CLIENT_ID,
+            AUTH0_BASE_URL,
+        } = publicRuntimeConfig
         res.redirect(
-            `https://${AUTH0_DOMAIN}/logout?client_id=${AUTH0_CLIENT_ID}&returnTo=${BASE_URL}`,
+            `https://${AUTH0_DOMAIN}/logout?client_id=${AUTH0_CLIENT_ID}&returnTo=${AUTH0_BASE_URL}`,
         )
     })
 }
