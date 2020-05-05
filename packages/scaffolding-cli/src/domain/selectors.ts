@@ -26,6 +26,9 @@ export class FlowSelector {
     static async option_infra_aks_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
         return await mainWorker.infra_aks_azdevops(instructions)
     }
+    static async option_js_testcafe_aks_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return await mainWorker.js_testcafe_tfs(instructions)
+    }
 }
 
 export default  {

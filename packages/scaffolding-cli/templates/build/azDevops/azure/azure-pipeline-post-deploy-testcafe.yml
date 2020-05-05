@@ -1,0 +1,65 @@
+##################################################################################################################################
+# Desc: Post Deployment Tests. Example pipeline that can be triggered and run after success deployment of a webapp.
+# 
+# Pre-reqs: endpoint = GitHub Service Connection, test_results_storage = Azure Storage Container,
+# test_results_container = Azure Storage Container, group = Libary variables containing Azure Portal Subscription Credentials
+# Documentation: https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints
+##################################################################################################################################
+
+pool:
+  vmImage: ubuntu-18.04
+
+trigger:
+  branches:
+    include:
+      - master
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: amido/stacks-pipeline-templates
+      ref: refs/tags/v1.2.0
+      endpoint: amidostacks # GitHub Service Connection
+
+variables:
+  - name: self_repo
+    value: stacks-webapp-template/packages/scaffolding-cli/templates
+  - name: working_directory
+    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe'
+
+  # Resource Test Results Blob Storage Container
+  - name: test_results_storage
+    value: amidostacksnonprodtests # Azure Storage
+  - name: test_results_container
+    value: 'testresults' # Azure Storage Container
+
+  # Resource management connection
+  - group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
+
+steps:
+  - checkout: self
+  - checkout: templates
+
+  # Run tests with TestCafe
+  - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
+    parameters:
+      env_vars:
+        APP_BASE_URL: 'https://app.nonprod.amidostacks.com'
+        MENU_API_URL: 'http://dev.amidostacks.com/api/menu'
+        APP_BASE_PATH: '/web/stacks'
+        NODE_ENV: production
+      working_directory: $(working_directory)
+      testcafe_browser_list: 'chrome:headless'
+
+  # Upload test results in pipeline, as artifacts, and html report to blob storage
+  - template: azDevOps/azure/templates/v2/steps/test-publish-test-reports-blob.yml@templates
+    parameters:
+      test_tool_name: testcafe
+      artifacts:
+        screenshots: '$(working_directory)/screenshots'
+      working_directory: $(working_directory)
+      test_results_storage: $(test_results_storage)
+      test_results_container: $(test_results_container)
+      test_results_path: $(working_directory)
+      test_results_blob_prefix: $(Build.BuildNumber)

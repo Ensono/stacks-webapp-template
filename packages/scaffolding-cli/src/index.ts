@@ -42,7 +42,6 @@ yargs
     .scriptName('@amidostacks/scaffolding-cli')
     .command(
         'run [options]',
-        // ['run-cli'],
         'Run CLI with options',
         {},
         cliCommand

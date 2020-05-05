@@ -1,11 +1,12 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.IO;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
 {
-  public class WebDriverFactory
-  {
-    public static IWebDriver GetWebDriver()
+    public class WebDriverFactory
     {
         public static IWebDriver GetWebDriver()
         {
@@ -23,5 +24,4 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
             return new ChromeDriver(chromeDriverPath, chromeOptions);
         }
     }
-  }
 }

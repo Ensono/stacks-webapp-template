@@ -1,0 +1,50 @@
+############################################################################################################
+# desc: Example standalone pipeline running E2E tests with .NET Selenium Framework 
+# return: templated solution that builds, and tests in pipeline
+# pre-reqs: published packages and templates, example config file
+############################################################################################################
+
+
+pr: none
+
+trigger:
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - '**/*/xxAMIDOxx.xxSTACKSxx.E2E.Selenium/*'
+
+pool:
+  vmImage: 'ubuntu-18.04'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: amido/stacks-pipeline-templates
+      ref: refs/tag/v1.2.0
+      endpoint: amidostacks
+
+variables:
+  dotnet_core_version: '3.1.x'
+  working_directory: '$(Agent.BuildDirectory)/s'
+  self_repo: stacks-webapp-template/packages/scaffolding-cli
+  sample_config_directory: '$(working_directory)/$(self_repo)/src/__tests__/domain'
+  version_spec: 12.x
+
+steps:
+  - checkout: self
+  - checkout: templates
+  - template: azDevOps/azure/templates/v2/steps/build-scaffolding-cli-package.yml@templates
+    parameters:
+      working_directory: $(working_directory)
+      version_spec: $(version_spec)
+      sample_config: 'netcore_selenium.bootstrap-config.json'
+      sample_config_path: $(sample_config_directory)
+
+  - template: azDevOps/azure/templates/v2/steps/build-test-dotnet.yml@templates
+    parameters:
+      test_path: '$(working_directory)/test-app-1'
+      package_path: '$(working_directory)/test-app-1'
+      dotnet_core_version: $(dotnet_core_version)

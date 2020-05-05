@@ -6,7 +6,7 @@ import * as csr from './csr_aks_tfs'
 import * as netcore_selenium from './netcore_selenium_tfs'
 import * as gke_ssr from './ssr_gke_tfs'
 import * as infra_aks from './infra_aks_tfs'
-
+import * as js_testcafe from './js_testcafe_tfs'
 
 export {
     ssr,
@@ -16,5 +16,6 @@ export {
     shared,
     netcore_selenium,
     gke_ssr,
-    infra_aks
+    infra_aks,
+    js_testcafe
 }

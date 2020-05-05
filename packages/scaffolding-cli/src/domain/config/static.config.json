@@ -148,6 +148,21 @@
       }
     ]
   },
+  "js_testcafe": {
+    "git_repo": "",
+    "git_ref": "",
+    "local_path": "",
+    "folder_map": [
+      {
+        "src": "test/testcafe",
+        "dest": ""
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-post-deploy-testcafe.yml",
+        "dest": "build/azDevops/azure/azure-pipeline-post-deploy-testcafe.yml"
+      }
+    ]
+  },
   "netcore_selenium": {
     "git_repo": "",
     "git_ref": "",

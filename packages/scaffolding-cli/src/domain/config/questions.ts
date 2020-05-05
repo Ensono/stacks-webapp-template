@@ -64,6 +64,9 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
                     "title": ".netcore Selenium", "description": ".Net Core Selenium E2E Test Template Framework", "value": "netcore_selenium"
                 },
                 {
+                    "title": "TestCafe", "description": "Javascript TestCafe Test Template Framework", "value": "js_testcafe"
+                },
+                {
                     "title": "Infra only", "description": "Sharedservices infrastructure only", "value": "infra"
                 }
             ],

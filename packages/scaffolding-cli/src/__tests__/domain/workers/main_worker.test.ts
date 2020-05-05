@@ -1,3 +1,5 @@
+/// <reference types="jest" />
+
 import { CliAnswerModel } from '../../../domain/model/prompt_answer'
 import { CliResponse, BaseResponse } from '../../../domain/model/workers'
 import { MainWorker } from '../../../domain/workers/main_worker';
@@ -48,6 +50,13 @@ let mock_answer_netcore_selenium = <CliAnswerModel>{
     platform: "aks",
     deployment: "tfs",
     create_config: true
+}
+
+let mock_answer_js_testcafe = <CliAnswerModel>{
+    project_name: "foo",
+    project_type: "js_testcafe",
+    platform: "aks",
+    deployment: "tfs"
 }
 
 let worker_response = <BaseResponse> {
@@ -210,10 +219,32 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("message")
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
-            expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}`)
+            expect(flow_ran.message).toMatch(`cd ${mock_answer_netcore_selenium.project_name}`)
             expect(flow_ran.message).toMatch(`dotnet restore && dotnet test`)
         })
     })
+
+    it("js_testcafe_tfs should return success and user message for npm", async () => {
+        Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+            return Promise.resolve({message: `${mock_answer_ssr.project_name} created`, temp_path: "/var/test", final_path: "/opt/myapp"})
+        })
+        Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+            return Promise.resolve(worker_response)
+        })
+        Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+            return Promise.resolve(worker_response)
+        })
+        
+        let flow_ran: CliResponse = await mainWorker.js_testcafe_tfs(mock_answer_js_testcafe)
+        expect(Utils.prepBase).toHaveBeenCalled()
+        expect(Utils.constructOutput).toHaveBeenCalled()
+        expect(flow_ran).toHaveProperty("message")
+        expect(flow_ran).toHaveProperty("ok")
+        expect(flow_ran.ok).toBe(true)
+        expect(flow_ran.message).toMatch(`cd ${mock_answer_js_testcafe.project_name}`)
+        expect(flow_ran.message).toContain(`TestCafe`)
+    })
+
     describe("Negative assertions", () => {
         it("ssr_aks_tfs should return a code of -1 when error occurs", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
@@ -269,4 +300,3 @@ describe("mainWorker class tests", () => {
         })
     })
 })
-
