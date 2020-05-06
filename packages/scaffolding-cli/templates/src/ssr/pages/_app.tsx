@@ -27,7 +27,7 @@ class _App extends App<AppWithStore> {
         const pageProps: any = Component.getInitialProps
             ? await Component.getInitialProps(ctx)
             : {}
-        if (ctx.req && ctx.req.session.passport) {
+        if (!process.env.CI && ctx.req && ctx.req.session.passport) {
             pageProps.user = ctx.req.session.passport.user
         }
         return {pageProps}
