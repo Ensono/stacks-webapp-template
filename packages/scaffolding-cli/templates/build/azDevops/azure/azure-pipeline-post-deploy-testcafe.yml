@@ -1,22 +1,26 @@
+##################################################################################################################################
+# Desc: Post Deployment Tests. Example pipeline that can be triggered and run after success deployment of a webapp.
+# 
+# Pre-reqs: endpoint = GitHub Service Connection, test_results_storage = Azure Storage Container,
+# test_results_container = Azure Storage Container, group = Libary variables containing Azure Portal Subscription Credentials
+# Documentation: https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints
+##################################################################################################################################
+
 pool:
   vmImage: ubuntu-18.04
 
-# Triggered on success of the deployment pipleine
-# Change the source to point to the required previous pipeline
+trigger:
+  branches:
+    include:
+      - master
+
 resources:
-  pipelines:
-    - pipeline: azure-pipeline-post-deploy-testcafe
-      source: amido-stacks-ssr-app-new-k8s
-      trigger:
-        branches:
-          include:
-            - master
   repositories:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tag/v1.2.0
-      endpoint: amidostacks
+      ref: refs/tags/v1.2.0
+      endpoint: amidostacks # GitHub Service Connection
 
 variables:
   - name: self_repo
@@ -26,12 +30,12 @@ variables:
 
   # Resource Test Results Blob Storage Container
   - name: test_results_storage
-    value: amidostacksnonprodtests
+    value: amidostacksnonprodtests # Azure Storage
   - name: test_results_container
-    value: 'testresults'
+    value: 'testresults' # Azure Storage Container
 
   # Resource management connection
-  - group: amido-stacks-infra-credentials-nonprod
+  - group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
 
 steps:
   - checkout: self

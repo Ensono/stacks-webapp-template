@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.25.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.2...@amidostacks/scaffolding-cli@1.25.0) (2020-05-04)
+
+
+### Bug Fixes
+
+* tf libs versioning updated ([6696289](https://github.com/amido/stacks-webapp-template/commit/669628972103228b9b0fa7f1bc1875993bd6cba1))
+
+
+### Features
+
+* CRA (ejected) ([#131](https://github.com/amido/stacks-webapp-template/issues/131)) ([22be82c](https://github.com/amido/stacks-webapp-template/commit/22be82c8ae37be764cb2bf483a1eedb1e4b5fee3))
+
+
+
+## 0.0.2 (2020-04-28)
+
+
+### Bug Fixes
+
+* removed app Insights key from public ([#125](https://github.com/amido/stacks-webapp-template/issues/125)) ([bb16b1a](https://github.com/amido/stacks-webapp-template/commit/bb16b1a63d47618d82f94bb395e306e8bd792236))
+
+
+### Features
+
+* Search ([#119](https://github.com/amido/stacks-webapp-template/issues/119)) ([d4dbf04](https://github.com/amido/stacks-webapp-template/commit/d4dbf04cd4cbdd761de962f0c8388f02b6489497))
+* search helper text ([#124](https://github.com/amido/stacks-webapp-template/issues/124)) ([fa89290](https://github.com/amido/stacks-webapp-template/commit/fa89290a74062e7de46be859c3b2fda1b2eb475e))
+* search input throttled. ([#123](https://github.com/amido/stacks-webapp-template/issues/123)) ([86842b7](https://github.com/amido/stacks-webapp-template/commit/86842b7c5b885d3c140c47eea0ed3126e680cfa4))
+
+
+
+
+
 # [1.24.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.24.0) (2020-04-30)
 
 
