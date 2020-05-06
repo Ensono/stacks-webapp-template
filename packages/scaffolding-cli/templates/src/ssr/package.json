@@ -11,10 +11,8 @@
     "lint": "node_modules/.bin/eslint . -f codeframe",
     "prettier": "node_modules/.bin/prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "validate": "npm run prettier --list-different && npm run lint",
-    "test:pact": "node_modules/.bin/jest --c __tests__/pact/jest-pact.config.json --rootDir __tests__/pact --runInBand",
-    "test:pact:compile": "node_modules/.bin/tsc --project __tests__/pact/tsconfig.pact.json",
+    "test:pact": "node_modules/.bin/jest --c node_modules/@amidostacks/pact-config/jest-pact.config.json --roots $INIT_CWD --runInBand",
     "test:pact-publish": "npm run test:pact:compile && node __tests__/pact/utils/pactPublish.js",
-    "test:pact-start-stub": "npm run test:pact:compile && node __tests__/pact/utils/pactStubServer.js",
     "test:pact-can-i-deploy-ci": "npm run test:pact:compile && node __tests__/pact/utils/pactCanIDeploy.js",
     "test:pact-can-i-deploy-cli": "node_modules/.bin/pact-broker can-i-deploy --pacticipant $PACT_CONSUMER -l --broker-base-url $PACT_BROKER --broker-token $PACT_BEARER_TOKEN",
     "test:cypress:watch": "node_modules/.bin/tsc --watch --project __tests__/cypress/tsconfig.cypress.json",
@@ -33,6 +31,9 @@
   "engines": {
     "node": ">=12.0",
     "npm": ">=6.0"
+  },
+  "optionalDependencies": {
+    "@amidostacks/pact-config": "file:../../../../pact-config"
   },
   "dependencies": {
     "@babel/core": "^7.8.4",
@@ -67,8 +68,6 @@
     "@amidostacks/eslint-config": "^0.20.3",
     "@applitools/eyes-cypress": "^3.9.13",
     "@babel/core": "^7.8.4",
-    "@pact-foundation/pact": "^9.6.1",
-    "@pact-foundation/pact-node": "^10.2.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@types/applicationinsights": "^0.20.0",

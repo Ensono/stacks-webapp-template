@@ -11,9 +11,9 @@
 
 
 import {Interaction, Matchers} from "@pact-foundation/pact"
-import {provider} from "./utils/pactSetup"
+import {provider} from "@amidostacks/pact-config/utils/pactSetup"
 
-import {MenuService} from "./mocks/menuService"
+import {MenuService} from "./__mocks__/menuService"
 
 describe("Yumido Menu API", () => {
     const url = "http://localhost"

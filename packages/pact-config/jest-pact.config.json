@@ -1,7 +1,7 @@
 {
   "testMatch": ["**/*.test.pact.ts"],
-  "setupFiles": ["./utils/pactSetup.ts"],
-  "setupFilesAfterEnv": ["./utils/pactTestWrapper.ts"],
+  "setupFiles": ["<rootDir>/utils/pactSetup.ts"],
+  "setupFilesAfterEnv": ["<rootDir>/utils/pactTestWrapper.js"],
   "transform": {
     "^.+\\.ts$": "ts-jest"
   },
