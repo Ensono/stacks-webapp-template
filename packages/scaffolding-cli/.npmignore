@@ -1,0 +1,19 @@
+# Files to always include
+!dist/index.js
+!dist/domain
+!templates
+!src/index.ts
+!src/domain
+
+# CLI outputs from local publishing
+templates/**/node_modules
+templates/**/bin
+templates/**/dist
+templates/**/obj
+
+# General 
+**/coverage
+**/*-report.xml
+sonar-project.properties
+tsconfig.*.json
+jest*.json
