@@ -1,9 +1,11 @@
 {
-  "testMatch": ["**/*.test.pact.ts"],
+  "testMatch": ["**/*.test.pact.(ts)"],
+  "testEnvironment": "node",
+  "moduleFileExtensions": ["ts", "js", "json"],
   "setupFiles": ["<rootDir>/utils/pactSetup.ts"],
   "setupFilesAfterEnv": ["<rootDir>/utils/pactTestWrapper.js"],
   "transform": {
-    "^.+\\.ts$": "ts-jest"
+    "^.+\\.(ts|tsx)$": "ts-jest"
   },
   "reporters": [
     "default",
