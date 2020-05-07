@@ -18,8 +18,6 @@ export class MainWorker {
     async ssr_aks_tfs(instructions: CliAnswerModel): Promise<CliResponse> {
         let selectedFlowResponse: CliResponse = <CliResponse>{}
         try {
-            logger.debug("in Node SSR AKS TFS Flow")
-            logger.debug(instructions)
             let sharedBuildInput: Array<BuildReplaceInput> = shared.in_files({
                 project_name: instructions.project_name,
                 business_obj: instructions.business,
@@ -43,9 +41,7 @@ export class MainWorker {
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
 
             await Utils.valueReplace(val_maps)
-            logger.debug("FirstValReplace")
             await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            logger.debug("wrote out config file")
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method

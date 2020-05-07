@@ -13,7 +13,7 @@ templates/**/obj
 
 # General 
 **/coverage
-**/*-report.xml
-sonar-project.properties
-tsconfig.*.json
-jest*.json
+/*-report.xml
+/sonar-project.properties
+/tsconfig*.json
+/jest*.json

@@ -5,8 +5,16 @@
     "local_path": "",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": ""
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure/k8s_manifests",
@@ -56,8 +64,16 @@
     "local_path": "src/cra",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": "./"
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure/k8s_manifests",
@@ -103,8 +119,16 @@
     "local_path": "src/netcore",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": "./"
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure/k8s_manifests",
@@ -180,8 +204,16 @@
     "local_path": "src/java_spring",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": "./"
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure",
@@ -211,8 +243,16 @@
     "local_path": "",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": ""
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure/k8s_manifests",
@@ -262,8 +302,16 @@
     "local_path": "",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": ""
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure/k8s_manifests",
