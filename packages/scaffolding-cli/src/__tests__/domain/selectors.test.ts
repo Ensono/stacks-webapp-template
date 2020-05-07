@@ -43,6 +43,24 @@ describe("selector class tests", () => {
             expect(MainWorker.prototype.csr_aks_tfs).toHaveBeenCalledTimes(1)
             expect(MainWorker.prototype.csr_aks_tfs).toHaveBeenCalled()
         })
+        it("should call the infra_aks_azdevops worker", async () => {
+            MainWorker.prototype.infra_aks_azdevops = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_infra_aks_azdevops(mock_answer_ssr_aks_tfs)
+            expect(MainWorker.prototype.infra_aks_azdevops).toHaveBeenCalledTimes(1)
+            expect(MainWorker.prototype.infra_aks_azdevops).toHaveBeenCalled()
+        })
+        it("should call the ssr_gke_tfs worker", async () => {
+            MainWorker.prototype.ssr_gke_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_ssr_gke_azdevops(mock_answer_ssr_aks_tfs)
+            expect(MainWorker.prototype.ssr_gke_tfs).toHaveBeenCalledTimes(1)
+            expect(MainWorker.prototype.ssr_gke_tfs).toHaveBeenCalled()
+        })
+        it("should call the netcore_selenium_tfs worker", async () => {
+            MainWorker.prototype.netcore_selenium_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_netcore_selenium_aks_azdevops(mock_answer_ssr_aks_tfs)
+            expect(MainWorker.prototype.netcore_selenium_tfs).toHaveBeenCalledTimes(1)
+            expect(MainWorker.prototype.netcore_selenium_tfs).toHaveBeenCalled()
+        })
         it("should include the CliAnswerModel keys", async () => {
             MainWorker.prototype.ssr_aks_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
             let selectedFlow = await FlowSelector.option_csr_aks_azuredevops(mock_answer_ssr_aks_tfs)

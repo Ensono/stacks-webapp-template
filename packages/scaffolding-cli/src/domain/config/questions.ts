@@ -9,25 +9,25 @@ export function computedSelection(cliOrConfigAnswer: PromptAnswer): CliAnswerMod
         platform: cliOrConfigAnswer.platform,
         deployment: cliOrConfigAnswer.deployment,
         advanced_config: cliOrConfigAnswer.advanced_config,
-        create_config: cliOrConfigAnswer.create_config,
         business: {
-            company: cliOrConfigAnswer?.business_company || "COMPANY_REPLACE_ME",
-            project: cliOrConfigAnswer?.business_project || "PROJECT_REPLACE_ME",
-            component: cliOrConfigAnswer?.business_component ||  "COMPONENT_REPLACE_ME",
-            domain: cliOrConfigAnswer?.business_domain ||  "DOMAIN_REPLACE_ME"
+            company: cliOrConfigAnswer.business_company || "COMPANY_REPLACE_ME",
+            project: cliOrConfigAnswer.business_project || "PROJECT_REPLACE_ME",
+            component: cliOrConfigAnswer.business_component ||  "COMPONENT_REPLACE_ME",
+            domain: cliOrConfigAnswer.business_domain ||  "DOMAIN_REPLACE_ME"
         },
         cloud: {
-            resource_group: cliOrConfigAnswer?.cloud_resource_group || "RG_REPLACE_ME",
-            region: cliOrConfigAnswer?.cloud_region || "REGION_REPLACE_ME"
+            resource_group: cliOrConfigAnswer.cloud_resource_group || "RG_REPLACE_ME",
+            region: cliOrConfigAnswer.cloud_region || "REGION_REPLACE_ME"
         },
         terraform: { 
-            backend_storage: cliOrConfigAnswer?.terraform_backend_storage || "BACKEND_STORAGE_REPLACE_ME",
-            backend_storage_rg: cliOrConfigAnswer?.terraform_backend_storage_rg || "BACKEND_STORAGE_RG_REPLACE_ME",
-            backend_storage_container: cliOrConfigAnswer?.terraform_backend_storage_container || "BACKEND_STORAGE_CONTAINER_REPLACE_ME",
+            backend_storage: cliOrConfigAnswer.terraform_backend_storage || "BACKEND_STORAGE_REPLACE_ME",
+            backend_storage_rg: cliOrConfigAnswer.terraform_backend_storage_rg || "BACKEND_STORAGE_RG_REPLACE_ME",
+            backend_storage_container: cliOrConfigAnswer.terraform_backend_storage_container || "BACKEND_STORAGE_CONTAINER_REPLACE_ME",
         },
         source_control: {
-            repo_type: cliOrConfigAnswer?.source_control_repo_type || "SCM_TYPE_REPLACE_ME",
-            repo_name: cliOrConfigAnswer?.source_control_repo_name || "REPO_NAME_REPLACE_ME"
+            repo_type: cliOrConfigAnswer.source_control_repo_type || "SCM_TYPE_REPLACE_ME",
+            repo_name: cliOrConfigAnswer.source_control_repo_name || "REPO_NAME_REPLACE_ME",
+            repo_url: cliOrConfigAnswer.source_control_repo_url || "REPO_NAME_REPLACE_ME"
         }
     }
 }
@@ -65,6 +65,9 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
                 },
                 {
                     "title": "TestCafe", "description": "Javascript TestCafe Test Template Framework", "value": "js_testcafe"
+                },
+                {
+                    "title": "Infra only", "description": "Sharedservices infrastructure only", "value": "infra"
                 }
             ],
             "initial": 0
@@ -76,6 +79,9 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
             "choices": [
                 {
                     "title": "AKS", "description": "Azure Kubernetes", "value": "aks"
+                },
+                {
+                    "title": "GKE", "description": "Google Kubernetes Engine", "value": "gke"
                 }
             ],
             "initial": 0
@@ -90,13 +96,6 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
                 }
             ],
             "initial": 0
-        },
-        {
-            // "type": (prev: boolean) => prev ? "confirm" : "",
-            "type": "confirm",
-            "name": "create_config",
-            "message": "Create a sample JSON config with all selected values for future runs of the CLI?",
-            "initial": true
         },
         {
             "type": "confirm",
