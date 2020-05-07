@@ -38,7 +38,7 @@
       "args": [
         "run",
         "-c",
-        "src/__tests__/domain/ssr_gke.bootstrap-config.json"
+        "src/__tests__/domain/ssr.bootstrap-config.json"
       ]
     },
     {

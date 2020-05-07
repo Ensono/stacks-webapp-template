@@ -80,7 +80,8 @@ export class Utils {
             await copy(sampleConfig, configFile, {preserveTimestamps: true, dereference: false})
             
             if (instruction_map) {
-                await this.valueReplace(replaceGeneratedConfig(configFile, instruction_map))
+                let generatedConfig = await replaceGeneratedConfig(configFile, instruction_map)
+                await this.valueReplace(generatedConfig)
             }
             fsResponse.ok = true
             fsResponse.message = 'Sample config placed in current directory'
@@ -109,7 +110,7 @@ export class Utils {
             return fsResponse
         }
         catch (ex) {
-            logger.error(ex)
+            logger.error(ex.message)
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
@@ -139,14 +140,14 @@ export class Utils {
             return fsResponse
         }
         catch (ex) {
-            logger.error(ex)
+            logger.error(ex.message)
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
             fsResponse.error = ex.stack
             throw fsResponse
         }
-    } 
+    }
     public static async constructOutput(instruction_map: Array<FolderMap>, new_directory: string, temp_directory: string): Promise<BaseResponse> {
         let fsResponse: BaseResponse = <BaseResponse>{}
         try {

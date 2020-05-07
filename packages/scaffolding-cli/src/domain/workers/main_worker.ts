@@ -5,6 +5,7 @@ import { Replacetruct, buildReplaceFoldersAndVals, BuildReplaceInput } from '../
 import { ssr, netcore, java_spring, csr, shared, netcore_selenium, gke_ssr, infra_aks, js_testcafe } from '../config/worker_maps'
 import conf from '../config/static.config.json'
 import { Static } from '../model/config'
+import logger from 'simple-winston-logger-abstraction'
 
 let staticConf: Static = conf as Static;
 
@@ -17,7 +18,8 @@ export class MainWorker {
     async ssr_aks_tfs(instructions: CliAnswerModel): Promise<CliResponse> {
         let selectedFlowResponse: CliResponse = <CliResponse>{}
         try {
-
+            logger.debug("in Node SSR AKS TFS Flow")
+            logger.debug(instructions)
             let sharedBuildInput: Array<BuildReplaceInput> = shared.in_files({
                 project_name: instructions.project_name,
                 business_obj: instructions.business,
@@ -41,8 +43,9 @@ export class MainWorker {
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
 
             await Utils.valueReplace(val_maps)
+            logger.debug("FirstValReplace")
             await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            
+            logger.debug("wrote out config file")
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
@@ -87,9 +90,7 @@ export class MainWorker {
 
             await Utils.valueReplace(val_maps)
             await Utils.fileNameReplace([`${new_directory.final_path}/src`, `${new_directory.final_path}/test`], instructions)
-            if (instructions.create_config) {
-                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            }
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
@@ -190,9 +191,7 @@ export class MainWorker {
             await Utils.valueReplace(val_maps)
             await Utils.fileNameReplace([`${new_directory.final_path}`], instructions)
             
-            if (instructions.create_config) {
-                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            }
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
@@ -212,7 +211,6 @@ export class MainWorker {
     async ssr_gke_tfs(instructions: CliAnswerModel): Promise<CliResponse> {
         let selectedFlowResponse: CliResponse = <CliResponse>{}
         try {
-            // let buildInput: Array<BuildReplaceInput> = netcore_selenium.in_files(instructions.project_name, instructions.business, instructions.cloud)
 
             let sharedBuildInput: Array<BuildReplaceInput> = shared.in_files({
                 project_name: instructions.project_name,
@@ -294,7 +292,7 @@ export class MainWorker {
         let selectedFlowResponse: CliResponse = <CliResponse>{}
         try {
             let buildInput: Array<BuildReplaceInput> = js_testcafe.in_files(instructions.project_name)
-            
+
             let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
 
             await Utils.constructOutput(staticConf.js_testcafe.folder_map, new_directory.final_path, new_directory.temp_path)

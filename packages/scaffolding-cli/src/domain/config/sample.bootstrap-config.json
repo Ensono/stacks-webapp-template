@@ -4,7 +4,6 @@
   "platform": "replace_platform",
   "deployment": "replace_deployment",
   "advanced_config": true,
-  "create_config": false,
   "cloud_region": "replace_cloud_region",
   "cloud_resource_group": "replace_cloud_resource_group",
   "business_company": "replace_business_company",

@@ -37,7 +37,7 @@
         "dest": "deploy/k8s"
       },
       {
-        "src": "test",
+        "src": "test/testcafe",
         "dest": "test"
       },
       {
@@ -135,7 +135,7 @@
         "dest": "deploy/k8s"
       },
       {
-        "src": "test",
+        "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium",
         "dest": "test"
       },
       {

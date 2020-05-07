@@ -9,7 +9,6 @@ export function computedSelection(cliOrConfigAnswer: PromptAnswer): CliAnswerMod
         platform: cliOrConfigAnswer.platform,
         deployment: cliOrConfigAnswer.deployment,
         advanced_config: cliOrConfigAnswer.advanced_config,
-        create_config: cliOrConfigAnswer.create_config,
         business: {
             company: cliOrConfigAnswer.business_company || "COMPANY_REPLACE_ME",
             project: cliOrConfigAnswer.business_project || "PROJECT_REPLACE_ME",
@@ -27,7 +26,8 @@ export function computedSelection(cliOrConfigAnswer: PromptAnswer): CliAnswerMod
         },
         source_control: {
             repo_type: cliOrConfigAnswer.source_control_repo_type || "SCM_TYPE_REPLACE_ME",
-            repo_name: cliOrConfigAnswer.source_control_repo_name || "REPO_NAME_REPLACE_ME"
+            repo_name: cliOrConfigAnswer.source_control_repo_name || "REPO_NAME_REPLACE_ME",
+            repo_url: cliOrConfigAnswer.source_control_repo_url || "REPO_NAME_REPLACE_ME"
         }
     }
 }
