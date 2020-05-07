@@ -17,5 +17,5 @@ module "gke-public" {
   region         = var.region
   resource_namer = module.default_label.id
   tags           = module.default_label.tags
-  dns_zone       = "gke.nonprod.amidostacks.com."
+  dns_zone       = "gke.nonprod.amidostacks.com"
 }
