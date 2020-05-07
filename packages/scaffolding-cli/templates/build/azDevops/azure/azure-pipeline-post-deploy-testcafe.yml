@@ -30,7 +30,7 @@ variables:
 
   # Resource Test Results Blob Storage Container
   - name: test_results_storage
-    value: amidostacksnonprodtests # Azure Storage
+    value: amidostacksuksdev # Azure Storage
   - name: test_results_container
     value: 'testresults' # Azure Storage Container
 
