@@ -2,8 +2,9 @@ import React from "react"
 import {render} from "@testing-library/react"
 import App from "./App"
 
-test("renders learn react link", () => {
+test("With React Testing Library page renders tag type <App> with text", () => {
     const {getByText} = render(<App />)
-    const linkElement = getByText(/project_name/i)
-    expect(linkElement).toBeInTheDocument()
+    const headerText = getByText(/project_name/i)
+    console.log(`headerTest ${headerText.innerText}`)
+    expect(headerText.tagName.toLowerCase()).toBe("h2")
 })
