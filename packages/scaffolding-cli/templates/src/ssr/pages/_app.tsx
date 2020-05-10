@@ -57,7 +57,7 @@ class _App extends App<AppWithStore> {
         return (
             <>
                 <Head>
-                    <title>Amido stacks SSR</title>
+                    <title>Amido Stacks SSR</title>
                 </Head>
 
                 <Provider store={store}>
