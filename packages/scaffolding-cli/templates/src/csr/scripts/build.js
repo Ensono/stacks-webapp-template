@@ -95,13 +95,14 @@ checkBrowsers(paths.appPath, isInteractive)
             const publicUrl = paths.publicUrlOrPath
             const publicPath = config.output.publicPath
             const buildFolder = path.relative(process.cwd(), paths.appBuild)
-            printHostingInstructions(
-                appPackage,
-                publicUrl,
-                publicPath,
-                buildFolder,
-                useYarn,
-            )
+            // Disabled the post build instructions.
+            // printHostingInstructions(
+            //     appPackage,
+            //     publicUrl,
+            //     publicPath,
+            //     buildFolder,
+            //     useYarn,
+            // )
         },
         err => {
             const tscCompileOnError =
