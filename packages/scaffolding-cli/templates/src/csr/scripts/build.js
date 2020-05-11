@@ -96,6 +96,8 @@ checkBrowsers(paths.appPath, isInteractive)
             const publicPath = config.output.publicPath
             const buildFolder = path.relative(process.cwd(), paths.appBuild)
             // Disabled the post build instructions.
+            // Use printHostingInstructions to enable default react - scripts build message
+            // For example:
             // printHostingInstructions(
             //     appPackage,
             //     publicUrl,
