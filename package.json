@@ -13,6 +13,7 @@
     "postinstall": "lerna bootstrap",
     "test": "lerna run test --stream",
     "lint": "lerna run lint --stream",
+    "build": "lerna run build --stream",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "validate": "npm run prettier --list-different && npm run lint",
     "version": "lerna version --conventional-commits --no-commit-hooks --no-push --no-git-tag-version --yes",
