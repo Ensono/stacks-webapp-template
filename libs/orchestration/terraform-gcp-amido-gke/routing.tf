@@ -5,5 +5,6 @@ resource "google_dns_managed_zone" "default" {
   name     = var.resource_namer
   dns_name = "${var.dns_zone}."
   description = "Zone for ${var.stage}"
-  # labels = merge(var.tags, map("ManagedBy", "Amido"))
+  # Re-enable tags once issue fixed
+  # labels = merge(var.tags, map("ManagedBy", var.company_name))
 }
