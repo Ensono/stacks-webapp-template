@@ -90,21 +90,6 @@ checkBrowsers(paths.appPath, isInteractive)
                 WARN_AFTER_CHUNK_GZIP_SIZE,
             )
             console.log()
-
-            const appPackage = require(paths.appPackageJson)
-            const publicUrl = paths.publicUrlOrPath
-            const publicPath = config.output.publicPath
-            const buildFolder = path.relative(process.cwd(), paths.appBuild)
-            // Disabled the post build instructions.
-            // Use printHostingInstructions to enable default react - scripts build message
-            // For example:
-            // printHostingInstructions(
-            //     appPackage,
-            //     publicUrl,
-            //     publicPath,
-            //     buildFolder,
-            //     useYarn,
-            // )
         },
         err => {
             const tscCompileOnError =
