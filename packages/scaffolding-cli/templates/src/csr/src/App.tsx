@@ -11,7 +11,7 @@ function App() {
         <>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Amido stacks CSR</title>
+                <title>Amido Stacks CSR</title>
             </Helmet>
             <MuiThemeProvider theme={theme}>
                 <Header />
