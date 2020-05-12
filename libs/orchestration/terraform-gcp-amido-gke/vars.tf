@@ -106,3 +106,14 @@ variable "dns_zone" {
   description = "DNS zone name to be created "
   type = string  
 }
+
+variable "enable_legacy_abac" { 
+  description = "Whether or not to create a DNS zone at shared-services infrastructure level"
+  type = bool
+  default = false
+}
+
+variable "cluster_version" {
+  type = string
+  default = "1.15.11-gke.12"
+}

@@ -29,6 +29,10 @@ module "gke_cluster" {
   alternative_default_service_account = var.override_default_node_pool_service_account ? module.gke_service_account.email : null
 
   enable_vertical_pod_autoscaling = var.enable_vertical_pod_autoscaling
+
+  # Additional Configuration
+  enable_legacy_abac = var.enable_legacy_abac
+  kubernetes_version = var.cluster_version
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -51,9 +55,12 @@ resource "google_container_node_pool" "node_pool" {
   }
 
   management {
-    auto_repair  = "true"
-    auto_upgrade = "true"
+    auto_repair  = true
+    auto_upgrade = false
   }
+
+  version = var.cluster_version
+
   upgrade_settings { 
     max_surge = 1
     max_unavailable = 1

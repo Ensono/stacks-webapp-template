@@ -17,5 +17,14 @@ module "gke-public" {
   region         = var.region
   resource_namer = module.default_label.id
   tags           = module.default_label.tags
-  dns_zone       = "gke.nonprod.amidostacks.com"
+  dns_zone       = var.dns_zone
+  cluster_version = var.cluster_version
+  enable_legacy_abac = false
 }
+
+# // Get available master versions in our location to determine the latest version
+# data "google_container_engine_versions" "location" {
+#   location = var.location
+#   project  = var.project
+# }
+
