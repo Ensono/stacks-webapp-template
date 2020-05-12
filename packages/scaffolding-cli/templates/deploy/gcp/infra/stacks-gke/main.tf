@@ -11,7 +11,7 @@ module "default_label" {
 
 module "gke-public" {
   # source         = "../../"
-  source         = "github.com/amido/stacks-webapp-template.git//libs/orchestration/terraform-azurerm-amido-cosmosdb?ref=feat/1801"
+  source         = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-gcp-amido-gke?ref=feat/1801"
   stage          = var.stage
   location       = var.location
   project        = var.project
