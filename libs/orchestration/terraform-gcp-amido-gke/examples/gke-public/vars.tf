@@ -15,7 +15,7 @@ variable "name_component" {
 
 variable "stage" {
   type    = string
-  default = "dev"
+  default = "nonprod"
 }
 
 variable "attributes" {
