@@ -1,6 +1,6 @@
 {
   "name": "amidostacks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stacks web application template monorepo made with server side rendered React and node.js",
   "main": "",
   "repository": "https://github.com/amido/stacks-webapp-template.git",
