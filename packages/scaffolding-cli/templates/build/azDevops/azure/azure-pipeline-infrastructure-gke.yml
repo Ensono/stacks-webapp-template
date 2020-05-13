@@ -173,7 +173,7 @@ stages:
               displayName: NginxIngress,
               env_vars: {
                 ingress_public_ip: $(ingress_public_ip),
-                ingress_public_ip_name: $(ingress_public_name)
+                ingress_public_ip_name: $(ingress_public_ip_name)
               }
             }
           ]
