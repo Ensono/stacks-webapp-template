@@ -6,20 +6,15 @@ import {MenuService} from "../__mocks__/menuService"
 describe("Yumido Menu API", () => {
     const url = "http://localhost"
     const port = 8025
-
     const provider = pactSetup(port)
-
-    let menuService: MenuService
-
-    menuService = new MenuService({url, port: port})
-
+    
+    const menuService = new MenuService({url, port})
     const MENU = {
         id: "e98583ad-0feb-4e48-9d4f-b20b09cb2633",
         name: "Breakfast Menu",
         description: "Eggs, Bread, Coffee and more",
         enabled: true,
     }
-
     const getMenuExpectation = Matchers.like(MENU) //Using matches for state changes
 
     afterEach(() => {
