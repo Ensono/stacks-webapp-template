@@ -19,8 +19,8 @@
             "--runInBand"
           ],
           "env": {
-            "PACT_CONSUMER": "",
-            "PACT_PROVIDER": ""
+            "PACT_CONSUMER": "PACT_CONSUMER",
+            "PACT_PROVIDER": "PACT_PROVIDER"
           }
         }
     ]

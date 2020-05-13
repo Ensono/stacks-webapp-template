@@ -1,9 +1,9 @@
 {
   "consumer": {
-    "name": "GenericMenuConsumer"
+    "name": "PACT_CONSUMER"
   },
   "provider": {
-    "name": "MenuAPI"
+    "name": "PACT_PROVIDER"
   },
   "interactions": [
     {

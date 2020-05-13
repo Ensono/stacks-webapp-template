@@ -7,7 +7,7 @@ import { resolve } from 'path';
 // import { PactOptions } from '@pact-foundation/pact/dsl/options';
 import { PactfileWriteMode } from '@pact-foundation/pact/dsl/mockService';
 
-const options = (mockPort: number) => ({
+const options = (mockPort?: number) => ({
     port: mockPort,
     log: resolve(process.cwd(), '__tests__', 'pact', 'logs', 'mockserver-integration.log'),
     dir: resolve(process.cwd(), '__tests__', 'pact', 'pacts'),
@@ -19,7 +19,7 @@ const options = (mockPort: number) => ({
     provider: process.env.PACT_PROVIDER || "" //Dictated from Provider
 });
 
-export const pactSetup = (port: number) => {
+export const pactSetup = (port?: number) => {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // This is to give the pact mock server time to start
 
     const provider = new Pact(options(port))
@@ -29,3 +29,5 @@ export const pactSetup = (port: number) => {
 
     return provider
 }
+
+export const pactsOutDir = options().dir
