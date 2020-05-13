@@ -1,3 +1,15 @@
+output "cluster_name" {
+  # This may seem redundant with the `name` input, but it serves an important
+  # purpose. Terraform won't establish a dependency graph without this to interpolate on.
+  description = "The name of the cluster master. This output is used for interpolation with node pools, other modules."
+  value = module.gke-public.cluster_name
+}
+
+output "master_version" {
+  description = "The Kubernetes master version."
+  value       = module.gke-public.master_version
+}
+
 output "cluster_endpoint" {
   description = "The IP address of the cluster master."
   sensitive   = true
@@ -30,3 +42,13 @@ output "gke_ingress_public_ip" {
 #   description = "Public IP to be used for the ingress controller inside the cluster"
 #   value       = module.gke-public.gke_ingress_private_ip
 # }
+
+output "project_id" {
+  description = "Project ID - to be used with auth modules in pipelines"
+  value = data.google_client_config.current.project
+}
+
+output "region" {
+  description = "Region - to be used with auth modules in pipelines"
+  value = data.google_client_config.current.region
+}
