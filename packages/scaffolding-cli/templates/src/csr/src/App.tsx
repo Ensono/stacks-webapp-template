@@ -9,7 +9,6 @@ import theme from "./constants/theme"
 function App() {
     return (
         <>
-            <></>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Amido Stacks CSR</title>
