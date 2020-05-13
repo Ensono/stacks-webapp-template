@@ -305,6 +305,7 @@ metadata:
     app.kubernetes.io/part-of: ingress-nginx
   annotations:
     cloud.google.com/load-balancer-type: "external"
+    kubernetes.io/ingress.global-static-ip-name: ${ingress_public_ip_name}
 spec:
   externalTrafficPolicy: Local
   type: LoadBalancer

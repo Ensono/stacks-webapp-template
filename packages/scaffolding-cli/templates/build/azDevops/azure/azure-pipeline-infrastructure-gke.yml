@@ -139,6 +139,7 @@ stages:
     dependsOn: InfraNonProd
     variables:
       ingress_public_ip: $[ dependencies.InfraNonProd.outputs['tfoutputs.gke_ingress_public_ip'] ]
+      ingress_public_ip_name: $[ dependencies.InfraNonProd.outputs['tfoutputs.gke_ingress_public_ip_name'] ]
       cluster_name: $[ dependencies.InfraNonProd.outputs['tfoutputs.cluster_name'] ]
       project_id: $[ dependencies.InfraNonProd.outputs['tfoutputs.project_id'] ]
       region: $[ dependencies.InfraNonProd.outputs['tfoutputs.region'] ]
@@ -171,7 +172,8 @@ stages:
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/nginx-ingress.yml, 
               displayName: NginxIngress,
               env_vars: {
-                ingress_public_ip: $(ingress_public_ip)
+                ingress_public_ip: $(ingress_public_ip),
+                ingress_public_ip_name: $(ingress_public_name)
               }
             }
           ]

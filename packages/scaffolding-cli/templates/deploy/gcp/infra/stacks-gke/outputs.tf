@@ -16,10 +16,11 @@ output "cluster_endpoint" {
   value       = module.gke-public.cluster_endpoint
 }
 
-output "client_certificate" {
-  description = "Public certificate used by clients to authenticate to the cluster endpoint."
-  value       = module.gke-public.client_certificate
-}
+# output "client_certificate" {
+#   description = "Public certificate used by clients to authenticate to the cluster endpoint."
+#   sensitive   = true
+#   value       = module.gke-public.client_certificate
+# }
 
 output "client_key" {
   description = "Private key used by clients to authenticate to the cluster endpoint."
@@ -36,6 +37,11 @@ output "cluster_ca_certificate" {
 output "gke_ingress_public_ip" {
   description = "Public IP to be used for the ingress controller inside the cluster"
   value       = module.gke-public.gke_ingress_public_ip
+}
+
+output "gke_ingress_public_ip_name" {
+  description = "Public IP to be used for the ingress controller inside the cluster"
+  value       = module.gke-public.gke_ingress_public_ip_name
 }
 
 # output "gke_ingress_private_ip" {
