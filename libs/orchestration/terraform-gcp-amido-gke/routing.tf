@@ -9,18 +9,19 @@ resource "google_dns_managed_zone" "default" {
   labels = merge(var.tags, map("managed_by", var.name_company))
 }
 
-resource "google_compute_global_address" "public" {
+resource "google_compute_address" "public" {
   provider     = google-beta
   name         = "${var.resource_namer}-public"
-  ip_version   = "IPV4"
+  # ip_version   = "IPV4"
   address_type = "EXTERNAL"
+  network_tier = "PREMIUM"
   labels       = merge(var.tags, map("ingress", "public"))
 }
 
 
-data "google_compute_global_address" "public" {
+data "google_compute_address" "public" {
   name       = "${var.resource_namer}-public"
-  depends_on = [google_compute_global_address.public]
+  depends_on = [google_compute_address.public]
 }
 
 # INTERNAL IPs - TODO: management of 
