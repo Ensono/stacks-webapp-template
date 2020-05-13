@@ -9,8 +9,8 @@ import { PactfileWriteMode } from '@pact-foundation/pact/dsl/mockService';
 
 const options = (mockPort?: number) => ({
     port: mockPort,
-    log: resolve(process.cwd(), '__tests__', 'pact', 'logs', 'mockserver-integration.log'),
-    dir: resolve(process.cwd(), '__tests__', 'pact', 'pacts'),
+    log: resolve(process.cwd(), 'pact', 'logs', 'mockserver-integration.log'),
+    dir: resolve(process.cwd(), 'pact', 'pacts'),
     spec: 2,
     cors: true,
     pactfileWriteMode: 'update' as PactfileWriteMode,
