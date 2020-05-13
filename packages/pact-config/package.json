@@ -1,10 +1,10 @@
 {
-  "name": "@amidostacks/pact-config-new",
+  "name": "@amidostacks/pact-config",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "build": "tsc",
-    "test": "jest --coverage",
+    "test": "node_modules/.bin/jest --runInBand",
     "test:pact-start-stub": "npm run build && node dist/utils/pactStubServer.js",
     "clean:tree": "git clean -idx",
     "version": "echo 'Please version all packages from root using Lerna'"
@@ -17,9 +17,7 @@
     "@pact-foundation/pact": "^8.2.4 || ^9.0.1",
     "jest": "~24.7.1 || ~24.8.0 || ~24.9.0 || ~25.1.0"
   },
-  "dependencies": {
-    "@types/jest": "25.1.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "axios": "^0.19.2",
     "jest": "^25.1.0",

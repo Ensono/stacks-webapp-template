@@ -1,56 +1,31 @@
-import * as pact from '@pact-foundation/pact';
-import { LogLevel, PactOptions } from '@pact-foundation/pact/dsl/options';
-import * as path from 'path';
+// import * as pact from '@pact-foundation/pact';
+// import { LogLevel, PactOptions } from '@pact-foundation/pact/dsl/options';
+// import * as path from 'path';
 
-export type JestPactOptions = PactOptions & {
-  timeout?: number;
-};
+import { Pact } from '@pact-foundation/pact';
+import { resolve } from 'path';
+// import { PactOptions } from '@pact-foundation/pact/dsl/options';
+import { PactfileWriteMode } from '@pact-foundation/pact/dsl/mockService';
 
-const applyDefaults = (options: JestPactOptions) => ({
-  log: path.resolve(
-    process.cwd(),
-    'pact/logs',
-    `${options.consumer}-${options.provider}-mockserver-integration.log`,
-  ),
-  dir: path.resolve(process.cwd(), 'pact/pacts'),
-  spec: 2,
-  logLevel: 'error' as LogLevel,
-  pactfileWriteMode: 'update' as pact.PactfileWriteMode,
-  ...options,
+const options = (mockPort: number) => ({
+    port: mockPort,
+    log: resolve(process.cwd(), '__tests__', 'pact', 'logs', 'mockserver-integration.log'),
+    dir: resolve(process.cwd(), '__tests__', 'pact', 'pacts'),
+    spec: 2,
+    cors: true,
+    pactfileWriteMode: 'update' as PactfileWriteMode,
+    //Really important to get these names correct as they are the ID, must be exact
+    consumer: process.env.PACT_CONSUMER || "", //Dictated from Provider
+    provider: process.env.PACT_PROVIDER || "" //Dictated from Provider
 });
 
-const setupProvider = (options: JestPactOptions) => {
-  const pactMock: pact.Pact = new pact.Pact(options);
+export const pactSetup = (port: number) => {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // This is to give the pact mock server time to start
 
-  beforeAll(() => pactMock.setup());
-  afterAll(() => pactMock.finalize());
-  afterEach(() => pactMock.verify());
+    const provider = new Pact(options(port))
 
-  return pactMock;
-};
+    beforeAll(() => provider.setup()); // Create mock provider
+    afterAll(() => provider.finalize()); // Tear down the mock and write the pact
 
-// This should be moved to pact-js, probably
-export const getProviderBaseUrl = (provider: pact.Pact) =>
-  provider.mockService
-    ? provider.mockService.baseUrl
-    : `http://${provider.opts.host}:${provider.opts.port}`;
-
-export const pactWith = (options: JestPactOptions, tests: any) =>
-  describe(`Pact between ${options.consumer} and ${options.provider}`, () => {
-    const pactTestTimeout = options.timeout || 30000;
-
-    describe(`with ${pactTestTimeout} ms timeout for Pact`, () => {
-      let originalTimeout: number;
-
-      beforeAll(() => {
-        originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = pactTestTimeout;
-      });
-
-      afterAll(() => {
-        jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-      });
-
-      tests(setupProvider(applyDefaults(options)));
-    });
-  });
+    return provider
+}

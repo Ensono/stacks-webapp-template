@@ -1,13 +1,17 @@
 import {Interaction, Matchers} from "@pact-foundation/pact"
-import {provider} from "@amidostacks/pact-config/utils/pactSetup"
+import {pactSetup} from "../index"
 
-import {MenuService} from "./__mocks__/menuService"
+import {MenuService} from "../__mocks__/menuService"
 
 describe("Yumido Menu API", () => {
     const url = "http://localhost"
+    const port = 8025
+
+    const provider = pactSetup(port)
+
     let menuService: MenuService
 
-    menuService = new MenuService({url, port: provider.opts.port})
+    menuService = new MenuService({url, port: port})
 
     const MENU = {
         id: "e98583ad-0feb-4e48-9d4f-b20b09cb2633",

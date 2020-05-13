@@ -1,5 +1,5 @@
 {
-  "testMatch": ["**/*.test.pact.(ts)"],
+  "testMatch": ["**/*.pact.test.(ts)"],
   "testEnvironment": "node",
   "moduleFileExtensions": ["ts", "js", "json"],
   "transform": {
