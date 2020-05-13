@@ -182,7 +182,8 @@ stages:
           gcp_auth: {
             CLOUDSDK_COMPUTE_REGION: $(region),
             CLOUDSDK_CONTAINER_CLUSTER: $(cluster_name),
-            CLOUDSDK_CORE_PROJECT: $(project_id)
+            CLOUDSDK_CORE_PROJECT: $(project_id),
+            CLOUDSDK_CORE_DISABLE_PROMPTS: "True"
           }
           # ONLY USED FOR kubectl apply
           cluster_name: $(cluster_name)
