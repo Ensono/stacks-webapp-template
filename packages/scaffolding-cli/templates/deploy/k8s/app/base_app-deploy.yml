@@ -79,7 +79,7 @@ spec:
     environment: ${environment}
   sessionAffinity: None
 
---- 
+---
 
 apiVersion: apps/v1
 kind: Deployment

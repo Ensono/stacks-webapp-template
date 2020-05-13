@@ -61,8 +61,8 @@ resource "google_container_node_pool" "node_pool" {
 
   version = var.cluster_version
 
-  upgrade_settings { 
-    max_surge = 1
+  upgrade_settings {
+    max_surge       = 1
     max_unavailable = 1
   }
 
@@ -70,7 +70,7 @@ resource "google_container_node_pool" "node_pool" {
     image_type   = "COS"
     machine_type = "n1-standard-1"
 
-    labels = merge(var.tags, map("all-pools-example","true"))
+    labels = merge(var.tags, map("all-pools-example", "true"))
 
     # Add a public tag to the instances. See the network access tier table for full details:
     # https://github.com/gruntwork-io/terraform-google-network/tree/master/modules/vpc-network#access-tier
