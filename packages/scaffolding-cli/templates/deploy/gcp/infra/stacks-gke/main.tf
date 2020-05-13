@@ -9,6 +9,8 @@ module "default_label" {
   tags       = var.tags
 }
 
+data "google_client_config" "current" {}
+
 module "gke-public" {
   source         = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-gcp-amido-gke?ref=feat/1801"
   stage              = var.stage
