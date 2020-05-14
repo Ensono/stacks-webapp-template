@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Publisher } from '@pact-foundation/pact-node'
 import { pactsOutDir } from '../index'
 

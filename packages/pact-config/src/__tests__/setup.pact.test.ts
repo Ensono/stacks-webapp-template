@@ -5,7 +5,8 @@ import {MenuService} from "../__mocks__/menuService"
 
 describe("Yumido Menu API", () => {
     const url = "http://localhost"
-    const port = 8025
+    const port = 8256
+
     const provider = pactSetup(port)
     
     const menuService = new MenuService({url, port})
@@ -18,6 +19,7 @@ describe("Yumido Menu API", () => {
     const getMenuExpectation = Matchers.like(MENU) //Using matches for state changes
 
     afterEach(() => {
+        provider.removeInteractions()
         return provider.verify()
     })
 

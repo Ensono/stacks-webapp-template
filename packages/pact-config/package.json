@@ -5,9 +5,7 @@
   "scripts": {
     "build": "tsc",
     "test": "node_modules/.bin/jest --runInBand",
-    "test:pact-start-stub": "npm run build && node dist/utils/pactStubServer.js",
-    "clean:tree": "git clean -idx",
-    "version": "echo 'Please version all packages from root using Lerna'"
+    "clean:tree": "git clean -idx"
   },
   "engines": {
     "node": ">=12.0",
@@ -35,5 +33,10 @@
   "license": "MIT",
   "repository": {
     "url": "git://github.com/amido/stacks-webapp-template"
+  },
+  "bin": {
+    "pact-publish": "./dist/utils/pactPublish.js",
+    "pact-can-i-deploy": "./dist/utils/pactCanIDeploy.js",
+    "pact-start-stub": "./dist/utils/pactStubServer.js"
   }
 }
