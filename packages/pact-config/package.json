@@ -14,7 +14,7 @@
     "npm": ">=6.0"
   },
   "peerDependencies": {
-    "@pact-foundation/pact": "^8.2.4 || ^9.0.1",
+    "@pact-foundation/pact": "^8.2.4 || ~9.10.0",
     "jest": "~24.7.1 || ~24.8.0 || ~24.9.0 || ~25.1.0"
   },
   "dependencies": {},
@@ -22,7 +22,7 @@
     "axios": "^0.19.2",
     "jest": "^25.1.0",
     "jest-junit": "^10.0.0",
-    "@pact-foundation/pact": "^9.8.0",
+    "@pact-foundation/pact": "^9.10.0",
     "@pact-foundation/pact-node": "^10.2.4",
     "@types/jest": "^24.9.1",
     "ts-jest": "^25.4.0",

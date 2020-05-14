@@ -32,9 +32,6 @@
     "node": ">=12.0",
     "npm": ">=6.0"
   },
-  "optionalDependencies": {
-    "@amidostacks/pact-config": "file:../../../../pact-config"
-  },
   "dependencies": {
     "@babel/core": "^7.8.4",
     "@emotion/core": "^10.0.27",
@@ -66,9 +63,10 @@
   },
   "devDependencies": {
     "@amidostacks/eslint-config": "^0.20.3",
+    "@amidostacks/pact-config": "file:../../../../pact-config",
     "@applitools/eyes-cypress": "^3.9.13",
     "@babel/core": "^7.8.4",
-    "@pact-foundation/pact": "^9.10.0",
+    "@pact-foundation/pact": "^9.8.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@types/applicationinsights": "^0.20.0",

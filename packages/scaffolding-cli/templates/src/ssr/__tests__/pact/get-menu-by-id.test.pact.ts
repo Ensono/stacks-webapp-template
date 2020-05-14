@@ -8,25 +8,44 @@
 * ✅ Ensure that the provider state has been configured by the Provider
 */
 
-
-import {Interaction, Matchers} from "@pact-foundation/pact"
-import {pactSetup} from "@amidostacks/pact-config/dist"
-
+import {Matchers, InteractionObject} from "@pact-foundation/pact"
+import {pactSetup} from "@amidostacks/pact-config/src"
+import {HTTPMethod} from "@pact-foundation/pact/common/request"
 import {MenuService} from "./__mocks__/menuService"
+
+const MENU = {
+    id: "e98583ad-0feb-4e48-9d4f-b20b09cb2633",
+    name: "Breakfast Menu",
+    description: "Eggs, Bread, Coffee and more",
+    enabled: true,
+}
+const getMenuExpectation = Matchers.like(MENU) // Using matches for state changes
+
+const menuSuccessResponse = {
+    status: 200,
+    headers: {
+        "Content-Type": "application/json; charset=utf-8",
+    },
+    body: getMenuExpectation,
+}
+
+const menuRequest = {
+    uponReceiving: "A request for a menu by ID",
+    withRequest: {
+        method: HTTPMethod.GET,
+        path: `/v1/menu/${MENU.id}`,
+        headers: {
+            Accept: "application/json",
+        },
+    },
+}
 
 describe("Yumido Menu API", () => {
     const url = "http://localhost"
-    const port = 8035
+    const port = 8054
     const provider = pactSetup(port)
 
     const menuService = new MenuService({url, port})
-    const MENU = {
-        id: "e98583ad-0feb-4e48-9d4f-b20b09cb2633",
-        name: "Breakfast Menu",
-        description: "Eggs, Bread, Coffee and more",
-        enabled: true,
-    }
-    const getMenuExpectation = Matchers.like(MENU) // Using matches for state changes
 
     afterEach(() => {
         return provider.verify()
@@ -34,29 +53,16 @@ describe("Yumido Menu API", () => {
 
     describe("GET /menu{id}", () => {
         beforeEach(() => {
-            const interaction = new Interaction()
-                .given("An existing menu") // Provider state
-                .uponReceiving("A request for a menu by ID")
-                .withRequest({
-                    method: "GET",
-                    path: `/v1/menu/${MENU.id}`,
-                    headers: {
-                        Accept: "application/json",
-                    },
-                })
-                .willRespondWith({
-                    status: 200,
-                    headers: {
-                        "Content-Type": "application/json; charset=utf-8",
-                    },
-                    body: getMenuExpectation,
-                })
-
+            const interaction: InteractionObject = {
+                state: "An existing menu",
+                ...menuRequest,
+                willRespondWith: menuSuccessResponse,
+            }
             return provider.addInteraction(interaction)
         })
 
         it("Returns the menu information", () => {
-            return menuService.getMenuById(MENU.id).then((response) => {
+            return menuService.getMenuById(MENU.id).then(response => {
                 expect(response.headers["content-type"]).toEqual(
                     "application/json; charset=utf-8",
                 )

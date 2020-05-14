@@ -1,10 +1,5 @@
-// import * as pact from '@pact-foundation/pact';
-// import { LogLevel, PactOptions } from '@pact-foundation/pact/dsl/options';
-// import * as path from 'path';
-
 import { Pact } from '@pact-foundation/pact';
 import { resolve } from 'path';
-// import { PactOptions } from '@pact-foundation/pact/dsl/options';
 import { PactfileWriteMode } from '@pact-foundation/pact/dsl/mockService';
 
 const options = (mockPort?: number) => ({
