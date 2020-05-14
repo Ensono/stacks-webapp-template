@@ -7,7 +7,7 @@ export default function apiCaller<T>(
 ): Promise<T[] | null> {
     return axios({
         method,
-        url: `http://localhost:3000${path}`,
+        url: `${process.env.API_BASE}${path}`,
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
