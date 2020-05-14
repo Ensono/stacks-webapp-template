@@ -1,0 +1,194 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${namespace}
+  labels:
+    component: ${component}
+    name: ${resource_def_name}
+    part-of: ${project}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    projectID: stacks
+    version: ${version}
+  labels:
+    component: ${component}
+    name: ${resource_def_name}
+    part-of: ${project}
+    environment: ${environment}
+  name: ${resource_def_name}
+  namespace: ${namespace}
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      component: ${component}
+      name: ${resource_def_name}
+      part-of: ${project}
+      environment: ${environment}
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        version: ${version}
+      labels:
+        component: ${component}
+        name: ${resource_def_name}
+        part-of: ${project}
+        environment: ${environment}
+    spec:
+      dnsPolicy: ClusterFirst
+      containers:
+        - name: web
+          # this we need to pass from the pipeline to the deployment steps
+          image: ${k8s_image}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: NODE_ENV
+              value: production
+            - name: LOG_LEVEL
+              value: debug
+            - name: PORT
+              value: '3000'
+            - name: MENU_API_URL
+              value: 'https://api.demo.nonprod.amidostacks.com/api/menu'
+            - name: APP_BASE_PATH
+              value: '${k8s_app_path}'
+            - name: APP_BASE_URL
+              value: 'https://${dns_pointer}'
+
+            - name: APPINSIGHTS_INSTRUMENTATIONKEY
+              value: f7c7d8ef-1421-41ce-9c7b-30205ef66ba6
+
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 3000
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+              # httpHeaders:
+              # - name: stacks-k8s-probe
+              #   value: live
+            initialDelaySeconds: 45
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 25
+          readinessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 25
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+    version: ${version}
+  labels:
+    component: ${component}
+    name: ${resource_def_name}
+    part-of: ${project}
+    environment: ${environment}
+  name: ${resource_def_name}
+  namespace: ${namespace}
+spec:
+  type: NodePort
+  selector:
+    component: ${component}
+    name: ${resource_def_name}
+    part-of: ${project}
+    environment: ${environment}
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 3000
+  - name: https
+    protocol: TCP
+    port: 443
+    targetPort: 3000
+  sessionAffinity: None
+
+---
+
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  labels:
+    component: ${component}
+    name: ${resource_def_name}
+    part-of: ${project}
+    environment: ${environment}
+  name: ${resource_def_name}-certificate
+  namespace: ${namespace}
+spec:
+  domains:
+    - ${dns_pointer}
+
+---
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ${resource_def_name}-ingress
+  namespace: ${namespace}
+  annotations:
+    # kubernetes.io/ingress.allow-http: "false"
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: ${ingress_ip_name}
+    networking.gke.io/managed-certificates: ${resource_def_name}-certificate
+    ingress.kubernetes.io/rewrite-target: /
+  labels:
+    component: ${component}
+    name: ${resource_def_name}
+    part-of: ${project}
+    environment: ${environment}
+spec:
+  # DEfaulting to same service
+  backend:
+    serviceName: ${resource_def_name}
+    servicePort: http
+  rules:
+  - host: ${dns_pointer}
+    http:
+      paths:
+        - path: ${k8s_app_path}/*
+          # pathType: Prefix
+          backend:
+            serviceName: xx-replace-me
+            servicePort: http
+        - path: ${k8s_app_path}
+          # pathType: Prefix
+          backend:
+            serviceName: xx-replace-me
+            servicePort: http
+

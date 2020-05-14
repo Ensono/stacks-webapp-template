@@ -33,7 +33,7 @@ resources:
     - container: sonar_scanner
       image: amidostacks/ci-sonarscanner:0.0.1
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.4
+      image: amidostacks/ci-k8s:0.0.5
     - container: terraform_custom
       image: amidostacks/ci-tf:0.0.3
 
@@ -48,7 +48,7 @@ variables:
   # It is case sensitive for TFS based repos
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_src: src/ssr
-  self_repo_tf_src: deploy/azure/app/kube
+  self_repo_tf_src: deploy/gcp/app/kube
   self_generic_name: stacks-webapp
   # TF STATE CONFIG
   tf_state_rg: amido-stacks-rg-uks
@@ -61,7 +61,7 @@ variables:
   # **`terraform_state_workspace: `** 
   # avoid running anything past dev that is not on master
   # sample value: company-webapp
-  tf_state_key: stacks-webapp
+  tf_state_key: node-app
   # Versioning
   version_major: 0
   version_minor: 0
@@ -70,19 +70,19 @@ variables:
   docker_dockerfile_path: "src/"
   docker_image_name: $(self_generic_name)
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
-  docker_container_registry_name: $(company)$(project)nonproduks$(domain)
-  k8s_docker_registry: $(docker_container_registry_name).azurecr.io
+  docker_container_registry_name: eu.gcr.io/$(gcp_project_id)
   # BUILD ARTIFACTS across stages
   build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
   build_artifact_deploy_name: $(self_generic_name)
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - INFRAstage - location - compnonent names in the infra-pipeline
-  aks_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
-  aks_clustername: $(company)-$(project)-nonprod-uks-$(domain)
+  gcp_region: europe-west2
+  gcp_project_name: amido-stacks
+  gcp_project_id: amido-stacks
+  gcp_cluster_name: $(company)-$(project)-nonprod-gke-infra
   # Infra 
   conventional_resource_namer: $(company)-$(project)-nonprod-uks-$(domain)
-  base_domain: nonprod.amidostacks.com
-  base_domain_internal: nonprod.amidostacks.internal
+  base_domain: gke.nonprod.amidostacks.com
   # Dynamic vars for downstream purposes
   # tf_workspace_suffix: $[]
   # dns_suffix: ""
@@ -91,9 +91,9 @@ variables:
   # Test setup
   # ADD Vars here
   # TestCafe E2E Tests
-  testcafe_e2e_test: true
+  testcafe_e2e_test: false
   # Lighthouse Audit
-  lighthouse_audit: true
+  lighthouse_audit: false
 
 stages:
   - stage: CI
@@ -118,13 +118,26 @@ stages:
             parameters:
               # Docker Config
               build_on_server: false
-              docker_build: true
+              docker_build: false
+              docker_build_generi: true
+              gcp_auth: {
+                CLOUDSDK_COMPUTE_REGION: $(gcp_region),
+                CLOUDSDK_CONTAINER_CLUSTER: $(company)-$(project)-nonprod-gke-infra,
+                CLOUDSDK_CORE_PROJECT: $(gcp_project_id),
+                CLOUDSDK_CORE_DISABLE_PROMPTS: "True"
+              }
+              login_azure: false
+              login_gke: true
+              login_gcp: true
+              login_gcr: true
               # TODO: normalize this
               docker_build_additional_args: "."
               docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
-              docker_containerregistryname: $(docker_container_registry_name)
+              docker_tag_args: "-t $(docker_image_name):$(docker_image_tag) \
+                -t ${{ parameters.docker_containerregistryname }}.azurecr.io/$(docker_image_name):$(docker_image_tag) \
+                -t ${{ parameters.docker_containerregistryname }}.azurecr.io/$(docker_image_name):latest"
               # Vulnerability Scanning
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
@@ -139,19 +152,19 @@ stages:
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
-              cypress_e2e_test: true
-              cypress_applitools_test: true
+              cypress_e2e_test: false
+              cypress_applitools_test: false
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
-                MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
                 NODE_ENV: dev
                 # avoid warnings about terminal
                 TERM: xterm
               # Build Output File
               # files to be persisted across stages
-              build_file: true
+              build_file: false
               build_file_path: $(build_artifact_deploy_path)
               build_file_artefact: $(build_artifact_deploy_name)
               # Git Tag release
@@ -184,48 +197,39 @@ stages:
             target:
               container: terraform_custom
           # Create TF infra
-          - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
+          - template: azDevOps/azure/templates/v2/steps/deploy-terraform-meta-generic.yml@templates
             parameters: 
               # Terraform Basic Config
               terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
               # changing this would require changing the downstream consumers of these outputs
               # 
               terraform_output_artefact: 'tfoutputs'
+              #Auth config
+              terraform_auth_properties: {
+                ARM_CLIENT_ID: $(azure_client_id),
+                ARM_CLIENT_SECRET: $(azure_client_secret),
+                ARM_SUBSCRIPTION_ID: $(azure_subscription_id),
+                ARM_TENANT_ID: $(azure_tenant_id),
+                GOOGLE_CREDENTIALS: $(GOOGLE_CREDENTIALS)
+              }
               # Terraform State Config
-              terraform_backend_client_id: $(azure_client_id)
-              terraform_backend_client_secret: $(azure_client_secret)
-              terraform_backend_tenant_id: $(azure_tenant_id)
-              terraform_backend_subscription_id: $(azure_subscription_id)
-              terraform_state_rg: $(tf_state_rg)
-              terraform_state_storage: $(tf_state_storage)
-              terraform_state_container: $(tf_state_container)
-              terraform_state_key: $(tf_state_key)
-              # for branch based builds this can be $(Build.SourceBranchName)
+              terraform_init_backend_config: '-backend-config="key=$(tf_state_key)" -backend-config="storage_account_name=$(tf_state_storage)" -backend-config="resource_group_name=$(tf_state_rg)" -backend-config="container_name=$(tf_state_container)"'
               terraform_state_workspace: dev
               # Global Config
-              company: $(company)
-              project: $(project)
-              environment: ''
-              azure_cli_providers: [
-                { name: MSIPreview, namespace: Microsoft.ContainerService }
-              ]
-              # Azure config
               tags: ''
               # Terraform Resource Specific Config
               terraform_extra_properties: {
-                TF_VAR_resource_group_location: uksouth,
-                TF_VAR_use_existing_resource_group: true,
-                TF_VAR_resource_group_name: $(conventional_resource_namer),
+                TF_VAR_project: $(gcp_project_name),
+                TF_VAR_location: $(gcp_region),
+                TF_VAR_region: $(gcp_region),
                 TF_VAR_name_company: $(company),
                 TF_VAR_name_project: $(project),
                 TF_VAR_name_component: $(component),
-                TF_VAR_create_cosmosdb: false,
                 TF_VAR_name_environment: dev,
                 TF_VAR_name_stage: dev,
-                TF_VAR_app_gateway_frontend_ip_name: $(conventional_resource_namer),
+                TF_VAR_ingress_ip_name: amido-stacks-nonprod-gke-infra-ingress-public,
                 TF_VAR_dns_record: app,
-                TF_VAR_dns_zone_name: $(base_domain),
-                TF_VAR_internal_dns_zone_name: $(base_domain_internal)
+                TF_VAR_dns_zone_name: amido-stacks-nonprod-gke-infra,
               }
               terraform_output_commands: ""
 
@@ -256,14 +260,15 @@ stages:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
                     template_input: [
                       {
-                        base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_app-deploy.yml,
+                        base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_gke-app-deploy.yml,
+                        out: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml,
                         displayName: AppDeployment,
                         env_vars: {
                           namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
                           tls_domain: $(base_domain),
                           k8s_app_path: /web/stacks,
-                          k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
+                          k8s_image: '$(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag)',
                           version: $(docker_image_tag),
                           role: $(role),
                           company: $(company),
@@ -271,36 +276,27 @@ stages:
                           domain: $(domain),
                           component: web,
                           app_name: webapp-template,
-                          resource_def_name: xx-replace-me,
-                          environment: dev,
-                          aadpodidentitybinding: stacks-webapp-identity,
-                          APPINSIGHTS_INSTRUMENTATIONKEY: $(APPINSIGHTS_INSTRUMENTATIONKEY)
+                          resource_def_name: node-app,
+                          environment: dev
                         }
                       }
                     ]
 
-                - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kubectl.yml@templates
+                - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kubectl-generic.yml@templates
                   parameters:
                     environment: "dev"
+                    gcp_auth: {
+                      CLOUDSDK_COMPUTE_REGION: $(region),
+                      CLOUDSDK_CONTAINER_CLUSTER: $(cluster_name),
+                      CLOUDSDK_CORE_PROJECT: $(project_id),
+                      CLOUDSDK_CORE_DISABLE_PROMPTS: "True"
+                    }
+                    # ONLY USED FOR kubectl apply
+                    cluster_name: $(cluster_name)
+                    deployment_defs: 
+                      - { name: app_deploy, file: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml, context: "--context  $(cluster_name)"}
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
-                    download_deploy_artefact: true
-                    deploy_artifact_name: $(build_artifact_deploy_name)
-                    test_artefact: "tests"
-                    test_baseurl: ""
-                    functional_test: false
-                    performance_test: false
-                    smoke_test: false
-                    # Kubernetes Config
-                    kubernetes_clusterrg: $(aks_clusterrg)
-                    kubernetes_clustername: $(aks_clustername)
-                    # Mutation Information
-                    kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
-                    kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app # unnecessary
                     appinsights_enabled: false
-                    appinsights_accountName: ""
-                    secureFile: ""
-                    # ReleaseNote Information
-                    releasenote: false
             on:
               success:
                 pool:

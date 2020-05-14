@@ -35,12 +35,12 @@ output "cluster_ca_certificate" {
 
 output "gke_ingress_public_ip" {
   description = "Public IP to be used for the ingress controller inside the cluster"
-  value       = google_compute_address.public.address
+  value       = google_compute_global_address.public.address
 }
 
 output "gke_ingress_public_ip_name" {
   description = "Public IP name to be used for the ingress controller inside the cluster"
-  value       = google_compute_address.public.name
+  value       = google_compute_global_address.public.name
 }
 # output "gke_ingress_private_ip" {
 #   description = "Private IP to be used for the ingress controller inside the cluster"
