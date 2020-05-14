@@ -1,27 +1,25 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-          "type": "node",
-          "request": "launch",
-          "name": "vscode-jest-tests",
-          "program": "${workspaceFolder}/node_modules/.bin/jest",
-          "protocol": "inspector",
-          "cwd": "${workspaceFolder}",
-          "console": "internalConsole",
-          "internalConsoleOptions": "neverOpen",
-          "disableOptimisticBPs": false,
-          "outputCapture": "std",
-          "args": [
-            "--runInBand"
-          ],
-          "env": {
-            "PACT_CONSUMER": "PACT_CONSUMER",
-            "PACT_PROVIDER": "PACT_PROVIDER"
-          }
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "vscode-jest-tests",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "protocol": "inspector",
+      "cwd": "${workspaceFolder}",
+      "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": false,
+      "outputCapture": "std",
+      "args": ["--runInBand"],
+      "env": {
+        "PACT_CONSUMER": "PACT_CONSUMER",
+        "PACT_PROVIDER": "PACT_PROVIDER"
+      }
+    }
+  ]
 }
