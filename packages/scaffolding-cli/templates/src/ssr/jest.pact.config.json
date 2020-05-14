@@ -5,6 +5,7 @@
   "transform": {
     "^.+\\.(ts|tsx)$": "ts-jest"
   },
+  "transformIgnorePatterns": ["!<rootDir>/node_modules/@amidostacks/pact-config"],
   "reporters": [
     "default",
     [
