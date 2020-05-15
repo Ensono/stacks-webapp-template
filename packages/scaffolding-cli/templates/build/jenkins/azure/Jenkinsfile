@@ -8,8 +8,10 @@ pipeline {
                       }
             }
             steps {
-                sh 'cd ${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr'
-                sh 'docker build . -t test:${BUILD_NUMBER}'
+                sh '''
+                  cd ${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr
+                  docker build . -t test:${BUILD_NUMBER}
+                '''
             }
         }
     }
