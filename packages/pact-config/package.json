@@ -1,6 +1,6 @@
 {
   "name": "@amidostacks/pact-config",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "scripts": {
     "build": "tsc",
     "test": "node_modules/.bin/jest --runInBand",

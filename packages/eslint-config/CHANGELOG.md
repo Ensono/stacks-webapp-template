@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.27.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.20.8...@amidostacks/eslint-config@0.27.0) (2020-05-15)
+
+
+### Bug Fixes
+
+* eslint peer deps list ([#108](https://github.com/amido/stacks-webapp-template/issues/108)) ([165f57f](https://github.com/amido/stacks-webapp-template/commit/165f57f97b77657c3099a4ddd53211eac34e7060))
+* publishing with lerna ([#109](https://github.com/amido/stacks-webapp-template/issues/109)) ([b266275](https://github.com/amido/stacks-webapp-template/commit/b2662750098ee6084e3308584c5ad654ba65c6d0))
+* reduce package size ([259e745](https://github.com/amido/stacks-webapp-template/commit/259e74554e3e72ffb8e61f72accebd5e8e69c687))
+
+
+### Features
+
+* Search ([#119](https://github.com/amido/stacks-webapp-template/issues/119)) ([d4dbf04](https://github.com/amido/stacks-webapp-template/commit/d4dbf04cd4cbdd761de962f0c8388f02b6489497))
+
+
+
+
+
 # [0.26.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.19.0...@amidostacks/eslint-config@0.26.0) (2020-05-07)
 
 
