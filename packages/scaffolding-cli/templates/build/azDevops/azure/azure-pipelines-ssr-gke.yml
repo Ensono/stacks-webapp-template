@@ -17,7 +17,7 @@ trigger:
       - '*'
   paths:
     include:
-      - 'packages/scaffolding-cli/templates/*'
+      - 'packages/scaffolding-cli/templates/deploy/gcp/*'
 
 resources:
   repositories:
