@@ -1,0 +1,14 @@
+pipeline {
+    agent none
+    stages {
+        stage('CI') {
+            agent {
+                docker { image 'amidostacks/ci-k8s:0.0.5' }
+            }
+            steps {
+                sh 'cd ${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr'
+                sh 'sudo docker build . -t test:${BUILD_NUMBER}'
+            }
+        }
+    }
+}
