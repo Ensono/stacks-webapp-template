@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('CI') {
             agent {
-                docker { 
+                docker {
                         image 'amidostacks/ci-k8s:0.0.5'
                       }
             }

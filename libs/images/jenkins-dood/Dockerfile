@@ -10,8 +10,9 @@ USER jenkins
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/plugins.txt
 USER root
-# RUN sudo usermod -aG jenkins
 
+
+# RUN sudo usermod -aG jenkins
 
 # from jenkinsci/jenkins:lts
  
