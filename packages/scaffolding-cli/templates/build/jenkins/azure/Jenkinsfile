@@ -5,12 +5,11 @@ pipeline {
             agent {
                 docker { 
                         image 'amidostacks/ci-k8s:0.0.5'
-                        args '-u root:sudo -v $HOME/workspace/jenkins-docker-test-v2:/jenkins-docker-test-v2'
                       }
             }
             steps {
                 sh 'cd ${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr'
-                sh 'sudo docker build . -t test:${BUILD_NUMBER}'
+                sh 'docker build . -t test:${BUILD_NUMBER}'
             }
         }
     }

@@ -12,16 +12,22 @@ USAGE:
 ```bash
 docker build -t local-jenkins .
 docker volume create jenkins-local-vol && \
-docker run -d -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v jenkins-local-vol:/var/jenkins_home --name local-jenkins -p 8080:8080 local-jenkins:latest
+docker run -d -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker -v jenkins-local-vol:/var/jenkins_home --name jenkins-dood -p 8080:8080 jenkins-dood 
+docker run -d -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker --name jenkins-dood -p 8080:8080 jenkins-dood 
+
+
+local-jenkins:latest
 docker start jenkins
 ```
 
 docker run -d -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):/usr/bin/docker --name local-jenkins -p 8080:8080 local-jenkins:latest
 docker start jenkins
 
+docker run --name jenkins-dind --privileged -d -p 8080:8080 -v jenkins-local-vol:/var/jenkins_home killercentury/jenkins-dind
+docker start jenkins-dind
 If you are running it for the first time
 ```bash
-docker exec -it local-jenkins /bin/bash
+docker exec -it jenkins-dood /bin/bash -c cat /var/jenkins_home/secrets/initialAdminPassword
 jenkins$: cat /var/jenkins_home/secrets/initialAdminPassword
 ```
 
