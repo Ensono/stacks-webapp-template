@@ -3,7 +3,11 @@ pipeline {
     stages {
         stage('CI') {
             agent {
-                docker { image 'amidostacks/ci-k8s:0.0.5' }
+                docker { 
+                        image 'amidostacks/ci-k8s'
+                        label '0.0.5'
+                        registryUrl 'dockerhub.io'
+                      }
             }
             steps {
                 sh 'cd ${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr'
