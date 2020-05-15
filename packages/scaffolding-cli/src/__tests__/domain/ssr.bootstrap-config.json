@@ -9,5 +9,5 @@
   "business_component": "replace_business_component",
   "source_control_repo_name": "amido-stacks-repo",
   "terraform_backend_storage": "azure_blob",
-  "networking_base_domain": "app.replace.me"  
+  "networking_base_domain": "app.replace.me"
 }
