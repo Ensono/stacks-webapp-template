@@ -9,7 +9,7 @@
 */
 
 import {Matchers, InteractionObject} from "@pact-foundation/pact"
-import {pactSetup} from "@amidostacks/pact-config/src"
+import {pactSetup} from "@amidostacks/pact-config"
 import {HTTPMethod} from "@pact-foundation/pact/common/request"
 import {MenuService} from "./__mocks__/menuService"
 

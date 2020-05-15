@@ -46,5 +46,5 @@
     "pact-can-i-deploy": "./dist/utils/pactCanIDeploy.js",
     "pact-start-stub": "./dist/utils/pactStubServer.js"
   },
-  "gitHead": "6909886638bf2f874323953b41c30b1da9c48242"
+  "gitHead": "a4739e6b11c7858b8c87f1564b6547350ff7eb3a"
 }

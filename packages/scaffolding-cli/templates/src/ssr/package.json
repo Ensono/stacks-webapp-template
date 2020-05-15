@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@amidostacks/eslint-config": "^0.20.3",
-    "@amidostacks/pact-config": "file:../../../../pact-config",
+    "@amidostacks/pact-config": "^0.3.0",
     "@applitools/eyes-cypress": "^3.9.13",
     "@babel/core": "^7.8.4",
     "@pact-foundation/pact": "^9.8.0",
