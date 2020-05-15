@@ -136,8 +136,8 @@ stages:
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
               docker_tag_args: "-t $(docker_image_name):$(docker_image_tag) \
-                -t ${{ parameters.docker_containerregistryname }}.azurecr.io/$(docker_image_name):$(docker_image_tag) \
-                -t ${{ parameters.docker_containerregistryname }}.azurecr.io/$(docker_image_name):latest"
+                -t $(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag) \
+                -t $(docker_container_registry_name)/$(docker_image_name):latest"
               # Vulnerability Scanning
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
