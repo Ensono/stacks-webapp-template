@@ -1,6 +1,9 @@
 {
   "name": "@amidostacks/pact-config",
   "version": "0.3.0",
+  "author": "Amido Stacks <stacks@amido.com>",
+  "description": "Pact Jest wrapper and executables for consumers",
+  "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "node_modules/.bin/jest --runInBand",
@@ -29,13 +32,19 @@
     "pact_do_not_track": true
   },
   "license": "MIT",
+  "homepage": "https://github.com/amido/stacks-webapp-template/tree/master/packages/pact-config",
   "repository": {
-    "url": "git://github.com/amido/stacks-webapp-template"
+    "type": "git",
+    "url": "https://github.com/amido/stacks-webapp-template.git",
+    "directory": "packages/pact-config"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "bin": {
     "pact-publish": "./dist/utils/pactPublish.js",
     "pact-can-i-deploy": "./dist/utils/pactCanIDeploy.js",
     "pact-start-stub": "./dist/utils/pactStubServer.js"
   },
-  "gitHead": "cf07f9f57a0dbd3e9c4df7f5446b61aae7d090cf"
+  "gitHead": "6909886638bf2f874323953b41c30b1da9c48242"
 }
