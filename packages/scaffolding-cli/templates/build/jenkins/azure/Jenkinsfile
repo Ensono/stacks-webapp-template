@@ -6,7 +6,7 @@ pipeline {
                 docker { 
                         image 'amidostacks/ci-k8s'
                         label '0.0.5'
-                        registryUrl 'dockerhub.io'
+                        args '-u root:sudo -v $HOME/workspace/jenkins-docker-test-v2:/jenkins-docker-test-v2'
                       }
             }
             steps {
