@@ -1,18 +1,13 @@
 {
+  "business_company": "company",
   "project_name": "test-app-ssr",
   "project_type": "ssr",
-  "platform": "aks",
   "deployment": "azdevops",
-  "advanced_config": true,
-  "cloud_region": "replace_cloud_region",
-  "cloud_resource_group": "replace_cloud_resource_group",
-  "business_company": "company",
-  "business_project": "project",
-  "business_domain": "domain",
-  "business_component": "component",
-  "source_control_repo_type": "git",
-  "source_control_repo_name": "my-repo-on-git",
-  "terraform_backend_storage": "blobtfstate",
-  "terraform_backend_storage_rg": "blob-storage-rg",
-  "terraform_backend_storage_container": "blob-storage-container"
+  "business_domain": "ssr-node",
+  "platform": "aks",
+  "cloud_region": "uksouth",
+  "business_component": "replace_business_component",
+  "source_control_repo_name": "amido-stacks-repo",
+  "terraform_backend_storage": "azure_blob",
+  "networking_base_domain": "app.replace.me"  
 }

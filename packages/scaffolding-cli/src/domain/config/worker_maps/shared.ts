@@ -41,20 +41,30 @@ export const in_files = ({ project_name, business_obj, cloud_obj, terraform_obj,
     ]
 }
 
-export const final_response_message = (project_name: string, message: string, config_created: boolean = false): string  => {
-    return `----> \n
-Config file has been written out to current directory \n
-Please re-run the CLI with the following command. \n
-npx @amidostacks/scaffolding-cli run -c ${project_name}.bootstrap-config.json \n
-<----- \n
-NB: IF you haven't gone through the advanced setup - plese ensure you have replaced all the relevant values. \n
-${message} \n
-----> \n
-Please open the entire templated out directory in your IDE, and poke around to understand the layout. \n
-    e.g.: \`code ${project_name}\` \n
-You can find quickstart guides and additional info ${terminalLink("here", "https://github.com/amido/stacks-webapp-template/blob/master/packages/scaffolding-cli/templates/docs/index.md")}. \n
-If you'd like to contribute please read the ${terminalLink("following", "https://github.com/amido/stacks-webapp-template/blob/master/docs/cli-process.md")} \n
-<----\n`
+export const intro_usage_message = (): string => {
+    return `Bootstrap a templated project webapp, API and/or testing framework with supporting pipelines and infrastructure by answering just a few questions.\n
+For more information on the scaffolding-cli flow, please see <url>.\n
+
+███████ ████████  █████   ██████ ██   ██ ███████ 
+██         ██    ██   ██ ██      ██  ██  ██      
+███████    ██    ███████ ██      █████   ███████ 
+     ██    ██    ██   ██ ██      ██  ██       ██ 
+███████    ██    ██   ██  ██████ ██   ██ ███████ 
+`
+}
+
+export const final_response_message = (project_name: string, message: string): string  => {
+    return `${message} \n
+👟 Next steps: check out your bootstapped project in your chosen development environment
+        cd <dir>
+
+🤓 To get started: open <dir>/README.md
+
+📖 For guides and supporting information see: <url>
+
+💻 Thank you for using the Amido Stacks scaffolding-cli!
+         To contribute: https://github.com/amido/stacks"
+`
 }
 
 export const final_error_message = (message: string, code?: string | number ): string  => {

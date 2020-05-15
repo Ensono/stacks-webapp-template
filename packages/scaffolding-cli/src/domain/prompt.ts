@@ -1,7 +1,7 @@
-import { prompt } from 'prompts'
+import prompts, { prompt } from 'prompts'
 import { resolve, isAbsolute } from 'path'
 import { readFile, readFileSync } from 'fs'
-import { cliQuestions, cliAdvancedQuestions, computedSelection } from './config/questions'
+import { cliQuestions, computedSelection, testQuestions, platformQuestions, advancedQuestions } from './config/questions'
 import { PromptQuestion } from './model/prompt_question'
 import { PromptAnswer, CliAnswerModel } from './model/prompt_answer'
 import { ExitMessage, CliOptions } from './model/cli_response'
@@ -28,6 +28,11 @@ export async function runConfig(cli_args: CliOptions): Promise<ExitMessage> {
     return await selectFlow(cliModifiedSelection)
 }
 
+const onCancel = (prompt: any) => {
+    console.log('Never stop prompting!');
+    return true;
+  }
+
 /**
  * @private
  * @param default_project_name
@@ -40,17 +45,24 @@ async function getFromCli(default_project_name: string): Promise<PromptAnswer> {
         initialQs = [...initialQs, el]
     });
 
-    cliSelection = await prompt(initialQs)
-    if (cliSelection.advanced_config) {
-        let advancedSelection = await advancedCliQuestion(cliSelection)
-        return advancedSelection
+    cliSelection = await prompt(initialQs, { onCancel })
+    if (cliSelection.project_type.startsWith('test_')) {
+        // let testSelection = await testAdvancedCliQuestion(cliSelection, testQuestions)
+        // return testSelection
+    } else {
+        let platformSelection = await advancedCliQuestion(cliSelection, platformQuestions)
+        if (platformSelection?.enable_advanced) {
+            let advancedSelection = await advancedCliQuestion(platformSelection, advancedQuestions)
+            return advancedSelection
+        }
+        return platformSelection
     }
     return cliSelection;
 }
 
-async function advancedCliQuestion(basicSelection: PromptAnswer): Promise<PromptAnswer> {
-    let advancedQs: Array<PromptQuestion> = cliAdvancedQuestions()
-    let advancedSelections: PromptAnswer =  await prompt(advancedQs)
+async function advancedCliQuestion(basicSelection: PromptAnswer, advanceQsFn: Function): Promise<PromptAnswer> {
+    let advancedQs: Array<PromptQuestion> = advanceQsFn()
+    let advancedSelections: PromptAnswer =  await prompt(advancedQs, { onCancel })
     advancedSelections = {
         ...basicSelection,
         ...advancedSelections
@@ -74,11 +86,10 @@ async function getFromConfig(config_path: string): Promise<CliAnswerModel> {
 }
 
 async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {
-    let determined_choice = `${selection.project_type}_${selection.platform}_${selection.deployment}`
+    let determined_choice = `${selection.project_type}_${selection?.platform || "any"}_${selection.deployment}`
 
     const workflows: Workflow = WorkflowOptions()
     try {
-
         let response = await workflows[determined_choice](selection)
         exitMessage.code = response.code
         exitMessage.message = response.message

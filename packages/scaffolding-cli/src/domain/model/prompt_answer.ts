@@ -2,37 +2,37 @@ export interface BusinessSection {
     company: string
     project: string
     domain: string
-    component: string
+    component?: string
 }
 
 export interface CloudSection {
     region: string
-    resource_group: string
+    resource_group?: string
 }
 
 export interface SourceControlSection {
-    repo_type: string
+    repo_type?: string
     repo_name: string
-    repo_url: string
+    repo_url?: string
 }
 
-export interface GitSection {
-    url: string
-    repo_name: string
+export interface NetworkingSection {
+    base_domain: string
 }
+
 
 export interface TerraformSection {
     backend_storage: string
-    backend_storage_rg: string
+    backend_storage_rg?: string
     backend_storage_container?: string
 }
-export interface BaseAnswer { 
-    project_name: string,
-    project_type: string,
-    platform: string,
-    deployment: string,
-    advanced_config: boolean,
-    create_config: boolean
+export interface BaseAnswer {
+    business_company: string
+    project_name: string
+    project_type: string
+    business_domain: string
+    deployment: string
+    platform?: string
 }
 
 /**
@@ -40,10 +40,8 @@ export interface BaseAnswer {
  * these should all be strings and optional
  */
 export interface PromptAnswer extends BaseAnswer {
-    business_company?: string
-    business_project: string
     business_component?: string
-    business_domain?: string
+    enable_advanced?: boolean
     cloud_region?: string
     cloud_resource_group?: string
     source_control_repo_url?: string
@@ -52,6 +50,7 @@ export interface PromptAnswer extends BaseAnswer {
     terraform_backend_storage?: string
     terraform_backend_storage_rg?: string
     terraform_backend_storage_container?: string
+    networking_base_domain?: string
 }
 
 export interface CliAnswerModel extends BaseAnswer {
@@ -59,5 +58,6 @@ export interface CliAnswerModel extends BaseAnswer {
     cloud: CloudSection
     terraform: TerraformSection
     source_control: SourceControlSection
+    networking: NetworkingSection
     // add more here if needed
 }
