@@ -19,7 +19,6 @@ describe("Yumido Menu API", () => {
     const getMenuExpectation = Matchers.like(MENU) //Using matches for state changes
 
     afterEach(() => {
-        provider.removeInteractions()
         return provider.verify()
     })
 
