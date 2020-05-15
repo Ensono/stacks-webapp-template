@@ -18,7 +18,12 @@ trigger:
   paths:
     include:
       - 'packages/scaffolding-cli/templates/*'
-
+    # TODO: revert this when done
+    # region
+    exclude:
+      - 'packages/scaffolding-cli/templates/deploy/gcp/*'
+      - 'packages/scaffolding-cli/templates/build/azDevops/azure/azure-pipelines-ssr-gke.yml'
+    # end region
 resources:
   repositories:
     - repository: templates

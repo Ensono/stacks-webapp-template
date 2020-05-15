@@ -119,7 +119,7 @@ stages:
               # Docker Config
               build_on_server: false
               docker_build: false
-              docker_build_generi: true
+              docker_build_generic: true
               gcp_auth: {
                 CLOUDSDK_COMPUTE_REGION: $(gcp_region),
                 CLOUDSDK_CONTAINER_CLUSTER: $(company)-$(project)-nonprod-gke-infra,
