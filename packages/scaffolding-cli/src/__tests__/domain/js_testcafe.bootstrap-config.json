@@ -1,0 +1,8 @@
+{
+  "project_name": "testcafe",
+  "project_type": "js_testcafe",
+  "platform": "aks",
+  "deployment": "azdevops",
+  "advanced_config": false,
+  "create_config": true
+}

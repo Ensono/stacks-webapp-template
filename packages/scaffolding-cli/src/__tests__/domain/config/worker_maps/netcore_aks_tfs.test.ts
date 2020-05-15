@@ -33,7 +33,7 @@ let files: Array<BuildReplaceInput> = [
 describe("netcore mapper tests", () => {
     it("netcore config should return an array of folders to map", () => {
         let test: Array<FolderMap> = staticConf.netcore.folder_map
-        expect(test.length).toBe(11)
+        expect(test.length).toBe(13)
     }),
     it("in_files return an array of objects and cloud should be default", () => {
         let test: Array<BuildReplaceInput> = netcore.in_files({ project_name: proj_name, business_obj: biz})

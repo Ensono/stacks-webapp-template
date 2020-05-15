@@ -1,6 +1,8 @@
 # K8s deployment container
 
-provides a Kubectl cli  and Kustomize
+Aims to be an all in one image for any Kubernetes deployment tasks, with additional emphasis on AKS and GKE.
+
+Provides a Kubectl CLI and Kustomize along with the following tools and corresponding versions.
 
 versions:
   - kubectl: 1.15.1
@@ -9,14 +11,21 @@ versions:
   - dontetcore: 3.1
     - SDK: 3.1
     - aspnet_core_runtime: 3.1
+  - GCLoud CLI: 
+    - Google Cloud SDK 290.0.1
+    - alpha 2020.04.24
+    - beta 2020.04.24
+    - bq 2.0.56
+    - core 2020.04.24
+    - gsutil 4.49
 
 USAGE:
 ---
 ```bash
 docker build -t amidostacks/ci-k8s .
-docker tag 4cff9b2cbe24 amidostacks/ci-k8s:0.0.4
 docker push amidostacks/ci-k8s:latest
-docker push amidostacks/ci-k8s:0.0.4
+docker tag dadd1c4413bf amidostacks/ci-k8s:0.0.5
+docker push amidostacks/ci-k8s:0.0.5
 ```
 
 Exposed args:

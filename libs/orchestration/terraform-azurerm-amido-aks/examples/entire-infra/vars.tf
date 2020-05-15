@@ -14,7 +14,6 @@ variable "name_company" {
 variable "name_project" {
   type    = string
   default = "stacks-node"
-
 }
 
 variable "name_component" {

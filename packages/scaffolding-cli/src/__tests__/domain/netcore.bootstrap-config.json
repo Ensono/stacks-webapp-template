@@ -1,6 +1,6 @@
 {
   "project_name": "test-app-1",
-  "project_type": "ssr",
+  "project_type": "netcore",
   "platform": "aks",
   "deployment": "azdevops",
   "advanced_config": true,
@@ -13,5 +13,8 @@
   "business_component": "billing",
   "source_control_repo_type": "github",
   "source_control_repo_name": "Name-Of-Repo",
-  "source_control_repo_url": "https://github/sample.git"
+  "source_control_repo_url": "https://github/sample.git",
+  "terraform_backend_storage": "replace_terraform_backend_storage",
+  "terraform_backend_storage_rg": "replace_terraform_backend_storage_rg",
+  "terraform_backend_storage_container": "replace_terraform_backend_storage_container"
 }
