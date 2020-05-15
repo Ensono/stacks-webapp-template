@@ -200,7 +200,7 @@ stages:
           - template: azDevOps/azure/templates/v2/steps/deploy-terraform-meta-generic.yml@templates
             parameters: 
               # Terraform Basic Config
-              terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
+              working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
               # changing this would require changing the downstream consumers of these outputs
               # 
               terraform_output_artefact: 'tfoutputs'
