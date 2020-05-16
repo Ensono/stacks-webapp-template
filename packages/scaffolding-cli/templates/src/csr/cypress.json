@@ -14,4 +14,3 @@
   "videosFolder": "__tests__/cypress/videos",
   "$schema": "https://on.cypress.io/cypress.schema.json"
 }
-
