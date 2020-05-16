@@ -60,8 +60,13 @@
   },
   "devDependencies": {
     "@amidostacks/eslint-config": "^0.20.3",
+    "@svgr/webpack": "4.3.3",
+    "@types/cypress-axe": "^0.8.0",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
     "@typescript-eslint/parser": "^2.23.0",
+    "axe-core": "^3.5.3",
+    "cypress": "^4.5.0",
+    "cypress-axe": "^0.8.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
@@ -77,8 +82,7 @@
     "eslint-plugin-react-hooks": "^2.5.0",
     "eslint-plugin-security": "^1.4.0",
     "prettier": "^2.0.2",
-    "typescript": "^3.7.5",
-    "@svgr/webpack": "4.3.3"
+    "typescript": "^3.7.5"
   },
   "engines": {
     "node": ">=12.0",
@@ -91,7 +95,14 @@
     "lint": "node_modules/.bin/eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "node_modules/.bin/eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
     "prettier": "node_modules/.bin/prettier --ignore-path .gitignore --write \"**/*.+(ts|tsx|js|json)\"",
-    "validate": "npm run prettier --list-different && npm run lint"
+    "validate": "npm run prettier --list-different && npm run lint",
+    "test:cypress:build": "node_modules/.bin/tsc --project config/cypress/tsconfig.cypress.json",
+    "test:cypress:watch": "npm run test:cypress:build -- --watch",
+    "test:cypress:run": "npm run test:cypress:build && node_modules/.bin/cypress run --spec \"**/*.cy.js\"",
+    "test:cypress:axe:run": "npm run test:cypress:run -- --spec \"**/*.test.axe.cy.js\"",
+    "test:cypress:open": "npm run test:cypress:build && node_modules/.bin/cypress open",
+    "test:cypress": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:run",
+    "test:cypress:axe": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:axe:run"
   },
   "jest": {
     "roots": [
