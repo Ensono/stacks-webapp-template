@@ -106,12 +106,9 @@ All variables should be pulled in using the same method the app does. In this ca
 
 ## Scripts
 
-    "test:cypress:watch": "node_modules/.bin/tsc --watch --project config/cypress/tsconfig.cypress.json",
-    "test:cypress:compile": "node_modules/.bin/tsc --project config/cypress/tsconfig.cypress.json",
-    "test:cypress:run": "npm run test:cypress:compile && node_modules/.bin/cypress run --spec \"**/*.cy.js\"",
-    "test:cypress:e2e:run": "npm run test:cypress:run -- --spec \"**/*.test.cy.js\"",
+    "test:cypress:build": "node_modules/.bin/tsc --project config/cypress/tsconfig.cypress.json",
+    "test:cypress:watch": "npm run test:cypress:build -- --watch",
+    "test:cypress:run": "npm run test:cypress:build && node_modules/.bin/cypress run --spec \"**/*.cy.js\"",
     "test:cypress:axe:run": "npm run test:cypress:run -- --spec \"**/*.test.axe.cy.js\"",
-    "test:cypress:open": "npm run test:cypress:compile && node_modules/.bin/cypress open",
-    "test:cypress": "env CI=true node_modules/.bin/start-server-and-test start $HOST:$PORT test:cypress:run",
-    "test:cypress:axe": "env CI=true node_modules/.bin/start-server-and-test start $APP_BASE_URL:$PORT test:cypress:axe:run",
-    "test:cypress:e2e": "env CI=true node_modules/.bin/start-server-and-test start $APP_BASE_URL:$PORT test:cypress:e2e:run"
+    "test:cypress:open": "npm run test:cypress:build && node_modules/.bin/cypress open",
+    "test:cypress": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:run"
