@@ -1,4 +1,3 @@
-/* eslint-disable */
 import {combineReducers} from "redux"
 import {all, fork} from "redux-saga/effects"
 import {Action, PayloadAction, TypeConstant} from "typesafe-actions"

@@ -9,6 +9,7 @@ import {fetchPostsError, fetchPostsSuccess} from "./actions"
 
 function* handleFetch(action: MetaActionWithAPI): Generator {
     try {
+        // eslint-disable-next-line
         const res: MenuRaw[] | any = yield call(
             apiCaller,
             action.meta.method,

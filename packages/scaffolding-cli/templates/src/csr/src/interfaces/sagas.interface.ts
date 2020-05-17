@@ -15,6 +15,7 @@ export interface MenuState {
     readonly errors: []
 }
 
+// eslint-disable-next-line
 export type ApiResponse = Record<string, any>
 
 export interface MenuRaw extends ApiResponse {
