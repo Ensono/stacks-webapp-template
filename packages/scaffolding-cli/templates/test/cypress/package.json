@@ -9,7 +9,7 @@
     "test:cypress:watch": "npm run test:cypress:build -- --watch",
     "test:cypress:run": "node_modules/.bin/cypress run --browser chrome --headless",
     "test:cypress:eyes:run": "npm run test:cypress:run -- --spec \"**/*.test.eyes.cy.js\"",
-    "test:cypress:open": "node_modules/.bin/cypress open",
+    "test:cypress:open": "node_modules/.bin/cypress open -- --spec \"**/*.test.cy.js\"",
     "test:cypress": "npm run test:cypress:run -- --spec \"**/*.test.cy.js\"",
     "test:cypress:axe": "npm run test:cypress:run -- --spec \"**/*.test.axe.cy.js\"",
     "pretest:cypress:run": "npm run delete:reports",
