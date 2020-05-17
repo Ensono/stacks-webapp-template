@@ -1,10 +1,10 @@
 import {applyMiddleware, createStore, Store} from "redux"
-import {IApplicationState, rootReducer, rootSaga} from "./ducks/index"
+import {ApplicationState, rootReducer, rootSaga} from "./ducks/index"
 import sagaMiddleware from "./middlewares/sagas"
 
 export default function configureStore(
-    initialState: IApplicationState,
-): Store<IApplicationState> {
+    initialState: ApplicationState,
+): Store<ApplicationState> {
     const middlewares = applyMiddleware(sagaMiddleware) // Create Store
     const store = createStore(rootReducer, initialState, middlewares)
 

@@ -2,25 +2,25 @@
 import {combineReducers} from "redux"
 import {all, fork} from "redux-saga/effects"
 import {Action, MetaAction, PayloadAction, TypeConstant} from "typesafe-actions"
-import {postReducer} from "./menus/reducers"
-import postSaga from "./menus/sagas"
-import {IPostState} from "./menus/types"
+import {postReducer} from "./get-menus/reducers"
+import postSaga from "./get-menus/sagas"
+import {IPostState} from "./get-menus/types"
 // The top-level state object
-export interface IApplicationState {
+export interface ApplicationState {
     post: IPostState
 }
 
-export interface IMetaAction extends MetaAction<TypeConstant, IMeta> {}
-export interface IReducerAction<TPayload>
+export interface IMetaAction extends MetaAction<TypeConstant, Meta> {}
+export interface ReducerAction<TPayload>
     extends Action<TypeConstant>,
         PayloadAction<TypeConstant, TPayload> {}
-export const rootReducer = combineReducers<IApplicationState>({
+export const rootReducer = combineReducers<ApplicationState>({
     post: postReducer,
 })
 export function* rootSaga() {
     yield all([fork(postSaga)])
 }
-interface IMeta {
+interface Meta {
     method: string
     route: string
 }

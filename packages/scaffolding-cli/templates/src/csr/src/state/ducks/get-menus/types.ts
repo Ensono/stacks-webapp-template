@@ -15,10 +15,10 @@ export interface IPostRaw extends ApiResponse {
     name: string
     restaurantId: string
 }
-export const PostActionTypes = {
-    FETCH_POSTS: "@@post/FETCH_POSTS",
-    FETCH_POSTS_SUCCESS: "@@post/FETCH_POSTS_SUCCESS",
-    FETCH_POSTS_ERROR: "@@post/FETCH_POSTS_ERROR",
+export const GetMenuActionTypes = {
+    FETCH_POSTS: "@@post/FETCH_MENU",
+    FETCH_POSTS_SUCCESS: "@@post/FETCH_MENU_SUCCESS",
+    FETCH_POSTS_ERROR: "@@post/FETCH_MENU_ERROR",
 }
 interface IMeta {
     method: string

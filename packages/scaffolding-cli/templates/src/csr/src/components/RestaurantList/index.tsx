@@ -4,7 +4,7 @@ import {
     IDispatchToProps,
     IPostRaw,
     IPostState,
-} from "../../state/ducks/menus/types"
+} from "../../state/ducks/get-menus/types"
 import RestaurantListItem from "../RestaurantListItem"
 
 type AllProps = IPostState & IDispatchToProps

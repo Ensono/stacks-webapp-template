@@ -3,7 +3,7 @@ import {all, call, fork, put, takeEvery} from "redux-saga/effects"
 import {MetaAction, TypeConstant} from "typesafe-actions"
 import apiCaller from "../../utils/apiCaller"
 import {fetchPostsError, fetchPostsSuccess} from "./actions"
-import {IPostRaw, PostActionTypes} from "./types"
+import {IPostRaw, GetMenuActionTypes} from "./types"
 // eslint-disable-next-line
 export interface IMetaAction extends MetaAction<TypeConstant, IMeta> {}
 interface IMeta {
@@ -33,7 +33,7 @@ function* handleFetch(action: IMetaAction): Generator {
 }
 
 function* watchFetchRequest(): Generator {
-    yield takeEvery(PostActionTypes.FETCH_POSTS, handleFetch)
+    yield takeEvery(GetMenuActionTypes.FETCH_POSTS, handleFetch)
 }
 
 export default function* postSaga() {

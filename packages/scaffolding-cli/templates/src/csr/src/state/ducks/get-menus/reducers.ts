@@ -1,6 +1,6 @@
 import {Action, PayloadAction, TypeConstant} from "typesafe-actions"
 /*  eslint import/no-cycle: [2, { maxDepth: 1 }]  */
-import {IPostRaw, IPostState, PostActionTypes} from "./types"
+import {IPostRaw, IPostState, GetMenuActionTypes} from "./types"
 
 export const initialState: IPostState = {
     data: [],
@@ -12,13 +12,13 @@ export const postReducer = (
     action: Action<TypeConstant> & PayloadAction<TypeConstant, IPostRaw[]>,
 ): IPostState => {
     switch (action.type) {
-        case PostActionTypes.FETCH_POSTS: {
+        case GetMenuActionTypes.FETCH_POSTS: {
             return {...state, loading: true}
         }
-        case PostActionTypes.FETCH_POSTS_SUCCESS: {
+        case GetMenuActionTypes.FETCH_POSTS_SUCCESS: {
             return {...initialState, data: action.payload}
         }
-        case PostActionTypes.FETCH_POSTS_ERROR: {
+        case GetMenuActionTypes.FETCH_POSTS_ERROR: {
             return {
                 ...state,
             }
