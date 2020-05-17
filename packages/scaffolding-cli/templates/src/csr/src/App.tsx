@@ -9,6 +9,7 @@ import theme from "./constants/theme"
 import configureStore from "./state"
 import ApiPane from "./containers/home"
 
+// eslint-disable-next-line
 const initialState = (window as any).initialReduxState
 const store = configureStore(initialState)
 

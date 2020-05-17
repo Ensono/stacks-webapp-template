@@ -1,13 +1,15 @@
+import {Method} from "axios"
 import {action} from "typesafe-actions"
-/* eslint import/no-cycle: [2, { maxDepth: 1 }] */
-import {IPostRaw, GetMenuActionTypes} from "./types"
+import {GetMenuActionTypes, MenuRaw} from "../../../interfaces/sagas.interface"
 
 export const fetchPosts = () =>
     action(GetMenuActionTypes.FETCH_POSTS, [], {
-        method: "get",
+        method: "get" as Method,
         route: "/menu",
     })
-export const fetchPostsSuccess = (data: IPostRaw[]) =>
+
+export const fetchPostsSuccess = (data: MenuRaw[]) =>
     action(GetMenuActionTypes.FETCH_POSTS_SUCCESS, data)
+
 export const fetchPostsError = (message: string) =>
     action(GetMenuActionTypes.FETCH_POSTS_ERROR, message)

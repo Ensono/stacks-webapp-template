@@ -3,18 +3,16 @@ import {useDispatch, useSelector} from "react-redux"
 import RestaurantListComponent from "../components/RestaurantList"
 import {ApplicationState} from "../state/ducks/index"
 import {fetchPosts} from "../state/ducks/get-menus/actions"
-import {IPostState} from "../state/ducks/get-menus/types"
+import {MenuState} from "../interfaces/sagas.interface"
 
-const PostListContainer = () => {
+const MenuListContainer = () => {
     const dispatch = useDispatch()
 
-    const stateToProps: IPostState = useSelector(
-        ({post}: ApplicationState) => ({
-            loading: post.loading,
-            errors: post.errors,
-            data: post.data,
-        }),
-    )
+    const stateToProps: MenuState = useSelector(({post}: ApplicationState) => ({
+        loading: post.loading,
+        errors: post.errors,
+        data: post.data,
+    }))
 
     const dispatchToProps = {
         fetchPosts: useCallback(() => dispatch(fetchPosts()), [dispatch]),
@@ -23,4 +21,4 @@ const PostListContainer = () => {
     return <RestaurantListComponent {...stateToProps} {...dispatchToProps} />
 }
 
-export default PostListContainer
+export default MenuListContainer
