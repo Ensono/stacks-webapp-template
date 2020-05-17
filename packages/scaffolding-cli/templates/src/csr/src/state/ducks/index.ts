@@ -8,7 +8,6 @@ import postSaga from "./get-menus/sagas"
 export interface ApplicationState {
     post: MenuState
 }
-
 export interface ReducerAction<TPayload>
     extends Action<TypeConstant>,
         PayloadAction<TypeConstant, TPayload> {}

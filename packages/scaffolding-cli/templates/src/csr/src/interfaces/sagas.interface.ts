@@ -10,7 +10,7 @@ interface Meta {
 }
 
 export interface MenuState {
-    readonly data: MenuRaw[]
+    readonly data: MenuItem[]
     readonly loading: boolean
     readonly errors: []
 }
@@ -18,12 +18,16 @@ export interface MenuState {
 // eslint-disable-next-line
 export type ApiResponse = Record<string, any>
 
-export interface MenuRaw extends ApiResponse {
+export interface MenuItem extends ApiResponse {
     description: string
     enabled: boolean
     id: string
     name: string
     restaurantId: string
+}
+
+export interface MenuApiResponse {
+    results: MenuItem[]
 }
 
 export const GetMenuActionTypes = {

@@ -1,7 +1,7 @@
 import {Action, PayloadAction, TypeConstant} from "typesafe-actions"
 /*  eslint import/no-cycle: [2, { maxDepth: 1 }]  */
 import {
-    MenuRaw,
+    MenuItem,
     MenuState,
     GetMenuActionTypes,
 } from "../../../interfaces/sagas.interface"
@@ -13,7 +13,7 @@ export const initialState: MenuState = {
 }
 export const postReducer = (
     state: MenuState = initialState,
-    action: Action<TypeConstant> & PayloadAction<TypeConstant, MenuRaw[]>,
+    action: Action<TypeConstant> & PayloadAction<TypeConstant, MenuItem[]>,
 ): MenuState => {
     switch (action.type) {
         case GetMenuActionTypes.FETCH_POSTS: {

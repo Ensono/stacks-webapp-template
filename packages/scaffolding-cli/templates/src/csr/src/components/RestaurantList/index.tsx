@@ -3,7 +3,7 @@ import React, {useEffect} from "react"
 import RestaurantListItem from "../RestaurantListItem"
 import {
     DispatchToProps,
-    MenuRaw,
+    MenuItem,
     MenuState,
 } from "../../interfaces/sagas.interface"
 
@@ -18,7 +18,7 @@ const RestaurantListComponent: React.FC<AllProps> = ({
     }, [fetchPosts])
     return (
         <List data-testid="results">
-            {data.map((post: MenuRaw) => (
+            {data.map((post: MenuItem) => (
                 <RestaurantListItem key={post.id} restaurant={post} />
             ))}
         </List>

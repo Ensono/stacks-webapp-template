@@ -1,9 +1,10 @@
 import axios, {Method} from "axios"
+import {MenuApiResponse} from "../../interfaces/sagas.interface"
 
 export default function apiCaller<T>(
     method: Method,
     path: string,
-    data?: any,
+    data?: MenuApiResponse,
 ): Promise<T[] | null> {
     return axios({
         method,

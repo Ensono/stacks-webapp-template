@@ -1,6 +1,6 @@
 import {Method} from "axios"
 import {action} from "typesafe-actions"
-import {GetMenuActionTypes, MenuRaw} from "../../../interfaces/sagas.interface"
+import {GetMenuActionTypes, MenuItem} from "../../../interfaces/sagas.interface"
 
 export const fetchPosts = () =>
     action(GetMenuActionTypes.FETCH_POSTS, [], {
@@ -8,7 +8,7 @@ export const fetchPosts = () =>
         route: "/menu",
     })
 
-export const fetchPostsSuccess = (data: MenuRaw[]) =>
+export const fetchPostsSuccess = (data: MenuItem[]) =>
     action(GetMenuActionTypes.FETCH_POSTS_SUCCESS, data)
 
 export const fetchPostsError = (message: string) =>
