@@ -184,6 +184,9 @@ yarn.lock
 # TESTCAFE
 **/screenshots/
 
+# CYPRESSS
+!**/*/cypress/
+
 # AUDITS
 packageLicensesAudit.json
 

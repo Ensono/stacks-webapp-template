@@ -52,11 +52,11 @@ See [browsers](https://devexpress.github.io/testcafe/documentation/using-testcaf
 
 We can use the [.env](./.env) file to specify defaults instead of exporting locally, or using your IDE.
 
-_⚠️ IMPORTANT: if you have defined an environment varibale, then `dotenv` will not override thi with the values in the `.env` file. The environment should always hold the source of truth._
+_⚠️ IMPORTANT: if you have defined an environment varibale, then `dotenv` will not override this with the values in the `.env` file. The environment should always hold the source of truth._
 
-- Base URL: `process.env.APP_BASE_URL` (defaults to deployed dev environment `http://dev.amidostacks.com`)
+- Base URL: `process.env.APP_BASE_URL` (defaults to deployed dev environment `https://app.nonprod.amidostacks.com `)
 - Base URL: `process.env.APP_BASE_PATH` (optional, default to deployed dev environment `/web/stacks`)
-- Base URL API: `process.env.MENU_API_URL` (defaults to deployed dev environment `http://dev.amidostacks.com/api/menu`)
+- Base URL API: `process.env.MENU_API_URL` (defaults to deployed dev environment `https://dev.amidostacks.com/api/menu`)
 - NODE_ENV: `process.env.NODE_ENV` (should be `production` for a deployed runnable webapp)
 
 An example of your environment varibale configuration for running against a locally hosted server is as follows.
