@@ -5,7 +5,7 @@ import {
     MenuItem,
 } from "../../../interfaces/sagas.interface"
 import apiCaller from "../../utils/apiCaller"
-import {fetchPostsError, fetchPostsSuccess} from "./actions"
+import {fetchMenusError, fetchMenusSuccess} from "./actions"
 
 function* handleFetch(action: MetaActionWithAPI): Generator {
     try {
@@ -15,14 +15,13 @@ function* handleFetch(action: MetaActionWithAPI): Generator {
             action.meta.method,
             action.meta.route,
         )
-
-        yield put(fetchPostsSuccess(res))
+        yield put(fetchMenusSuccess(res))
     } catch (err) {
         if (err instanceof Error) {
-            // eslint-disable-next-line
-            yield put(fetchPostsError(err.stack!))
+            console.error(err)
+            yield put(fetchMenusError(err.message))
         } else {
-            yield put(fetchPostsError("An unknown error occured."))
+            yield put(fetchMenusError("An unknown error occured."))
         }
     }
 }

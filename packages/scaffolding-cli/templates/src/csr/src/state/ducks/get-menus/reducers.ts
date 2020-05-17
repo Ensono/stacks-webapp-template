@@ -8,12 +8,13 @@ import {
 
 export const initialState: MenuState = {
     data: [],
-    errors: [],
+    errors: "",
     loading: false,
 }
 export const postReducer = (
     state: MenuState = initialState,
-    action: Action<TypeConstant> & PayloadAction<TypeConstant, MenuItem[]>,
+    // eslint-disable-next-line
+    action: any,
 ): MenuState => {
     switch (action.type) {
         case GetMenuActionTypes.FETCH_POSTS: {
@@ -25,6 +26,8 @@ export const postReducer = (
         case GetMenuActionTypes.FETCH_POSTS_ERROR: {
             return {
                 ...state,
+                errors: action.error,
+                loading: false,
             }
         }
         default:

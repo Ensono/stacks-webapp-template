@@ -7,12 +7,13 @@ export interface MetaActionWithAPI extends MetaAction<TypeConstant, Meta> {}
 interface Meta {
     method: Method
     route: string
+    query?: string
 }
 
 export interface MenuState {
     readonly data: MenuItem[]
     readonly loading: boolean
-    readonly errors: []
+    readonly errors: string
 }
 
 // eslint-disable-next-line

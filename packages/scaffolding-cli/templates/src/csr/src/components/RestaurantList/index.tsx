@@ -1,24 +1,18 @@
 import {List} from "@material-ui/core"
-import React, {useEffect} from "react"
+import React from "react"
+import {MenuItem} from "../../interfaces/sagas.interface"
 import RestaurantListItem from "../RestaurantListItem"
-import {
-    DispatchToProps,
-    MenuItem,
-    MenuState,
-} from "../../interfaces/sagas.interface"
 
-type AllProps = MenuState & DispatchToProps
+type RestaurantListProps = {
+    restaurantList: MenuItem[]
+}
 
-const RestaurantListComponent: React.FC<AllProps> = ({
-    data,
-    fetchPosts,
-}: AllProps) => {
-    useEffect(() => {
-        fetchPosts()
-    }, [fetchPosts])
+const RestaurantListComponent: React.FC<RestaurantListProps> = ({
+    restaurantList,
+}: RestaurantListProps) => {
     return (
         <List data-testid="results">
-            {data.map((post: MenuItem) => (
+            {restaurantList.map((post: MenuItem) => (
                 <RestaurantListItem key={post.id} restaurant={post} />
             ))}
         </List>

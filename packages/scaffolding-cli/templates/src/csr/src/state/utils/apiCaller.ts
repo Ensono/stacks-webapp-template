@@ -14,7 +14,11 @@ export default function apiCaller<T>(
             "Content-Type": "application/json",
         },
         data: data ? JSON.stringify(data) : null,
-    }).then(res => {
-        return res.data.results
     })
+        .then(res => {
+            return res.data.results
+        })
+        .catch(err => {
+            throw err
+        })
 }
