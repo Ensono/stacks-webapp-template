@@ -78,6 +78,8 @@ function getClientEnvironment(publicUrl) {
                 // This should only be used as an escape hatch. Normally you would put
                 // images into the `src` and `import` them in code to get their paths.
                 PUBLIC_URL: publicUrl,
+                // Stacks: base path
+                APP_BASE_PATH: process.env.APP_BASE_PATH,
                 // We support configuring the sockjs pathname during development.
                 // These settings let a developer run multiple simultaneous projects.
                 // They are used as the connection `hostname`, `pathname` and `port`
@@ -86,6 +88,8 @@ function getClientEnvironment(publicUrl) {
                 WDS_SOCKET_HOST: process.env.WDS_SOCKET_HOST,
                 WDS_SOCKET_PATH: process.env.WDS_SOCKET_PATH,
                 WDS_SOCKET_PORT: process.env.WDS_SOCKET_PORT,
+                // Stacks: adding in external api URL
+                MENU_API_URL: process.env.MENU_API_URL,
             },
         )
     // Stringify all values so we can feed into webpack DefinePlugin

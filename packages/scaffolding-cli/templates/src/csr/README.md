@@ -47,3 +47,68 @@ https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
 This section has moved here:
 https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+
+## Cypress: Functional Testing
+
+## Getting started
+
+Run `npm install --save-dev cypress axe-core cypress-axe @types/cypress-axe @applitools/eyes-cypress`
+
+## Folder structure
+
+├── __tests__
+│   └── fixtures
+│     ├── add-menu-response.json
+│     └── get-menu-response.json
+├── config
+│   ├── cypress
+│   │   ├── plugins
+│   │   │   └── index.config.js
+│   │   ├── support
+│   │   │   └── index.config.js
+│   │   └── tsconfig.cypress.json
+│   ├── env.js
+├── public
+├── scripts
+├── src
+├── README.md
+├── cypress.json
+├── package-lock.json
+├── package.json
+└── tsconfig.json
+
+### env.js
+
+This contains shared environmental config for both the webapp and Cypress. We can pull this into `plugins/index.config.js` to append to the global Cypress config.
+
+### tsconfig.cypress.json
+
+Contains the typescript configuration for compiling Cypress tests.
+
+Applitools (optional):
+  If you opt to use Applitools with Cypress, it's here that you will need to add reference to the types:
+
+  `"types": ["node", "cypress", "cypress-axe", "@applitools/eyes-cypress"]`
+
+  and where the files are located in the node modules so that they too are compiled with Cypress tests:
+  `"files": ["../../node_modules/@applitools/eyes-cypress/eyes-index.d.ts"]`
+
+## Environment varibales
+
+We need to ensure that Cypress knows the following at a minimum:
+
+* protocol (e.g. https)
+* host (e.g. google.com)
+* path (e.g. /images)
+
+All variables should be pulled in using the same method the app does. In this case, this is all dont in `cypress/plugins/index.config.js`
+
+## Scripts
+
+    "test:cypress:build": "node_modules/.bin/tsc --project config/cypress/tsconfig.cypress.json",
+    "test:cypress:watch": "npm run test:cypress:build -- --watch",
+    "test:cypress:run": "npm run test:cypress:build && node_modules/.bin/cypress run --spec \"**/*.cy.js\"",
+    "test:cypress:axe:run": "npm run test:cypress:run -- --spec \"**/*.test.axe.cy.js\"",
+    "test:cypress:open": "npm run test:cypress:build && node_modules/.bin/cypress open",
+    "test:cypress": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:run"
