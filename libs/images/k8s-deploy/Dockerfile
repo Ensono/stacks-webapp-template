@@ -10,7 +10,7 @@ LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y curl grep sed unzip git wget gettext && \
+    apt-get install -y curl grep sed unzip git wget gettext sudo && \
     apt-get clean
 
 # INSTALL KUBECTL
@@ -29,6 +29,7 @@ RUN cd /tmp && \
     kustomize version && \
     rm -f kustomize_v*_amd64.tar.gz 
 
+#Install Azure CLI
 RUN cd /tmp && \
     curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
@@ -53,3 +54,13 @@ RUN apt-get install -y apt-transport-https && \
     apt-get update -y && \
     apt-get install -y dotnet-sdk-${DOTNET_CORE_VERSION} && \
     apt-get install -y aspnetcore-runtime-${DOTNET_CORE_VERSION}
+
+# Install GCLOUD CLI
+# Add the Cloud SDK distribution URI as a package source
+RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+# Import the Google Cloud Platform public key
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+# Update the package list and install the Cloud SDK
+RUN apt-get update -y && apt-get install -y google-cloud-sdk

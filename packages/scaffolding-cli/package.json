@@ -1,18 +1,11 @@
 {
   "name": "@amidostacks/scaffolding-cli",
-  "version": "1.24.0",
+  "version": "1.29.0",
   "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
   "bin": {
     "scaffolding-cli": "./dist/index.js",
     "amido-scaffolding-cli": "./dist/index.js"
   },
-  "files": [
-    "dist/index.js",
-    "dist/domain/",
-    "templates",
-    "src/index.ts",
-    "src/domain"
-  ],
   "scripts": {
     "license:check:audit": "license-checker --production --out ./packageLicensesAudit.json --excludePrivatePackages --relativeLicensePath",
     "license:check:allowed": "license-checker --production --excludePrivatePackages --onlyAllow='MIT;MIT*;ISC;BSD-3-Clause;BSD-2-Clause;Apache-2.0;Apache*;CC-BY-4.0;WTFPL'",

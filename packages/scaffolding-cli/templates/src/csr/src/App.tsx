@@ -1,25 +1,35 @@
+import {ThemeProvider as MuiThemeProvider} from "@material-ui/core/styles"
 import React from "react"
-import logo from "./logo.svg"
+import {Helmet} from "react-helmet"
+import {Provider} from "react-redux"
 import "./App.css"
+import Header from "./components/Header"
+import Search from "./components/Search"
+import theme from "./constants/theme"
+import configureStore from "./state"
+import ApiPane from "./containers/home"
 
-function App() {
+// eslint-disable-next-line
+const initialState = (window as any).initialReduxState
+const store = configureStore(initialState)
+
+const App: React.FC = () => {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Amido Stacks CSR</title>
+            </Helmet>
+            <Provider store={store}>
+                <MuiThemeProvider theme={theme}>
+                    <Header />
+                    <br />
+                    <br />
+                    <Search />
+                    <ApiPane />
+                </MuiThemeProvider>
+            </Provider>
+        </>
     )
 }
 

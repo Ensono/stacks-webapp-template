@@ -6,28 +6,26 @@ export function computedSelection(cliOrConfigAnswer: PromptAnswer): CliAnswerMod
     return <CliAnswerModel> {
         project_name: cliOrConfigAnswer.project_name,
         project_type: cliOrConfigAnswer.project_type,
-        platform: cliOrConfigAnswer.platform,
         deployment: cliOrConfigAnswer.deployment,
-        advanced_config: cliOrConfigAnswer.advanced_config,
-        create_config: cliOrConfigAnswer.create_config,
+        platform: cliOrConfigAnswer.platform || "any",
+        enable_advanced: cliOrConfigAnswer.enable_advanced || false,
         business: {
-            company: cliOrConfigAnswer?.business_company || "COMPANY_REPLACE_ME",
-            project: cliOrConfigAnswer?.business_project || "PROJECT_REPLACE_ME",
-            component: cliOrConfigAnswer?.business_component ||  "COMPONENT_REPLACE_ME",
-            domain: cliOrConfigAnswer?.business_domain ||  "DOMAIN_REPLACE_ME"
+            company: cliOrConfigAnswer.business_company,
+            project: cliOrConfigAnswer.project_name,
+            domain: cliOrConfigAnswer.business_domain,
+            component: cliOrConfigAnswer.business_component ||  "COMPONENT_REPLACE_ME",
         },
         cloud: {
-            resource_group: cliOrConfigAnswer?.cloud_resource_group || "RG_REPLACE_ME",
-            region: cliOrConfigAnswer?.cloud_region || "REGION_REPLACE_ME"
+            region: cliOrConfigAnswer.cloud_region || "REGION_REPLACE_ME"
         },
         terraform: { 
-            backend_storage: cliOrConfigAnswer?.terraform_backend_storage || "BACKEND_STORAGE_REPLACE_ME",
-            backend_storage_rg: cliOrConfigAnswer?.terraform_backend_storage_rg || "BACKEND_STORAGE_RG_REPLACE_ME",
-            backend_storage_container: cliOrConfigAnswer?.terraform_backend_storage_container || "BACKEND_STORAGE_CONTAINER_REPLACE_ME",
+            backend_storage: cliOrConfigAnswer.terraform_backend_storage || "BACKEND_STORAGE_REPLACE_ME",
         },
         source_control: {
-            repo_type: cliOrConfigAnswer?.source_control_repo_type || "SCM_TYPE_REPLACE_ME",
-            repo_name: cliOrConfigAnswer?.source_control_repo_name || "REPO_NAME_REPLACE_ME"
+            repo_name: cliOrConfigAnswer.source_control_repo_name || "REPO_NAME_REPLACE_ME",
+        },
+        networking: {
+            base_domain: cliOrConfigAnswer.networking_base_domain || "REPO_NAME_REPLACE_ME",
         }
     }
 }
@@ -39,8 +37,14 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
     return [
         {
             "type": "text",
+            "name": "business_company",
+            "message": "Please provide the company name",
+            "initial": "amido"
+        },
+        {
+            "type": "text",
             "name": "project_name",
-            "message": "Select Project Name (NB: Conform to language conventions - e.g. PascalCase for C# or snake_case for NodeJS)",
+            "message": "Please provide the project name",
             "initial": default_project_name
         },
         {
@@ -49,118 +53,119 @@ export function cliQuestions(default_project_name: string): Array<PromptQuestion
             "message": "Select Project type",
             "choices": [
                 {
-                    "title": "React SSR", "description": "Serverside rendered", "value": "ssr"
+                    "title": "React app with server side rendering", "description": "React, SSR, node, next.js, express, typescript", "value": "ssr"
                 },
                 {
-                    "title": "React CSR", "description": "Clientside rendered", "value": "csr"
+                    "title": "React CSRReact app with client side rendering", "description": "React, CSR, typescript", "value": "csr"
                 },
                 {
-                    "title": ".netcore", "description": ".Net Core API", "value": "netcore"
+                    "title": "API with .NET", "description": "api, netcore, server, restful", "value": "netcore"
                 },
                 {
-                    "title": "Java Springboot", "description": "Java SpringBoot API", "value": "java_spring"
+                    "title": "API with Java", "description": "api, java, springboot", "value": "java_spring"
                 },
                 {
-                    "title": ".netcore Selenium", "description": ".Net Core Selenium E2E Test Template Framework", "value": "netcore_selenium"
+                    "title": "Selenium framework with .NET", "description": "automation, bddfy, xunit, webdriver, netcore, e2e, standalone", "value": "test_netcore_selenium"
+                },
+                {
+                    "title": "TestCafe framework with Typescript", "description": "in-browser, automation, node.js, javascript, bdd, cross browser", "value": "test_js_testcafe"
+                },
+                {
+                    "title": "Cloud platform shared services", "description": "terraform, azure, gcp, gke, aks, azure devops (tfs), jenkins", "value": "infra"
                 }
             ],
             "initial": 0
         },
         {
-            "type": "select",
-            "name": "platform",
-            "message": "Select Target Platform",
-            "choices": [
-                {
-                    "title": "AKS", "description": "Azure Kubernetes", "value": "aks"
-                }
-            ],
-            "initial": 0
+            "type": "text",
+            "name": "business_domain",
+            "message": "Please provide scope (domain)",
+            "description": "Used for templated project naming conventions, Terraform name spacing conventions, Kubetetes configuration.",
+            "initial": "menu-api"
         },
         {
             "type": "select",
             "name": "deployment",
-            "message": "Select Target Deployment",
+            "message": "Select Pipeline Tool",
             "choices": [
                 {
                     "title": "AzureDevOps", "description": "Azure Devops/VSTS/TFS", "value": "azdevops"
+                },
+                {
+                    "title": "Jenkins", "description": "Jenkins CI/CD", "value": "jenkins"
+                }
+            ],
+            "initial": 0
+        }
+    ]
+}
+
+export function advancedQuestions(): Array<PromptQuestion> {
+    return [
+        {
+            "type": "text",
+            "name": "source_control_repo_name",
+            "message": "Please provide version control repository name",
+            "initial": "stacks-repo"
+        },
+        {
+            "type": "text",
+            "name": "cloud_region",
+            "message": "Please provide platform service region",
+            "initial": "uksouth"
+        },
+        {
+            "type": "select",
+            "name": "terraform_backend_storage",
+            "message": "Select Terraform remote state storage service?",
+            "choices": [
+                {
+                    "title": "Azure", "description": "Azure Blob", "value": "azure_blob"
+                },
+                {
+                    "title": "AWS S3", "description": "S3 bucket", "value": "aws_s3"
+                },
+                {
+                    "title": "GCS", "description": "GCP Storage bucket", "value": "gcp_gcs"
                 }
             ],
             "initial": 0
         },
         {
-            // "type": (prev: boolean) => prev ? "confirm" : "",
-            "type": "confirm",
-            "name": "create_config",
-            "message": "Create a sample JSON config with all selected values for future runs of the CLI?",
-            "initial": true
+            "type": "text",
+            "name": "networking_base_domain",
+            "message": "Provide host name (DNS domain)",
+            "initial": "app.replaceme.com"
+        }
+    ]
+}
+
+export function platformQuestions(): Array<PromptQuestion> {
+    return [
+        {
+            "type": "select",
+            "name": "platform",
+            "message": "Select Target Cloud Platform",
+            "choices": [
+                {
+                    "title": "AKS", "description": "Azure Kubernetes", "value": "aks"
+                },
+                {
+                    "title": "GKE", "description": "Google Kubernetes Engine", "value": "gke"
+                }
+            ],
+            "initial": 0
         },
         {
             "type": "confirm",
-            "name": "advanced_config",
-            "message": "Enable Advanced Config? Specifying Cloud/Terraform/Business details",
+            "name": "enable_advanced",
+            "message": "Continue to additional project configuration",
             "initial": true
         }
     ]
 }
 
-export function cliAdvancedQuestions(): Array<PromptQuestion> {
+export function testQuestions(): Array<PromptQuestion> {
     return [
-        {
-            "type": "autocomplete",
-            "name": "cloud_region",
-            "message": "Select Cloud region",
-            "choices": [
-                {
-                    "title": "UK South", "value": "uksouth"
-                },
-                {
-                    "title": "US South", "value": "ussouth"
-                },
-                {
-                    "title": "US East", "value": "useast"
-                },
-                {
-                    "title": "US West", "value": "uswest"
-                },
-            ],
-            "initial": 0
-        },
-        {
-            "type": "confirm",
-            "name": "cloud_has_infrastructure",
-            "message": "Do you have existing K8s (AKS/EKS/GKE) Infrastructure that this component will be part of?",
-            "initial": true
-        },
-        {
-            "type": (prev: boolean) => prev ? "text" : "",
-            "name": "cloud_resource_group",
-            "message": "Please provide the resource group/vpc name",
-            "initial": "replace-me-rg"
-        },
-        {
-            "type": "text",
-            "name": "business_company",
-            "message": "Please provide the company name (will be used namespacing conventions)",
-            "initial": "amido"
-        },
-        {
-            "type": "text",
-            "name": "business_project",
-            "message": "Please provide the project name (will be used namespacing conventions)",
-            "initial": "stacks"
-        },
-        {
-            "type": "text",
-            "name": "business_component",
-            "message": "Please provide the component name (will be used namespacing conventions)",
-            "initial": "cycle2"
-        },
-        {
-            "type": "text",
-            "name": "terraform_backend_storage",
-            "message": "Terraform backend state storage (Blob name)?",
-            "initial": "amidostackstfstategbl"
-        }
     ]
 }

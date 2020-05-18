@@ -2,9 +2,10 @@ import { CliAnswerModel } from '../model/prompt_answer'
 import { CliResponse, CliError, TempCopy } from '../model/workers'
 import { Utils } from './utils'
 import { Replacetruct, buildReplaceFoldersAndVals, BuildReplaceInput } from '../config/file_mapper'
-import { ssr, netcore, java_spring, csr, shared, netcore_selenium } from '../config/worker_maps'
+import { ssr, netcore, java_spring, csr, shared, netcore_selenium, gke_ssr, infra_aks, js_testcafe } from '../config/worker_maps'
 import conf from '../config/static.config.json'
 import { Static } from '../model/config'
+import logger from 'simple-winston-logger-abstraction'
 
 let staticConf: Static = conf as Static;
 
@@ -17,7 +18,6 @@ export class MainWorker {
     async ssr_aks_tfs(instructions: CliAnswerModel): Promise<CliResponse> {
         let selectedFlowResponse: CliResponse = <CliResponse>{}
         try {
-
             let sharedBuildInput: Array<BuildReplaceInput> = shared.in_files({
                 project_name: instructions.project_name,
                 business_obj: instructions.business,
@@ -41,13 +41,11 @@ export class MainWorker {
             let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
 
             await Utils.valueReplace(val_maps)
-            if (instructions.create_config) {
-                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            }
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, ssr.response_message(instructions.project_name), instructions.create_config)
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, ssr.response_message(instructions.project_name), instructions.enable_advanced)
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError
@@ -88,13 +86,11 @@ export class MainWorker {
 
             await Utils.valueReplace(val_maps)
             await Utils.fileNameReplace([`${new_directory.final_path}/src`, `${new_directory.final_path}/test`], instructions)
-            if (instructions.create_config) {
-                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            }
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, netcore.response_message(instructions.project_name), instructions.create_config)
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, netcore.response_message(instructions.project_name), instructions.enable_advanced)
 
             return selectedFlowResponse
         } catch (ex) {
@@ -125,13 +121,11 @@ export class MainWorker {
             await Utils.valueReplace(val_maps)
             await Utils.fileNameReplace([new_directory.final_path], instructions)            
 
-            if (instructions.create_config) {
-                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            }
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, java_spring.response_message(instructions.project_name), instructions.create_config)
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, java_spring.response_message(instructions.project_name), instructions.enable_advanced)
 
             return selectedFlowResponse
         } catch (ex) {
@@ -161,14 +155,12 @@ export class MainWorker {
 
             await Utils.valueReplace(val_maps)
 
-            if (instructions.create_config) {
-                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            }
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
 
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, csr.response_message(instructions.project_name), instructions.create_config)
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, csr.response_message(instructions.project_name), instructions.enable_advanced)
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError
@@ -195,14 +187,123 @@ export class MainWorker {
             await Utils.valueReplace(val_maps)
             await Utils.fileNameReplace([`${new_directory.final_path}`], instructions)
             
-            if (instructions.create_config) {
-                await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
-            }
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, netcore_selenium.response_message(instructions.project_name), instructions.create_config)
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, netcore_selenium.response_message(instructions.project_name))
 
+            return selectedFlowResponse
+        } catch (ex) {
+            const cliErr = ex as CliError
+            return <CliResponse>{
+                ok: false,
+                code: ex.code || -1,
+                message: ex.message,
+                error: cliErr
+            };
+        }
+    }
+    async ssr_gke_tfs(instructions: CliAnswerModel): Promise<CliResponse> {
+        let selectedFlowResponse: CliResponse = <CliResponse>{}
+        try {
+
+            let sharedBuildInput: Array<BuildReplaceInput> = shared.in_files({
+                project_name: instructions.project_name,
+                business_obj: instructions.business,
+                cloud_obj: instructions.cloud,
+                terraform_obj: instructions.terraform,
+                scm_obj: instructions.source_control
+            })
+
+            let buildInput: Array<BuildReplaceInput> = gke_ssr.in_files({
+                project_name: instructions.project_name,
+                business_obj: instructions.business,
+                cloud_obj: instructions.cloud,
+                terraform_obj: instructions.terraform,
+                scm_obj: instructions.source_control
+            }).concat(sharedBuildInput)
+
+            let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
+
+            await Utils.constructOutput(staticConf.ssr_gke.folder_map, new_directory.final_path, new_directory.temp_path)
+
+            let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
+
+            await Utils.valueReplace(val_maps)
+            
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
+            selectedFlowResponse.code = 0
+            selectedFlowResponse.ok = true
+            // Control the output message from each method
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, gke_ssr.response_message(instructions.project_name), instructions.enable_advanced)
+
+            return selectedFlowResponse
+        } catch (ex) {
+            const cliErr = ex as CliError
+            return <CliResponse>{
+                ok: false,
+                code: ex.code || -1,
+                message: ex.message,
+                error: cliErr
+            };
+        }
+    }
+    async infra_aks_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        let selectedFlowResponse: CliResponse = <CliResponse>{}
+        try {
+
+            let buildInput: Array<BuildReplaceInput> = shared.in_files({
+                project_name: instructions.project_name,
+                business_obj: instructions.business,
+                cloud_obj: instructions.cloud,
+                terraform_obj: instructions.terraform,
+                scm_obj: instructions.source_control
+            })
+
+            let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
+
+            await Utils.constructOutput(staticConf.aks_infra.folder_map, new_directory.final_path, new_directory.temp_path)
+            let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
+
+            await Utils.valueReplace(val_maps)
+            
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions, "-infra")
+            selectedFlowResponse.code = 0
+            selectedFlowResponse.ok = true
+            // Control the output message from each method
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, infra_aks.response_message(instructions.project_name), instructions.enable_advanced)
+            return selectedFlowResponse
+        } catch (ex) {
+            const cliErr = ex as CliError
+            return <CliResponse>{
+                ok: false,
+                code: ex.code || -1,
+                message: ex.message,
+                error: cliErr
+            };
+        }
+    }
+    async js_testcafe_tfs(instructions: CliAnswerModel): Promise<CliResponse> {
+        let selectedFlowResponse: CliResponse = <CliResponse>{}
+        try {
+            let buildInput: Array<BuildReplaceInput> = js_testcafe.in_files(instructions.project_name)
+
+            let new_directory: TempCopy = await Utils.prepBase(instructions.project_name)
+
+            await Utils.constructOutput(staticConf.js_testcafe.folder_map, new_directory.final_path, new_directory.temp_path)
+
+            let val_maps: Array<Replacetruct> = buildReplaceFoldersAndVals(new_directory.final_path, buildInput);
+
+            await Utils.valueReplace(val_maps)
+            
+            await Utils.writeOutConfigFile(`${instructions.project_name}.bootstrap-config.json`, instructions)
+
+            selectedFlowResponse.code = 0
+            selectedFlowResponse.ok = true
+            
+            // Control the output message from each method
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, js_testcafe.response_message(instructions.project_name))
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError

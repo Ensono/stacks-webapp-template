@@ -72,15 +72,16 @@ export class Utils {
             throw gitResponse
         }
     }
-    public static async writeOutConfigFile(configOut: string, instruction_map?: CliAnswerModel): Promise<ConfigResponse> {
+    public static async writeOutConfigFile(configOut: string, instruction_map?: CliAnswerModel, type_override: string = ""): Promise<ConfigResponse> {
         let fsResponse: ConfigResponse = <ConfigResponse>{}
         try {
             let configFile: string = resolve(process.cwd(), configOut)
-            let sampleConfig: string = resolve(__dirname, '../config/sample.bootstrap-config.json')
+            let sampleConfig: string = resolve(__dirname, `../config/sample${type_override}.bootstrap-config.json`)
             await copy(sampleConfig, configFile, {preserveTimestamps: true, dereference: false})
             
             if (instruction_map) {
-                await this.valueReplace(replaceGeneratedConfig(configFile, instruction_map))
+                let generatedConfig = await replaceGeneratedConfig(configFile, instruction_map)
+                await this.valueReplace(generatedConfig)
             }
             fsResponse.ok = true
             fsResponse.message = 'Sample config placed in current directory'
@@ -109,7 +110,7 @@ export class Utils {
             return fsResponse
         }
         catch (ex) {
-            logger.error(ex)
+            logger.error(ex.message)
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
@@ -129,6 +130,7 @@ export class Utils {
                     from: val.replaceVals.from,
                     to: val.replaceVals.to,
                     ignore: val.ignoreFiles,
+                    allowEmptyPaths: true,
                     countMatches: val.countMatches
                 }
                 await replace(options)
@@ -138,14 +140,14 @@ export class Utils {
             return fsResponse
         }
         catch (ex) {
-            logger.error(ex)
+            logger.error(ex.message)
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
             fsResponse.error = ex.stack
             throw fsResponse
         }
-    } 
+    }
     public static async constructOutput(instruction_map: Array<FolderMap>, new_directory: string, temp_directory: string): Promise<BaseResponse> {
         let fsResponse: BaseResponse = <BaseResponse>{}
         try {

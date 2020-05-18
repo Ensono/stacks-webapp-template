@@ -1,17 +1,21 @@
-import express from "express";
+import express from "express"
 import healthEndPoint from "./health"
-import withGetMenuEndpoints from "./menu/gets";
-import withPostMenuEndpoints from "./menu/posts";
+import authEndPoint from "./authRoutes"
+import withGetMenuEndpoints from "./menu/gets"
+import withPostMenuEndpoints from "./menu/posts"
 
-const router = express.Router();
+const router = express.Router()
 
 // get endpoints
-withGetMenuEndpoints(router);
+withGetMenuEndpoints(router)
 
 //post endpoints
-withPostMenuEndpoints(router);
+withPostMenuEndpoints(router)
 
 // health endpoint
 healthEndPoint(router)
 
-export default router;
+//Auth endpoint
+authEndPoint(router)
+
+export default router

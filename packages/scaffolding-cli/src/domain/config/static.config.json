@@ -5,8 +5,16 @@
     "local_path": "",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": ""
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure/k8s_manifests",
@@ -37,7 +45,7 @@
         "dest": "deploy/k8s"
       },
       {
-        "src": "test",
+        "src": "test/testcafe",
         "dest": "test"
       },
       {
@@ -56,8 +64,16 @@
     "local_path": "src/cra",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": "./"
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure/k8s_manifests",
@@ -79,7 +95,6 @@
         "src": "deploy/azure/infra/csr",
         "dest": "deploy/azure/infra"
       },
-
       {
         "src": "docs",
         "dest": "docs"
@@ -104,8 +119,16 @@
     "local_path": "src/netcore",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": "./"
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure/k8s_manifests",
@@ -136,7 +159,7 @@
         "dest": "deploy/k8s"
       },
       {
-        "src": "test",
+        "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium",
         "dest": "test"
       },
       {
@@ -146,6 +169,21 @@
       {
         "src": "src/netcore/src",
         "dest": "src"
+      }
+    ]
+  },
+  "js_testcafe": {
+    "git_repo": "",
+    "git_ref": "",
+    "local_path": "",
+    "folder_map": [
+      {
+        "src": "test/testcafe",
+        "dest": ""
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-post-deploy-testcafe.yml",
+        "dest": "build/azDevops/azure/azure-pipeline-post-deploy-testcafe.yml"
       }
     ]
   },
@@ -166,8 +204,16 @@
     "local_path": "src/java_spring",
     "folder_map": [
       {
-        "src": "shared",
-        "dest": "./"
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
       },
       {
         "src": "build/azDevops/azure",
@@ -188,6 +234,100 @@
       {
         "src": "src/java_spring/complete",
         "dest": "src"
+      }
+    ]
+  },
+  "ssr_gke": {
+    "git_repo": "",
+    "git_ref": "",
+    "local_path": "",
+    "folder_map": [
+      {
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
+      },
+      {
+        "src": "build/azDevops/azure/k8s_manifests",
+        "dest": "build/azDevops/gcp/k8s_manifests"
+      },
+      {
+        "src": "build/azDevops/azure/templates",
+        "dest": "build/azDevops/gcp/templates"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
+        "dest": "build/azDevops/gcp/app-pipeline.yml"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-gke.yml",
+        "dest": "build/azDevops/gcp/infra-pipeline.yml"
+      },
+      {
+        "src": "deploy/gcp/infra/stacks-gke",
+        "dest": "deploy/gcp/infra"
+      },
+      {
+        "src": "deploy/azure/app/kube",
+        "dest": "deploy/gcp/app"
+      },
+      {
+        "src": "deploy/k8s/app",
+        "dest": "deploy/k8s/app"
+      },
+      {
+        "src": "test",
+        "dest": "test"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
+      },
+      {
+        "src": "src/ssr",
+        "dest": "src"
+      }
+    ]
+  },
+  "aks_infra": {
+    "git_repo": "",
+    "git_ref": "",
+    "local_path": "",
+    "folder_map": [
+      {
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
+      },
+      {
+        "src": "build/azDevops/azure/k8s_manifests",
+        "dest": "build/azDevops/azure/k8s_manifests"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
+        "dest": "build/azDevops/azure/infra-pipeline.yml"
+      },
+      {
+        "src": "deploy/azure/infra/stacks-aks",
+        "dest": "deploy/azure/infra"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
       }
     ]
   }

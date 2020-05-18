@@ -28,6 +28,7 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Stories
           .Given(step => steps.ARestaurantWithMenus())
           .When(step => steps.ICreateANewMenu())
           .Then(step => steps.TheResturantShouldHaveANewMenu())
+          .TearDownWith(step => steps.TearDownCreatedMenu())
           .BDDfy();
     }
   }

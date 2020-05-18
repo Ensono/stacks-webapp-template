@@ -1,3 +1,4 @@
+[![Maintained by Amido](https://img.shields.io/badge/Maintained%20by-Amido-yellow)](https://amido.com/)
 [![npm](https://img.shields.io/npm/dt/@amidostacks/scaffolding-cli)](https://www.npmjs.com/package/@amidostacks/scaffolding-cli)
 
 Please read through the [scaffolding-cli](../../docs/cli_process.md) for more
@@ -127,17 +128,18 @@ We are using [Jest.js](https://jestjs.io/) for testing including code coverage.
 For information on how to version and publish changes to this package, please
 see [Publishing Packages](../../docs/publishing.md).
 
-
 ## Testing and Debugging
 
-Change the .vscode task and use the example .json (eg. `ssr.bootstrap-config.json`).
+Change the .vscode task and use the example .json (eg.
+`ssr.bootstrap-config.json`).
 
 `npx stacks-webapp-template/packages/scaffolding-cli/dist/index.js run -i`
 
 To enhance:
-* questions.ts - add project type, value is used to contruct the mapping
-* prompt.ts - doesn't need to be touched
-* selectors.ts - 
-* workflow.ts - binding
-* selectors.ts
-* static.config.json - map of folders and destinations
+
+- questions.ts - add project type, value is used to contruct the mapping
+- prompt.ts - doesn't need to be touched
+- selectors.ts -
+- workflow.ts - binding
+- selectors.ts
+- static.config.json - map of folders and destinations

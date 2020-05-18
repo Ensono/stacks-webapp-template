@@ -1,7 +1,7 @@
 {
-  "name": "template-testcafe",
+  "name": "PROJECT_NAME",
   "version": "0.0.0",
-  "description": "Dove App E2E",
+  "description": "Testcafe E2E Framework",
   "private": true,
   "scripts": {
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
