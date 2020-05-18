@@ -186,6 +186,8 @@ yarn.lock
 
 # CYPRESSS
 !**/*/cypress/
+**/*/mochawesome_*.json
+**/*/cypress/results
 
 # AUDITS
 packageLicensesAudit.json
@@ -208,3 +210,4 @@ bld/
 
 # GoLang
 go.sum
+

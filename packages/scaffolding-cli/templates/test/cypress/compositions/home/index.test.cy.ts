@@ -17,7 +17,7 @@ describe("/ (index)", () => {
         cy.server()
         cy.route({
             method: "GET", // Route all GET requests
-            url: "/menu*", // that have a URL that matches '/menu'
+            url: new RegExp(".*\/menu.*"), // that have a URL that matches '/menu'
             response: "@menuResponse", // and force the response to be: []
         }).as("getStubbedMenu")
 
@@ -42,7 +42,7 @@ describe("/ (index)", () => {
     it("fetches menu from API on reload", () => {
         cy.wait("@getStubbedMenu") //resolve the stub first
 
-        cy.route("GET", "/menu*").as("getMenu") //listen to XHR requests without stub
+        cy.route("GET", new RegExp(".*\/menu.*")).as("getMenu") //listen to XHR requests without stub
         cy.reload(true) //force the reload without cache
 
         cy.wait("@getMenu").then(xhr => {
@@ -52,10 +52,12 @@ describe("/ (index)", () => {
     })
 
     it("search textField change fires api requests", () => {
+        const searchTerm = "T"
         cy.wait("@getStubbedMenu") //resolve the stub first
-        cy.get("#search-bar").should("be.visible").type("T")
+
+        cy.get("#search-bar").should("be.visible").type(searchTerm)
         cy.wait("@getStubbedMenu").should((xhr) => {
-            expect(xhr.url).to.match(/=T$/)
+            expect(xhr.url).to.match(RegExp(".*\/menu\?(.*)=T.*"))
         })
     })
 })

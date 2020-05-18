@@ -5,7 +5,7 @@
   "pluginsFile": "plugins/index.config.js",
   "testFiles": "**/*.cy.*",
   "nodeVersion": "system",
-  "reporter": "cypress-multi-reporter",
+  "reporter": "cypress-multi-reporters",
   "reporterOptions": {
     "configFile": "reporter-config.json"
   },
