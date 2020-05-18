@@ -36,6 +36,5 @@ export const response_message = (project_name: string): string  => {
 * boostrapped template React SSR
 * supporting pipeline
 * testing frameworks
-* your selected advanced configuration has been saved to  ${resolve(process.cwd(),`${project_name}.bootstrap.config.json`)}. To edit and rerun, see <> for more info.
 `
 }

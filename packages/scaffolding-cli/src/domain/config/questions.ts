@@ -8,6 +8,7 @@ export function computedSelection(cliOrConfigAnswer: PromptAnswer): CliAnswerMod
         project_type: cliOrConfigAnswer.project_type,
         deployment: cliOrConfigAnswer.deployment,
         platform: cliOrConfigAnswer.platform || "any",
+        enable_advanced: cliOrConfigAnswer.enable_advanced || false,
         business: {
             company: cliOrConfigAnswer.business_company,
             project: cliOrConfigAnswer.project_name,

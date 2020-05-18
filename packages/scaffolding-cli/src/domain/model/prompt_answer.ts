@@ -40,8 +40,8 @@ export interface BaseAnswer {
  * these should all be strings and optional
  */
 export interface PromptAnswer extends BaseAnswer {
-    business_component?: string
     enable_advanced?: boolean
+    business_component?: string
     cloud_region?: string
     cloud_resource_group?: string
     source_control_repo_url?: string
@@ -54,6 +54,7 @@ export interface PromptAnswer extends BaseAnswer {
 }
 
 export interface CliAnswerModel extends BaseAnswer {
+    enable_advanced: boolean
     business: BusinessSection
     cloud: CloudSection
     terraform: TerraformSection

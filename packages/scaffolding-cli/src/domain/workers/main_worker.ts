@@ -45,7 +45,7 @@ export class MainWorker {
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, ssr.response_message(instructions.project_name))
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, ssr.response_message(instructions.project_name), instructions.enable_advanced)
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError
@@ -90,7 +90,7 @@ export class MainWorker {
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, netcore.response_message(instructions.project_name))
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, netcore.response_message(instructions.project_name), instructions.enable_advanced)
 
             return selectedFlowResponse
         } catch (ex) {
@@ -125,7 +125,7 @@ export class MainWorker {
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, java_spring.response_message(instructions.project_name))
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, java_spring.response_message(instructions.project_name), instructions.enable_advanced)
 
             return selectedFlowResponse
         } catch (ex) {
@@ -160,7 +160,7 @@ export class MainWorker {
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, csr.response_message(instructions.project_name))
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, csr.response_message(instructions.project_name), instructions.enable_advanced)
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError
@@ -236,7 +236,7 @@ export class MainWorker {
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, gke_ssr.response_message(instructions.project_name))
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, gke_ssr.response_message(instructions.project_name), instructions.enable_advanced)
 
             return selectedFlowResponse
         } catch (ex) {
@@ -272,7 +272,7 @@ export class MainWorker {
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
             // Control the output message from each method
-            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, infra_aks.response_message(instructions.project_name))
+            selectedFlowResponse.message = shared.final_response_message(instructions.project_name, infra_aks.response_message(instructions.project_name), instructions.enable_advanced)
             return selectedFlowResponse
         } catch (ex) {
             const cliErr = ex as CliError

@@ -1,6 +1,7 @@
 import terminalLink from 'terminal-link'
 import { BusinessSection, CloudSection, TerraformSection, SourceControlSection } from '../../model/prompt_answer'
 import { BuildReplaceInput } from '../file_mapper'
+import { resolve } from 'path'
 
 /**
  * TODO: implement a shared in_files replace to minimize duplication
@@ -53,12 +54,18 @@ For more information on the scaffolding-cli flow, please see <url>.\n
 `
 }
 
-export const final_response_message = (project_name: string, message: string): string  => {
-    return `${message} \n
+export const final_response_message = (project_name: string, message: string, ran_advanced: boolean = false): string  => {
+    const dir: string = resolve(process.cwd(), project_name)
+    const config_file: string = resolve(dir, `${project_name}.bootstrap.config.json`)
+    const advanced: string  = `* your selected advanced configuration has been saved to ${config_file}. To edit and rerun, see <> for more info.`
+    const basic: string  = `your selected configuration and additional project default has been saved to ${config_file}. To change provided default configuration please edit and rerun. See <> for more info`
+    return `${message}\
+${ran_advanced ? advanced : basic}
+    \n
 👟 Next steps: check out your bootstapped project in your chosen development environment
-        cd <dir>
+        cd ${dir}
 
-🤓 To get started: open <dir>/README.md
+🤓 To get started: open ${dir}/README.md
 
 📖 For guides and supporting information see: <url>
 
