@@ -9,7 +9,7 @@ Install dependencies (this may take a while, please be patient):
 
 Compile the app:
   `npm run build`
-  > ⚠️ IMPORTANT: please note that there are breaking changes in typescript >3.8.3. Ref: 
+  > ⚠️ IMPORTANT: please note that there are breaking changes in typescript >3.8.3. Ref: AB#1931
 
 ## Implementation details
 
