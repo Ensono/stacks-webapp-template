@@ -57,7 +57,7 @@ describe("selector class tests", () => {
         })
         it("should call the netcore_selenium_tfs worker", async () => {
             MainWorker.prototype.netcore_selenium_tfs = jest.fn().mockResolvedValue(mock_answer_ssr_aks_tfs)
-            let selectedFlow = await FlowSelector.option_netcore_selenium_aks_azdevops(mock_answer_ssr_aks_tfs)
+            let selectedFlow = await FlowSelector.option_netcore_selenium_any_azdevops(mock_answer_ssr_aks_tfs)
             expect(MainWorker.prototype.netcore_selenium_tfs).toHaveBeenCalledTimes(1)
             expect(MainWorker.prototype.netcore_selenium_tfs).toHaveBeenCalled()
         })

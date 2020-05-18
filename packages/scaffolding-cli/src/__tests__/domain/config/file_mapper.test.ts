@@ -6,7 +6,6 @@ let mock_answer_cli_answer = <CliAnswerModel>{
     project_type: "boo",
     platform: "az",
     deployment: "tfs",
-    create_config: false,
     cloud: {
         region: "foo",
         resource_group: "bar"
@@ -18,6 +17,9 @@ let mock_answer_cli_answer = <CliAnswerModel>{
         company: "faz",
         component: "baz",
         project: "fubar"
+    },
+    networking: {
+        base_domain: "some.org"
     }
 }
 describe("file_mapper tests", () => {

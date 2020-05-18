@@ -17,7 +17,6 @@ let mock_answer_ssr = <CliAnswerModel>{
     project_type: "ssr",
     platform: "aks",
     deployment: "tfs",
-    create_config: true
 }
 
 let mock_answer_csr = <CliAnswerModel>{
@@ -25,7 +24,6 @@ let mock_answer_csr = <CliAnswerModel>{
     project_type: "csr",
     platform: "aks",
     deployment: "tfs",
-    create_config: true
 }
 
 let mock_answer_java_spring = <CliAnswerModel>{
@@ -33,7 +31,11 @@ let mock_answer_java_spring = <CliAnswerModel>{
     project_type: "java_spring",
     platform: "aks",
     deployment: "tfs",
-    create_config: true
+    business: { 
+        company: "testcomp",
+        domain: "test_domain",
+        project: "java_spring"
+    }
 }
 
 let mock_answer_netcore = <CliAnswerModel>{
@@ -41,22 +43,35 @@ let mock_answer_netcore = <CliAnswerModel>{
     project_type: "netcore",
     platform: "aks",
     deployment: "tfs",
-    create_config: true
+    business: { 
+        company: "testcomp",
+        domain: "test_domain",
+        project: "netcore"
+    }
 }
 
 let mock_answer_netcore_selenium = <CliAnswerModel>{
     project_name: "foo",
-    project_type: "netcore_selenium",
+    project_type: "test_netcore_selenium",
     platform: "aks",
     deployment: "tfs",
-    create_config: true
+    business: { 
+        company: "testcomp",
+        domain: "test_domain",
+        project: "netcore"
+    }
 }
 
 let mock_answer_js_testcafe = <CliAnswerModel>{
     project_name: "foo",
-    project_type: "js_testcafe",
+    project_type: "test_js_testcafe",
     platform: "aks",
-    deployment: "tfs"
+    deployment: "tfs",
+    business: { 
+        company: "testcomp",
+        domain: "js_testcafe",
+        project: "netcore"
+    }
 }
 
 let worker_response = <BaseResponse> {
@@ -89,7 +104,7 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("message")
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
-            expect(flow_ran.message).toMatch(`cd ${mock_answer_ssr.project_name}/src && npm install && npm run build && npm run start`)
+            expect(flow_ran.message).toMatch(`Created React SSR in`)
         })
         it("ssr_gke_tfs should return success and user message for npm", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {

@@ -2,6 +2,7 @@ interface BaseQuestion {
     name: string
     type: string | Function
     message: string
+    description?: string
     initial?: string | number | boolean
 }
 
