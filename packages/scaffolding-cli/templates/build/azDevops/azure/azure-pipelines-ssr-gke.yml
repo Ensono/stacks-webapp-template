@@ -272,6 +272,7 @@ stages:
                           version: $(docker_image_tag),
                           role: $(role),
                           company: $(company),
+                          ingress_ip_name: amido-stacks-nonprod-gke-infra-ingress-public,
                           project: $(project),
                           domain: $(domain),
                           component: web,
