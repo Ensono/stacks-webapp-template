@@ -15,6 +15,7 @@ Run `npm install`
 
 ## Folder structure
 
+```text
 .
 ├── compositions
 │   └── home
@@ -38,6 +39,7 @@ Run `npm install`
 ├── reporter-config.json
 ├── structure.md
 └── tsconfig.cypress.json
+```
 
 ### compositions/home
 
