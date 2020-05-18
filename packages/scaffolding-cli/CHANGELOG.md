@@ -3,11 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.29.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.2...@amidostacks/scaffolding-cli@1.29.0) (2020-05-15)
+# [1.29.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.29.0) (2020-05-18)
 
 
 ### Bug Fixes
 
+* added toggled info message for config enabled ([d8637a9](https://github.com/amido/stacks-webapp-template/commit/d8637a9d1d6feafd985e90db2dd4720e70ba0d36))
+* adjust the flow as per diagram ([48bd122](https://github.com/amido/stacks-webapp-template/commit/48bd122186ce24fa0360a313f0b22f8e74de58b3))
 * csr favicon & searchbar ([#142](https://github.com/amido/stacks-webapp-template/issues/142)) ([7bf1b6a](https://github.com/amido/stacks-webapp-template/commit/7bf1b6a59b5d5de302b8347916266f2a793cf359))
 * reduce package size ([259e745](https://github.com/amido/stacks-webapp-template/commit/259e74554e3e72ffb8e61f72accebd5e8e69c687))
 * tf libs versioning updated ([6696289](https://github.com/amido/stacks-webapp-template/commit/669628972103228b9b0fa7f1bc1875993bd6cba1))
@@ -17,10 +19,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * CRA (ejected) ([#131](https://github.com/amido/stacks-webapp-template/issues/131)) ([22be82c](https://github.com/amido/stacks-webapp-template/commit/22be82c8ae37be764cb2bf483a1eedb1e4b5fee3))
 * delete menu after creation ([79a8936](https://github.com/amido/stacks-webapp-template/commit/79a8936edd49be2d914733e3f82052918ba800b8))
-* ssr with pact-config ([8413433](https://github.com/amido/stacks-webapp-template/commit/8413433a8cc337837d4bd1fd2180c70181662aa0))
-
-
-
 ## 0.0.2 (2020-04-28)
 
 

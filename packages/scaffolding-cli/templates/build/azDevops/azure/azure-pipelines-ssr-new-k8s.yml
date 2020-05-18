@@ -317,7 +317,7 @@ stages:
                             MENU_API_URL: "http://dev.amidostacks.com/api/menu"
                             APP_BASE_PATH: "/web/stacks"
                             NODE_ENV: production
-                          workingDirectory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
+                          working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
                           testcafe_browser_list: "chrome,firefox"
                   - ${{ if eq(variables.lighthouse_audit, true) }}:
                       - task: Lighthouse@1

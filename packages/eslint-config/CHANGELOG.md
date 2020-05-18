@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [0.27.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.20.8...@amidostacks/eslint-config@0.27.0) (2020-05-15)
+# [0.27.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.19.0...@amidostacks/eslint-config@0.27.0) (2020-05-18)
 
 
 ### Bug Fixes
