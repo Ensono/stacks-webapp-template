@@ -18,7 +18,9 @@ let mock_ssr_aks_tfs_answer = <PromptAnswer>{
     project_name: "test-app-1",
     project_type: "ssr",
     platform: "aks",
-    deployment: "azdevops"
+    deployment: "azdevops",
+    business_company: "testcomp",
+    business_domain: "test_domain",
 }
 
 let mock_ssr_aks_tfs_answer_advanced = <PromptAnswer>{
@@ -26,13 +28,13 @@ let mock_ssr_aks_tfs_answer_advanced = <PromptAnswer>{
     project_type: "ssr",
     platform: "aks",
     deployment: "azdevops",
-    create_config: true,
-    advanced_config: true
+    business_company: "testcomp",
+    business_domain: "test_domain",
+
 }
 
 let mock_ssr_aks_tfs_answer_advanced_part_2 = <PromptAnswer>{
     cloud_region: "uksouth",
-    cloud_resource_group: "my-test-rg"
 }
 
 jest.mock('../../domain/selectors')
