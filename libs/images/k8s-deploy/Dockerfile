@@ -11,7 +11,12 @@ LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
 RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y curl grep sed unzip git wget sudo && \
-    apt-get clean
+    apt-get clean -y
+
+# RUN apt-get update -y
+# RUN apt-get upgrade -y
+# RUN apt-get install -y curl grep sed unzip git wget sudo
+# RUN apt-get clean
 
 # INSTALL KUBECTL
 RUN cd /tmp && \
@@ -65,13 +70,13 @@ RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN apt-get update -y && apt-get install -y google-cloud-sdk
 
 RUN curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v2.0.1/docker-credential-gcr_linux_amd64-2.0.1.tar.gz" \ 
-| tar xz --to-stdout ./docker-credential-gcr \
-| tee /usr/bin/docker-credential-gcr > /dev/null && chmod +x /usr/bin/docker-credential-gcr
+| tar xz --to-stdout /opt/docker-credential-gcr \
+| tee /usr/local/bin/docker-credential-gcr > /dev/null && chmod 0777 /usr/local/bin/docker-credential-gcr
 
 # ENVSUBST with built in checks
-RUN curl -L https://github.com/a8m/envsubst/releases/download/v1.1.0/envsubst-`uname -s`-`uname -m` -o envsubst \
-  chmod +x envsubst \
-  mv envsubst /usr/local/bin
+RUN curl -fsSL https://github.com/a8m/envsubst/releases/download/v1.1.0/envsubst-`uname -s`-`uname -m` -o /opt/envsubst && \
+  chmod +x /opt/envsubst && \
+  mv /opt/envsubst /usr/local/bin
 
 # sudo apt-get update && sudo apt-get --only-upgrade install google-cloud-sdk-skaffold kubectl google-cloud-sdk-anthos-auth google-cloud-sdk-minikube google-cloud-sdk google-cloud-sdk-app-engine-grpc google-cloud-sdk-kind google-cloud-sdk-pubsub-emulator google-cloud-sdk-app-engine-go google-cloud-sdk-firestore-emulator google-cloud-sdk-cloud-build-local google-cloud-sdk-datastore-emulator google-cloud-sdk-kpt google-cloud-sdk-app-engine-python google-cloud-sdk-spanner-emulator google-cloud-sdk-cbt 
 # google-cloud-sdk-bigtable-emulator google-cloud-sdk-app-engine-python-extras google-cloud-sdk-datalab google-cloud-sdk-app-engine-jav
