@@ -119,6 +119,7 @@ stages:
               # Docker Config
               build_on_server: false
               docker_build: true
+              login_azure: true
               # TODO: normalize this
               docker_build_additional_args: "."
               docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
