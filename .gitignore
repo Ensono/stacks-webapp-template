@@ -129,6 +129,7 @@ dist
 # **/.vscode/settings.json
 # K8s IDE
 pod-*.yaml
+*.code-workspace
 
 # IDE
 .idea
