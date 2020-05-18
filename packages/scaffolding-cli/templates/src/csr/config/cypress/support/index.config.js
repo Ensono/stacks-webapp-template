@@ -17,4 +17,4 @@
 import "cypress-axe"
 
 // Include the custom commands
-import './commands'
+import "./commands"
