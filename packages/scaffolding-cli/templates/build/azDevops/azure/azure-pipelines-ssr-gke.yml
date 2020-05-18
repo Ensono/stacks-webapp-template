@@ -135,18 +135,19 @@ stages:
               docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
+              docker_containerregistryname: $(docker_container_registry_name)
               docker_tag_args: "-t $(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag) \
                 -t $(docker_container_registry_name)/$(docker_image_name):latest"
               # Vulnerability Scanning
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
               # Sonar settings
-              static_code_analysis: true
+              static_code_analysis: false
               #Linting and formatting validation
               lint_formatting: false
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
-              unit_test: true
+              unit_test: false
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               unit_test_project: "$(Test.UnitTestProjectPath)"
               component_test: false
