@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "types": ["jest"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "noEmit": false,
+    "resolveJsonModule": true,
+    "module": "commonjs",
+    // "types": [],
+    "allowSyntheticDefaultImports": true,
+    "inlineSourceMap": true,
+    "declarationMap": true
+  },
+  "exclude": [
+    "node_modules/**/*",
+    "dist/**/*",
+    "**/__mocks__/**/*",
+    "templates/**/*",
+    "**/*.test.ts",
+    "coverage/**/*",
+    "test-app-*"
+  ],
+  "include": [
+    "src/jest.config.js",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.bootstrap-config.json"
+  ]
+}

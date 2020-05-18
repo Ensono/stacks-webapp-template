@@ -1,0 +1,22 @@
+{
+  "name": "@amidostacks/logger",
+  "version": "1.0.0",
+  "description": "logger abstraction for Express apps",
+  "main": "dist/index.js",
+  "scripts": {
+    "license:check:audit": "license-checker --production --out ./packageLicensesAudit.json --excludePrivatePackages --relativeLicensePath",
+    "license:check:allowed": "license-checker --production --excludePrivatePackages --onlyAllow='MIT;MIT*;ISC;BSD-3-Clause;BSD-2-Clause;Apache-2.0;Apache*;CC-BY-4.0;WTFPL'",
+    "build": "tsc",
+    "build:watch": "npm run build -- -w",
+    "clean:tree": "git clean -idx"
+  },
+  "author": "Amido Stacks <stacks@amido.com>",
+  "license": "MIT",
+  "dependencies": {
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@types/winston": "^2.4.4",
+    "jest": "^26.0.1"
+  }
+}
