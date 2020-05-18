@@ -2,6 +2,15 @@
 
 # Server Side Rendering Web Application
 
+## Getting started
+
+Install dependencies (this may take a while, please be patient):
+  `npm install`
+
+Compile the app:
+  `npm run build`
+  > ⚠️ IMPORTANT: please note that there are breaking changes in typescript >3.8.3. Ref: 
+
 ## Implementation details
 
 The template is a Server Side Rendered (SSR) implementation using:
