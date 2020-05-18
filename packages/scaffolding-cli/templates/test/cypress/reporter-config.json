@@ -1,8 +1,11 @@
 {
-  "reporterEnabled": "spec, junit, mochawesome",
-  "junitReporterOptions": {
-    "mochaFile": "cypress-junit-test-report.xml",
-    "toConsole": true
+  "reporterEnabled": "spec, mocha-junit-reporter, mochawesome",
+  "mochaJunitReporterReporterOptions": {
+    "mochaFile": "[hash]-cypress-junit-test-report.xml",
+    "toConsole": true,
+    "testsuitesTitle": "Cypress Test Results",
+    "jenkinsMode": true,
+    "attachments": "results/assets/"
   },
   "mochawesomeReporterOptions": {
     "reportDir": "results",

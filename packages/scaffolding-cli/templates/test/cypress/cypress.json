@@ -9,7 +9,7 @@
   "reporterOptions": {
     "configFile": "reporter-config.json"
   },
-  "screenshotsFolder": "__tests__/cypress/screenshots",
-  "videosFolder": "__tests__/cypress/videos",
+  "screenshotsFolder": "results/assets",
+  "videosFolder": "results/assets",
   "$schema": "https://on.cypress.io/cypress.schema.json"
 }
