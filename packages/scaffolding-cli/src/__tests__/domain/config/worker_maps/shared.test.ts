@@ -67,8 +67,8 @@ describe("shared worker_maps tests", () => {
         expect(test).toMatch("All Successful")
     })
     it("final_response_message should return a formatted string with config description", () => {
-        let test: string = final_response_message(test_project_name, sample_message, true)
-        expect(test).toMatch("Config file has been")
+        let test: string = final_response_message(test_project_name, sample_message)
+        expect(test).toMatch("Next steps: check out your")
     })
     it("final_error_message should return a formatted string", () => {
         let test: string = final_error_message(sample_error_message)

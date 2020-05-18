@@ -1,5 +1,6 @@
 import { BuildReplaceInput } from "../file_mapper"
 import { BusinessSection, CloudSection, TerraformSection, SourceControlSection } from "../../model/prompt_answer"
+import { resolve } from "path"
 
 /**
  * 
@@ -30,8 +31,10 @@ export const in_files = ({ project_name, business_obj, cloud_obj, terraform_obj,
 }
 
 export const response_message = (project_name: string): string  => {
-    return `Your directory has been created, you can now: \n
----- \n
-cd ${project_name}/src && npm install && npm run build && npm run start \n
----- \n`
+    return `
+🎉 Created React SSR in ${resolve(process.cwd(), project_name)} with:
+* boostrapped template React SSR
+* supporting pipeline
+* testing frameworks
+`
 }
