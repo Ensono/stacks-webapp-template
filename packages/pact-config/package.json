@@ -1,9 +1,10 @@
 {
   "name": "@amidostacks/pact-config",
-  "version": "0.3.0",
+  "version": "0.6.0",
   "author": "Amido Stacks <stacks@amido.com>",
   "description": "Pact Jest wrapper and executables for consumers",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "node_modules/.bin/jest --runInBand",
@@ -46,5 +47,5 @@
     "pact-can-i-deploy": "./dist/utils/pactCanIDeploy.js",
     "pact-start-stub": "./dist/utils/pactStubServer.js"
   },
-  "gitHead": "a4739e6b11c7858b8c87f1564b6547350ff7eb3a"
+  "gitHead": "ac4d2af3f2cf40a76cc7961a14886321bcebc0b3"
 }
