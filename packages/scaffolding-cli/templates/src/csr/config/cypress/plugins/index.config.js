@@ -16,7 +16,7 @@ Configure environment variables
  * @type {Cypress.PluginConfig}
  */
 
- // This is specific to create-react-app
+// This is specific to create-react-app
 const getClientEnvironment = require("../../../config/env")
 const paths = require("../../../config/paths")
 
