@@ -1,5 +1,6 @@
 import axios, {Method} from "axios"
-import {MenuApiResponse} from "../../interfaces/sagas.interface"
+import {MenuApiResponse} from "../interfaces/sagas.interface"
+import {trackError} from "../utility/telemetry"
 
 export default function apiCaller<T>(
     method: Method,
@@ -19,6 +20,8 @@ export default function apiCaller<T>(
             return res.data.results
         })
         .catch(err => {
+            // appInsights: track error event
+            trackError(err)
             throw err
         })
 }
