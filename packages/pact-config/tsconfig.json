@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "target": "es5",
+    "types": ["node", "jest"],
+    "outDir": "./dist"
+  },
+  "exclude": ["./node_modules/*", "./src/__tests__"]
+}

@@ -123,6 +123,7 @@ dist
 
 # VSCODE
 **/.vscode/chrome
+*-workspace
 # include examples for these in the repo
 # **/.vscode/launch.json
 # **/.vscode/settings.json

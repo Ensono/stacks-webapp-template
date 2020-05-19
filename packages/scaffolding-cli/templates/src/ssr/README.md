@@ -25,25 +25,6 @@ The template is a Server Side Rendered (SSR) implementation using:
 
 _TODO: This needs to be refined for those whom are using this solution_
 
-1. How are definining the routing for API's?
-
-   - menu.ts
-   - how do we extend the endpoints
-   - new API endpoints are then typeguarded to automatically get the internal
-     endpoint
-   - one place to configure the mapping
-   - route definition in the express definition
-   - internal: BFF, external: the actual API
-
-2. How does this run?
-
-3. How does the
-   [next.config.js](/packages/scaffolding-cli/templates/src/ssr/next.config.js)
-   work?
-
-- Webpack additional config for Next.js,
-  https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config.
-
 ## To run locally
 
 ```bash
@@ -93,12 +74,6 @@ TypeScript support in Babel is transpilation, to ensure that Jest will
 type-check the tests as they are run we use
 [ts-jest](https://github.com/kulshekhar/ts-jest).
 
-We are using [Jest](https://jestjs.io/) for running all unit, component,
-integration and snapshot tests. Jest supports TypeScript via Babel. Because
-TypeScript support in Babel is transpilation, to ensure that Jest will
-type-check the tests as they are run we use
-[ts-jest](https://github.com/kulshekhar/ts-jest).
-
 To help that encourage good testing practices for React DOM testing, we are
 leveraging a helper library [react-testing-library](https://jestjs.io/).
 
@@ -106,82 +81,17 @@ leveraging a helper library [react-testing-library](https://jestjs.io/).
 Snapshots are to be checked in and are found in
 [**snapshots**](__tests__/__snapshots__).
 
-> To run from root refer the [Readme](../../README.md)
-
 ### Functional Tests
 
-_Keywords: Functional automation, End to End, E2E_
-
-We are using [Cypress](https://docs.cypress.io/) for functional testing as much
-as possible. The key features of Cypress:
-
-- Integration testing with API testing support (Node.js)
-- Easy debugabillity (DOM snapshotting)
-- Selector playground
-- Great documentation
-- Best implementation of Live Reloading
-
-Please read
-[Cypress - Best Practices](https://docs.cypress.io/guides/references/best-practices.html)
-for how to get the most out of Cypress.
-
-To open and run Cypress locally with live reload, after installing dependencies:
-
-1. Install app dependencies `npm install`
-2. Build the webapp `npm run build`
-3. Compile the `*.cy.ts` Cypress test files `npm run test:cypress:compile`
-   (optional: pass `--watch` through to watch for changes)
-4. Start the server, run the tests headless, tear down the server:
-   `npm run test:cypress`. When writing tests: Open Cypress with live-reloading
-   and selector playground `npm run test:cypress:open`
-
-To spin up the server locally, running Cypress headless, use:
-`npm run test:cypress:eyes`. This is the same for running in CI pipelines.
-
-The `*.cy.ts` are located with the rendered Next.js [pages](./pages/).
-Environment configuration is pulled in using
-[Cypress plugin](./__tests__/cypress/plugins/index.js) from
-[environment-configuration](./environment-configuration/index.js). Note that the
-environment variables are required on the hosting platform, e.g.
-`export NODE_ENV=dev`
+For more information using Cypress, see: [Testing and Quality](https://amido.github.io/stacks/docs/testing).
 
 ### Visual Testing
 
-_Keywords: visual regression testing, browser support, cross browser_
-
-We are using the [Applitools](https://applitools.com/) for visual testing. For
-the purposes of this demo app, we are using the free tier on the
-[stacks@amido.com](mailto: stacks@amido.com) Github account. This is free
-allowing for:
-
-- 1 user
-- 100 checkpoints per month
-
-Eyes-Cypress ships with official type declarations for TypeScript. This allows
-you to add eyes commands to your TypeScript tests. The configuration file has
-been added to the [tsconfig.cypress.json](./tsconfig.cypress.json).
-
-To run the visual tests follow steps above.
-
-To spin up the server locally, running Cypress headless, use:
-`npm run test:cypress:eyes`. This is the same for running in CI pipelines.
-
-The `*.test.eyes.cy.ts` tests are located with the rendered Next.js
-[pages](./pages/). Please ensure you follow naming conventions to ensure
-segregation of visual tests within CI.
+For more information using Applitools with Cypress, see: [Testing and Quality](https://amido.github.io/stacks/docs/testing).
 
 ### Accessibility Testing
 
-From the Deque famility of products, we are using
-[aXe](https://www.deque.com/axe/) for accessibility testing. When developing, we
-expect to support WCAG 2.1 Level AA ["wcag21aa"] at a minimum.
-
-aXe tests are performed on two levels:
-
-1. first by rendering the React component and testing with Jest. See
-   [index.axe.test.tsx](./components/ApiPane/index.axe.test.tsx) for example;
-2. second with Next rendering the entire page and tessting with Cypress. See
-   [index.test.axe.cy.ts](./compositions/home/index.test.axe.cy.ts) for example.
+For more information using Axe with Jest and Cypress, see: [Testing and Quality](https://amido.github.io/stacks/docs/testing).
 
 ### Static Testing
 

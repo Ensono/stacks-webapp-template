@@ -1,8 +1,10 @@
+#!/usr/bin/env node
+
 import { Publisher } from '@pact-foundation/pact-node'
-import { provider } from './pactSetup'
+import { pactsOutDir } from '../index'
 
 export const publisher = new Publisher({
-    pactFilesOrDirs: [provider.opts.dir],
+    pactFilesOrDirs: [pactsOutDir],
     pactBroker: process.env.PACT_BROKER,
     pactBrokerToken: process.env.PACT_BEARER_TOKEN,
     consumerVersion: process.env.BUILD_NUMBER || 'unknown',

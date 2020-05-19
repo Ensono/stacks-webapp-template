@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import pact, {CanDeploy, CanDeployPacticipant} from "@pact-foundation/pact-node"
 
 const participant: CanDeployPacticipant = {

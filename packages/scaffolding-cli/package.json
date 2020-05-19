@@ -52,5 +52,6 @@
     "type": "git",
     "url": "https://github.com/amido/stacks-webapp-template.git",
     "directory": "packages/scaffolding-cli"
-  }
+  },
+  "gitHead": "a4739e6b11c7858b8c87f1564b6547350ff7eb3a"
 }

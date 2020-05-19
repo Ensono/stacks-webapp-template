@@ -9,10 +9,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Bug Fixes
 
 * eslint peer deps list ([#108](https://github.com/amido/stacks-webapp-template/issues/108)) ([165f57f](https://github.com/amido/stacks-webapp-template/commit/165f57f97b77657c3099a4ddd53211eac34e7060))
-* lerna publishing  ([#104](https://github.com/amido/stacks-webapp-template/issues/104)) ([62ab904](https://github.com/amido/stacks-webapp-template/commit/62ab90463fab445c01d6579f6ee9893bba33aa12))
 * publishing with lerna ([#109](https://github.com/amido/stacks-webapp-template/issues/109)) ([b266275](https://github.com/amido/stacks-webapp-template/commit/b2662750098ee6084e3308584c5ad654ba65c6d0))
 * reduce package size ([259e745](https://github.com/amido/stacks-webapp-template/commit/259e74554e3e72ffb8e61f72accebd5e8e69c687))
-* version ([1f3f1ee](https://github.com/amido/stacks-webapp-template/commit/1f3f1ee661f29bdd2d16a11b7e5c1127f6cdf9b7))
 
 
 ### Features
