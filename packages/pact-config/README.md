@@ -19,13 +19,26 @@ Install peer dependencies (if required):
 
 ## Usage
 
-
-
 ## Examples
 
 ## Configuration
 
 ### Defaults
+
+## Contributing
+
+### Testing
+
+Please ensure that the following environment variables are set before running tests in the monorepo:
+
+```bash
+export PACT_CONSUMER=consumer_name \
+export PACT_PROVIDER=provider_name
+```
+
+Then:
+
+`npm run test`
 
 ## Credits
 

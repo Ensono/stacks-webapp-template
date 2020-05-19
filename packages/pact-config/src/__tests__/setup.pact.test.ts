@@ -5,7 +5,10 @@ import {MenuService} from "../__mocks__/menuService"
 
 describe("Yumido Menu API", () => {
     const url = "http://localhost"
-    const port = 8256
+    const port = 8257
+
+    process.env.PACT_CONSUMER = "test_consumer"
+    process.env.PACT_PROVIDER = "test_provider"
 
     const provider = pactSetup(port)
     

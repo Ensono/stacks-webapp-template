@@ -59,6 +59,13 @@ cross-dependencies.
 
 ## Tests
 
+Please ensure that the following environment variables are set before running tests in the monorepo:
+
+```bash
+export PACT_CONSUMER=consumer_name \
+export PACT_PROVIDER=provider_name
+```
+
 ##### Static
 
 `npm run lint`: runs global linting from root level, ensuring all packages are
@@ -78,10 +85,6 @@ formatting and linting rules.
 
 For package management, we are using [Lerna](https://lernajs.io) which can be
 installed using [npm](https://www.npmjs.com/package/lerna).
-
-We are using npx to execute and create the
-[template-cli](./packages/scaffolding-cli)
-[npx](https://www.npmjs.com/package/npx).
 
 See [template-cli](./packages/scaffolding-cli/README.md) for information.
 
