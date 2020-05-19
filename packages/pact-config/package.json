@@ -1,6 +1,6 @@
 {
   "name": "@amidostacks/pact-config",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "author": "Amido Stacks <stacks@amido.com>",
   "description": "Pact Jest wrapper and executables for consumers",
   "main": "./dist/index.js",
