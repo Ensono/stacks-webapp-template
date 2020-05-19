@@ -6,7 +6,7 @@
     "test": "node_modules/.bin/jest -c jest.config.json --runInBand ",
     "test:watch": "node_modules/.bin/jest -c jest.config.json --watchAll --rootDir . --runInBand ",
     "dev": "nodemon",
-    "build": "tsc --project tsconfig.server.json && next build",
+    "build": "node_modules/.bin/tsc --project tsconfig.server.json && node_modules/.bin/next build",
     "start": "node dist/server/index.js",
     "lint": "node_modules/.bin/eslint . -f codeframe",
     "prettier": "node_modules/.bin/prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
@@ -114,7 +114,7 @@
     "testcafe": "^1.8.2",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.5"
+    "typescript": "3.8.3"
   },
   "config": {
     "pact_do_not_track": true

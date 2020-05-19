@@ -1,5 +1,5 @@
 import {ApiPane, Header, Search} from "components"
-import React, {FC, useEffect} from "react"
+import React, {FC} from "react"
 import {connect} from "react-redux"
 import {
     getError,
@@ -27,9 +27,6 @@ interface Props
         ReturnType<typeof mapDispatchToProps> {}
 
 const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
-    useEffect(() => {
-        getMenulist({searchTerm: ""})
-    }, [])
     return (
         <Container container>
             <Header />
