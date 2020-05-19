@@ -289,9 +289,9 @@ stages:
                     login_gcp: true
                     login_gke: true
                     gcp_auth: {
-                      CLOUDSDK_COMPUTE_REGION: $(region),
-                      CLOUDSDK_CONTAINER_CLUSTER: $(cluster_name),
-                      CLOUDSDK_CORE_PROJECT: $(project_id),
+                      CLOUDSDK_COMPUTE_REGION: $(gcp_region),
+                      CLOUDSDK_CONTAINER_CLUSTER: $(gcp_cluster_name),
+                      CLOUDSDK_CORE_PROJECT: $(gcp_project_id),
                       CLOUDSDK_CORE_DISABLE_PROMPTS: "True"
                     }
                     # ONLY USED FOR kubectl apply

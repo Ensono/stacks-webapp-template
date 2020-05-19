@@ -3,7 +3,7 @@
     "name": "GenericMenuConsumer"
   },
   "provider": {
-    "name": "MenuAPI"
+    "name": "GenericAPI"
   },
   "interactions": [
     {
