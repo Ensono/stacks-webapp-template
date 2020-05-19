@@ -20,6 +20,10 @@ In the project directory, you can run:
 Runs the app in the development mode.<br /> Open
 [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
+```
+Note: To avoid running the CSR in localhost CORS issues we can run the SSR app in the background and use API_BASE env point to http://localhost:3000
+```
+
 The page will reload if you make edits.<br /> You will also see any lint errors
 in the console.
 
