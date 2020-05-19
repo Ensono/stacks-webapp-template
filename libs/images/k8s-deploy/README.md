@@ -42,3 +42,8 @@ then repeat the steps above to publish the fork into your own Docker repo.
 ```bash
 docker build -t amidostacks/ci-k8s:my-custom-version --build-arg TYPESCRIPT_VERSION=3.8.3 --build-arg KUBECTL_VERSION=1.17.1 .
 ```
+
+run and test any changes locally
+```bash
+docker run -v $(pwd):/usr/data --rm -it amidostacks/ci-k8s:latest /bin/bash
+```

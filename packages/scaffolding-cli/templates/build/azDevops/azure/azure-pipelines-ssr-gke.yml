@@ -297,7 +297,7 @@ stages:
                     # ONLY USED FOR kubectl apply
                     cluster_name: $(gcp_cluster_name)
                     deployment_defs: 
-                      - { name: app_deploy, file: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml, context: --context $(gcp_cluster_name)}
+                      - { name: app_deploy, file: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml, context: ""}
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
                     appinsights_enabled: false
             on:
