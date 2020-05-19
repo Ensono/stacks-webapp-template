@@ -113,7 +113,8 @@
     "test:cypress:axe:run": "npm run test:cypress:run -- --spec \"**/*.test.axe.cy.js\"",
     "test:cypress:open": "npm run test:cypress:build && node_modules/.bin/cypress open",
     "test:cypress": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:run",
-    "test:cypress:axe": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:axe:run"
+    "test:cypress:axe": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:axe:run",
+    "clean:tree": "git clean -idx"
   },
   "jest": {
     "roots": [

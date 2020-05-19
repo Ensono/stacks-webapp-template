@@ -41,3 +41,19 @@ variable "location" {
   type    = string
   default = "europe-west2"
 }
+
+variable "dns_zone" {
+  type    = string
+  default = "gke.nonprod.amidostacks.com"
+}
+
+variable "enable_legacy_abac" {
+  description = "Whether or not to enable legacy ABAC"
+  type        = bool
+  default     = false
+}
+
+variable "cluster_version" {
+  type    = string
+  default = "1.15.11-gke.12"
+}

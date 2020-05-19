@@ -19,9 +19,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * CRA (ejected) ([#131](https://github.com/amido/stacks-webapp-template/issues/131)) ([22be82c](https://github.com/amido/stacks-webapp-template/commit/22be82c8ae37be764cb2bf483a1eedb1e4b5fee3))
 * delete menu after creation ([79a8936](https://github.com/amido/stacks-webapp-template/commit/79a8936edd49be2d914733e3f82052918ba800b8))
-
-
-
 ## 0.0.2 (2020-04-28)
 
 

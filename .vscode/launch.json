@@ -66,7 +66,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "pact-test-jest",
+      "name": "debug:test:jest",
       "program": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/node_modules/.bin/jest",
       "protocol": "inspector",
       "cwd": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr",
@@ -76,11 +76,9 @@
       "outputCapture": "std",
       "args": [
         "--runInBand",
-        "--config jest-pact.config.json",
-        "--rootDir=__tests__",
-        "--env=node",
-        "--colors",
-        "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/__tests__/get-menu-by-id.test.pact.ts"
+        "--c ${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/node_modules/@amidostacks/pact-config/jest-pact.config.json",
+        "--roots=${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr",
+        "--colors"
       ],
       "env": {
         "CI": "true",

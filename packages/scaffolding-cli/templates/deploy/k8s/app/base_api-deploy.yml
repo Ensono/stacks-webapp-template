@@ -45,7 +45,7 @@ spec:
   - hosts:
     - ${tls_domain}
 
---- 
+---
 
 apiVersion: v1
 kind: Service
@@ -84,15 +84,69 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: cosmosdb
+  name: appsecrets
   namespace: ${namespace}
 type: Opaque
 stringData:
-  key: ${cosmosdb_key}
+  cosmos_key: ${cosmosdb_key}
+  app_insights: ${app_insights_key}
 
 ---
 
-apiVersion: apps/v1
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: appsettings
+  namespace: ${namespace}
+data:
+  appsettings.json: |
+    {
+      "Serilog": {
+          "Using": [
+              "Serilog.Sinks.Console",
+              "Serilog.Sinks.ApplicationInsights"
+          ],
+          "MinimumLevel": {
+              "Default": "${log_level}",
+              "Override": {}
+          },
+          "WriteTo": [
+              { "Name": "Console" },
+              {
+                  "Name": "ApplicationInsights",
+                  "Args": {
+                      "telemetryConverter": "Serilog.Sinks.ApplicationInsights.Sinks.ApplicationInsights.TelemetryConverters.TraceTelemetryConverter, Serilog.Sinks.ApplicationInsights"
+                  }
+              }
+          ],
+          "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ],
+          "Destructure": [],
+          "Properties": {
+              "Application": "Menu API"
+          }
+      },
+      "AllowedHosts": "*",
+      "CosmosDb": {
+          "DatabaseAccountUri": "${cosmosdb_endpoint}",
+          "DatabaseName": "${cosmosdb_name}",
+          "SecurityKeySecret": {
+              "Identifier": "COSMOSDB_KEY",
+              "Source": "Environment"
+          }
+      },
+      "TestConfig": "Test value from file",
+      "Values": {
+        "Items": [
+          "Item A from config",
+          "Item B from congig",
+          "Item C from config"
+        ]
+      }
+    }
+
+---
+
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
@@ -115,7 +169,7 @@ metadata:
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app.kubernetes.io/component: ${component}
@@ -136,7 +190,7 @@ spec:
         customerID: ${company}
         owner: ${company}/${project}
         projectID: ${project}
-        role: web
+        role: api
         version: ${version}
       labels:
         aadpodidbinding: ${aadpodidentitybinding}
@@ -147,10 +201,14 @@ spec:
     spec:
       dnsPolicy: ClusterFirst
       containers:
-        - name: web
+        - name: api
           # this we need to pass from the pipeline to the deployment steps
           image: ${k8s_image}
           imagePullPolicy: IfNotPresent
+          volumeMounts:
+          - name: appsettings
+            # this can either be configured if you are re-using this for many services or should be changed here
+            mountPath: /app/config
           env:
             - name: POD_NAME
               valueFrom:
@@ -160,31 +218,32 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            - name: ENVIRONMENT
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['environment']
+            - name: VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['version']
+            - name: RELEASE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.annotations['release']
             - name: API_BASEPATH
-              value: /api/menu
+              value: ${k8s_app_path}
             - name: COSMOSDB_KEY
               valueFrom:
                 secretKeyRef:
-                  name: cosmosdb
-                  key: key
+                  name: appsecrets
+                  key: cosmos_key
             - name: LOG_LEVEL
               value: debug
-
             - name: APPINSIGHTS_INSTRUMENTATIONKEY
-              value: ${APPINSIGHTS_INSTRUMENTATIONKEY}
-              # valueFrom:
-              #   secretKeyRef:
-              #     name: appinsights
-              #     key: INSTRUMENTATIONKEY
-
-          # # Remove limits and let the Pods container get the default (800cpu)
-          # resources:
-          #   limits:
-          #     cpu: 600m
-          #     memory: 500Mi
-          #   requests:
-          #     cpu: 400m
-          #     memory: 350Mi
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: app_insights
 
           ports:
             - name: http
@@ -208,3 +267,7 @@ spec:
             periodSeconds: 30
             successThreshold: 1
             timeoutSeconds: 25
+      volumes:
+        - name: appsettings
+          configMap:
+            name: appsettings

@@ -18,14 +18,15 @@ versions:
     - bq 2.0.56
     - core 2020.04.24
     - gsutil 4.49
+    - docker-credential-gcr 2.0.1
 
 USAGE:
 ---
 ```bash
 docker build -t amidostacks/ci-k8s .
 docker push amidostacks/ci-k8s:latest
-docker tag dadd1c4413bf amidostacks/ci-k8s:0.0.5
-docker push amidostacks/ci-k8s:0.0.5
+docker tag f2ce292a1ce9 amidostacks/ci-k8s:0.0.6
+docker push amidostacks/ci-k8s:0.0.6
 ```
 
 Exposed args:

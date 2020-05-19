@@ -1,0 +1,50 @@
+{
+  "name": "@amidostacks/pact-config",
+  "version": "0.3.0",
+  "author": "Amido Stacks <stacks@amido.com>",
+  "description": "Pact Jest wrapper and executables for consumers",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "node_modules/.bin/jest --runInBand",
+    "clean:tree": "git clean -idx"
+  },
+  "engines": {
+    "node": ">=12.0",
+    "npm": ">=6.0"
+  },
+  "peerDependencies": {
+    "@pact-foundation/pact": "^8.2.4 || ~9.8.0",
+    "jest": "~24.7.1 || ~24.8.0 || ~24.9.0 || ~25.1.0"
+  },
+  "devDependencies": {
+    "@pact-foundation/pact": "^9.8.0",
+    "@pact-foundation/pact-node": "^10.2.4",
+    "@types/jest": "^24.9.1",
+    "axios": "^0.19.2",
+    "jest": "^25.1.0",
+    "jest-junit": "^10.0.0",
+    "ts-jest": "^25.4.0",
+    "ts-node": "8.6.2",
+    "typescript": "^3.8.3"
+  },
+  "config": {
+    "pact_do_not_track": true
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/amido/stacks-webapp-template/tree/master/packages/pact-config",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amido/stacks-webapp-template.git",
+    "directory": "packages/pact-config"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "pact-publish": "./dist/utils/pactPublish.js",
+    "pact-can-i-deploy": "./dist/utils/pactCanIDeploy.js",
+    "pact-start-stub": "./dist/utils/pactStubServer.js"
+  },
+  "gitHead": "a4739e6b11c7858b8c87f1564b6547350ff7eb3a"
+}
