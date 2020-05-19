@@ -286,6 +286,8 @@ stages:
                 - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kubectl-generic.yml@templates
                   parameters:
                     environment: "dev"
+                    login_gcp: true
+                    login_gke: true
                     gcp_auth: {
                       CLOUDSDK_COMPUTE_REGION: $(region),
                       CLOUDSDK_CONTAINER_CLUSTER: $(cluster_name),
