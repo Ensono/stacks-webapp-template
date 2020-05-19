@@ -6,7 +6,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "env PACT_CONSUMER=GenericMenuConsumer env PACT_PROVIDER=MenuAPI node_modules/.bin/jest --runInBand",
+    "test": "env PACT_CONSUMER=${PACT_CONSUMER:=GenericMenuConsumer} env PACT_PROVIDER=${PACT_PROVIDER:=GenericAPI} node_modules/.bin/jest --runInBand",
     "clean:tree": "git clean -idx"
   },
   "engines": {
