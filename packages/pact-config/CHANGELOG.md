@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.4.0 (2020-05-19)
+
+
+### Features
+
+* pact-config package ([#148](https://github.com/amido/stacks-webapp-template/issues/148)) ([4343f21](https://github.com/amido/stacks-webapp-template/commit/4343f21850a55ddb6966f4a6d093c80562b950eb))
+
+
+
+
+
 # 0.3.0 (2020-05-15)
 
 
