@@ -10,12 +10,12 @@ variable "name_project" {
 
 variable "name_component" {
   type    = string
-  default = "gke-infra"
+  default = "node-app"
 }
 
 variable "stage" {
   type    = string
-  default = "nonprod"
+  default = "dev"
 }
 
 variable "attributes" {
@@ -42,18 +42,18 @@ variable "location" {
   default = "europe-west2"
 }
 
-variable "dns_zone" {
+variable "dns_zone_name" {
   type    = string
-  default = "gke.nonprod.amidostacks.com"
+  default = "amido-stacks-nonprod-gke-infra"
 }
 
-variable "enable_legacy_abac" {
-  description = "Whether or not to enable legacy ABAC"
-  type        = bool
-  default     = false
+variable "dns_record" {
+  type    = string
+  default = "app"
 }
 
-variable "cluster_version" {
-  type    = string
-  default = "1.15.11-gke.12"
+variable "ingress_ip_name" {
+  description = "IP name of the load balancer to apply for the dns record"
+  type = string
+  default = "amido-stacks-nonprod-gke-infra-ingress-public"
 }

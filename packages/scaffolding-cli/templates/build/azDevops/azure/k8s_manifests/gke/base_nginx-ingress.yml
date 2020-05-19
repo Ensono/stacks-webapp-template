@@ -218,7 +218,7 @@ spec:
       containers:
         - name: nginx-ingress-controller
           # Testing upgrade
-          image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.31.1
+          image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.32.0
           args:
             - /nginx-ingress-controller
             - --configmap=$(POD_NAMESPACE)/nginx-configuration
@@ -303,13 +303,13 @@ metadata:
   labels:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
-# TODO: try this again - @guidibrow mentioned to ensure network perms are set up
-# annotations:
-#   service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+  annotations:
+    cloud.google.com/load-balancer-type: "external"
+    kubernetes.io/ingress.global-static-ip-name: ${ingress_public_ip_name}
 spec:
   externalTrafficPolicy: Local
   type: LoadBalancer
-  loadBalancerIP: ${AKS_INGRESS_PUBLIC_IP}
+  loadBalancerIP: ${ingress_public_ip}
   selector:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx

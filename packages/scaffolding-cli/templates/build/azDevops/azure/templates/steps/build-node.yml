@@ -9,11 +9,19 @@ parameters:
   customRegistry: ""
   # Docker Config
   docker_build: true
+  docker_build_generic: false
   docker_build_additional_args: ""
   docker_workdir: ""
   docker_imagename: ""
   docker_imagetag: ""
   docker_containerregistryname: ""
+  docker_tag_args: ""
+  # auth selection
+  login_azure: false
+  login_gke: false
+  login_gcp: false
+  login_gcr: false
+  gcp_auth: {}
   # Vulnerability Scanning
   vulnerability_scan: false
   vulnerability_workdir: ""
@@ -46,15 +54,21 @@ parameters:
   git_do_tag_release: false
   git_release_tag: ""
 
+
 steps:
   # Login to Azure/AKS
   - template: azDevOps/azure/templates/v2/steps/login-services.yml@templates
     parameters:
+      # TODO: refactor this so we can keep on using the same step across providers
       azure_tenant_id: "$(azure_tenant_id)"
       azure_subscription_id: "$(azure_subscription_id)"
       azure_client_id: "$(azure_client_id)"
       azure_client_secret: "$(azure_client_secret)"
-      login_azure: true
+      login_azure: ${{ parameters.login_azure }}
+      login_gcp: ${{ parameters.login_gcp }}
+      login_gke: ${{ parameters.login_gke }}
+      login_gcr: ${{ parameters.login_gcr }}
+      gcp_auth: ${{ parameters.gcp_auth }}
 
   # Audit dependencies
   # ⚠️ IMPORTANT: Down to the user to ensure that the registry they are using
@@ -140,6 +154,17 @@ steps:
           docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
           docker_imagename: ${{ parameters.docker_imagename }}
           docker_imagetag: ${{ parameters.docker_imagetag }}
+          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
+
+    # Build Docker Image, Scan and Push to Repository
+  - ${{ if eq(parameters.docker_build_generic, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
+        parameters:
+          working_directory: ${{ parameters.docker_workdir }}
+          docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
+          docker_imagename: ${{ parameters.docker_imagename }}
+          docker_imagetag: ${{ parameters.docker_imagetag }}
+          docker_tag_args: ${{ parameters.docker_tag_args }}
           docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
 
   # Build Docker Image, Scan and Push to Repository
