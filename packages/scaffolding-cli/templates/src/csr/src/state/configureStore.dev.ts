@@ -1,6 +1,6 @@
 import {applyMiddleware, createStore, Store, compose} from "redux"
 import {ApplicationState, rootReducer, rootSaga} from "./ducks/index"
-import sagaMiddleware from "./middlewares/sagas"
+import sagaMiddleware, {WithSagaTaskStore} from "./middlewares/sagas"
 
 const hasDevTools =
     process.env.NODE_ENV === "development" &&
@@ -18,7 +18,11 @@ export default function configureStore(
     const middlewares = applyMiddleware(sagaMiddleware)
     const enhancers = [middlewares]
     const composedEnhancers = composeEnhancers(...enhancers)
-    const store = createStore(rootReducer, initialState, composedEnhancers)
+    const store: WithSagaTaskStore = createStore(
+        rootReducer,
+        initialState,
+        composedEnhancers,
+    )
 
     sagaMiddleware.run(rootSaga)
 
