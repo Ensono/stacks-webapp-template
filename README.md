@@ -59,13 +59,6 @@ cross-dependencies.
 
 ## Tests
 
-Please ensure that the following environment variables are set before running tests in the monorepo:
-
-```bash
-export PACT_CONSUMER=consumer_name \
-export PACT_PROVIDER=provider_name
-```
-
 ##### Static
 
 `npm run lint`: runs global linting from root level, ensuring all packages are

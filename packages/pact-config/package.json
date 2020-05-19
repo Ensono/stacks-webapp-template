@@ -4,6 +4,7 @@
   "author": "Amido Stacks <stacks@amido.com>",
   "description": "Pact Jest wrapper and executables for consumers",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "node_modules/.bin/jest --runInBand",
