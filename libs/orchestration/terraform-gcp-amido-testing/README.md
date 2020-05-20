@@ -32,4 +32,4 @@ Please follow steps 1-3 from [Getting Started](#getting-started), then:
    1. Check your GOPATH is configured correctly, see https://golang.org/doc/install for more information.
 2. Set `GOOGLE_CLOUD_PROJECT` environment variable to your project name.
 3. `cd test`
-4. `go test -v -run TestTerraformGcpExample`
+4. `go test -v -run TestTerrafromGcpStorageBucket`

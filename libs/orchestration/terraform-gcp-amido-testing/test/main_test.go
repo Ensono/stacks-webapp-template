@@ -3,7 +3,8 @@ package test
 import (
 	"fmt"
 	"strings"
-	"testing"
+  "testing"
+  "time"
 
 	"github.com/gruntwork-io/terratest/modules/gcp"
 	"github.com/gruntwork-io/terratest/modules/random"
@@ -42,7 +43,11 @@ func TestTerrafromGcpStorageBucket(t *testing.T) {
 	defer terraform.Destroy(t, terraformOptions)
 
 	// website::tag::2::This will run `terraform init` and `terraform apply` and fail the test if there are any errors
-	terraform.InitAndApply(t, terraformOptions)
+  terraform.InitAndApply(t, terraformOptions)
+  
+  // Demo purposes: put in a delay to see the storage container created in GCP Console
+  delay := 30 * time.Second
+  time.Sleep(delay)
 
 	// Run `terraform output` to get the value of some of the output variables
 	bucketURL := terraform.Output(t, terraformOptions, "bucket_url")

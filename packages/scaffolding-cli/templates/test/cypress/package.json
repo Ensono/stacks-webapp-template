@@ -15,6 +15,7 @@
     "test:cypress:axe": "npm run test:cypress:run -- --spec \"**/*.test.axe.cy.js\"",
     "test:cypress:eyes": "npm run test:cypress:open --spec \"**/*.test.eyes.cy.js\"",
     "posttest:cypress": "npx mochawesome-merge 'results/mochawesome*.json' > 'results/report.json' && npx marge results/report.json --assetsDir results/assets --reportDir results/",
+    "report": "npx xunit-viewer -r cypress-junit-test-report.xml",
     "clean:tree": "git clean -idx"
   },
   "devDependencies": {
