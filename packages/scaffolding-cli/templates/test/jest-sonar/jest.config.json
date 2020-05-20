@@ -1,14 +1,10 @@
 {
-  "roots": [
-    "<rootDir>/src"
-  ],
+  "roots": ["<rootDir>/src"],
   "transform": {
     "^.+\\.(js|jsx|ts|tsx)$": "ts-jest"
   },
   "testEnvironment": "jsdom",
-  "setupFilesAfterEnv": [
-    "<rootDir>/setupTests.ts"
-  ],
+  "setupFilesAfterEnv": ["<rootDir>/setupTests.ts"],
   "preset": "ts-jest",
   "testPathIgnorePatterns": [
     "<rootDir>/node_modules/",
@@ -16,9 +12,7 @@
     "<rootDir>/templates/",
     "<rootDir>/dist/"
   ],
-  "testMatch": [
-    "**/*.test.(ts|tsx)"
-  ],
+  "testMatch": ["**/*.test.(ts|tsx)"],
   "testResultsProcessor": "jest-sonar-reporter",
   "reporters": [
     "default",
@@ -29,10 +23,7 @@
       }
     ]
   ],
-  "coverageReporters": [
-    "cobertura",
-    "lcov"
-  ],
+  "coverageReporters": ["cobertura", "lcov"],
   "globals": {
     "ts-jest": {
       "tsConfig": "tsconfig.jest.json"
