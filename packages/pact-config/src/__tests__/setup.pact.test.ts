@@ -1,15 +1,31 @@
 import {Interaction, Matchers} from "@pact-foundation/pact"
-import {pactSetup} from "../index"
-
+import {pactSetup, pactsOutDir} from "../index"
 import {MenuService} from "../__mocks__/menuService"
+import {unlink, access, constants} from "fs"
+
+process.env.PACT_CONSUMER = "test_consumer"
+process.env.PACT_PROVIDER = "test_provider"
+afterAll(() => {
+        const path = `${pactsOutDir}/${process.env.PACT_CONSUMER}-${ process.env.PACT_PROVIDER}.json`
+
+        access(path, constants.F_OK, (err) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+
+        unlink(path, (err) => {
+            if (err) {
+              console.error(err)
+              return
+            }
+        })
+    })
+})
 
 describe("Yumido Menu API", () => {
     const url = "http://localhost"
-    const port = 8257
-
-    process.env.PACT_CONSUMER = "test_consumer"
-    process.env.PACT_PROVIDER = "test_provider"
-
+    const port = 8258
     const provider = pactSetup(port)
     
     const menuService = new MenuService({url, port})
