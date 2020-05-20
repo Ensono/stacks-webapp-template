@@ -1,0 +1,22 @@
+{
+  "testMatch": ["**/*.pact.test.(ts)"],
+  "testEnvironment": "node",
+  "moduleFileExtensions": ["ts", "js", "json"],
+  "transform": {
+    "^.+\\.(ts|tsx)$": "ts-jest"
+  },
+  "reporters": [
+    "default",
+    [
+      "jest-junit",
+      {
+        "outputName": "pact-junit-test-report.xml"
+      }
+    ]
+  ],
+  "globals": {
+    "ts-jest": {
+      "tsConfig": "tsconfig.json"
+    }
+  }
+}

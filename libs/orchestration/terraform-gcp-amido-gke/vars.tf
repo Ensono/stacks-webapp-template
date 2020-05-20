@@ -19,8 +19,33 @@ variable "region" {
 }
 
 variable "resource_namer" {
-  description =  "Unified resource namer value"
-  type = string
+  description = "Unified resource namer value"
+  type        = string
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# BUSINESS PARAMETERS
+# These parameters have reasonable defaults.
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "name_company" {
+  type    = string
+  default = "amido"
+}
+
+variable "name_project" {
+  type    = string
+  default = "stacks"
+}
+
+variable "name_component" {
+  type    = string
+  default = "gke-infra"
+}
+
+variable "name_environment" {
+  type    = string
+  default = "nonprod"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -86,23 +111,34 @@ variable "override_default_node_pool_service_account" {
 
 variable "stage" {
   description = "Stage of depployment - usually set by a workspace name or passed in specifically from caller"
-  type = string
-  default = "nonprod"
+  type        = string
+  default     = "nonprod"
 }
 
 variable "tags" {
   description = "Tags used for uniform resource tagging"
-  type = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }
 
 variable "create_dns_zone" {
   description = "Whether or not to create a DNS zone at shared-services infrastructure level"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "dns_zone" {
   description = "DNS zone name to be created "
-  type = string  
+  type        = string
+}
+
+variable "enable_legacy_abac" {
+  description = "Whether or not to create a DNS zone at shared-services infrastructure level"
+  type        = bool
+  default     = false
+}
+
+variable "cluster_version" {
+  type    = string
+  default = "1.15.11-gke.12"
 }

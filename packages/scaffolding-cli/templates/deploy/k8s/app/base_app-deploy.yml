@@ -20,7 +20,7 @@ metadata:
     customerID: ${company}
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /$$2
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     owner: ${company}/${project}
     projectID: ${project}
@@ -45,7 +45,7 @@ spec:
   - hosts:
     - ${tls_domain}
 
---- 
+---
 
 apiVersion: v1
 kind: Service
@@ -79,7 +79,7 @@ spec:
     environment: ${environment}
   sessionAffinity: None
 
---- 
+---
 
 apiVersion: apps/v1
 kind: Deployment

@@ -31,7 +31,6 @@
     "fs-extra": "^8.1.0",
     "html-webpack-plugin": "4.0.0-beta.11",
     "identity-obj-proxy": "3.0.0",
-    "jest": "24.9.0",
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.2",
@@ -63,6 +62,11 @@
   },
   "devDependencies": {
     "@amidostacks/eslint-config": "^0.20.3",
+    "@amidostacks/pact-config": "^0.5.0",
+    "@pact-foundation/pact": "^9.8.0",
+    "@svgr/webpack": "4.3.3",
+    "@types/cypress-axe": "^0.8.0",
+    "@types/react-redux": "^7.1.8",
     "@typescript-eslint/eslint-plugin": "^2.23.0",
     "@typescript-eslint/parser": "^2.23.0",
     "eslint": "^6.8.0",
@@ -79,6 +83,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "eslint-plugin-security": "^1.4.0",
+    "jest": "^25.1.0",
     "prettier": "^2.0.2",
     "typescript": "^3.7.5"
   },
@@ -93,7 +98,17 @@
     "lint": "node_modules/.bin/eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "node_modules/.bin/eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
     "prettier": "node_modules/.bin/prettier --ignore-path .gitignore --write \"**/*.+(ts|tsx|js|json)\"",
-    "validate": "npm run prettier --list-different && npm run lint"
+    "validate": "npm run prettier --list-different && npm run lint",
+    "test:cypress:build": "node_modules/.bin/tsc --project config/cypress/tsconfig.cypress.json",
+    "test:cypress:watch": "npm run test:cypress:build -- --watch",
+    "test:cypress:run": "npm run test:cypress:build && node_modules/.bin/cypress run --spec \"**/*.cy.js\"",
+    "test:cypress:axe:run": "npm run test:cypress:run -- --spec \"**/*.test.axe.cy.js\"",
+    "test:cypress:open": "npm run test:cypress:build && node_modules/.bin/cypress open",
+    "test:cypress": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:run",
+    "test:cypress:axe": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:axe:run",
+    "test:pact": "node_modules/.bin/jest --c jest.pact.config.json --runInBand",
+    "test:pact-publish": "node_modules/.bin/pact-publish",
+    "clean:tree": "git clean -idx"
   },
   "jest": {
     "roots": [

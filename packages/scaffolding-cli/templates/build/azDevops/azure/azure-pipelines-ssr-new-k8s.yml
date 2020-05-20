@@ -33,7 +33,7 @@ resources:
     - container: sonar_scanner
       image: amidostacks/ci-sonarscanner:0.0.1
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.4
+      image: amidostacks/ci-k8s:0.0.6
     - container: terraform_custom
       image: amidostacks/ci-tf:0.0.3
 
@@ -119,6 +119,7 @@ stages:
               # Docker Config
               build_on_server: false
               docker_build: true
+              login_azure: true
               # TODO: normalize this
               docker_build_additional_args: "."
               docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)

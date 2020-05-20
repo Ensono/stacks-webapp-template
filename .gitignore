@@ -123,6 +123,7 @@ dist
 
 # VSCODE
 **/.vscode/chrome
+*-workspace
 # include examples for these in the repo
 # **/.vscode/launch.json
 # **/.vscode/settings.json
@@ -184,6 +185,11 @@ yarn.lock
 # TESTCAFE
 **/screenshots/
 
+# CYPRESSS
+!**/*/cypress/
+**/*/mochawesome_*.json
+**/*/cypress/results
+
 # AUDITS
 packageLicensesAudit.json
 
@@ -205,3 +211,4 @@ bld/
 
 # GoLang
 go.sum
+

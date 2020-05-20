@@ -9,13 +9,28 @@ module "default_label" {
   tags       = var.tags
 }
 
+data "google_client_config" "current" {}
+
 module "gke-public" {
-  source         = "../../"
-  stage          = var.stage
-  location       = var.location
-  project        = var.project
-  region         = var.region
-  resource_namer = module.default_label.id
-  tags           = module.default_label.tags
-  dns_zone       = "gke.nonprod.amidostacks.com"
+  source             = "../../"
+  stage              = var.stage
+  name_project       = var.name_project
+  name_company       = var.name_company
+  name_component     = var.name_component
+  location           = var.location
+  project            = var.project
+  region             = var.region
+  resource_namer     = module.default_label.id
+  # GCP only accepts lower cased k/v maps
+  tags               = tomap(jsondecode(lower(tostring(jsonencode(module.default_label.tags)))))
+  dns_zone           = var.dns_zone
+  cluster_version    = var.cluster_version
+  enable_legacy_abac = false
 }
+
+# // Get available master versions in our location to determine the latest version
+# data "google_container_engine_versions" "location" {
+#   location = var.location
+#   project  = var.project
+# }
+
