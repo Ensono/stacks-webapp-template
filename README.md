@@ -79,10 +79,6 @@ formatting and linting rules.
 For package management, we are using [Lerna](https://lernajs.io) which can be
 installed using [npm](https://www.npmjs.com/package/lerna).
 
-We are using npx to execute and create the
-[template-cli](./packages/scaffolding-cli)
-[npx](https://www.npmjs.com/package/npx).
-
 See [template-cli](./packages/scaffolding-cli/README.md) for information.
 
 ## Versioning and Publishing [packages](./docs/packages.md)

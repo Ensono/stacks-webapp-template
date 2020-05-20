@@ -1,9 +1,9 @@
 {
   "consumer": {
-    "name": "PACT_CONSUMER"
+    "name": "test_consumer"
   },
   "provider": {
-    "name": "PACT_PROVIDER"
+    "name": "test_provider"
   },
   "interactions": [
     {

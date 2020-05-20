@@ -33,7 +33,6 @@
     "history": "^4.10.1",
     "html-webpack-plugin": "4.0.0-beta.11",
     "identity-obj-proxy": "3.0.0",
-    "jest": "24.9.0",
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "24.9.0",
     "jest-watch-typeahead": "0.4.2",
@@ -69,6 +68,8 @@
   },
   "devDependencies": {
     "@amidostacks/eslint-config": "^0.20.3",
+    "@amidostacks/pact-config": "^0.5.0",
+    "@pact-foundation/pact": "^9.8.0",
     "@svgr/webpack": "4.3.3",
     "@types/cypress-axe": "^0.8.0",
     "@types/history": "^4.7.6",
@@ -93,6 +94,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "eslint-plugin-security": "^1.4.0",
+    "jest": "^25.1.0",
     "prettier": "^2.0.2",
     "start-server-and-test": "^1.11.0",
     "typescript": "^3.7.5"
@@ -116,6 +118,8 @@
     "test:cypress:open": "npm run test:cypress:build && node_modules/.bin/cypress open",
     "test:cypress": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:run",
     "test:cypress:axe": "env CI=true node_modules/.bin/start-server-and-test start https://$HOST:$PORT test:cypress:axe:run",
+    "test:pact": "node_modules/.bin/jest --c jest.pact.config.json --runInBand",
+    "test:pact-publish": "node_modules/.bin/pact-publish",
     "clean:tree": "git clean -idx"
   },
   "jest": {
