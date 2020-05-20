@@ -1,4 +1,3 @@
-// import {reactAI} from "react-appinsights"
 import {ReactPlugin} from "@microsoft/applicationinsights-react-js"
 import {
     ApplicationInsights,
@@ -6,6 +5,8 @@ import {
     SeverityLevel,
 } from "@microsoft/applicationinsights-web"
 import {createBrowserHistory} from "history"
+import {Action} from "redux"
+import logger from "redux-logger"
 
 const reactPlugin = new ReactPlugin()
 const instrumentationKey = process.env.APPINSIGHTS_KEY
@@ -17,7 +18,7 @@ let maxBatchSize = 250
 if (process.env.NODE_ENV !== "production") {
     // for development/testing
     debug = true
-    maxBatchSize = 0 // send telemetry as soon as it's collected
+    maxBatchSize = 0 // send telemetry immediately in Prod.
 }
 
 let appInsights: ApplicationInsights
@@ -52,4 +53,10 @@ export function trackError(err: Error): void {
         severityLevel: SeverityLevel.Error,
     }
     appInsights.trackException(exceptionTelemetry)
+}
+
+export function trackReduxAction(action: Action): void {
+    appInsights.trackEvent({
+        name: action.type,
+    })
 }

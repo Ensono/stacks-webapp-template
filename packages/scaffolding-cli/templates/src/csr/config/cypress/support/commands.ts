@@ -35,7 +35,7 @@ declare namespace Cypress {
 }
 
 const _ = Cypress._
-const url = require('url')
+const url = require("url")
 
 Cypress.Commands.add("login", (overrides = {}) => {
     const options = {
