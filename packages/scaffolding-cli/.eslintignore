@@ -1,0 +1,8 @@
+node_modules/
+dist/
+docs/
+coverage/
+__mocks__/
+__tests__/
+**/*.d.ts
+templates/

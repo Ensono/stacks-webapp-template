@@ -22,7 +22,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.5.0",
-    "eslint-plugin-security": "^1.4.0"
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-flowtype": "^5.1.0"
   },
   "homepage": "https://github.com/amido/stacks-webapp-template/tree/master/packages/eslint-config",
   "repository": {
