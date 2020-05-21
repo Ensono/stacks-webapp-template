@@ -6,7 +6,6 @@ import {
 } from "@microsoft/applicationinsights-web"
 import {createBrowserHistory} from "history"
 import {Action} from "redux"
-import logger from "redux-logger"
 
 const reactPlugin = new ReactPlugin()
 const instrumentationKey = process.env.APPINSIGHTS_KEY
@@ -53,6 +52,16 @@ export function trackError(err: Error): void {
         severityLevel: SeverityLevel.Error,
     }
     appInsights.trackException(exceptionTelemetry)
+}
+
+export function customTrace(msg: string) {
+    if (appInsights) {
+        appInsights.trackTrace({
+            message: msg,
+            severityLevel: 1,
+        })
+        appInsights.flush()
+    }
 }
 
 export function trackReduxAction(action: Action): void {
