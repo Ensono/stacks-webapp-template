@@ -1,9 +1,6 @@
-import {Action, PayloadAction, TypeConstant} from "typesafe-actions"
-/*  eslint import/no-cycle: [2, { maxDepth: 1 }]  */
 import {
-    MenuItem,
-    MenuState,
     GetMenuActionTypes,
+    MenuState,
 } from "../../../interfaces/sagas.interface"
 
 export const initialState: MenuState = {
