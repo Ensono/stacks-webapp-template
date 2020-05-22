@@ -4,7 +4,7 @@ import {
     GetMenuActionTypes,
     MenuItem,
 } from "../../../interfaces/sagas.interface"
-import apiCaller from "../../utils/apiCaller"
+import apiCaller from "../../../services/apiCaller"
 import {fetchMenusError, fetchMenusSuccess} from "./actions"
 
 function* handleFetch(action: MetaActionWithAPI): Generator {
