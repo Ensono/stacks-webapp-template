@@ -1,17 +1,11 @@
 {
   "roots": ["<rootDir>/src"],
+  "testMatch": ["**/*.test.(ts|tsx)"],
+  "testEnvironment": "node",
+  "moduleFileExtensions": ["ts", "js", "json"],
   "transform": {
     "^.+\\.ts$": "ts-jest"
   },
-  "preset": "ts-jest",
-  "testPathIgnorePatterns": [
-    "<rootDir>/node_modules/",
-    "<rootDir>/coverage/",
-    "<rootDir>/templates/",
-    "<rootDir>/dist/"
-  ],
-  "testMatch": ["**/*.test.(ts|tsx)"],
-  "testResultsProcessor": "jest-sonar-reporter",
   "reporters": [
     "default",
     [
@@ -21,12 +15,15 @@
       }
     ]
   ],
+  "preset": "ts-jest",
+  "testPathIgnorePatterns": [
+    "<rootDir>/node_modules/",
+    "<rootDir>/coverage/",
+    "<rootDir>/templates/",
+    "<rootDir>/dist/"
+  ],
+  "testResultsProcessor": "jest-sonar-reporter",
   "coverageReporters": ["cobertura", "lcov"],
-  "globals": {
-    "ts-jest": {
-      "tsConfig": "tsconfig.jest.json"
-    }
-  },
   "collectCoverage": true,
   "collectCoverageFrom": [
     "**/*.{ts,tsx}",
@@ -46,6 +43,5 @@
       "lines": 80
     }
   },
-  "testEnvironment": "node",
   "verbose": true
 }
