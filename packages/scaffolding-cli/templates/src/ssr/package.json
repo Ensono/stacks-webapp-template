@@ -69,7 +69,7 @@
   "devDependencies": {
     "@amidostacks/eslint-config": "^0.20.3",
     "@amidostacks/pact-config": "^0.3.0",
-    "@applitools/eyes-cypress": "^3.9.13",
+    "@applitools/eyes-cypress": "^3.11.0",
     "@pact-foundation/pact": "^9.8.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
