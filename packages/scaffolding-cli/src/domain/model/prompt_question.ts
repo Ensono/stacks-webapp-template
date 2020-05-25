@@ -13,8 +13,7 @@ interface SelectQuestionOptions {
     disabled?: boolean
 }
 
-interface PromptQuestion extends BaseQuestion {
+export interface PromptQuestion extends BaseQuestion {
     choices?: Array<SelectQuestionOptions>
 }
 
-export { PromptQuestion }

@@ -4,62 +4,62 @@ import {PromptAnswer, CliAnswerModel} from "../model/prompt_answer"
 export function computedSelection(
     cliOrConfigAnswer: PromptAnswer,
 ): CliAnswerModel {
-    return <CliAnswerModel>{
-        project_name: cliOrConfigAnswer.project_name,
-        project_type: cliOrConfigAnswer.project_type,
+    return {
+        projectName: cliOrConfigAnswer.projectName,
+        projectType: cliOrConfigAnswer.projectType,
         deployment: cliOrConfigAnswer.deployment,
         platform: cliOrConfigAnswer.platform || "any",
-        enable_advanced: cliOrConfigAnswer.enable_advanced || false,
+        enableAdvanced: cliOrConfigAnswer.enableAdvanced || false,
         business: {
-            company: cliOrConfigAnswer.business_company,
-            project: cliOrConfigAnswer.project_name,
-            domain: cliOrConfigAnswer.business_domain,
+            company: cliOrConfigAnswer.businessCompany,
+            project: cliOrConfigAnswer.projectName,
+            domain: cliOrConfigAnswer.businessDomain,
             component:
-                cliOrConfigAnswer.business_component || "COMPONENT_REPLACE_ME",
+                cliOrConfigAnswer.businessComponent || "COMPONENT_REPLACE_ME",
         },
         cloud: {
-            region: cliOrConfigAnswer.cloud_region || "REGION_REPLACE_ME",
+            region: cliOrConfigAnswer.cloudRegion || "REGION_REPLACE_ME",
         },
         terraform: {
-            backend_storage:
-                cliOrConfigAnswer.terraform_backend_storage ||
+            backendStorage:
+                cliOrConfigAnswer.terraformBackendStorage ||
                 "BACKEND_STORAGE_REPLACE_ME",
         },
-        source_control: {
-            repo_name:
-                cliOrConfigAnswer.source_control_repo_name ||
+        sourceControl: {
+            repoName:
+                cliOrConfigAnswer.sourceControlRepoName ||
                 "REPO_NAME_REPLACE_ME",
         },
         networking: {
-            base_domain:
-                cliOrConfigAnswer.networking_base_domain ||
+            baseDomain:
+                cliOrConfigAnswer.networkingBaseDomain ||
                 "REPO_NAME_REPLACE_ME",
         },
-    }
+    } as CliAnswerModel
 }
 
 /**
  * Additional questions should be placed here as we are extending the program
  */
 export function cliQuestions(
-    default_project_name: string,
+    defaultProjectName: string,
 ): Array<PromptQuestion> {
     return [
         {
             type: "text",
-            name: "business_company",
+            name: "businessCompany",
             message: "Please provide the company name",
             initial: "amido",
         },
         {
             type: "text",
-            name: "project_name",
+            name: "projectName",
             message: "Please provide the project name",
-            initial: default_project_name,
+            initial: defaultProjectName,
         },
         {
             type: "select",
-            name: "project_type",
+            name: "projectType",
             message: "Select Project type",
             choices: [
                 {
@@ -81,7 +81,7 @@ export function cliQuestions(
                 {
                     title: "API with Java",
                     description: "api, java, springboot",
-                    value: "java_spring",
+                    value: "javaSpring",
                 },
                 {
                     title: "Selenium framework with .NET",
@@ -106,7 +106,7 @@ export function cliQuestions(
         },
         {
             type: "text",
-            name: "business_domain",
+            name: "businessDomain",
             message: "Please provide scope (domain)",
             description:
                 "Used for templated project naming conventions, Terraform name spacing conventions, Kubetetes configuration.",
@@ -137,19 +137,19 @@ export function advancedQuestions(): Array<PromptQuestion> {
     return [
         {
             type: "text",
-            name: "source_control_repo_name",
+            name: "sourceControlRepoName",
             message: "Please provide version control repository name",
             initial: "stacks-repo",
         },
         {
             type: "text",
-            name: "cloud_region",
+            name: "cloudRegion",
             message: "Please provide platform service region",
             initial: "uksouth",
         },
         {
             type: "select",
-            name: "terraform_backend_storage",
+            name: "terraformBackendStorage",
             message: "Select Terraform remote state storage service?",
             choices: [
                 {
@@ -172,7 +172,7 @@ export function advancedQuestions(): Array<PromptQuestion> {
         },
         {
             type: "text",
-            name: "networking_base_domain",
+            name: "networkingBaseDomain",
             message: "Provide host name (DNS domain)",
             initial: "app.replaceme.com",
         },
@@ -201,7 +201,7 @@ export function platformQuestions(): Array<PromptQuestion> {
         },
         {
             type: "confirm",
-            name: "enable_advanced",
+            name: "enableAdvanced",
             message: "Continue to additional project configuration",
             initial: true,
         },

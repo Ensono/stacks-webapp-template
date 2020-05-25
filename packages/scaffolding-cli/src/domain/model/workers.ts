@@ -11,12 +11,12 @@ export interface BaseResponse {
 }
 
 export interface TempCopy extends BaseResponse{
-    temp_path: string
-    final_path: string
+    tempPath: string
+    finalPath: string
 }
 
 export interface ConfigResponse extends BaseResponse{
-    config_path: string
+    configPath: string
 }
 
-export interface CliResponse extends BaseResponse {}
+export type CliResponse = BaseResponse

@@ -1,34 +1,34 @@
-import { BuildReplaceInput } from "../file_mapper"
+import { BuildReplaceInput as netcoreSelenium } from "../file_mapper"
 import { BusinessSection, CloudSection } from "../../model/prompt_answer"
 import { startCase, toLower } from 'lodash'
 /**
  * 
  * Statically assign the file mapping from temp and the Key/Value mapp of strings to replace in file
- * @param project_name 
- * @param business_obj 
+ * @param projectName 
+ * @param businessObj 
  */
-export const in_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection): Array<BuildReplaceInput> => {
+export const inFiles = (projectName: string, businessObj?: BusinessSection, cloudObj?: CloudSection): Array<netcoreSelenium> => {
     return [
         {
             files: ["**/*.md"],
             values: {
-                "PROJECT_NAME": project_name
+                "PROJECT_NAME": projectName
             }
         },
         {
             files: ["**/*.cs", "**/*.sln", "**/*.csproj"],
             values: {
-                "xxAMIDOxx": startCase(toLower(business_obj?.company)) || "Company",
-                "xxSTACKSxx": startCase(toLower(business_obj?.project)) || "Project",
+                "xxAMIDOxx": startCase(toLower(businessObj?.company)) || "Company",
+                "xxSTACKSxx": startCase(toLower(businessObj?.project)) || "Project",
             }
         }
     ]
 }
 
-export const response_message = (project_name: string): string  => {
+export const responseMessage = (projectName: string): string  => {
     return `Your .NET Selenium Testing Framework has been created. To get started: \n
 ---- \n
-cd ${project_name} dotnet restore && dotnet test \n
+cd ${projectName} dotnet restore && dotnet test \n
 ---- \n`
 }
 

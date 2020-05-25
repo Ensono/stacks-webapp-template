@@ -5,11 +5,11 @@ import { BaseResponse } from '../../model/workers'
 const TEMPLATES_DIRECTORY = `../../../templates/`
 
 export class Utils {
-    static async copyWorker(directory_name: string): Promise<any> {
-        let mockRes: BaseResponse = <BaseResponse>{}
+    static async copyWorker(directoryName: string): Promise<any> {
+        let mockRes: BaseResponse = {} as BaseResponse
 
         mockRes.ok = true
-        mockRes.message = `${directory_name} created`
+        mockRes.message = `${directoryName} created`
         try {
             return await jest.fn((): BaseResponse => <BaseResponse>{ok: true, message: "fooo"})
         } catch (ex) {

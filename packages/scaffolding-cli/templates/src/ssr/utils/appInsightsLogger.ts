@@ -91,7 +91,7 @@ export const withApplicationInsights = (
                         location.pathname
                     const properties = {
                         route: this.props.router.route,
-                        project_name: packageConfig.name,
+                        projectName: packageConfig.name,
                         version: packageConfig.version
                     }
                     if (this.props.router.query) {

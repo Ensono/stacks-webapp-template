@@ -34,15 +34,15 @@ const mockStat = jest.spyOn(fs, 'stat')
 const mockRename = jest.spyOn(fs, 'rename')
 
 let mock_answer = <PromptAnswer>{
-    project_name: "foo",
-    project_type: "boo",
+    projectName: "foo",
+    projectType: "boo",
     platform: "az",
     deployment: "tfs"
 }
 
 let mock_cli_answer_model = <CliAnswerModel>{
-    project_name: "foo",
-    project_type: "boo",
+    projectName: "foo",
+    projectType: "boo",
     platform: "az",
     deployment: "tfs",
     business: {
@@ -65,10 +65,10 @@ let new_dir = "/var/test"
 
 let mock_vals: Array<Replacetruct> = [{ "replaceFiles": ["/some/dir/test-app-1/**/*.md"], "replaceVals": { "from": "foo", "to": "test-app-1" } }]
 
-let worker_response = <CliResponse>{
+let worker_response = {
     message: "success",
     ok: true
-}
+} as CliResponse
 
 describe("utils class tests", () => {
     beforeEach(() => {
@@ -78,14 +78,14 @@ describe("utils class tests", () => {
     })
     describe("Positive assertions", () => {
         it("copyWorker should return success", async () => {
-            let copy_ran: TempCopy = await Utils.prepBase(mock_answer.project_name)
+            let copy_ran: TempCopy = await Utils.prepBase(mock_answer.projectName)
             expect(mockCopy).toHaveBeenCalled()
             expect(copy_ran).toHaveProperty("message")
             expect(copy_ran).toHaveProperty("ok")
-            expect(copy_ran).toHaveProperty("temp_path")
-            expect(copy_ran).toHaveProperty("final_path")
+            expect(copy_ran).toHaveProperty("tempPath")
+            expect(copy_ran).toHaveProperty("finalPath")
             expect(copy_ran.ok).toBe(true)
-            expect(copy_ran.message).toMatch(`${mock_answer.project_name} created`)
+            expect(copy_ran.message).toMatch(`${mock_answer.projectName} created`)
         })
         it("moveWorker should return success", async () => {
             let move_ran: BaseResponse = await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
@@ -168,7 +168,7 @@ describe("utils class tests", () => {
                 throw { code: "ENOENT", message: new Error("File Not found") }
             });
             try {
-                await Utils.prepBase(mock_answer.project_name)
+                await Utils.prepBase(mock_answer.projectName)
             } catch (ex) {
                 expect(mockCopy).toHaveBeenCalled()
                 expect(ex).toHaveProperty("code")

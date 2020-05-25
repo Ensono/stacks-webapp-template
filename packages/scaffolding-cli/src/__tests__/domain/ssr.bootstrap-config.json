@@ -1,13 +1,13 @@
 {
-  "business_company": "company",
-  "project_name": "test-app-ssr",
-  "project_type": "ssr",
+  "businessCompany": "company",
+  "projectName": "test-app-ssr",
+  "projectType": "ssr",
   "deployment": "azdevops",
-  "business_domain": "ssr-node",
+  "businessDomain": "ssr-node",
   "platform": "aks",
-  "cloud_region": "uksouth",
-  "business_component": "replace_business_component",
-  "source_control_repo_name": "amido-stacks-repo",
-  "terraform_backend_storage": "azure_blob",
-  "networking_base_domain": "app.replace.me"
+  "cloudRegion": "uksouth",
+  "businessComponent": "replace_business_component",
+  "sourceControlRepoName": "amido-stacks-repo",
+  "terraformBackendStorage": "azure_blob",
+  "networkingBaseDomain": "app.replace.me"
 }

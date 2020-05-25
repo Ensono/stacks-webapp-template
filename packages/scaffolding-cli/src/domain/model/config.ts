@@ -4,10 +4,10 @@ export interface FolderMap {
 }
 
 export interface SingleConfigKey {
-    git_repo: string
-    git_ref: string
-    folder_map: Array<FolderMap>
-    local_path: string
+    gitRepo: string
+    gitRef: string
+    folderMap: Array<FolderMap>
+    localPath: string
 }
 
 export interface Static {

@@ -1,8 +1,8 @@
-export const response_message = (project_name: string): string  => {
+export const responseMessage = (projectName: string): string  => {
     return `Your directory has been created succesfully! \n
 The recommended way to test and bootstrap infrastructure locally is to use the docker containers that the pipeline uses. \n
 ---- \n
-cd ${project_name}/deploy/azure/infra \n
+cd ${projectName}/deploy/azure/infra \n
 docker run -v $(pwd):/usr/data --rm -it amidostacks/ci-tf:0.0.3 /bin/bash \n 
 $root: terraform init
 $root: terraform plan

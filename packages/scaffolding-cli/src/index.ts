@@ -9,7 +9,7 @@ import { final_error_message, intro_usage_message } from './domain/config/worker
 
 async function cliCommand(argv: CliOptions) {
     try {
-        const default_project_name = basename(resolve(process.cwd()));
+        const defaultProjectName = basename(resolve(process.cwd()));
         let response: ExitMessage = <ExitMessage>{}
 
         if (argv.configfile) {
@@ -17,7 +17,7 @@ async function cliCommand(argv: CliOptions) {
             response = await runConfig(argv)
         } else if (argv.interactive) {
             // run cli flow
-            response = await runCli(default_project_name, argv)
+            response = await runCli(defaultProjectName)
         } else {
             console.log(chalk.cyan(yargs.showHelp())) //"Please select an appropriate option"
             return process.exit(0)
