@@ -19,7 +19,7 @@
     "clean:tree": "git clean -idx"
   },
   "devDependencies": {
-    "@applitools/eyes-cypress": "^3.9.21",
+    "@applitools/eyes-cypress": "^3.11.0",
     "@types/cypress-axe": "^0.8.0",
     "axe-core": "^3.5.3",
     "cypress": "^4.5.0",
