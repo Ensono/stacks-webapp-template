@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { FlowSelector }  from "../selectors"
 
 export interface Workflow {
