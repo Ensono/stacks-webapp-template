@@ -111,7 +111,7 @@
     "redux-mock-store": "^1.5.4",
     "snapshot-diff": "^0.7.0",
     "start-server-and-test": "^1.10.8",
-    "testcafe": "^1.8.2",
+    "testcafe": "^1.8.5",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.9.3"
