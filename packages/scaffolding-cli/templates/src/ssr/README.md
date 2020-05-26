@@ -4,12 +4,9 @@
 
 ## Getting started
 
-Install dependencies (this may take a while, please be patient):
-  `npm install`
+Install dependencies (this may take a while, please be patient): `npm install`
 
-Compile the app:
-  `npm run build`
-  > ⚠️ IMPORTANT: please note that there are breaking changes in typescript >3.8.3. Ref: AB#1931
+Compile the app: `npm run build`
 
 ## Implementation details
 
@@ -83,15 +80,18 @@ Snapshots are to be checked in and are found in
 
 ### Functional Tests
 
-For more information using Cypress, see: [Testing and Quality](https://amido.github.io/stacks/docs/testing).
+For more information using Cypress, see:
+[Testing and Quality](https://amido.github.io/stacks/docs/testing).
 
 ### Visual Testing
 
-For more information using Applitools with Cypress, see: [Testing and Quality](https://amido.github.io/stacks/docs/testing).
+For more information using Applitools with Cypress, see:
+[Testing and Quality](https://amido.github.io/stacks/docs/testing).
 
 ### Accessibility Testing
 
-For more information using Axe with Jest and Cypress, see: [Testing and Quality](https://amido.github.io/stacks/docs/testing).
+For more information using Axe with Jest and Cypress, see:
+[Testing and Quality](https://amido.github.io/stacks/docs/testing).
 
 ### Static Testing
 
