@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@amidostacks/eslint-config": "^0.20.3",
-    "@amidostacks/pact-config": "^0.5.0",
+    "@amidostacks/pact-config": "^0.6.0",
     "@pact-foundation/pact": "^9.8.0",
     "@svgr/webpack": "4.3.3",
     "@types/cypress-axe": "^0.8.0",
