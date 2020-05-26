@@ -81,9 +81,7 @@ describe("prompt class tests", () => {
                 return Promise.resolve(mock_ssr_aks_tfs_answer)
             })
 
-            let cliResult: ExitMessage = await runCli(
-                "test"
-            )
+            let cliResult: ExitMessage = await runCli("test")
             expect(mockPrompt).toHaveBeenCalled()
             expect(cliResult).toHaveProperty("code")
             expect(cliResult).toHaveProperty("message")
@@ -110,9 +108,7 @@ describe("prompt class tests", () => {
                     )
                 })
 
-            let cliResult: ExitMessage = await runCli(
-                "test"
-            )
+            let cliResult: ExitMessage = await runCli("test")
             expect(mockPrompt).toHaveBeenCalledTimes(2)
             expect(cliResult).toHaveProperty("code")
             expect(cliResult).toHaveProperty("message")

@@ -55,8 +55,8 @@
         "--env=node",
         // "--ci",
         "--colors",
-        "${workspaceFolder}/packages/scaffolding-cli/src/__tests__/domain/config/worker_maps/shared.test.ts"
-        // "${workspaceFolder}/packages/scaffolding-cli/src/__tests__/domain/prompt.test.ts"
+        // "${workspaceFolder}/packages/scaffolding-cli/src/__tests__/domain/config/worker_maps/shared.test.ts"
+        "${workspaceFolder}/packages/scaffolding-cli/src/__tests__/domain/prompt.test.ts"
         // "${workspaceFolder}/packages/scaffolding-cli/src/__tests__/domain/config/static.config.test.ts"
       ],
       "env": {

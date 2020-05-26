@@ -51,7 +51,7 @@ async function getFromCli(defaultProjectName: string): Promise<PromptAnswer> {
     })
 
     cliSelection = await prompt(initialQs, {onCancel})
-    if (cliSelection.projectType.startsWith("test_")) {
+    if (cliSelection.projectType.startsWith("test")) {
         // let testSelection = await testAdvancedCliQuestion(cliSelection, testQuestions)
         // return testSelection
     } else {
@@ -86,15 +86,15 @@ async function advancedCliQuestion(
 
 /**
  * @private
- * @param config_path
+ * @param configPath
  */
-async function getFromConfig(config_path: string): Promise<CliAnswerModel> {
+async function getFromConfig(configPath: string): Promise<CliAnswerModel> {
     let configSelection: PromptAnswer
-    if (isAbsolute(config_path)) {
-        configSelection = JSON.parse(readFileSync(config_path, "utf-8").trim())
+    if (isAbsolute(configPath)) {
+        configSelection = JSON.parse(readFileSync(configPath, "utf-8").trim())
     } else {
         configSelection = JSON.parse(
-            readFileSync(resolve(process.cwd(), config_path), "utf-8").trim(),
+            readFileSync(resolve(process.cwd(), configPath), "utf-8").trim(),
         )
     }
 
@@ -103,8 +103,7 @@ async function getFromConfig(config_path: string): Promise<CliAnswerModel> {
 
 async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {
     // Converting to camel case
-    let determinedChoice = `${selection.projectType}${selection?.platform
-        ?.toUpperCase || "Any"}${selection.deployment.toUpperCase}`
+    let determinedChoice = `${selection.projectType}${selection?.platform || "Any"}${selection.deployment}`
 
     const workflows: Workflow = WorkflowOptions()
     try {
