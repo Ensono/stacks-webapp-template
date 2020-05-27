@@ -3,7 +3,8 @@
     "rootDir": "./src",
     "target": "es5",
     "types": ["node", "jest"],
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "declaration": true
   },
   "exclude": ["./node_modules/*", "./src/__tests__"]
 }

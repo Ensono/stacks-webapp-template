@@ -1,4 +1,5 @@
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/core/styles"
+import {ApplicationInsights} from "@microsoft/applicationinsights-web"
 import React from "react"
 import {Helmet} from "react-helmet"
 import {Provider} from "react-redux"
@@ -6,9 +7,11 @@ import "./App.css"
 import Header from "./components/Header"
 import Search from "./components/Search"
 import theme from "./constants/theme"
-import configureStore from "./state"
 import ApiPane from "./containers/home"
+import configureStore from "./state"
+import {setUpAppInsights} from "./utility/telemetry"
 
+setUpAppInsights()
 // eslint-disable-next-line
 const initialState = (window as any).initialReduxState
 const store = configureStore(initialState)

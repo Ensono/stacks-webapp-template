@@ -1,9 +1,9 @@
 {
   "consumer": {
-    "name": "PACT_CONSUMER"
+    "name": "CsrMenuConsumer"
   },
   "provider": {
-    "name": "PACT_PROVIDER"
+    "name": "MenuAPI"
   },
   "interactions": [
     {
