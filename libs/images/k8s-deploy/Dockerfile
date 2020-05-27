@@ -75,7 +75,6 @@ RUN curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/rel
 
 # ENVSUBST with built in checks
 # RUN curl -fsSL https://github.com/a8m/envsubst/releases/download/v1.1.0/envsubst-`uname -s`-`uname -m` -o /opt/envsubst && \
-https://github.com/amido/stacks-webapp-template/releases/download/0.0.2/envsubst-Linux-x86_64
 RUN curl -fsSL https://github.com/amido/stacks-webapp-template/releases/download/0.0.2/envsubst-`uname -s`-`uname -m` -o /opt/envsubst && \
   chmod +x /opt/envsubst && \
   mv /opt/envsubst /usr/local/bin
