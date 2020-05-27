@@ -1,4 +1,4 @@
-import { final_response_message, final_error_message } from '../../../../domain/config/worker_maps/shared'
+import { finalResponseMessage, finalErrorMessage } from '../../../../domain/config/worker_maps/shared'
 import { shared } from '../../../../domain/config/worker_maps'
 import { SourceControlSection, CloudSection, BusinessSection, TerraformSection } from '../../../../domain/model/prompt_answer'
 import { BuildReplaceInput } from '../../../../domain/config/file_mapper'
@@ -62,20 +62,20 @@ let files: Array<BuildReplaceInput> = [
 ]
 
 describe("shared worker_maps tests", () => {
-   it("final_response_message should return a formatted string", () => {
-        let test: string = final_response_message(testProjectName, sampleMessage)
+   it("finalResponseMessage should return a formatted string", () => {
+        let test: string = finalResponseMessage(testProjectName, sampleMessage)
         expect(test).toMatch("All Successful")
     })
-    it("final_response_message should return a formatted string with config description", () => {
-        let test: string = final_response_message(testProjectName, sampleMessage)
+    it("finalResponseMessage should return a formatted string with config description", () => {
+        let test: string = finalResponseMessage(testProjectName, sampleMessage)
         expect(test).toMatch("Next steps: check out your")
     })
     it("final_error_message should return a formatted string", () => {
-        let test: string = final_error_message(sampleErrorMessage)
+        let test: string = finalErrorMessage(sampleErrorMessage)
         expect(test).toMatch("All UNSuccessful")
     })
-    it("final_response_message should return a formatted string with a code", () => {
-        let test: string = final_error_message(sampleErrorMessage, -12)
+    it("finalResponseMessage should return a formatted string with a code", () => {
+        let test: string = finalErrorMessage(sampleErrorMessage, -12)
         expect(test).toMatch(sampleErrorMessage)
         expect(test).toMatch("code:")
     })

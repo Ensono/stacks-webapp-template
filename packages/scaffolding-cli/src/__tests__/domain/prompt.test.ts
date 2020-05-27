@@ -16,7 +16,7 @@ let mock_ssr_aks_tfs_answer = <PromptAnswer>{
     platform: "aks",
     deployment: "azdevops",
     businessCompany: "testcomp",
-    businessDomain: "test_domain",
+    businessDomain: "testDomain",
 }
 
 let mock_ssr_aks_tfs_answer_advanced = <PromptAnswer>{
@@ -25,7 +25,7 @@ let mock_ssr_aks_tfs_answer_advanced = <PromptAnswer>{
     platform: "aks",
     deployment: "azdevops",
     businessCompany: "testcomp",
-    businessDomain: "test_domain",
+    businessDomain: "testDomain",
 }
 
 let mock_ssr_aks_tfs_answer_advanced_part_2 = <PromptAnswer>{

@@ -87,13 +87,13 @@ export function cliQuestions(
                     title: "Selenium framework with .NET",
                     description:
                         "automation, bddfy, xunit, webdriver, netcore, e2e, standalone",
-                    value: "test_netcore_selenium",
+                    value: "testNetcoreSelenium",
                 },
                 {
                     title: "TestCafe framework with Typescript",
                     description:
                         "in-browser, automation, node.js, javascript, bdd, cross browser",
-                    value: "test_js_testcafe",
+                    value: "testJsTestcafe",
                 },
                 {
                     title: "Cloud platform shared services",

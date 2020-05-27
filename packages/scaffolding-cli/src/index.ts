@@ -4,7 +4,7 @@ import { basename, resolve } from 'path'
 import { ExitMessage, CliOptions } from './domain/model/cli_response'
 import { runCli, runConfig } from './domain/prompt'
 import chalk from 'chalk'
-import { final_error_message, intro_usage_message } from './domain/config/worker_maps/shared'
+import { finalErrorMessage, introUsageMessage } from './domain/config/worker_maps/shared'
 
 
 async function cliCommand(argv: CliOptions) {
@@ -24,7 +24,7 @@ async function cliCommand(argv: CliOptions) {
         }
 
         if (response.code != 0) {
-            console.log(chalk.red(final_error_message(response.message, response.code)))
+            console.log(chalk.red(finalErrorMessage(response.message, response.code)))
             return process.exit(0)
         }
 
@@ -32,7 +32,7 @@ async function cliCommand(argv: CliOptions) {
         return process.exit(0)
     } catch (ex) {
         let exCaught = ex as ExitMessage
-        console.log(chalk.red(final_error_message(exCaught.message, exCaught.code)))
+        console.log(chalk.red(finalErrorMessage(exCaught.message, exCaught.code)))
         return process.exit(ex.code || -1)
     }
 }
@@ -93,7 +93,7 @@ yargs
         runTestOptions,
         cliCommand
     )
-    .usage(`${intro_usage_message()}\nUsage: npx $0 <command> [options]`)
+    .usage(`${introUsageMessage()}\nUsage: npx $0 <command> [options]`)
     .example('scaffolding-cli run -i', 'Run Scaffolding CLI with interactive prompts')
     .example('scaffolding-cli run -c sample.bootstrap.config.json', 'Run Scaffolding CLI with a options specified in a config file')
     .example('scaffolding-cli run -infra', 'Generate infra only output')

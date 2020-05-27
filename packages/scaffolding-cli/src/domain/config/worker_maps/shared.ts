@@ -1,3 +1,5 @@
+
+import {resolve} from "path"
 import terminalLink from "terminal-link"
 import {
     BusinessSection,
@@ -6,10 +8,9 @@ import {
     SourceControlSection,
 } from "../../model/prompt_answer"
 import {BuildReplaceInput} from "../file_mapper"
-import {resolve} from "path"
 
 /**
- * TODO: implement a shared in_files replace to minimize duplication
+ * TODO: implement a shared inFiles replace to minimize duplication
  * @param projectName
  * @param businessObj
  * @param cloudObj
@@ -66,7 +67,7 @@ export const inFiles = ({
     ]
 }
 
-export const intro_usage_message = (): string => {
+export const introUsageMessage = (): string => {
     return `Bootstrap a templated project webapp, API and/or testing framework with supporting pipelines and infrastructure by answering just a few questions.\n
 For more information on the scaffolding-cli flow, please see <url>.\n
 
@@ -78,20 +79,20 @@ For more information on the scaffolding-cli flow, please see <url>.\n
 `
 }
 
-export const final_response_message = (
+export const finalResponseMessage = (
     projectName: string,
     message: string,
-    ran_advanced: boolean = false,
+    ranAdvanced = false,
 ): string => {
     const dir: string = resolve(process.cwd(), projectName)
-    const config_file: string = resolve(
+    const configFile: string = resolve(
         dir,
         `${projectName}.bootstrap.config.json`,
     )
-    const advanced: string = `* your selected advanced configuration has been saved to ${config_file}. To edit and rerun, see <> for more info.`
-    const basic: string = `your selected configuration and additional project default has been saved to ${config_file}. To change provided default configuration please edit and rerun. See <> for more info`
+    const advanced = `* your selected advanced configuration has been saved to ${configFile}. To edit and rerun, see <> for more info.`
+    const basic = `your selected configuration and additional project default has been saved to ${configFile}. To change provided default configuration please edit and rerun. See <> for more info`
     return `${message}\
-${ran_advanced ? advanced : basic}
+${ranAdvanced ? advanced : basic}
     \n
 👟 Next steps: check out your bootstapped project in your chosen development environment
         cd ${dir}
@@ -105,11 +106,11 @@ ${ran_advanced ? advanced : basic}
 `
 }
 
-export const final_error_message = (
+export const finalErrorMessage = (
     message: string,
     code?: string | number,
 ): string => {
-    let final = `----> \n
+    const final = `----> \n
 Ooooops - Something went wrong \n
 error: ${message} \n 
 ${code ? "code: " + code : ""} \n

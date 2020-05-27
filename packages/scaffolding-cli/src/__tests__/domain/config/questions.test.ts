@@ -4,7 +4,7 @@ import { CliAnswerModel, PromptAnswer } from '../../../domain/model/prompt_answe
 
 let mock_answers = <PromptAnswer>{
     businessCompany: "testcomp",
-    businessDomain: "test_domain",
+    businessDomain: "testDomain",
     projectName: "test-app-1",
     projectType: "ssr",
     platform: "aks",

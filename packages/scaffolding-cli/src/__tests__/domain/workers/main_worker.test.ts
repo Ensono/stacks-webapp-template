@@ -10,70 +10,70 @@ jest.mock("../../../domain/workers/utils")
 
 //TODO: parametise these tests
 
-let mock_answer_ssr = <CliAnswerModel>{
+let mockAnswerSsr = {
     projectName: "foo",
     projectType: "ssr",
     platform: "aks",
     deployment: "tfs",
-}
+} as CliAnswerModel
 
-let mock_answer_csr = <CliAnswerModel>{
+let mockAnswerCsr = {
     projectName: "foo",
     projectType: "csr",
     platform: "aks",
     deployment: "tfs",
-}
+} as CliAnswerModel
 
-let mock_answer_java_spring = <CliAnswerModel>{
+let mockAnswerJavaSpring = {
     projectName: "foo",
     projectType: "javaSpring",
     platform: "aks",
     deployment: "tfs",
     business: {
         company: "testcomp",
-        domain: "test_domain",
+        domain: "testDomain",
         project: "javaSpring",
     },
-}
+} as CliAnswerModel
 
-let mock_answer_netcore = <CliAnswerModel>{
+let mockAnswerNetcore = {
     projectName: "foo",
     projectType: "netcore",
     platform: "aks",
     deployment: "tfs",
     business: {
         company: "testcomp",
-        domain: "test_domain",
+        domain: "testDomain",
         project: "netcore",
     },
-}
+} as CliAnswerModel
 
-let mock_answer_netcore_selenium = <CliAnswerModel>{
+let mockAnswerNetcoreSelenium = <CliAnswerModel>{
     projectName: "foo",
-    projectType: "test_netcore_selenium",
+    projectType: "testNetcoreSelenium",
     platform: "aks",
     deployment: "tfs",
     business: {
         company: "testcomp",
-        domain: "test_domain",
+        domain: "testDomain",
         project: "netcore",
     },
 }
 
-let mock_answer_js_testcafe = <CliAnswerModel>{
+let mockAnswerJsTestcafe = <CliAnswerModel>{
     projectName: "foo",
-    projectType: "test_js_testcafe",
+    projectType: "testJsTestcafe",
     platform: "aks",
     deployment: "tfs",
     business: {
         company: "testcomp",
-        domain: "js_testcafe",
+        domain: "jsTestcafe",
         project: "netcore",
     },
 }
 
-let worker_response = <BaseResponse>{
-    message: `${mock_answer_ssr.projectName} created`,
+let workerResponse = <BaseResponse>{
+    message: `${mockAnswerSsr.projectName} created`,
     ok: true,
 }
 
@@ -85,22 +85,22 @@ Utils.writeOutConfigFile = jest.fn().mockImplementationOnce(() => {
 describe("mainWorker class tests", () => {
     describe("Positive assertions", () => {
         beforeEach(async () => {})
-        it("ssr_aks_tfs should return success and user message for npm", async () => {
+        it("ssrAksTfs should return success and user message for npm", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mock_answer_ssr.projectName} created`,
+                    message: `${mockAnswerSsr.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
             })
             Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             let flowRan: CliResponse = await mainWorker.ssrAksTfs(
-                mock_answer_ssr,
+                mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.constructOutput).toHaveBeenCalled()
@@ -112,19 +112,19 @@ describe("mainWorker class tests", () => {
         it("ssrGkeTfs should return success and user message for npm", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mock_answer_ssr.projectName} created`,
+                    message: `${mockAnswerSsr.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
             })
             Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             let flow_ran: CliResponse = await mainWorker.ssrGkeTfs(
-                mock_answer_ssr,
+                mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.constructOutput).toHaveBeenCalled()
@@ -132,26 +132,26 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mock_answer_ssr.projectName}/src && npm install && npm run build && npm run start`,
+                `cd ${mockAnswerSsr.projectName}/src && npm install && npm run build && npm run start`,
             )
         })
 
         it("infraAksAzdevops should return success and user message for npm", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mock_answer_ssr.projectName} created`,
+                    message: `${mockAnswerSsr.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
             })
             Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             let flow_ran: CliResponse = await mainWorker.infraAksAzdevops(
-                mock_answer_ssr,
+                mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.constructOutput).toHaveBeenCalled()
@@ -159,29 +159,29 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mock_answer_ssr.projectName}/deploy`,
+                `cd ${mockAnswerSsr.projectName}/deploy`,
             )
         })
-        it("csr_aks_tfs should return success and user message for npm", async () => {
+        it("csrAksTfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})
             })
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mock_answer_ssr.projectName} created`,
+                    message: `${mockAnswerSsr.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
             })
             Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
 
             let flow_ran: CliResponse = await mainWorker.csrAksTfs(
-                mock_answer_csr,
+                mockAnswerCsr,
             )
             expect(Utils.doGitClone).toHaveBeenCalledWith(
                 staticConf.csr.gitRepo,
@@ -195,32 +195,32 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mock_answer_ssr.projectName}/src && npm install && npm run stuff`,
+                `cd ${mockAnswerSsr.projectName}/src && npm install && npm run stuff`,
             )
         })
-        it("netcore_aks_tfs should return success and user message for npm", async () => {
+        it("netcoreAksTfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})
             })
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mock_answer_ssr.projectName} created`,
+                    message: `${mockAnswerSsr.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
             })
             Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             Utils.fileNameReplace = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
 
             let flow_ran: CliResponse = await mainWorker.netcoreAksTfs(
-                mock_answer_netcore,
+                mockAnswerNetcore,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.doGitClone).toHaveBeenCalledWith(
@@ -234,30 +234,30 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mock_answer_ssr.projectName}/src`,
+                `cd ${mockAnswerSsr.projectName}/src`,
             )
             expect(flow_ran.message).toMatch(`dotnet clean && dotnet restore`)
         })
-        it("java_spring_aks_tfs should return success and user message for npm", async () => {
+        it("javaSpringAksTfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})
             })
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mock_answer_ssr.projectName} created`,
+                    message: `${mockAnswerSsr.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
             })
             Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
 
             let flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
-                mock_answer_java_spring,
+                mockAnswerJavaSpring,
             )
             expect(Utils.doGitClone).toHaveBeenCalledWith(
                 staticConf.javaSpring.gitRepo,
@@ -271,27 +271,27 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mock_answer_ssr.projectName}/src`,
+                `cd ${mockAnswerSsr.projectName}/src`,
             )
             expect(flow_ran.message).toMatch(`gradle build && gradle run `)
         })
         it("netcoreSeleniumTfs should return success and user message for npm", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mock_answer_ssr.projectName} created`,
+                    message: `${mockAnswerNetcoreSelenium.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
             })
             Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(worker_response)
+                return Promise.resolve(workerResponse)
             })
 
             let flow_ran: CliResponse = await mainWorker.netcoreSeleniumTfs(
-                mock_answer_netcore_selenium,
+                mockAnswerNetcoreSelenium,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.constructOutput).toHaveBeenCalled()
@@ -299,29 +299,29 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mock_answer_netcore_selenium.projectName}`,
+                `cd ${mockAnswerNetcoreSelenium.projectName}`,
             )
             expect(flow_ran.message).toMatch(`dotnet restore && dotnet test`)
         })
     })
 
-    it("js_testcafe_tfs should return success and user message for npm", async () => {
+    it("jsTestcafeTfs should return success and user message for npm", async () => {
         Utils.prepBase = jest.fn().mockImplementationOnce(() => {
             return Promise.resolve({
-                message: `${mock_answer_ssr.projectName} created`,
+                message: `${mockAnswerJsTestcafe.projectName} created`,
                 tempPath: "/var/test",
                 finalPath: "/opt/myapp",
             })
         })
         Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-            return Promise.resolve(worker_response)
+            return Promise.resolve(workerResponse)
         })
         Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-            return Promise.resolve(worker_response)
+            return Promise.resolve(workerResponse)
         })
 
         let flow_ran: CliResponse = await mainWorker.jsTestcafeTfs(
-            mock_answer_js_testcafe,
+            mockAnswerJsTestcafe,
         )
         expect(Utils.prepBase).toHaveBeenCalled()
         expect(Utils.constructOutput).toHaveBeenCalled()
@@ -329,7 +329,7 @@ describe("mainWorker class tests", () => {
         expect(flow_ran).toHaveProperty("ok")
         expect(flow_ran.ok).toBe(true)
         expect(flow_ran.message).toMatch(
-            `cd ${mock_answer_js_testcafe.projectName}`,
+            `cd ${mockAnswerJsTestcafe.projectName}`,
         )
         expect(flow_ran.message).toContain(`TestCafe`)
     })
@@ -340,7 +340,7 @@ describe("mainWorker class tests", () => {
                 throw new Error("Something weird happened")
             })
             let flow_ran: CliResponse = await mainWorker.ssrAksTfs(
-                mock_answer_ssr,
+                mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("error")
@@ -355,7 +355,7 @@ describe("mainWorker class tests", () => {
                     throw new Error("Something weird happened")
                 })
                 let flow_ran: CliResponse = await mainWorker.netcoreAksTfs(
-                    mock_answer_netcore,
+                    mockAnswerNetcore,
                 )
                 expect(Utils.prepBase).toHaveBeenCalled()
                 expect(flow_ran).toHaveProperty("error")
@@ -365,12 +365,12 @@ describe("mainWorker class tests", () => {
                 expect(flow_ran.error).toHaveProperty("stack")
                 expect(flow_ran.error).toHaveProperty("message")
             }),
-            it("java_spring_aks_tfs should return a code of -1 when error occurs", async () => {
+            it("javaSpringAksTfs should return a code of -1 when error occurs", async () => {
                 Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                     throw new Error("Something weird happened")
                 })
                 let flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
-                    mock_answer_java_spring,
+                    mockAnswerJavaSpring,
                 )
                 expect(Utils.prepBase).toHaveBeenCalled()
                 expect(flow_ran).toHaveProperty("error")
@@ -385,7 +385,7 @@ describe("mainWorker class tests", () => {
                     throw new Error("Something weird happened")
                 })
                 let flow_ran: CliResponse = await mainWorker.csrAksTfs(
-                    mock_answer_csr,
+                    mockAnswerCsr,
                 )
                 expect(Utils.prepBase).toHaveBeenCalled()
                 expect(flow_ran).toHaveProperty("error")

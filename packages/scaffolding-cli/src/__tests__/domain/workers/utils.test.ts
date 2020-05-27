@@ -148,11 +148,11 @@ describe("utils class tests", () => {
         })
 
         it.skip("renamerRecursion should call readdir", async () => {
-            let test_path = __dirname
+            let testPath = __dirname
             mockReaddir.mockImplementationOnce(() => {
                 return Promise.resolve(["__foo.cs"])
             });
-            await renamerRecursion(test_path, "__foo", "bar")
+            await renamerRecursion(testPath, "__foo", "bar")
             expect(mockReaddir).toHaveBeenCalled()
             expect(mockRename).toHaveBeenCalledTimes(1)
         })

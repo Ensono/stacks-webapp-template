@@ -92,7 +92,7 @@ export function replaceGeneratedConfig(
             Object.keys(cheatConfig[input]).forEach((deepKey: any) => {
                 replaceOutput = [
                     ...replaceOutput,
-                    closureStruct(`${input}_${deepKey}`, `${input}.${deepKey}`),
+                    closureStruct(`${input}${deepKey}`, `${input}.${deepKey}`),
                 ]
             })
         } else {

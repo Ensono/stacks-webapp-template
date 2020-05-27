@@ -48,7 +48,7 @@ export class Utils {
      * git clone an entire public repo to use as a template
      * @param tempDirectory 
      * @param srcPathInTmp 
-     * @param mono_repo_sub_folder_only 
+     * @param monoRepoSubFolderOnly 
      */
     public static async doGitClone(gitRepo: string, tempDirectory: string, srcPathInTmp: string, refVersion = "origin/master"): Promise<BaseResponse> {
         const gitResponse: BaseResponse = {} as BaseResponse
@@ -113,6 +113,7 @@ export class Utils {
         }
         catch (ex) {
             logger.error(ex.message)
+            logger.debug({level: 'error', message: fsResponse.message})
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
