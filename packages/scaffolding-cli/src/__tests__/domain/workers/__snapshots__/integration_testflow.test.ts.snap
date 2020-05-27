@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mainWorker class can bootstrap netcoreSeleniumTfs 1`] = `
+Array [
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Selenium/SeleniumWrapper.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Selenium/Components/MenuList.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Selenium/Components/Notifier.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Selenium/Components/Header.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Selenium/Components/CreateForm.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Selenium/Pages/PageObject.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Selenium/Factory/WebDriverFactory.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.AssemblyInfoInputs.cache",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.csprojAssemblyReference.cache",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.AssemblyInfo.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Testcomp.Testproject.E2E.Selenium.csproj",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Configuration/ConfigAccessor.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Configuration/ConfigModel.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Testcomp.Testproject.E2E.Selenium.sln",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Tests/Stories/GetMenuExampleTests.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Tests/Steps/CreateMenu.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Tests/Fixtures/BaseSetup.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/appsettings.json",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/README.md",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Api/Builders/Http/HttpRequestFactory.cs",
+  "/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/testProjectName/Api/Builders/Http/HttpRequestBuilder.cs",
+]
+`;

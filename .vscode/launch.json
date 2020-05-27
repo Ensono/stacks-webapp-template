@@ -66,6 +66,32 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "scaffolding-cli:debug:test:jest",
+      "program": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/node_modules/.bin/jest",
+      "protocol": "inspector",
+      "cwd": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr",
+      "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": false,
+      "outputCapture": "std",
+      "args": [
+        "--runInBand",
+        "--c ${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/node_modules/@amidostacks/pact-config/jest-pact.config.json",
+        "--roots=${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr",
+        "--colors"
+      ],
+      "env": {
+        "CI": "true",
+        "NODE_ENV": "dev",
+        "PACT_CONSUMER": "GenericMenuConsumer",
+        "PACT_PROVIDER": "MenuAPI",
+        "PACT_BROKER": "https://amido-stacks.pact.dius.com.au",
+        "PACT_BEARER_TOKEN": "FILL_ME_IN"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "debug:test:jest",
       "program": "${workspaceFolder}/packages/scaffolding-cli/templates/src/ssr/node_modules/.bin/jest",
       "protocol": "inspector",
