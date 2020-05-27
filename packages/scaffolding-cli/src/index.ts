@@ -1,16 +1,16 @@
 #!/usr/bin/env node
+import chalk from 'chalk'
 import yargs from 'yargs'
 import { basename, resolve } from 'path'
 import { ExitMessage, CliOptions } from './domain/model/cli_response'
 import { runCli, runConfig } from './domain/prompt'
-import chalk from 'chalk'
 import { finalErrorMessage, introUsageMessage } from './domain/config/worker_maps/shared'
 
 
 async function cliCommand(argv: CliOptions) {
     try {
         const defaultProjectName = basename(resolve(process.cwd()));
-        let response: ExitMessage = <ExitMessage>{}
+        let response: ExitMessage = {} as ExitMessage
 
         if (argv.configfile) {
             // run with a config file
@@ -19,7 +19,7 @@ async function cliCommand(argv: CliOptions) {
             // run cli flow
             response = await runCli(defaultProjectName)
         } else {
-            console.log(chalk.cyan(yargs.showHelp())) //"Please select an appropriate option"
+            console.log(chalk.cyan(yargs.showHelp())) // "Please select an appropriate option"
             return process.exit(0)
         }
 
@@ -31,13 +31,13 @@ async function cliCommand(argv: CliOptions) {
         console.log(chalk.cyan(response.message))
         return process.exit(0)
     } catch (ex) {
-        let exCaught = ex as ExitMessage
+        const exCaught = ex as ExitMessage
         console.log(chalk.red(finalErrorMessage(exCaught.message, exCaught.code)))
         return process.exit(ex.code || -1)
     }
 }
 
-let runOptions = (yargs: any) => {
+const runOptions = (yargs: any) => {
 
     yargs
         .option('configfile', {

@@ -1,6 +1,6 @@
+import { startCase, toLower } from 'lodash'
 import { BuildReplaceInput as netcoreSelenium } from "../file_mapper"
 import { BusinessSection, CloudSection } from "../../model/prompt_answer"
-import { startCase, toLower } from 'lodash'
 /**
  * 
  * Statically assign the file mapping from temp and the Key/Value mapp of strings to replace in file
