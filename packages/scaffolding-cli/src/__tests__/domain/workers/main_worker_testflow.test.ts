@@ -2,7 +2,7 @@ import {CliAnswerModel} from "../../../domain/model/prompt_answer"
 import {CliResponse, BaseResponse} from "../../../domain/model/workers"
 import {MainWorker} from "../../../domain/workers/main_worker"
 import {Utils} from "../../../domain/workers/utils"
-import {shared} from "../../../domain/config/worker_maps"
+import { jsTestcafe, netcoreSelenium } from '../../../domain/config/worker_maps'
 
 jest.mock("../../../domain/workers/utils")
 
@@ -26,7 +26,7 @@ let workerResponse = {
 } as BaseResponse
 
 describe("mainWorker class", () => {
-    describe("test flow happy paths", () => {
+    describe("can bootstrap", () => {
         beforeEach(async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
@@ -53,31 +53,35 @@ describe("mainWorker class", () => {
             })
         })
 
-        it("test bootsrap netcoreSeleniumTfs", async () => {
+        it("netcoreSeleniumTfs", async () => {
                 let flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
                     mockAnswer
                 )
 
                 expect(Utils.prepBase).toHaveBeenCalled()
+                expect(Utils.valueReplace).toHaveBeenCalled()
                 expect(Utils.constructOutput).toHaveBeenCalled()
-                expect(flowRan).toHaveProperty("message")
-                expect(flowRan).toHaveProperty("ok")
+                expect(Utils.fileNameReplace).toHaveBeenCalled()
+                expect(Utils.writeOutConfigFile).toHaveBeenCalled()
+
                 expect(flowRan.ok).toBe(true)
-                expect(flowRan.message).toContain(mockAnswer.projectName)
+                expect(flowRan).toHaveProperty("message")
+                expect(flowRan.message).toContain(netcoreSelenium.responseMessage(mockAnswer.projectName))
             },
         )
 
-        it("test bootsrap jsTestcafeTfs", async () => {
+        it("jsTestcafeTfs", async () => {
             let flowRan: CliResponse = await mainWorker.jsTestcafeTfs(
                 mockAnswer
             )
 
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.constructOutput).toHaveBeenCalled()
-            expect(flowRan).toHaveProperty("message")
-            expect(flowRan).toHaveProperty("ok")
+            expect(Utils.writeOutConfigFile).toHaveBeenCalled()
+
             expect(flowRan.ok).toBe(true)
-            expect(flowRan.message).toContain(mockAnswer.projectName)
+            expect(flowRan).toHaveProperty("message")
+            expect(flowRan.message).toContain(jsTestcafe.responseMessage(mockAnswer.projectName))
         },
     )
     })
