@@ -19,7 +19,7 @@
   "author": "Amido Stacks <stacks@amido.com>",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^3.0.0",
+    "chalk": "^4.0.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "prompts": "^2.3.1",
