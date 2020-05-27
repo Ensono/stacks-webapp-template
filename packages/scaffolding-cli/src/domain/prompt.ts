@@ -12,9 +12,9 @@ import {PromptAnswer, CliAnswerModel} from "./model/prompt_answer"
 import {ExitMessage, CliOptions} from "./model/cli_response"
 import {WorkflowOptions, Workflow} from "./model/workflow"
 
-let userSelection: PromptAnswer = <PromptAnswer>{}
+let userSelection: PromptAnswer = {} as PromptAnswer
 let cliModifiedSelection: CliAnswerModel
-let exitMessage: ExitMessage = <ExitMessage>{}
+const exitMessage: ExitMessage = {} as ExitMessage
 
 /**
  * @param defaultProjectName
@@ -75,7 +75,7 @@ async function advancedCliQuestion(
     basicSelection: PromptAnswer,
     advanceQsFn: Function,
 ): Promise<PromptAnswer> {
-    let advancedQs: Array<PromptQuestion> = advanceQsFn()
+    const advancedQs: Array<PromptQuestion> = advanceQsFn()
     let advancedSelections: PromptAnswer = await prompt(advancedQs, {onCancel})
     advancedSelections = {
         ...basicSelection,
@@ -103,23 +103,23 @@ async function getFromConfig(configPath: string): Promise<CliAnswerModel> {
 
 async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {
     // Converting to camel case
-    let determinedChoice = `${selection.projectType}${selection?.platform || "Any"}${selection.deployment}`
+    const determinedChoice = `${selection.projectType}${selection?.platform || "Any"}${selection.deployment}`
 
     const workflows: Workflow = WorkflowOptions()
     try {
-        let response = await workflows[determinedChoice](selection)
+        const response = await workflows[determinedChoice](selection)
         exitMessage.code = response.code
         exitMessage.message = response.message
-        if (response.code != 0) {
-            throw <ExitMessage>{
+        if (response.code !== 0) {
+            return {
                 code: response.code,
                 message: response.message,
-            }
+            } as ExitMessage
         }
         return exitMessage
     } catch (ex) {
-        //Uncaught Exceptions
-        let exCaught = ex as ExitMessage
+        // Uncaught Exceptions
+        const exCaught = ex as ExitMessage
         exCaught.code = ex.code || -1
         exCaught.message = ex.message
         return exCaught

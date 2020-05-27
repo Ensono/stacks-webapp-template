@@ -48,30 +48,6 @@ let mockAnswerNetcore = {
     },
 } as CliAnswerModel
 
-let mockAnswerNetcoreSelenium = <CliAnswerModel>{
-    projectName: "foo",
-    projectType: "testNetcoreSelenium",
-    platform: "aks",
-    deployment: "tfs",
-    business: {
-        company: "testcomp",
-        domain: "testDomain",
-        project: "netcore",
-    },
-}
-
-let mockAnswerJsTestcafe = <CliAnswerModel>{
-    projectName: "foo",
-    projectType: "testJsTestcafe",
-    platform: "aks",
-    deployment: "tfs",
-    business: {
-        company: "testcomp",
-        domain: "jsTestcafe",
-        project: "netcore",
-    },
-}
-
 let workerResponse = <BaseResponse>{
     message: `${mockAnswerSsr.projectName} created`,
     ok: true,
@@ -275,63 +251,6 @@ describe("mainWorker class tests", () => {
             )
             expect(flow_ran.message).toMatch(`gradle build && gradle run `)
         })
-        it("netcoreSeleniumTfs should return success and user message for npm", async () => {
-            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve({
-                    message: `${mockAnswerNetcoreSelenium.projectName} created`,
-                    tempPath: "/var/test",
-                    finalPath: "/opt/myapp",
-                })
-            })
-            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(workerResponse)
-            })
-            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve(workerResponse)
-            })
-
-            let flow_ran: CliResponse = await mainWorker.netcoreSeleniumTfs(
-                mockAnswerNetcoreSelenium,
-            )
-            expect(Utils.prepBase).toHaveBeenCalled()
-            expect(Utils.constructOutput).toHaveBeenCalled()
-            expect(flow_ran).toHaveProperty("message")
-            expect(flow_ran).toHaveProperty("ok")
-            expect(flow_ran.ok).toBe(true)
-            expect(flow_ran.message).toMatch(
-                `cd ${mockAnswerNetcoreSelenium.projectName}`,
-            )
-            expect(flow_ran.message).toMatch(`dotnet restore && dotnet test`)
-        })
-    })
-
-    it("jsTestcafeTfs should return success and user message for npm", async () => {
-        Utils.prepBase = jest.fn().mockImplementationOnce(() => {
-            return Promise.resolve({
-                message: `${mockAnswerJsTestcafe.projectName} created`,
-                tempPath: "/var/test",
-                finalPath: "/opt/myapp",
-            })
-        })
-        Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
-            return Promise.resolve(workerResponse)
-        })
-        Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
-            return Promise.resolve(workerResponse)
-        })
-
-        let flow_ran: CliResponse = await mainWorker.jsTestcafeTfs(
-            mockAnswerJsTestcafe,
-        )
-        expect(Utils.prepBase).toHaveBeenCalled()
-        expect(Utils.constructOutput).toHaveBeenCalled()
-        expect(flow_ran).toHaveProperty("message")
-        expect(flow_ran).toHaveProperty("ok")
-        expect(flow_ran.ok).toBe(true)
-        expect(flow_ran.message).toMatch(
-            `cd ${mockAnswerJsTestcafe.projectName}`,
-        )
-        expect(flow_ran.message).toContain(`TestCafe`)
     })
 
     describe("Negative assertions", () => {
