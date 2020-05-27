@@ -20,14 +20,10 @@ versions:
     - gsutil 4.49
     - docker-credential-gcr 2.0.1
 
+Includes envsubst cli for template parsing with environment variables.
+
 USAGE:
 ---
-```bash
-docker build -t amidostacks/ci-k8s .
-docker push amidostacks/ci-k8s:latest
-docker tag f2ce292a1ce9 amidostacks/ci-k8s:0.0.6
-docker push amidostacks/ci-k8s:0.0.6
-```
 
 Exposed args:
 ```
@@ -46,4 +42,12 @@ docker build -t amidostacks/ci-k8s:my-custom-version --build-arg TYPESCRIPT_VERS
 run and test any changes locally
 ```bash
 docker run -v $(pwd):/usr/data --rm -it amidostacks/ci-k8s:latest /bin/bash
+```
+
+Creating additional versions
+```bash
+docker build -t amidostacks/ci-k8s .
+docker push amidostacks/ci-k8s:latest
+docker tag 4d67b2ab27e5 amidostacks/ci-k8s:0.0.7
+docker push amidostacks/ci-k8s:0.0.7
 ```
