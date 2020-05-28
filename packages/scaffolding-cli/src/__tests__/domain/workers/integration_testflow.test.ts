@@ -1,21 +1,9 @@
-import {CliAnswerModel} from "../../../domain/model/prompt_answer"
-import {CliResponse, BaseResponse} from "../../../domain/model/workers"
-import {MainWorker} from "../../../domain/workers/main_worker"
-import {Utils} from "../../../domain/workers/utils"
-import {jsTestcafe, netcoreSelenium} from "../../../domain/config/worker_maps"
-import {promises} from "fs"
 import path from "path"
-
-// afterAll(() => {
-//     const path = ``
-
-//     rmdir(path, err => {
-//         if (err) {
-//             console.error(err)
-//             return
-//         }
-//     })
-// })
+import {CliAnswerModel} from "../../../domain/model/prompt_answer"
+import {CliResponse} from "../../../domain/model/workers"
+import {MainWorker} from "../../../domain/workers/main_worker"
+import {jsTestcafe, netcoreSelenium} from "../../../domain/config/worker_maps"
+import {promises, remove, ensureDirSync} from "fs-extra"
 
 let mockAnswer = {
     projectName: "testProjectName",
@@ -31,42 +19,67 @@ let mockAnswer = {
 
 let mainWorker = new MainWorker()
 
-let workerResponse = {
-    message: `${mockAnswer.projectName} created`,
-    ok: true,
-} as BaseResponse
-
-
+// Todo: extra this out into test util
 // Credit: https://gist.github.com/lovasoa/8691344#gistcomment-3299089
 async function* walk(dir: string): AsyncGenerator<String> {
     for await (const d of await promises.opendir(dir)) {
-        const entry = path.join(dir, d.name);
-        if (d.isDirectory()) yield* await walk(entry);
-        else if (d.isFile()) yield entry;
+        const entry = path.join(dir, d.name)
+        if (d.isDirectory()) yield* await walk(entry)
+        else if (d.isFile()) yield entry.replace(process.cwd(), "")
     }
 }
 
 describe("mainWorker class", () => {
-    describe("can bootstrap", () => {
-        const outputPath = path.join(path.resolve(),mockAnswer.projectName)
-        let results: String[] = []
+    const currentDir = process.cwd()
+    const tempDir = path.join(__dirname, mockAnswer.projectName)
+    let results: String[] = []
 
-        it("netcoreSeleniumTfs", async () => {
-            // let flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
-            //     mockAnswer,
-            // )
+    beforeEach(async () => {
+        try {
+            ensureDirSync(tempDir)
+            process.chdir(tempDir)
+        } catch (err) {
+            console.log("chdir: " + err)
+        }
+    })
 
-            for await (const p of walk(outputPath))
-                results.push(p)
+    afterEach(() => {
+        process.chdir(currentDir)
+        console.log(`after: ${process.cwd()}`)
+        remove(tempDir)
+    })
 
-            expect(results).toMatchSnapshot()
+    it("bootstraps netcoreSeleniumTfs with correct files", async () => {
+        let flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
+            mockAnswer,
+        )
 
-            // expect(flowRan.ok).toBe(true)
-            // expect(flowRan).toHaveProperty("message")
+        for await (const p of walk(tempDir)) results.push(p)
 
-            // expect(flowRan.message).toContain(
-            //     netcoreSelenium.responseMessage(mockAnswer.projectName),
-            // )
-        })
+        expect(results).toMatchSnapshot()
+
+        expect(flowRan.ok).toBe(true)
+        expect(flowRan).toHaveProperty("message")
+
+        expect(flowRan.message).toContain(
+            netcoreSelenium.responseMessage(mockAnswer.projectName),
+        )
+    })
+
+    it("bootstraps netcoreSeleniumTfs with correct files", async () => {
+        let flowRan: CliResponse = await mainWorker.jsTestcafeTfs(
+            mockAnswer,
+        )
+
+        for await (const p of walk(tempDir)) results.push(p)
+
+        expect(results).toMatchSnapshot()
+
+        expect(flowRan.ok).toBe(true)
+        expect(flowRan).toHaveProperty("message")
+
+        expect(flowRan.message).toContain(
+            jsTestcafe.responseMessage(mockAnswer.projectName),
+        )
     })
 })

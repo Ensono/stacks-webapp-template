@@ -18,7 +18,7 @@
       "args": [
         "--config=jest.config.json",
         "src/__tests__/domain/workers/integration_testflow.test.ts"
-      ],
+      ]
     }
   ]
 }
