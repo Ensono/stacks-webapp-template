@@ -26,6 +26,8 @@
     "next.config.js",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.js"
+    "**/*.js",
+    "pages/create",
+    "pages/profile"
   ]
 }
