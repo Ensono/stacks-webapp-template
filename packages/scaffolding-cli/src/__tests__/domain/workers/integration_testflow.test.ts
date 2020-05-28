@@ -1,9 +1,9 @@
+import {promises, removeSync, ensureDirSync, emptyDirSync} from "fs-extra"
 import path from "path"
 import {CliAnswerModel} from "../../../domain/model/prompt_answer"
 import {CliResponse} from "../../../domain/model/workers"
 import {MainWorker} from "../../../domain/workers/main_worker"
 import {jsTestcafe, netcoreSelenium} from "../../../domain/config/worker_maps"
-import {promises, remove, ensureDirSync} from "fs-extra"
 
 let mockAnswer = {
     projectName: "testProjectName",
@@ -31,12 +31,13 @@ async function* walk(dir: string): AsyncGenerator<String> {
 
 describe("mainWorker class", () => {
     const currentDir = process.cwd()
-    const tempDir = path.join(__dirname, mockAnswer.projectName)
-    let results: String[] = []
+    let tempDir: string
 
-    beforeEach(async () => {
+    beforeEach(() => {
+        tempDir = path.join(__dirname, mockAnswer.projectName)
         try {
             ensureDirSync(tempDir)
+            emptyDirSync(tempDir)
             process.chdir(tempDir)
         } catch (err) {
             console.log("chdir: " + err)
@@ -45,11 +46,12 @@ describe("mainWorker class", () => {
 
     afterEach(() => {
         process.chdir(currentDir)
-        console.log(`after: ${process.cwd()}`)
-        remove(tempDir)
+        removeSync(tempDir)
     })
 
-    it("bootstraps netcoreSeleniumTfs with correct files", async () => {
+    it("netcoreSeleniumTfs with correct files", async () => {
+        let results: String[] = []
+
         let flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
             mockAnswer,
         )
@@ -66,10 +68,10 @@ describe("mainWorker class", () => {
         )
     })
 
-    it("bootstraps netcoreSeleniumTfs with correct files", async () => {
-        let flowRan: CliResponse = await mainWorker.jsTestcafeTfs(
-            mockAnswer,
-        )
+    it("jsTestcafe with correct files", async () => {
+        let results: String[] = []
+
+        let flowRan: CliResponse = await mainWorker.jsTestcafeTfs(mockAnswer)
 
         for await (const p of walk(tempDir)) results.push(p)
 

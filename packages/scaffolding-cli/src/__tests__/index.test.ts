@@ -41,10 +41,8 @@ describe.skip("Scaffolding CLI", () => {
             env: {"LOG_LEVEL": "error", "NODE_ENV": "development"}
         }
         const response = await execute(
-            // "/Users/dusannitschneider/.nvm/versions/node/v12.13.0/bin/node ../../dist/index.js ./domain/sample.bootstrap-config.json", opts);
             "$(which node) ../../dist/index.js ./domain/sample.bootstrap-config.json", opts);
 
-        // expect(mockRunCli).toHaveBeenCalled()
         expect(response).toBeTruthy()
     })
     afterEach(() => {

@@ -1,56 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`mainWorker class bootstraps netcoreSeleniumTfs with correct files 1`] = `
+exports[`mainWorker class jsTestcafe with correct files 1`] = `
 Array [
-  "/testProjectName/Selenium/SeleniumWrapper.cs",
-  "/testProjectName/Selenium/Components/MenuList.cs",
-  "/testProjectName/Selenium/Components/Notifier.cs",
-  "/testProjectName/Selenium/Components/Header.cs",
-  "/testProjectName/Selenium/Components/CreateForm.cs",
-  "/testProjectName/Selenium/Pages/PageObject.cs",
-  "/testProjectName/Selenium/Factory/WebDriverFactory.cs",
-  "/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.AssemblyInfoInputs.cache",
-  "/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.csprojAssemblyReference.cache",
-  "/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.AssemblyInfo.cs",
-  "/testProjectName/Testcomp.Testproject.E2E.Selenium.csproj",
-  "/testProjectName/Configuration/ConfigAccessor.cs",
-  "/testProjectName/Configuration/ConfigModel.cs",
-  "/testProjectName/Testcomp.Testproject.E2E.Selenium.sln",
-  "/testProjectName/Tests/Stories/GetMenuExampleTests.cs",
-  "/testProjectName/Tests/Steps/CreateMenu.cs",
-  "/testProjectName/Tests/Fixtures/BaseSetup.cs",
-  "/testProjectName/appsettings.json",
-  "/testProjectName/README.md",
-  "/testProjectName/Api/Builders/Http/HttpRequestFactory.cs",
-  "/testProjectName/Api/Builders/Http/HttpRequestBuilder.cs",
-  "/testProjectName.bootstrap-config.json",
-]
-`;
-
-exports[`mainWorker class bootstraps netcoreSeleniumTfs with correct files 2`] = `
-Array [
-  "/testProjectName/Selenium/SeleniumWrapper.cs",
-  "/testProjectName/Selenium/Components/MenuList.cs",
-  "/testProjectName/Selenium/Components/Notifier.cs",
-  "/testProjectName/Selenium/Components/Header.cs",
-  "/testProjectName/Selenium/Components/CreateForm.cs",
-  "/testProjectName/Selenium/Pages/PageObject.cs",
-  "/testProjectName/Selenium/Factory/WebDriverFactory.cs",
-  "/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.AssemblyInfoInputs.cache",
-  "/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.csprojAssemblyReference.cache",
-  "/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.AssemblyInfo.cs",
-  "/testProjectName/Testcomp.Testproject.E2E.Selenium.csproj",
-  "/testProjectName/Configuration/ConfigAccessor.cs",
-  "/testProjectName/Configuration/ConfigModel.cs",
-  "/testProjectName/Testcomp.Testproject.E2E.Selenium.sln",
-  "/testProjectName/Tests/Stories/GetMenuExampleTests.cs",
-  "/testProjectName/Tests/Steps/CreateMenu.cs",
-  "/testProjectName/Tests/Fixtures/BaseSetup.cs",
-  "/testProjectName/appsettings.json",
-  "/testProjectName/README.md",
-  "/testProjectName/Api/Builders/Http/HttpRequestFactory.cs",
-  "/testProjectName/Api/Builders/Http/HttpRequestBuilder.cs",
-  "/testProjectName.bootstrap-config.json",
   "/testProjectName/tsconfig.testcafe.json",
   "/testProjectName/.eslintrc",
   "/testProjectName/utils/utils.cf.ts",
@@ -63,6 +14,33 @@ Array [
   "/testProjectName/fixtures/yumido.test.axe.cf.ts",
   "/testProjectName/build/azDevops/azure/azure-pipeline-post-deploy-testcafe.yml",
   "/testProjectName/.testcaferc.json",
+  "/testProjectName.bootstrap-config.json",
+]
+`;
+
+exports[`mainWorker class netcoreSeleniumTfs with correct files 1`] = `
+Array [
+  "/testProjectName/Selenium/SeleniumWrapper.cs",
+  "/testProjectName/Selenium/Components/MenuList.cs",
+  "/testProjectName/Selenium/Components/Notifier.cs",
+  "/testProjectName/Selenium/Components/Header.cs",
+  "/testProjectName/Selenium/Components/CreateForm.cs",
+  "/testProjectName/Selenium/Pages/PageObject.cs",
+  "/testProjectName/Selenium/Factory/WebDriverFactory.cs",
+  "/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.AssemblyInfoInputs.cache",
+  "/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.csprojAssemblyReference.cache",
+  "/testProjectName/obj/Debug/netcoreapp3.1/Testcomp.Testproject.E2E.Selenium.AssemblyInfo.cs",
+  "/testProjectName/Testcomp.Testproject.E2E.Selenium.csproj",
+  "/testProjectName/Configuration/ConfigAccessor.cs",
+  "/testProjectName/Configuration/ConfigModel.cs",
+  "/testProjectName/Testcomp.Testproject.E2E.Selenium.sln",
+  "/testProjectName/Tests/Stories/GetMenuExampleTests.cs",
+  "/testProjectName/Tests/Steps/CreateMenu.cs",
+  "/testProjectName/Tests/Fixtures/BaseSetup.cs",
+  "/testProjectName/appsettings.json",
+  "/testProjectName/README.md",
+  "/testProjectName/Api/Builders/Http/HttpRequestFactory.cs",
+  "/testProjectName/Api/Builders/Http/HttpRequestBuilder.cs",
   "/testProjectName.bootstrap-config.json",
 ]
 `;
