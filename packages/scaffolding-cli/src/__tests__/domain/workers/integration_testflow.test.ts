@@ -58,7 +58,7 @@ describe("mainWorker class", () => {
 
         for await (const p of walk(tempDir)) results.push(p)
 
-        expect(results).toMatchSnapshot()
+        expect(results.sort()).toMatchSnapshot()
 
         expect(flowRan.ok).toBe(true)
         expect(flowRan).toHaveProperty("message")
@@ -75,7 +75,7 @@ describe("mainWorker class", () => {
 
         for await (const p of walk(tempDir)) results.push(p)
 
-        expect(results).toMatchSnapshot()
+        expect(results.sort()).toMatchSnapshot()
 
         expect(flowRan.ok).toBe(true)
         expect(flowRan).toHaveProperty("message")
