@@ -15,6 +15,6 @@ export function WorkflowOptions(): Workflow {
         testnetcoreseleniumanyazdevops: FlowSelector.optionNetcoreSeleniumAnyAzdevops,
         testjstestcafeanyazdevops: FlowSelector.optionJsTestcafeAnyAzdevops,
         ssrgkeazdevops: FlowSelector.optionSsrGkeAzdevops,
-        infraakszdevops: FlowSelector.optionInfraAksAzdevops
+        infraaksazdevops: FlowSelector.optionInfraAksAzdevops
     }
 }

@@ -102,7 +102,7 @@ ${ranAdvanced ? advanced : basic}
 📖 For guides and supporting information see: <url>
 
 💻 Thank you for using the Amido Stacks scaffolding-cli!
-         To contribute: https://github.com/amido/stacks"
+         To contribute: https://github.com/amido/stacks
 `
 }
 

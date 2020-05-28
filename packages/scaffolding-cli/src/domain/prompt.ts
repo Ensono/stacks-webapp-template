@@ -102,8 +102,7 @@ async function getFromConfig(configPath: string): Promise<CliAnswerModel> {
 }
 
 async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {
-    // Converting to camel case
-    const determinedChoice = `${selection.projectType}${selection?.platform || "Any"}${selection.deployment}`
+    const determinedChoice = `${selection.projectType}${selection?.platform || "any"}${selection.deployment}`
 
     const workflows: Workflow = WorkflowOptions()
     try {

@@ -46,7 +46,7 @@
       },
       {
         "src": "test/testcafe",
-        "dest": "test"
+        "dest": "test/testcafe"
       },
       {
         "src": "docs",

@@ -73,8 +73,7 @@ async function getFromConfig(config_path: string): Promise<PromptAnswer> {
 }
 
 async function selectFlow(selection: PromptAnswer): Promise<ExitMessage> {
-    let determinedChoice = `${selection.projectType}${selection?.platform
-        ?.toUpperCase || "Any"}${selection.deployment.toUpperCase}`
+    let determinedChoice = `${selection.projectType}${selection?.platform || "Any"}${selection.deployment}`
 
     const workflows: Workflow = WorkflowOptions()
 

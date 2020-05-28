@@ -69,31 +69,31 @@ export function cliQuestions(
                     value: "ssr",
                 },
                 {
-                    title: "React CSRReact app with client side rendering",
+                    title: "React app with client side rendering",
                     description: "React, CSR, typescript",
                     value: "csr",
                 },
                 {
                     title: "API with .NET",
-                    description: "api, netcore, server, restful",
+                    description: "api, netcore, server, restfull",
                     value: "netcore",
                 },
                 {
                     title: "API with Java",
                     description: "api, java, springboot",
-                    value: "javaSpring",
+                    value: "javaspring",
                 },
                 {
                     title: "Selenium framework with .NET",
                     description:
                         "automation, bddfy, xunit, webdriver, netcore, e2e, standalone",
-                    value: "testNetcoreSelenium",
+                    value: "testnetcoreselenium",
                 },
                 {
                     title: "TestCafe framework with Typescript",
                     description:
                         "in-browser, automation, node.js, javascript, bdd, cross browser",
-                    value: "testJsTestcafe",
+                    value: "testjstestcafe",
                 },
                 {
                     title: "Cloud platform shared services",
@@ -155,17 +155,17 @@ export function advancedQuestions(): Array<PromptQuestion> {
                 {
                     title: "Azure",
                     description: "Azure Blob",
-                    value: "azure_blob",
+                    value: "azureBlob",
                 },
                 {
                     title: "AWS S3",
                     description: "S3 bucket",
-                    value: "aws_s3",
+                    value: "awsS3",
                 },
                 {
                     title: "GCS",
                     description: "GCP Storage bucket",
-                    value: "gcp_gcs",
+                    value: "gcpGcs",
                 },
             ],
             initial: 0,
@@ -202,7 +202,7 @@ export function platformQuestions(): Array<PromptQuestion> {
         {
             type: "confirm",
             name: "enableAdvanced",
-            message: "Continue to additional project configuration",
+            message: "Continue to additional project configuration?",
             initial: true,
         },
     ]

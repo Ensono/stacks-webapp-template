@@ -1,6 +1,6 @@
 {
   "projectName": "testcafe",
-  "projectType": "jsTestcafe",
+  "projectType": "testjstestcafe",
   "platform": "aks",
   "deployment": "azdevops",
   "advancedConfig": false,

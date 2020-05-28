@@ -19,6 +19,25 @@
         "--config=jest.config.json",
         "src/__tests__/domain/workers/integration_testflow.test.ts"
       ]
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "scaffolding-cli",
+      "program": "${workspaceFolder}/dist/index.js",
+      "cwd": "${workspaceFolder}",
+      "protocol": "inspector",
+      "outFiles": ["${workspaceFolder}/dist/*/.js"],
+      "console": "internalConsole",
+      "preLaunchTask": "RunBuildCli",
+      "outputCapture": "std",
+      "sourceMaps": true,
+      "disableOptimisticBPs": false,
+      "env": {
+        "NODE_ENV": "dev",
+        "LOG_LEVEL": "debug"
+      },
+      "args": ["run", "-c", "src/__tests__/domain/netcoreSelenium.bootstrap-config.json"]
+    },
   ]
 }

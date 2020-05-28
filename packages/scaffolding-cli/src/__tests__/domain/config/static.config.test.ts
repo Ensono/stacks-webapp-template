@@ -4,7 +4,7 @@ import { Static } from '../../../domain/model/config';
 
 let staticConf: Static = conf as Static;
 
-let currentSupportedPaths = [ "ssr", "csr", "netcore", "netcoreSelenium", "netcoreSelenium", "jsTestcafe", "ssrGke", "aksInfra" ]
+let currentSupportedPaths = [ "ssr", "csr", "netcore", "javaSpring", "netcoreSelenium", "jsTestcafe", "ssrGke", "aksInfra" ]
 
 let confKeys = Object.keys(staticConf)
 
