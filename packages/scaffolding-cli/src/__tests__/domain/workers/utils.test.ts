@@ -3,12 +3,10 @@ import { PromptAnswer, CliAnswerModel } from '../../../domain/model/prompt_answe
 import { CliResponse, BaseResponse, TempCopy } from '../../../domain/model/workers'
 import { Utils, copyFilter, renamerRecursion } from '../../../domain/workers/utils';
 import * as fse from 'fs-extra'
-import * as fs from 'fs'
 import { Replacetruct } from '../../../domain/config/file_mapper';
 import * as rif from 'replace-in-file'
 import gitP, { SimpleGit } from 'simple-git/promise';
 import { FolderMap } from '../../../domain/model/config';
-import { Stats } from 'fs-extra';
 import { tmpdir } from 'os';
 
 jest.mock('fs-extra')
@@ -25,13 +23,11 @@ const mockCopy = jest.spyOn(fse, 'copy')
 
 const mockMove = jest.spyOn(fse, 'move')
 
-const mockReplace = jest.spyOn(rif, 'default')
+const mockReplace = jest.spyOn(rif, 'replaceInFile')
 
-const mockReaddir = jest.spyOn(fs, 'readdir')
+const mockReaddir = jest.spyOn(fse, 'readdir')
 
-const mockStat = jest.spyOn(fs, 'stat')
-
-const mockRename = jest.spyOn(fs, 'rename')
+const mockRename = jest.spyOn(fse, 'rename')
 
 let mock_answer = <PromptAnswer>{
     projectName: "foo",

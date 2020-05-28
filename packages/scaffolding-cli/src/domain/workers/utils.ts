@@ -1,7 +1,7 @@
 import { copy, move, remove, ensureDir, rename, stat, readdir, Stats} from 'fs-extra'
 import { tmpdir } from 'os'
 import { startCase, toLower } from 'lodash'
-import replace, { ReplaceInFileConfig } from 'replace-in-file'
+import { ReplaceInFileConfig, replaceInFile } from 'replace-in-file'
 import { resolve } from 'path'
 import logger from 'simple-winston-logger-abstraction'
 import gitP, { SimpleGit } from 'simple-git/promise';
@@ -135,7 +135,7 @@ export class Utils {
                     allowEmptyPaths: true,
                     countMatches: val.countMatches
                 }
-                await replace(options)
+                await replaceInFile(options)
             })
             fsResponse.ok = true
             fsResponse.message = 'replaced all occurences'
