@@ -68,14 +68,15 @@ export const inFiles = ({
 }
 
 export const introUsageMessage = (): string => {
-    return `Bootstrap a templated project webapp, API and/or testing framework with supporting pipelines and infrastructure by answering just a few questions.\n
-For more information on the scaffolding-cli flow, please see <url>.\n
-
+    return `
+    
 ███████ ████████  █████   ██████ ██   ██ ███████ 
 ██         ██    ██   ██ ██      ██  ██  ██      
 ███████    ██    ███████ ██      █████   ███████ 
      ██    ██    ██   ██ ██      ██  ██       ██ 
-███████    ██    ██   ██  ██████ ██   ██ ███████ 
+███████    ██    ██   ██  ██████ ██   ██ ███████
+\nBootstrap a templated project webapp, API and/or testing framework with supporting pipelines and infrastructure by answering just a few questions.\n
+For more information on the scaffolding-cli flow: https://amido.github.io/stacks/.\n
 `
 }
 
