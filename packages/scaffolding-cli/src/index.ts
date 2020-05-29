@@ -8,15 +8,9 @@ import {
     finalErrorMessage,
     introUsageMessage,
 } from "./domain/config/worker_maps/shared"
+import * as content from "./content"
 
-const optionConfigDescribe =
-    "Path to config file that will be used in the scaffolding process"
-const optionConfigDescription = "Path to config file"
-
-const optionInteractiveDescribe = "Create project interactively"
-const optionInteractiveDescription = "Run interactively"
-
-async function cliCommand(argv: CliOptions) {
+async function cliCommand(argv: CliOptions): Promise<ExitMessage>{
     try {
         const defaultProjectName = basename(resolve(process.cwd()))
         let response: ExitMessage = {} as ExitMessage
@@ -32,7 +26,7 @@ async function cliCommand(argv: CliOptions) {
             return process.exit(0)
         }
 
-        if (response.code != 0) {
+        if (response.code !== 0) {
             console.log(
                 chalk.red(finalErrorMessage(response.message, response.code)),
             )
@@ -50,7 +44,41 @@ async function cliCommand(argv: CliOptions) {
     }
 }
 
-const runOptions = (yargs: any) => {
+async function cliTestCommand(argv: CliOptions): Promise<ExitMessage>{
+    try {
+        const defaultProjectName = basename(resolve(process.cwd()))
+        let response: ExitMessage = {} as ExitMessage
+
+        if (argv.configfile) {
+            // run with a config file
+            response = await runConfig(argv)
+        } else if (argv.interactive) {
+            // run cli flow
+            response = await runCli(defaultProjectName)
+        } else {
+            console.log(chalk.cyan(yargs.showHelp())) // "Please select an appropriate option"
+            return process.exit(0)
+        }
+
+        if (response.code !== 0) {
+            console.log(
+                chalk.red(finalErrorMessage(response.message, response.code)),
+            )
+            return process.exit(0)
+        }
+
+        console.log(chalk.cyan(response.message))
+        return process.exit(0)
+    } catch (ex) {
+        const exCaught = ex as ExitMessage
+        console.log(
+            chalk.red(finalErrorMessage(exCaught.message, exCaught.code)),
+        )
+        return process.exit(ex.code || -1)
+    }
+}
+
+const runOptions = () => {
     yargs
         .scriptName("@amidostacks/scaffolding-cli")
         .options("c", {
@@ -58,27 +86,27 @@ const runOptions = (yargs: any) => {
             type: "string",
             nargs: 1,
             demandOption: false,
-            describe: optionConfigDescription,
-            description: optionConfigDescription,
+            describe: content.options.config.describe,
+            description: content.options.config.description,
         })
         .options("interactive", {
             alias: ["i"],
             type: "boolean",
             demandOption: false,
-            describe: optionInteractiveDescribe,
-            description: optionInteractiveDescription,
+            describe: content.options.interactive.describe,
+            description: content.options.interactive.description,
         })
         .options("infra", {
-            alias: ["infra-only"],
+            alias: ["infra-only", "infra"],
             type: "boolean",
             demandOption: false,
-            describe: "Run CLI only generating infra specific outputs",
-            description: "Infra only outputs",
+            describe: content.options.infra.describe,
+            description: content.options.infra.description,
         })
     return yargs
 }
 
-let runTestOptions = (yargs: any) => {
+const runTestOptions = () => {
     yargs
         .scriptName("@amidostacks/scaffolding-cli")
         .options("c", {
@@ -86,44 +114,45 @@ let runTestOptions = (yargs: any) => {
             type: "string",
             nargs: 1,
             demandOption: false,
-            describe: optionConfigDescribe,
-            description: optionConfigDescription,
+            describe: content.options.config.describe,
+            description: content.options.config.description,
         })
         .options("i", {
             alias: ["i"],
             type: "boolean",
             demandOption: false,
-            describe: optionInteractiveDescribe,
-            description: optionInteractiveDescription,
+            describe: content.options.config.describe,
+            description: content.options.config.description,
         })
     return yargs
 }
 // main cli entry
+// eslint-disable-next-line no-unused-expressions
 yargs
     .scriptName("@amidostacks/scaffolding-cli")
     .command(
-        "run [options]",
-        `Create a templated solution project`,
+        content.main.command.run.command,
+        content.main.command.run.description,
         runOptions,
         cliCommand,
     )
     .command(
-        "test [options]",
-        "Create a standalone test framework",
+        content.main.command.test.command,
+        content.main.command.test.description,
         runTestOptions,
         cliCommand,
     )
     .usage(`${introUsageMessage()}\nUsage: npx $0 <command> [options]`)
     .example(
         "$0 run -i",
-        "Run Scaffolding CLI with interactive prompts",
+        content.options.interactive.description,
     )
     .example(
-        "$0 run -c sample.bootstrap.config.json",
-        "Run Scaffolding CLI with a options specified in a config file",
+        "$0 run -c sample.bootstrap-config.json",
+        content.options.config.description,
     )
-    .example("$0 test -i", "Create a standalone test framework interactively")
-    .example("$0 run -infra", "Generate infra only output")
+    .example("$0 test -i", content.options.interactive.description)
+    .example("$0 run -infra", content.options.infra.description)
     .help()
     .demandCommand()
     .showHelpOnFail(true, "Specify --help for available options")

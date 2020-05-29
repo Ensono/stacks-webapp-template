@@ -76,7 +76,7 @@ export const introUsageMessage = (): string => {
      ██    ██    ██   ██ ██      ██  ██       ██ 
 ███████    ██    ██   ██  ██████ ██   ██ ███████
 \nBootstrap a templated project webapp, API and/or testing framework with supporting pipelines and infrastructure by answering just a few questions.\n
-For more information on the scaffolding-cli flow: https://amido.github.io/stacks/.\n
+For more information: https://amido.github.io/stacks\n
 `
 }
 

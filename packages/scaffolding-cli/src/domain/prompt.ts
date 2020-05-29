@@ -34,7 +34,7 @@ export async function runConfig(cliArgs: CliOptions): Promise<ExitMessage> {
 }
 
 const onCancel = (prompt: any) => {
-    console.log("Never stop prompting!")
+    console.log("Selecting default answer.")
     return true
 }
 
