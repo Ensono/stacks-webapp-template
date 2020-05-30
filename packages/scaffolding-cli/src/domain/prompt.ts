@@ -46,15 +46,15 @@ const onCancel = () => {
  */
 async function getFromCli(defaultProjectName: string, cliArgs: CliOptions): Promise<PromptAnswer> {
     let initialQs: Array<PromptQuestion> = new Array<PromptQuestion>()
-    let questions: Array<PromptQuestion>
     
     // If the command is test, go through test flow:
     if (cliArgs._[0] === "test") {
-        questions = cliTestQuestions(defaultProjectName)
-    } else {
-        questions = cliQuestions(defaultProjectName)
+        initialQs = cliTestQuestions(defaultProjectName)
+        const cliSelection = await prompt(initialQs, {onCancel})
+        return cliSelection
     }
 
+    const questions = cliQuestions(defaultProjectName)
     questions.forEach(el => {
         initialQs = [...initialQs, el]
     })
@@ -98,7 +98,7 @@ async function getFromConfig(configPath: string): Promise<CliAnswerModel> {
         configSelection = JSON.parse(readFileSync(configPath, "utf-8").trim())
     } else {
         configSelection = JSON.parse(
-            awaitreadFileSync(resolve(process.cwd(), configPath), "utf-8").trim(),
+            readFileSync(resolve(process.cwd(), configPath), "utf-8").trim(),
         )
     }
 
