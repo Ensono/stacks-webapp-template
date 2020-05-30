@@ -86,10 +86,7 @@ export const finalResponseMessage = (
     ranAdvanced = false,
 ): string => {
     const dir: string = resolve(process.cwd(), projectName)
-    const configFile: string = resolve(
-        dir,
-        `${projectName}.bootstrap.config.json`,
-    )
+    const configFile: string = resolve(dir, `../${projectName}.bootstrap-config.json`)
     const advanced = `* your selected advanced configuration has been saved to ${configFile}. To edit and rerun, see <> for more info.`
     const basic = `your selected configuration and additional project default has been saved to ${configFile}. To change provided default configuration please edit and rerun. See <> for more info`
     return `${message}\

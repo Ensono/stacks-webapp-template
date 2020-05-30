@@ -20,41 +20,7 @@ async function cliCommand(argv: CliOptions): Promise<ExitMessage>{
             response = await runConfig(argv)
         } else if (argv.interactive) {
             // run cli flow
-            response = await runCli(defaultProjectName)
-        } else {
-            console.log(chalk.cyan(yargs.showHelp())) // "Please select an appropriate option"
-            return process.exit(0)
-        }
-
-        if (response.code !== 0) {
-            console.log(
-                chalk.red(finalErrorMessage(response.message, response.code)),
-            )
-            return process.exit(0)
-        }
-
-        console.log(chalk.cyan(response.message))
-        return process.exit(0)
-    } catch (ex) {
-        const exCaught = ex as ExitMessage
-        console.log(
-            chalk.red(finalErrorMessage(exCaught.message, exCaught.code)),
-        )
-        return process.exit(ex.code || -1)
-    }
-}
-
-async function cliTestCommand(argv: CliOptions): Promise<ExitMessage>{
-    try {
-        const defaultProjectName = basename(resolve(process.cwd()))
-        let response: ExitMessage = {} as ExitMessage
-
-        if (argv.configfile) {
-            // run with a config file
-            response = await runConfig(argv)
-        } else if (argv.interactive) {
-            // run cli flow
-            response = await runCli(defaultProjectName)
+            response = await runCli(defaultProjectName, argv)
         } else {
             console.log(chalk.cyan(yargs.showHelp())) // "Please select an appropriate option"
             return process.exit(0)
@@ -117,7 +83,7 @@ const runTestOptions = () => {
             describe: content.options.config.describe,
             description: content.options.config.description,
         })
-        .options("i", {
+        .options("interactive", {
             alias: ["i"],
             type: "boolean",
             demandOption: false,
