@@ -6,6 +6,10 @@ import {PromptAnswer} from "../../domain/model/prompt_answer"
 import {FlowSelector} from "../../domain/selectors"
 import {Utils} from "../../domain/workers/utils"
 
+let cliArgs: CliOptions = <CliOptions>{
+    _: ["run"],
+}
+
 let cliOptsConfigFileSsr: CliOptions = <CliOptions>{
     configfile: resolve(__dirname, "ssr.bootstrap-config.json"),
 }
@@ -81,7 +85,7 @@ describe("prompt class tests", () => {
                 return Promise.resolve(mock_ssr_aks_tfs_answer)
             })
 
-            let cliResult: ExitMessage = await runCli("test")
+            let cliResult: ExitMessage = await runCli("test", cliArgs)
             expect(mockPrompt).toHaveBeenCalled()
             expect(cliResult).toHaveProperty("code")
             expect(cliResult).toHaveProperty("message")
@@ -108,7 +112,7 @@ describe("prompt class tests", () => {
                     )
                 })
 
-            let cliResult: ExitMessage = await runCli("test")
+            let cliResult: ExitMessage = await runCli("test", cliArgs)
             expect(mockPrompt).toHaveBeenCalledTimes(2)
             expect(cliResult).toHaveProperty("code")
             expect(cliResult).toHaveProperty("message")
