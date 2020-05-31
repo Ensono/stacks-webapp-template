@@ -51,7 +51,15 @@ spec:
                 secretKeyRef:
                   name: appinsights
                   key: INSTRUMENTATIONKEY
-
+            
+            - name: NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
+              value: '9L3ML2_zyQ2FrnFvuXeWES2wPWVqEnQj0Lx14UtAx4o'
+            - name: NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN
+              value: '4JrZBpD7-sDb_qjD4KB3Z34eNtCR1QqgvnCYlKqZ4Wg'
+            - name: NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET
+              value: 'Stacks'
+            - name: NEXT_PUBLIC_CONTENTFUL_SPACE_ID
+              value: 'veka2or2977j'
           # Remove limits and let the Pods container get the default (800cpu)
           # resources:
           #   limits:
