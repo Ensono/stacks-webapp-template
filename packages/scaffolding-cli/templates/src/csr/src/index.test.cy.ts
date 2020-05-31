@@ -55,7 +55,7 @@ describe("/ (index)", () => {
         cy.wait("@getStubbedMenu") //resolve the stub first
 
         cy.get("#search-bar").should("be.visible").type("T")
-        cy.wait("@getStubbedMenu").should((xhr) => {
+        cy.wait("@getStubbedMenu").should(xhr => {
             expect(xhr.url).to.match(/=T$/)
         })
     })

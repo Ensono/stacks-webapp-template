@@ -90,6 +90,7 @@ function getClientEnvironment(publicUrl) {
                 WDS_SOCKET_PORT: process.env.WDS_SOCKET_PORT,
                 // Stacks: adding in external api URL
                 MENU_API_URL: process.env.MENU_API_URL,
+                APPINSIGHTS_KEY: process.env.APPINSIGHTS_KEY || "",
             },
         )
     // Stringify all values so we can feed into webpack DefinePlugin

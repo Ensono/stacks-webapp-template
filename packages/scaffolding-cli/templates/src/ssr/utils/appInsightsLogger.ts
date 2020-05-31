@@ -28,7 +28,7 @@ export interface ICustomConfig {
 export const withApplicationInsights = (
     config: IConfiguration & IConfig & ICustomConfig,
 ) => {
-    return (App: typeof NextApp) => {
+    return App => {
         return class WithApplicationInsights extends React.Component<
             WithApplicationInsightsProps & AppProps
         > {
