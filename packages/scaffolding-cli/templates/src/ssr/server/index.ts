@@ -48,7 +48,7 @@ export default app
         const server = express()
 
         // TODO: Enable passport for CI
-        if (false) {
+        if (!process.env.CI) {
             // Express session for Auth
             const sessionConfig = {
                 secret: uid.sync(18),
