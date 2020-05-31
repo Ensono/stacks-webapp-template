@@ -2,6 +2,7 @@ import contentful, {Entry} from "contentful"
 import FeaturedPost from "components/FeaturedPost"
 import {PostType} from "interfaces/blog.interface"
 import MainFeaturedPost from "components/MainFeaturedPost"
+import React from "react"
 
 type BlogProps = {
     posts: contentful.Entry<PostType>[]

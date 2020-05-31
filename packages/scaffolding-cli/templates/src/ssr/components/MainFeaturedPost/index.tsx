@@ -43,7 +43,6 @@ export default function MainFeaturedPost(props) {
             className={classes.mainFeaturedPost}
             style={{backgroundImage: `url(${coverImage.url})`}}
         >
-            {/* Increase the priority of the hero background image */}
             {<img style={{display: "none"}} src={coverImage.url} alt={title} />}
             <div className={classes.overlay} />
             <Grid container>

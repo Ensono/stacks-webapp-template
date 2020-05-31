@@ -28,6 +28,8 @@
     "**/*.tsx",
     "**/*.js",
     "pages/create",
+    "pages/profile",
+    "pages/create",
     "pages/profile"
   ]
 }

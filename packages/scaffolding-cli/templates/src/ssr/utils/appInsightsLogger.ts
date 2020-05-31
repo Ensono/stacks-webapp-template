@@ -31,7 +31,7 @@ export const withApplicationInsights = (
     return (App: typeof NextApp) => {
         return class WithApplicationInsights extends React.Component<
             WithApplicationInsightsProps & AppProps
-            > {
+        > {
             annotationString = `${packageConfig.name}: ${packageConfig.version}`
             public static getInitialProps = async (appCtx: AppContext) => {
                 let appProps = {pageProps: {}}
@@ -92,7 +92,7 @@ export const withApplicationInsights = (
                     const properties = {
                         route: this.props.router.route,
                         project_name: packageConfig.name,
-                        version: packageConfig.version
+                        version: packageConfig.version,
                     }
                     if (this.props.router.query) {
                         for (const key in this.props.router.query) {

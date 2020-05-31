@@ -2,7 +2,7 @@ import * as AI from "applicationinsights"
 import bodyParser from "body-parser"
 import express from "express"
 import next from "next"
-import conf from "../environment-configuration"
+// import conf from "../environment-configuration"
 import api from "./api"
 import logger from "./core/root-logger"
 import errorHandler from "./middlewares/error-handler"
@@ -19,7 +19,7 @@ if (!process.env.CI) {
     appInsights.setup().setAutoCollectConsole(true).start()
 }
 
-const port = parseInt(conf.PORT || "3000", 10)
+const port = parseInt(process.env.PORT || "3000", 10)
 const app = next({dev: process.env.NODE_ENV !== "production", dir: "."})
 const handle = app.getRequestHandler()
 app.renderOpts.poweredByHeader = false
@@ -62,10 +62,10 @@ export default app
             //Configuring Auth0Strategy
             const auth0Strategy = new Auth0Strategy(
                 {
-                    domain: conf.AUTH0_DOMAIN,
-                    clientID: conf.AUTH0_CLIENT_ID,
-                    clientSecret: conf.AUTH0_CLIENT_SECRET,
-                    callbackURL: conf.AUTH0_CALLBACK_URL,
+                    domain: process.env.AUTH0_DOMAIN,
+                    clientID: process.env.AUTH0_CLIENT_ID,
+                    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+                    callbackURL: process.env.AUTH0_CALLBACK_URL,
                 },
                 function (
                     accessToken,
@@ -117,7 +117,7 @@ export default app
             })
 
             logger.info(
-                `> Ready on ${conf.APP_BASE_URL}:${port}${conf.APP_BASE_PATH}`,
+                `> Ready on ${process.env.APP_BASE_URL}:${port}${process.env.APP_BASE_PATH}`,
                 "server",
             )
             logger.info(

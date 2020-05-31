@@ -1,5 +1,5 @@
-import {Api, HTTPMethod, buildExport} from '.'
-import conf from '../../environment-configuration'
+import {Api, HTTPMethod, buildExport} from "."
+import conf from "../../environment-configuration"
 
 class MenuApi implements Api {
     externalBaseURL = conf.MENU_API_URL
@@ -40,4 +40,4 @@ class MenuApi implements Api {
 }
 const menuApi = new MenuApi()
 export default (endpoint: keyof typeof menuApi.endpoints) =>
-  buildExport(menuApi, endpoint)
+    buildExport(menuApi, endpoint)

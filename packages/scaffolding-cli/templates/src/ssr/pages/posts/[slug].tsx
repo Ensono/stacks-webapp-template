@@ -4,20 +4,19 @@ import {
     getAllPostsWithSlug,
     getPostAndMorePosts,
 } from "../../lib/contentful-api"
+import React from "react"
 
 export default function Post({post, morePosts, preview}) {
     const router = useRouter()
-    debugger
     if (!router.isFallback && !post) {
         return <NextError statusCode={404} />
     }
 
-    return <div>Posts here!!</div>
+    return <>{router.isFallback ? <p>Loading...</p> : <h1>{post.title}</h1>}</>
 }
 
 export async function getStaticProps({params, preview = false}) {
     const data = await getPostAndMorePosts(params.slug, preview)
-
     return {
         props: {
             preview,

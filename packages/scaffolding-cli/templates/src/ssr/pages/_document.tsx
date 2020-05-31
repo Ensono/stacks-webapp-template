@@ -1,11 +1,8 @@
-import React from "react"
-import Document, {Head, Main, NextScript, Html} from "next/document"
 import {ServerStyleSheets} from "@material-ui/core/styles"
+import Document, {Head, Html, Main, NextScript} from "next/document"
+import React from "react"
 import theme from "../config/theme"
-import getConfig from "next/config"
 
-const {publicRuntimeConfig} = getConfig()
-const {APP_BASE_URL, APP_BASE_PATH} = publicRuntimeConfig
 export default class MyDocument extends Document {
     render() {
         return (
@@ -23,20 +20,20 @@ export default class MyDocument extends Document {
                     <link
                         rel="icon"
                         type="image/x-icon"
-                        href={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/favicon.ico`}
+                        href={`${process.env.APP_BASE_URL}${process.env.APP_BASE_PATH}/static/icons/favicon.ico`}
                     />
                     <meta
                         property="og:image"
-                        content={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/favicon-96x96.png`}
+                        content={`${process.env.APP_BASE_URL}${process.env.APP_BASE_PATH}/static/icons/favicon-96x96.png`}
                     />
                     <meta name="msapplication-TileColor" content="#000000" />
                     <meta
                         name="msapplication-config"
-                        content={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/browserconfig.xml`}
+                        content={`${process.env.APP_BASE_URL}${process.env.APP_BASE_PATH}/static/icons/browserconfig.xml`}
                     />
                     <link
                         rel="manifest"
-                        href={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/manifest.json`}
+                        href={`${process.env.APP_BASE_URL}${process.env.APP_BASE_PATH}/static/icons/manifest.json`}
                     />
                     <meta
                         name="description"

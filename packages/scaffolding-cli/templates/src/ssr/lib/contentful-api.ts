@@ -1,21 +1,13 @@
 import {createClient} from "contentful"
-import getConfig from "next/config"
-
-const {publicRuntimeConfig} = getConfig()
-const {
-    NEXT_CMS_CONTENTFUL_SPACE_ID,
-    NEXT_CMS_CONTENTFUL_ACCESS_TOKEN,
-    NEXT_CMS_CONTENTFUL_PREVIEW_ACCESS_TOKEN,
-} = publicRuntimeConfig
 
 const client = createClient({
-    space: NEXT_CMS_CONTENTFUL_SPACE_ID,
-    accessToken: NEXT_CMS_CONTENTFUL_ACCESS_TOKEN,
+    space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
+    accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
 })
 
 const previewClient = createClient({
-    space: NEXT_CMS_CONTENTFUL_SPACE_ID,
-    accessToken: NEXT_CMS_CONTENTFUL_PREVIEW_ACCESS_TOKEN,
+    space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
+    accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN,
     host: "preview.contentful.com",
 })
 
