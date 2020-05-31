@@ -33,10 +33,6 @@ const bindMiddleware = middleware => {
 const configureStore = (preloadedState: any = {}) => {
     const sagaMiddleware = createSagaMiddleware()
 
-    // const middlewares = [sagaMiddleware, logger]
-    // const middlewareEnhancer = applyMiddleware(...middlewares)
-
-    // const enhancers = [middlewareEnhancer]
     const composedEnhancers = bindMiddleware([sagaMiddleware, logger])
 
     const store: WithSagaTaskStore = createStore(
