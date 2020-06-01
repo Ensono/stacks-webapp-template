@@ -271,7 +271,7 @@ stages:
                           namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
                           tls_domain: $(base_domain),
-                          k8s_app_path: /web/stacks,
+                          k8s_app_path: '',
                           k8s_image: '$(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag)',
                           version: $(docker_image_tag),
                           role: $(role),
@@ -282,7 +282,8 @@ stages:
                           component: web,
                           app_name: webapp-template,
                           resource_def_name: node-app,
-                          environment: dev
+                          environment: dev,
+                          app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY)
                         }
                       }
                     ]
@@ -290,16 +291,18 @@ stages:
                 - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kubectl-generic.yml@templates
                   parameters:
                     environment: "dev"
+                    login_gcp: true
+                    login_gke: true
                     gcp_auth: {
-                      CLOUDSDK_COMPUTE_REGION: $(region),
-                      CLOUDSDK_CONTAINER_CLUSTER: $(cluster_name),
-                      CLOUDSDK_CORE_PROJECT: $(project_id),
+                      CLOUDSDK_COMPUTE_REGION: $(gcp_region),
+                      CLOUDSDK_CONTAINER_CLUSTER: $(gcp_cluster_name),
+                      CLOUDSDK_CORE_PROJECT: $(gcp_project_id),
                       CLOUDSDK_CORE_DISABLE_PROMPTS: "True"
                     }
                     # ONLY USED FOR kubectl apply
                     cluster_name: $(gcp_cluster_name)
                     deployment_defs: 
-                      - { name: app_deploy, file: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml, context: --context $(gcp_cluster_name)}
+                      - { name: app_deploy, file: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml, context: ""}
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
                     appinsights_enabled: false
             on:

@@ -1,13 +1,13 @@
 {
-  "project_name": "test-app-1",
-  "project_type": "java_spring",
+  "projectName": "test-app-1",
+  "projectType": "javaSpring",
   "platform": "aks",
   "deployment": "azdevops",
-  "advanced_config": true,
-  "create_config": false,
+  "advancedConfig": true,
+  "createConfig": false,
   "cloud": {
     "region": "uksouth",
-    "resource_group": "string"
+    "resourceGroup": "string"
   },
   "business": {
     "company": "string",

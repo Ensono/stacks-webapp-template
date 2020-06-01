@@ -1,4 +1,4 @@
-# project_name
+# projectName
 
 This project contains the following components:
 

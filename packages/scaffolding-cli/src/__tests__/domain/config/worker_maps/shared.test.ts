@@ -1,11 +1,11 @@
-import { final_response_message, final_error_message } from '../../../../domain/config/worker_maps/shared'
+import { finalResponseMessage, finalErrorMessage } from '../../../../domain/config/worker_maps/shared'
 import { shared } from '../../../../domain/config/worker_maps'
 import { SourceControlSection, CloudSection, BusinessSection, TerraformSection } from '../../../../domain/model/prompt_answer'
 import { BuildReplaceInput } from '../../../../domain/config/file_mapper'
 
-let test_project_name: string = "test-app-1"
-let sample_message: string = "All Successful"
-let sample_error_message: string = "All UNSuccessful"
+let testProjectName: string = "test-app-1"
+let sampleMessage: string = "All Successful"
+let sampleErrorMessage: string = "All UNSuccessful"
 
 let biz: BusinessSection = <BusinessSection>{
     company: "test",
@@ -16,31 +16,31 @@ let biz: BusinessSection = <BusinessSection>{
 
 let cloud: CloudSection = <CloudSection>{
     region: "uksouth",
-    resource_group: "my-rg"
+    resourceGroup: "my-rg"
 }
 
-let scm_obj: SourceControlSection = <SourceControlSection>{
-    repo_type: "github",
-    repo_name: "A-RB"
+let scmObj: SourceControlSection = <SourceControlSection>{
+    repoType: "github",
+    repoName: "A-RB"
 }
 
-let terraform_obj: TerraformSection = <TerraformSection>{
-    backend_storage: "foo",
-    backend_storage_container: "container",
-    backend_storage_rg: "tg"
+let terraformObj: TerraformSection = <TerraformSection>{
+    backendStorage: "foo",
+    backendStorageContainer: "container",
+    backendStorageRg: "tg"
 }
 
 let files: Array<BuildReplaceInput> = [
     {
         files: ["**/*.md", "**/*.properties"],
         values: {
-            "project_name": test_project_name
+            "project_name": testProjectName
         }
     },
     {
         files: ["**/*-pipeline.yml"],
         values: {
-            "stacks-webapp-template/packages/scaffolding-cli/templates": scm_obj.repo_name,
+            "stacks-webapp-template/packages/scaffolding-cli/templates": scmObj.repoName,
             "packages/scaffolding-cli/templates/": "",
             "self_repo_tf_src: deploy/azure/infra/stacks-aks": "self_repo_tf_src: deploy/azure/infra",
             // "amido-stacks-nonprod-node": "REPLACE_ME_FOR_RG_NAME",
@@ -52,9 +52,9 @@ let files: Array<BuildReplaceInput> = [
             "nonprod.amidostacks.com": "REPLACE_ME_FOR_DOMAIN",
             "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
             "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
-            "tf_state_storage: amidostackstfstategbl": `tf_state_storage: ${terraform_obj.backend_storage}`,
-            "tf_state_rg: amido-stacks-rg-uks": `tf_state_rg: ${terraform_obj.backend_storage_rg}`,
-            "tf_state_container: tfstate": `tf_state_container: ${terraform_obj?.backend_storage_container}`,
+            "tf_state_storage: amidostackstfstategbl": `tf_state_storage: ${terraformObj.backendStorage}`,
+            "tf_state_rg: amido-stacks-rg-uks": `tf_state_rg: ${terraformObj.backendStorageRg}`,
+            "tf_state_container: tfstate": `tf_state_container: ${terraformObj?.backendStorageContainer}`,
             "tf_state_key: sharedservices": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_SHARED_SERVICES%`,
             "terraform_state_workspace: nonprod": "terraform_state_workspace: %REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE%",
         }
@@ -62,25 +62,25 @@ let files: Array<BuildReplaceInput> = [
 ]
 
 describe("shared worker_maps tests", () => {
-   it("final_response_message should return a formatted string", () => {
-        let test: string = final_response_message(test_project_name, sample_message)
+   it("finalResponseMessage should return a formatted string", () => {
+        let test: string = finalResponseMessage(testProjectName, sampleMessage)
         expect(test).toMatch("All Successful")
     })
-    it("final_response_message should return a formatted string with config description", () => {
-        let test: string = final_response_message(test_project_name, sample_message)
+    it("finalResponseMessage should return a formatted string with config description", () => {
+        let test: string = finalResponseMessage(testProjectName, sampleMessage)
         expect(test).toMatch("Next steps: check out your")
     })
     it("final_error_message should return a formatted string", () => {
-        let test: string = final_error_message(sample_error_message)
+        let test: string = finalErrorMessage(sampleErrorMessage)
         expect(test).toMatch("All UNSuccessful")
     })
-    it("final_response_message should return a formatted string with a code", () => {
-        let test: string = final_error_message(sample_error_message, -12)
-        expect(test).toMatch(sample_error_message)
+    it("finalResponseMessage should return a formatted string with a code", () => {
+        let test: string = finalErrorMessage(sampleErrorMessage, -12)
+        expect(test).toMatch(sampleErrorMessage)
         expect(test).toMatch("code:")
     })
     it("in_files return an array of objects and cloud should be default", () => {
-        let test: Array<BuildReplaceInput> = shared.in_files({ project_name: test_project_name, business_obj: biz, terraform_obj: terraform_obj, scm_obj: scm_obj})
+        let test: Array<BuildReplaceInput> = shared.inFiles({ projectName: testProjectName, businessObj: biz, terraformObj: terraformObj, scmObj: scmObj})
         expect(test).toStrictEqual(files)
     })
     

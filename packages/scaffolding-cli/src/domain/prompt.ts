@@ -1,107 +1,124 @@
-import prompts, { prompt } from 'prompts'
-import { resolve, isAbsolute } from 'path'
-import { readFile, readFileSync } from 'fs'
-import { cliQuestions, computedSelection, testQuestions, platformQuestions, advancedQuestions } from './config/questions'
-import { PromptQuestion } from './model/prompt_question'
-import { PromptAnswer, CliAnswerModel } from './model/prompt_answer'
-import { ExitMessage, CliOptions } from './model/cli_response'
-import { Utils } from './workers/utils'
-import { WorkflowOptions, Workflow } from './model/workflow'
+import {prompt} from "prompts"
+import {resolve, isAbsolute} from "path"
+import {readFileSync} from "fs"
+import {
+    cliQuestions,
+    computedSelection,
+    platformQuestions,
+    advancedQuestions,
+} from "./config/questions"
+import {PromptQuestion} from "./model/prompt_question"
+import {PromptAnswer, CliAnswerModel} from "./model/prompt_answer"
+import {ExitMessage, CliOptions} from "./model/cli_response"
+import {WorkflowOptions, Workflow} from "./model/workflow"
 
-let userSelection: PromptAnswer = <PromptAnswer>{}
-let cliModifiedSelection: CliAnswerModel;
-let exitMessage: ExitMessage = <ExitMessage>{}
+let userSelection: PromptAnswer = {} as PromptAnswer
+let cliModifiedSelection: CliAnswerModel
+const exitMessage: ExitMessage = {} as ExitMessage
 
 /**
- * @param default_project_name 
- * @returns 
+ * @param defaultProjectName
+ * @returns
  */
-export async function runCli(default_project_name: string, cli_args: CliOptions): Promise<ExitMessage> {
-    userSelection = await getFromCli(default_project_name)
+export async function runCli(
+    defaultProjectName: string
+): Promise<ExitMessage> {
+    userSelection = await getFromCli(defaultProjectName)
     cliModifiedSelection = computedSelection(userSelection)
     return await selectFlow(cliModifiedSelection)
 }
 
-
-export async function runConfig(cli_args: CliOptions): Promise<ExitMessage> {
-    cliModifiedSelection = await getFromConfig(cli_args.configfile || '')
+export async function runConfig(cliArgs: CliOptions): Promise<ExitMessage> {
+    cliModifiedSelection = await getFromConfig(cliArgs.configfile || "")
     return await selectFlow(cliModifiedSelection)
 }
 
 const onCancel = (prompt: any) => {
-    console.log('Never stop prompting!');
-    return true;
-  }
+    console.log("Never stop prompting!")
+    return true
+}
 
 /**
  * @private
- * @param default_project_name
+ * @param defaultProjectName
  */
-async function getFromCli(default_project_name: string): Promise<PromptAnswer> {
+async function getFromCli(defaultProjectName: string): Promise<PromptAnswer> {
     let cliSelection: PromptAnswer
     let initialQs: Array<PromptQuestion> = new Array<PromptQuestion>()
-    const questions: Array<PromptQuestion> = cliQuestions(default_project_name)
+    const questions: Array<PromptQuestion> = cliQuestions(defaultProjectName)
     questions.forEach(el => {
         initialQs = [...initialQs, el]
-    });
+    })
 
-    cliSelection = await prompt(initialQs, { onCancel })
-    if (cliSelection.project_type.startsWith('test_')) {
+    cliSelection = await prompt(initialQs, {onCancel})
+    if (cliSelection.projectType.startsWith("test")) {
         // let testSelection = await testAdvancedCliQuestion(cliSelection, testQuestions)
         // return testSelection
     } else {
-        let platformSelection = await advancedCliQuestion(cliSelection, platformQuestions)
-        if (platformSelection?.enable_advanced) {
-            let advancedSelection = await advancedCliQuestion(platformSelection, advancedQuestions)
+        let platformSelection = await advancedCliQuestion(
+            cliSelection,
+            platformQuestions,
+        )
+        if (platformSelection?.enableAdvanced) {
+            let advancedSelection = await advancedCliQuestion(
+                platformSelection,
+                advancedQuestions,
+            )
             return advancedSelection
         }
         return platformSelection
     }
-    return cliSelection;
+    return cliSelection
 }
 
-async function advancedCliQuestion(basicSelection: PromptAnswer, advanceQsFn: Function): Promise<PromptAnswer> {
-    let advancedQs: Array<PromptQuestion> = advanceQsFn()
-    let advancedSelections: PromptAnswer =  await prompt(advancedQs, { onCancel })
+async function advancedCliQuestion(
+    basicSelection: PromptAnswer,
+    advanceQsFn: Function,
+): Promise<PromptAnswer> {
+    const advancedQs: Array<PromptQuestion> = advanceQsFn()
+    let advancedSelections: PromptAnswer = await prompt(advancedQs, {onCancel})
     advancedSelections = {
         ...basicSelection,
-        ...advancedSelections
+        ...advancedSelections,
     }
     return advancedSelections
 }
 
 /**
  * @private
- * @param config_path 
+ * @param configPath
  */
-async function getFromConfig(config_path: string): Promise<CliAnswerModel> {
-   let configSelection: PromptAnswer
-    if (isAbsolute(config_path)){
-        configSelection = JSON.parse(readFileSync(config_path, 'utf-8').trim())
+async function getFromConfig(configPath: string): Promise<CliAnswerModel> {
+    let configSelection: PromptAnswer
+    if (isAbsolute(configPath)) {
+        configSelection = JSON.parse(readFileSync(configPath, "utf-8").trim())
     } else {
-        configSelection = JSON.parse(readFileSync(resolve(process.cwd(), config_path),'utf-8').trim())
+        configSelection = JSON.parse(
+            readFileSync(resolve(process.cwd(), configPath), "utf-8").trim(),
+        )
     }
 
-    return computedSelection(configSelection);
+    return computedSelection(configSelection)
 }
 
 async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {
-    let determined_choice = `${selection.project_type}_${selection?.platform || "any"}_${selection.deployment}`
+    const determinedChoice = `${selection.projectType}${selection?.platform || "any"}${selection.deployment}`
 
     const workflows: Workflow = WorkflowOptions()
     try {
-        let response = await workflows[determined_choice](selection)
+        const response = await workflows[determinedChoice](selection)
         exitMessage.code = response.code
         exitMessage.message = response.message
-        if (response.code != 0) {
-            throw <ExitMessage>{
+        if (response.code !== 0) {
+            return {
                 code: response.code,
-                message: response.message
-            }
+                message: response.message,
+            } as ExitMessage
         }
         return exitMessage
-    } catch (ex) { //Uncaught Exceptions
-        let exCaught = ex as ExitMessage
+    } catch (ex) {
+        // Uncaught Exceptions
+        const exCaught = ex as ExitMessage
         exCaught.code = ex.code || -1
         exCaught.message = ex.message
         return exCaught

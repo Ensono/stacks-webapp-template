@@ -1,58 +1,54 @@
-import { runCli, runConfig } from '../../domain/prompt'
-import * as prompt from 'prompts'
-import { resolve } from 'path'
-import { ExitMessage, CliOptions } from '../../domain/model/cli_response'
-import { PromptAnswer } from '../../domain/model/prompt_answer'
-import { FlowSelector } from '../../domain/selectors'
-import { Utils } from '../../domain/workers/utils';
+import {runCli, runConfig} from "../../domain/prompt"
+import * as prompt from "prompts"
+import {resolve} from "path"
+import {ExitMessage, CliOptions} from "../../domain/model/cli_response"
+import {PromptAnswer} from "../../domain/model/prompt_answer"
+import {FlowSelector} from "../../domain/selectors"
+import {Utils} from "../../domain/workers/utils"
 
 let cliOptsConfigFileSsr: CliOptions = <CliOptions>{
-    configfile: resolve(__dirname, 'ssr.bootstrap-config.json')
-}
-
-let cliOptsInteractiveSsr: CliOptions = <CliOptions>{
-    interactive: true
+    configfile: resolve(__dirname, "ssr.bootstrap-config.json"),
 }
 
 let mock_ssr_aks_tfs_answer = <PromptAnswer>{
-    project_name: "test-app-1",
-    project_type: "ssr",
+    projectName: "test-app-1",
+    projectType: "ssr",
     platform: "aks",
     deployment: "azdevops",
-    business_company: "testcomp",
-    business_domain: "test_domain",
+    businessCompany: "testcomp",
+    businessDomain: "testDomain",
 }
 
 let mock_ssr_aks_tfs_answer_advanced = <PromptAnswer>{
-    project_name: "test-app-1",
-    project_type: "ssr",
+    projectName: "test-app-1",
+    projectType: "ssr",
     platform: "aks",
     deployment: "azdevops",
-    business_company: "testcomp",
-    business_domain: "test_domain",
-
+    businessCompany: "testcomp",
+    businessDomain: "testDomain",
 }
 
 let mock_ssr_aks_tfs_answer_advanced_part_2 = <PromptAnswer>{
-    cloud_region: "uksouth",
+    cloudRegion: "uksouth",
 }
 
-jest.mock('../../domain/selectors')
-jest.mock('../../domain/workers/utils')
-jest.mock('prompts')
+jest.mock("../../domain/selectors")
+jest.mock("../../domain/workers/utils")
+jest.mock("prompts")
 
-const mockPrompt = jest.spyOn(prompt, 'prompt')
+const mockPrompt = jest.spyOn(prompt, "prompt")
 
 // Utils.writeOutConfigFile = jest.fn().mockImplementation(() => {
 //     return Promise.resolve({})
 // })
 describe("prompt class tests", () => {
-
     describe("Positive assertions", () => {
         it("When run from config with absolute path should return an object with a code and message", async () => {
-            FlowSelector.option_ssr_aks_azuredevops = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve({ code: 0, message: "" })
-            });
+            FlowSelector.optionSsrAksAzuredevops = jest
+                .fn()
+                .mockImplementationOnce(() => {
+                    return Promise.resolve({code: 0, message: ""})
+                })
 
             let cliResult: ExitMessage = await runConfig(cliOptsConfigFileSsr)
 
@@ -61,10 +57,13 @@ describe("prompt class tests", () => {
             expect(cliResult.code).toBe(0)
         })
         it("When run from config with relative path should return an object with a code and message", async () => {
-            FlowSelector.option_ssr_aks_azuredevops = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve({ code: 0, message: "" })
-            });
-            cliOptsConfigFileSsr.configfile = 'src/__tests__/domain/ssr.bootstrap-config.json'
+            FlowSelector.optionSsrAksAzuredevops = jest
+                .fn()
+                .mockImplementationOnce(() => {
+                    return Promise.resolve({code: 0, message: ""})
+                })
+            cliOptsConfigFileSsr.configfile =
+                "src/__tests__/domain/ssr.bootstrap-config.json"
             let cliResult: ExitMessage = await runConfig(cliOptsConfigFileSsr)
 
             expect(cliResult).toHaveProperty("code")
@@ -73,36 +72,43 @@ describe("prompt class tests", () => {
         })
 
         it("When run from cli WITHOUT advanced config enabled should call prompt only 1x", async () => {
-            FlowSelector.option_ssr_aks_azuredevops = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve({ code: 0, message: "" })
-            });
+            FlowSelector.optionSsrAksAzuredevops = jest
+                .fn()
+                .mockImplementationOnce(() => {
+                    return Promise.resolve({code: 0, message: ""})
+                })
             mockPrompt.mockImplementationOnce(() => {
                 return Promise.resolve(mock_ssr_aks_tfs_answer)
-            });
+            })
 
-            let cliResult: ExitMessage = await runCli('test', cliOptsInteractiveSsr)
+            let cliResult: ExitMessage = await runCli("test")
             expect(mockPrompt).toHaveBeenCalled()
             expect(cliResult).toHaveProperty("code")
             expect(cliResult).toHaveProperty("message")
             expect(cliResult.code).toBe(0)
         })
         it("When run from cli WITH advanced config enabled should call prompt only 2x", async () => {
-            FlowSelector.option_ssr_aks_azuredevops = jest.fn().mockImplementationOnce(() => {
-                return Promise.resolve({ code: 0, message: "" })
-            });
+            FlowSelector.optionSsrAksAzuredevops = jest
+                .fn()
+                .mockImplementationOnce(() => {
+                    return Promise.resolve({code: 0, message: ""})
+                })
             Utils.writeOutConfigFile = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({})
             })
 
             mockPrompt.mockClear()
-            mockPrompt.mockImplementationOnce(() => {
-                return Promise.resolve(mock_ssr_aks_tfs_answer_advanced)
-            })
-            .mockImplementationOnce(() => {
-                return Promise.resolve(mock_ssr_aks_tfs_answer_advanced_part_2)
-            });
+            mockPrompt
+                .mockImplementationOnce(() => {
+                    return Promise.resolve(mock_ssr_aks_tfs_answer_advanced)
+                })
+                .mockImplementationOnce(() => {
+                    return Promise.resolve(
+                        mock_ssr_aks_tfs_answer_advanced_part_2,
+                    )
+                })
 
-            let cliResult: ExitMessage = await runCli('test', cliOptsInteractiveSsr)
+            let cliResult: ExitMessage = await runCli("test")
             expect(mockPrompt).toHaveBeenCalledTimes(2)
             expect(cliResult).toHaveProperty("code")
             expect(cliResult).toHaveProperty("message")
@@ -111,12 +117,17 @@ describe("prompt class tests", () => {
     })
     describe("Negative assertions", () => {
         it("When run from config should return a response with an error code and an excpetion inside error", async () => {
-            FlowSelector.option_ssr_aks_azuredevops = jest.fn().mockImplementationOnce(() => {
-                throw { code: 127, message: new Error("Something weird happened") };
-            });
+            FlowSelector.optionSsrAksAzuredevops = jest
+                .fn()
+                .mockImplementationOnce(() => {
+                    throw {
+                        code: 127,
+                        message: new Error("Something weird happened"),
+                    }
+                })
             let cliResult = await runConfig(cliOptsConfigFileSsr)
             expect(cliResult).toHaveProperty("code")
-            expect(FlowSelector.option_ssr_aks_azuredevops).toHaveBeenCalled()
+            expect(FlowSelector.optionSsrAksAzuredevops).toHaveBeenCalled()
             expect(cliResult.message).toHaveProperty("message")
             expect(cliResult.message).toBeInstanceOf(Error)
             expect(cliResult.message).toHaveProperty("stack")
@@ -124,4 +135,3 @@ describe("prompt class tests", () => {
         })
     })
 })
-

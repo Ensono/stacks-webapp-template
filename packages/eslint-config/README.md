@@ -24,10 +24,10 @@ Our default export contains all of our ESLint rules. The configuration was built
 based on other open source configuration. To run and use with your project, we
 must install peer dependencies.
 
-1. To start run `npm install --only=dev @amidostacks/eslint-config` to save as a
+1. To start run `npm install --save-dev @amidostacks/eslint-config` to save as a
    dev dependency
 2. Install peer dependecies with the correct versions:
-   `npx install-peerdeps --only=dev @amidostacks/eslint-config`
+   `npx install-peerdeps --dev @amidostacks/eslint-config`
 
 ## Usage
 
@@ -38,6 +38,18 @@ root (at the same level as `package.json`):
 {
   "extends": ["@amidostacks/eslint-config"]
 }
+```
+
+You will also need to add a `.eslintignore` file to ensure that eslint ignores the relevant glob patterns. Please ensure that you configure this for your project, e.g. if your outdir is `out/` rather than `dist/` you will
+
+```text
+node_modules/
+dist/
+docs/
+coverage/
+__mocks__/
+__tests__/
+**/*.d.ts
 ```
 
 In your `package.json` add a script to run linting:
