@@ -148,12 +148,12 @@ steps {
                   terraform init -backend-config=\""key=${tf_state_key}\"" -backend-config=\""storage_account_name=${tf_state_storage}\"" \\
                    -backend-config=\""resource_group_name=${tf_state_rg}\"" -backend-config=\""container_name=${tf_state_container}\""
                   terraform workspace select ${CURRENT_TF_WORKSPACE} || terraform workspace new ${CURRENT_TF_WORKSPACE}
-                  terraform plan -input=false -out=tfplan
+                  terraform plan -input=false
                 '''
                 input(message: 'Continue?', ok: 'OK')
                 sh '''
-                  GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
-                  terraform apply tfplan
+                  export GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
+                  terraform apply -auto-approve
                 '''
               }
             }
@@ -170,7 +170,7 @@ steps {
             dns_pointer="app-jenkins.${base_domain}"
             tls_domain="${base_domain}"
             k8s_app_path="/web/stacks"
-            k8s_image="'${docker_container_registry_name}/${docker_image_name}:${docker_image_tag}"
+            k8s_image="${docker_container_registry_name}/${docker_image_name}:${docker_image_tag}"
             version="${docker_image_tag}"
             role="${role}"
             company="${company}"
