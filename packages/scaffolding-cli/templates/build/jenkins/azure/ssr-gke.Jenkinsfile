@@ -79,13 +79,13 @@ pipeline {
             npm audit --audit-level=moderate
           '''
           sh '''
-            npm install
+            echo "npm install"
           '''
           // Installing peer deps for package
           // can be extended with addtional pacakges            
           // npx install-peerdeps -d @amidostacks/eslint-config package2 package3
           sh '''
-            npx install-peerdeps -d @amidostacks/eslint-config
+            echo "npx install-peerdeps -d @amidostacks/eslint-config"
           '''
           sh '''
             npm run validate
@@ -131,6 +131,7 @@ pipeline {
             TF_VAR_dns_zone_name="amido-stacks-nonprod-gke-infra"
           }
           steps {
+            // packages/scaffolding-cli/templates/deploy/gcp/app/kube
             dir("${WORKSPACE}/packages/scaffolding-cli/templates/deploy/gcp/app/kube") {
               withCredentials([
                 file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
@@ -142,8 +143,8 @@ pipeline {
                 sh '''
                   GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
                   terraform -v
-                  terraform init -backend-config="key=${tf_state_key}" -backend-config="storage_account_name=${tf_state_storage}" \\
-                   -backend-config="resource_group_name=${tf_state_rg}" -backend-config="container_name=${tf_state_container}"
+                  terraform init -backend-config=\"key=${tf_state_key}\" -backend-config=\"storage_account_name=${tf_state_storage}\" \\
+                   -backend-config=\"resource_group_name=${tf_state_rg}\" -backend-config=\"container_name=${tf_state_container}\"
                   terraform select workspace ${WORKSPACE} || terraform workspace new ${WORKSPACE}
                   terraform plan -input=false -out=tfplan
                 '''
