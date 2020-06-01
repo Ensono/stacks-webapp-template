@@ -1,7 +1,7 @@
 import axios from "axios"
 import api from "constants/apis/menu"
 
-export const getMenus = (searchTerm) => {
+export const getMenus = searchTerm => {
     const getMenuApi = api("getMenuList")
     return new Promise((resolve, reject) => {
         axios
@@ -18,7 +18,7 @@ export const getMenus = (searchTerm) => {
                     reject(data.errorDetails)
                 }
             })
-            .catch(() => reject(new Error()))
+            .catch(e => reject(new Error(e)))
     })
 }
 

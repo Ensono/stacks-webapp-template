@@ -2,7 +2,8 @@
 import axios from "axios"
 import {getMenus, postMenu} from "."
 
-jest.mock("next/config")
+jest.mock("axios")
+const mockedAxios = axios as jest.Mocked<typeof axios>
 
 let mock
 let mockPost
@@ -10,6 +11,12 @@ let mockPost
 beforeEach(() => {
     mock = jest.spyOn(axios, "get")
     mockPost = jest.spyOn(axios, "post")
+    mockedAxios.get.mockResolvedValue({
+        data: {},
+    })
+    mockedAxios.post.mockResolvedValue({
+        data: {},
+    })
 })
 
 afterEach(() => {
@@ -17,11 +24,11 @@ afterEach(() => {
 })
 
 test("should call the getMenus API", async () => {
-    getMenus('')
-    expect(mock).toHaveBeenCalled()
+    getMenus("")
+    expect(mockedAxios.get).toHaveBeenCalled()
 })
 
 test("should call the getMenus API", async () => {
     postMenu("test", "tests", true, "d290f1ee")
-    expect(mockPost).toHaveBeenCalled()
+    expect(mockedAxios.post).toHaveBeenCalled()
 })
