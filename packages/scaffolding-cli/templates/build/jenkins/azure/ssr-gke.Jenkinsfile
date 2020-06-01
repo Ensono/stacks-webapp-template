@@ -11,8 +11,8 @@ pipeline {
     // If you haven't specified source_repo at cli runtime please ensure you replace it here "
     // It is case sensitive for TFS based repos"
     self_repo="stacks-webapp-template/packages/scaffolding-cli/templates"
-    self_repo_src="${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr"
-    self_repo_tf_src="${WORKSPACE}/packages/scaffolding-cli/templates/deploy/gcp/app/kube"
+    self_repo_src="packages/scaffolding-cli/templates/src/ssr"
+    self_repo_tf_src="packages/scaffolding-cli/templates/deploy/gcp/app/kube"
     self_generic_name="stacks-webapp-jenkins"
     // TF STATE CONFIG"
     tf_state_rg="amido-stacks-rg-uks"
@@ -74,7 +74,6 @@ pipeline {
         NODE_ENV="production"
       }
       steps {
-        // dir("${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr") {
         dir("${self_repo_src}") {
           sh '''
             echo "${self_repo_src}"
