@@ -197,7 +197,7 @@ steps {
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}
                   gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
-                  kubectl apply -f ./k8s/app/app-deploy.yml --context ${gcp_cluster_name}
+                  kubectl apply -f ./k8s/app/app-deploy.yml
                 '''
               }
             }
