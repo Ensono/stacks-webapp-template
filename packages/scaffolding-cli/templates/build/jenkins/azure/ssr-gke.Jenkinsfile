@@ -82,9 +82,9 @@ pipeline {
           '''
           // Installing peer deps for package
           // can be extended with addtional pacakges            
-          // npx install-peerdeps --save-dev @amidostacks/eslint-config package2 package3
+          // npx install-peerdeps -d @amidostacks/eslint-config package2 package3
           sh '''
-            npx install-peerdeps --save-dev @amidostacks/eslint-config
+            npx install-peerdeps -d @amidostacks/eslint-config
           '''
           sh '''
             npm run validate
