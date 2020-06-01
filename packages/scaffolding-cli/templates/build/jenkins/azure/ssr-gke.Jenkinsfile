@@ -117,7 +117,7 @@ steps {
       stages {
         stage('Infra') {
           environment {
-            TF_WORKSPACE="dev-jenkins"
+            CURRENT_TF_WORKSPACE="dev-jenkins"
             TF_VAR_project="${gcp_project_name}"
             TF_VAR_location="${gcp_region}"
             TF_VAR_region="${gcp_region}"
@@ -145,9 +145,9 @@ steps {
                   terraform -v
                   terraform init -backend-config=\""key=${tf_state_key}\"" -backend-config=\""storage_account_name=${tf_state_storage}\"" \\
                    -backend-config=\""resource_group_name=${tf_state_rg}\"" -backend-config=\""container_name=${tf_state_container}\""
+                  terraform workspace select ${CURRENT_TF_WORKSPACE} || terraform workspace new ${CURRENT_TF_WORKSPACE}
                   terraform plan -input=false -out=tfplan
                 '''
-                  // terraform workspace select ${TF_WORKSPACE} || terraform workspace new ${TF_WORKSPACE}
                 input(message: 'Continue?', ok: 'OK')
                 sh '''
                   GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
