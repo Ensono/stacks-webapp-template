@@ -26,5 +26,3 @@ export const main = {
         }
     },
 }
-
-export default {}
