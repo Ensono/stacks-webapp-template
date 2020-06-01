@@ -1,4 +1,4 @@
-def branch_name = 
+def random_map() { return [:] }
 
 pipeline {
   agent none
