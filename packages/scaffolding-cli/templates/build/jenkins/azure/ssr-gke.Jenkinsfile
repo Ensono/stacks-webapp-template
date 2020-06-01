@@ -178,7 +178,7 @@ steps {
             component="web"
             app_name="webapp-template"
             resource_def_name="node-app"
-            environ="dev"
+            environment="dev"
           }
           steps {
             dir("${WORKSPACE}/packages/scaffolding-cli/templates/deploy") {
