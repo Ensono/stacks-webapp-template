@@ -74,9 +74,9 @@ pipeline {
         NODE_ENV="production"
       }
       steps {
-        dir($env.self_repo_src) {
+        dir("$self_repo_src") {
           sh '''
-            echo $env.self_repo_src
+            echo ${env.self_repo_src}
             echo ${self_repo_src}
             echo $(pwd)
             npm audit --audit-level=moderate
