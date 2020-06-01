@@ -95,6 +95,7 @@ pipeline {
           // archiveArtifacts artifacts: '**/coverage/*.lcov', fingerprint: true 
           sh '''
             echo "docker build . -t test:${BUILD_NUMBER}"
+            echo "docker push ${containerregistryname}/${docker_imagename}"
           '''
         }
       }

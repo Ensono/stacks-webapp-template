@@ -1,5 +1,6 @@
 const path = require("path")
 const conf = require("./environment-configuration")
+
 const {
     APPINSIGHTS_INSTRUMENTATIONKEY,
     AUTH0_CLIENT_SECRET,
