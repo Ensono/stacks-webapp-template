@@ -4,7 +4,7 @@ import React from "react"
 export default function DateElement({dateString}) {
     return (
         <time dateTime={dateString}>
-            {format(new Date(dateString), "YYYY-MM-DD")}
+            {format(new Date(dateString), "yyyy-mm-dd")}
         </time>
     )
 }

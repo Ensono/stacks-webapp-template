@@ -5,6 +5,9 @@ import {
     getPostAndMorePosts,
 } from "../../lib/contentful-api"
 import React from "react"
+import PostHeader from "components/PostHeader"
+import PostBody from "components/PostBody"
+import {Layout} from "components"
 
 export default function Post({post, morePosts, preview}) {
     const router = useRouter()
@@ -12,7 +15,23 @@ export default function Post({post, morePosts, preview}) {
         return <NextError statusCode={404} />
     }
 
-    return <>{router.isFallback ? <p>Loading...</p> : <h1>{post.title}</h1>}</>
+    return (
+        <Layout>
+            {router.isFallback ? (
+                <p>Loading...</p>
+            ) : (
+                <>
+                    <PostHeader
+                        title={post.title}
+                        coverImage={post.coverImage}
+                        date={post.date}
+                        author={post.author}
+                    />
+                    <PostBody content={post.content} />
+                </>
+            )}
+        </Layout>
+    )
 }
 
 export async function getStaticProps({params, preview = false}) {

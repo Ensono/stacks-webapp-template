@@ -1,7 +1,13 @@
 import {PrefixedLink as Link} from "components"
 import React from "react"
 
-export default function CoverImage({title, url, slug}) {
+type CoverImageType = {
+    title: string
+    url: string
+    slug?: string
+}
+
+export default function CoverImage({title, url, slug}: CoverImageType) {
     const image = <img src={url} alt={`Cover Image for ${title}`} />
     return (
         <div>

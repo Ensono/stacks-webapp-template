@@ -25,13 +25,7 @@ class _App extends App<AppWithStore> {
                 ? await Component.getInitialProps(ctx)
                 : {}),
         }
-        // if (!process.env.CI && ctx.req && ctx.req.session.passport) {
-        //     pageProps.user = ctx.req.session.passport.user
-        // }
-        // if (ctx.req) {
-        //     ctx.store.dispatch(END)
-        //     await ctx.store.sagaTask.toPromise()
-        // }
+        // TODO Add passport to the app container.
         return {pageProps}
     }
 

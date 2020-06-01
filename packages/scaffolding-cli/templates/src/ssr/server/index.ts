@@ -46,54 +46,7 @@ export default app
     .prepare()
     .then(() => {
         const server = express()
-
         // TODO: Enable passport when attempting https://amido-dev.visualstudio.com/Amido-Stacks/_sprints/taskboard/Cycle%203%20-%20Front%20End%20-%20Part%202/Amido-Stacks/Cycle%203%20-%20Front%20End%20-%20Part%202/Sprint%205?workitem=1800
-        // if (!process.env.CI) {
-        //     // Express session for Auth
-        //     const sessionConfig = {
-        //         secret: uid.sync(18),
-        //         cookie: {
-        //             maxAge: 86400 * 1000, // 24 hours in milliseconds
-        //         },
-        //         resave: false,
-        //         saveUninitialized: true,
-        //     }
-        //     server.use(session(sessionConfig))
-        //     //Configuring Auth0Strategy
-        //     const auth0Strategy = new Auth0Strategy(
-        //         {
-        //             domain: process.env.AUTH0_DOMAIN,
-        //             clientID: process.env.AUTH0_CLIENT_ID,
-        //             clientSecret: process.env.AUTH0_CLIENT_SECRET,
-        //             callbackURL: process.env.AUTH0_CALLBACK_URL,
-        //         },
-        //         function (
-        //             accessToken,
-        //             refreshToken,
-        //             extraParams,
-        //             profile,
-        //             done,
-        //         ) {
-        //             return done(null, profile)
-        //         },
-        //     )
-
-        //     //configuring Passport
-        //     passport.use(auth0Strategy)
-        //     passport.serializeUser((user, done) => done(null, user))
-        //     passport.deserializeUser((user, done) => done(null, user))
-
-        //     //initialize Passport disabled for e2e testing
-        //     server.use(passport.initialize())
-        //     server.use(passport.session())
-
-        //     //restrict access to protected routes
-        //     const restrictAccess = (req, res, next) => {
-        //         if (!req.isAuthenticated()) return res.redirect("/login")
-        //         next()
-        //     }
-        // }
-
         server.use(helmetGuard)
         server.use(httpLogger)
         server.use(bodyParser.urlencoded({extended: false}))

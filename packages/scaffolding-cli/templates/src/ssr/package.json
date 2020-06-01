@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.8.4",
+    "@contentful/rich-text-react-renderer": "^13.4.0",
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
     "@material-ui/core": "^4.9.1",
