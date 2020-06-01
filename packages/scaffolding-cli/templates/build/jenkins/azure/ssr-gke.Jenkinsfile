@@ -97,9 +97,10 @@ pipeline {
                 gcloud container clusters get-credentials ${gcp} --region europe-west2 --project amido-stacks
               '''
             }
+          }
+          stage('DeployDev') {
 
           }
-          stage('DeployDev')
         }
     }
 }
