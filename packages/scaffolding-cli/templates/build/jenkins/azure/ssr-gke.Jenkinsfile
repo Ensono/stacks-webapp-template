@@ -70,6 +70,9 @@ pipeline {
           // Please check with your admin on how 
         }
       }
+      environment {
+        NODE_ENV="production"
+      }
       steps {
         dir("${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr") {
           sh '''
@@ -94,13 +97,13 @@ pipeline {
           withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
               sh '''
                 gcloud auth activate-service-account --key-file=${GCP_KEY}
-                gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
-                docker-credential-gcr configure-docker
-                gcloud auth configure-docker "eu.gcr.io" --quiet
-                docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
-                  -t ${docker_container_registry_name}/${docker_image_name}:latest
-                docker push ${docker_container_registry_name}/${docker_imagename}
               '''
+                // gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
+                // docker-credential-gcr configure-docker
+                // gcloud auth configure-docker "eu.gcr.io" --quiet
+                // docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
+                //   -t ${docker_container_registry_name}/${docker_image_name}:latest
+                // docker push ${docker_container_registry_name}/${docker_image_name}
             }
         }
       }
@@ -113,6 +116,20 @@ pipeline {
       }
       stages {
         stage('Infra') {
+           environment {
+             WORKSPACE="dev"
+            TF_VAR_project="${gcp_project_name}"
+            TF_VAR_location="${gcp_region}"
+            TF_VAR_region="${gcp_region}"
+            TF_VAR_name_company="${company}"
+            TF_VAR_name_project="${project}"
+            TF_VAR_name_component="${component}"
+            TF_VAR_name_environment="dev"
+            TF_VAR_name_stage="dev"
+            TF_VAR_ingress_ip_name="amido-stacks-nonprod-gke-infra-ingress-public"
+            TF_VAR_dns_record="app-jenkins"
+            TF_VAR_dns_zone_name="amido-stacks-nonprod-gke-infra"
+          }
           steps {
             dir("${WORKSPACE}/packages/scaffolding-cli/templates/deploy/gcp/app/kube") {
               withCredentials([
@@ -124,10 +141,10 @@ pipeline {
               ]) {
                 sh '''
                   export GOOGLE_CREDENTIALS=$(cat ${GCP_KEY})
+                  terraform -v
                   terraform init -backend-config="key=${tf_state_key}" -backend-config="storage_account_name=${tf_state_storage}" \\
                    -backend-config="resource_group_name=${tf_state_rg}" -backend-config="container_name=${tf_state_container}"
-                  terraform -v
-                  terraform select workspace dev || terraform workspace new dev
+                  terraform select workspace ${WORKSPACE} || terraform workspace new ${WORKSPACE}
                   terraform plan -input=false -out=tfplan
                 '''
                 input(message: 'Continue?', ok: 'OK')
