@@ -151,7 +151,6 @@ pipeline {
                 input(message: 'Continue?', ok: 'OK')
                 sh '''
                   GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
-                  // export GOOGLE_CREDENTIALS=$(cat ${GCP_KEY})
                   terraform apply tfplan
                 '''
               }
