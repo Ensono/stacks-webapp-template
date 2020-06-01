@@ -1,3 +1,5 @@
+def branch_name = 
+
 pipeline {
   agent none
   // parameters {
@@ -13,6 +15,7 @@ pipeline {
     self_repo="stacks-webapp-template/packages/scaffolding-cli/templates"
     self_repo_src="packages/scaffolding-cli/templates/src/ssr"
     self_repo_tf_src="packages/scaffolding-cli/templates/deploy/gcp/app/kube"
+    self_repo_k8s_src="packages/scaffolding-cli/templates/deploy/k8s"
     self_generic_name="stacks-webapp-jenkins"
     // TF STATE CONFIG"
     tf_state_rg="amido-stacks-rg-uks"
@@ -33,7 +36,7 @@ pipeline {
     // Docker Config"
     docker_dockerfile_path="src/"
     docker_image_name="${self_generic_name}"
-    docker_image_tag="${version_major}.${version_minor}.${version_revision}-${BRANCH_NAME}"
+    docker_image_tag="${version_major}.${version_minor}.${version_revision}-${GIT_COMMIT}"
     docker_container_registry_name="eu.gcr.io/${gcp_project_id}"
     build_artifact_deploy_name="${self_generic_name}"
     // AKS/AZURE"
@@ -135,7 +138,7 @@ pipeline {
             //     file(credentialsId: 'gcp-key', variable: 'GCP_KEY')])
           }
           steps {
-            dir("${env.self_repo_tf_src}") {
+            dir("${self_repo_tf_src}") {
               withCredentials([
                 file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
                 string(credentialsId: 'azure_client_id', variable: 'ARM_CLIENT_ID'),
@@ -170,7 +173,6 @@ pipeline {
             namespace="dev-stacks-webapp-jenkins"
             dns_pointer="app-jenkins.${base_domain}"
             tls_domain="${base_domain}"
-            k8s_app_path="/web/stacks"
             k8s_image="${docker_container_registry_name}/${docker_image_name}:${docker_image_tag}"
             version="${docker_image_tag}"
             role="${role}"
@@ -184,7 +186,7 @@ pipeline {
             environment="dev"
           }
           steps {
-            dir("${WORKSPACE}/packages/scaffolding-cli/templates/deploy") {
+            dir("${self_repo_k8s_src}") {
               withCredentials([
                 file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
                 string(credentialsId: 'azure_client_id', variable: 'ARM_CLIENT_ID'),
@@ -193,7 +195,7 @@ pipeline {
                 string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
               ]) {
                 sh '''
-                  envsubst -i ./k8s/app/base_gke-app-deploy.yml -no-unset -no-empty > ./k8s/app/app-deploy.yml
+                  envsubst -i ./app/base_gke-app-deploy.yml -no-unset > ./app/app-deploy.yml
                 '''
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}
