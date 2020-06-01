@@ -76,9 +76,9 @@ pipeline {
       steps {
         dir("$self_repo_src") {
           sh '''
-            echo ${env.self_repo_src}
-            echo ${self_repo_src}
-            echo $(pwd)
+            echo "${env.self_repo_src}"
+            echo "${self_repo_src}""
+            echo "$(pwd)"
             npm audit --audit-level=moderate
           '''
           sh '''
