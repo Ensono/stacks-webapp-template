@@ -129,6 +129,8 @@ steps {
             TF_VAR_ingress_ip_name="amido-stacks-nonprod-gke-infra-ingress-public"
             TF_VAR_dns_record="app-jenkins"
             TF_VAR_dns_zone_name="amido-stacks-nonprod-gke-infra"
+            // GOOGLE_CREDENTIALS=withCredentials([
+            //     file(credentialsId: 'gcp-key', variable: 'GCP_KEY')])
           }
           steps {
             // packages/scaffolding-cli/templates/deploy/gcp/app/kube
@@ -141,7 +143,7 @@ steps {
                 string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
               ]) {
                 sh '''
-                  GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
+                  export GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
                   terraform -v
                   terraform init -backend-config=\""key=${tf_state_key}\"" -backend-config=\""storage_account_name=${tf_state_storage}\"" \\
                    -backend-config=\""resource_group_name=${tf_state_rg}\"" -backend-config=\""container_name=${tf_state_container}\""
