@@ -7,30 +7,30 @@ export interface BusinessSection {
 
 export interface CloudSection {
     region: string
-    resource_group?: string
+    resourceGroup?: string
 }
 
 export interface SourceControlSection {
-    repo_type?: string
-    repo_name: string
-    repo_url?: string
+    repoType?: string
+    repoName: string
+    repoUrl?: string
 }
 
 export interface NetworkingSection {
-    base_domain: string
+    baseDomain: string
 }
 
 
 export interface TerraformSection {
-    backend_storage: string
-    backend_storage_rg?: string
-    backend_storage_container?: string
+    backendStorage: string
+    backendStorageRg?: string
+    backendStorageContainer?: string
 }
 export interface BaseAnswer {
-    business_company: string
-    project_name: string
-    project_type: string
-    business_domain: string
+    businessCompany: string
+    projectName: string
+    projectType: string
+    businessDomain: string
     deployment: string
     platform?: string
 }
@@ -40,25 +40,25 @@ export interface BaseAnswer {
  * these should all be strings and optional
  */
 export interface PromptAnswer extends BaseAnswer {
-    enable_advanced?: boolean
-    business_component?: string
-    cloud_region?: string
-    cloud_resource_group?: string
-    source_control_repo_url?: string
-    source_control_repo_name?: string
-    source_control_repo_type?: string
-    terraform_backend_storage?: string
-    terraform_backend_storage_rg?: string
-    terraform_backend_storage_container?: string
-    networking_base_domain?: string
+    enableAdvanced?: boolean
+    businessComponent?: string
+    cloudRegion?: string
+    cloudResourceGroup?: string
+    sourceControlRepoUrl?: string
+    sourceControlRepoName?: string
+    sourceControlRepoType?: string
+    terraformBackendStorage?: string
+    terraformBackendStorageRg?: string
+    terraformBackendStorageContainer?: string
+    networkingBaseDomain?: string
 }
 
 export interface CliAnswerModel extends BaseAnswer {
-    enable_advanced: boolean
+    enableAdvanced: boolean
     business: BusinessSection
     cloud: CloudSection
     terraform: TerraformSection
-    source_control: SourceControlSection
+    sourceControl: SourceControlSection
     networking: NetworkingSection
     // add more here if needed
 }

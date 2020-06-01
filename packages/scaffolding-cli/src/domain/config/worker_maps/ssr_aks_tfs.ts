@@ -5,16 +5,16 @@ import { resolve } from "path"
 /**
  * 
  * Statically assign the file mapping from temp and the Key/Value mapp of strings to replace in file
- * @param project_name 
- * @param business_obj 
- * @param cloud_obj 
+ * @param projectName 
+ * @param businessObj 
+ * @param cloudObj 
  */
-export const in_files = ({ project_name, business_obj, cloud_obj, terraform_obj, scm_obj }: { project_name: string; business_obj?: BusinessSection; cloud_obj?: CloudSection; terraform_obj?: TerraformSection; scm_obj?: SourceControlSection }): Array<BuildReplaceInput> => {
+export const inFiles = ({ projectName: projectName, businessObj: businessObj, cloudObj, terraformObj, scmObj }: { projectName: string; businessObj?: BusinessSection; cloudObj?: CloudSection; terraformObj?: TerraformSection; scmObj?: SourceControlSection }): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/package.json"],
             values: {
-                "project_name": project_name
+                "PROJECT_NAME": projectName
             }
         },
         {
@@ -30,9 +30,9 @@ export const in_files = ({ project_name, business_obj, cloud_obj, terraform_obj,
     ]
 }
 
-export const response_message = (project_name: string): string  => {
+export const responseMessage = (projectName: string): string  => {
     return `
-🎉 Created React SSR in ${resolve(process.cwd(), project_name)} with:
+🎉 Created React SSR in ${resolve(process.cwd(), projectName)} with:
 * boostrapped template React SSR
 * supporting pipeline
 * testing frameworks

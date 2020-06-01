@@ -9,8 +9,8 @@ sample myconfig.json
 
 ```JSON
 {
-  "project_name": "test-app-1",
-  "project_type": "ssr",
+  "projectName": "test-app-1",
+  "projectType": "ssr",
   "platform": "aks",
   "deployment": "azdevops"
 }

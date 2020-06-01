@@ -9,6 +9,17 @@ metadata:
 
 ---
 
+apiVersion: v1
+kind: Secret
+metadata:
+  name: appsecrets
+  namespace: ${namespace}
+type: Opaque
+stringData:
+  app_insights: ${app_insights_key}
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -74,9 +85,11 @@ spec:
               value: '${k8s_app_path}'
             - name: APP_BASE_URL
               value: 'https://${dns_pointer}'
-
             - name: APPINSIGHTS_INSTRUMENTATIONKEY
-              value: f7c7d8ef-1421-41ce-9c7b-30205ef66ba6
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: app_insights
 
           ports:
             - name: http
@@ -184,11 +197,11 @@ spec:
         - path: ${k8s_app_path}/*
           # pathType: Prefix
           backend:
-            serviceName: xx-replace-me
+            serviceName: ${resource_def_name}
             servicePort: http
         - path: ${k8s_app_path}
           # pathType: Prefix
           backend:
-            serviceName: xx-replace-me
+            serviceName: ${resource_def_name}
             servicePort: http
 

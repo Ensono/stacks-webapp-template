@@ -1,44 +1,44 @@
 import { copy, move, remove, ensureDir, rename, stat, readdir, Stats} from 'fs-extra'
 import { tmpdir } from 'os'
 import { startCase, toLower } from 'lodash'
-import { BaseResponse, TempCopy, ConfigResponse } from '../model/workers'
-import { FolderMap } from '../model/config'
-import replace, { ReplaceInFileConfig } from 'replace-in-file'
+import { ReplaceInFileConfig, replaceInFile } from 'replace-in-file'
 import { resolve } from 'path'
-import { Replacetruct, replaceGeneratedConfig } from '../config/file_mapper'
 import logger from 'simple-winston-logger-abstraction'
 import gitP, { SimpleGit } from 'simple-git/promise';
+import { Replacetruct, replaceGeneratedConfig } from '../config/file_mapper'
+import { FolderMap } from '../model/config'
+import { BaseResponse, TempCopy, ConfigResponse } from '../model/workers'
 import { CliAnswerModel } from '../model/prompt_answer'
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
 
 export function copyFilter(src: string, dest: string) {
-    if (src.indexOf(".next") > -1 ||
-        src.indexOf("coverage") > -1 ||
-        src.indexOf(".terraform") > -1 ||
-        src.indexOf("dist") > -1) {
+    if (src.includes(".next") ||
+        src.includes("coverage") ||
+        src.includes(".terraform") ||
+        src.includes("dist")) {
         return false
-    } else {
+    } 
         return true
-    }
+    
 }
 
 export async function asyncForEach(array: Array<any>, callback: any) {
-    for (let index = 0; index < array.length; index++) {
-        await callback(array[index], index, array)
+    for (let index = 0; index < array.length; index += 1) {
+        await callback(array[index], index, array) // eslint-disable-line no-await-in-loop
     }
 }
 
-export async function renamerRecursion(in_path: string, match: string | RegExp, replace_string: string ): Promise<void> {
-    let files: Array<string> = await readdir(in_path)
+export async function renamerRecursion(inPath: string, match: string | RegExp, replaceString: string ): Promise<void> {
+    const files: Array<string> = await readdir(inPath)
 
     await asyncForEach(files, async (f: string) =>  {
-        let path = resolve(in_path, f)
-        let file: Stats = await stat(path)
-        let newPath = resolve(in_path, f.replace(match, replace_string))
+        const path = resolve(inPath, f)
+        const file: Stats = await stat(path)
+        const newPath = resolve(inPath, f.replace(match, replaceString))
         await rename(path, newPath);
         if (file.isDirectory()) {
-            await renamerRecursion(newPath, match, replace_string);
+            await renamerRecursion(newPath, match, replaceString);
         }
     })
 }
@@ -46,21 +46,21 @@ export async function renamerRecursion(in_path: string, match: string | RegExp, 
 export class Utils {
     /**
      * git clone an entire public repo to use as a template
-     * @param temp_directory 
-     * @param src_path_in_tmp 
-     * @param mono_repo_sub_folder_only 
+     * @param tempDirectory 
+     * @param srcPathInTmp 
+     * @param monoRepoSubFolderOnly 
      */
-    public static async doGitClone(git_repo: string, temp_directory: string, src_path_in_tmp: string, ref_version: string = "origin/master"): Promise<BaseResponse> {
-        let gitResponse: BaseResponse = <BaseResponse>{}
+    public static async doGitClone(gitRepo: string, tempDirectory: string, srcPathInTmp: string, refVersion = "origin/master"): Promise<BaseResponse> {
+        const gitResponse: BaseResponse = {} as BaseResponse
         try {
-            const gitDir: string = resolve(temp_directory, src_path_in_tmp)
+            const gitDir: string = resolve(tempDirectory, srcPathInTmp)
             await ensureDir(gitDir)
             const git: SimpleGit = gitP(gitDir)
             // clone without checkout
-            await git.clone(git_repo, gitDir, [`-n`])
+            await git.clone(gitRepo, gitDir, [`-n`])
             // checkout specific version - allow this to be versioned with cli releases
             // caller controls repo and ref
-            await git.checkout(ref_version)
+            await git.checkout(refVersion)
             gitResponse.ok = true
             gitResponse.message = "Git Cloned from repo and checked out on specified head"
             return gitResponse
@@ -72,20 +72,21 @@ export class Utils {
             throw gitResponse
         }
     }
-    public static async writeOutConfigFile(configOut: string, instruction_map?: CliAnswerModel, type_override: string = ""): Promise<ConfigResponse> {
-        let fsResponse: ConfigResponse = <ConfigResponse>{}
+
+    public static async writeOutConfigFile(configOut: string, instructionMap?: CliAnswerModel, typeOverride = ""): Promise<ConfigResponse> {
+        const fsResponse: ConfigResponse = {} as ConfigResponse
         try {
-            let configFile: string = resolve(process.cwd(), configOut)
-            let sampleConfig: string = resolve(__dirname, `../config/sample${type_override}.bootstrap-config.json`)
+            const configFile: string = resolve(process.cwd(), configOut)
+            const sampleConfig: string = resolve(__dirname, `../config/sample${typeOverride}.bootstrap-config.json`)
             await copy(sampleConfig, configFile, {preserveTimestamps: true, dereference: false})
             
-            if (instruction_map) {
-                let generatedConfig = await replaceGeneratedConfig(configFile, instruction_map)
+            if (instructionMap) {
+                const generatedConfig = replaceGeneratedConfig(configFile, instructionMap)
                 await this.valueReplace(generatedConfig)
             }
             fsResponse.ok = true
             fsResponse.message = 'Sample config placed in current directory'
-            fsResponse.config_path = configFile
+            fsResponse.configPath = configFile
             return fsResponse
         } catch (ex) {
             fsResponse.ok = false
@@ -95,14 +96,15 @@ export class Utils {
             throw fsResponse
         }
     }
-    public static async fileNameReplace(src_dir: Array<string>, instruction_map: CliAnswerModel): Promise<BaseResponse> {
-        let fsResponse: BaseResponse = <BaseResponse>{}
+
+    public static async fileNameReplace(srcDir: Array<string>, instructionMap: CliAnswerModel): Promise<BaseResponse> {
+        const fsResponse: BaseResponse = {} as BaseResponse
         try {
-            const replace_string: string = `${startCase(toLower(instruction_map.business.company))}.${startCase(toLower(instruction_map.business.project))}`
-            const match: string = 'xxAMIDOxx.xxSTACKSxx'
-            // const dir: string = `${src_dir}`
-            await asyncForEach(src_dir, async (dir: string) => {
-                await renamerRecursion(dir, match, replace_string)
+            const replaceString = `${startCase(toLower(instructionMap.business.company))}.${startCase(toLower(instructionMap.business.project))}`
+            const match = 'xxAMIDOxx.xxSTACKSxx'
+
+            await asyncForEach(srcDir, async (dir: string) => {
+                await renamerRecursion(dir, match, replaceString)
             })
 
             fsResponse.ok = true
@@ -111,6 +113,7 @@ export class Utils {
         }
         catch (ex) {
             logger.error(ex.message)
+            logger.debug({level: 'error', message: fsResponse.message})
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
@@ -119,13 +122,12 @@ export class Utils {
         }
     }
 
-    public static async valueReplace(instruction_map: Array<Replacetruct>): Promise<BaseResponse> {
-        let fsResponse: BaseResponse = <BaseResponse>{}
+    public static async valueReplace(instructionMap: Array<Replacetruct>): Promise<BaseResponse> {
+        const fsResponse: BaseResponse = {} as BaseResponse
         try {
             // blanket copy templates out
-            await asyncForEach(instruction_map, async (val: Replacetruct) => { //<{src: string, dest: string}>) => {
-                let options: ReplaceInFileConfig = {
-                    // files: resolve(base_path, val.replaceFiles[0]),
+            await asyncForEach(instructionMap, async (val: Replacetruct) => { // <{src: string, dest: string}>) => {
+                const options: ReplaceInFileConfig = {
                     files: val.replaceFiles,
                     from: val.replaceVals.from,
                     to: val.replaceVals.to,
@@ -133,7 +135,7 @@ export class Utils {
                     allowEmptyPaths: true,
                     countMatches: val.countMatches
                 }
-                await replace(options)
+                await replaceInFile(options)
             })
             fsResponse.ok = true
             fsResponse.message = 'replaced all occurences'
@@ -148,47 +150,49 @@ export class Utils {
             throw fsResponse
         }
     }
-    public static async constructOutput(instruction_map: Array<FolderMap>, new_directory: string, temp_directory: string): Promise<BaseResponse> {
-        let fsResponse: BaseResponse = <BaseResponse>{}
+
+    public static async constructOutput(instructionMap: Array<FolderMap>, newDirectory: string, tempDirectory: string): Promise<BaseResponse> {
+        const fsResponse: BaseResponse = {} as BaseResponse
         try {
             // blanket copy templates out
-            await asyncForEach(instruction_map, async (val: FolderMap) => { //<{src: string, dest: string}>) => {
+            await asyncForEach(instructionMap, async (val: FolderMap) => { // <{src: string, dest: string}>) => {
                 // need to use copy as move first deletes the directory and tries to insert it
                 // this will not work if you are moving a directory within the same parent
-                await move(resolve(temp_directory, val.src), resolve(new_directory, val.dest), { overwrite: true })
+                await move(resolve(tempDirectory, val.src), resolve(newDirectory, val.dest), { overwrite: true })
             })
             // DELETE TEMP from this point on as we don't need it anymore
-            await remove(temp_directory)
+            await remove(tempDirectory)
 
             fsResponse.ok = true
-            fsResponse.message = `${new_directory} populated with relevant files`
+            fsResponse.message = `${newDirectory} populated with relevant files`
             return fsResponse
         } catch (ex) {
             fsResponse.ok = false
             fsResponse.code = ex.code || -1
             fsResponse.message = ex.message
             fsResponse.error = ex.stack
-            await remove(temp_directory)
+            await remove(tempDirectory)
             throw fsResponse
         }
     }
-    public static async prepBase(directory_name: string): Promise<TempCopy> {
+
+    public static async prepBase(directoryName: string): Promise<TempCopy> {
         /**
          * Creates a directory if not present
          */
-        let fsResponse: TempCopy = <TempCopy>{}
+        const fsResponse: TempCopy = {} as TempCopy
         try {
-            let new_directory: string = resolve(process.cwd(), directory_name)
-            let temp_directory: string = resolve(tmpdir(), directory_name)
+            const newDirectory: string = resolve(process.cwd(), directoryName)
+            const tempDirectory: string = resolve(tmpdir(), directoryName)
             // precaution to make sure no files from previous run are polluting the process
-            await remove(temp_directory)
+            await remove(tempDirectory)
             // blanket copy templates out
-            await copy(resolve(__dirname, TEMPLATES_DIRECTORY), temp_directory, { filter: copyFilter })
+            await copy(resolve(__dirname, TEMPLATES_DIRECTORY), tempDirectory, { filter: copyFilter })
 
             fsResponse.ok = true
-            fsResponse.message = `${directory_name} created`
-            fsResponse.temp_path = temp_directory
-            fsResponse.final_path = new_directory
+            fsResponse.message = `${directoryName} created`
+            fsResponse.tempPath = tempDirectory
+            fsResponse.finalPath = newDirectory
             return fsResponse
         } catch (ex) {
             fsResponse.ok = false

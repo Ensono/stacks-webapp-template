@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "types": ["node", "jest"]
+  },
+  "include": ["src/jest.config.js", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "coverage"]
+}

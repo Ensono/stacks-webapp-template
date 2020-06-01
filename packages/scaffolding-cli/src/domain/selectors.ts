@@ -4,30 +4,30 @@ import { CliResponse } from './model/workers'
 
 let mainWorker = new MainWorker()
 
-export class FlowSelector {
-    static async option_ssr_aks_azuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return await mainWorker.ssr_aks_tfs(instructions)
+export class FlowSelector extends MainWorker {
+    static async optionSsrAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.ssrAksTfs(instructions)
     }
-    static async option_netcore_aks_azuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return await mainWorker.netcore_aks_tfs(instructions)
+    static async optionNetcoreAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.netcoreAksTfs(instructions)
     }
-    static async option_java_spring_aks_azuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return await mainWorker.java_spring_aks_tfs(instructions)
+    static async optionJavaSpringAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.javaSpringAksTfs(instructions)
     }
-    static async option_csr_aks_azuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return await mainWorker.csr_aks_tfs(instructions)
+    static async optionCsrAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.csrAksTfs(instructions)
     }
-    static async option_netcore_selenium_any_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return await mainWorker.netcore_selenium_tfs(instructions)
+    static async optionNetcoreSeleniumAnyAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.netcoreSeleniumTfs(instructions)
     }
-    static async option_ssr_gke_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return await mainWorker.ssr_gke_tfs(instructions)
+    static async optionSsrGkeAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.ssrGkeTfs(instructions)
     }
-    static async option_infra_aks_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return await mainWorker.infra_aks_azdevops(instructions)
+    static async optionInfraAksAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.infraAksAzdevops(instructions)
     }
-    static async option_js_testcafe_any_azdevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return await mainWorker.js_testcafe_tfs(instructions)
+    static async optionJsTestcafeAnyAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.jsTestcafeTfs(instructions)
     }
 }
 
