@@ -166,7 +166,7 @@ steps {
             }
           }
           environment {
-            namespace="dev-stacks-webapp"
+            namespace="dev-stacks-webapp-jenkins"
             dns_pointer="app-jenkins.${base_domain}"
             tls_domain="${base_domain}"
             k8s_app_path="/web/stacks"
@@ -192,7 +192,7 @@ steps {
                 string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
               ]) {
                 sh '''
-                  envsubst -i ./k8s/app/base_gke-app-deploy.yml -o ./k8s/app/app-deploy.yml -no-unset -no-empty
+                  envsubst -i ./k8s/app/base_gke-app-deploy.yml -no-unset -no-empty > ./k8s/app/app-deploy.yml
                 '''
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}
