@@ -38,7 +38,6 @@ export const postMenu = (
                 tenantId,
             })
             .then(response => {
-                console.log(response)
                 const {data} = response
                 if (data) {
                     resolve(data)
