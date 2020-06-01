@@ -47,7 +47,7 @@ export default app
     .then(() => {
         const server = express()
 
-        // TODO: Enable passport for CI
+        // TODO: Enable passport when attempting https://amido-dev.visualstudio.com/Amido-Stacks/_sprints/taskboard/Cycle%203%20-%20Front%20End%20-%20Part%202/Amido-Stacks/Cycle%203%20-%20Front%20End%20-%20Part%202/Sprint%205?workitem=1800
         // if (!process.env.CI) {
         //     // Express session for Auth
         //     const sessionConfig = {

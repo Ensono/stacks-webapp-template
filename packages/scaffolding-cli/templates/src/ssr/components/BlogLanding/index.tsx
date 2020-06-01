@@ -9,22 +9,23 @@ type BlogProps = {
 }
 
 export const BlogLanding = props => {
-    const heroPost: PostType = props?.posts ? props.posts[0] : []
-    // TODO map the rest of the posts.
-    const nextPost = props?.posts ? props.posts[1] : []
+    const allPosts: PostType[] = props?.posts ? props.posts : []
+    // // TODO map the rest of the posts.
+    // const nextPost = props?.posts ? props.posts[1] : []
     return (
         <>
-            {heroPost && (
-                <MainFeaturedPost
-                    title={heroPost.title}
-                    coverImage={heroPost.coverImage}
-                    date={heroPost.date}
-                    author={heroPost.author}
-                    slug={heroPost.slug}
-                    excerpt={heroPost.excerpt}
-                />
-            )}
-            {nextPost && (
+            {allPosts &&
+                allPosts.map(post => (
+                    <MainFeaturedPost
+                        title={post.title}
+                        coverImage={post.coverImage}
+                        date={post.date}
+                        author={post.author}
+                        slug={post.slug}
+                        excerpt={post.excerpt}
+                    />
+                ))}
+            {/* {nextPost && (
                 <FeaturedPost
                     title={nextPost.title}
                     coverImage={nextPost.coverImage}
@@ -33,7 +34,7 @@ export const BlogLanding = props => {
                     slug={nextPost.slug}
                     excerpt={nextPost.excerpt}
                 />
-            )}
+            )} */}
         </>
     )
 }
