@@ -110,10 +110,10 @@
         "APP_BASE_URL": "http://localhost",
         "MENU_API_URL": "http://dev.amidostacks.com/api/menu",
         "PACT_BROKER": "https://amido-stacks.pact.dius.com.au",
-        "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "veka2or2977j",
-        "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "9L3ML2_zyQ2FrnFvuXeWES2wPWVqEnQj0Lx14UtAx4o",
-        "NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN": "4JrZBpD7-sDb_qjD4KB3Z34eNtCR1QqgvnCYlKqZ4Wg",
-        "NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET": "Stacks"
+        "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "",
+        "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "",
+        "NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN": "",
+        "NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET": ""
       },
       "args": [
         // "--project tsconfig.server.json"
