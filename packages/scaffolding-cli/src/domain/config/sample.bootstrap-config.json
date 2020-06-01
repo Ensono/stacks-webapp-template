@@ -1,13 +1,13 @@
 {
-  "business_company": "replace_business_company",
-  "project_name": "replace_project_name",
-  "project_type": "replace_project_type",
-  "business_domain": "replace_business_domain",
+  "businessCompany": "replace_businessCompany",
+  "projectName": "replace_projectName",
+  "projectType": "replace_projectType",
+  "businessDomain": "replace_businessDomain",
   "deployment": "replace_deployment",
   "platform": "replace_platform",
-  "cloud_region": "replace_cloud_region",
-  "business_component": "replace_business_component",
-  "source_control_repo_name": "replace_source_control_repo_name",
-  "terraform_backend_storage": "replace_terraform_backend_storage",
-  "networking_base_domain": "app.replace.me"
+  "cloudRegion": "replace_cloudRegion",
+  "businessComponent": "replace_businessComponent",
+  "sourceControlRepoName": "replace_sourceControlRepoName",
+  "terraformBackendStorage": "replace_terraformBackendStorage",
+  "networkingBaseDomain": "app.replace.me"
 }

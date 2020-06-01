@@ -1,9 +1,9 @@
 {
   "ssr": {
-    "git_repo": "",
-    "git_ref": "",
-    "local_path": "",
-    "folder_map": [
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
       {
         "src": "shared/aux_scripts",
         "dest": "./aux_scripts"
@@ -46,7 +46,7 @@
       },
       {
         "src": "test/testcafe",
-        "dest": "test"
+        "dest": "test/testcafe"
       },
       {
         "src": "docs",
@@ -59,10 +59,10 @@
     ]
   },
   "csr": {
-    "git_repo": "https://github.com/facebook/create-react-app.git",
-    "git_ref": "v3.4.0",
-    "local_path": "src/cra",
-    "folder_map": [
+    "gitRepo": "https://github.com/facebook/create-react-app.git",
+    "gitRef": "v3.4.0",
+    "localPath": "src/cra",
+    "folderMap": [
       {
         "src": "shared/aux_scripts",
         "dest": "./aux_scripts"
@@ -114,10 +114,10 @@
     ]
   },
   "netcore": {
-    "git_repo": "https://github.com/amido/stacks-dotnet.git",
-    "git_ref": "a19e47e0a0b5a0f8c171a2ee2db4318967eb42c9",
-    "local_path": "src/netcore",
-    "folder_map": [
+    "gitRepo": "https://github.com/amido/stacks-dotnet.git",
+    "gitRef": "a19e47e0a0b5a0f8c171a2ee2db4318967eb42c9",
+    "localPath": "src/netcore",
+    "folderMap": [
       {
         "src": "shared/aux_scripts",
         "dest": "./aux_scripts"
@@ -172,11 +172,11 @@
       }
     ]
   },
-  "js_testcafe": {
-    "git_repo": "",
-    "git_ref": "",
-    "local_path": "",
-    "folder_map": [
+  "jsTestcafe": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
       {
         "src": "test/testcafe",
         "dest": ""
@@ -187,22 +187,22 @@
       }
     ]
   },
-  "netcore_selenium": {
-    "git_repo": "",
-    "git_ref": "",
-    "local_path": "",
-    "folder_map": [
+  "netcoreSelenium": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
       {
         "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium",
         "dest": ""
       }
     ]
   },
-  "java_spring": {
-    "git_repo": "https://github.com/spring-guides/gs-actuator-service.git",
-    "git_ref": "17bbbb65c1c641634a59568c2e3642ae59e2e7dd",
-    "local_path": "src/java_spring",
-    "folder_map": [
+  "javaSpring": {
+    "gitRepo": "https://github.com/spring-guides/gs-actuator-service.git",
+    "gitRef": "17bbbb65c1c641634a59568c2e3642ae59e2e7dd",
+    "localPath": "src/java_spring",
+    "folderMap": [
       {
         "src": "shared/aux_scripts",
         "dest": "./aux_scripts"
@@ -237,11 +237,11 @@
       }
     ]
   },
-  "ssr_gke": {
-    "git_repo": "",
-    "git_ref": "",
-    "local_path": "",
-    "folder_map": [
+  "ssrGke": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
       {
         "src": "shared/aux_scripts",
         "dest": "./aux_scripts"
@@ -296,11 +296,11 @@
       }
     ]
   },
-  "aks_infra": {
-    "git_repo": "",
-    "git_ref": "",
-    "local_path": "",
-    "folder_map": [
+  "aksInfra": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
       {
         "src": "shared/aux_scripts",
         "dest": "./aux_scripts"

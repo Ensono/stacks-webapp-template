@@ -2,16 +2,16 @@ import { buildReplaceFoldersAndVals, Replacetruct, BuildReplaceInput, replaceGen
 import { CliAnswerModel } from '../../../domain/model/prompt_answer'
 
 let mock_answer_cli_answer = <CliAnswerModel>{
-    project_name: "foo",
-    project_type: "boo",
+    projectName: "foo",
+    projectType: "boo",
     platform: "az",
     deployment: "tfs",
     cloud: {
         region: "foo",
-        resource_group: "bar"
+        resourceGroup: "bar"
     },
     terraform: {
-        backend_storage: "blob/path"
+        backendStorage: "blob/path"
     },
     business: {
         company: "faz",
@@ -19,7 +19,7 @@ let mock_answer_cli_answer = <CliAnswerModel>{
         project: "fubar"
     },
     networking: {
-        base_domain: "some.org"
+        baseDomain: "some.org"
     }
 }
 describe("file_mapper tests", () => {

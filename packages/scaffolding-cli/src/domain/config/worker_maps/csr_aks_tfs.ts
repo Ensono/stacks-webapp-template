@@ -4,40 +4,40 @@ import { BusinessSection, CloudSection } from "../../model/prompt_answer"
 /**
  * 
  * Statically assign the file mapping from temp and the Key/Value mapp of strings to replace in file
- * @param project_name 
- * @param business_obj 
- * @param cloud_obj 
+ * @param projectName 
+ * @param businessObj 
+ * @param cloudObj 
  */
-export const in_files = (project_name: string, business_obj?: BusinessSection, cloud_obj?: CloudSection): Array<BuildReplaceInput> => {
+export const inFiles = (projectName: string, businessObj?: BusinessSection, cloudObj?: CloudSection): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/*.md"],
             values: {
-                "PROJECT_NAME": project_name
+                "project_name": projectName
             }
         },
         {
             files: ["**/package.json"],
             values: {
-                "PROJECT_NAME": project_name
+                "project_name": projectName
             }
         },
         {
             files: ["**/*.yml"],
             values: {
-                "amido-stacks-webapp": business_obj?.company || "default",
-                "replace_project_name": business_obj?.project || "default",
-                "replace_component_name": business_obj?.component || "default",
-                "replace_azure_location": cloud_obj?.region || "uksouth",
+                "amido-stacks-webapp": businessObj?.company || "default",
+                "replace_project_name": businessObj?.project || "default",
+                "replace_component_name": businessObj?.component || "default",
+                "replace_azure_location": cloudObj?.region || "uksouth",
                 "stacks-webapp-template/packages/scaffolding-cli/templates/src/ssr": "git_object?/src"
             }
         }
     ]
 }
 
-export const response_message = (project_name: string): string  => {
+export const responseMessage = (projectName: string): string  => {
     return `Your directory has been created, you can now: \n
 ---- \n
-cd ${project_name}/src && npm install && npm run stuff \n
+cd ${projectName}/src && npm install && npm run stuff \n
 ---- \n`
 }

@@ -1,43 +1,43 @@
 #!/usr/bin/env node
+import chalk from 'chalk'
 import yargs from 'yargs'
 import { basename, resolve } from 'path'
 import { ExitMessage, CliOptions } from './domain/model/cli_response'
 import { runCli, runConfig } from './domain/prompt'
-import chalk from 'chalk'
-import { final_error_message, intro_usage_message } from './domain/config/worker_maps/shared'
+import { finalErrorMessage, introUsageMessage } from './domain/config/worker_maps/shared'
 
 
 async function cliCommand(argv: CliOptions) {
     try {
-        const default_project_name = basename(resolve(process.cwd()));
-        let response: ExitMessage = <ExitMessage>{}
+        const defaultProjectName = basename(resolve(process.cwd()));
+        let response: ExitMessage = {} as ExitMessage
 
         if (argv.configfile) {
             // run with a config file
             response = await runConfig(argv)
         } else if (argv.interactive) {
             // run cli flow
-            response = await runCli(default_project_name, argv)
+            response = await runCli(defaultProjectName)
         } else {
-            console.log(chalk.cyan(yargs.showHelp())) //"Please select an appropriate option"
+            console.log(chalk.cyan(yargs.showHelp())) // "Please select an appropriate option"
             return process.exit(0)
         }
 
         if (response.code != 0) {
-            console.log(chalk.red(final_error_message(response.message, response.code)))
+            console.log(chalk.red(finalErrorMessage(response.message, response.code)))
             return process.exit(0)
         }
 
         console.log(chalk.cyan(response.message))
         return process.exit(0)
     } catch (ex) {
-        let exCaught = ex as ExitMessage
-        console.log(chalk.red(final_error_message(exCaught.message, exCaught.code)))
+        const exCaught = ex as ExitMessage
+        console.log(chalk.red(finalErrorMessage(exCaught.message, exCaught.code)))
         return process.exit(ex.code || -1)
     }
 }
 
-let runOptions = (yargs: any) => {
+const runOptions = (yargs: any) => {
 
     yargs
         .option('configfile', {
@@ -93,7 +93,7 @@ yargs
         runTestOptions,
         cliCommand
     )
-    .usage(`${intro_usage_message()}\nUsage: npx $0 <command> [options]`)
+    .usage(`${introUsageMessage()}\nUsage: npx $0 <command> [options]`)
     .example('scaffolding-cli run -i', 'Run Scaffolding CLI with interactive prompts')
     .example('scaffolding-cli run -c sample.bootstrap.config.json', 'Run Scaffolding CLI with a options specified in a config file')
     .example('scaffolding-cli run -infra', 'Generate infra only output')

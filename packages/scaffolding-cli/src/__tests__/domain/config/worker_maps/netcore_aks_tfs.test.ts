@@ -6,7 +6,7 @@ import { Static, FolderMap } from '../../../../domain/model/config';
 let staticConf: Static = conf as Static;
 
 
-let proj_name = "test-app-1"
+let projectName = "test-app-1"
 let biz: BusinessSection = {
     company: "Test",
     project: "Testproj",
@@ -17,7 +17,7 @@ let files: Array<BuildReplaceInput> = [
     {
         files: ["**/*.md"],
         values: {
-            "PROJECT_NAME": proj_name
+            "PROJECT_NAME": projectName
         }
     },
     {
@@ -32,11 +32,11 @@ let files: Array<BuildReplaceInput> = [
 
 describe("netcore mapper tests", () => {
     it("netcore config should return an array of folders to map", () => {
-        let test: Array<FolderMap> = staticConf.netcore.folder_map
+        let test: Array<FolderMap> = staticConf.netcore.folderMap
         expect(test.length).toBe(13)
     }),
     it("in_files return an array of objects and cloud should be default", () => {
-        let test: Array<BuildReplaceInput> = netcore.in_files({ project_name: proj_name, business_obj: biz})
+        let test: Array<BuildReplaceInput> = netcore.inFiles({ projectName: projectName, businessObj: biz})
         expect(test).toStrictEqual(files)
     })
 })

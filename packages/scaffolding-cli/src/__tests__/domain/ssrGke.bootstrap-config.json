@@ -1,0 +1,17 @@
+{
+  "projectName": "test-app-ssr-gke",
+  "projectType": "ssr",
+  "platform": "gke",
+  "deployment": "azdevops",
+  "advancedConfig": true,
+  "createConfig": true,
+  "cloudRegion": "uksouth",
+  "cloudResourceGroup": "string",
+  "businessCompany": "comp",
+  "businessProject": "biz",
+  "businessDomain": "domng",
+  "businessComponent": "component56",
+  "sourceControlRepoType": "github",
+  "sourceControlRepoName": "my-repo-git",
+  "sourceControlRepoUrl": "https://github/sample.git"
+}

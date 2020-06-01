@@ -5,7 +5,7 @@ import conf from  '../../../../domain/config/static.config.json'
 import { Static, FolderMap } from '../../../../domain/model/config';
 let staticConf: Static = conf as Static;
         
-let proj_name = "test-app-1"
+let projName = "test-app-1"
 let biz: BusinessSection = <BusinessSection>{
     company: "test",
     project: "test2",
@@ -15,14 +15,14 @@ let biz: BusinessSection = <BusinessSection>{
 
 let cloud: CloudSection = <CloudSection>{
     region: "uksouth",
-    resource_group: "my-rg"
+    resourceGroup: "my-rg"
 }
 
 let files: Array<BuildReplaceInput> = [
     {
         files: ["**/package.json"],
         values: {
-            "project_name": proj_name
+            "PROJECT_NAME": projName
         }
     },
     {
@@ -39,11 +39,11 @@ let files: Array<BuildReplaceInput> = [
 
 describe("ssr mapper tests", () => {
     it("to_folders return an array of objects", () => {
-        let test: Array<FolderMap> = staticConf.ssr.folder_map
+        let test: Array<FolderMap> = staticConf.ssr.folderMap
         expect(test.length).toBe(13)
     }),
     it("in_files return an array of objects and cloud should be default", () => {
-        let test: Array<BuildReplaceInput> = ssr.in_files({ project_name: proj_name, business_obj: biz})
+        let test: Array<BuildReplaceInput> = ssr.inFiles({ projectName: projName, businessObj: biz})
         expect(test).toStrictEqual(files)
     })
 })
