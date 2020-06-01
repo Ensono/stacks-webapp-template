@@ -117,9 +117,9 @@ pipeline {
             dir("${WORKSPACE}/packages/scaffolding-cli/templates/deploy/gcp/app/kube") {
               withCredentials([
                 file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
-                string(credentialsId: 'azure_client_id', variable: 'ARM_CLIENT_ID')
-                string(credentialsId: 'azure_client_secret', variable: 'ARM_CLIENT_SECRET')
-                string(credentialsId: 'azure_subscription_id', variable: 'ARM_SUBSCRIPTION_ID')
+                string(credentialsId: 'azure_client_id', variable: 'ARM_CLIENT_ID'),
+                string(credentialsId: 'azure_client_secret', variable: 'ARM_CLIENT_SECRET'),
+                string(credentialsId: 'azure_subscription_id', variable: 'ARM_SUBSCRIPTION_ID'),
                 string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
               ]) {
                 sh '''
