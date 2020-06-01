@@ -11,8 +11,8 @@ project="stacks"
     // If you haven't specified source_repo at cli runtime please ensure you replace it here "
     // It is case sensitive for TFS based repos"
     self_repo="stacks-webapp-template/packages/scaffolding-cli/templates"
-    self_repo_src="src/ssr"
-    self_repo_tf_src="deploy/gcp/app/kube"
+    self_repo_src="${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr"
+    self_repo_tf_src="${WORKSPACE}/packages/scaffolding-cli/templates/deploy/gcp/app/kube"
     self_generic_name="stacks-webapp-jenkins"
     // TF STATE CONFIG"
     tf_state_rg="amido-stacks-rg-uks"
@@ -74,7 +74,7 @@ project="stacks"
         NODE_ENV="production"
       }
 steps {
-        dir("${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr") {
+        dir("${self_repo_src}") {
           sh '''
             npm audit --audit-level=moderate
           '''
@@ -97,13 +97,13 @@ steps {
           withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
               sh '''
                 gcloud auth activate-service-account --key-file=${GCP_KEY}
+                gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
+                docker-credential-gcr configure-docker
+                gcloud auth configure-docker "eu.gcr.io" --quiet
+                docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
+                  -t ${docker_container_registry_name}/${docker_image_name}:latest
+                docker push ${docker_container_registry_name}/${docker_image_name}
               '''
-                // gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
-                // docker-credential-gcr configure-docker
-                // gcloud auth configure-docker "eu.gcr.io" --quiet
-                // docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
-                //   -t ${docker_container_registry_name}/${docker_image_name}:latest
-                // docker push ${docker_container_registry_name}/${docker_image_name}
             }
         }
       }
@@ -133,8 +133,7 @@ steps {
             //     file(credentialsId: 'gcp-key', variable: 'GCP_KEY')])
           }
           steps {
-            // packages/scaffolding-cli/templates/deploy/gcp/app/kube
-            dir("${WORKSPACE}/packages/scaffolding-cli/templates/deploy/gcp/app/kube") {
+            dir("${self_repo_tf_src}") {
               withCredentials([
                 file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
                 string(credentialsId: 'azure_client_id', variable: 'ARM_CLIENT_ID'),
