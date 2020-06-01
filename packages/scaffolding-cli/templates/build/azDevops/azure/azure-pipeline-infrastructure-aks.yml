@@ -14,12 +14,14 @@ trigger:
   branches:
     include:
     - '*'
+    exclude:
+      - 'feat/1828'
+      - 'origin/feat/1828'
   paths:
     include:
     - 'packages/scaffolding-cli/templates/build/*'
     - 'packages/scaffolding-cli/templates/deploy/*'
-    exclude:
-      - '**/*Jenkinsfile'
+
 resources:
   repositories:
   - repository: templates

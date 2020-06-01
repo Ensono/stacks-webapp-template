@@ -5,13 +5,15 @@ trigger:
   branches:
     include:
     - "*"
+    exclude:
+    - 'feat/1828'
+    - 'origin/feat/1828'
   paths:
     include:
     # Amido Testing pipeline for E2E output of the CLI
     - packages/scaffolding-cli/templates/build/*
     - packages/scaffolding-cli/templates/deploy/*
-    exclude:
-      - '**/*Jenkinsfile'
+
 ###### PART OF AMIDO-STACKS
 resources:
   repositories:
