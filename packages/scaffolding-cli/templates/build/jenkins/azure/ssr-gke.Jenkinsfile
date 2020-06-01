@@ -97,73 +97,74 @@ pipeline {
             }
           }
         }
-        stage('Test'){
+        stage('Test') {
           // when {
           //     branch 'master'
           // }
           failFast true
           parallel {
-              stage('unit-test') {
-                  agent {
-                    docker {
-                      image 'amidostacks/ci-k8s:0.0.7'
-                    }
+            stage('unit-test') {
+                agent {
+                  docker {
+                    image 'amidostacks/ci-k8s:0.0.7'
                   }
-                  steps {
-                    sh '''
-                      npm run test
-                    '''
-                  }
-              }
-              stage('cypress-test') {
-                when {
-                  equals expected: "true", actual: "${cypress_e2e_test}"
-                }
-                // agent {
-                //   docker {
-                //     image 'amidostacks/ci-k8s:0.0.7'
-                //   }
-                // }
-                environment {
-                  PORT="3000"
-                  APP_BASE_URL="http://localhost"
-                  MENU_API_URL="https://api.demo.nonprod.amidostacks.com/api/menu"
-                  APP_BASE_PATH=""
                 }
                 steps {
                   sh '''
-                    npm run test:cypress
+                    cd ${self_repo_src}
+                    npm run test
                   '''
                 }
+            }
+            stage('cypress-test') {
+              when {
+                equals { expected: "true", actual: "${cypress_e2e_test}" }
               }
-              stage('sonar-scanner') {
-                when {
-                  equals expected: "true", actual: "${static_code_analysis}"
+              // agent {
+              //   docker {
+              //     image 'amidostacks/ci-k8s:0.0.7'
+              //   }
+              // }
+              environment {
+                PORT="3000"
+                APP_BASE_URL="http://localhost"
+                MENU_API_URL="https://api.demo.nonprod.amidostacks.com/api/menu"
+                APP_BASE_PATH=""
+              }
+              steps {
+                sh '''
+                  npm run test:cypress
+                '''
+              }
+            }
+            stage('sonar-scanner') {
+              when {
+                equals { expected: "true", actual: "${static_code_analysis}" }
+              }
+              agent {
+                docker {
+                  image 'amidostacks/ci-sonarscanner:0.0.1'
                 }
-                agent {
-                  docker {
-                    image 'amidostacks/ci-sonarscanner:0.0.1'
+              }
+              environment {
+                SONAR_HOST_URL="https://sonarcloud.io"
+                SONAR_PROJECT_KEY="stacks-webapp-template"
+                BUILD_NUMBER="${docker_image_tag}"
+              }
+              steps {
+                dir("${self_repo_src}") {
+                  withCredentials([
+                    string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN'),
+                    string(credentialsId: 'SONAR_ORGANIZATION', variable: 'SONAR_ORGANIZATION')
+                  ]) {
+                      sh '''
+                      sonar-scanner -v
+                      sonar-scanner
+                    '''
                   }
                 }
-                environment {
-                  SONAR_HOST_URL="https://sonarcloud.io"
-                  SONAR_PROJECT_KEY="stacks-webapp-template"
-                  BUILD_NUMBER="${docker_image_tag}"
-                }
-                steps {
-                  dir("${self_repo_src}") {
-                    withCredentials([
-                      string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN'),
-                      string(credentialsId: 'SONAR_ORGANIZATION', variable: 'SONAR_ORGANIZATION')
-                    ]) {
-                       sh '''
-                        sonar-scanner -v
-                        sonar-scanner
-                      '''
-                    }
-                  }
-                }
               }
+            }
           }
         }
         stage('ArtifactUpload') {
@@ -183,6 +184,7 @@ pipeline {
             }
         }
       }
+    }
     }
     stage('Dev') {
       agent {
