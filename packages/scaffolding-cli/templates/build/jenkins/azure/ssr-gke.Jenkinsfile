@@ -118,7 +118,7 @@ pipeline {
             }
             stage('cypress-test') {
               when {
-                equals { expected: "true", actual: "${cypress_e2e_test}" }
+                equals expected: "true", actual: "${cypress_e2e_test}"
               }
               // agent {
               //   docker {
