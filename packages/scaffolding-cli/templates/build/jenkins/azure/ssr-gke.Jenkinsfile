@@ -74,16 +74,27 @@ pipeline {
         }
       }
       steps {
-        sh '''
-          cd ${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr
-          npm install
-          npm run test
-        '''
-        // archiveArtifacts artifacts: '**/coverage/*.lcov', fingerprint: true 
-        sh '''
-          cd ${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr
-          docker build . -t test:${BUILD_NUMBER}
-        '''
+        dir("${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr") {
+          sh '''
+            npm audit
+          '''
+          sh '''
+            npm install
+          '''
+          sh '''
+            npx install-peerdeps --save-dev $(pwd)
+          '''
+          sh '''
+            npm run validate
+          '''
+          sh '''
+            npm run test
+          '''
+          // archiveArtifacts artifacts: '**/coverage/*.lcov', fingerprint: true 
+          sh '''
+            echo "docker build . -t test:${BUILD_NUMBER}"
+          '''
+        }
       }
     }
     stage('Dev') {
@@ -95,11 +106,13 @@ pipeline {
       stages {
         stage('Infra') {
           steps {
-            sh '''
-              echo "$GOOGLE_CREDENTIALS" > /tmp/gkey.json
-              gcloud auth activate-service-account --key-file=/tmp/gkey.json
-              gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project}
-            '''
+            withCredentials([string(credentialsId: 'GCP_CREDS', variable: 'GOOGLE_CREDENTIALS')]) {
+              sh '''
+                echo "$GOOGLE_CREDENTIALS" > /tmp/gkey.json
+                gcloud auth activate-service-account --key-file=/tmp/gkey.json
+                gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project}
+              '''
+            }
           }
         }
         stage('Deploy') {
