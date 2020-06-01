@@ -74,7 +74,7 @@ pipeline {
         NODE_ENV="production"
       }
       steps {
-        dir("${self_repo_src}") {
+        dir("${env.self_repo_src}") {
           sh '''
             npm audit --audit-level=moderate
           '''
@@ -133,7 +133,7 @@ pipeline {
             //     file(credentialsId: 'gcp-key', variable: 'GCP_KEY')])
           }
           steps {
-            dir("${self_repo_tf_src}") {
+            dir("${env.self_repo_tf_src}") {
               withCredentials([
                 file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
                 string(credentialsId: 'azure_client_id', variable: 'ARM_CLIENT_ID'),
