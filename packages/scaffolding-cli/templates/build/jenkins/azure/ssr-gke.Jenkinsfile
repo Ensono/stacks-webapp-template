@@ -1,5 +1,4 @@
 pipeline {
-  agent none
   // parameters {
 
   // }
@@ -75,8 +74,6 @@ pipeline {
       }
       steps {
         sh '''
-          echo ${GOOGLE_CREDENTIALS}
-          echo $GOOGLE_CREDENTIALS
           cd ${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr
           npm install
           npm run test
@@ -89,19 +86,26 @@ pipeline {
       }
     }
     stage('Dev') {
+      agent {
+        docker {
+          image 'amidostacks/ci-k8s:0.0.7'
+        }
+      }
       stages {
-        stage('InfraDev') {
+        stage('Infra') {
           steps {
             sh '''
               echo "$GOOGLE_CREDENTIALS" > /tmp/gkey.json
               gcloud auth activate-service-account --key-file=/tmp/gkey.json
-              gcloud container clusters get-credentials ${gcp} --region europe-west2 --project amido-stacks
+              gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project}
             '''
           }
         }
-        stage('DeployDev') {
+        stage('Deploy') {
           steps {
-            sh 'echo in deploy dev step'
+            sh '''
+              echo "in deploy dev step"
+            '''
           }
         }
       }
