@@ -1,8 +1,8 @@
 pipeline {
     agent none
-    parameters {
+    // parameters {
 
-    }
+    // }
     environment {
       company="amido"
       project="stacks"
