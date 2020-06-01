@@ -1,7 +1,6 @@
 pipeline {
   agent none
   // parameters {
-
   // }
   environment {
     company="amido"
@@ -76,7 +75,7 @@ pipeline {
       steps {
         dir("${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr") {
           sh '''
-            npm audit
+            npm audit --audit-level=moderate
           '''
           sh '''
             npm install
