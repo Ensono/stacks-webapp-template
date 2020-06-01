@@ -4,7 +4,7 @@ pipeline {
   // }
   environment {
     company="amido"
-    project="stacks"
+project="stacks"
     domain="node"
     role="frontend"
     // SelfConfig"
@@ -23,7 +23,7 @@ pipeline {
     // there are some best practices around this if you are going for feature based environments"
     // - we suggest you create a runtime variable that is dynamically set based on a branch currently running"
     // **`terraform_state_workspace="`** "
-    // avoid running anything past dev that is not on master"
+// avoid running anything past dev that is not on master"
     // sample value="company-webapp"
     tf_state_key="node-app"
     // Versioning"
@@ -73,7 +73,7 @@ pipeline {
       environment {
         NODE_ENV="production"
       }
-      steps {
+steps {
         dir("${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr") {
           sh '''
             npm audit --audit-level=moderate
@@ -117,7 +117,7 @@ pipeline {
       stages {
         stage('Infra') {
           environment {
-            TF_WORKSPACE="dev"
+            TF_WORKSPACE="dev-jenkins"
             TF_VAR_project="${gcp_project_name}"
             TF_VAR_location="${gcp_region}"
             TF_VAR_region="${gcp_region}"
@@ -145,9 +145,9 @@ pipeline {
                   terraform -v
                   terraform init -backend-config=\""key=${tf_state_key}\"" -backend-config=\""storage_account_name=${tf_state_storage}\"" \\
                    -backend-config=\""resource_group_name=${tf_state_rg}\"" -backend-config=\""container_name=${tf_state_container}\""
-                  terraform workspace select ${TF_WORKSPACE} || terraform workspace new ${TF_WORKSPACE}
                   terraform plan -input=false -out=tfplan
                 '''
+                  // terraform workspace select ${TF_WORKSPACE} || terraform workspace new ${TF_WORKSPACE}
                 input(message: 'Continue?', ok: 'OK')
                 sh '''
                   GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
@@ -158,10 +158,47 @@ pipeline {
           }
         }
         stage('Deploy') {
+          agent {
+            docker {
+              image 'amidostacks/ci-k8s:0.0.7'
+            }
+          }
+          environment {
+            namespace="dev-stacks-webapp"
+            dns_pointer="app-jenkins.${base_domain}"
+            tls_domain="${base_domain}"
+            k8s_app_path="/web/stacks"
+            k8s_image="'${docker_container_registry_name}/${docker_image_name}:${docker_image_tag}"
+            version="${docker_image_tag}"
+            role="${role}"
+            company="${company}"
+            ingress_ip_name="amido-stacks-nonprod-gke-infra-ingress-public"
+            project="${project}"
+            domain="${domain}"
+            component="web"
+            app_name="webapp-template"
+            resource_def_name="node-app"
+            "environment"="dev"
+          }
           steps {
-            sh '''
-              echo "in deploy dev step"
-            '''
+            dir("${WORKSPACE}/packages/scaffolding-cli/templates/deploy") {
+              withCredentials([
+                file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
+                string(credentialsId: 'azure_client_id', variable: 'ARM_CLIENT_ID'),
+                string(credentialsId: 'azure_client_secret', variable: 'ARM_CLIENT_SECRET'),
+                string(credentialsId: 'azure_subscription_id', variable: 'ARM_SUBSCRIPTION_ID'),
+                string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
+              ]) {
+                sh '''
+                  envsubst -i ./k8s/app/base_gke-app-deploy.yml -o ./k8s/app/app-deploy.yml -no-unset -no-empty
+                '''
+                sh '''
+                  gcloud auth activate-service-account --key-file=${GCP_KEY}
+                  gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
+                  kubectl apply -f ./k8s/app/app-deploy.yml --context ${gcp_cluster_name}
+                '''
+              }
+            }
           }
         }
       }
