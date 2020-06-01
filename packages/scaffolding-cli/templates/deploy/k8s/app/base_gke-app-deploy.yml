@@ -194,12 +194,12 @@ spec:
   - host: ${dns_pointer}
     http:
       paths:
-        - path: ${k8s_app_path}/*
+        - path: ${k8s_app_path:=""}/*
           # pathType: Prefix
           backend:
             serviceName: ${resource_def_name}
             servicePort: http
-        - path: ${k8s_app_path}
+        - path: ${k8s_app_path:=""}
           # pathType: Prefix
           backend:
             serviceName: ${resource_def_name}

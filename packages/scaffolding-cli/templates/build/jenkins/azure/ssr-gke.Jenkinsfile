@@ -198,7 +198,7 @@ pipeline {
               ]) {
                 sh '''
                   export app_insights_key="${APPLICATION_INSIGHTS}"
-                  envsubst -i ./app/base_gke-app-deploy.yml -no-unset > ./app/app-deploy.yml
+                  envsubst -i ./app/base_gke-app-deploy.yml -no-unset -no-empty > ./app/app-deploy.yml
                 '''
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}
