@@ -73,9 +73,6 @@ pipeline {
           // Please check with your admin on how 
         }
       }
-      environment {
-        NODE_ENV="production"
-      }
       steps {
         dir("${self_repo_src}") {
           sh '''
@@ -98,16 +95,16 @@ pipeline {
           '''
           // archiveArtifacts artifacts: '**/coverage/*.lcov', fingerprint: true
           withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
-              sh '''
-                gcloud auth activate-service-account --key-file=${GCP_KEY}
-                gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
-                docker-credential-gcr configure-docker
-                gcloud auth configure-docker "eu.gcr.io" --quiet
-                docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
-                  -t ${docker_container_registry_name}/${docker_image_name}:latest
-                docker push ${docker_container_registry_name}/${docker_image_name}
-              '''
-            }
+            sh '''
+              gcloud auth activate-service-account --key-file=${GCP_KEY}
+              gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
+              docker-credential-gcr configure-docker
+              gcloud auth configure-docker "eu.gcr.io" --quiet
+              docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
+                -t ${docker_container_registry_name}/${docker_image_name}:latest
+              docker push ${docker_container_registry_name}/${docker_image_name}
+            '''
+          }
         }
       }
     }
