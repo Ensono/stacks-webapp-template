@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
         position: "relative",
         backgroundColor: theme.palette.grey[800],
         color: theme.palette.common.white,
-        marginBottom: theme.spacing(4),
+        marginBottom: theme.spacing(2),
         backgroundImage: "url(https://source.unsplash.com/random)",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
@@ -32,6 +32,13 @@ const useStyles = makeStyles(theme => ({
             paddingRight: 0,
         },
     },
+    readMoreButton: {
+        color: theme.palette.common.white,
+        backgroundColor: "rgba( 12, 35, 64, 0.7)",
+        border: "1px solid rgba(0, 0, 0, 0.23)",
+        padding: "5px 15px",
+        textDecoration: "none",
+    },
 }))
 
 export default function MainFeaturedPost(props) {
@@ -39,32 +46,43 @@ export default function MainFeaturedPost(props) {
     const {title, coverImage, date, excerpt, author, slug} = props
 
     return (
-        <Paper
-            className={classes.mainFeaturedPost}
-            style={{backgroundImage: `url(${coverImage.url})`}}
-        >
-            {<img style={{display: "none"}} src={coverImage.url} alt={title} />}
-            <div className={classes.overlay} />
-            <Grid container>
-                <Grid item md={6}>
-                    <div className={classes.mainFeaturedPostContent}>
-                        <Typography
-                            component="h1"
-                            variant="h3"
-                            color="inherit"
-                            gutterBottom
-                        >
-                            {title}
-                        </Typography>
-                        <Typography variant="h5" color="inherit" paragraph>
-                            {excerpt}
-                        </Typography>
-                        <Link as={`/posts/${slug}`} href="/posts/[slug]">
-                            <a>{title}</a>
-                        </Link>
-                    </div>
+        <>
+            <Paper
+                className={classes.mainFeaturedPost}
+                style={{backgroundImage: `url(${coverImage.url})`}}
+            >
+                {
+                    <img
+                        style={{display: "none"}}
+                        src={coverImage.url}
+                        alt={title}
+                    />
+                }
+                <div className={classes.overlay} />
+                <Grid container>
+                    <Grid item md={6}>
+                        <div className={classes.mainFeaturedPostContent}>
+                            <Typography
+                                component="h1"
+                                variant="h3"
+                                color="inherit"
+                                gutterBottom
+                            >
+                                {title}
+                            </Typography>
+                            <Typography variant="h5" color="inherit" paragraph>
+                                {excerpt}
+                            </Typography>
+                            <Link as={`/posts/${slug}`} href="/posts/[slug]">
+                                <a className={classes.readMoreButton}>
+                                    Read More
+                                </a>
+                            </Link>
+                        </div>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Paper>
+            </Paper>
+            <hr />
+        </>
     )
 }

@@ -5,6 +5,7 @@ import {ImgHolder} from "./components"
 export default function PostHeader({title, coverImage, date, author}) {
     return (
         <>
+            <br />
             <h1>{title}</h1>
             <div>
                 {author && (

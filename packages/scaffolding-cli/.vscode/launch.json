@@ -37,7 +37,11 @@
         "NODE_ENV": "dev",
         "LOG_LEVEL": "debug"
       },
-      "args": ["run", "-c", "src/__tests__/domain/netcoreSelenium.bootstrap-config.json"]
-    },
+      "args": [
+        "run",
+        "-c",
+        "src/__tests__/domain/netcoreSelenium.bootstrap-config.json"
+      ]
+    }
   ]
 }
