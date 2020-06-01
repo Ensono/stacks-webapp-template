@@ -19,7 +19,7 @@ metadata:
     component: ${component}
     name: ${resource_def_name}
     part-of: ${project}
-    environment: ${environment}
+    environment: ${environ}
   name: ${resource_def_name}
   namespace: ${namespace}
 spec:
@@ -31,7 +31,7 @@ spec:
       component: ${component}
       name: ${resource_def_name}
       part-of: ${project}
-      environment: ${environment}
+      environment: ${environ}
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -45,7 +45,7 @@ spec:
         component: ${component}
         name: ${resource_def_name}
         part-of: ${project}
-        environment: ${environment}
+        environment: ${environ}
     spec:
       dnsPolicy: ClusterFirst
       containers:
@@ -117,7 +117,7 @@ metadata:
     component: ${component}
     name: ${resource_def_name}
     part-of: ${project}
-    environment: ${environment}
+    environment: ${environ}
   name: ${resource_def_name}
   namespace: ${namespace}
 spec:
@@ -126,7 +126,7 @@ spec:
     component: ${component}
     name: ${resource_def_name}
     part-of: ${project}
-    environment: ${environment}
+    environment: ${environ}
   ports:
   - name: http
     protocol: TCP
@@ -147,7 +147,7 @@ metadata:
     component: ${component}
     name: ${resource_def_name}
     part-of: ${project}
-    environment: ${environment}
+    environment: ${environ}
   name: ${resource_def_name}-certificate
   namespace: ${namespace}
 spec:
@@ -171,7 +171,7 @@ metadata:
     component: ${component}
     name: ${resource_def_name}
     part-of: ${project}
-    environment: ${environment}
+    environment: ${environ}
 spec:
   # DEfaulting to same service
   backend:
