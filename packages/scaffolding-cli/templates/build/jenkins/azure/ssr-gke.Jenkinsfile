@@ -74,10 +74,10 @@ pipeline {
         NODE_ENV="production"
       }
       steps {
-        dir("$self_repo_src") {
+        // dir("${WORKSPACE}/packages/scaffolding-cli/templates/src/ssr") {
+        dir("${self_repo_src}") {
           sh '''
-            echo "${env.self_repo_src}"
-            echo "${self_repo_src}""
+            echo "${self_repo_src}"
             echo "$(pwd)"
             npm audit --audit-level=moderate
           '''
