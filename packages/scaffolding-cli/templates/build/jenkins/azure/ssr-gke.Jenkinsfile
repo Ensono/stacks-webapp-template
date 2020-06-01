@@ -130,7 +130,7 @@ pipeline {
                   terraform select workspace dev || terraform workspace new dev
                   terraform plan -input=false -out=tfplan
                 '''
-                input message: 'Continue?' ok: 'OK'
+                input(message: 'Continue?', ok: 'OK')
                 sh '''
                   export GOOGLE_CREDENTIALS=$(cat ${GCP_KEY})
                   terraform apply tfplan
