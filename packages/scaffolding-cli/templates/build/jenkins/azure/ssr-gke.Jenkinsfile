@@ -116,8 +116,8 @@ pipeline {
       }
       stages {
         stage('Infra') {
-           environment {
-             WORKSPACE="dev"
+          environment {
+            WORKSPACE="dev"
             TF_VAR_project="${gcp_project_name}"
             TF_VAR_location="${gcp_region}"
             TF_VAR_region="${gcp_region}"
