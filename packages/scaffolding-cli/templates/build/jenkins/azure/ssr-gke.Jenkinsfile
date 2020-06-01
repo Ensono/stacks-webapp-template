@@ -13,7 +13,7 @@ pipeline {
     self_repo="stacks-webapp-template/packages/scaffolding-cli/templates"
     self_repo_src="src/ssr"
     self_repo_tf_src="deploy/gcp/app/kube"
-    self_generic_name="stacks-webapp"
+    self_generic_name="stacks-webapp-jenkins"
     // TF STATE CONFIG"
     tf_state_rg="amido-stacks-rg-uks"
     tf_state_storage="amidostackstfstategbl"
@@ -48,8 +48,6 @@ pipeline {
     // Dynamic vars for downstream purposes"
     // tf_workspace_suffix="$[]"
     // dns_suffix=""""
-    // DEFAULT IMAGE RUNNER"
-    pool_vm_image="ubuntu-18.04"
     // Test setup"
     // ADD Vars here"
     // TestCafe E2E Tests"
@@ -92,28 +90,52 @@ pipeline {
           sh '''
             npm run test
           '''
-          // archiveArtifacts artifacts: '**/coverage/*.lcov', fingerprint: true 
-          sh '''
-            echo "docker build . -t test:${BUILD_NUMBER}"
-            echo "docker push ${docker_container_registry_name}/${docker_imagename}"
-          '''
+          // archiveArtifacts artifacts: '**/coverage/*.lcov', fingerprint: true
+          withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
+              sh '''
+                gcloud auth activate-service-account --key-file=${GCP_KEY}
+                gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
+                docker-credential-gcr configure-docker
+                gcloud auth configure-docker "eu.gcr.io" --quiet
+                docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
+                  -t ${docker_container_registry_name}/${docker_image_name}:latest
+                docker push ${docker_container_registry_name}/${docker_imagename}
+              '''
+            }
         }
       }
     }
     stage('Dev') {
       agent {
         docker {
-          image 'amidostacks/ci-k8s:0.0.7'
+          image 'amidostacks/ci-tf:0.0.3'
         }
       }
       stages {
         stage('Infra') {
           steps {
-            withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
-              sh '''
-                gcloud auth activate-service-account --key-file=${GCP_KEY}
-                gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project}
-              '''
+            dir("${WORKSPACE}/packages/scaffolding-cli/templates/deploy/gcp/app/kube") {
+              withCredentials([
+                file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
+                string(credentialsId: 'azure_client_id', variable: 'ARM_CLIENT_ID')
+                string(credentialsId: 'azure_client_secret', variable: 'ARM_CLIENT_SECRET')
+                string(credentialsId: 'azure_subscription_id', variable: 'ARM_SUBSCRIPTION_ID')
+                string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
+              ]) {
+                sh '''
+                  export GOOGLE_CREDENTIALS=$(cat ${GCP_KEY})
+                  terraform init -backend-config="key=${tf_state_key}" -backend-config="storage_account_name=${tf_state_storage}" \\
+                   -backend-config="resource_group_name=${tf_state_rg}" -backend-config="container_name=${tf_state_container}"
+                  terraform -v
+                  terraform select workspace dev || terraform workspace new dev
+                  terraform plan -input=false -out=tfplan
+                '''
+                input message: 'Continue?' ok: 'OK'
+                sh '''
+                  export GOOGLE_CREDENTIALS=$(cat ${GCP_KEY})
+                  terraform apply tfplan
+                '''
+              }
             }
           }
         }
