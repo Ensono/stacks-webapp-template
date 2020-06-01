@@ -11,17 +11,6 @@ type BlogProps = {
 }
 
 const Blog = ({allPosts}: BlogProps) => {
-    // const [posts, setPosts] = useState([])
-    // useEffect(() => {
-    //     async function asyncFunction() {
-    //         const allPosts = await getAllPostsForHome(false)
-    //         setPosts({...posts, ...allPosts})
-    //     }
-    //     asyncFunction()
-    //     return undefined
-    // }, [])
-
-    // const heroPost = allPosts
     return (
         <Layout>
             <br />
