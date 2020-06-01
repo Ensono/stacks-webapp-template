@@ -4,7 +4,7 @@ pipeline {
   // }
   environment {
     company="amido"
-project="stacks"
+    project="stacks"
     domain="node"
     role="frontend"
     // SelfConfig"
@@ -23,7 +23,7 @@ project="stacks"
     // there are some best practices around this if you are going for feature based environments"
     // - we suggest you create a runtime variable that is dynamically set based on a branch currently running"
     // **`terraform_state_workspace="`** "
-// avoid running anything past dev that is not on master"
+    // avoid running anything past dev that is not on master"
     // sample value="company-webapp"
     tf_state_key="node-app"
     // Versioning"
@@ -73,7 +73,7 @@ project="stacks"
       environment {
         NODE_ENV="production"
       }
-steps {
+      steps {
         dir("${self_repo_src}") {
           sh '''
             npm audit --audit-level=moderate
