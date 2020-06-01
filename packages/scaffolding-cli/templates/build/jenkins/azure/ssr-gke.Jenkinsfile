@@ -1,4 +1,5 @@
 pipeline {
+  agent none
   // parameters {
 
   // }
