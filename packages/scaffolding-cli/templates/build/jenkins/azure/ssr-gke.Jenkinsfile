@@ -140,7 +140,7 @@ pipeline {
                 string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
               ]) {
                 sh '''
-                  export GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
+                  GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
                   terraform -v
                   terraform init -backend-config="key=${tf_state_key}" -backend-config="storage_account_name=${tf_state_storage}" \\
                    -backend-config="resource_group_name=${tf_state_rg}" -backend-config="container_name=${tf_state_container}"
