@@ -21,13 +21,18 @@ export function apiMethod(api: Api) {
 }
 
 export function internalEndpoint(api: Api) {
-    if (!getConfig().publicRuntimeConfig.APP_BASE_PATH)
+    if (
+        getConfig() &&
+        getConfig().publicRuntimeConfig &&
+        getConfig().publicRuntimeConfig.APP_BASE_PATH
+    )
+        return endpoint => (...params: Array<any>) =>
+            `${getConfig().publicRuntimeConfig.APP_BASE_PATH}/${api.endpoints[
+                endpoint
+            ].getInternalURL(...params)}`
+    else
         return endpoint => (...params: Array<any>) =>
             `/${api.endpoints[endpoint].getInternalURL(...params)}`
-    return endpoint => (...params: Array<any>) =>
-        `${getConfig().publicRuntimeConfig.APP_BASE_PATH}/${api.endpoints[
-            endpoint
-        ].getInternalURL(...params)}`
 }
 
 export function routeDefinition(api: Api) {
