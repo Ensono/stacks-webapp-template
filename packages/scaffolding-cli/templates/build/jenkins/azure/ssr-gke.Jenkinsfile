@@ -117,7 +117,7 @@ pipeline {
       stages {
         stage('Infra') {
           environment {
-            WORKSPACE="dev"
+            TF_WORKSPACE="dev"
             TF_VAR_project="${gcp_project_name}"
             TF_VAR_location="${gcp_region}"
             TF_VAR_region="${gcp_region}"
@@ -141,13 +141,11 @@ pipeline {
                 string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
               ]) {
                 sh '''
-                  echo pwd
-                  cd ${WORKSPACE}/packages/scaffolding-cli/templates/deploy/gcp/app/kube
                   GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
                   terraform -v
                   terraform init -backend-config=\""key=${tf_state_key}\"" -backend-config=\""storage_account_name=${tf_state_storage}\"" \\
                    -backend-config=\""resource_group_name=${tf_state_rg}\"" -backend-config=\""container_name=${tf_state_container}\""
-                  terraform select workspace ${WORKSPACE} || terraform workspace new ${WORKSPACE}
+                  terraform select workspace ${TF_WORKSPACE} || terraform workspace new ${TF_WORKSPACE}
                   terraform plan -input=false -out=tfplan
                 '''
                 input(message: 'Continue?', ok: 'OK')
