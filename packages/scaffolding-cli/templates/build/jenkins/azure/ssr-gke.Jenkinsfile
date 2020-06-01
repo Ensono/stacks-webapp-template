@@ -139,7 +139,7 @@ pipeline {
             }
             stage('sonar-scanner') {
               when {
-                equals { expected: "true", actual: "${static_code_analysis}" }
+                equals expected: "true", actual: "${static_code_analysis}"
               }
               agent {
                 docker {
