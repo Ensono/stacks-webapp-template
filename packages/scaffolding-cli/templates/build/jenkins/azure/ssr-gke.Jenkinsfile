@@ -145,7 +145,7 @@ pipeline {
                   terraform -v
                   terraform init -backend-config=\""key=${tf_state_key}\"" -backend-config=\""storage_account_name=${tf_state_storage}\"" \\
                    -backend-config=\""resource_group_name=${tf_state_rg}\"" -backend-config=\""container_name=${tf_state_container}\""
-                  terraform select workspace ${TF_WORKSPACE} || terraform workspace new ${TF_WORKSPACE}
+                  terraform workspace select ${TF_WORKSPACE} || terraform workspace new ${TF_WORKSPACE}
                   terraform plan -input=false -out=tfplan
                 '''
                 input(message: 'Continue?', ok: 'OK')
