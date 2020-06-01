@@ -54,9 +54,11 @@ pipeline {
     // Test setup"
     // ADD Vars here"
     // TestCafe E2E Tests"
-    testcafe_e2e_test=false
+    testcafe_e2e_test="false"
     // Lighthouse Audit"
-    lighthouse_audit=false
+    lighthouse_audit="false"
+    static_code_analysis="true"
+    cypress_e2e_test="false"
     CLOUDSDK_COMPUTE_REGION="${gcp_region}"
     CLOUDSDK_CONTAINER_CLUSTER="${company}-${project}-nonprod-gke-infra"
     CLOUDSDK_CORE_PROJECT="${gcp_project_id}"
@@ -73,38 +75,112 @@ pipeline {
           // Please check with your admin on how 
         }
       }
-      steps {
-        dir("${self_repo_src}") {
-          sh '''
-            npm audit --audit-level=moderate
-          '''
-          sh '''
-            npm install
-          '''
-          // Installing peer deps for package
-          // can be extended with addtional pacakges            
-          // npx install-peerdeps -d @amidostacks/eslint-config package2 package3
-          sh '''
-            npx install-peerdeps -d @amidostacks/eslint-config
-          '''
-          sh '''
-            npm run validate
-          '''
-          sh '''
-            npm run test
-          '''
-          // archiveArtifacts artifacts: '**/coverage/*.lcov', fingerprint: true
-          withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
-            sh '''
-              gcloud auth activate-service-account --key-file=${GCP_KEY}
-              gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
-              docker-credential-gcr configure-docker
-              gcloud auth configure-docker "eu.gcr.io" --quiet
-              docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
-                -t ${docker_container_registry_name}/${docker_image_name}:latest
-              docker push ${docker_container_registry_name}/${docker_image_name}
-            '''
+      stages{
+        stage('Build'){
+          steps {
+            dir("${self_repo_src}") {
+              sh '''
+                npm audit --audit-level=moderate
+              '''
+              sh '''
+                npm install
+              '''
+              // Installing peer deps for package
+              // can be extended with addtional pacakges            
+              // npx install-peerdeps -d @amidostacks/eslint-config package2 package3
+              sh '''
+                npx install-peerdeps -d @amidostacks/eslint-config
+              '''
+              sh '''
+                npm run validate
+              '''
+            }
           }
+        }
+        stage('Test'){
+          // when {
+          //     branch 'master'
+          // }
+          failFast true
+          parallel {
+              stage('unit-test') {
+                  agent {
+                    docker {
+                      image 'amidostacks/ci-k8s:0.0.7'
+                    }
+                  }
+                  steps {
+                    sh '''
+                      npm run test
+                    '''
+                  }
+              }
+              stage('cypress-test') {
+                when {
+                  equals expected: "true", actual: "${cypress_e2e_test}"
+                }
+                // agent {
+                //   docker {
+                //     image 'amidostacks/ci-k8s:0.0.7'
+                //   }
+                // }
+                environment {
+                  PORT="3000"
+                  APP_BASE_URL="http://localhost"
+                  MENU_API_URL="https://api.demo.nonprod.amidostacks.com/api/menu"
+                  APP_BASE_PATH=""
+                }
+                steps {
+                  sh '''
+                    npm run test:cypress
+                  '''
+                }
+              }
+              stage('sonar-scanner') {
+                when {
+                  equals expected: "true", actual: "${static_code_analysis}"
+                }
+                agent {
+                  docker {
+                    image 'amidostacks/ci-sonarscanner:0.0.1'
+                  }
+                }
+                environment {
+                  SONAR_HOST_URL="https://sonarcloud.io"
+                  SONAR_PROJECT_KEY="stacks-webapp-template"
+                  BUILD_NUMBER="${docker_image_tag}"
+                }
+                steps {
+                  dir("${self_repo_src}") {
+                    withCredentials([
+                      string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN'),
+                      string(credentialsId: 'SONAR_ORGANIZATION', variable: 'SONAR_ORGANIZATION')
+                    ]) {
+                       sh '''
+                        sonar-scanner -v
+                        sonar-scanner
+                      '''
+                    }
+                  }
+                }
+              }
+          }
+        }
+        stage('ArtifactUpload') {
+          steps {
+            dir("${self_repo_src}") {
+              withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
+                sh '''
+                  gcloud auth activate-service-account --key-file=${GCP_KEY}
+                  gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
+                  docker-credential-gcr configure-docker
+                  gcloud auth configure-docker "eu.gcr.io" --quiet
+                  docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
+                    -t ${docker_container_registry_name}/${docker_image_name}:latest
+                  docker push ${docker_container_registry_name}/${docker_image_name}
+                '''
+              }
+            }
         }
       }
     }
@@ -198,6 +274,7 @@ pipeline {
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}
                   gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
+                  cat ./app/app-deploy.yml
                   kubectl apply -f ./app/app-deploy.yml
                 '''
               }
