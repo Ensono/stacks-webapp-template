@@ -173,6 +173,7 @@ pipeline {
             namespace="dev-stacks-webapp-jenkins"
             dns_pointer="app-jenkins.${base_domain}"
             tls_domain="${base_domain}"
+            k8s_app_path=""
             k8s_image="${docker_container_registry_name}/${docker_image_name}:${docker_image_tag}"
             version="${docker_image_tag}"
             role="${role}"
@@ -192,9 +193,11 @@ pipeline {
                 string(credentialsId: 'azure_client_id', variable: 'ARM_CLIENT_ID'),
                 string(credentialsId: 'azure_client_secret', variable: 'ARM_CLIENT_SECRET'),
                 string(credentialsId: 'azure_subscription_id', variable: 'ARM_SUBSCRIPTION_ID'),
-                string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
+                string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID'),
+                string(credentialsId: 'app_insights_key', variable: 'APPLICATION_INSIGHTS')
               ]) {
                 sh '''
+                  export app_insights_key="${APPLICATION_INSIGHTS}"
                   envsubst -i ./app/base_gke-app-deploy.yml -no-unset > ./app/app-deploy.yml
                 '''
                 sh '''
