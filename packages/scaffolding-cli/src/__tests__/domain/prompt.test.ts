@@ -42,9 +42,6 @@ jest.mock("prompts")
 
 const mockPrompt = jest.spyOn(prompt, "prompt")
 
-// Utils.writeOutConfigFile = jest.fn().mockImplementation(() => {
-//     return Promise.resolve({})
-// })
 describe("prompt class tests", () => {
     describe("Positive assertions", () => {
         it("When run from config with absolute path should return an object with a code and message", async () => {

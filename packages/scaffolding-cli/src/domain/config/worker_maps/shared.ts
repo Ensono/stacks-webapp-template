@@ -1,5 +1,4 @@
 
-import {resolve} from "path"
 import terminalLink from "terminal-link"
 import {
     BusinessSection,
@@ -8,6 +7,7 @@ import {
     SourceControlSection,
 } from "../../model/prompt_answer"
 import {BuildReplaceInput} from "../file_mapper"
+import { resolve } from "path"
 
 /**
  * TODO: implement a shared inFiles replace to minimize duplication
@@ -45,8 +45,6 @@ export const inFiles = ({
                 "packages/scaffolding-cli/templates/": "",
                 "self_repo_tf_src: deploy/azure/infra/stacks-aks":
                     "self_repo_tf_src: deploy/azure/infra",
-                // "amido-stacks-nonprod-node": "REPLACE_ME_FOR_RG_NAME",
-                // "amidostacksnonprodnode": "REPLACE_ME_FOR_ACR_NAME", // cloudObj?.acr_name
                 "company: amido": `company: ${businessObj?.company}`,
                 "project: stacks": `project: ${businessObj?.project}`,
                 "domain: node": `domain: ${businessObj?.domain}`,

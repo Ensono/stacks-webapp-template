@@ -36,6 +36,7 @@ export async function runConfig(cliArgs: CliOptions): Promise<ExitMessage> {
 }
 
 const onCancel = () => {
+    //Todo: ensure we have a flow for a user to force exit
     console.log("Selecting default answer.")
     return true
 }
