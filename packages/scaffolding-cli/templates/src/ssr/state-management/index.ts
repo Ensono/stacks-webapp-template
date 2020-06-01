@@ -5,19 +5,6 @@ import createSagaMiddleware, {Task} from "redux-saga"
 import rootReducer from "./root-reducer"
 import rootSaga from "./root-saga"
 
-// const IS_BROWSER = typeof window !== "undefined"
-
-// const {
-//     publicRuntimeConfig: {NODE_ENV},
-// } = getConfig()
-
-// const hasDevTools = false
-// NODE_ENV === "development" && IS_BROWSER && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-
-// const composeEnhancers = hasDevTools
-//     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-//     : compose
-
 interface WithSagaTaskStore extends Store {
     sagaTask?: Task
 }
