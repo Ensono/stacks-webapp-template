@@ -79,24 +79,22 @@ pipeline {
       steps {
         dir("${self_repo_src}") {
           sh '''
-            echo "${self_repo_src}"
-            echo "$(pwd)"
             npm audit --audit-level=moderate
           '''
           sh '''
-            echo "npm install"
+            npm install
           '''
           // Installing peer deps for package
           // can be extended with addtional pacakges            
           // npx install-peerdeps -d @amidostacks/eslint-config package2 package3
           sh '''
-            echo "npx install-peerdeps -d @amidostacks/eslint-config"
+            npx install-peerdeps -d @amidostacks/eslint-config
           '''
           sh '''
             npm run validate
           '''
           sh '''
-            echo "npm run test"
+            npm run test
           '''
           // archiveArtifacts artifacts: '**/coverage/*.lcov', fingerprint: true
           withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
@@ -198,12 +196,12 @@ pipeline {
               ]) {
                 sh '''
                   export app_insights_key="${APPLICATION_INSIGHTS}"
-                  envsubst -i ./app/base_gke-app-deploy.yml -no-unset -no-empty > ./app/app-deploy.yml
+                  envsubst -i ./app/base_gke-app-deploy.yml -o ./app/app-deploy.yml -no-unset -no-empty
                 '''
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}
                   gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
-                  kubectl apply -f ./k8s/app/app-deploy.yml
+                  kubectl apply -f ./app/app-deploy.yml
                 '''
               }
             }
