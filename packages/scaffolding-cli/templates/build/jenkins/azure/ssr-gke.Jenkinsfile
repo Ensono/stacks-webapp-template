@@ -95,7 +95,7 @@ pipeline {
           // archiveArtifacts artifacts: '**/coverage/*.lcov', fingerprint: true 
           sh '''
             echo "docker build . -t test:${BUILD_NUMBER}"
-            echo "docker push ${containerregistryname}/${docker_imagename}"
+            echo "docker push ${docker_container_registry_name}/${docker_imagename}"
           '''
         }
       }
@@ -109,10 +109,9 @@ pipeline {
       stages {
         stage('Infra') {
           steps {
-            withCredentials([string(credentialsId: 'GCP_CREDS', variable: 'GOOGLE_CREDENTIALS')]) {
+            withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
               sh '''
-                echo "$GOOGLE_CREDENTIALS" > /tmp/gkey.json
-                gcloud auth activate-service-account --key-file=/tmp/gkey.json
+                gcloud auth activate-service-account --key-file=${GCP_KEY}
                 gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project}
               '''
             }
