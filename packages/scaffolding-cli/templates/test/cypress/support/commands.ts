@@ -24,6 +24,12 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+const _ = Cypress._
+
+
+// Load type definitions that come with Cypress module
+/// <reference types="cypress" />
+
 declare namespace Cypress {
     interface Chainable {
         /**
@@ -31,11 +37,20 @@ declare namespace Cypress {
          * @example cy.login().then((resp) => { expect(resp.status).to.eq(200) }
          */
         login(): Chainable<Response>
+        /**
+         * Custom command to perform a lighthouse check on a given page
+         * @example cy.lighthouse() }
+         */
+        // lighthouse(url?: any, thresholds?: any, opts?: {}, config?: any): Chainable<any>
+        lighthouse(thresholds?: {performance?: number, accessibility?: number, "best-practices"?: number, seo?: number, pwa?: number}, opts?: {}, config?: any): Chainable<any>
     }
 }
 
-const _ = Cypress._
-const url = require('url')
+require("cypress-audit/src/performances/commands") 
+
+Cypress.Commands.overwrite("lighthouse",  (originalFn, thresholds, opts, config) => {
+    return originalFn(thresholds, opts, config)
+})
 
 Cypress.Commands.add("login", (overrides = {}) => {
     const options = {
@@ -58,3 +73,4 @@ Cypress.Commands.add("login", (overrides = {}) => {
 
     cy.request(options)
 })
+

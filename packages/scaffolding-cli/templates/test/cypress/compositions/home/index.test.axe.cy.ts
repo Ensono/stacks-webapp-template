@@ -16,7 +16,7 @@ For more: https://www.npmjs.com/package/cypress-axe
 /**
  * @type {Cypress.PluginConfig}
  */
-describe("/ (index)", () => {
+describe("Accessibility: / (index)", () => {
     beforeEach(() => {
         cy.fixture("get-menu-response.json").as("menuResponse")
         cy.server()
