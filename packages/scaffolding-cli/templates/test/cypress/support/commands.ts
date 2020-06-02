@@ -41,7 +41,6 @@ declare namespace Cypress {
          * Custom command to perform a lighthouse check on a given page
          * @example cy.lighthouse() }
          */
-        // lighthouse(url?: any, thresholds?: any, opts?: {}, config?: any): Chainable<any>
         lighthouse(thresholds?: {performance?: number, accessibility?: number, "best-practices"?: number, seo?: number, pwa?: number}, opts?: {}, config?: any): Chainable<any>
     }
 }

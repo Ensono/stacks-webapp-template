@@ -8,6 +8,7 @@
     "dist/**/*",
     "**/__mocks__/**/*",
     "test-app-*",
-    "**.test.ts"
+    "**.test.ts",
+    "templates/test/"
   ]
 }

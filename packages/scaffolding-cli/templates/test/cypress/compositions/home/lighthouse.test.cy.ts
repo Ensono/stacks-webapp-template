@@ -1,5 +1,9 @@
 /*
+Example using Lighthouse to showcase how to use Cypress to assert on the performance of a URL
 
+This can be used on a locally running instances BEFORE deployment.
+
+For more: https://www.npmjs.com/package/cypress-axe
 */
 
 /// <reference types="Cypress" />
@@ -9,6 +13,15 @@
  */
 
 describe("Performance of", () => {
+    // Set baseline. If this isn't set, then it will default to 100% for all aspects
+    const thresholds = {
+        performance: 80,
+        accessibility: 100,
+        "best-practices": 85,
+        seo: 85,
+        pwa: 0,
+    } 
+
     beforeEach(() => {
         cy.fixture("get-menu-response.json").as("menuResponse")
         cy.server()
@@ -21,24 +34,12 @@ describe("Performance of", () => {
     it("SSR production passes the audits", () => {
         cy.visit("")
         cy.wait("@getStubbedMenu")
-        cy.lighthouse({
-            performance: 80,
-            accessibility: 100,
-            "best-practices": 85,
-            seo: 85,
-            pwa: 10,
-        })
+        cy.lighthouse(thresholds)
     })
     it("CSR production passes the audits", () => {
         cy.visit("https://csr2-app.nonprod.amidostacks.com/")
         cy.wait("@getStubbedMenu")
-        cy.lighthouse({
-            performance: 80,
-            accessibility: 100,
-            "best-practices": 85,
-            seo: 85,
-            pwa: 0,
-        })
+        cy.lighthouse(thresholds)
     })
 })
 
