@@ -1,5 +1,4 @@
 
-import {resolve} from "path"
 import terminalLink from "terminal-link"
 import {
     BusinessSection,
@@ -8,6 +7,7 @@ import {
     SourceControlSection,
 } from "../../model/prompt_answer"
 import {BuildReplaceInput} from "../file_mapper"
+import { resolve } from "path"
 
 /**
  * TODO: implement a shared inFiles replace to minimize duplication
@@ -45,8 +45,6 @@ export const inFiles = ({
                 "packages/scaffolding-cli/templates/": "",
                 "self_repo_tf_src: deploy/azure/infra/stacks-aks":
                     "self_repo_tf_src: deploy/azure/infra",
-                // "amido-stacks-nonprod-node": "REPLACE_ME_FOR_RG_NAME",
-                // "amidostacksnonprodnode": "REPLACE_ME_FOR_ACR_NAME", // cloudObj?.acr_name
                 "company: amido": `company: ${businessObj?.company}`,
                 "project: stacks": `project: ${businessObj?.project}`,
                 "domain: node": `domain: ${businessObj?.domain}`,
@@ -68,14 +66,15 @@ export const inFiles = ({
 }
 
 export const introUsageMessage = (): string => {
-    return `Bootstrap a templated project webapp, API and/or testing framework with supporting pipelines and infrastructure by answering just a few questions.\n
-For more information on the scaffolding-cli flow, please see <url>.\n
-
+    return `
+    
 ███████ ████████  █████   ██████ ██   ██ ███████ 
 ██         ██    ██   ██ ██      ██  ██  ██      
 ███████    ██    ███████ ██      █████   ███████ 
      ██    ██    ██   ██ ██      ██  ██       ██ 
-███████    ██    ██   ██  ██████ ██   ██ ███████ 
+███████    ██    ██   ██  ██████ ██   ██ ███████
+\nBootstrap a templated project webapp, API and/or testing framework with supporting pipelines and infrastructure by answering just a few questions.\n
+For more information: https://amido.github.io/stacks\n
 `
 }
 
@@ -85,10 +84,7 @@ export const finalResponseMessage = (
     ranAdvanced = false,
 ): string => {
     const dir: string = resolve(process.cwd(), projectName)
-    const configFile: string = resolve(
-        dir,
-        `${projectName}.bootstrap.config.json`,
-    )
+    const configFile: string = resolve(dir, `../${projectName}.bootstrap-config.json`)
     const advanced = `* your selected advanced configuration has been saved to ${configFile}. To edit and rerun, see <> for more info.`
     const basic = `your selected configuration and additional project default has been saved to ${configFile}. To change provided default configuration please edit and rerun. See <> for more info`
     return `${message}\
