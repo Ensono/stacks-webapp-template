@@ -40,17 +40,6 @@ describe("Performance of", () => {
             pwa: 0,
         })
     })
-    it("SSR production perform better than CSR", () => {
-        cy.visit("https://csr2-app.nonprod.amidostacks.com/")
-        cy.wait("@getStubbedMenu")
-        cy.lighthouse({
-            performance: 80,
-            accessibility: 100,
-            "best-practices": 85,
-            seo: 85,
-            pwa: 0,
-        }).then()
-    })
 })
 
 export default {}
