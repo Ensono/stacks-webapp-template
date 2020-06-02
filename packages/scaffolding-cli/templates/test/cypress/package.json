@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@applitools/eyes-cypress": "^3.9.21",
+    "@lhci/cli": "^0.4.1",
     "@types/cypress-axe": "^0.8.0",
     "axe-core": "^3.5.4",
     "cypress": "^4.7.0",
