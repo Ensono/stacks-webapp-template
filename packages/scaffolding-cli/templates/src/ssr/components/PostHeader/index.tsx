@@ -1,6 +1,7 @@
 import Avatar from "../Avatar"
 import Date from "../Date"
-import {ImgHolder} from "./components"
+import {ImgHolder, Image} from "./components"
+import React from "react"
 
 export default function PostHeader({title, coverImage, date, author}) {
     return (
@@ -16,7 +17,7 @@ export default function PostHeader({title, coverImage, date, author}) {
                 </div>
             </div>
             <ImgHolder>
-                <img title={title} src={coverImage.url} />
+                <Image title={title} src={coverImage.url} />
             </ImgHolder>
         </>
     )

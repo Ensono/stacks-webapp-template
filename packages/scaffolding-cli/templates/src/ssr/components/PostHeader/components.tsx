@@ -8,3 +8,8 @@ export const ImgHolder = styled.div`
     margin-bottom: 8px;
     overflow: hidden;
 `
+
+export const Image = styled.img`
+    display: block;
+    margin: auto;
+`
