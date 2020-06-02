@@ -133,6 +133,71 @@ export function cliQuestions(
     ]
 }
 
+export function cliTestQuestions(
+    defaultProjectName: string,
+): Array<PromptQuestion> {
+    return [
+        {
+            type: "text",
+            name: "businessCompany",
+            message: "Please provide the company name to test for",
+            initial: "amido",
+        },
+        {
+            type: "text",
+            name: "projectName",
+            message: "Please provide the project name to be tested",
+            initial: defaultProjectName,
+        },
+        {
+            type: "select",
+            name: "projectType",
+            message: "Select test framework",
+            choices: [
+                {
+                    title: "Selenium framework with .NET",
+                    description:
+                        "automation, bddfy, xunit, webdriver, netcore, e2e, standalone",
+                    value: "testnetcoreselenium",
+                },
+                {
+                    title: "TestCafe framework with Typescript",
+                    description:
+                        "in-browser, automation, node.js, javascript, bdd, cross browser",
+                    value: "testjstestcafe",
+                }
+            ],
+            initial: 0,
+        },
+        {
+            type: "text",
+            name: "businessDomain",
+            message: "Please provide test scope (domain)",
+            description:
+                "Used for test scope with framework naming conventions.",
+            initial: "menu-api",
+        },
+        {
+            type: "select",
+            name: "deployment",
+            message: "Select Pipeline Tool",
+            choices: [
+                {
+                    title: "AzureDevOps",
+                    description: "Azure Devops/VSTS/TFS",
+                    value: "azdevops",
+                },
+                {
+                    title: "Jenkins",
+                    description: "Jenkins CI/CD",
+                    value: "jenkins",
+                },
+            ],
+            initial: 0,
+        },
+    ]
+}
+
 export function advancedQuestions(): Array<PromptQuestion> {
     return [
         {
