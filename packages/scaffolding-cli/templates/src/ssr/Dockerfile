@@ -1,7 +1,12 @@
 FROM amidostacks/node:0.0.3
 
 ARG NODE_ENV=production
+ARG NEXT_PUBLIC_CONTENTFUL_SPACE_ID=""
+ARG NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=""
+
 ENV NODE_ENV=${NODE_ENV}
+ENV NEXT_PUBLIC_CONTENTFUL_SPACE_ID=${NEXT_PUBLIC_CONTENTFUL_SPACE_ID} 
+ENV NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN}
 
 RUN apt-get update -y && apt-get install dumb-init -y
 # use changes to package.json to force Docker not to use the cache
