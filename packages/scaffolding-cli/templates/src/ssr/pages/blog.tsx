@@ -19,7 +19,7 @@ const Blog = ({allPosts}: BlogProps) => {
         </Layout>
     )
 }
-// export async function getStaticProps({preview = true}) {
+
 export const getStaticProps = wrapper.getStaticProps(async ({store}) => {
     const allPosts = await getAllPostsForHome(true)
     debugger
