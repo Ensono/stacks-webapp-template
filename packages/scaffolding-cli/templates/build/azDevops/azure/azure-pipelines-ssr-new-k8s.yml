@@ -121,7 +121,7 @@ stages:
               docker_build: true
               login_azure: true
               # TODO: normalize this
-              docker_build_additional_args: "--build-arg NEXT_PUBLIC_CONTENTFUL_SPACE_ID=$(NEXT_PUBLIC_CONTENTFUL_SPACE_ID) --build-arg NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=$(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN) ."
+              docker_build_additional_args: "--build-arg NEXT_PUBLIC_CONTENTFUL_SPACE_ID=$(NEXT_PUBLIC_CONTENTFUL_SPACE_ID) --build-arg NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=$(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN) --build-arg NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN=$(NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN) ."
               docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
