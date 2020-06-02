@@ -12,34 +12,25 @@ For more: https://www.npmjs.com/package/cypress-axe
  * @type {Cypress.PluginConfig}
  */
 
-describe("Performance of", () => {
+describe("Profile performance of", () => {
     // Set baseline. If this isn't set, then it will default to 100% for all aspects
     const thresholds = {
         performance: 80,
-        accessibility: 100,
-        "best-practices": 85,
-        seo: 85,
+        accessibility: 80,
+        "best-practices": 80,
+        seo: 80,
         pwa: 0,
-    } 
+    }
 
-    beforeEach(() => {
-        cy.fixture("get-menu-response.json").as("menuResponse")
-        cy.server()
-        cy.route({
-            method: "GET", // Route all GET requests
-            url: new RegExp(".*/menu.*"), // that have a URL that matches '/menu'
-            response: "@menuResponse", // and force the response to be: []
-        }).as("getStubbedMenu")
-    })
-    it("SSR production passes the audits", () => {
-        cy.visit("")
-        cy.wait("@getStubbedMenu")
-        cy.lighthouse(thresholds)
-    })
-    it("CSR production passes the audits", () => {
-        cy.visit("https://csr2-app.nonprod.amidostacks.com/")
-        cy.wait("@getStubbedMenu")
-        cy.lighthouse(thresholds)
+    // Delcare the page urls under test
+    const pageUrls: string[] = [Cypress.config("baseUrl")?.valueOf() || "", "https://csr2-app.nonprod.amidostacks.com/"]
+
+    // Parameretised tests for testing a number of pages all meet the same threshold
+    pageUrls.forEach((pageUrl: string) => {
+        it(`production ${pageUrl} passes the audits`, () => {
+            cy.visit(pageUrl)
+            cy.lighthouse(thresholds)
+        })
     })
 })
 
