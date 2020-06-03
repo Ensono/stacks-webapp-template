@@ -1,8 +1,11 @@
-import {ServerStyleSheets} from "@material-ui/core/styles"
-import Document, {Head, Html, Main, NextScript} from "next/document"
 import React from "react"
+import Document, {Head, Main, NextScript, Html} from "next/document"
+import {ServerStyleSheets} from "@material-ui/core/styles"
 import theme from "../config/theme"
+import getConfig from "next/config"
 
+const {publicRuntimeConfig} = getConfig()
+const {APP_BASE_URL, APP_BASE_PATH} = publicRuntimeConfig
 export default class MyDocument extends Document {
     render() {
         return (
@@ -20,20 +23,20 @@ export default class MyDocument extends Document {
                     <link
                         rel="icon"
                         type="image/x-icon"
-                        href={`${process.env.APP_BASE_URL}${process.env.APP_BASE_PATH}/static/icons/favicon.ico`}
+                        href={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/favicon.ico`}
                     />
                     <meta
                         property="og:image"
-                        content={`${process.env.APP_BASE_URL}${process.env.APP_BASE_PATH}/static/icons/favicon-96x96.png`}
+                        content={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/favicon-96x96.png`}
                     />
                     <meta name="msapplication-TileColor" content="#000000" />
                     <meta
                         name="msapplication-config"
-                        content={`${process.env.APP_BASE_URL}${process.env.APP_BASE_PATH}/static/icons/browserconfig.xml`}
+                        content={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/browserconfig.xml`}
                     />
                     <link
                         rel="manifest"
-                        href={`${process.env.APP_BASE_URL}${process.env.APP_BASE_PATH}/static/icons/manifest.json`}
+                        href={`${APP_BASE_URL}${APP_BASE_PATH}/static/icons/manifest.json`}
                     />
                     <meta
                         name="description"
