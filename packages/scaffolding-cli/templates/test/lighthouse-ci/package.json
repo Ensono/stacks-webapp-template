@@ -1,0 +1,14 @@
+{
+  "name": "lighthouse-ci",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Run Google Lighthouse for the footer UI",
+  "scripts": {
+    "lh:collect": "lhci collect --config lighthouserc.json",
+    "lh:assert": "lhci assert --config lighthouserc.json",
+    "lh:upload": "lhci upload --config lighthouserc.json"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.4.1"
+  }
+}
