@@ -130,6 +130,7 @@ stages:
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
               # Sonar settings
               static_code_analysis: false
+              sonar_container: sonar_scanner
               #Linting and formatting validation
               lint_formatting: false
               shared_eslint_config: "@amidostacks/eslint-config@latest"
