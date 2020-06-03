@@ -17,14 +17,10 @@
     "test:cypress:eyes": "npm run test:cypress:open --spec \"**/*.test.eyes.cy.js\"",
     "posttest:cypress": "npx mochawesome-merge 'results/mochawesome*.json' > 'results/report.json' && npx marge results/report.json --assetsDir results/assets --reportDir results/",
     "report": "npx xunit-viewer -r cypress-junit-test-report.xml",
-    "clean:tree": "git clean -idx",
-    "lh:collect": "lhci collect --config ./config/lighthouse.config.json",
-    "lh:assert": "lhci assert --config ./config/lighthouse.config.json",
-    "lh:upload": "lhci upload --config ./config/lighthouse.config.json"
+    "clean:tree": "git clean -idx"
   },
   "devDependencies": {
     "@applitools/eyes-cypress": "^3.9.21",
-    "@lhci/cli": "^0.4.1",
     "@types/cypress-axe": "^0.8.0",
     "axe-core": "^3.5.4",
     "cypress": "^4.7.0",
