@@ -6,6 +6,7 @@ import {
     computedSelection,
     platformQuestions,
     advancedQuestions,
+    cliTestQuestions,
 } from "./config/questions"
 import {PromptQuestion} from "./model/prompt_question"
 import {PromptAnswer, CliAnswerModel} from "./model/prompt_answer"
@@ -21,20 +22,22 @@ const exitMessage: ExitMessage = {} as ExitMessage
  * @returns
  */
 export async function runCli(
-    defaultProjectName: string
+    defaultProjectName: string,
+    cliArgs: CliOptions
 ): Promise<ExitMessage> {
-    userSelection = await getFromCli(defaultProjectName)
+    userSelection = await getFromCli(defaultProjectName, cliArgs)
     cliModifiedSelection = computedSelection(userSelection)
-    return await selectFlow(cliModifiedSelection)
+    return selectFlow(cliModifiedSelection)
 }
 
 export async function runConfig(cliArgs: CliOptions): Promise<ExitMessage> {
     cliModifiedSelection = await getFromConfig(cliArgs.configfile || "")
-    return await selectFlow(cliModifiedSelection)
+    return selectFlow(cliModifiedSelection)
 }
 
-const onCancel = (prompt: any) => {
-    console.log("Never stop prompting!")
+const onCancel = () => {
+    //Todo: ensure we have a flow for a user to force exit
+    console.log("Selecting default answer.")
     return true
 }
 
@@ -42,31 +45,33 @@ const onCancel = (prompt: any) => {
  * @private
  * @param defaultProjectName
  */
-async function getFromCli(defaultProjectName: string): Promise<PromptAnswer> {
-    let cliSelection: PromptAnswer
+async function getFromCli(defaultProjectName: string, cliArgs: CliOptions): Promise<PromptAnswer> {
     let initialQs: Array<PromptQuestion> = new Array<PromptQuestion>()
-    const questions: Array<PromptQuestion> = cliQuestions(defaultProjectName)
+    
+    // If the command is test, go through test flow:
+    if (cliArgs._[0] === "test") {
+        initialQs = cliTestQuestions(defaultProjectName)
+        const cliSelection = await prompt(initialQs, {onCancel})
+        return cliSelection
+    }
+
+    const questions = cliQuestions(defaultProjectName)
     questions.forEach(el => {
         initialQs = [...initialQs, el]
     })
 
-    cliSelection = await prompt(initialQs, {onCancel})
-    if (cliSelection.projectType.startsWith("test")) {
-        // let testSelection = await testAdvancedCliQuestion(cliSelection, testQuestions)
-        // return testSelection
-    } else {
-        let platformSelection = await advancedCliQuestion(
-            cliSelection,
-            platformQuestions,
+    const cliSelection = await prompt(initialQs, {onCancel})
+    const platformSelection = await advancedCliQuestion(
+        cliSelection,
+        platformQuestions,
+    )
+
+    if (platformSelection?.enableAdvanced) {
+        const advancedSelection = await advancedCliQuestion(
+            platformSelection,
+            advancedQuestions,
         )
-        if (platformSelection?.enableAdvanced) {
-            let advancedSelection = await advancedCliQuestion(
-                platformSelection,
-                advancedQuestions,
-            )
-            return advancedSelection
-        }
-        return platformSelection
+        return advancedSelection
     }
     return cliSelection
 }
