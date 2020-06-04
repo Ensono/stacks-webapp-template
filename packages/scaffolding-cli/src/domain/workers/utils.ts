@@ -3,7 +3,7 @@ import { tmpdir } from 'os'
 import { startCase, toLower } from 'lodash'
 import { ReplaceInFileConfig, replaceInFile } from 'replace-in-file'
 import { resolve } from 'path'
-import logger from 'simple-winston-logger-abstraction'
+import { logger } from 'simple-winston-logger-abstraction'
 import gitP, { SimpleGit } from 'simple-git/promise';
 import { Replacetruct, replaceGeneratedConfig } from '../config/file_mapper'
 import { FolderMap } from '../model/config'
