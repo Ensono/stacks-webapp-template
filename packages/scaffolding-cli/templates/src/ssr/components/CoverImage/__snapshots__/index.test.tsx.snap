@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders ApiPane snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <img
+      alt="Cover Image for "
+      src=""
+    />
+  </div>
+</DocumentFragment>
+`;

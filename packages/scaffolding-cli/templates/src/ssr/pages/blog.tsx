@@ -1,16 +1,20 @@
-import {Layout} from "components"
-import {BlogLanding} from "components"
-import React, {FC, useEffect, useState} from "react"
-import {getAllPostsForHome} from "../lib/contentful-api"
+import {BlogLanding, Layout} from "components"
 import contentful from "contentful"
+import NextError from "next/error"
+import React from "react"
+import {getAllPostsForHome} from "../lib/contentful-api"
 import {wrapper} from "../state-management"
+import {PostType} from "interfaces/blog.interface"
 
 type BlogProps = {
     preview?: boolean
-    allPosts: contentful.Entry<unknown>
+    allPosts: contentful.Entry<PostType>[]
 }
 
 const Blog = ({allPosts}: BlogProps) => {
+    if (!allPosts) {
+        return <NextError statusCode={404} />
+    }
     return (
         <Layout>
             <br />
