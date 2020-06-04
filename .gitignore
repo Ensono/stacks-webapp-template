@@ -186,10 +186,11 @@ yarn.lock
 **/screenshots/
 
 # CYPRESSS
-!**/*/cypress/
+!**/*/cypress*/
 **/*/mochawesome_*.json
-**/*/cypress/results
-**/*/cypress/**/*.html
+**/*/cypress*/results
+**/*/cypress*/**/*.html
+!**/*/cypress*/config/*.js
 
 # AUDITS
 packageLicensesAudit.json
