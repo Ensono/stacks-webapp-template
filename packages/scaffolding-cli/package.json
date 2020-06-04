@@ -28,7 +28,7 @@
     "prompts": "^2.3.1",
     "replace-in-file": "^6.0.0",
     "simple-git": "^2.5.0",
-    "simple-winston-logger-abstraction": "^2.0.0",
+    "simple-winston-logger-abstraction": "2.0.2",
     "terminal-link": "^2.1.1",
     "yargs": "^15.3.1"
   },

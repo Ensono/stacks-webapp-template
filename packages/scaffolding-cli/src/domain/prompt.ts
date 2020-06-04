@@ -1,6 +1,6 @@
 import {prompt} from "prompts"
 import {resolve, isAbsolute} from "path"
-import {readFileSync} from "fs-extra"
+import { readFile } from "fs-extra"
 import {
     cliQuestions,
     computedSelection,
@@ -96,13 +96,12 @@ async function advancedCliQuestion(
 async function getFromConfig(configPath: string): Promise<CliAnswerModel> {
     let configSelection: PromptAnswer
     if (isAbsolute(configPath)) {
-        configSelection = JSON.parse(readFileSync(configPath, "utf-8").trim())
+        configSelection = JSON.parse((await readFile(configPath, "utf-8")).trim())
     } else {
         configSelection = JSON.parse(
-            readFileSync(resolve(process.cwd(), configPath), "utf-8").trim(),
+            (await readFile(resolve(process.cwd(), configPath), "utf-8")).trim(),
         )
     }
-
     return computedSelection(configSelection)
 }
 
