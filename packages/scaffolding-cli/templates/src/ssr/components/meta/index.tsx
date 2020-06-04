@@ -1,8 +1,6 @@
 import Head from "next/head"
 import theme from "../../config/theme"
-
-// const {publicRuntimeConfig} = getConfig()
-// const {APP_BASE_URL, APP_BASE_PATH} = publicRuntimeConfig
+import React from "react"
 
 export default function Meta() {
     return (
