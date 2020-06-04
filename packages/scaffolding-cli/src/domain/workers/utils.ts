@@ -2,7 +2,7 @@ import { copy, move, remove, ensureDir, rename, stat, readdir, Stats} from 'fs-e
 import { tmpdir } from 'os'
 import { startCase, toLower } from 'lodash'
 import { ReplaceInFileConfig, replaceInFile } from 'replace-in-file'
-import { resolve } from 'path'
+import { resolve, join } from 'path'
 import { logger } from 'simple-winston-logger-abstraction'
 import gitP, { SimpleGit } from 'simple-git/promise';
 import { Replacetruct, replaceGeneratedConfig } from '../config/file_mapper'
@@ -12,17 +12,18 @@ import { CliAnswerModel } from '../model/prompt_answer'
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
 
-export function copyFilter(src: string, dest: string) {
-    if (src.includes(".next") ||
-        src.includes("coverage") ||
-        src.includes(".terraform") ||
-        src.includes("dist") ||
-        src.includes("bin") ||
-        src.includes("obj")) {
+export function copyFilter(src: string, dest: string): boolean {
+    const templateSrc = (src.replace(join(__dirname, "../../../"), "")).toLowerCase()
+    if (templateSrc.includes(".next") ||
+        templateSrc.includes("coverage") ||
+        templateSrc.includes(".terraform") ||
+        templateSrc.includes("dist") ||
+        templateSrc.includes("bin") ||
+        templateSrc.includes("obj") ||
+        templateSrc.includes("node_modules")) {
         return false
     } 
         return true
-    
 }
 
 export async function asyncForEach(array: Array<any>, callback: any) {

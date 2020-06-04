@@ -31,7 +31,7 @@ export async function runCli(
 }
 
 export async function runConfig(cliArgs: CliOptions): Promise<ExitMessage> {
-    cliModifiedSelection = await getFromConfig(cliArgs.configfile || "")
+    cliModifiedSelection = await getFromConfig(cliArgs.config || "")
     return selectFlow(cliModifiedSelection)
 }
 
