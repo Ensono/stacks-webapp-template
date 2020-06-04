@@ -1,6 +1,6 @@
 import {prompt} from "prompts"
 import {resolve, isAbsolute} from "path"
-import {readFileSync} from "fs"
+import {readFileSync} from "fs-extra"
 import {
     cliQuestions,
     computedSelection,
