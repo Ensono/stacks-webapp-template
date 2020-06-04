@@ -31,6 +31,7 @@ Array [
   "/testProjectName/Selenium/Components/MenuList.cs",
   "/testProjectName/Selenium/Components/Notifier.cs",
   "/testProjectName/Selenium/Factory/WebDriverFactory.cs",
+  "/testProjectName/Selenium/Pages/PageObject.cs",
   "/testProjectName/Selenium/SeleniumWrapper.cs",
   "/testProjectName/Testcomp.Testproject.E2E.Selenium.csproj",
   "/testProjectName/Testcomp.Testproject.E2E.Selenium.sln",

@@ -15,12 +15,12 @@ const TEMPLATES_DIRECTORY = `../../../templates/`
 export function copyFilter(src: string, dest: string): boolean {
     const templateSrc = (src.replace(join(__dirname, "../../../"), "")).toLowerCase()
     if (templateSrc.includes(".next") ||
-        templateSrc.includes("coverage") ||
+        templateSrc.includes("coverage/") ||
         templateSrc.includes(".terraform") ||
-        templateSrc.includes("dist") ||
-        templateSrc.includes("bin") ||
-        templateSrc.includes("obj") ||
-        templateSrc.includes("node_modules")) {
+        templateSrc.includes("dist/") ||
+        templateSrc.includes("bin/") ||
+        templateSrc.includes("obj/") ||
+        templateSrc.includes("node_modules/")) {
         return false
     } 
         return true
