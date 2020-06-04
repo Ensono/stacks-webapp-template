@@ -1,6 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`mainWorker class jsTestcafe with correct files 1`] = `Array []`;
+exports[`mainWorker class jsTestcafe with correct files 1`] = `
+Array [
+  "/testProjectName.bootstrap-config.json",
+  "/testProjectName/.eslintrc",
+  "/testProjectName/.testcaferc.json",
+  "/testProjectName/README.md",
+  "/testProjectName/api/menu.ts",
+  "/testProjectName/build/azDevops/azure/azure-pipeline-post-deploy-testcafe.yml",
+  "/testProjectName/environment-variables.ts",
+  "/testProjectName/fixtures/get-menu.test.cf.ts",
+  "/testProjectName/fixtures/yumido.test.axe.cf.ts",
+  "/testProjectName/package-lock.json",
+  "/testProjectName/package.json",
+  "/testProjectName/tsconfig.testcafe.json",
+  "/testProjectName/utils/utils.cf.ts",
+]
+`;
 
 exports[`mainWorker class netcoreSeleniumTfs with correct files 1`] = `
 Array [

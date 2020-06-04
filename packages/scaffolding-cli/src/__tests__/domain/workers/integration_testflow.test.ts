@@ -49,7 +49,7 @@ describe("mainWorker class", () => {
         removeSync(tempDir)
     })
 
-    it.skip("netcoreSeleniumTfs with correct files", async () => {
+    it("netcoreSeleniumTfs with correct files", async () => {
         let results: String[] = []
 
         let flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
@@ -68,7 +68,7 @@ describe("mainWorker class", () => {
         )
     })
 
-    it.skip("jsTestcafe with correct files", async () => {
+    it("jsTestcafe with correct files", async () => {
         let results: String[] = []
 
         let flowRan: CliResponse = await mainWorker.jsTestcafeTfs(mockAnswer)
