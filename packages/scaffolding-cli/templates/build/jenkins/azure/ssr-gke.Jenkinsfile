@@ -157,7 +157,7 @@ pipeline {
                     string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN'),
                     string(credentialsId: 'SONAR_ORGANIZATION', variable: 'SONAR_ORGANIZATION')
                   ]) {
-                      sh '''
+                    sh '''
                       sonar-scanner -v
                       sonar-scanner
                     '''

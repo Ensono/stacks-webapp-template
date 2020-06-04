@@ -1,7 +1,7 @@
 import { copy, move, remove, ensureDir, rename, stat, readdir, Stats} from 'fs-extra'
 import { tmpdir } from 'os'
 import { startCase, toLower } from 'lodash'
-import { ReplaceInFileConfig, replaceInFile } from 'replace-in-file'
+import replaceInFile, { ReplaceInFileConfig } from 'replace-in-file'
 import { resolve } from 'path'
 import logger from 'simple-winston-logger-abstraction'
 import gitP, { SimpleGit } from 'simple-git/promise';

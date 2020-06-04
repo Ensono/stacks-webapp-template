@@ -15,9 +15,7 @@ trigger:
   branches:
     include:
       - '*'
-    exclude:
-      - 'feat/1828'
-      - 'origin/feat/1828'
+
   paths:
     include:
       - 'packages/scaffolding-cli/templates/*'
