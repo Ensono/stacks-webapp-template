@@ -16,7 +16,9 @@ export function copyFilter(src: string, dest: string) {
     if (src.includes(".next") ||
         src.includes("coverage") ||
         src.includes(".terraform") ||
-        src.includes("dist")) {
+        src.includes("dist") ||
+        src.includes("bin") ||
+        src.includes("obj")) {
         return false
     } 
         return true
