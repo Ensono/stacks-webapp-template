@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import React from "react"
 import Document, {Head, Main, NextScript, Html} from "next/document"
 import {ServerStyleSheets} from "@material-ui/core/styles"

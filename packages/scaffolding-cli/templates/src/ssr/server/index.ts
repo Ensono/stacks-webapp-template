@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import * as AI from "applicationinsights"
 import bodyParser from "body-parser"
 import express from "express"

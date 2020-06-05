@@ -16,7 +16,7 @@ export default function Post({post, morePosts, preview}) {
     }
 
     return (
-        <Layout>
+        <Layout assetPrefix={process.env.APP_BASE_PATH}>
             {router.isFallback ? (
                 <p>Loading...</p>
             ) : (
@@ -48,7 +48,10 @@ export async function getStaticProps({params, preview = false}) {
 export async function getStaticPaths() {
     const allPosts = await getAllPostsWithSlug()
     return {
-        paths: allPosts?.map(({slug}) => `/posts/${slug}`) ?? [],
+        paths:
+            allPosts?.map(
+                ({slug}) => `${process.env.APP_BASE_PATH}/posts/${slug}`,
+            ) ?? [],
         fallback: true,
     }
 }
