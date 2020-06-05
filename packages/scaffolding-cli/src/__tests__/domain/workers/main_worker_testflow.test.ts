@@ -13,7 +13,7 @@ const mockAnswer = {
     projectName: "testProjectName",
     projectType: "testProjectType",
     platform: "aks",
-    deployment: "tfs",
+    deployment: "azdevops",
     business: {
         company: "testComp",
         domain: "testDomain",

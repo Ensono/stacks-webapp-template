@@ -7,6 +7,7 @@ import {MainWorker} from "../../../domain/workers/main_worker"
 import {Utils} from "../../../domain/workers/utils"
 import conf from "../../../domain/config/static.config.json"
 import {Static} from "../../../domain/model/config"
+
 const staticConf: Static = conf as Static
 
 jest.mock("../../../domain/workers/utils")

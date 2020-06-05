@@ -3,15 +3,15 @@
 /* eslint-disable jest/no-disabled-tests */
 /* eslint-disable @typescript-eslint/camelcase */
 /// <reference types="jest" />
+import * as fse from 'fs-extra'
+import * as rif from 'replace-in-file'
+import gitP, { SimpleGit } from 'simple-git/promise';
+import { tmpdir } from 'os';
 import { PromptAnswer, CliAnswerModel } from '../../../domain/model/prompt_answer'
 import { CliResponse, BaseResponse, TempCopy } from '../../../domain/model/workers'
 import { Utils, copyFilter, renamerRecursion } from '../../../domain/workers/utils';
-import * as fse from 'fs-extra'
 import { Replacetruct } from '../../../domain/config/file_mapper';
-import * as rif from 'replace-in-file'
-import gitP, { SimpleGit } from 'simple-git/promise';
 import { FolderMap } from '../../../domain/model/config';
-import { tmpdir } from 'os';
 
 jest.mock('fs-extra')
 jest.mock('replace-in-file')

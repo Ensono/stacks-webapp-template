@@ -10,7 +10,7 @@ const mockAnswer = {
     projectName: "testProjectName",
     projectType: "testProjectType",
     platform: "aks",
-    deployment: "gke",
+    deployment: "azdevops",
     business: {
         company: "testComp",
         domain: "testDomain",
@@ -51,7 +51,7 @@ describe("mainWorker class", () => {
     })
 
     it("netcoreSeleniumTfs with correct files", async () => {
-        const results: String[] = []
+        const results: string[] = []
 
         const flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
             mockAnswer,
@@ -70,7 +70,7 @@ describe("mainWorker class", () => {
     })
 
     it("jsTestcafe with correct files", async () => {
-        const results: String[] = []
+        const results: string[] = []
 
         const flowRan: CliResponse = await mainWorker.jsTestcafeTfs(mockAnswer)
 
