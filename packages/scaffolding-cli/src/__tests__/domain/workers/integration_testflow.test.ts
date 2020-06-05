@@ -1,4 +1,4 @@
-import {promises, removeSync, ensureDirSync, emptyDirSync} from "fs-extra"
+import {promises, remove, ensureDir, emptyDir} from "fs-extra"
 import path from "path"
 import {CliAnswerModel} from "../../../domain/model/prompt_answer"
 import {CliResponse} from "../../../domain/model/workers"
@@ -33,20 +33,20 @@ describe("mainWorker class", () => {
     const currentDir = process.cwd()
     let tempDir: string
 
-    beforeEach(() => {
+    beforeEach(async () => {
         tempDir = path.join(__dirname, mockAnswer.projectName)
         try {
-            ensureDirSync(tempDir)
-            emptyDirSync(tempDir)
+            await ensureDir(tempDir)
+            await emptyDir(tempDir)
             process.chdir(tempDir)
         } catch (err) {
             console.log("chdir: " + err)
         }
     })
 
-    afterEach(() => {
+    afterEach(async () => {
         process.chdir(currentDir)
-        removeSync(tempDir)
+        await remove(tempDir)
     })
 
     it("netcoreSeleniumTfs with correct files", async () => {
