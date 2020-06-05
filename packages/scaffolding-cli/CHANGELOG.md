@@ -3,6 +3,48 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.34.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.2...@amidostacks/scaffolding-cli@1.34.0) (2020-06-05)
+
+
+### Bug Fixes
+
+* bootstrapping with lerna ([#279](https://github.com/amido/stacks-webapp-template/issues/279)) ([3ce3af4](https://github.com/amido/stacks-webapp-template/commit/3ce3af4ab809131347619a25e49cf4e7493f9fac))
+* csr favicon & searchbar ([#142](https://github.com/amido/stacks-webapp-template/issues/142)) ([7bf1b6a](https://github.com/amido/stacks-webapp-template/commit/7bf1b6a59b5d5de302b8347916266f2a793cf359))
+* reduce package size ([259e745](https://github.com/amido/stacks-webapp-template/commit/259e74554e3e72ffb8e61f72accebd5e8e69c687))
+* redundant calls to the search api ([#161](https://github.com/amido/stacks-webapp-template/issues/161)) ([6694a37](https://github.com/amido/stacks-webapp-template/commit/6694a37dd7b516c675c90b11ec49c753590c6e90))
+* tf libs versioning updated ([6696289](https://github.com/amido/stacks-webapp-template/commit/669628972103228b9b0fa7f1bc1875993bd6cba1))
+
+
+### Features
+
+* added appInsights to CSR ([#164](https://github.com/amido/stacks-webapp-template/issues/164)) ([eb29288](https://github.com/amido/stacks-webapp-template/commit/eb2928872f0a87f0966470f300f6570aab87bc5c))
+* added Redux sagas and api integration ([#156](https://github.com/amido/stacks-webapp-template/issues/156)) ([c090fef](https://github.com/amido/stacks-webapp-template/commit/c090fef619d6b19c5e393bed91dbfe89606cbb9d))
+* CRA (ejected) ([#131](https://github.com/amido/stacks-webapp-template/issues/131)) ([22be82c](https://github.com/amido/stacks-webapp-template/commit/22be82c8ae37be764cb2bf483a1eedb1e4b5fee3))
+* cypress with csr ([#159](https://github.com/amido/stacks-webapp-template/issues/159)) ([90e7281](https://github.com/amido/stacks-webapp-template/commit/90e7281f7e59152455811ffb00fb4d9789452a31))
+* delete menu after creation ([79a8936](https://github.com/amido/stacks-webapp-template/commit/79a8936edd49be2d914733e3f82052918ba800b8))
+* integrated with Contentful CMS ([#240](https://github.com/amido/stacks-webapp-template/issues/240)) ([a8cc522](https://github.com/amido/stacks-webapp-template/commit/a8cc5227dd108ecbb65931ee6a4bad33e6088e5c))
+* pact-config package ([#148](https://github.com/amido/stacks-webapp-template/issues/148)) ([4343f21](https://github.com/amido/stacks-webapp-template/commit/4343f21850a55ddb6966f4a6d093c80562b950eb))
+
+
+
+## 0.0.2 (2020-04-28)
+
+
+### Bug Fixes
+
+* removed app Insights key from public ([#125](https://github.com/amido/stacks-webapp-template/issues/125)) ([bb16b1a](https://github.com/amido/stacks-webapp-template/commit/bb16b1a63d47618d82f94bb395e306e8bd792236))
+
+
+### Features
+
+* Search ([#119](https://github.com/amido/stacks-webapp-template/issues/119)) ([d4dbf04](https://github.com/amido/stacks-webapp-template/commit/d4dbf04cd4cbdd761de962f0c8388f02b6489497))
+* search helper text ([#124](https://github.com/amido/stacks-webapp-template/issues/124)) ([fa89290](https://github.com/amido/stacks-webapp-template/commit/fa89290a74062e7de46be859c3b2fda1b2eb475e))
+* search input throttled. ([#123](https://github.com/amido/stacks-webapp-template/issues/123)) ([86842b7](https://github.com/amido/stacks-webapp-template/commit/86842b7c5b885d3c140c47eea0ed3126e680cfa4))
+
+
+
+
+
 # [1.33.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.18.2...@amidostacks/scaffolding-cli@1.33.0) (2020-06-02)
 
 
