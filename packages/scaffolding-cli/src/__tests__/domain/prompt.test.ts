@@ -122,16 +122,7 @@ describe("prompt class tests", () => {
             FlowSelector.optionSsrAksAzuredevops = jest
                 .fn()
                 .mockImplementationOnce(() => {
-                    const errorIn = new Error("Something weird happened")
-                    // throw errorIn // new Error("Something weird happened")
                     throw new Error("Something weird happened")
-
-                    // throw {
-                    //     ok: false,
-                    //     code: 127,
-                    //     message: "Something weird happened",
-                    //     error: new Error("Something weird happened") as CliError
-                    // }
                 })
             let cliResult = await runConfig(cliOptsConfigFileSsr)
             expect(cliResult).toHaveProperty("code")
