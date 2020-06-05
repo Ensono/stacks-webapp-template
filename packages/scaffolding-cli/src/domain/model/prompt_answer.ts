@@ -5,6 +5,13 @@ export interface BusinessSection {
     component?: string
 }
 
+export const PlatformTypeEnum = {
+    Aks: 'aks',
+    Gke: 'gke',
+    Eks: 'eks',
+    Any: 'any'
+} as const;
+
 export interface CloudSection {
     region: string
     resourceGroup?: string
@@ -32,7 +39,7 @@ export interface BaseAnswer {
     projectType: string
     businessDomain: string
     deployment: string
-    platform?: string
+    platform?: typeof PlatformTypeEnum[keyof typeof PlatformTypeEnum]
 }
 
 /**

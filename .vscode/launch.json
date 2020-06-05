@@ -35,7 +35,11 @@
         "LOG_LEVEL": "debug",
         "COMMAND_TO_RUN": "ininTemplateCli"
       },
-      "args": ["run", "-c", "src/__tests__/domain/ssr.bootstrap-config.json"]
+      "args": [
+        "run",
+        "-c",
+        "src/__tests__/domain/javaSpring.bootstrap-config.json"
+      ]
     },
     {
       "type": "node",

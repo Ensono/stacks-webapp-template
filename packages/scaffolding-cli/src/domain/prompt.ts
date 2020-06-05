@@ -110,7 +110,7 @@ async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {
 
     const workflows: Workflow = WorkflowOptions()
     try {
-        const response = await workflows[determinedChoice](selection)
+        const response = await workflows[determinedChoice.toLowerCase()](selection)
         exitMessage.code = response.code
         exitMessage.message = response.message
         if (response.code !== 0) {
@@ -124,7 +124,7 @@ async function selectFlow(selection: CliAnswerModel): Promise<ExitMessage> {
         // Uncaught Exceptions
         const exCaught = ex as ExitMessage
         exCaught.code = ex.code || -1
-        exCaught.message = ex.message
+        exCaught.message = `${ex.message}\n${ex.stack}`
         return exCaught
     }
 }

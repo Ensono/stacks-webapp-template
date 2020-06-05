@@ -5,6 +5,7 @@ import {ExitMessage, CliOptions} from "../../domain/model/cli_response"
 import {PromptAnswer} from "../../domain/model/prompt_answer"
 import {FlowSelector} from "../../domain/selectors"
 import {Utils} from "../../domain/workers/utils"
+import { CliError } from "../../domain/model/workers"
 
 let cliArgs: CliOptions = <CliOptions>{
     _: ["run"],
@@ -121,18 +122,24 @@ describe("prompt class tests", () => {
             FlowSelector.optionSsrAksAzuredevops = jest
                 .fn()
                 .mockImplementationOnce(() => {
-                    throw {
-                        code: 127,
-                        message: new Error("Something weird happened"),
-                    }
+                    const errorIn = new Error("Something weird happened")
+                    // throw errorIn // new Error("Something weird happened")
+                    throw new Error("Something weird happened")
+
+                    // throw {
+                    //     ok: false,
+                    //     code: 127,
+                    //     message: "Something weird happened",
+                    //     error: new Error("Something weird happened") as CliError
+                    // }
                 })
             let cliResult = await runConfig(cliOptsConfigFileSsr)
             expect(cliResult).toHaveProperty("code")
             expect(FlowSelector.optionSsrAksAzuredevops).toHaveBeenCalled()
-            expect(cliResult.message).toHaveProperty("message")
-            expect(cliResult.message).toBeInstanceOf(Error)
-            expect(cliResult.message).toHaveProperty("stack")
-            expect(cliResult.code).toBe(127)
+            expect(cliResult).toHaveProperty("message")
+            expect(cliResult).toHaveProperty("code")
+            expect(cliResult.message).toMatch("Something weird happened")
+            expect(cliResult.code).not.toBe(0)
         })
     })
 })

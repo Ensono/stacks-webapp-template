@@ -110,8 +110,24 @@ export class MainWorker {
     async javaSpringAksTfs(instructions: CliAnswerModel): Promise<CliResponse> {
         const selectedFlowResponse: CliResponse = {} as CliResponse
         try {
+            
+            const sharedBuildInput: Array<BuildReplaceInput> = shared.inFiles({
+                projectName: instructions.projectName,
+                businessObj: instructions.business,
+                cloudObj: instructions.cloud,
+                terraformObj: instructions.terraform,
+                scmObj: instructions.sourceControl
+            })
 
-            const buildInput: Array<BuildReplaceInput> = javaSpring.inFiles(instructions.projectName, instructions.business, instructions.cloud)
+            const buildInput: Array<BuildReplaceInput> = javaSpring.inFiles({
+                projectName: instructions.projectName,
+                businessObj: instructions.business,
+                cloudObj: instructions.cloud,
+                terraformObj: instructions.terraform,
+                scmObj: instructions.sourceControl
+            }).concat(sharedBuildInput)
+
+            // const buildInput: Array<BuildReplaceInput> = javaSpring.inFiles(instructions.projectName, instructions.business, instructions.cloud)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
             // git clone node_repo custom app src
