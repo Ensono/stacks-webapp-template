@@ -17,6 +17,7 @@ export const BlogLanding = props => {
             <Typography component="h2" variant="h5">
                 Yumido Blog
             </Typography>
+            <br />
             {allPosts &&
                 allPosts.map((post, idx) => (
                     <MainFeaturedPost
