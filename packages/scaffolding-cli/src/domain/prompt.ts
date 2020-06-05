@@ -36,7 +36,7 @@ export async function runConfig(cliArgs: CliOptions): Promise<ExitMessage> {
 }
 
 const onCancel = () => {
-    //Todo: ensure we have a flow for a user to force exit
+    // Todo: ensure we have a flow for a user to force exit
     console.log("Selecting default answer.")
     return true
 }
@@ -61,14 +61,14 @@ async function getFromCli(defaultProjectName: string, cliArgs: CliOptions): Prom
     })
 
     const cliSelection = await prompt(initialQs, {onCancel})
-    const platformSelection = await advancedCliQuestion(
-        cliSelection,
-        platformQuestions,
-    )
+    // const platformSelection = await advancedCliQuestion(
+    //     cliSelection,
+    //     platformQuestions,
+    // )
 
-    if (platformSelection?.enableAdvanced) {
+    if (cliSelection?.enableAdvanced) {
         const advancedSelection = await advancedCliQuestion(
-            platformSelection,
+            cliSelection,
             advancedQuestions,
         )
         return advancedSelection

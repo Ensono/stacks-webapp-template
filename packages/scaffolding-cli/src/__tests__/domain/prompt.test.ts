@@ -1,3 +1,7 @@
+/* eslint-disable compat/compat */
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
+/* eslint-disable @typescript-eslint/camelcase */
 import {runCli, runConfig} from "../../domain/prompt"
 import * as prompt from "prompts"
 import {resolve} from "path"
@@ -7,15 +11,15 @@ import {FlowSelector} from "../../domain/selectors"
 import {Utils} from "../../domain/workers/utils"
 import { CliError } from "../../domain/model/workers"
 
-let cliArgs: CliOptions = <CliOptions>{
+const cliArgs: CliOptions = <CliOptions>{
     _: ["run"],
 }
 
-let cliOptsConfigFileSsr: CliOptions = <CliOptions>{
+const cliOptsConfigFileSsr: CliOptions = <CliOptions>{
     config: resolve(__dirname, "ssr.bootstrap-config.json"),
 }
 
-let mock_ssr_aks_tfs_answer = <PromptAnswer>{
+const mock_ssr_aks_tfs_answer = <PromptAnswer>{
     projectName: "test-app-1",
     projectType: "ssr",
     platform: "aks",
@@ -24,14 +28,15 @@ let mock_ssr_aks_tfs_answer = <PromptAnswer>{
     businessDomain: "testDomain",
 }
 
-let mock_ssr_aks_tfs_answer_advanced = <PromptAnswer>{
+const mock_ssr_aks_tfs_answer_advanced = {
     projectName: "test-app-1",
     projectType: "ssr",
     platform: "aks",
     deployment: "azdevops",
     businessCompany: "testcomp",
     businessDomain: "testDomain",
-}
+    enableAdvanced: true
+} as PromptAnswer
 
 let mock_ssr_aks_tfs_answer_advanced_part_2 = <PromptAnswer>{
     cloudRegion: "uksouth",

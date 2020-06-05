@@ -29,17 +29,17 @@ const mockReaddir = jest.spyOn(fse, 'readdir')
 
 const mockRename = jest.spyOn(fse, 'rename')
 
-let mock_answer = <PromptAnswer>{
+let mock_answer: PromptAnswer = <PromptAnswer>{
     projectName: "foo",
     projectType: "boo",
-    platform: "az",
+    platform: "aks",
     deployment: "tfs"
 }
 
 let mock_cli_answer_model = <CliAnswerModel>{
     projectName: "foo",
     projectType: "boo",
-    platform: "az",
+    platform: "aks",
     deployment: "tfs",
     business: {
         company: "company",

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/require-await */
+/* eslint-disable compat/compat */
 import {CliAnswerModel} from "../../../domain/model/prompt_answer"
 import {CliResponse, BaseResponse} from "../../../domain/model/workers"
 import {MainWorker} from "../../../domain/workers/main_worker"
@@ -6,11 +9,11 @@ import { jsTestcafe, netcoreSelenium } from '../../../domain/config/worker_maps'
 
 jest.mock("../../../domain/workers/utils")
 
-let mockAnswer = {
+const mockAnswer = {
     projectName: "testProjectName",
     projectType: "testProjectType",
-    platform: "testPlatform",
-    deployment: "testDeployment",
+    platform: "aks",
+    deployment: "tfs",
     business: {
         company: "testComp",
         domain: "testDomain",
@@ -18,9 +21,9 @@ let mockAnswer = {
     },
 } as CliAnswerModel
 
-let mainWorker = new MainWorker()
+const mainWorker = new MainWorker()
 
-let workerResponse = {
+const workerResponse = {
     message: `${mockAnswer.projectName} created`,
     ok: true,
 } as BaseResponse
@@ -54,7 +57,7 @@ describe("mainWorker class", () => {
         })
 
         it("netcoreSeleniumTfs", async () => {
-                let flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
+                const flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
                     mockAnswer
                 )
 
@@ -71,7 +74,7 @@ describe("mainWorker class", () => {
         )
 
         it("jsTestcafeTfs", async () => {
-            let flowRan: CliResponse = await mainWorker.jsTestcafeTfs(
+            const flowRan: CliResponse = await mainWorker.jsTestcafeTfs(
                 mockAnswer
             )
 

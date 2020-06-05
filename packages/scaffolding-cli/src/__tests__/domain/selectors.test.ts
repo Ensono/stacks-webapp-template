@@ -6,7 +6,7 @@ import { CliError, CliResponse } from '../../domain/model/workers'
 let mock_answer_ssr_aks_tfs = <CliAnswerModel>{
     projectName: "foo",
     projectType: "boo",
-    platform: "az",
+    platform: "aks",
     deployment: "tfs"
 }
 

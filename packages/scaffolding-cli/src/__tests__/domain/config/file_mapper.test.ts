@@ -1,10 +1,12 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/camelcase */
 import { buildReplaceFoldersAndVals, Replacetruct, BuildReplaceInput, replaceGeneratedConfig  } from '../../../domain/config/file_mapper'
 import { CliAnswerModel } from '../../../domain/model/prompt_answer'
 
-let mock_answer_cli_answer = <CliAnswerModel>{
+const mock_answer_cli_answer = {
     projectName: "foo",
     projectType: "boo",
-    platform: "az",
+    platform: "aks",
     deployment: "tfs",
     cloud: {
         region: "foo",
@@ -21,7 +23,8 @@ let mock_answer_cli_answer = <CliAnswerModel>{
     networking: {
         baseDomain: "some.org"
     }
-}
+} as CliAnswerModel
+
 describe("file_mapper tests", () => {
     it("buildReplaceFoldersAndVals should return an array of objects", () => {
         let buildInput: Array<BuildReplaceInput> = [
