@@ -81,6 +81,21 @@ spec:
 
 ---
 
+apiVersion: v1
+kind: Secret
+metadata:
+  name: appsecrets
+  namespace: ${namespace}
+type: Opaque
+stringData:
+  app_insights: ${app_insights_key}
+  next_public_token: ${next_public_token}
+  next_preview_token: ${next_preview_token}
+  next_preview_secret: ${next_preview_secret}
+  next_space_id: ${next_space_id}
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -156,27 +171,36 @@ spec:
             - name: PORT
               value: '3000'
             - name: MENU_API_URL
-              value: 'http://dev.amidostacks.com/api/menu'
+              value: ${api_url}
             - name: APP_BASE_PATH
-              value: '${k8s_app_path}'
+              value: ${k8s_app_path:=""}
             - name: APP_BASE_URL
-              value: 'https://${dns_pointer}'
-
+              value: https://${dns_pointer}
             - name: APPINSIGHTS_INSTRUMENTATIONKEY
-              value: ${APPINSIGHTS_INSTRUMENTATIONKEY}
-
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: app_insights
             - name: NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN
-              value: ${NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN}
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: next_public_token
             - name: NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN
-              value: ${NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN}
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: next_preview_token
             - name: NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET
-              value: ${NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET}
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: next_preview_secret
             - name: NEXT_PUBLIC_CONTENTFUL_SPACE_ID
-              value: ${NEXT_PUBLIC_CONTENTFUL_SPACE_ID}
-              # valueFrom:
-              #   secretKeyRef:
-              #     name: appinsights
-              #     key: INSTRUMENTATIONKEY
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: next_space_id
 
           # # Remove limits and let the Pods container get the default (800cpu)
           # resources:

@@ -269,6 +269,7 @@ stages:
                           version: $(docker_image_tag),
                           role: $(role),
                           company: $(company),
+                          api_url: 'http://dev.amidostacks.com/api/menu',
                           project: $(project),
                           domain: $(domain),
                           component: web,
@@ -276,7 +277,11 @@ stages:
                           resource_def_name: xx-replace-me,
                           environment: dev,
                           aadpodidentitybinding: stacks-webapp-identity,
-                          APPINSIGHTS_INSTRUMENTATIONKEY: $(APPINSIGHTS_INSTRUMENTATIONKEY)
+                          app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY),
+                          next_public_token: $(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN),
+                          next_preview_token: $(NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN),
+                          next_preview_secret: $(NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET),
+                          next_space_id: $(NEXT_PUBLIC_CONTENTFUL_SPACE_ID)
                         }
                       }
                     ]
