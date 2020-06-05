@@ -1,5 +1,4 @@
 {
-  "cSpell.ignoreWords": ["Amido"],
   "jest.debugMode": false,
   "jest.runAllTestsFirst": true,
   "jest.coverageFormatter": "DefaultFormatter",
@@ -10,5 +9,6 @@
   "typescript.suggest.enabled": true,
   "sonarlint.connectedMode.project": {
     "projectKey": "stacks-webapp-template"
-  }
+  },
+  "cSpell.words": ["contentful", "Amido"]
 }

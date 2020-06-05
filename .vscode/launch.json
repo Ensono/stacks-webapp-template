@@ -35,7 +35,11 @@
         "LOG_LEVEL": "debug",
         "COMMAND_TO_RUN": "ininTemplateCli"
       },
-      "args": ["run", "-c", "src/__tests__/domain/ssr.bootstrap-config.json"]
+      "args": [
+        "run",
+        "-c",
+        "src/__tests__/domain/javaSpring.bootstrap-config.json"
+      ]
     },
     {
       "type": "node",
@@ -135,7 +139,11 @@
         "APP_BASE_PATH": "",
         "APP_BASE_URL": "http://localhost",
         "MENU_API_URL": "http://dev.amidostacks.com/api/menu",
-        "PACT_BROKER": "https://amido-stacks.pact.dius.com.au"
+        "PACT_BROKER": "https://amido-stacks.pact.dius.com.au",
+        "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "",
+        "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "",
+        "NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN": "",
+        "NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET": ""
       },
       "args": [
         // "--project tsconfig.server.json"

@@ -10,7 +10,7 @@ Every test you write will include selectors for elements. Write selectors that a
  * @type {Cypress.PluginConfig}
  **/
 
-describe("/ (index)", () => {
+describe("Functional: / (index)", () => {
     beforeEach(() => {
         // Loads the page and start listening for XHR requests
         cy.fixture("get-menu-response.json").as("menuResponse")

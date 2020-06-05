@@ -16,9 +16,21 @@
  */
 
 // This is specific to create-react-app
-const conf = require("../environment-configuration")
+const conf = require("../config")
+
+// cypress-audit
+const {lighthouse, pa11y, prepareAudit} = require("cypress-audit")
 
 module.exports = (on, config) => {
+    on("before:browser:launch", (browser = {}, launchOptions) => {
+        prepareAudit(launchOptions)
+    })
+
+    on("task", {
+        lighthouse: lighthouse(),
+        pa11y: pa11y(),
+    })
+
     // modify config values
     config.defaultCommandTimeout = 10000
     config.baseUrl = `${conf.APP_BASE_URL}${conf.APP_BASE_PATH}`

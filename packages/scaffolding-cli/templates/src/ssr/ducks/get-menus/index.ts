@@ -1,6 +1,7 @@
 import {createRoutine} from "redux-saga-routines"
 import {call, put, takeEvery} from "redux-saga/effects"
 import {getMenus} from "../../services"
+import {HYDRATE} from "next-redux-wrapper"
 
 export const requestMenusListRoutine = createRoutine("MENU")
 
@@ -12,6 +13,8 @@ export const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case HYDRATE:
+            return {...state, ...action.payload}
         case requestMenusListRoutine.TRIGGER:
             return {
                 ...initialState,

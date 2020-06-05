@@ -28,7 +28,7 @@
     "prompts": "^2.3.1",
     "replace-in-file": "^6.0.0",
     "simple-git": "^2.5.0",
-    "simple-winston-logger-abstraction": "^2.0.0",
+    "simple-winston-logger-abstraction": "2.0.2",
     "terminal-link": "^2.1.1",
     "yargs": "^15.3.1"
   },
@@ -49,15 +49,14 @@
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-typescript": "^2.0.0",
-    "eslint-plugin-compat": "^3.6.0",
+    "eslint-plugin-compat": "^3.7.0",
     "eslint-plugin-flowtype": "^5.1.0",
     "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jest": "^23.13.1",
+    "eslint-plugin-jest": "^23.13.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^2.5.1",
     "eslint-plugin-security": "^1.4.0",
-    "fs": "0.0.1-security",
     "jest": "^24.9.0",
     "jest-each": "^26.0.1",
     "jest-junit": "^10.0.0",
@@ -70,6 +69,10 @@
     "type": "git",
     "url": "https://github.com/amido/stacks-webapp-template.git",
     "directory": "packages/scaffolding-cli"
+  },
+  "engines": {
+    "node": ">=12.0",
+    "npm": ">=6.0"
   },
   "gitHead": "ac4d2af3f2cf40a76cc7961a14886321bcebc0b3"
 }

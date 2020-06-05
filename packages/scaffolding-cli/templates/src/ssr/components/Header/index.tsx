@@ -4,6 +4,7 @@ import AddIcon from "@material-ui/icons/Add"
 import {PrefixedLink as Link} from "components"
 import {useRouter} from "next/router"
 import styled from "@emotion/styled"
+import LibraryBooksIcon from "@material-ui/icons/LibraryBooks"
 
 const StyledLink = styled.a`
     text-decoration: none;
@@ -13,13 +14,21 @@ const StyledLink = styled.a`
 const title: string = `Yumido`
 
 export const Header = () => {
-    const isCreatePage =
-        useRouter()
-            ?.pathname.split("/")
-            .pop() === "create"
+    const isCreatePage = useRouter()?.pathname.split("/").pop() === "create"
     return (
         <AppBar position="fixed" color="secondary">
             <Toolbar>
+                <Link href="/blog">
+                    <Tooltip title="Blog" aria-label="blog">
+                        <Fab
+                            size="small"
+                            color="primary"
+                            aria-label="blogs menu button"
+                        >
+                            <LibraryBooksIcon data-testid="blogs_button" />
+                        </Fab>
+                    </Tooltip>
+                </Link>
                 <Typography variant="h2" style={{margin: "0 auto"}}>
                     <Link href="/">
                         <StyledLink>{title}</StyledLink>
@@ -33,7 +42,7 @@ export const Header = () => {
                                 color="primary"
                                 aria-label="create menu button"
                             >
-                                <AddIcon data-testid="create_button"/>
+                                <AddIcon data-testid="create_button" />
                             </Fab>
                         </Tooltip>
                     </Link>

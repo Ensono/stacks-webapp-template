@@ -10,7 +10,7 @@
   "scripts": {
     "license:check:audit": "lerna run license:check:audit",
     "license:check:allowed": "lerna run license:check:allowed",
-    "postinstall": "lerna bootstrap",
+    "postinstall": "lerna bootstrap --hoist",
     "test": "lerna run test --stream",
     "lint": "lerna run lint --stream",
     "build": "lerna run build --stream",
