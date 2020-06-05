@@ -11,7 +11,7 @@ let cliArgs: CliOptions = <CliOptions>{
 }
 
 let cliOptsConfigFileSsr: CliOptions = <CliOptions>{
-    configfile: resolve(__dirname, "ssr.bootstrap-config.json"),
+    config: resolve(__dirname, "ssr.bootstrap-config.json"),
 }
 
 let mock_ssr_aks_tfs_answer = <PromptAnswer>{

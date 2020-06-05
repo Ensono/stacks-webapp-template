@@ -15,7 +15,7 @@ async function cliCommand(argv: CliOptions): Promise<ExitMessage>{
         const defaultProjectName = basename(resolve(process.cwd()))
         let response: ExitMessage = {} as ExitMessage
 
-        if (argv.configfile) {
+        if (argv.config) {
             // run with a config file
             response = await runConfig(argv)
         } else if (argv.interactive) {
@@ -47,7 +47,7 @@ async function cliCommand(argv: CliOptions): Promise<ExitMessage>{
 const runOptions = () => {
     yargs
         .scriptName("@amidostacks/scaffolding-cli")
-        .options("c", {
+        .options("config", {
             alias: ["c", "conf"],
             type: "string",
             nargs: 1,
