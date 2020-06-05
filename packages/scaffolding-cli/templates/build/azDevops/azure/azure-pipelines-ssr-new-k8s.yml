@@ -122,7 +122,7 @@ stages:
               docker_build: true
               login_azure: true
               # TODO: normalize this
-              docker_build_additional_args: "."
+              docker_build_additional_args: "--build-arg NEXT_PUBLIC_CONTENTFUL_SPACE_ID=$(NEXT_PUBLIC_CONTENTFUL_SPACE_ID) --build-arg NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=$(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN) --build-arg NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN=$(NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN) --build-arg APP_BASE_PATH=/web/stacks ."
               docker_workdir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               docker_imagename: $(docker_image_name)
               docker_imagetag: $(docker_image_tag)
@@ -269,6 +269,7 @@ stages:
                           version: $(docker_image_tag),
                           role: $(role),
                           company: $(company),
+                          api_url: 'http://dev.amidostacks.com/api/menu',
                           project: $(project),
                           domain: $(domain),
                           component: web,
@@ -276,7 +277,11 @@ stages:
                           resource_def_name: xx-replace-me,
                           environment: dev,
                           aadpodidentitybinding: stacks-webapp-identity,
-                          APPINSIGHTS_INSTRUMENTATIONKEY: $(APPINSIGHTS_INSTRUMENTATIONKEY)
+                          app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY),
+                          next_public_token: $(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN),
+                          next_preview_token: $(NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN),
+                          next_preview_secret: $(NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET),
+                          next_space_id: $(NEXT_PUBLIC_CONTENTFUL_SPACE_ID)
                         }
                       }
                     ]

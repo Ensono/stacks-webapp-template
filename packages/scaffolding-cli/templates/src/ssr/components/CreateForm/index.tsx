@@ -7,21 +7,17 @@ import Grid from "@material-ui/core/Grid"
 import {makeStyles} from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 import Typography from "@material-ui/core/Typography"
-import React, { FC, useState, useEffect } from "react"
+import {openSnackbar} from "components/Notifier"
 import Router from "next/router"
+import React, {FC, useEffect, useState} from "react"
 import {connect} from "react-redux"
 import {
     addMenuRoutine,
     getError,
-    isLoading,
-    getNewlycreatedMenuId,
     getMenuAdded,
+    getNewlycreatedMenuId,
+    isLoading,
 } from "../../ducks/add-menu"
-import getConfig from "next/config"
-import {openSnackbar} from "components/Notifier"
-
-const {publicRuntimeConfig} = getConfig()
-const {APP_BASE_PATH} = publicRuntimeConfig
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -71,7 +67,7 @@ const CreateForm: FC<Props> = ({
     const [values, setValues] = useState(initialFormState)
     useEffect(() => {
         if (menuId && added) {
-            setValues({ ...values, ...initialFormState })
+            setValues({...values, ...initialFormState})
             return openSnackbar({message: `${menuId} menu created`})
         }
         if (error) {
