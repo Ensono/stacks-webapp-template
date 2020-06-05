@@ -235,7 +235,3 @@ export function platformQuestions(): Array<PromptQuestion> {
         },
     ]
 }
-
-export function testQuestions(): Array<PromptQuestion> {
-    return []
-}
