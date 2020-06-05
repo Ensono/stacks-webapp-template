@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import {promises, remove, ensureDir, emptyDir} from "fs-extra"
 import path from "path"
 import {CliAnswerModel} from "../../../domain/model/prompt_answer"
@@ -5,11 +6,11 @@ import {CliResponse} from "../../../domain/model/workers"
 import {MainWorker} from "../../../domain/workers/main_worker"
 import {jsTestcafe, netcoreSelenium} from "../../../domain/config/worker_maps"
 
-let mockAnswer = {
+const mockAnswer = {
     projectName: "testProjectName",
     projectType: "testProjectType",
-    platform: "testPlatform",
-    deployment: "testDeployment",
+    platform: "aks",
+    deployment: "azdevops",
     business: {
         company: "testComp",
         domain: "testDomain",
@@ -17,14 +18,14 @@ let mockAnswer = {
     },
 } as CliAnswerModel
 
-let mainWorker = new MainWorker()
+const mainWorker = new MainWorker()
 
 // Todo: extra this out into test util
 // Credit: https://gist.github.com/lovasoa/8691344#gistcomment-3299089
-async function* walk(dir: string): AsyncGenerator<String> {
+async function* walk(dir: string): AsyncGenerator<string> {
     for await (const d of await promises.opendir(dir)) {
         const entry = path.join(dir, d.name)
-        if (d.isDirectory()) yield* await walk(entry)
+        if (d.isDirectory()) yield* walk(entry)
         else if (d.isFile()) yield entry.replace(process.cwd(), "")
     }
 }
@@ -50,9 +51,9 @@ describe("mainWorker class", () => {
     })
 
     it("netcoreSeleniumTfs with correct files", async () => {
-        let results: String[] = []
+        const results: string[] = []
 
-        let flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
+        const flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
             mockAnswer,
         )
 
@@ -69,9 +70,9 @@ describe("mainWorker class", () => {
     })
 
     it("jsTestcafe with correct files", async () => {
-        let results: String[] = []
+        const results: string[] = []
 
-        let flowRan: CliResponse = await mainWorker.jsTestcafeTfs(mockAnswer)
+        const flowRan: CliResponse = await mainWorker.jsTestcafeTfs(mockAnswer)
 
         for await (const p of walk(tempDir)) results.push(p)
 
