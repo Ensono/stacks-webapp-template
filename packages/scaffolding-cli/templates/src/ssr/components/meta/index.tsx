@@ -2,7 +2,7 @@ import Head from "next/head"
 import theme from "../../config/theme"
 import React from "react"
 
-export default function Meta() {
+export default function Meta({assetPrefix = ""}) {
     return (
         <Head>
             <meta name="theme-color" content={theme.palette.secondary.main} />
@@ -14,18 +14,21 @@ export default function Meta() {
             <link
                 rel="icon"
                 type="image/x-icon"
-                href="/static/icons/favicon.ico"
+                href={`${assetPrefix}/static/icons/favicon.ico`}
             />
             <meta
                 property="og:image"
-                content="/static/icons/favicon-96x96.png"
+                content={`${assetPrefix}/static/icons/favicon-96x96.png`}
             />
             <meta name="msapplication-TileColor" content="#000000" />
             <meta
                 name="msapplication-config"
-                content="/static/icons/browserconfig.xml"
+                content={`${assetPrefix}/static/icons/browserconfig.xml`}
             />
-            <link rel="manifest" href="/static/icons/manifest.json" />
+            <link
+                rel="manifest"
+                href={`${assetPrefix}/static/icons/manifest.json`}
+            />
             <meta
                 name="description"
                 content="Amido stacks prototype project built using NextJS and Node"

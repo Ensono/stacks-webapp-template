@@ -11,7 +11,7 @@ const layoutStyle = {
 export const Layout = props => {
     return (
         <>
-            <Meta />
+            <Meta assetPrefix={props.assetPrefix} />
             <div style={layoutStyle}>
                 {<Header />}
                 {props.children}
