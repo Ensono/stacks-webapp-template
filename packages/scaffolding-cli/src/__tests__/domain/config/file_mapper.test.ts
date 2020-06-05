@@ -7,7 +7,7 @@ const mock_answer_cli_answer = {
     projectName: "foo",
     projectType: "boo",
     platform: "aks",
-    deployment: "tfs",
+    deployment: "azdevops",
     cloud: {
         region: "foo",
         resourceGroup: "bar"
