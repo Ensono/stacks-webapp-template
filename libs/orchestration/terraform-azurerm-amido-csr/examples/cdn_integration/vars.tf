@@ -1,13 +1,6 @@
 ############################################
 # AUTHENTICATION
 ############################################
-variable "client_id" {}
-
-variable "client_secret" {}
-
-variable "tenant_id" {}
-
-variable "subscription_id" {}
 ############################################
 # NAMING
 ############################################
@@ -67,7 +60,7 @@ variable "location_name_map" {
 # RESOURCE INFORMATION
 ############################################
 
-variable "resource_location" {
+variable "resource_group_location" {
   default = "uksouth"
 }
 
@@ -76,9 +69,6 @@ variable "resource_tags" {
   default = {}
 }
 
-variable "rg_name" {
-  type = string
-}
 
 ###########################
 # SPA
@@ -102,15 +92,3 @@ variable "enabled" {
   description = "Enables or disables the static-website"
 }
 
-
-# locals {
-#   # // common //
-#   resource_prefix           = "${var.name_company}-${var.name_project}-${var.name_component}"
-#   resource_suffix           = "${var.location_name_map[var.resource_location]}-${var.name_environment}"
-
-#   # // resource group //
-#   resource_group_name       = "${local.resource_prefix}-rg-${local.resource_suffix}"
-
-#   # // storage account - static website hosting //
-#   storage_account_name      = "${var.name_company}${var.name_project}${var.name_component}sa${var.location_name_map[var.resource_location]}${var.name_environment}"
-# }

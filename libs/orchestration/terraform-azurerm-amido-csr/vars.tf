@@ -1,12 +1,6 @@
 ############################################
 # AUTHENTICATION
 ############################################
-variable "client_id" {}
-
-variable "client_secret" {}
-
-variable "tenant_id" {}
-
 variable "subscription_id" {}
 ############################################
 # NAMING
@@ -63,11 +57,18 @@ variable "location_name_map" {
 # AZURE INFORMATION
 ############################################
 
+variable "dns_zone" {
+  type = string
+  description = "DNS zone"
+  default = "app.domain.com"
+  
+}
+
 ############################################
 # RESOURCE INFORMATION
 ############################################
 
-variable "resource_location" {
+variable "resource_group_location" {
   default = "uksouth"
 }
 
@@ -76,9 +77,10 @@ variable "resource_tags" {
   default = {}
 }
 
-variable "rg_name" {
+variable "resource_namer" {
   type = string
 }
+
 
 ###########################
 # SPA
