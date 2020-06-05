@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders ApiPane snapshot 1`] = `
+exports[`renders HeroPost snapshot 1`] = `
 <DocumentFragment>
   <div
     class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6"
