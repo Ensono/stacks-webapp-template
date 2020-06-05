@@ -13,8 +13,8 @@ export const PlatformTypeEnum = {
 } as const;
 
 export const DeploymentTypeEnum = {
-    TFS: 'tfs',
-    JENKINS: 'gke'
+    TFS: 'azdevops',
+    JENKINS: 'jenkins'
 } as const;
 
 
