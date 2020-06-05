@@ -1,3 +1,7 @@
+/* eslint-disable jest/no-try-expect */
+/* eslint-disable compat/compat */
+/* eslint-disable jest/no-disabled-tests */
+/* eslint-disable @typescript-eslint/camelcase */
 /// <reference types="jest" />
 import { PromptAnswer, CliAnswerModel } from '../../../domain/model/prompt_answer'
 import { CliResponse, BaseResponse, TempCopy } from '../../../domain/model/workers'
@@ -29,26 +33,26 @@ const mockReaddir = jest.spyOn(fse, 'readdir')
 
 const mockRename = jest.spyOn(fse, 'rename')
 
-let mock_answer: PromptAnswer = <PromptAnswer>{
+const mock_answer = {
     projectName: "foo",
     projectType: "boo",
     platform: "aks",
-    deployment: "tfs"
-}
+    deployment: "azdevops"
+} as CliAnswerModel
 
-let mock_cli_answer_model = <CliAnswerModel>{
+const mock_cli_answer_model = {
     projectName: "foo",
     projectType: "boo",
     platform: "aks",
-    deployment: "tfs",
+    deployment: "azdevops",
     business: {
         company: "company",
         component: "component",
         project: "project"
     }
-}
+} as CliAnswerModel
 
-let ssr_tfs_aks: Array<FolderMap> = [
+const ssr_tfs_aks: Array<FolderMap> = [
     { src: 'shared', dest: '' },
     { src: 'build/azDevops/azure', dest: 'build/azDevops/azure' },
     { src: 'deploy/azure/ssr', dest: 'deploy/azure' },
@@ -56,12 +60,12 @@ let ssr_tfs_aks: Array<FolderMap> = [
     { src: 'src/ssr', dest: 'src' }
 ]
 
-let temp_dir = "/tmp/my-app"
-let new_dir = "/var/test"
+const temp_dir = "/tmp/my-app"
+const new_dir = "/var/test"
 
-let mock_vals: Array<Replacetruct> = [{ "replaceFiles": ["/some/dir/test-app-1/**/*.md"], "replaceVals": { "from": "foo", "to": "test-app-1" } }]
+const mock_vals: Array<Replacetruct> = [{ "replaceFiles": ["/some/dir/test-app-1/**/*.md"], "replaceVals": { "from": "foo", "to": "test-app-1" } }]
 
-let worker_response = {
+const worker_response = {
     message: "success",
     ok: true
 } as CliResponse
@@ -74,7 +78,7 @@ describe("utils class tests", () => {
     })
     describe("Positive assertions", () => {
         it("copyWorker should return success", async () => {
-            let copy_ran: TempCopy = await Utils.prepBase(mock_answer.projectName)
+            const copy_ran: TempCopy = await Utils.prepBase(mock_answer.projectName)
             expect(mockCopy).toHaveBeenCalled()
             expect(copy_ran).toHaveProperty("message")
             expect(copy_ran).toHaveProperty("ok")
@@ -84,7 +88,7 @@ describe("utils class tests", () => {
             expect(copy_ran.message).toMatch(`${mock_answer.projectName} created`)
         })
         it("moveWorker should return success", async () => {
-            let move_ran: BaseResponse = await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
+            const move_ran: BaseResponse = await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
             expect(mockMove).toHaveBeenCalled()
             expect(mockMove).toHaveBeenCalledTimes(ssr_tfs_aks.length)
             expect(move_ran).toHaveProperty("message")
@@ -93,7 +97,7 @@ describe("utils class tests", () => {
             expect(move_ran.message).toMatch(`${new_dir} populated with relevant files`)
         })
         it("valueReplace should return ok", async () => {
-            let replace_ran: BaseResponse = await Utils.valueReplace(mock_vals)
+            const replace_ran: BaseResponse = await Utils.valueReplace(mock_vals)
             expect(mockReplace).toHaveBeenCalled()
             expect(mockReplace).toHaveBeenCalledTimes(mock_vals.length)
             expect(replace_ran).toHaveProperty("message")
@@ -102,7 +106,7 @@ describe("utils class tests", () => {
             expect(replace_ran.message).toMatch(`replaced all occurences`)
         })
         it("writeOutConfigFile should return success", async () => {
-            let move_ran: BaseResponse = await Utils.writeOutConfigFile("/tmp/foo.json", mock_cli_answer_model)
+            const move_ran: BaseResponse = await Utils.writeOutConfigFile("/tmp/foo.json", mock_cli_answer_model)
             expect(mockCopy).toHaveBeenCalled()
             expect(mockCopy).toHaveBeenCalledTimes(1)
             expect(move_ran).toHaveProperty("message")
@@ -112,7 +116,7 @@ describe("utils class tests", () => {
         })
 
         it("doGitClone should return success", async () => {
-            let git_ran: BaseResponse = await Utils.doGitClone("https://git.repo/sample.git", temp_dir, "src/sample-test", "1234234523ew0ew0j8ewr0u8ewr80")
+            const git_ran: BaseResponse = await Utils.doGitClone("https://git.repo/sample.git", temp_dir, "src/sample-test", "1234234523ew0ew0j8ewr0u8ewr80")
             expect(gitP(temp_dir).clone).toHaveBeenCalledWith("https://git.repo/sample.git", `${temp_dir}/src/sample-test`, ["-n"])
             expect(gitP(temp_dir).checkout).toHaveBeenCalledWith("1234234523ew0ew0j8ewr0u8ewr80")
             expect(git_ran).toHaveProperty("message")
@@ -126,7 +130,7 @@ describe("utils class tests", () => {
                 return Promise.resolve(["foo", "bar"])
             })
 
-            let file_replacer_ran: BaseResponse = await Utils.fileNameReplace([tmpdir()], mock_cli_answer_model)
+            const file_replacer_ran: BaseResponse = await Utils.fileNameReplace([tmpdir()], mock_cli_answer_model)
             expect(mockReaddir).toHaveBeenCalled()
             expect(file_replacer_ran).toHaveProperty("message")
             expect(file_replacer_ran).toHaveProperty("ok")
@@ -135,16 +139,16 @@ describe("utils class tests", () => {
         })
 
         it("copyFilter should return true for dist", () => {
-            let processed: boolean = copyFilter("some/dist/foo", "/some/dir")
+            const processed: boolean = copyFilter("some/dist/foo", "/some/dir")
             expect(processed).toBe(false)
         })
         it("copyFilter should return false for none excluded dir", () => {
-            let processed: boolean = copyFilter("user_code/foo", "/some/dir")
+            const processed: boolean = copyFilter("user_code/foo", "/some/dir")
             expect(processed).toBe(true)
         })
 
         it.skip("renamerRecursion should call readdir", async () => {
-            let testPath = __dirname
+            const testPath = __dirname
             mockReaddir.mockImplementationOnce(() => {
                 return Promise.resolve(["__foo.cs"])
             });
