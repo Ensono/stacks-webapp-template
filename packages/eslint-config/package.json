@@ -1,6 +1,6 @@
 {
   "name": "@amidostacks/eslint-config",
-  "version": "0.30.0",
+  "version": "0.32.0",
   "description": "Shared linting config from amido stacks",
   "main": "eslintrc.js",
   "author": "https://amido.com",
@@ -17,13 +17,13 @@
     "eslint-config-prettier": "^6.9.0",
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-compat": "^3.5.1",
+    "eslint-plugin-flowtype": "^5.1.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jest": "^23.3.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.5.0",
-    "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-flowtype": "^5.1.0"
+    "eslint-plugin-security": "^1.4.0"
   },
   "homepage": "https://github.com/amido/stacks-webapp-template/tree/master/packages/eslint-config",
   "repository": {

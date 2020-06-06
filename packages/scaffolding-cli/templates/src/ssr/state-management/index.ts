@@ -1,35 +1,26 @@
-import {Store, createStore, applyMiddleware, compose} from "redux"
+import {createWrapper} from "next-redux-wrapper"
+import {applyMiddleware, createStore, Store} from "redux"
+import logger from "redux-logger"
 import createSagaMiddleware, {Task} from "redux-saga"
-import getConfig from "next/config"
 import rootReducer from "./root-reducer"
 import rootSaga from "./root-saga"
-import logger from "redux-logger"
-
-const IS_BROWSER = typeof window !== "undefined"
-
-const {
-    publicRuntimeConfig: {NODE_ENV},
-} = getConfig()
-
-const hasDevTools =
-    NODE_ENV === "development" && IS_BROWSER && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-
-const composeEnhancers = hasDevTools
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : compose
 
 interface WithSagaTaskStore extends Store {
     sagaTask?: Task
 }
 
+const bindMiddleware = middleware => {
+    if (process.env.NODE_ENV !== "production") {
+        const {composeWithDevTools} = require("redux-devtools-extension")
+        return composeWithDevTools(applyMiddleware(...middleware))
+    }
+    return applyMiddleware(...middleware)
+}
+
 const configureStore = (preloadedState: any = {}) => {
     const sagaMiddleware = createSagaMiddleware()
 
-    const middlewares = [sagaMiddleware, logger]
-    const middlewareEnhancer = applyMiddleware(...middlewares)
-
-    const enhancers = [middlewareEnhancer]
-    const composedEnhancers = composeEnhancers(...enhancers)
+    const composedEnhancers = bindMiddleware([sagaMiddleware, logger])
 
     const store: WithSagaTaskStore = createStore(
         rootReducer,
@@ -37,14 +28,9 @@ const configureStore = (preloadedState: any = {}) => {
         composedEnhancers,
     )
 
-    /**
-     * next-redux-saga depends on `sagaTask` being attached to the store.
-     * It is used to await the rootSaga task before sending results to the client.
-     */
-
     store.sagaTask = sagaMiddleware.run(rootSaga)
 
     return store
 }
 
-export default configureStore
+export const wrapper = createWrapper(configureStore, {debug: true})
