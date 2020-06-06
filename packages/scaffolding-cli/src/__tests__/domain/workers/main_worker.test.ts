@@ -1,34 +1,38 @@
+/* eslint-disable @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable compat/compat */
 import {CliAnswerModel} from "../../../domain/model/prompt_answer"
 import {CliResponse, BaseResponse} from "../../../domain/model/workers"
 import {MainWorker} from "../../../domain/workers/main_worker"
 import {Utils} from "../../../domain/workers/utils"
 import conf from "../../../domain/config/static.config.json"
 import {Static} from "../../../domain/model/config"
-let staticConf: Static = conf as Static
+
+const staticConf: Static = conf as Static
 
 jest.mock("../../../domain/workers/utils")
 
 //TODO: parametise these tests
 
-let mockAnswerSsr = {
+const mockAnswerSsr = {
     projectName: "foo",
     projectType: "ssr",
     platform: "aks",
-    deployment: "tfs",
+    deployment: "azdevops",
 } as CliAnswerModel
 
-let mockAnswerCsr = {
+const mockAnswerCsr = {
     projectName: "foo",
     projectType: "csr",
     platform: "aks",
-    deployment: "tfs",
+    deployment: "azdevops",
 } as CliAnswerModel
 
-let mockAnswerJavaSpring = {
+const mockAnswerJavaSpring = {
     projectName: "foo",
     projectType: "javaSpring",
     platform: "aks",
-    deployment: "tfs",
+    deployment: "azdevops",
     business: {
         company: "testcomp",
         domain: "testDomain",
@@ -36,11 +40,11 @@ let mockAnswerJavaSpring = {
     },
 } as CliAnswerModel
 
-let mockAnswerNetcore = {
+const mockAnswerNetcore = {
     projectName: "foo",
     projectType: "netcore",
     platform: "aks",
-    deployment: "tfs",
+    deployment: "azdevops",
     business: {
         company: "testcomp",
         domain: "testDomain",
@@ -48,12 +52,12 @@ let mockAnswerNetcore = {
     },
 } as CliAnswerModel
 
-let workerResponse = <BaseResponse>{
+const workerResponse = {
     message: `${mockAnswerSsr.projectName} created`,
     ok: true,
-}
+} as BaseResponse
 
-let mainWorker = new MainWorker()
+const mainWorker = new MainWorker()
 Utils.writeOutConfigFile = jest.fn().mockImplementationOnce(() => {
     return Promise.resolve({})
 })
@@ -75,7 +79,7 @@ describe("mainWorker class tests", () => {
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve(workerResponse)
             })
-            let flowRan: CliResponse = await mainWorker.ssrAksTfs(
+            const flowRan: CliResponse = await mainWorker.ssrAksTfs(
                 mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
@@ -99,7 +103,7 @@ describe("mainWorker class tests", () => {
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve(workerResponse)
             })
-            let flow_ran: CliResponse = await mainWorker.ssrGkeTfs(
+            const flow_ran: CliResponse = await mainWorker.ssrGkeTfs(
                 mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
@@ -126,7 +130,7 @@ describe("mainWorker class tests", () => {
             Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve(workerResponse)
             })
-            let flow_ran: CliResponse = await mainWorker.infraAksAzdevops(
+            const flow_ran: CliResponse = await mainWorker.infraAksAzdevops(
                 mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
@@ -156,7 +160,7 @@ describe("mainWorker class tests", () => {
                 return Promise.resolve(workerResponse)
             })
 
-            let flow_ran: CliResponse = await mainWorker.csrAksTfs(
+            const flow_ran: CliResponse = await mainWorker.csrAksTfs(
                 mockAnswerCsr,
             )
             expect(Utils.doGitClone).toHaveBeenCalledWith(
@@ -195,7 +199,7 @@ describe("mainWorker class tests", () => {
                 return Promise.resolve(workerResponse)
             })
 
-            let flow_ran: CliResponse = await mainWorker.netcoreAksTfs(
+            const flow_ran: CliResponse = await mainWorker.netcoreAksTfs(
                 mockAnswerNetcore,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
@@ -232,7 +236,7 @@ describe("mainWorker class tests", () => {
                 return Promise.resolve(workerResponse)
             })
 
-            let flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
+            const flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
                 mockAnswerJavaSpring,
             )
             expect(Utils.doGitClone).toHaveBeenCalledWith(
@@ -258,7 +262,7 @@ describe("mainWorker class tests", () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 throw new Error("Something weird happened")
             })
-            let flow_ran: CliResponse = await mainWorker.ssrAksTfs(
+            const flow_ran: CliResponse = await mainWorker.ssrAksTfs(
                 mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
@@ -273,7 +277,7 @@ describe("mainWorker class tests", () => {
                 Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                     throw new Error("Something weird happened")
                 })
-                let flow_ran: CliResponse = await mainWorker.netcoreAksTfs(
+                const flow_ran: CliResponse = await mainWorker.netcoreAksTfs(
                     mockAnswerNetcore,
                 )
                 expect(Utils.prepBase).toHaveBeenCalled()
@@ -288,7 +292,7 @@ describe("mainWorker class tests", () => {
                 Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                     throw new Error("Something weird happened")
                 })
-                let flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
+                const flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
                     mockAnswerJavaSpring,
                 )
                 expect(Utils.prepBase).toHaveBeenCalled()
@@ -303,7 +307,7 @@ describe("mainWorker class tests", () => {
                 Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                     throw new Error("Something weird happened")
                 })
-                let flow_ran: CliResponse = await mainWorker.csrAksTfs(
+                const flow_ran: CliResponse = await mainWorker.csrAksTfs(
                     mockAnswerCsr,
                 )
                 expect(Utils.prepBase).toHaveBeenCalled()
