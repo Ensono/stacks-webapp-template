@@ -9,7 +9,11 @@ export const PrefixedLink: React.FC<Link["props"]> = ({
 }) => {
     return (
         <Link
-            href={href}
+            href={`${
+                process.env.APP_BASE_PATH
+                    ? process.env.APP_BASE_PATH
+                    : getConfig().publicRuntimeConfig.APP_BASE_PATH
+            }${href}`}
             as={`${
                 process.env.APP_BASE_PATH
                     ? process.env.APP_BASE_PATH
