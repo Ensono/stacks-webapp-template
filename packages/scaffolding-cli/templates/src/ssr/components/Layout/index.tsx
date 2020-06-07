@@ -9,15 +9,14 @@ const layoutStyle = {
 }
 
 export const Layout = props => {
-    console.log(
-        "Layout:",
+    const assetPrefix =
         getConfig() &&
-            getConfig().publicRuntimeConfig &&
-            getConfig().publicRuntimeConfig.APP_BASE_PATH,
-    )
+        getConfig().publicRuntimeConfig &&
+        getConfig().publicRuntimeConfig.APP_BASE_PATH
+    console.log("Layout env:", process.env.APP_BASE_PATH)
     return (
         <>
-            <Meta assetPrefix={props.assetPrefix} />
+            <Meta assetPrefix={assetPrefix} />
             <main>
                 <div style={layoutStyle}>
                     <Header />
