@@ -3,7 +3,7 @@
 exports[`With React Testing Library Snapshot renders page 1`] = `
 <DocumentFragment>
   <div
-    class="MuiGrid-root css-1knxyyj MuiGrid-container"
+    style="margin: 20px; padding: 20px;"
   >
     <header
       class="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorSecondary mui-fixed MuiPaper-elevation4"
@@ -75,75 +75,73 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         </button>
       </div>
     </header>
-    <main>
-      <br />
+    <br />
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthSm"
+    >
       <div
-        class="MuiContainer-root MuiContainer-maxWidthSm"
+        class="MuiBox-root MuiBox-root-415"
       >
         <div
-          class="MuiBox-root MuiBox-root-518"
+          class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
+          data-testid="search_btn"
         >
-          <div
-            class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
-            data-testid="search_btn"
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
+            data-shrink="false"
+            for="search-bar"
+            id="search-bar-label"
           >
-            <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined"
-              data-shrink="false"
-              for="search-bar"
-              id="search-bar-label"
+            Search Menus
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
+          >
+            <input
+              aria-describedby="search-bar-helper-text"
+              aria-invalid="false"
+              class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputTypeSearch"
+              id="search-bar"
+              name="SearchTerm"
+              type="search"
+              value=""
+            />
+            <fieldset
+              aria-hidden="true"
+              class="PrivateNotchedOutline-root-474 MuiOutlinedInput-notchedOutline"
             >
-              Search Menus
-            </label>
-            <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
-            >
-              <input
-                aria-describedby="search-bar-helper-text"
-                aria-invalid="false"
-                class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputTypeSearch"
-                id="search-bar"
-                name="SearchTerm"
-                type="search"
-                value=""
-              />
-              <fieldset
-                aria-hidden="true"
-                class="PrivateNotchedOutline-root-577 MuiOutlinedInput-notchedOutline"
+              <legend
+                class="PrivateNotchedOutline-legendLabelled-476"
               >
-                <legend
-                  class="PrivateNotchedOutline-legendLabelled-579"
-                >
-                  <span>
-                    Search Menus
-                  </span>
-                </legend>
-              </fieldset>
-            </div>
-            <p
-              class="MuiFormHelperText-root MuiFormHelperText-contained"
-              id="search-bar-helper-text"
-            >
-              Search terms are case sensitive and partial matches are not searched
-            </p>
+                <span>
+                  Search Menus
+                </span>
+              </legend>
+            </fieldset>
           </div>
+          <p
+            class="MuiFormHelperText-root MuiFormHelperText-contained"
+            id="search-bar-helper-text"
+          >
+            Search terms are case sensitive and partial matches are not searched
+          </p>
         </div>
       </div>
-      <div
-        class="MuiGrid-root css-t7xmz MuiGrid-item"
+    </div>
+    <div
+      class="MuiGrid-root css-t7xmz MuiGrid-item"
+    >
+      <h1
+        class="MuiTypography-root MuiTypography-h1"
       >
-        <h1
-          class="MuiTypography-root MuiTypography-h1"
-        >
-          Latest menus:
-        </h1>
-        <h2
-          class="MuiTypography-root MuiTypography-h2"
-        >
-          No results
-        </h2>
-      </div>
-    </main>
+        Latest menus:
+      </h1>
+      <h2
+        class="MuiTypography-root MuiTypography-h2"
+      >
+        No results
+      </h2>
+    </div>
   </div>
 </DocumentFragment>
 `;

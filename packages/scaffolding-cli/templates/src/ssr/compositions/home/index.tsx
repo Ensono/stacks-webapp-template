@@ -1,4 +1,4 @@
-import {ApiPane, Header, Search} from "components"
+import {ApiPane, Header, Layout, Search} from "components"
 import React, {FC} from "react"
 import {connect} from "react-redux"
 import {
@@ -7,7 +7,6 @@ import {
     isLoading,
     requestMenusListRoutine,
 } from "../../ducks/get-menus"
-import {Container} from "./components"
 
 const mapStateToProps = state => {
     return {
@@ -28,14 +27,11 @@ interface Props
 
 const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
     return (
-        <Container container>
-            <Header />
-            <main>
-                <br />
-                <Search getSearchResults={getMenulist} />
-                <ApiPane menuItems={menuItems} isLoading={isLoading} />
-            </main>
-        </Container>
+        <Layout>
+            <br />
+            <Search getSearchResults={getMenulist} />
+            <ApiPane menuItems={menuItems} isLoading={isLoading} />
+        </Layout>
     )
 }
 
