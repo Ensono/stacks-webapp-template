@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mainWorker class jsTestcafe with correct files 1`] = `
+Array [
+  "/testProjectName.bootstrap-config.json",
+  "/testProjectName/.eslintrc",
+  "/testProjectName/.testcaferc.json",
+  "/testProjectName/README.md",
+  "/testProjectName/api/menu.ts",
+  "/testProjectName/build/azDevops/azure/azure-pipeline-post-deploy-testcafe.yml",
+  "/testProjectName/environment-variables.ts",
+  "/testProjectName/fixtures/get-menu.test.cf.ts",
+  "/testProjectName/fixtures/yumido.test.axe.cf.ts",
+  "/testProjectName/package-lock.json",
+  "/testProjectName/package.json",
+  "/testProjectName/tsconfig.testcafe.json",
+  "/testProjectName/utils/utils.cf.ts",
+]
+`;
+
+exports[`mainWorker class netcoreSeleniumTfs with correct files 1`] = `
+Array [
+  "/testProjectName.bootstrap-config.json",
+  "/testProjectName/Api/Builders/Http/HttpRequestBuilder.cs",
+  "/testProjectName/Api/Builders/Http/HttpRequestFactory.cs",
+  "/testProjectName/Configuration/ConfigAccessor.cs",
+  "/testProjectName/Configuration/ConfigModel.cs",
+  "/testProjectName/README.md",
+  "/testProjectName/Selenium/Components/CreateForm.cs",
+  "/testProjectName/Selenium/Components/Header.cs",
+  "/testProjectName/Selenium/Components/MenuList.cs",
+  "/testProjectName/Selenium/Components/Notifier.cs",
+  "/testProjectName/Selenium/Factory/WebDriverFactory.cs",
+  "/testProjectName/Selenium/Pages/PageObject.cs",
+  "/testProjectName/Selenium/SeleniumWrapper.cs",
+  "/testProjectName/Testcomp.Testproject.E2E.Selenium.csproj",
+  "/testProjectName/Testcomp.Testproject.E2E.Selenium.sln",
+  "/testProjectName/Tests/Fixtures/BaseSetup.cs",
+  "/testProjectName/Tests/Steps/CreateMenu.cs",
+  "/testProjectName/Tests/Stories/GetMenuExampleTests.cs",
+  "/testProjectName/appsettings.json",
+]
+`;
