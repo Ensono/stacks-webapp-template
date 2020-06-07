@@ -16,7 +16,7 @@ export default function Post({post, morePosts, preview}) {
     }
 
     return (
-        <Layout assetPrefix={process.env.APP_BASE_PATH}>
+        <Layout>
             {router.isFallback ? (
                 <p>Loading...</p>
             ) : (

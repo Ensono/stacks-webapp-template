@@ -9,11 +9,13 @@ const layoutStyle = {
 }
 
 export const Layout = props => {
+    // Process.env for pre render and getConfig() for SSR
     const assetPrefix =
-        getConfig() &&
-        getConfig().publicRuntimeConfig &&
-        getConfig().publicRuntimeConfig.APP_BASE_PATH
-    console.log("Layout env:", process.env.APP_BASE_PATH)
+        (getConfig() &&
+            getConfig().publicRuntimeConfig &&
+            getConfig().publicRuntimeConfig.APP_BASE_PATH) ||
+        process.env.APP_BASE_PATH ||
+        ""
     return (
         <>
             <Meta assetPrefix={assetPrefix} />
