@@ -3,7 +3,7 @@
     "collect": {
       "chromePath": false,
       "numberOfRuns": 3,
-      "url": ["https://app.nonprod.amidostacks.com/web/stacks", "https://csr2-app.nonprod.amidostacks.com"],
+      "url": ["https://amido.com"],
       "settings": {"chromeFlags": "--no-sandbox"}
     },
     "assert": {
