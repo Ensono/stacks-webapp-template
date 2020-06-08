@@ -40,10 +40,10 @@ variables:
     value: 'testresults' # Azure Storage Container
 
   # Lighthouse audit
-  - lighthouse_audit: true
-  - lighthouse_config_path: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
-  - lighthouse_config_filename: lighthouserc.json
-  - lighthouse_commands:
+    lighthouse_audit: true
+    lighthouse_config_path: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
+    lighthouse_config_filename: lighthouserc.json
+    lighthouse_commands:
       - collect
       - assert
 
