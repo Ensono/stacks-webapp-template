@@ -102,7 +102,7 @@ steps:
       - template: azDevOps/azure/templates/v2/steps/test-static-code-sonar.yml@templates
         parameters:
           working_directory: ${{ parameters.project_root_dir }}
-          target_container: $${{ parameters.sonar_container }}
+          target_container: ${{ parameters.sonar_container }}
 
   # Consumer driven contract tests
   - ${{ if eq(parameters.contract_test, true) }}:
