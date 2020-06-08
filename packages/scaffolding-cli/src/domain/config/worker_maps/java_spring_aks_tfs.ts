@@ -1,5 +1,5 @@
 import { BuildReplaceInput } from "../file_mapper"
-import { BusinessSection, CloudSection } from "../../model/prompt_answer"
+import { BusinessSection, CloudSection, TerraformSection, SourceControlSection } from "../../model/prompt_answer"
 
 /**
  * 
@@ -8,7 +8,7 @@ import { BusinessSection, CloudSection } from "../../model/prompt_answer"
  * @param businessObj 
  * @param cloudObj 
  */
-export const inFiles = (projectName: string, businessObj?: BusinessSection, cloudObj?: CloudSection): Array<BuildReplaceInput> => {
+export const inFiles = ({ projectName: projectName, businessObj: businessObj, cloudObj, terraformObj, scmObj }: { projectName: string; businessObj?: BusinessSection; cloudObj?: CloudSection; terraformObj?: TerraformSection; scmObj?: SourceControlSection }): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/*.md"],

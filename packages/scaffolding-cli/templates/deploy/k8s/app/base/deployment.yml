@@ -51,7 +51,7 @@ spec:
                 secretKeyRef:
                   name: appinsights
                   key: INSTRUMENTATIONKEY
-
+                  
           # Remove limits and let the Pods container get the default (800cpu)
           # resources:
           #   limits:

@@ -5,6 +5,19 @@ export interface BusinessSection {
     component?: string
 }
 
+export const PlatformTypeEnum = {
+    AKS: 'aks',
+    GKE: 'gke',
+    EKS: 'eks',
+    ANY: 'any'
+} as const;
+
+export const DeploymentTypeEnum = {
+    TFS: 'azdevops',
+    JENKINS: 'jenkins'
+} as const;
+
+
 export interface CloudSection {
     region: string
     resourceGroup?: string
@@ -31,8 +44,8 @@ export interface BaseAnswer {
     projectName: string
     projectType: string
     businessDomain: string
-    deployment: string
-    platform?: string
+    deployment: typeof DeploymentTypeEnum[keyof typeof DeploymentTypeEnum]
+    platform?: typeof PlatformTypeEnum[keyof typeof PlatformTypeEnum]
 }
 
 /**

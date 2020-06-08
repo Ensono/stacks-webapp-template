@@ -1,17 +1,13 @@
 {
-  "projectName": "test-app-1",
+  "businessCompany": "company",
+  "projectName": "test-app-java",
   "projectType": "javaSpring",
-  "platform": "aks",
   "deployment": "azdevops",
-  "advancedConfig": true,
-  "createConfig": false,
-  "cloud": {
-    "region": "uksouth",
-    "resourceGroup": "string"
-  },
-  "business": {
-    "company": "string",
-    "project": "string",
-    "component": "string"
-  }
+  "businessDomain": "menu-api",
+  "platform": "aks",
+  "cloudRegion": "uksouth",
+  "businessComponent": "replace_business_component",
+  "sourceControlRepoName": "amido-stacks-repo",
+  "terraformBackendStorage": "azure_blob",
+  "networkingBaseDomain": "app.replace.me"
 }

@@ -1,5 +1,6 @@
 import styled from "@emotion/styled"
 import {Layout} from "components"
+import React from "react"
 
 const Picture = styled.img`
     border-radius: 50%;
