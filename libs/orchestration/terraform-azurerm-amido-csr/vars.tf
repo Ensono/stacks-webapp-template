@@ -53,16 +53,31 @@ variable "location_name_map" {
   }
 }
 
-############################################
-# AZURE INFORMATION
-############################################
+###########################
+# DNS
+########################### 
+
+variable "create_dns_zone" {
+  type        = bool
+  description = "Creates a DNS zone, else uses a supplied one to add records to"
+}
 
 variable "dns_zone" {
-  type = string
-  description = "DNS zone"
-  default = "app.domain.com"
-  
+  type        = string
+  description = "DNS Zone value"
 }
+
+variable "dns_record" {
+  type        = string
+  description = "DNS Record value"
+}
+
+variable "dns_resource_group" {
+  type = string 
+  description = "RG for the DNS Zone if adding to an existing one"
+  default = "amido-nonprod-dns"
+}
+
 
 ############################################
 # RESOURCE INFORMATION
@@ -83,18 +98,18 @@ variable "resource_namer" {
 
 
 ###########################
-# SPA
+# SinglePageApplication
 ##########################
 
-variable "index_document" {
+variable "index_doc" {
   type        = string
   default     = "index.html"
   description = "Represents the name of the index document. This is commonly \"index.html\"."
 }
 
-variable "notfound_document" {
+variable "error_doc" {
   type        = string
-  default     = "404.html"
+  default     = ""
   description = "Represents the path to the error document that should be shown when an error 404 is issued, in other words, when a browser requests a page that does not exist."
 }
 
@@ -118,3 +133,4 @@ variable "account_tier" {
   type    = string
   default = "Standard"
 }
+

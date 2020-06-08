@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import {Method} from "axios"
 import {action} from "typesafe-actions"
 import {GetMenuActionTypes, MenuItem} from "../../../interfaces/sagas.interface"
