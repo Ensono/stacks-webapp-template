@@ -213,3 +213,5 @@ bld/
 # GoLang
 go.sum
 
+# Lighthouse results
+**/*/lighthouse-ci/results
