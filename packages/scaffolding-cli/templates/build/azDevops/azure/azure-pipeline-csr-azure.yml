@@ -199,7 +199,7 @@ stages:
                 TF_VAR_name_environment: dev,
                 TF_VAR_name_stage: dev,
                 TF_VAR_dns_zone: nonprod.amidostacks.com,
-                TF_VAR_dns_record: csr-app-dn,
+                TF_VAR_dns_record: csr-app,
                 TF_VAR_create_dns_zone: false,
                 TF_VAR_dns_resource_group: amido-stacks-nonprod-uks-node,
               }

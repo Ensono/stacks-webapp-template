@@ -62,6 +62,7 @@ steps:
       versionSpec: ${{ parameters.versionSpec }}
       workingDirectory: ${{ parameters.project_root_dir }}
       customRegistry: ${{ parameters.customRegistry }}
+      run_build: false
 
   # Linting and formatting validation
   - ${{ if eq(parameters.lint_formatting, true) }}:
@@ -110,17 +111,6 @@ steps:
   - ${{ if eq(parameters.cypress_applitools_test, true) }}:
       - task: ApplitoolsBuildTask@0
         displayName: "Tests: Visual Regression with Applitools"
-
-  # STEP build NPM for Azure registry
-  - ${{ if eq(parameters.build_on_server, true) }}:
-      - task: Npm@1
-        displayName: Build on ADO using custom feeds
-        inputs:
-          # Options: install, publish, custom
-          command: "custom"
-          customCommand: "ci --only=prod"
-          workingDirectory: ${{ parameters.project_root_dir }}
-          customRegistry: ${{ parameters.customRegistry }}
 
   # Publish Artefacts if required
   - ${{ if eq(parameters.functional_test, true) }}:
