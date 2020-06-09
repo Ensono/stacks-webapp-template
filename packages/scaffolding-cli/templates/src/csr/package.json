@@ -105,7 +105,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
+    "test": "env CI=true node scripts/test.js",
     "lint": "node_modules/.bin/eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "node_modules/.bin/eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
     "prettier": "node_modules/.bin/prettier --ignore-path .gitignore --write \"**/*.+(ts|tsx|js|json)\"",
