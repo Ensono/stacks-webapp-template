@@ -39,13 +39,9 @@ variables:
   lighthouse_audit: true
   lighthouse_config_path: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
   lighthouse_config_filename: lighthouserc.json
-  lighthouse_commands:
-    - collect
-    - assert
 
   # Deployed app urls
-  urls:
-    - 'https://app.nonprod.amidostacks.com'
+  base_url: 'https://app.nonprod.amidostacks.com'
   
   # Resource management connection
   group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
@@ -58,7 +54,7 @@ steps:
   - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
     parameters:
       env_vars:
-        APP_BASE_URL: 'https://app.nonprod.amidostacks.com'
+        APP_BASE_URL: $(base_url)
         MENU_API_URL: 'http://dev.amidostacks.com/api/menu'
         APP_BASE_PATH: '/web/stacks'
         NODE_ENV: production
@@ -84,6 +80,9 @@ steps:
         working_directory: $(lighthouse_config_path)
         target_container: lhci
         lighthouse_config_filename: $(lighthouse_config_filename)
-        lighthouse_commands: $(lighthouse_commands)
-        lighthouse_urls: $(lighthouse_urls) # List of urls e.g. "https://google.com", "https://google.com"
+        lighthouse_commands:
+          - collect
+          - assert
+        # lighthouse_commands: $(lighthouse_commands)
+        lighthouse_urls: $(base_url)
   
