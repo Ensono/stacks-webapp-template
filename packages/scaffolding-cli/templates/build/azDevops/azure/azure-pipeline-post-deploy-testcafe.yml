@@ -40,12 +40,12 @@ variables:
   lighthouse_config_path: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
   lighthouse_config_filename: lighthouserc.json
   lighthouse_commands:
-      - "collect"
-      - "assert"
+    - collect
+    - assert
 
   # Deployed app urls
   urls:
-      - 'https://app.nonprod.amidostacks.com'
+    - 'https://app.nonprod.amidostacks.com'
   
   # Resource management connection
   group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
