@@ -212,9 +212,9 @@ stages:
         dependsOn: AppInfraDev
         container: k8s_deploy
         variables:
-          storage_account_name: $[ dependencies.InfraNonProd.outputs['tfoutputs.storage_account_name'] ]
-          storage_account_key: $[ dependencies.InfraNonProd.outputs['tfoutputs.storage_account_key'] ]
-          dns_name: $[ dependencies.InfraNonProd.outputs['tfoutputs.dns_name'] ]
+          storage_account_name: $[ dependencies.AppInfraDev.outputs['tfoutputs.storage_account_name'] ]
+          storage_account_key: $[ dependencies.AppInfraDev.outputs['tfoutputs.storage_account_key'] ]
+          dns_name: $[ dependencies.AppInfraDev.outputs['tfoutputs.dns_name'] ]
         pool:
           vmImage: ubuntu-18.04
         environment: dev
@@ -236,7 +236,7 @@ stages:
                     build_command: 'npm run build'
                     build_vars: {
                       NODE_ENV: production,
-                      API_BASE: https://$(dns_name),
+                      API_BASE: "https://$(dns_name)",
                       APP_BASE_PATH: "",
                       WDS_SOCKET_HOST: "",
                       MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/menu/v1"

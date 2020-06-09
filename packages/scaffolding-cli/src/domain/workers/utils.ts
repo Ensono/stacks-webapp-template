@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-await-in-loop */
 import { copy, move, remove, ensureDir, rename, stat, readdir, Stats} from 'fs-extra'
 import { tmpdir } from 'os'
 import { startCase, toLower } from 'lodash'
@@ -26,16 +28,10 @@ export function copyFilter(src: string, dest: string): boolean {
         return true
 }
 
-export async function asyncForEach(array: Array<any>, callback: any) {
-    for (let index = 0; index < array.length; index += 1) {
-        await callback(array[index], index, array) // eslint-disable-line no-await-in-loop
-    }
-}
-
 export async function renamerRecursion(inPath: string, match: string | RegExp, replaceString: string ): Promise<void> {
     const files: Array<string> = await readdir(inPath)
-
-    await asyncForEach(files, async (f: string) =>  {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const f of files) {
         const path = resolve(inPath, f)
         const file: Stats = await stat(path)
         const newPath = resolve(inPath, f.replace(match, replaceString))
@@ -43,7 +39,7 @@ export async function renamerRecursion(inPath: string, match: string | RegExp, r
         if (file.isDirectory()) {
             await renamerRecursion(newPath, match, replaceString);
         }
-    })
+    }
 }
 
 export class Utils {
@@ -106,9 +102,9 @@ export class Utils {
             const replaceString = `${startCase(toLower(instructionMap.business.company))}.${startCase(toLower(instructionMap.business.project))}`
             const match = 'xxAMIDOxx.xxSTACKSxx'
 
-            await asyncForEach(srcDir, async (dir: string) => {
+            for (const dir of srcDir){
                 await renamerRecursion(dir, match, replaceString)
-            })
+            }
 
             fsResponse.ok = true
             fsResponse.message = 'replaced all occurences'
@@ -128,8 +124,7 @@ export class Utils {
     public static async valueReplace(instructionMap: Array<Replacetruct>): Promise<BaseResponse> {
         const fsResponse: BaseResponse = {} as BaseResponse
         try {
-            // blanket copy templates out
-            await asyncForEach(instructionMap, async (val: Replacetruct) => { // <{src: string, dest: string}>) => {
+            for (const val of instructionMap) {
                 const options: ReplaceInFileConfig = {
                     files: val.replaceFiles,
                     from: val.replaceVals.from,
@@ -139,7 +134,7 @@ export class Utils {
                     countMatches: val.countMatches
                 }
                 await replaceInFile(options)
-            })
+            }
             fsResponse.ok = true
             fsResponse.message = 'replaced all occurences'
             return fsResponse
@@ -157,12 +152,11 @@ export class Utils {
     public static async constructOutput(instructionMap: Array<FolderMap>, newDirectory: string, tempDirectory: string): Promise<BaseResponse> {
         const fsResponse: BaseResponse = {} as BaseResponse
         try {
-            // blanket copy templates out
-            await asyncForEach(instructionMap, async (val: FolderMap) => { // <{src: string, dest: string}>) => {
+            for (const val of instructionMap) {
                 // need to use copy as move first deletes the directory and tries to insert it
                 // this will not work if you are moving a directory within the same parent
                 await move(resolve(tempDirectory, val.src), resolve(newDirectory, val.dest), { overwrite: true })
-            })
+            }
             // DELETE TEMP from this point on as we don't need it anymore
             await remove(tempDirectory)
 
