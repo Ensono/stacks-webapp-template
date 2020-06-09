@@ -25,7 +25,7 @@ resources:
 
   containers:
     - container: lhci
-      image: amidostacks/lhci:0.0.1
+      image: amidostacks/lhci:0.0.2
 
 variables:
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates

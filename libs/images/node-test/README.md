@@ -17,9 +17,9 @@ For more implementation usage information, see [lighthouse-ci/README.md](../../.
 If you need to make changes to the image and publish to the [Amido Stacks Docker Hub Organisation](https://hub.docker.com/u/amidostacks):
 
 ```bash
-docker build -t amidostacks/lhci:0.0.1 . \
-docker tag amidostakcs/lhci:0.0.1 amidostacks/lhci:0.0.1 \
-docker push amidostacks/lhci:0.0.1
+docker build -t amidostacks/lhci:0.0.2 . \
+docker tag amidostakcs/lhci:0.0.2 amidostacks/lhci:0.0.2 \
+docker push amidostacks/lhci:0.0.2
 docker push amidostacks/lhci:latest
 ```
 
