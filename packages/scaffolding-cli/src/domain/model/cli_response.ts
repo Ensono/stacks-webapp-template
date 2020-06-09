@@ -1,7 +1,6 @@
 export interface CliOptions { 
     [x: string]: unknown;
-    configfile?: string;
-    generatesampleconfig?: boolean;
+    config?: string;
     interactive?: boolean;
     _: string[];
     $0: string;

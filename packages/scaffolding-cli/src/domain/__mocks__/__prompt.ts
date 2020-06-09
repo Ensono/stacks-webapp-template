@@ -1,6 +1,6 @@
 import {prompt} from "prompts"
 import {resolve, isAbsolute} from "path"
-import {readFileSync} from "fs"
+import {readFileSync} from "fs-extra"
 import {cliQuestions} from "../config/questions"
 import {PromptQuestion} from "../model/prompt_question"
 import {PromptAnswer} from "../model/prompt_answer"

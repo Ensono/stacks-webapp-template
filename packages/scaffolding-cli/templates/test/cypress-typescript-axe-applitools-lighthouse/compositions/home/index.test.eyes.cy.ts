@@ -20,7 +20,7 @@ For more: https://github.com/applitools/eyes.sdk.javascript1/tree/master/package
 // Import Cypress Applitools commands for visual tests
 import "@applitools/eyes-cypress/commands"
 
-describe("/ (index)", () => {
+describe("Visual regression: / (index)", () => {
     beforeEach(() => {
         cy.fixture("get-menu-response.json").as("menuResponse")
         cy.server()

@@ -1,8 +1,8 @@
+/* istanbul ignore file */
 import * as AI from "applicationinsights"
 import bodyParser from "body-parser"
 import express from "express"
 import next from "next"
-import conf from "../environment-configuration"
 import api from "./api"
 import logger from "./core/root-logger"
 import errorHandler from "./middlewares/error-handler"
@@ -19,7 +19,7 @@ if (!process.env.CI) {
     appInsights.setup().setAutoCollectConsole(true).start()
 }
 
-const port = parseInt(conf.PORT || "3000", 10)
+const port = parseInt(process.env.PORT || "3000", 10)
 const app = next({dev: process.env.NODE_ENV !== "production", dir: "."})
 const handle = app.getRequestHandler()
 app.renderOpts.poweredByHeader = false
@@ -46,54 +46,7 @@ export default app
     .prepare()
     .then(() => {
         const server = express()
-
-        // TODO: Enable passport for CI
-        if (!process.env.CI) {
-            // Express session for Auth
-            const sessionConfig = {
-                secret: uid.sync(18),
-                cookie: {
-                    maxAge: 86400 * 1000, // 24 hours in milliseconds
-                },
-                resave: false,
-                saveUninitialized: true,
-            }
-            server.use(session(sessionConfig))
-            //Configuring Auth0Strategy
-            const auth0Strategy = new Auth0Strategy(
-                {
-                    domain: conf.AUTH0_DOMAIN,
-                    clientID: conf.AUTH0_CLIENT_ID,
-                    clientSecret: conf.AUTH0_CLIENT_SECRET,
-                    callbackURL: conf.AUTH0_CALLBACK_URL,
-                },
-                function (
-                    accessToken,
-                    refreshToken,
-                    extraParams,
-                    profile,
-                    done,
-                ) {
-                    return done(null, profile)
-                },
-            )
-
-            //configuring Passport
-            passport.use(auth0Strategy)
-            passport.serializeUser((user, done) => done(null, user))
-            passport.deserializeUser((user, done) => done(null, user))
-
-            //initialize Passport disabled for e2e testing
-            server.use(passport.initialize())
-            server.use(passport.session())
-
-            //restrict access to protected routes
-            const restrictAccess = (req, res, next) => {
-                if (!req.isAuthenticated()) return res.redirect("/login")
-                next()
-            }
-        }
-
+        // TODO: Enable passport when attempting https://amido-dev.visualstudio.com/Amido-Stacks/_sprints/taskboard/Cycle%203%20-%20Front%20End%20-%20Part%202/Amido-Stacks/Cycle%203%20-%20Front%20End%20-%20Part%202/Sprint%205?workitem=1800
         server.use(helmetGuard)
         server.use(httpLogger)
         server.use(bodyParser.urlencoded({extended: false}))
@@ -117,7 +70,7 @@ export default app
             })
 
             logger.info(
-                `> Ready on ${conf.APP_BASE_URL}:${port}${conf.APP_BASE_PATH}`,
+                `> Ready on ${process.env.APP_BASE_URL}:${port}${process.env.APP_BASE_PATH}`,
                 "server",
             )
             logger.info(

@@ -15,9 +15,11 @@ trigger:
   branches:
     include:
       - '*'
+
   paths:
     include:
       - 'packages/scaffolding-cli/templates/deploy/gcp/*'
+
 
 resources:
   repositories:
@@ -26,7 +28,7 @@ resources:
       name: amido/stacks-pipeline-templates
       ref: feature/cycle2
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
-      # REPOSITORY IS PUBLIC 
+      # REPOSITORY IS PUBLIC
       endpoint: amidostacks
 
   containers:

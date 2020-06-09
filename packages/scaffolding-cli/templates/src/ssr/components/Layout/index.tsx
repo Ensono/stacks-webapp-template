@@ -1,5 +1,6 @@
-import { Header } from "components"
+import {Header} from "components"
 import React from "react"
+import Meta from "components/meta"
 
 const layoutStyle = {
     margin: 20,
@@ -9,9 +10,12 @@ const layoutStyle = {
 
 export const Layout = props => {
     return (
-        <div style={layoutStyle}>
-            {<Header />}
-            {props.children}
-        </div>
+        <>
+            <Meta assetPrefix={props.assetPrefix} />
+            <div style={layoutStyle}>
+                {<Header />}
+                {props.children}
+            </div>
+        </>
     )
 }

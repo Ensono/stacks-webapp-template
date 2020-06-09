@@ -1,8 +1,11 @@
 const path = require("path")
 const conf = require("./environment-configuration")
+
 const {
     APPINSIGHTS_INSTRUMENTATIONKEY,
     AUTH0_CLIENT_SECRET,
+    NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
+    NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN,
     ...publicConf
 } = conf
 // next.config.js
