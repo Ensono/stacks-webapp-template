@@ -33,29 +33,6 @@ The docker image is open and found at [amidostacks/lhci](https://hub.docker.com/
 5. To assert on the results against specified baseline of acceptable standards:
   `docker run --name lhci -v "$(pwd)/lighthouserc.json:/opt/lhci/lighthouserc.json" -v "$(pwd)/results:/opt/lhci/.lighthouseci" --rm -i -t amidostacks/lhci:latest lhci assert --config=lighthouserc.json`
 
-### Changing the image
-
-#### Amido Stacks maintainers
-
-If you need to make changes to the image and publish to the [Amido Stacks Docker Hub Organisation](https://hub.docker.com/u/amidostacks):
-
-```bash
-docker build -t amidostacks/lhci:0.0.1 . \
-docker tag amidostakcs/lhci:0.0.1 amidostacks/lhci:0.0.1 \
-docker push amidostacks/lhci:0.0.1
-docker push amidostacks/lhci:latest
-```
-
-#### Private use
-
-Push with your own USERNAME
-
-```bash
-docker build -t USERNAME/lhci:latest. \
-docker tag USERNAME/lhci:latest amidostacks/lhci:latest \
-docker push USERNAME/lhci:latest
-```
-
 ## Lighthouse CI
 
 We are using the [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci#readme) for collecting Lighthouse reports. For more information on Lighthouse, see `https://developers.google.com/web/tools/lighthouse/`.
