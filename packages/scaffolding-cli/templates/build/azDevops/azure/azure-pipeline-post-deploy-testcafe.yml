@@ -28,36 +28,27 @@ resources:
       image: amidostacks/lhci:0.0.1
 
 variables:
-  - name: self_repo
-    value: stacks-webapp-template/packages/scaffolding-cli/templates
-  - name: working_directory
-    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe'
+  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
+  working_directory: '$(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe'
 
   # Resource Test Results Blob Storage Container
-  - name: test_results_storage
-    value: amidostacksuksdev # Azure Storage
-  - name: test_results_container
-    value: 'testresults' # Azure Storage Container
+  test_results_storage: amidostacksuksdev # Azure Storage
+  test_results_container: 'testresults' # Azure Storage Container
 
   # Lighthouse audit
-  - name: lighthouse_audit
-    value: true
-  - name: lighthouse_config_path
-    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
-  - name: lighthouse_config_filename
-    value: lighthouserc.json
-  - name: lighthouse_commands
-    value:
-      - collect
-      - assert
+  lighthouse_audit: true
+  lighthouse_config_path: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
+  lighthouse_config_filename: lighthouserc.json
+  lighthouse_commands:
+      - "collect"
+      - "assert"
 
   # Deployed app urls
-  - name: urls
-    value:
+  urls:
       - 'https://app.nonprod.amidostacks.com'
   
   # Resource management connection
-  - group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
+  group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
 
 steps:
   - checkout: self
