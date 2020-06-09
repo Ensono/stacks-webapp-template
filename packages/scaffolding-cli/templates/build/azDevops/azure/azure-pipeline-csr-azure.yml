@@ -195,7 +195,7 @@ stages:
                 TF_VAR_resource_group_location: uksouth,
                 TF_VAR_name_company: $(company),
                 TF_VAR_name_project: $(project),
-                TF_VAR_name_component: $(component),
+                TF_VAR_name_component: $(domain),
                 TF_VAR_name_environment: dev,
                 TF_VAR_name_stage: dev,
                 TF_VAR_dns_zone: nonprod.amidostacks.com,
