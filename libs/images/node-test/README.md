@@ -32,3 +32,10 @@ docker build -t USERNAME/lhci:latest. \
 docker tag USERNAME/lhci:latest amidostacks/lhci:latest \
 docker push USERNAME/lhci:latest
 ```
+
+### Local
+
+1. Build the image or, pull the latest from [amidostacks/node](https://hub.docker.com/r/amidostacks/node).
+  `docker image build -t amidostacks/lhci .`
+
+2. Launch container interactive with bash: `docker run --rm -it amidostacks/lhci:latest /bin/bash`

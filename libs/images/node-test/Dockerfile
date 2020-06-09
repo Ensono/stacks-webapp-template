@@ -10,14 +10,10 @@ RUN apt-get update \
     && apt-get install -y google-chrome-stable --no-install-recommends \
     && apt-get clean
 
-# Run lhci as node user
 RUN cd /tmp && npm install -g @lhci/cli@0.4.1
 RUN mkdir -p /opt/lhci && \
-  cp -a /usr/local/bin/lhci /opt/lhci/ && \
-  chown -hR node:node /opt/lhci
+  cp -a /usr/local/bin/lhci /opt/lhci/
 
 WORKDIR /opt/lhci
-
-USER node
 
 CMD [ "lhci", "--help" ]
