@@ -14,11 +14,11 @@ pr: none
 trigger:
   branches:
     include:
-      - '*'
+    - '*'
 
   paths:
     include:
-      - 'packages/scaffolding-cli/templates/*'
+    - 'packages/scaffolding-cli/templates/*'
 
 resources:
   repositories:
