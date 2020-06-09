@@ -117,7 +117,7 @@ stages:
               lint_formatting: false
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
-              unit_test: false
+              unit_test: true
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               component_test: false
               component_test_project: "$(Test.ComponentTestProjectPath)"
