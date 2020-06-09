@@ -80,9 +80,7 @@ steps:
         working_directory: $(lighthouse_config_path)
         target_container: lhci
         lighthouse_config_filename: $(lighthouse_config_filename)
-        lighthouse_commands:
-          - collect
-          - assert
+        lighthouse_commands: [collect, assert]
         # lighthouse_commands: $(lighthouse_commands)
         lighthouse_urls: $(base_url)
   
