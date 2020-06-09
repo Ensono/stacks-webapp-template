@@ -8,7 +8,7 @@ import {Utils} from "../../../domain/workers/utils"
 import { jsTestcafe, netcoreSelenium } from '../../../domain/config/worker_maps'
 
 jest.mock("../../../domain/workers/utils")
-
+jest.setTimeout(30000)
 const mockAnswer = {
     projectName: "testProjectName",
     projectType: "testProjectType",

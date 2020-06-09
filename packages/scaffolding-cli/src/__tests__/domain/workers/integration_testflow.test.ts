@@ -20,6 +20,8 @@ const mockAnswer = {
 
 const mainWorker = new MainWorker()
 
+jest.setTimeout(30000)
+
 // Todo: extra this out into test util
 // Credit: https://gist.github.com/lovasoa/8691344#gistcomment-3299089
 async function* walk(dir: string): AsyncGenerator<string> {
@@ -41,7 +43,7 @@ describe("mainWorker class", () => {
             await emptyDir(tempDir)
             process.chdir(tempDir)
         } catch (err) {
-            console.log("chdir: " + err)
+            console.log(`chdir: ${err}`)
         }
     })
 

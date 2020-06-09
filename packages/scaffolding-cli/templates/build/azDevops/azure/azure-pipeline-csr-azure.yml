@@ -230,7 +230,7 @@ stages:
                 # TODO: change this to steps and feed upstream
                 - template: azDevOps/azure/templates/v2/steps/deploy-csr-azure.yml@templates
                   parameters:
-                    build_artifact: $(build_file_artefact)
+                    build_artifact: $(build_artifact_deploy_name)
                     storage_account_name: $(storage_account_name)
                     storage_account_key: $(storage_account_key)
                     build_command: 'npm run build'
