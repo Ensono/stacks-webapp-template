@@ -40,15 +40,20 @@ variables:
     value: 'testresults' # Azure Storage Container
 
   # Lighthouse audit
-    lighthouse_audit: true
-    lighthouse_config_path: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
-    lighthouse_config_filename: lighthouserc.json
-    lighthouse_commands:
+  - name: lighthouse_audit
+    value: true
+  - name: lighthouse_config_path
+    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
+  - name: lighthouse_config_filename
+    value: lighthouserc.json
+  - name: lighthouse_commands
+    value:
       - collect
       - assert
 
   # Deployed app urls
-  - urls:
+  - name: urls
+    value:
       - 'https://app.nonprod.amidostacks.com'
   
   # Resource management connection
