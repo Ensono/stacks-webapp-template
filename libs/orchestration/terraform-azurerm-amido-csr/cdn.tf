@@ -32,7 +32,7 @@ resource "azurerm_cdn_endpoint" "default" {
 resource "null_resource" "custom_domain" {
   triggers = {
     # trigger_hostname = lookup(sort(azurerm_cdn_endpoint.default.origin)[0], "host_name")
-    # trigger_hostname = azurerm_cdn_endpoint.default.origin
+    trigger_hostname = local.app_hostname
   }
   provisioner "local-exec" {
     command = <<EOF
@@ -65,6 +65,7 @@ resource "null_resource" "custom_domain" {
 resource "null_resource" "custom_domain_ssl" {
   triggers = {
     # trigger_hostname = lookup(sort(azurerm_cdn_endpoint.default.origin)[0], "host_name")
+    trigger_hostname = local.app_hostname
   }
   provisioner "local-exec" {
     command = <<EOF
