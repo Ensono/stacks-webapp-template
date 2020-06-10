@@ -235,10 +235,11 @@ stages:
                     build_command: 'npm run build'
                     build_vars: {
                       NODE_ENV: production,
-                      API_BASE: "https://$(dns_name)",
+                      API_BASE: "https://api.demo.nonprod.amidostacks.com/menu/v1",
                       APP_BASE_PATH: "",
                       WDS_SOCKET_HOST: "",
-                      MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/menu/v1"
+                      MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/menu/v1",
+                      APPINSIGHTS_KEY: $(APPINSIGHTS_INSTRUMENTATIONKEY)
                     }
                     build_out: './dist'
             on:
