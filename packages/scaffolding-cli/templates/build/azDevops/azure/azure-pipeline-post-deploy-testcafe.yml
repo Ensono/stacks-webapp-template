@@ -42,8 +42,7 @@ variables:
 
   # Deployed app urls
   base_url: 'https://app.nonprod.amidostacks.com'
-  url_paths:
-    - '/web/stacks'
+  base_path: '/web/stacks'
   
   # Resource management connection
   group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
@@ -58,7 +57,7 @@ steps:
       env_vars:
         APP_BASE_URL: $(base_url)
         MENU_API_URL: 'http://dev.amidostacks.com/api/menu'
-        APP_BASE_PATH: $(url_paths[0])
+        APP_BASE_PATH: $(base_path)
         NODE_ENV: production
       working_directory: $(working_directory)
       testcafe_browser_list: 'chrome:headless'
@@ -86,5 +85,5 @@ steps:
           - 'collect'
           - 'assert'
         lighthouse_urls:
-          - $(base_url)$(url_paths[0])
+          - $(base_url)$(base_path)
   
