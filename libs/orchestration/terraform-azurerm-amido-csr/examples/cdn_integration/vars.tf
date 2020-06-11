@@ -105,13 +105,12 @@ variable "create_dns_zone" {
 variable "dns_zone" {
   type        = string
   description = "DNS Zone value"
-  # default = "nonprod.amidostacks.com"
 }
 
 variable "dns_record" {
   type        = string
   description = "DNS Record value"
-  default     = "csr-app-dn"
+  default     = "csr-app"
 }
 
 variable "dns_resource_group" {
