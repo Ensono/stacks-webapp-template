@@ -10,7 +10,7 @@
       "assertions": {
         "categories:performance": ["error", {"minScore": 0.85}],
         "first-contentful-paint": ["error", {"maxNumericValue": 2500}],
-        "interactive": ["error", {"maxNumericValue": 3500}]
+        "interactive": ["error", {"maxNumericValue": 4000}]
       }
     }
   }
