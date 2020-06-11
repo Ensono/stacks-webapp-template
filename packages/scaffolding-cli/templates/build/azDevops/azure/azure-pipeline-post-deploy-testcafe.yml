@@ -106,4 +106,4 @@ steps:
         test_results_container: $(test_results_container)
         test_results_path: $(Agent.BuildDirectory)/.lighthouseci
         test_results_blob_prefix: $(Build.BuildNumber)
-      condition: succeededOrFailed()
+
