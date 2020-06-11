@@ -30,6 +30,7 @@
     "pages/create",
     "pages/profile",
     "pages/create",
-    "pages/profile"
+    "pages/profile",
+    "pages/posts/[slug]"
   ]
 }
