@@ -1,13 +1,6 @@
 ############################################
 # AUTHENTICATION
 ############################################
-variable "client_id" {}
-
-variable "client_secret" {}
-
-variable "tenant_id" {}
-
-variable "subscription_id" {}
 ############################################
 # NAMING
 ############################################
@@ -67,7 +60,7 @@ variable "location_name_map" {
 # RESOURCE INFORMATION
 ############################################
 
-variable "resource_location" {
+variable "resource_group_location" {
   default = "uksouth"
 }
 
@@ -76,12 +69,9 @@ variable "resource_tags" {
   default = {}
 }
 
-variable "rg_name" {
-  type = string
-}
 
 ###########################
-# SPA
+# SinglePageApplication
 ##########################
 
 variable "index_document" {
@@ -102,15 +92,29 @@ variable "enabled" {
   description = "Enables or disables the static-website"
 }
 
+###########################
+# DNS
+########################### 
 
-# locals {
-#   # // common //
-#   resource_prefix           = "${var.name_company}-${var.name_project}-${var.name_component}"
-#   resource_suffix           = "${var.location_name_map[var.resource_location]}-${var.name_environment}"
+variable "create_dns_zone" {
+  type        = bool
+  description = "Creates a DNS zone, else uses a supplied one to add records to"
+  default     = false
+}
 
-#   # // resource group //
-#   resource_group_name       = "${local.resource_prefix}-rg-${local.resource_suffix}"
+variable "dns_zone" {
+  type        = string
+  description = "DNS Zone value"
+}
 
-#   # // storage account - static website hosting //
-#   storage_account_name      = "${var.name_company}${var.name_project}${var.name_component}sa${var.location_name_map[var.resource_location]}${var.name_environment}"
-# }
+variable "dns_record" {
+  type        = string
+  description = "DNS Record value"
+  default     = "csr-app"
+}
+
+variable "dns_resource_group" {
+  type = string 
+  description = "RG for the DNS Zone if adding to an existing one"
+  default = "amido-nonprod-dns"
+}

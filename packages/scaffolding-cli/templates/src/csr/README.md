@@ -21,7 +21,7 @@ Runs the app in the development mode.<br /> Open
 [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 ```
-Note: To avoid running the CSR in localhost CORS issues we can run the SSR app in the background and use API_BASE env point to http://localhost:3000
+Note: To avoid running the CSR in localhost CORS issues we can run the SSR app in the background and use MENU_API_URL env point to http://localhost:3000
 ```
 
 The page will reload if you make edits.<br /> You will also see any lint errors
@@ -52,29 +52,31 @@ https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 This section has moved here:
 https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-
 ## Cypress: Functional Testing
 
 ## Getting started
 
-Compile and watch for code changes:
-  `npm run test:cypress:watch`
+Compile and watch for code changes: `npm run test:cypress:watch`
 
-Run locally in [Cypress Test Runner](https://docs.cypress.io/guides/guides/command-line.html#cypress-open):
-  `npm run test:cypress:open`
+Run locally in
+[Cypress Test Runner](https://docs.cypress.io/guides/guides/command-line.html#cypress-open):
+`npm run test:cypress:open`
 
-> ⚠️ IMPORTANT: For local development, you will need to start the server to host the webapp under dev. See [npm-start](#npm-start).
+> ⚠️ IMPORTANT: For local development, you will need to start the server to host
+> the webapp under dev. See [npm-start](#npm-start).
 
 ## Environment varibales
 
 We need to ensure that Cypress knows the following at a minimum:
 
-* protocol (e.g. https)
-* host (e.g. google.com)
-* path (e.g. /images)
+- protocol (e.g. https)
+- host (e.g. google.com)
+- path (e.g. /images)
 
-All variables should be pulled in using the same method the app does. In this case, this is all dont in `cypress/plugins/index.config.js`
+All variables should be pulled in using the same method the app does. In this
+case, this is all dont in `cypress/plugins/index.config.js`
 
 ## Scripts
 
-For all Cypress oriented scripts, see the [`test:cypress` scripts](./package.json).
+For all Cypress oriented scripts, see the
+[`test:cypress` scripts](./package.json).

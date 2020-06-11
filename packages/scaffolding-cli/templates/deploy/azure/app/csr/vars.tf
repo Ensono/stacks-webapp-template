@@ -1,7 +1,6 @@
 ############################################
 # AUTHENTICATION
 ############################################
-variable "subscription_id" {}
 ############################################
 # NAMING
 ############################################
@@ -53,31 +52,9 @@ variable "location_name_map" {
   }
 }
 
-###########################
-# DNS
-########################### 
-
-variable "create_dns_zone" {
-  type        = bool
-  description = "Creates a DNS zone, else uses a supplied one to add records to"
-}
-
-variable "dns_zone" {
-  type        = string
-  description = "DNS Zone value"
-}
-
-variable "dns_record" {
-  type        = string
-  description = "DNS Record value"
-}
-
-variable "dns_resource_group" {
-  type = string 
-  description = "RG for the DNS Zone if adding to an existing one"
-  default = "amido-nonprod-dns"
-}
-
+############################################
+# AZURE INFORMATION
+############################################
 
 ############################################
 # RESOURCE INFORMATION
@@ -92,24 +69,20 @@ variable "resource_tags" {
   default = {}
 }
 
-variable "resource_namer" {
-  type = string
-}
-
 
 ###########################
 # SinglePageApplication
 ##########################
 
-variable "index_doc" {
+variable "index_document" {
   type        = string
   default     = "index.html"
   description = "Represents the name of the index document. This is commonly \"index.html\"."
 }
 
-variable "error_doc" {
+variable "notfound_document" {
   type        = string
-  default     = ""
+  default     = "404.html"
   description = "Represents the path to the error document that should be shown when an error 404 is issued, in other words, when a browser requests a page that does not exist."
 }
 
@@ -119,18 +92,30 @@ variable "enabled" {
   description = "Enables or disables the static-website"
 }
 
-variable "account_replication_type" {
-  type    = string
-  default = "LRS"
+###########################
+# DNS
+########################### 
+
+variable "create_dns_zone" {
+  type        = bool
+  description = "Creates a DNS zone, else uses a supplied one to add records to"
+  default     = false
 }
 
-variable "account_kind" {
-  type    = string
-  default = "StorageV2"
+variable "dns_zone" {
+  type        = string
+  description = "DNS Zone value"
+  # default = "nonprod.amidostacks.com"
 }
 
-variable "account_tier" {
-  type    = string
-  default = "Standard"
+variable "dns_record" {
+  type        = string
+  description = "DNS Record value"
+  default     = "csr-app-dn"
 }
 
+variable "dns_resource_group" {
+  type = string 
+  description = "RG for the DNS Zone if adding to an existing one"
+  default = "amido-nonprod-dns"
+}

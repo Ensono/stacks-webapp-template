@@ -66,16 +66,6 @@ steps:
           docker_imagetag: ${{ parameters.docker_imagetag }}
           docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
 
-  # Build Docker Image, Scan and Push to Repository
-  - ${{ if eq(parameters.git_do_tag_release, true) }}:
-      - bash: |
-          git config --global user.email "williamayerst@github.com"
-          git config --global user.name "williamayerst"
-          git tag -a v${{ parameters.git_release_tag }} -m "CI generate"
-          git push origin v${{ parameters.git_release_tag }}
-        displayName: Git Tag release
-        workingDirectory: ${{ parameters.project_root_dir }}
-
   # Publish Artefacts if required
   - ${{ if eq(parameters.functional_test, true) }}:
       - task: PublishPipelineArtifact@1
