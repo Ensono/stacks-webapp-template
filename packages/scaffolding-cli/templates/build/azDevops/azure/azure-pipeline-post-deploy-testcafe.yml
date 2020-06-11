@@ -73,8 +73,16 @@ steps:
       test_results_container: $(test_results_container)
       test_results_path: $(working_directory)
       test_results_blob_prefix: $(Build.BuildNumber)
+  
+  # Upload test results in pipeline, as artifacts, and html report to blob storage
+  - template: azDevOps/azure/templates/v2/steps/test-publish-blob.yml@templates
+    parameters:
+      test_tool_name: testcafe
+      working_directory: $(working_directory)
+      test_results_storage: $(test_results_storage)
+      test_results_path: $(working_directory)/testcafe-xunit-test-results.html
 
-# Run lighthouse audit
+  # Run lighthouse audit
   - ${{ if eq(variables.lighthouse_audit, true) }}:
     - template: azDevOps/azure/templates/v2/steps/test-profiling-lighthouse.yml@templates
       parameters:
@@ -86,4 +94,13 @@ steps:
           - 'assert'
         lighthouse_urls:
           - $(base_url)$(base_path)
-  
+
+    # Upload test results in pipeline, as artifacts, and html report to blob storage
+    - template: azDevOps/azure/templates/v2/steps/test-publish-blob.yml@templates
+      parameters:
+        test_tool_name: lighthouse
+        working_directory: $(lighthouse_config_path)
+        test_results_storage: $(test_results_storage)
+        test_results_container: $(test_results_container)
+        test_results_path: $(Agent.BuildDirectory)/.lighthouseci
+        test_results_blob_prefix: $(Build.BuildNumber)
