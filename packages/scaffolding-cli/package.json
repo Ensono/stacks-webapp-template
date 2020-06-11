@@ -33,7 +33,7 @@
     "yargs": "^15.3.1"
   },
   "devDependencies": {
-    "@amidostacks/eslint-config": "^0.30.0",
+    "@amidostacks/eslint-config": "^0.32.0",
     "@types/concat-stream": "^1.6.0",
     "@types/fs-extra": "^9.0.1",
     "@types/jest": "^25.2.3",
