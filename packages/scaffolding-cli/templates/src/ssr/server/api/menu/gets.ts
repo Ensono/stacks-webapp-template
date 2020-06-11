@@ -2,12 +2,14 @@ import axios from "../../core/axios"
 import {Router} from "express"
 import api from "../../../constants/apis/menu"
 import logger from "../../core/root-logger"
+import Cors from "cors"
 
 const getMenuList = api("getMenuList")
 const getMenu = api("getMenu")
 
 export default (router: Router) => {
-    router.get(getMenuList.routeDefinition, async (req, res) => {
+    router.options("*", Cors())
+    router.get(getMenuList.routeDefinition, Cors(), async (req, res) => {
         const {query} = req
         try {
             debugger
