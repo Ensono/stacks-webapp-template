@@ -24,15 +24,8 @@ describe("/Blog", () => {
 
     it("can navigate to /blog page when clicking on the blog button on header", () => {
         cy.wait("@getStubbedMenu")
-        cy.get("[data-testid=blogs_button]").then($button => {
-            if ($button.is(":visible")) {
-                assert.isOk("blog button exists and active")
-            } else {
-                assert.isNotOk("blog button does not exist")
-            }
-        })
+        cy.get("[data-testid=blogs_button]").should("exist").click()
 
-        cy.get("[data-testid=blogs_button]").click()
         cy.location().should(loc => {
             expect(loc.pathname).to.eq("/blog")
         })
@@ -40,8 +33,9 @@ describe("/Blog", () => {
             .should("exist")
             .contains("Yumido Blog")
 
-        cy.get("[data-testid=blog_preview_block]")
-            .should("exist")
-            .should("have.length.greaterThan", 1)
+        cy.get("[data-testid=blog_preview_block]").should(
+            "have.length.greaterThan",
+            1,
+        )
     })
 })
