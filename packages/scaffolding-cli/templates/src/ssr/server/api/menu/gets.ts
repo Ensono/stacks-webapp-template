@@ -8,7 +8,6 @@ const getMenuList = api("getMenuList")
 const getMenu = api("getMenu")
 
 export default (router: Router) => {
-    router.options("*", Cors())
     router.get(getMenuList.routeDefinition, Cors(), async (req, res) => {
         const {query} = req
         try {

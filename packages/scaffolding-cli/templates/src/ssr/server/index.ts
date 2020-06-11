@@ -13,6 +13,7 @@ import session from "express-session"
 import passport from "passport"
 import Auth0Strategy from "passport-auth0"
 import uid from "uid-safe"
+import Cors from "cors"
 
 let appInsights = AI
 if (!process.env.CI) {
@@ -51,6 +52,7 @@ export default app
         server.use(httpLogger)
         server.use(bodyParser.urlencoded({extended: false}))
         server.use(bodyParser.json())
+        server.options("*", Cors())
         server.use(/\/((?!_next).)*/, httpLogger)
         server.use(api)
         server.get("/", (req, res) => ssrCache({req, res, pagePath: "/"}))
