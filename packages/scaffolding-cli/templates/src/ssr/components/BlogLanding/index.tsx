@@ -14,7 +14,7 @@ export const BlogLanding = props => {
     //TODO map the rest of the posts.
     return (
         <>
-            <Typography component="h2" variant="h5">
+            <Typography component="h2" variant="h5" data-testid="blog_title">
                 Yumido Blog
             </Typography>
             <br />

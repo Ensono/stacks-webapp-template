@@ -36,5 +36,12 @@ describe("/Blog", () => {
         cy.location().should(loc => {
             expect(loc.pathname).to.eq("/blog")
         })
+        cy.get("[data-testid=blog_title]")
+            .should("exist")
+            .contains("Yumido Blog")
+
+        cy.get("[data-testid=blog_preview_block]")
+            .should("exist")
+            .should("have.length.greaterThan", 1)
     })
 })
