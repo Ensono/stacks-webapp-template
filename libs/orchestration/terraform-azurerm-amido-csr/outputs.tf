@@ -16,7 +16,7 @@ output "storage_account_key" {
 
 output "dns_name" {
   description = "Dns FQDN for website"
-  value = azurerm_dns_cname_record.default.fqdn
+  value = trimsuffix(azurerm_dns_cname_record.default.fqdn, ".")
 }
 
 output "resource_group_name" {
