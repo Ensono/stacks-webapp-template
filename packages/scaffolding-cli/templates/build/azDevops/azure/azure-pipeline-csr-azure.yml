@@ -43,6 +43,7 @@ variables:
   project: stacks
   domain: csr
   role: frontend
+  AZURE_CLIENT_ID: "dsfsdfsdf "
   #
   # SelfConfig
   # If you haven't specified source_repo at cli runtime please ensure you replace it here 
@@ -142,7 +143,7 @@ stages:
   - stage: dev
     variables:
       - group: amido-stacks-infra-credentials-nonprod
-      - group: amido-stacks-webapp
+      - group: amido-stacks-webapp-csr
     jobs:
       - job: AppInfraDev
         variables:
