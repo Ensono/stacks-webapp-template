@@ -5,6 +5,7 @@ import {
     CloudSection,
     TerraformSection,
     SourceControlSection,
+    NetworkingSection,
 } from "../../model/prompt_answer"
 import {BuildReplaceInput} from "../file_mapper"
 import { resolve } from "path"
@@ -23,12 +24,14 @@ export const inFiles = ({
     cloudObj,
     terraformObj,
     scmObj,
+    networkObj
 }: {
     projectName: string
     businessObj?: BusinessSection
     cloudObj?: CloudSection
     terraformObj?: TerraformSection
     scmObj?: SourceControlSection
+    networkObj?: NetworkingSection
 }): Array<BuildReplaceInput> => {
     return [
         {
@@ -49,7 +52,7 @@ export const inFiles = ({
                 "project: stacks": `project: ${businessObj?.project}`,
                 "domain: node": `domain: ${businessObj?.domain}`,
                 "component: node": `domain: ${businessObj?.component}`,
-                "nonprod.amidostacks.com": "REPLACE_ME_FOR_DOMAIN",
+                "nonprod.amidostacks.com": `${networkObj?.baseDomain}`,
                 "nonprod.amidostacks.internal":
                     "REPLACE_ME_FOR_INTERNAL_DOMAIN",
                 "amido-stacks-infra-credentials-nonprod":

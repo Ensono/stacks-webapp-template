@@ -8,7 +8,7 @@ import { BusinessSection, CloudSection, TerraformSection, SourceControlSection }
  * @param businessObj 
  * @param cloudObj 
  */
-export const inFiles = ({ projectName: projectName, businessObj: businessObj, cloudObj, terraformObj, scmObj }: { projectName: string; businessObj?: BusinessSection; cloudObj?: CloudSection; terraformObj?: TerraformSection; scmObj?: SourceControlSection }): Array<BuildReplaceInput> => {
+export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmObj }: { projectName: string; businessObj?: BusinessSection; cloudObj?: CloudSection; terraformObj?: TerraformSection; scmObj?: SourceControlSection }): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/*.md"],

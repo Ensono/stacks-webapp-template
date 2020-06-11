@@ -18,14 +18,15 @@ export class MainWorker {
 
     async ssrAksTfs(instructions: CliAnswerModel): Promise<CliResponse> {
         const selectedFlowResponse: CliResponse = {} as CliResponse
-        
+
         try {
             const sharedBuildInput: Array<BuildReplaceInput> = shared.inFiles({
                 projectName: instructions.projectName,
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             })
 
             const buildInput: Array<BuildReplaceInput> = ssr.inFiles({
@@ -69,7 +70,8 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             })
 
             const buildInput: Array<BuildReplaceInput> = netcore.inFiles({
@@ -110,13 +112,14 @@ export class MainWorker {
     async javaSpringAksTfs(instructions: CliAnswerModel): Promise<CliResponse> {
         const selectedFlowResponse: CliResponse = {} as CliResponse
         try {
-            
+
             const sharedBuildInput: Array<BuildReplaceInput> = shared.inFiles({
                 projectName: instructions.projectName,
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             })
 
             const buildInput: Array<BuildReplaceInput> = javaSpring.inFiles({
@@ -139,7 +142,7 @@ export class MainWorker {
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput)
 
             await Utils.valueReplace(valMaps)
-            await Utils.fileNameReplace([newDirectory.finalPath], instructions)            
+            await Utils.fileNameReplace([newDirectory.finalPath], instructions)
 
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
@@ -162,13 +165,24 @@ export class MainWorker {
     async csrAksTfs(instructions: CliAnswerModel): Promise<CliResponse> {
         const selectedFlowResponse: CliResponse = {} as CliResponse
         try {
+            const sharedBuildInput: Array<BuildReplaceInput> = shared.inFiles({
+                projectName: instructions.projectName,
+                businessObj: instructions.business,
+                cloudObj: instructions.cloud,
+                terraformObj: instructions.terraform,
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
+            })
 
-            const buildInput: Array<BuildReplaceInput> = csr.inFiles(instructions.projectName, instructions.business, instructions.cloud)
+            const buildInput: Array<BuildReplaceInput> = csr.inFiles({
+                projectName: instructions.projectName,
+                businessObj: instructions.business,
+                cloudObj: instructions.cloud,
+                terraformObj: instructions.terraform,
+                scmObj: instructions.sourceControl
+            }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
-            // git clone node_repo custom app src
-            // srcPathInTmp should be statically defined in each method
-            await Utils.doGitClone(staticConf.csr.gitRepo, newDirectory.tempPath, staticConf.csr.localPath, staticConf.csr.gitRef)
 
             await Utils.constructOutput(staticConf.csr.folderMap, newDirectory.finalPath, newDirectory.tempPath)
 
@@ -207,7 +221,7 @@ export class MainWorker {
 
             await Utils.valueReplace(valMaps)
             await Utils.fileNameReplace([`${newDirectory.finalPath}`], instructions)
-            
+
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
@@ -253,7 +267,7 @@ export class MainWorker {
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput);
 
             await Utils.valueReplace(valMaps)
-            
+
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
@@ -290,7 +304,7 @@ export class MainWorker {
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput);
 
             await Utils.valueReplace(valMaps)
-            
+
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions, "-infra")
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
@@ -320,12 +334,12 @@ export class MainWorker {
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput);
 
             await Utils.valueReplace(valMaps)
-            
+
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
 
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
-            
+
             // Control the output message from each method
             selectedFlowResponse.message = shared.finalResponseMessage(instructions.projectName, jsTestcafe.responseMessage(instructions.projectName))
             return selectedFlowResponse

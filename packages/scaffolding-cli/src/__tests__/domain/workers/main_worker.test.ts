@@ -163,19 +163,13 @@ describe("mainWorker class tests", () => {
             const flow_ran: CliResponse = await mainWorker.csrAksTfs(
                 mockAnswerCsr,
             )
-            expect(Utils.doGitClone).toHaveBeenCalledWith(
-                staticConf.csr.gitRepo,
-                "/var/test",
-                staticConf.csr.localPath,
-                staticConf.csr.gitRef,
-            )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.constructOutput).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("message")
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mockAnswerSsr.projectName}/src && npm install && npm run stuff`,
+                `cd ${mockAnswerSsr.projectName}/src && npm install && npm run build && npm run start`,
             )
         })
         it("netcoreAksTfs should return success and user message for npm", async () => {
