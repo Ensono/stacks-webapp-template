@@ -8,7 +8,7 @@ import {createBrowserHistory} from "history"
 import {Action} from "redux"
 
 const reactPlugin = new ReactPlugin()
-const instrumentationKey = process.env.APPINSIGHTS_KEY
+const instrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY
 const browserHistory = createBrowserHistory({basename: ""})
 
 let debug = false

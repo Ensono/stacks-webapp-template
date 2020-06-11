@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import {Method} from "axios"
 import {MetaAction, TypeConstant} from "typesafe-actions"
 

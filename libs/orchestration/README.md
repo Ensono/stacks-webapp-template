@@ -13,9 +13,12 @@ Especially important for Azure modules
 
 Docs should be descriptive as to what it does and contain an `Inputs`, `Outputs` and `Providers` section. The recommended way to do that is to use this [package](https://github.com/segmentio/terraform-docs)
 
+e.g.: `terraform-docs markdown table path/to/my/module`
+
 
 ##### Local testing
 run and test any changes locally
 ```bash
 docker run -v $(pwd):/usr/data --rm -it amidostacks/ci-tf:0.0.3 /bin/bash
 ```
+

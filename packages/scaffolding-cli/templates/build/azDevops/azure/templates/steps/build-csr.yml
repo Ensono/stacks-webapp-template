@@ -3,19 +3,9 @@ parameters:
     vmImage: "ubuntu-latest"
   versionSpec: 12.x
   project_root_dir: ""
-  dependsOn: "GetPackage"
   download_devops: true
   # Custom registry (eg. private)
   customRegistry: ""
-  # Docker Config
-  docker_build: true
-  docker_build_generic: false
-  docker_build_additional_args: ""
-  docker_workdir: ""
-  docker_imagename: ""
-  docker_imagetag: ""
-  docker_containerregistryname: ""
-  docker_tag_args: ""
   # auth selection
   login_azure: false
   login_gke: false
@@ -39,10 +29,10 @@ parameters:
   shared_eslint_config: ""
   # Testing
   unit_test: true
-  contract_test: true
+  contract_test: false
   audit_test: false
-  contract_check_can_deploy: true
-  cypress_e2e_test: true
+  contract_check_can_deploy: false
+  cypress_e2e_test: false
   cypress_applitools_test: false
   cypress_e2e_env_vars: {}
   # Build File Output
@@ -56,20 +46,6 @@ parameters:
 
 
 steps:
-  # Login to Azure/AKS
-  - template: azDevOps/azure/templates/v2/steps/login-services.yml@templates
-    parameters:
-      # TODO: refactor this so we can keep on using the same step across providers
-      azure_tenant_id: "$(azure_tenant_id)"
-      azure_subscription_id: "$(azure_subscription_id)"
-      azure_client_id: "$(azure_client_id)"
-      azure_client_secret: "$(azure_client_secret)"
-      login_azure: ${{ parameters.login_azure }}
-      login_gcp: ${{ parameters.login_gcp }}
-      login_gke: ${{ parameters.login_gke }}
-      login_gcr: ${{ parameters.login_gcr }}
-      gcp_auth: ${{ parameters.gcp_auth }}
-
   # Audit dependencies
   # ⚠️ IMPORTANT: Down to the user to ensure that the registry they are using
   # can support `npm audit`
@@ -86,6 +62,7 @@ steps:
       versionSpec: ${{ parameters.versionSpec }}
       workingDirectory: ${{ parameters.project_root_dir }}
       customRegistry: ${{ parameters.customRegistry }}
+      run_build: false
 
   # Linting and formatting validation
   - ${{ if eq(parameters.lint_formatting, true) }}:
@@ -134,38 +111,6 @@ steps:
   - ${{ if eq(parameters.cypress_applitools_test, true) }}:
       - task: ApplitoolsBuildTask@0
         displayName: "Tests: Visual Regression with Applitools"
-
-  # STEP build NPM for Azure registry
-  - ${{ if eq(parameters.build_on_server, true) }}:
-      - task: Npm@1
-        displayName: Build on ADO using custom feeds
-        inputs:
-          # Options: install, publish, custom
-          command: "custom"
-          customCommand: "ci --only=prod"
-          workingDirectory: ${{ parameters.project_root_dir }}
-          customRegistry: ${{ parameters.customRegistry }}
-
-  # Build Docker Image, Scan and Push to Repository
-  - ${{ if eq(parameters.docker_build, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/build-container-image.yml@templates
-        parameters:
-          workingDirectory: ${{ parameters.docker_workdir }}
-          docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
-          docker_imagename: ${{ parameters.docker_imagename }}
-          docker_imagetag: ${{ parameters.docker_imagetag }}
-          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
-
-    # Build Docker Image, Scan and Push to Repository
-  - ${{ if eq(parameters.docker_build_generic, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
-        parameters:
-          working_directory: ${{ parameters.docker_workdir }}
-          docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
-          docker_imagename: ${{ parameters.docker_imagename }}
-          docker_imagetag: ${{ parameters.docker_imagetag }}
-          docker_tag_args: ${{ parameters.docker_tag_args }}
-          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
 
   # Publish Artefacts if required
   - ${{ if eq(parameters.functional_test, true) }}:
