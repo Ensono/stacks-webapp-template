@@ -101,9 +101,9 @@ steps:
     - template: azDevOps/azure/templates/v2/steps/test-publish-blob.yml@templates
       parameters:
         test_tool_name: lighthouse
-        working_directory: $(Agent.BuildDirectory)
+        working_directory: $(lighthouse_config_path)
         test_results_storage: $(test_results_storage)
         test_results_container: $(test_results_container)
-        test_results_path: $(Agent.BuildDirectory)/.lighthouseci
+        test_results_path: $(lighthouse_config_path)/.lighthouseci
         test_results_blob_prefix: $(Build.BuildNumber)
 
