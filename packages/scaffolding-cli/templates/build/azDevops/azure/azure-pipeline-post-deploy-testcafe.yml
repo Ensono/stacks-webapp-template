@@ -27,25 +27,35 @@ resources:
     - container: lhci
       image: amidostacks/lhci:0.0.2
 
+# NOTE: If you use both variables and variable groups, you'll have to use name/value syntax for the individual (non-grouped)
 variables:
-  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
-  working_directory: '$(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe'
+  - name: self_repo
+    value: stacks-webapp-template/packages/scaffolding-cli/templates
+  - name: working_directory
+    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe'
 
   # Resource Test Results Blob Storage Container
-  test_results_storage: amidostacksuksdev # Azure Storage
-  test_results_container: 'testresults' # Azure Storage Container
+  - name: test_results_storage
+    value: amidostacksuksdev # Azure Storage
+  - name: test_results_container
+    value: 'testresults' # Azure Storage Container
 
   # Lighthouse audit
-  lighthouse_audit: true
-  lighthouse_config_path: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
-  lighthouse_config_filename: lighthouserc.json
+  - name: lighthouse_audit
+    value: true
+  - name: lighthouse_config_path
+    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/lighthouse-ci'
+  - name: lighthouse_config_filename
+    value: lighthouserc.json
 
   # Deployed app urls
-  base_url: 'https://app.nonprod.amidostacks.com'
-  base_path: '/web/stacks'
+  - name: base_url
+    value: 'https://app.nonprod.amidostacks.com'
+  - name: base_path
+    value: '/web/stacks'
   
   # Resource management connection
-  group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
+  - group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
 
 steps:
   - checkout: self
@@ -73,14 +83,6 @@ steps:
       test_results_container: $(test_results_container)
       test_results_path: $(working_directory)
       test_results_blob_prefix: $(Build.BuildNumber)
-  
-  # Upload test results in pipeline, as artifacts, and html report to blob storage
-  - template: azDevOps/azure/templates/v2/steps/test-publish-blob.yml@templates
-    parameters:
-      test_tool_name: testcafe
-      working_directory: $(working_directory)
-      test_results_storage: $(test_results_storage)
-      test_results_path: $(working_directory)/testcafe-xunit-test-results.html
 
   # Run lighthouse audit
   - ${{ if eq(variables.lighthouse_audit, true) }}:
