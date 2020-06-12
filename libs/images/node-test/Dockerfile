@@ -1,7 +1,5 @@
 FROM amidostacks/node:0.0.3
 
-RUN apt-get update -y && apt-get install dumb-init -y
-
 # Install latest Chrome stable package
 # Important: Chrome sandboxing https://github.com/GoogleChrome/lighthouse-ci/tree/master/docs/recipes/docker-client#--no-sandbox-issues-explained
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
