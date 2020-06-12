@@ -39,6 +39,6 @@ export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmO
 export const responseMessage = (projectName: string): string  => {
     return `Your directory has been created, you can now: \n
 ---- \n
-cd ${projectName}/src && npm install && npm run build && npm run start \n
+cd ${projectName}/src && npm install && npm run start \n
 ---- \n`
 }

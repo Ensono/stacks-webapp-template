@@ -29,7 +29,7 @@ pipeline {
     // avoid running anything past dev that is not on master"
     // sample value="company-webapp"
     tf_state_key="node-app"
-    // Versioning"
+    // Versioning" 
     version_major="0"
     version_minor="0"
     version_revision="${BUILD_NUMBER}"

@@ -169,7 +169,7 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mockAnswerSsr.projectName}/src && npm install && npm run build && npm run start`,
+                `cd ${mockAnswerSsr.projectName}/src && npm install && npm run start`,
             )
         })
         it("netcoreAksTfs should return success and user message for npm", async () => {
