@@ -123,7 +123,6 @@ stages:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
                 MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/api/menu"
-
                 APP_BASE_PATH: ""
                 NODE_ENV: dev
                 # avoid warnings about terminal

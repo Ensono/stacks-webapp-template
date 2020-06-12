@@ -32,13 +32,20 @@ resource "azurerm_cdn_endpoint" "default" {
         }
       }
   }
-  # delivery_rule {
-  #   request_scheme_condition {
-  #     match_values = ["HTTP"] # (Required) Valid values are HTTP and HTTPS.
-  #     operator = "Equal" # (Optional) Valid values are Equal.
-  #     negate_condition = true # (Optional) Defaults to false.
-  #   }
-  # }
+  delivery_rule {
+    name = "DefaultHTTPRedirect"
+    # order = length(var.response_header_cdn) * 10
+    order = 1
+    request_scheme_condition {
+      match_values = toset(["HTTP"]) # (Required) Valid values are HTTP and HTTPS.
+      operator = "Equal" # (Optional) Valid values are Equal.
+      negate_condition = false # (Optional) Defaults to false.
+    }
+    url_redirect_action {
+      redirect_type = "Found"
+      protocol = "Https"
+    }
+  }
 
   lifecycle {
     ignore_changes = [
