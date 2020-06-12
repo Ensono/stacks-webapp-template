@@ -80,6 +80,8 @@ variables:
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
+  # Sonar Stuff
+  static_code_analysis_flag: false
   # ADD Vars here
   # TestCafe E2E Tests
   testcafe_e2e_test: false
@@ -113,17 +115,13 @@ stages:
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
               # Sonar settings
-              static_code_analysis: false
+              static_code_analysis: $(static_code_analysis_flag)
               #Linting and formatting validation
-              lint_formatting: false
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
               unit_test: true
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
-              component_test: false
-              component_test_project: "$(Test.ComponentTestProjectPath)"
               cypress_e2e_test: false
-              cypress_applitools_test: false
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
@@ -202,6 +200,38 @@ stages:
                 TF_VAR_dns_record: csr-app,
                 TF_VAR_create_dns_zone: false,
                 TF_VAR_dns_resource_group: amido-stacks-nonprod-uks-node,
+                TF_VAR_response_header_cdn: '[
+                  {
+                    action: "Append"
+                    name: "Content-Security-Policy"
+                    value: "default-src * ''unsafe-inline'' ''unsafe-eval''"
+                  },
+                  {
+                    action:"Append"
+                    name: "Cache-Control"
+                    value: "no-cache"
+                  },
+                  {
+                    action: "Append"
+                    name: "X-Frame-Options"
+                    value: "SAMEORIGIN"
+                  },
+                  {
+                    action: "Append"
+                    name: "X-Content-Type-Options"
+                    value: "nosniff"
+                  },
+                  {
+                    action: "Append"
+                    name: "Strict-Transport-Security"
+                    value: "max-age=63072000"
+                  },
+                  {
+                    action: "Append"
+                    name: "Referrer-Policy"
+                    value: "no-referrer-when-downgrade"
+                  }
+                ]'
               }
               terraform_output_commands: |
                 raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k);isOutput=true]\(.[$k] | .value)"')
@@ -240,25 +270,3 @@ stages:
                       APPINSIGHTS_INSTRUMENTATIONKEY: $(APPINSIGHTS_INSTRUMENTATIONKEY)
                     }
                     build_out: './dist'
-            on:
-              success:
-                pool:
-                  vmImage: windows-2019
-                steps:
-                  - checkout: self
-                  - checkout: templates
-                  # Functional tests running on deployed webapp
-                  - ${{ if eq(variables.testcafe_e2e_test, true) }}:
-                      - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
-                        parameters:
-                          env_vars:
-                            APP_BASE_URL: "https://app.$(base_domain)"
-                            MENU_API_URL: "http://dev.amidostacks.com/api/menu"
-                            APP_BASE_PATH: "/web/stacks"
-                            NODE_ENV: production
-                          working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
-                          testcafe_browser_list: "chrome,firefox"
-                  - ${{ if eq(variables.lighthouse_audit, true) }}:
-                      - task: Lighthouse@1
-                        inputs:
-                          url: "https://app.$(base_domain)/web/stacks"

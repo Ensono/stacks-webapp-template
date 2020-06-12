@@ -21,6 +21,25 @@ resource "azurerm_cdn_endpoint" "default" {
     host_name = azurerm_storage_account.default.primary_web_host
   }
   origin_host_header = azurerm_storage_account.default.primary_web_host
+  global_delivery_rule {
+      dynamic "modify_response_header_action" {
+        for_each = var.response_header_cdn
+        iterator = response_header
+        content {
+          action = response_header.value["action"] # (Required) Action to be executed on a header value. Valid values are Append, Delete and Overwrite.
+          name = response_header.value["name"] # (Required) The header name.
+          value = response_header.value["value"]== "" ? null : response_header.value["value"] #(Optional) The value of the header. Only needed when action is set to Append or overwrite.
+        }
+      }
+  }
+  # delivery_rule {
+  #   request_scheme_condition {
+  #     match_values = ["HTTP"] # (Required) Valid values are HTTP and HTTPS.
+  #     operator = "Equal" # (Optional) Valid values are Equal.
+  #     negate_condition = true # (Optional) Defaults to false.
+  #   }
+  # }
+
   lifecycle {
     ignore_changes = [
       tags,
