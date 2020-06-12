@@ -27,4 +27,5 @@ module "static_website" {
   dns_record               = var.dns_record
   dns_resource_group       = var.dns_resource_group
   create_dns_zone          = var.create_dns_zone
+  response_header_cdn      = var.response_header_cdn
 }

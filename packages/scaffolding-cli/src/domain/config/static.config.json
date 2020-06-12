@@ -59,9 +59,9 @@
     ]
   },
   "csr": {
-    "gitRepo": "https://github.com/facebook/create-react-app.git",
-    "gitRef": "v3.4.0",
-    "localPath": "src/cra",
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
     "folderMap": [
       {
         "src": "shared/aux_scripts",
@@ -76,40 +76,20 @@
         "dest": "./.gitignore"
       },
       {
-        "src": "build/azDevops/azure/k8s_manifests",
-        "dest": "build/azDevops/azure/k8s_manifests"
+        "src": "build/azDevops/azure/templates/steps/build-csr.yml",
+        "dest": "build/azDevops/azure/templates/steps/build-csr.yml"
       },
       {
-        "src": "build/azDevops/azure/templates",
-        "dest": "build/azDevops/azure/templates"
-      },
-      {
-        "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
+        "src": "build/azDevops/azure/azure-pipeline-csr-azure.yml",
         "dest": "build/azDevops/azure/app-pipeline.yml"
       },
       {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-csr.yml",
-        "dest": "build/azDevops/azure/infra-pipeline.yml"
-      },
-      {
-        "src": "deploy/azure/infra/csr",
-        "dest": "deploy/azure/infra"
+        "src": "deploy/azure/app/csr",
+        "dest": "deploy/azure/app"
       },
       {
         "src": "docs",
         "dest": "docs"
-      },
-      {
-        "src": "src/csr/package.json",
-        "dest": "src/package.json"
-      },
-      {
-        "src": "src/cra/packages/cra-template/template/public",
-        "dest": "src/public"
-      },
-      {
-        "src": "src/cra/packages/cra-template/template/src",
-        "dest": "src/src"
       }
     ]
   },
@@ -199,8 +179,8 @@
     ]
   },
   "javaSpring": {
-    "gitRepo": "https://github.com/spring-guides/gs-actuator-service.git",
-    "gitRef": "17bbbb65c1c641634a59568c2e3642ae59e2e7dd",
+    "gitRepo": "https://github.com/amido/stacks-java.git",
+    "gitRef": "initial-commit",
     "localPath": "src/java_spring",
     "folderMap": [
       {

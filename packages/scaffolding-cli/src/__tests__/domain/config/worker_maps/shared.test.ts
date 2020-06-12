@@ -1,36 +1,41 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { finalResponseMessage, finalErrorMessage } from '../../../../domain/config/worker_maps/shared'
 import { shared } from '../../../../domain/config/worker_maps'
-import { SourceControlSection, CloudSection, BusinessSection, TerraformSection } from '../../../../domain/model/prompt_answer'
+import { SourceControlSection, CloudSection, BusinessSection, TerraformSection, NetworkingSection } from '../../../../domain/model/prompt_answer'
 import { BuildReplaceInput } from '../../../../domain/config/file_mapper'
 
-let testProjectName: string = "test-app-1"
-let sampleMessage: string = "All Successful"
-let sampleErrorMessage: string = "All UNSuccessful"
+const testProjectName = "test-app-1"
+const sampleMessage = "All Successful"
+const sampleErrorMessage = "All UNSuccessful"
 
-let biz: BusinessSection = <BusinessSection>{
+const biz: BusinessSection = <BusinessSection>{
     company: "test",
     project: "test2",
     component: "test3",
     domain: "domain"
 }
 
-let cloud: CloudSection = <CloudSection>{
+const cloud: CloudSection = <CloudSection>{
     region: "uksouth",
     resourceGroup: "my-rg"
 }
 
-let scmObj: SourceControlSection = <SourceControlSection>{
+const scmObj: SourceControlSection = <SourceControlSection>{
     repoType: "github",
     repoName: "A-RB"
 }
 
-let terraformObj: TerraformSection = <TerraformSection>{
+const networkObj: NetworkingSection = <NetworkingSection>{
+    baseDomain: "app.replace.me"
+}
+
+const terraformObj: TerraformSection = <TerraformSection>{
     backendStorage: "foo",
     backendStorageContainer: "container",
     backendStorageRg: "tg"
 }
 
-let files: Array<BuildReplaceInput> = [
+const files: Array<BuildReplaceInput> = [
     {
         files: ["**/*.md", "**/*.properties"],
         values: {
@@ -49,7 +54,7 @@ let files: Array<BuildReplaceInput> = [
             "project: stacks": `project: ${biz.project}`,
             "domain: node": `domain: ${biz.domain}`,
             "component: node": `domain: ${biz.component}`,
-            "nonprod.amidostacks.com": "REPLACE_ME_FOR_DOMAIN",
+            "nonprod.amidostacks.com": networkObj.baseDomain,
             "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
             "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
             "tf_state_storage: amidostackstfstategbl": `tf_state_storage: ${terraformObj.backendStorage}`,
@@ -63,24 +68,24 @@ let files: Array<BuildReplaceInput> = [
 
 describe("shared worker_maps tests", () => {
    it("finalResponseMessage should return a formatted string", () => {
-        let test: string = finalResponseMessage(testProjectName, sampleMessage)
+        const test: string = finalResponseMessage(testProjectName, sampleMessage)
         expect(test).toMatch("All Successful")
     })
     it("finalResponseMessage should return a formatted string with config description", () => {
-        let test: string = finalResponseMessage(testProjectName, sampleMessage)
+        const test: string = finalResponseMessage(testProjectName, sampleMessage)
         expect(test).toMatch("Next steps: check out your")
     })
     it("final_error_message should return a formatted string", () => {
-        let test: string = finalErrorMessage(sampleErrorMessage)
+        const test: string = finalErrorMessage(sampleErrorMessage)
         expect(test).toMatch("All UNSuccessful")
     })
     it("finalResponseMessage should return a formatted string with a code", () => {
-        let test: string = finalErrorMessage(sampleErrorMessage, -12)
+        const test: string = finalErrorMessage(sampleErrorMessage, -12)
         expect(test).toMatch(sampleErrorMessage)
         expect(test).toMatch("code:")
     })
     it("in_files return an array of objects and cloud should be default", () => {
-        let test: Array<BuildReplaceInput> = shared.inFiles({ projectName: testProjectName, businessObj: biz, terraformObj: terraformObj, scmObj: scmObj})
+        const test: Array<BuildReplaceInput> = shared.inFiles({ projectName: testProjectName, businessObj: biz, terraformObj, scmObj, networkObj})
         expect(test).toStrictEqual(files)
     })
     

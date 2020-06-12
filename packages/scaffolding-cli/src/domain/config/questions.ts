@@ -24,6 +24,12 @@ export function computedSelection(
             backendStorage:
                 cliOrConfigAnswer.terraformBackendStorage ||
                 "BACKEND_STORAGE_REPLACE_ME",
+            backendStorageRg:
+                cliOrConfigAnswer.terraformBackendStorageRg ||
+                "BACKEND_STORAGE_RG_REPLACE_ME",
+            backendStorageContainer: 
+                cliOrConfigAnswer.terraformBackendStorageContainer ||
+                "BACKEND_STORAGE_CONTAINER_REPLACE_ME",
         },
         sourceControl: {
             repoName:
