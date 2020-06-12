@@ -128,9 +128,9 @@ variable "response_header_cdn" {
     {
       action = "Append" # - (Required) Action to be executed on a header value. Valid values are Append, Delete and Overwrite.
       name = "Content-Security-Policy" # - (Required) The header name.
-      value = "default-src * 'unsafe-inline' 'unsafe-eval'" 
-      # value = "default-src *'none';script-src 'self' 'unsafe-inline';form-action 'self';"
-      #  "default-src 'none';script-src 'self';connect-src 'self';img-src 'self';style-src 'self';base-uri 'self';form-action 'self'"
+      value = "default-src * 'unsafe-inline' 'unsafe-eval'" # Currently there is a 100 character limit in Azure for this header value
+      # Best Practices header should look similar to this: "default-src 'none';script-src 'self';connect-src 'self';img-src 'self';style-src 'self';base-uri 'self';form-action 'self'"
+      # Additionally you should *(wildcard).domains to create extra layer of security
     },
     {
       action = "Append"
