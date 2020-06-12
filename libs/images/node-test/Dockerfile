@@ -15,5 +15,3 @@ RUN mkdir -p /opt/lhci && \
   cp -a /usr/local/bin/lhci /opt/lhci/
 
 WORKDIR /opt/lhci
-
-CMD [ "lhci", "--help" ]
