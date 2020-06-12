@@ -78,15 +78,9 @@ variables:
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
-  # Sonar Stuff
   do_static_code_analysis: false
   do_unit_test: true
   do_cypress_e2e_test: false
-  # ADD Vars here
-  # TestCafe E2E Tests
-  testcafe_e2e_test: false
-  # Lighthouse Audit
-  lighthouse_audit: false
 
 stages:
   - stage: CI
@@ -112,13 +106,13 @@ stages:
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
               # Sonar settings
-              static_code_analysis: $(static_code_analysis_flag)
+              static_code_analysis: $[ $do_static_code_analysis ]
               #Linting and formatting validation
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
-              unit_test: $(do_unit_test)
+              unit_test: $[ $do_unit_test ]
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
-              cypress_e2e_test: $(do_cypress_e2e_test)
+              cypress_e2e_test: $[ $do_cypress_e2e_test ]
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
