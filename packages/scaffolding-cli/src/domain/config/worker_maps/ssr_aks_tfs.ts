@@ -1,6 +1,6 @@
+import { resolve } from "path"
 import { BuildReplaceInput } from "../file_mapper"
 import { BusinessSection, CloudSection, TerraformSection, SourceControlSection } from "../../model/prompt_answer"
-import { resolve } from "path"
 
 /**
  * 
@@ -9,7 +9,7 @@ import { resolve } from "path"
  * @param businessObj 
  * @param cloudObj 
  */
-export const inFiles = ({ projectName: projectName, businessObj: businessObj, cloudObj, terraformObj, scmObj }: { projectName: string; businessObj?: BusinessSection; cloudObj?: CloudSection; terraformObj?: TerraformSection; scmObj?: SourceControlSection }): Array<BuildReplaceInput> => {
+export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmObj }: { projectName: string; businessObj?: BusinessSection; cloudObj?: CloudSection; terraformObj?: TerraformSection; scmObj?: SourceControlSection }): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/package.json"],
