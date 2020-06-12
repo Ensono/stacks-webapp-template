@@ -199,33 +199,33 @@ stages:
                 TF_VAR_dns_resource_group: amido-stacks-nonprod-uks-node,
                 TF_VAR_response_header_cdn: '[
                   {
-                    action: "Append"
-                    name: "Content-Security-Policy"
+                    action: "Append",
+                    name: "Content-Security-Policy",
                     value: "default-src * ''unsafe-inline'' ''unsafe-eval''"
                   },
                   {
-                    action:"Append"
-                    name: "Cache-Control"
+                    action:"Append",
+                    name: "Cache-Control",
                     value: "no-cache"
                   },
                   {
-                    action: "Append"
-                    name: "X-Frame-Options"
+                    action: "Append",
+                    name: "X-Frame-Options",
                     value: "SAMEORIGIN"
                   },
                   {
-                    action: "Append"
-                    name: "X-Content-Type-Options"
+                    action: "Append",
+                    name: "X-Content-Type-Options",
                     value: "nosniff"
                   },
                   {
-                    action: "Append"
-                    name: "Strict-Transport-Security"
+                    action: "Append",
+                    name: "Strict-Transport-Security",
                     value: "max-age=63072000"
                   },
                   {
-                    action: "Append"
-                    name: "Referrer-Policy"
+                    action: "Append",
+                    name: "Referrer-Policy",
                     value: "no-referrer-when-downgrade"
                   }
                 ]'
