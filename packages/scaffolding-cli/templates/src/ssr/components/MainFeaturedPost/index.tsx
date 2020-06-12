@@ -50,6 +50,7 @@ export default function MainFeaturedPost(props) {
             <Paper
                 className={classes.mainFeaturedPost}
                 style={{backgroundImage: `url(${coverImage.url})`}}
+                data-testid="blog_preview_block"
             >
                 {
                     <img
