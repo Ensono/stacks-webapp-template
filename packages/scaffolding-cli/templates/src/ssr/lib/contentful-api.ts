@@ -20,7 +20,8 @@ function parseAuthor({fields}) {
     }
 }
 
-function parsePost({fields}) {
+function parsePost({fields, sys}) {
+    // console.log("fields>", fields)
     return {
         title: fields.title,
         slug: fields.slug,
@@ -29,15 +30,23 @@ function parsePost({fields}) {
         excerpt: fields.excerpt,
         coverImage: fields.coverImage.fields.file,
         author: parseAuthor(fields.author),
+        id: sys.id,
+        locale: sys.locale,
     }
 }
 
 function parsePostEntries(entries, cb = parsePost) {
+    // console.log("entries>", entries.items[0])
     return entries?.items?.map(cb)
 }
 
+export async function getLanguages() {
+    const lang = await client.getLocales()
+    return lang
+}
+
 export async function getPreviewPostBySlug(slug) {
-    const entries = await getClient(true).getEntries({
+    const entries = await getClient(false).getEntries({
         content_type: "post",
         limit: 1,
         "fields.slug[in]": slug,
@@ -45,33 +54,38 @@ export async function getPreviewPostBySlug(slug) {
     return parsePostEntries(entries)[0]
 }
 
-export async function getAllPostsWithSlug() {
+export async function getAllPostsWithSlug(locale) {
     const entries = await client.getEntries({
         content_type: "post",
         select: "fields.slug",
+        locale,
     })
     return parsePostEntries(entries, post => post.fields)
 }
 
-export async function getAllPostsForHome(preview) {
+export async function getAllPostsForHome(preview, locale) {
     const entries = await getClient(preview).getEntries({
         content_type: "post",
         order: "-fields.date",
+        locale,
     })
     return parsePostEntries(entries)
 }
 
-export async function getPostAndMorePosts(slug, preview) {
+export async function getPostAndMorePosts(slug, preview, locale) {
+    // console.info("getPostAndMorePosts::::", slug)
     const entry = await getClient(preview).getEntries({
         content_type: "post",
         limit: 1,
         "fields.slug[in]": slug,
+        locale,
     })
     const entries = await getClient(preview).getEntries({
         content_type: "post",
         limit: 2,
         order: "-fields.date",
         "fields.slug[nin]": slug,
+        locale,
     })
 
     return {

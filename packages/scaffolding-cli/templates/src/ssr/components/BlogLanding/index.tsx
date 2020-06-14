@@ -9,9 +9,8 @@ type BlogProps = {
     posts: contentful.Entry<PostType>[]
 }
 
-export const BlogLanding = props => {
-    const allPosts: PostType[] = props?.posts ? props.posts : []
-    //TODO map the rest of the posts.
+export const BlogLanding = ({posts}) => {
+    const allPosts: PostType[] = posts ? posts : []
     return (
         <>
             <Typography component="h2" variant="h5" data-testid="blog_title">
@@ -19,9 +18,9 @@ export const BlogLanding = props => {
             </Typography>
             <br />
             {allPosts &&
-                allPosts.map((post, idx) => (
+                allPosts.map(post => (
                     <MainFeaturedPost
-                        key={idx}
+                        key={post.id}
                         title={post.title}
                         coverImage={post.coverImage}
                         date={post.date}

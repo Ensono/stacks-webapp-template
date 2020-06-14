@@ -31,6 +31,7 @@
     "pages/profile",
     "pages/create",
     "pages/profile",
-    "pages/posts/[slug]"
+    "pages/posts/[...all].tsx",
+    "pages/blog"
   ]
 }

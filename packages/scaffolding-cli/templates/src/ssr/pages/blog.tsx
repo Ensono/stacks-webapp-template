@@ -1,10 +1,9 @@
 import {BlogLanding, Layout} from "components"
 import contentful from "contentful"
+import {PostType} from "interfaces/blog.interface"
 import NextError from "next/error"
 import React from "react"
 import {getAllPostsForHome} from "../lib/contentful-api"
-import {wrapper} from "../state-management"
-import {PostType} from "interfaces/blog.interface"
 
 type BlogProps = {
     preview?: boolean
@@ -24,12 +23,11 @@ const Blog = ({allPosts}: BlogProps) => {
     )
 }
 
-export const getStaticProps = wrapper.getStaticProps(async ({store}) => {
-    const allPosts = await getAllPostsForHome(true)
-    debugger
+export const getStaticProps = async () => {
+    const allPosts = await getAllPostsForHome(false, "en-GB")
     return {
         props: {allPosts},
     }
-})
+}
 
 export default Blog
