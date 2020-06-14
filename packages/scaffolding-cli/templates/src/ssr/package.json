@@ -74,7 +74,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@types/applicationinsights": "^0.20.0",
-    "@types/cypress-axe": "^0.4.0",
+    "@types/cypress-axe": "^0.8.0",
     "@types/express": "^4.17.2",
     "@types/express-serve-static-core": "^4.17.5",
     "@types/express-session": "^1.17.0",
