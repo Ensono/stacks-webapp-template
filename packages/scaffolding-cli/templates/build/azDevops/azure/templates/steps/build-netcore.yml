@@ -19,13 +19,7 @@ parameters:
   vulnerability_workdir: ""
   #  Static Code Analysis
   static_code_analysis: false
-  static_code_analysis_build_path: ""
-  Sonar_serviceConnection: ""
-  Sonar_organization: ""
-  Sonar_scannerMode: ""
-  Sonar_projectKey: ""
-  Sonar_projectName: ""
-  Sonar_projectVersion: ""
+  sonar_container: ""
   # Linting and formatting validation
   lint_formatting: ""
   shared_eslint_config: ""
