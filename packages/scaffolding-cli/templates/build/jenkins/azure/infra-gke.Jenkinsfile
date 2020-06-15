@@ -13,8 +13,7 @@ pipeline {
     domain="jenkins-gke-infra"
     component="infra"
     // SelfConfig"
-    self_repo_src="packages/scaffolding-cli/templates/src/ssr"
-    self_repo_tf_src="deploy/gcp/infra/stacks-gke"
+    self_repo_tf_src="packages/scaffolding-cli/templates/deploy/gcp/infra/stacks-gke"
     // TF STATE CONFIG
     // 
     tf_state_rg="amido-stacks-rg-uks"
