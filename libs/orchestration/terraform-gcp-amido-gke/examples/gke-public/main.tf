@@ -35,3 +35,6 @@ module "gke-public" {
 #   project  = var.project
 # }
 
+output "test_substr" {
+  value = substr(replace(module.default_label.id, "-", ""), 0, 30)
+}

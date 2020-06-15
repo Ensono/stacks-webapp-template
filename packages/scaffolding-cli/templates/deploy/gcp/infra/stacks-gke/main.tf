@@ -28,7 +28,3 @@ module "gke-public" {
   enable_legacy_abac = false
   service_account_roles = var.service_account_roles
 }
-
-output "test_substr" {
-  value = substr(replace(module.default_label.id, "-", ""), 0, 30)
-}

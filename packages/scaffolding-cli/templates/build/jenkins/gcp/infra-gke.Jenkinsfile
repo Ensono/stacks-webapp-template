@@ -79,6 +79,8 @@ pipeline {
                   terraform -v
                   terraform init -backend-config=\""key=${tf_state_key}\"" -backend-config=\""storage_account_name=${tf_state_storage}\"" \\
                    -backend-config=\""resource_group_name=${tf_state_rg}\"" -backend-config=\""container_name=${tf_state_container}\""
+                '''
+                sh '''
                   terraform workspace select ${CURRENT_TF_WORKSPACE} || terraform workspace new ${CURRENT_TF_WORKSPACE}
                   terraform plan -input=false
                 '''
