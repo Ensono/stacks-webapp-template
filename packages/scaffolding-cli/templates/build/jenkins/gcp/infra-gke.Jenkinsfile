@@ -75,12 +75,12 @@ pipeline {
                 string(credentialsId: 'azure_tenant_id', variable: 'ARM_TENANT_ID')
               ]) {
                 sh '''
-                  export GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
                   terraform -v
                   terraform init -backend-config=\""key=${tf_state_key}\"" -backend-config=\""storage_account_name=${tf_state_storage}\"" \\
                    -backend-config=\""resource_group_name=${tf_state_rg}\"" -backend-config=\""container_name=${tf_state_container}\""
                 '''
                 sh '''
+                  export GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
                   terraform workspace select ${CURRENT_TF_WORKSPACE} || terraform workspace new ${CURRENT_TF_WORKSPACE}
                   terraform plan -input=false
                 '''
@@ -90,6 +90,7 @@ pipeline {
                   terraform apply -auto-approve
                 '''
                 sh '''
+                  export GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
                   raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\\($k);isOutput=true]\\(.[$k] | .value)"')
                   readarray -t outputs <<<"$raw_tf"
                   for i in "${outputs[@]}"; do echo "$i"; done
