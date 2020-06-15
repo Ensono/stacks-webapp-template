@@ -68,10 +68,10 @@ pipeline {
     stage('CI') {
       agent {
         docker {
-          image 'amidostacks/ci-k8s:0.0.7'
+          image "amidostacks/ci-k8s:0.0.7"
           // add additional args if you need to here
           // e.g.:
-          // args '-v /var/run/docker.sock:/var/run/docker.sock -u 1000:999'
+          args "-v $WORKSPACE:$WORKSPACE"
           // Please check with your admin on how 
         }
       }
@@ -94,9 +94,6 @@ pipeline {
               sh '''
                 npm run validate
               '''
-              archiveArtifacts {
-                artifacts: "node_modules", onlyIfSuccessful: true
-              }
             }
           }
         }
@@ -110,6 +107,7 @@ pipeline {
                 agent {
                   docker {
                     image 'amidostacks/ci-k8s:0.0.7'
+                    args "-v $WORKSPACE:$WORKSPACE"
                   }
                 }
                 steps {
@@ -151,6 +149,7 @@ pipeline {
               agent {
                 docker {
                   image 'amidostacks/ci-sonarscanner:0.0.1'
+                  args "-v $WORKSPACE:$WORKSPACE"
                 }
               }
               environment {
