@@ -1,5 +1,5 @@
 import {MenuItem, TextField} from "@material-ui/core"
-import {getLanguages} from "lib/contentful-api"
+import {getLanguages} from "../../lib/contentful-api"
 import {useRouter} from "next/router"
 import React, {useEffect} from "react"
 
