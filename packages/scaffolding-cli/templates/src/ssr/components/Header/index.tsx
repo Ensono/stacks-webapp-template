@@ -1,7 +1,7 @@
 import React from "react"
 import {AppBar, Fab, Toolbar, Tooltip, Typography} from "@material-ui/core"
 import AddIcon from "@material-ui/icons/Add"
-import {PrefixedLink as Link} from "components"
+import {PrefixedLink as Link, LocaleSwitcher} from "components"
 import {useRouter} from "next/router"
 import styled from "@emotion/styled"
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks"
@@ -34,6 +34,7 @@ export const Header = () => {
                         <StyledLink>{title}</StyledLink>
                     </Link>
                 </Typography>
+                <LocaleSwitcher />
                 {!isCreatePage && (
                     <Link href="/create">
                         <Tooltip title="Create menu" aria-label="create menu">

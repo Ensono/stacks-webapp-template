@@ -21,7 +21,6 @@ function parseAuthor({fields}) {
 }
 
 function parsePost({fields, sys}) {
-    // console.log("fields>", fields)
     return {
         title: fields.title,
         slug: fields.slug,
@@ -36,7 +35,6 @@ function parsePost({fields, sys}) {
 }
 
 function parsePostEntries(entries, cb = parsePost) {
-    // console.log("entries>", entries.items[0])
     return entries?.items?.map(cb)
 }
 
@@ -54,42 +52,33 @@ export async function getPreviewPostBySlug(slug) {
     return parsePostEntries(entries)[0]
 }
 
-export async function getAllPostsWithSlug(locale) {
+export async function getAllPostsWithSlug() {
     const entries = await client.getEntries({
         content_type: "post",
         select: "fields.slug",
-        locale,
+        locale: "*",
     })
-    return parsePostEntries(entries, post => post.fields)
+    console.info("getAllPostsWithSlug::::", entries.items[0])
+    return parsePostEntries(entries, post => post.fields.slug)
 }
 
-export async function getAllPostsForHome(preview, locale) {
+export async function getAllPostsForHome(preview) {
     const entries = await getClient(preview).getEntries({
         content_type: "post",
         order: "-fields.date",
-        locale,
     })
     return parsePostEntries(entries)
 }
 
-export async function getPostAndMorePosts(slug, preview, locale) {
-    // console.info("getPostAndMorePosts::::", slug)
-    const entry = await getClient(preview).getEntries({
+export async function getPost(slug, locale) {
+    const entry = await client.getEntries({
         content_type: "post",
         limit: 1,
         "fields.slug[in]": slug,
         locale,
     })
-    const entries = await getClient(preview).getEntries({
-        content_type: "post",
-        limit: 2,
-        order: "-fields.date",
-        "fields.slug[nin]": slug,
-        locale,
-    })
 
     return {
         post: parsePostEntries(entry)[0],
-        morePosts: parsePostEntries(entries),
     }
 }

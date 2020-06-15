@@ -24,7 +24,7 @@ const Blog = ({allPosts}: BlogProps) => {
 }
 
 export const getStaticProps = async () => {
-    const allPosts = await getAllPostsForHome(false, "en-GB")
+    const allPosts = await getAllPostsForHome(false)
     return {
         props: {allPosts},
     }
