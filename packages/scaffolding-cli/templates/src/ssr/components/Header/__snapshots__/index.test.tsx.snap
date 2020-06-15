@@ -44,7 +44,6 @@ exports[`renders Header snapshot 1`] = `
           Yumido
         </a>
       </h2>
-      0
       <button
         aria-label="create menu button"
         class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
@@ -120,7 +119,6 @@ exports[`renders no button on create page 1`] = `
           Yumido
         </a>
       </h2>
-      0
     </div>
   </header>
 </DocumentFragment>

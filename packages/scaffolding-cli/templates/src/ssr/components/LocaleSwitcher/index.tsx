@@ -1,9 +1,17 @@
-import {MenuItem, TextField} from "@material-ui/core"
+import {MenuItem, TextField, makeStyles} from "@material-ui/core"
 import {getLanguages} from "../../lib/contentful-api"
 import {useRouter} from "next/router"
 import React, {useEffect} from "react"
 
+const useStyles = makeStyles(theme => ({
+    select: {
+        padding: theme.spacing(0, 3, 0),
+        width: "250px",
+    },
+}))
+
 export const LocaleSwitcher: React.FC = () => {
+    const classes = useStyles()
     const router = useRouter()
 
     const [lang, setLang] = React.useState("en-GB")
@@ -34,13 +42,13 @@ export const LocaleSwitcher: React.FC = () => {
 
     return (
         <>
-            {allLang?.length && (
+            {router?.route?.startsWith("/posts") && allLang?.length && (
                 <TextField
-                    id="select"
+                    className={classes.select}
+                    id="select_lang"
                     value={lang}
                     onChange={handleChange}
                     variant="outlined"
-                    disabled={!router.route.startsWith("/posts")}
                     select
                 >
                     {allLang.map(locale => (
