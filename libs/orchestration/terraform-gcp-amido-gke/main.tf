@@ -102,7 +102,7 @@ resource "google_container_node_pool" "node_pool" {
 
 module "gke_service_account" {
   source = "github.com/gruntwork-io/terraform-google-gke.git//modules/gke-service-account?ref=v0.4.3"
-  name        = substr(replace(var.resource_namer, "-", ""), 0, 30)
+  name        = substr(replace(var.resource_namer, "-", ""), 0, 31)
   project     = var.project
   description = var.cluster_service_account_description
   service_account_roles = var.service_account_roles
