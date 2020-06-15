@@ -91,8 +91,8 @@ pipeline {
                 '''
                 sh '''
                   export GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
-                  raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "\\($k)=\\(.[$k] | .value)"')
-                  readarray -t outputs <<<"$raw_tf"
+                  raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "\\($k)=\\(.[$k] | .value)"') && \\
+                  readarray -t outputs <<<"$raw_tf" && \\
                   for i in "${outputs[@]}"; do echo "set $i"; done
                 '''
               }
