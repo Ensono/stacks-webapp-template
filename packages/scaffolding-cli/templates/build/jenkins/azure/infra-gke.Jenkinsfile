@@ -65,6 +65,7 @@ pipeline {
             TF_VAR_cluster_version="${gke_cluster_version}"
             TF_VAR_stage="nonprod"
             TF_VAR_dns_zone="${base_domain}"
+            // TF_VAR_service_account_roles="[]"
           }
           steps {
             dir("${self_repo_tf_src}") {
