@@ -18,9 +18,7 @@ export const LocaleSwitcher: React.FC = () => {
     const [allLang, setAllLang] = React.useState([])
 
     useEffect(() => {
-        if (localStorage.getItem("locale"))
-            setLang(localStorage.getItem("locale"))
-        else localStorage.setItem("locale", "en-GB")
+        setLang(router?.asPath?.split("/")[2])
 
         const fetchData = async () => {
             const allLangs = await getLanguages()
@@ -30,7 +28,6 @@ export const LocaleSwitcher: React.FC = () => {
     }, [])
 
     const handleChange = event => {
-        localStorage.setItem("locale", event.target.value)
         setLang(event.target.value)
         const justLangCodes = allLang.map(lang => lang.code)
         const regex = new RegExp(`(${justLangCodes.join("|")})`)
