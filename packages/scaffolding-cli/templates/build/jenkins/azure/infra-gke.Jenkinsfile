@@ -2,11 +2,8 @@ def random_map() { return [:] }
 
 pipeline {
   agent none
-  // parameters {
-  // }
   options {
-    preserveStashes(buildCount: 3)
-    newContainerPerStage()
+    preserveStashes(buildCount: 1)
   }
   environment {
     company="amido"
