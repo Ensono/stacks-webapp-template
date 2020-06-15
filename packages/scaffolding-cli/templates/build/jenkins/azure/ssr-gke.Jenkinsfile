@@ -95,6 +95,9 @@ pipeline {
                 npm run validate
               '''
             }
+            archiveArtifacts {
+              artifacts: "${self_repo_src}/*", onlyIfSuccessful: true
+            }
           }
         }
         stage('Test') {
@@ -139,7 +142,9 @@ pipeline {
             }
             stage('sonar-scanner') {
               when {
-                equals expected: "true", actual: "${static_code_analysis}"
+                equals { 
+                  expected: "true", actual: "${static_code_analysis}"
+                }
               }
               agent {
                 docker {
