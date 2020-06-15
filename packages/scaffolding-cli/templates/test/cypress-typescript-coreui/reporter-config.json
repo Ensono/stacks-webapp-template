@@ -1,0 +1,17 @@
+{
+  "reporterEnabled": "spec, mocha-junit-reporter, mochawesome",
+  "mochaJunitReporterReporterOptions": {
+    "mochaFile": "cypress-junit-test-report.xml",
+    "toConsole": true,
+    "testsuitesTitle": "Cypress Test Results",
+    "jenkinsMode": true,
+    "attachments": "results/assets/"
+  },
+  "mochawesomeReporterOptions": {
+    "reportDir": "results",
+    "overwrite": false,
+    "html": false,
+    "json": true,
+    "timestamp": "yyyymmdd_HHMMss"
+  }
+}

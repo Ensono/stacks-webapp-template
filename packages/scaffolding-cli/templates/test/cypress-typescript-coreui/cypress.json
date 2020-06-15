@@ -1,0 +1,15 @@
+{
+  "fixturesFolder": "fixtures",
+  "integrationFolder": "dist/__tests__",
+  "supportFile": "support/index.config.js",
+  "pluginsFile": "plugins/index.config.js",
+  "testFiles": "**/*.cy.*",
+  "nodeVersion": "system",
+  "reporter": "cypress-multi-reporters",
+  "reporterOptions": {
+    "configFile": "reporter-config.json"
+  },
+  "screenshotsFolder": "results/assets",
+  "videosFolder": "results/assets",
+  "$schema": "https://on.cypress.io/cypress.schema.json"
+}
