@@ -90,7 +90,7 @@ pipeline {
                   terraform apply -auto-approve
                 '''
                 sh '''
-                  raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k);isOutput=true]\(.[$k] | .value)"')
+                  raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\\($k);isOutput=true]\\(.[$k] | .value)"')
                   readarray -t outputs <<<"$raw_tf"
                   for i in "${outputs[@]}"; do echo "$i"; done
                 '''
