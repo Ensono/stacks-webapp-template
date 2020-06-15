@@ -93,8 +93,6 @@ pipeline {
               '''
               sh '''
                 npm run validate
-                pwd
-                ls -lat .
               '''
               stash includes: "node_modules/", name: "node_modules", allowEmpty: false
             }
@@ -107,18 +105,18 @@ pipeline {
           failFast true
           parallel {
             stage('unit-test') {
-                agent {
-                  docker {
-                    image 'amidostacks/ci-k8s:0.0.7'
-                  }
-                }
                 steps {
                   dir("${self_repo_src}") {
                     unstash 'node_modules'
                     sh '''
-                      ls -lat .
                       npm run test
                     '''
+                    junit '**/jest-junit-test-report.xml'
+                  }
+                }
+                post {
+                  always: {
+                    junit '**/jest-junit-test-report.xml'
                   }
                 }
             }
@@ -126,11 +124,6 @@ pipeline {
               when {
                 expression { "${cypress_e2e_test}" == "true" }
               }
-              // agent {
-              //   docker {
-              //     image 'amidostacks/ci-k8s:0.0.7'
-              //   }
-              // }
               environment {
                 PORT="3000"
                 APP_BASE_URL="http://localhost"
@@ -153,6 +146,7 @@ pipeline {
                 }
               }
               agent {
+                // We only overwrite defaul CI container runner
                 docker {
                   image 'amidostacks/ci-sonarscanner:0.0.1'
                 }
@@ -180,16 +174,28 @@ pipeline {
           }
         }
         stage('ArtifactUpload') {
+          environment {
+            NODE_ENV="production"
+          }
           steps {
             dir("${self_repo_src}") {
-              withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
+              withCredentials([
+                file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
+                string(credentialsId: 'next_access_token', variable: 'NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN'),
+                string(credentialsId: 'next_preview_token', variable: 'NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN'),
+                string(credentialsId: 'next_space_id', variable: 'NEXT_PUBLIC_CONTENTFUL_SPACE_ID'),
+              ]) {
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}
                   gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
                   docker-credential-gcr configure-docker
                   gcloud auth configure-docker "eu.gcr.io" --quiet
-                  docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
-                    -t ${docker_container_registry_name}/${docker_image_name}:latest
+                  docker build --build-arg NEXT_PUBLIC_CONTENTFUL_SPACE_ID=${NEXT_PUBLIC_CONTENTFUL_SPACE_ID} \\
+                  --build-arg NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN} \\
+                  --build-arg NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN=${NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN} \\
+                  --build-arg APP_BASE_PATH="" \\
+                  -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
+                  -t ${docker_container_registry_name}/${docker_image_name}:latest .
                   docker push ${docker_container_registry_name}/${docker_image_name}
                 '''
               }
