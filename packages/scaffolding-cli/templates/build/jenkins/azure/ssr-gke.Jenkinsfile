@@ -94,7 +94,7 @@ pipeline {
               sh '''
                 npm run validate
               '''
-              stash includes: 'node_modules/*' name: 'node_modules' 
+              stash includes: "node_modules/*" name: "node_modules" 
             }
           }
         }
@@ -111,11 +111,14 @@ pipeline {
                   }
                 }
                 steps {
-                  unstash 'node_modules'
-                  sh '''
-                    cd ${self_repo_src}
-                    npm run test
-                  '''
+                  dir("${self_repo_src}") {
+                    unstash 'node_modules'
+                    sh '''
+                      ls -lat node_modules
+                      cd ${self_repo_src}
+                      npm run test
+                    '''
+                  }
                 }
             }
             stage('cypress-test') {
