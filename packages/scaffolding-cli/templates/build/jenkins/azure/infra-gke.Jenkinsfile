@@ -6,6 +6,7 @@ pipeline {
   // }
   options {
     preserveStashes(buildCount: 3)
+    newContainerPerStage()
   }
   environment {
     company="amido"
