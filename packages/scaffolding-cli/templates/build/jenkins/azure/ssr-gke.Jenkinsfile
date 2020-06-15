@@ -137,10 +137,12 @@ pipeline {
                 APP_BASE_PATH=""
               }
               steps {
-                unstash 'node_modules'
-                sh '''
-                  npm run test:cypress
-                '''
+               dir("${self_repo_src}") {
+                  unstash 'node_modules'
+                  sh '''
+                    npm run test:cypress
+                  '''
+                }
               }
             }
             stage('sonar-scanner') {
