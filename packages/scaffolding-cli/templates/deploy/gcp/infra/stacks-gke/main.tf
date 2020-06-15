@@ -26,5 +26,6 @@ module "gke-public" {
   dns_zone           = var.dns_zone
   cluster_version    = var.cluster_version
   enable_legacy_abac = false
+  service_account_roles = var.service_account_roles
 }
 
