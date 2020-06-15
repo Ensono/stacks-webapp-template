@@ -10,7 +10,7 @@
   "mochawesomeReporterOptions": {
     "reportDir": "results",
     "overwrite": false,
-    "html": false,
+    "html": true,
     "json": true,
     "timestamp": "yyyymmdd_HHMMss"
   }
