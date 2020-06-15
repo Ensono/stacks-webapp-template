@@ -4,7 +4,7 @@
  * @type {Cypress.PluginConfig}
  **/
 
-describe("Response", () => {
+describe("Page performance", () => {
     const cacheControlMs = 3584 
 
     before(() => {

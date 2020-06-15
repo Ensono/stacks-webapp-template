@@ -4,7 +4,7 @@
  * @type {Cypress.PluginConfig}
  **/
 
-describe("Page", () => {
+describe("Page functionality", () => {
     beforeEach(() => {
         cy.request({url: `${Cypress.config().baseUrl}`, failOnStatusCode: true}).as("request")
     })
@@ -26,12 +26,5 @@ describe("Page", () => {
         cy.get("@request")
             .its("body")
             .should("include", "title")
-    })
-
-    it("manifest file should exist", () => {
-        cy.get("@request")
-        .its("headers")
-        .its("content-type")
-        .should("include", "application/json")
     })
 })

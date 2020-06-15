@@ -13,5 +13,8 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+// Include the cypress-axe commands globally
+import "cypress-axe"
+
 // Include the custom commands
 import "./commands"

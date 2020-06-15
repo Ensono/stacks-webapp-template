@@ -1,22 +1,21 @@
 /// <reference types="cypress" />
 
-import { config } from "cypress/types/bluebird";
-
 /**
  * @type {Cypress.PluginConfig}
  **/
 
-describe("Page", () => {
+describe("Page security", () => {
     const protocol = "http://"
     const defaultUrl = Cypress.config().baseUrl || ""
     const host = defaultUrl?.startsWith("http:\/\//") ? defaultUrl.substring(7) : defaultUrl.substring(8)
     const maxAge = "63072000"
 
     beforeEach(() => {
-        cy.request({url: `${protocol}${host}`, failOnStatusCode: true, followRedirect: false}).as("request")
+        cy.request({url: `${Cypress.config().baseUrl}`, failOnStatusCode: true, followRedirect: false}).as("request")
     })
 
     it("response status code should be 301 (permanent redirect)", () => {
+        cy.request({url: `${protocol}${host}`, failOnStatusCode: true, followRedirect: false}).as("request")
         cy.get("@request")
         .its("status")
         .should("eq", "301")
