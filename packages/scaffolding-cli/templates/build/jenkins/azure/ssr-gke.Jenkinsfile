@@ -115,7 +115,7 @@ pipeline {
                   }
                 }
                 post {
-                  always: {
+                  always {
                     junit '**/jest-junit-test-report.xml'
                   }
                 }
@@ -225,8 +225,6 @@ pipeline {
             TF_VAR_ingress_ip_name="amido-stacks-nonprod-gke-infra-ingress-public"
             TF_VAR_dns_record="app-jenkins"
             TF_VAR_dns_zone_name="amido-stacks-nonprod-gke-infra"
-            // GOOGLE_CREDENTIALS=withCredentials([
-            //     file(credentialsId: 'gcp-key', variable: 'GCP_KEY')])
           }
           steps {
             dir("${self_repo_tf_src}") {
