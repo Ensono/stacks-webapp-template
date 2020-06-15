@@ -94,7 +94,7 @@ pipeline {
               sh '''
                 npm run validate
               '''
-              stash includes: 'node_modules/**/*.*', name: 'app' 
+              stash includes: 'node_modules/*' name: 'node_modules' 
             }
           }
         }
@@ -111,7 +111,7 @@ pipeline {
                   }
                 }
                 steps {
-                  unstash 'app'
+                  unstash 'node_modules'
                   sh '''
                     cd ${self_repo_src}
                     npm run test
@@ -120,7 +120,7 @@ pipeline {
             }
             stage('cypress-test') {
               when {
-                equals expected: 'true', actual: "${cypress_e2e_test}"
+                expression { "${cypress_e2e_test}" == "true" }
               }
               // agent {
               //   docker {
@@ -134,7 +134,7 @@ pipeline {
                 APP_BASE_PATH=""
               }
               steps {
-                unstash 'app'
+                unstash 'node_modules'
                 sh '''
                   npm run test:cypress
                 '''
@@ -142,7 +142,9 @@ pipeline {
             }
             stage('sonar-scanner') {
               when {
-                equals expected: "true", actual: "${static_code_analysis}"
+                expression { 
+                  "${static_code_analysis}" == "true"
+                }
               }
               agent {
                 docker {
@@ -160,7 +162,7 @@ pipeline {
                     string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN'),
                     string(credentialsId: 'SONAR_ORGANIZATION', variable: 'SONAR_ORGANIZATION')
                   ]) {
-                    unstash 'app'
+                    unstash 'node_modules'
                     sh '''
                       sonar-scanner -v
                       sonar-scanner
