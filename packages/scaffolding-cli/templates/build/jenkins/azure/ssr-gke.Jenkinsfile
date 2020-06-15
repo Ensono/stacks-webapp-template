@@ -71,7 +71,7 @@ pipeline {
           image "amidostacks/ci-k8s:0.0.7"
           // add additional args if you need to here
           // e.g.:
-          args "-v $WORKSPACE:$WORKSPACE"
+          // args '-v /var/run/docker.sock:/var/run/docker.sock -u 1000:999'
           // Please check with your admin on how 
         }
       }
@@ -94,6 +94,7 @@ pipeline {
               sh '''
                 npm run validate
               '''
+              stash includes: 'node_modules/**/*.*', name: 'app' 
             }
           }
         }
@@ -107,10 +108,10 @@ pipeline {
                 agent {
                   docker {
                     image 'amidostacks/ci-k8s:0.0.7'
-                    args "-v $WORKSPACE:$WORKSPACE"
                   }
                 }
                 steps {
+                  unstash 'app'
                   sh '''
                     cd ${self_repo_src}
                     npm run test
@@ -133,6 +134,7 @@ pipeline {
                 APP_BASE_PATH=""
               }
               steps {
+                unstash 'app'
                 sh '''
                   npm run test:cypress
                 '''
@@ -145,7 +147,6 @@ pipeline {
               agent {
                 docker {
                   image 'amidostacks/ci-sonarscanner:0.0.1'
-                  args "-v $WORKSPACE:$WORKSPACE"
                 }
               }
               environment {
@@ -159,6 +160,7 @@ pipeline {
                     string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN'),
                     string(credentialsId: 'SONAR_ORGANIZATION', variable: 'SONAR_ORGANIZATION')
                   ]) {
+                    unstash 'app'
                     sh '''
                       sonar-scanner -v
                       sonar-scanner
