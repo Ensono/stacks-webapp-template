@@ -4,11 +4,10 @@
  * @type {Cypress.PluginConfig}
  **/
 
-// const csrUrl = "https://csr-app.nonprod.amidostacks.com/web/stacks"
-const csrUrl = "https://app.nonprod.amidostacks.com/web/stacks/"
-const cacheControlMs = 3584 
-
 describe("Response", () => {
+    const  csrUrl = "https://csr-app.nonprod.amidostacks.com"
+    const cacheControlMs = 3584 
+
     before(() => {
         cy.request({url: csrUrl, followRedirect: true, failOnStatusCode: false})
             .its("headers")
