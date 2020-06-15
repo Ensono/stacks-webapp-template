@@ -19,9 +19,7 @@ trigger:
     include:
     - 'packages/scaffolding-cli/templates/build/*'
     - 'packages/scaffolding-cli/templates/deploy/gcp/*'
-    exclude:
-      - '**/*Jenkinsfile'
-      
+
 resources:
   repositories:
   - repository: templates

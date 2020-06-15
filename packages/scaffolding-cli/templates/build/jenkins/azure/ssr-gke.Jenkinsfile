@@ -4,15 +4,15 @@ pipeline {
   agent none
   // parameters {
   // }
+  options {
+    preserveStashes(buildCount: 3)
+  }
   environment {
     company="amido"
     project="stacks"
     domain="node"
     role="frontend"
     // SelfConfig"
-    // If you haven't specified source_repo at cli runtime please ensure you replace it here "
-    // It is case sensitive for TFS based repos"
-    self_repo="stacks-webapp-template/packages/scaffolding-cli/templates"
     self_repo_src="packages/scaffolding-cli/templates/src/ssr"
     self_repo_tf_src="packages/scaffolding-cli/templates/deploy/gcp/app/kube"
     self_repo_k8s_src="packages/scaffolding-cli/templates/deploy/k8s"
@@ -29,36 +29,31 @@ pipeline {
     // avoid running anything past dev that is not on master"
     // sample value="company-webapp"
     tf_state_key="node-app"
-    // Versioning" 
+    // Versioning
     version_major="0"
     version_minor="0"
     version_revision="${BUILD_NUMBER}"
-    // Docker Config"
+    // Docker Config
     docker_dockerfile_path="src/"
     docker_image_name="${self_generic_name}"
     docker_image_tag="${version_major}.${version_minor}.${version_revision}-${GIT_COMMIT}"
     docker_container_registry_name="eu.gcr.io/${gcp_project_id}"
     build_artifact_deploy_name="${self_generic_name}"
-    // AKS/AZURE"
+    // AKS/AZURE
     // This will always be predictably named by setting your company - project - INFRAstage - location - compnonent names in the infra-pipeline"
     gcp_region="europe-west2"
     gcp_project_name="amido-stacks"
     gcp_project_id="amido-stacks"
     gcp_cluster_name="${company}-${project}-nonprod-gke-infra"
-    // Infra "
-    conventional_resource_namer="${company}-${project}-nonprod-uks-${domain}"
+    // Infra
     base_domain="gke.nonprod.amidostacks.com"
-    // Dynamic vars for downstream purposes"
-    // tf_workspace_suffix="$[]"
-    // dns_suffix=""""
-    // Test setup"
     // ADD Vars here"
-    // TestCafe E2E Tests"
     testcafe_e2e_test="false"
     // Lighthouse Audit"
     lighthouse_audit="false"
     static_code_analysis="true"
     cypress_e2e_test="false"
+    // GLOBAL GCP vars
     CLOUDSDK_COMPUTE_REGION="${gcp_region}"
     CLOUDSDK_CONTAINER_CLUSTER="${company}-${project}-nonprod-gke-infra"
     CLOUDSDK_CORE_PROJECT="${gcp_project_id}"
@@ -68,11 +63,11 @@ pipeline {
     stage('CI') {
       agent {
         docker {
-          image "amidostacks/ci-k8s:0.0.7"
           // add additional args if you need to here
           // e.g.:
           // args '-v /var/run/docker.sock:/var/run/docker.sock -u 1000:999'
-          // Please check with your admin on how 
+          // Please check with your admin on any required steps you need to take to ensure a SUDOers access inside the containers
+          image "amidostacks/ci-k8s:0.0.7"
         }
       }
       stages{
@@ -111,7 +106,6 @@ pipeline {
                     sh '''
                       npm run test
                     '''
-                    junit '**/jest-junit-test-report.xml'
                   }
                 }
                 post {
