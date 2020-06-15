@@ -34,7 +34,7 @@ pipeline {
     gcp_project_name="amido-stacks"
     gcp_project_id="amido-stacks"
     gcp_cluster_name="${company}-${project}-nonprod-${domain}"
-    gke_cluster_version="1.15.11-gke.12"
+    gke_cluster_version="1.16.9-gke.2"
     // Infra
     base_domain="gke.nonprod.amidostacks.com"
     // GLOBAL GCP vars
@@ -91,9 +91,9 @@ pipeline {
                 '''
                 sh '''
                   export GOOGLE_CLOUD_KEYFILE_JSON=${GCP_KEY}
-                  raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\\($k);isOutput=true]\\(.[$k] | .value)"')
+                  raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "\\($k)=\\(.[$k] | .value)"')
                   readarray -t outputs <<<"$raw_tf"
-                  for i in "${outputs[@]}"; do echo "$i"; done
+                  for i in "${outputs[@]}"; do echo "set $i"; done
                 '''
               }
             }
