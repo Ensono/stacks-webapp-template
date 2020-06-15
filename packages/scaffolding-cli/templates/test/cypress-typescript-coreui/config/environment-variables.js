@@ -11,7 +11,6 @@ module.exports = {
     PORT: process.env.PORT,
     APP_BASE_URL: process.env.APP_BASE_URL,
     APP_BASE_PATH: process.env.APP_BASE_PATH || "",
-    MENU_API_URL: process.env.MENU_API_URL,
 
     // Additional webapp environment variables can be defined here.
     // These will be available globally to every Cypress test.

@@ -5,11 +5,10 @@
  **/
 
 describe("Response", () => {
-    const  csrUrl = "https://csr-app.nonprod.amidostacks.com"
     const cacheControlMs = 3584 
 
     before(() => {
-        cy.request({url: csrUrl, followRedirect: true, failOnStatusCode: false})
+        cy.request({url: `${Cypress.config().baseUrl}`, followRedirect: true, failOnStatusCode: false})
             .its("headers")
             .as("requestHeaders")
     })
@@ -20,4 +19,3 @@ describe("Response", () => {
             .should("include", `max-age=${cacheControlMs}`)
     })
 })
-
