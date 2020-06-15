@@ -93,8 +93,10 @@ pipeline {
               '''
               sh '''
                 npm run validate
+                pwd
+                ls -lat .
               '''
-              stash includes: "**/node_modules/*", name: "node_modules", allowEmpty: true
+              stash includes: "node_modules/", name: "node_modules", allowEmpty: false
             }
           }
         }
@@ -114,8 +116,7 @@ pipeline {
                   dir("${self_repo_src}") {
                     unstash 'node_modules'
                     sh '''
-                      ls -lat node_modules
-                      cd ${self_repo_src}
+                      ls -lat .
                       npm run test
                     '''
                   }
