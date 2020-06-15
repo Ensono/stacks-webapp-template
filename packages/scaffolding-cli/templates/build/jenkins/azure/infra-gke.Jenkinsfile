@@ -10,7 +10,7 @@ pipeline {
   environment {
     company="amido"
     project="stacks"
-    domain="jenkins-gke-infra"
+    domain="jnks-gke-infra"
     component="infra"
     // SelfConfig"
     self_repo_tf_src="packages/scaffolding-cli/templates/deploy/gcp/infra/stacks-gke"
@@ -54,16 +54,16 @@ pipeline {
       stages {
         stage('Infra') {
           environment {
-            CURRENT_TF_WORKSPACE="nonprod-jenkins"
+            CURRENT_TF_WORKSPACE="nonprod-jnks"
             TF_VAR_project="${gcp_project_name}"
             TF_VAR_location="${gcp_region}"
             TF_VAR_region="${gcp_region}"
             TF_VAR_name_company="${company}"
             TF_VAR_name_project="${project}"
             TF_VAR_name_component="${domain}"
-            TF_VAR_name_environment="nonprod-jenkins"
+            TF_VAR_name_environment="nonprod-jnks"
             TF_VAR_cluster_version="${gke_cluster_version}"
-            TF_VAR_stage="nonprod-nonprod"
+            TF_VAR_stage="nonprod"
             TF_VAR_dns_zone="${base_domain}"
           }
           steps {
