@@ -119,9 +119,7 @@ pipeline {
             }
             stage('cypress-test') {
               when {
-                equals {
-                  expected: 'true', actual: '${cypress_e2e_test}'
-                }
+                equals expected: 'true', actual: "${cypress_e2e_test}"
               }
               // agent {
               //   docker {
@@ -142,9 +140,7 @@ pipeline {
             }
             stage('sonar-scanner') {
               when {
-                equals { 
-                  expected: "true", actual: "${static_code_analysis}"
-                }
+                equals expected: "true", actual: "${static_code_analysis}"
               }
               agent {
                 docker {
