@@ -111,7 +111,8 @@ module "gke_service_account" {
   # source = "github.com/gruntwork-io/terraform-google-gke.git//modules/gke-service-account?ref=v0.2.0"
   source = "github.com/gruntwork-io/terraform-google-gke.git//modules/gke-service-account?ref=v0.4.3"
 
-  name        = substr(replace(var.resource_namer, "-", ""), 0, 31)
+  # name        = substr(replace(var.resource_namer, "-", ""), 0, 31)
+  name        = "gke-jenkins-svc-account"
   project     = var.project
   description = var.cluster_service_account_description
   service_account_roles = var.service_account_roles
