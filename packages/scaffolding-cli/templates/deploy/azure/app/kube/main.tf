@@ -42,7 +42,7 @@ resource "azurerm_dns_a_record" "default" {
 }
 
 module "cosmosdb" {
-  source                               = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-cosmosdb?ref=0.0.2"
+  source                               = "git::https://github.com/amido/stacks-terraform-azurerm//cosmosdb?ref=v1.0.0"
   create_cosmosdb                      = var.create_cosmosdb
   resource_namer                       = module.default_label.id
   name_environment                     = "dev-feature"
