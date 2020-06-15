@@ -94,7 +94,9 @@ pipeline {
               sh '''
                 npm run validate
               '''
-              stash includes: "node_modules/*" name: "node_modules" 
+              stash { 
+                includes: "node_modules/*" name: "node_modules"
+              }
             }
           }
         }
