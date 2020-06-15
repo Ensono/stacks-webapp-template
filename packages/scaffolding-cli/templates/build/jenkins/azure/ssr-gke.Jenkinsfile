@@ -94,9 +94,9 @@ pipeline {
               sh '''
                 npm run validate
               '''
-            }
-            archiveArtifacts {
-              artifacts: "${self_repo_src}/*", onlyIfSuccessful: true
+              archiveArtifacts {
+                artifacts: "node_modules", onlyIfSuccessful: true
+              }
             }
           }
         }
@@ -121,7 +121,9 @@ pipeline {
             }
             stage('cypress-test') {
               when {
-                equals expected: "true", actual: "${cypress_e2e_test}"
+                equals {
+                  expected: "true", actual: "${cypress_e2e_test}"
+                }
               }
               // agent {
               //   docker {
