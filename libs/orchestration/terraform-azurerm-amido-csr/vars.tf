@@ -134,3 +134,16 @@ variable "account_tier" {
   default = "Standard"
 }
 
+########################
+# CDN Response Headers #
+########################
+variable "response_header_cdn" {
+  type = list(map(string))
+  default = [
+    {
+      action = "Append" # - (Required) Action to be executed on a header value. Valid values are Append, Delete and Overwrite.
+      name = "Content-Security-Policy" # - (Required) The header name.
+      value = "default-src * 'unsafe-inline' 'unsafe-eval'" 
+    }
+  ]
+}

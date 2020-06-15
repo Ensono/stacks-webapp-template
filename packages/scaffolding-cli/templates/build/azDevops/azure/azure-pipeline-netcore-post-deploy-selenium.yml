@@ -1,12 +1,15 @@
-pr: none
+##################################################################################################################################
+# Desc: Post Deployment Tests. Example pipeline that can be triggered and run after success deployment of a webapp.
+# 
+# Pre-reqs: endpoint = GitHub Service Connection, test_results_storage = Azure Storage Container,
+# test_results_container = Azure Storage Container, group = Libary variables containing Azure Portal Subscription Credentials
+# Documentation: https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints
+##################################################################################################################################
 
 trigger:
   branches:
     include:
-      - '*'
-  paths:
-    include:
-      - 'packages/scaffolding-cli/templates/*'
+      - master
 
 pool:
   vmImage: 'ubuntu-18.04'
@@ -16,20 +19,46 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tag/v1.2.0
+      # ref: refs/tag/v1.2.0
+      ref: feat/1597
       endpoint: amidostacks
 
+# NOTE: If you use both variables and variable groups, you'll have to use name/value syntax for the individual (non-grouped)
 variables:
-  dotnet_core_version: '3.1.x'
-  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
-  working_directory: '$(Agent.BuildDirectory)/s/$(self_repo)/test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium'
+  - name: dotnet_core_version
+    value: '3.1.x'
+  - name: self_repo
+    value: stacks-webapp-template/packages/scaffolding-cli/templates
+  - name: working_directory
+    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium'
+
+  # Resource Test Results Blob Storage Container
+  - name: test_results_storage
+    value: amidostacksuksdev # Azure Storage
+  - name: test_results_container
+    value: 'testresults' # Azure Storage Container
+
+  # Resource management connection
+  - group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
 
 steps:
   - checkout: self
   - checkout: templates
+
+  # Run tests with .NET Selenium
   - template: azDevOps/azure/templates/v2/steps/build-test-dotnet.yml@templates
     parameters:
       test_path: $(working_directory)
       package_path: $(working_directory)
       package_feed: ''
       dotnet_core_version: $(dotnet_core_version)
+
+  # Upload test results in pipeline, as artifacts, and html report to blob storage
+  - template: azDevOps/azure/templates/v2/steps/test-publish-blob.yml@templates
+    parameters:
+      test_tool_name: netcoreselenium
+      working_directory: $(working_directory)
+      test_results_storage: $(test_results_storage)
+      test_results_container: $(test_results_container)
+      test_results_path: $(working_directory)/bin/Debug/*/BDDfy.html
+      test_results_blob_prefix: $(Build.BuildNumber)
