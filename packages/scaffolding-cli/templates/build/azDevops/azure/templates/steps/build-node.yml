@@ -117,7 +117,7 @@ steps:
       - template: azDevOps/azure/templates/v2/steps/deploy-contract-pact-can-deploy.yml@templates
         parameters:
           workingDirectory: ${{ parameters.project_root_dir }}
-          script: 'npm run test:pact-can-i-deploy'
+          script: 'npm run test:pact-can-i-deploy-ci'
 
   # Functional tests running on locally built and hosted (undeployed)
   - ${{ if eq(parameters.cypress_e2e_test, true) }}:
