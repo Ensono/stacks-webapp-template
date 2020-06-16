@@ -123,9 +123,25 @@ The ConfigAccessor will automatically replace any configuration setting values w
 
 E.g. in `appsettings.json` we are using the configuration setting (key-value pair) `"BaseUrl":"http://dev.azure.amidostacks.com/api/menu/"`. If there is an Environment Variable set on the current machine/build agent using `BaseUrl` key, the value in `appsettings.json` will be replaced.
 
-### Remote Browsers
+### Remote Browsers: Cross Browser Testing Cloud
 
-To enable testing on third party remote instances, please set the enviornment variable to `REMOTE_BROWSER=true`. Example configuration can be found in RemoteBrowser.
+To enable testing on third party remote instances, please set the enviornment variable to `REMOTE_BROWSER=true`. Example [lambdatest](https://www.lambdatest.com/) configuration can be found in RemoteBrowser.
+
+#### LambdaTest: Cross Browser Testing Cloud
+
+![lambda_test](https://amidostacksassets.blob.core.windows.net/docs/assets/lambdatest_selenium.png)
+
+[lambdatest](https://www.lambdatest.com/) is a paid for SaaS service, "Performing Live Interactive and Automated Cross Browser Testing on 2000+ Real Browsers and Operating Systems Online".
+
+In order to run remotely on LamdaTest, the following environment variables must be set:
+
+```bash
+REMOTE_BROWSER=true \
+LT_USERNAME= \
+LT_ACCESS_KEY= 
+```
+
+This is not mandatory. It will always default to chrome headless using the inbuild browser dependency if you do not have a remote instance.
 
 ### Selenium
 

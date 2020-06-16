@@ -18,28 +18,54 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
       // e.g. xxAMIDOxx.xxSTACKSxx.E2E.Selenium/bin/Debug/netcoreapp3.1/chromedriver
 
       var chromeOptions = new ChromeOptions();
-      chromeOptions.AddArguments(new List<string>() { "no-sandbox", "disable-gpu", "remote-debugging-port=1559" });
+      chromeOptions.AddArguments(new List<string>() { "no-sandbox", "disable-gpu", "headless", "remote-debugging-port=1559" });
 
       string outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       string chromeDriverPath = Path.GetFullPath(outPutDirectory);
 
-      return remoteBrowser != false ? RemoteWebDriver() : new ChromeDriver(chromeDriverPath, chromeOptions);
+      return remoteBrowser != false ? RemoteWebDriver() : ChromeDriver();
     }
 
+    public static IWebDriver ChromeDriver()
+    {
+      var caps = new ChromeOptions();
+
+      caps.AddArguments(new List<string>() { "no-sandbox", "disable-gpu", "remote-debugging-port=1559" });
+
+      string outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+      string chromeDriverPath = Path.GetFullPath(outPutDirectory);
+
+      return new ChromeDriver(chromeDriverPath, caps);
+    }
+
+    [Obsolete]
     public static IWebDriver RemoteWebDriver()
     {
+      DesiredCapabilities caps = new DesiredCapabilities();
 
-      var caps = new RemoteSessionSettings();
+      caps.SetCapability("user", RemoteBrowser.user);
+      caps.SetCapability("accessKey", RemoteBrowser.accessKey);
 
-      caps.AddMetadataSetting("user", RemoteBrowser.user);
-      caps.AddMetadataSetting("accessKey", RemoteBrowser.accessKey);
+      caps.SetCapability("build", "your build name");
+      caps.SetCapability("name", "your test name");
+      caps.SetCapability("platform", "Windows 10");
+      caps.SetCapability("browserName", "Chrome");
+      caps.SetCapability("version", "83.0");
+      caps.SetCapability("console", "true");
 
-      // Default: chrome on windows - this should be configured to take anynumber of browser options
-      caps.AddMetadataSetting("BrowserName","chrome"); // name of your browser
-      caps.AddMetadataSetting("Version", "83"); // browser version
-      caps.AddMetadataSetting("Platform", "Windows 10"); // operating system
+      /* Note: Selenium >=3.14.0 release mars DesiredCapabilite is as obsolete.
+       * This is not yet supported by LambdaTest. Once supported, the above
+       * setup can become like below.*/
 
-      return new RemoteWebDriver(new Uri(RemoteBrowser.uri), caps, TimeSpan.FromSeconds(600));
+      //var caps = new RemoteSessionSettings();
+      //caps.AddMetadataSetting("user", RemoteBrowser.user);
+      //caps.AddMetadataSetting("accessKey", RemoteBrowser.accessKey);
+      //caps.AddMetadataSetting("platform", "Windows 10");
+      //caps.AddMetadataSetting("browserName", "Chrome");
+      //caps.AddMetadataSetting("version", "83.0");
+      //caps.AddMetadataSetting("console", true);
+
+      return new RemoteWebDriver(RemoteBrowser.uri, caps);
     }
   }
 }
