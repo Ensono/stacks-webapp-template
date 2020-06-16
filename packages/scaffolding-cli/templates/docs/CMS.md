@@ -75,13 +75,13 @@ to supplies the locales needed for translations.
 #### For the purposes of demo
 
 - Two locales have been created in Contentful (_en-GB_ and _it-IT_)
-  ![Locales](../../../../.github/images/locales_contentful.png)
+  ![Locales](../../../../.github/images/locales_contentful.jpg)
 - Each post and field entry would contain 2 locales _for eg. slugs are prefixed
   with_ _en-GB_ and _it-IT_.
-  ![Field translate](../../../../.github/images/i18n_fields.png)
+  ![Field translate](../../../../.github/images/i18n_fields.jpg)
 - NextJS static page generator builds dynamic pages and paths using the slug
-  data. ![Build output](../../../../.github/images/build_output.png)
+  data. ![Build output](../../../../.github/images/build_output.jpg)
 - Added a language switcher in the blog post pages in the header. The switcher
   will update the URL to relative prefixed path for _eg:
   /posts/it-IT/documentation-demo_ refer the image below
-  ![published_blog](../../../../.github/images/published_blog.png)
+  ![published_blog](../../../../.github/images/published_blog.jpg)
