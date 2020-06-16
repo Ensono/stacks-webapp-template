@@ -123,6 +123,10 @@ The ConfigAccessor will automatically replace any configuration setting values w
 
 E.g. in `appsettings.json` we are using the configuration setting (key-value pair) `"BaseUrl":"http://dev.azure.amidostacks.com/api/menu/"`. If there is an Environment Variable set on the current machine/build agent using `BaseUrl` key, the value in `appsettings.json` will be replaced.
 
+### Remote Browsers
+
+To enable testing on third party remote instances, please set the enviornment variable to `REMOTE_BROWSER=true`. Example configuration can be found in RemoteBrowser.
+
 ### Selenium
 
 This is the base of how Selenium will interact with your web app.

@@ -8,9 +8,9 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium
   {
     private IWebDriver webDriver;
 
-    public void Setup()
+    public void Setup(bool remoteBrowser = false)
     {
-      webDriver = WebDriverFactory.GetWebDriver();
+      webDriver = WebDriverFactory.GetWebDriver(remoteBrowser);
       webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
     }
 
