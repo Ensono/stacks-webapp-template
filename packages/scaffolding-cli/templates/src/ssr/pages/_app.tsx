@@ -8,7 +8,8 @@ import React from "react"
 import {Store} from "redux"
 import {withApplicationInsights} from "utils/appInsightsLogger"
 import theme from "../config/theme"
-import {wrapper} from "../state-management"
+import {WithSagaTaskStore, wrapper} from "../state-management"
+import {END} from "redux-saga"
 
 interface AppStore extends Store {}
 
@@ -25,6 +26,11 @@ class _App extends App<AppWithStore> {
             ...(Component.getInitialProps
                 ? await Component.getInitialProps(ctx)
                 : {}),
+        }
+        // Stop the saga if on server
+        if (ctx.req) {
+            ctx.store.dispatch(END)
+            await (ctx.store as WithSagaTaskStore).sagaTask.toPromise()
         }
         // TODO Add passport to the app container.
         return {pageProps}

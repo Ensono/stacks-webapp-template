@@ -5,7 +5,7 @@ import createSagaMiddleware, {Task} from "redux-saga"
 import rootReducer from "./root-reducer"
 import rootSaga from "./root-saga"
 
-interface WithSagaTaskStore extends Store {
+export interface WithSagaTaskStore extends Store {
     sagaTask?: Task
 }
 
@@ -17,16 +17,12 @@ const bindMiddleware = middleware => {
     return applyMiddleware(...middleware)
 }
 
-const configureStore = (preloadedState: any = {}) => {
+const configureStore = preloadedState => {
     const sagaMiddleware = createSagaMiddleware()
 
     const composedEnhancers = bindMiddleware([sagaMiddleware, logger])
 
-    const store: WithSagaTaskStore = createStore(
-        rootReducer,
-        preloadedState,
-        composedEnhancers,
-    )
+    const store: WithSagaTaskStore = createStore(rootReducer, composedEnhancers)
 
     store.sagaTask = sagaMiddleware.run(rootSaga)
 

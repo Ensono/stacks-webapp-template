@@ -1,7 +1,7 @@
 import React from "react"
 import {Header} from "."
-import { accessibilityTestHelper } from "../../__tests__/axe/accessibilityHelper.test"
-
+import {accessibilityTestHelper} from "../../__tests__/axe/accessibilityHelper.test"
+import {getLanguages} from "../../lib/contentful-api"
 // Mocks useRouter
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 
@@ -22,10 +22,9 @@ accessibilityTestHelper(<Header />)
 
 // Without create button
 mockNextUseRouter({
-        route: "/create",
-        pathname: "/create",
-        query: "",
-        asPath: "",
-    })
+    route: "/create",
+    pathname: "/create",
+    query: "",
+    asPath: "",
+})
 accessibilityTestHelper(<Header />)
-

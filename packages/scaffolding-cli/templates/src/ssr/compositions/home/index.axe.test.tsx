@@ -9,11 +9,11 @@ We expect every component to pass our accessibility checks. By using jest-axe we
 */
 
 import * as React from "react"
-import Home from '.'
+import Home from "."
 import configureStore from "redux-mock-store"
 import sagaMiddleware from "redux-saga"
 import {Provider} from "react-redux"
-import { accessibilityTestHelper } from '../../__tests__/axe/accessibilityHelper.test'
+import {accessibilityTestHelper} from "../../__tests__/axe/accessibilityHelper.test"
 
 const mockStore = configureStore([sagaMiddleware])
 const initialState = {
@@ -27,5 +27,5 @@ const store = mockStore(initialState)
 accessibilityTestHelper(
     <Provider store={store}>
         <Home />
-    </Provider>
+    </Provider>,
 )
