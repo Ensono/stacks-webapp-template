@@ -20,14 +20,12 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
       caps.SetCapability("user", RemoteBrowser.user);
       caps.SetCapability("accessKey", RemoteBrowser.accessKey);
 
-      caps.SetCapability("build", "your build name");
-      caps.SetCapability("name", "your test name");
       caps.SetCapability("platform", "Windows 10");
       caps.SetCapability("browserName", "Chrome");
       caps.SetCapability("version", "83.0");
       caps.SetCapability("console", "true");
 
-      /* Note: Selenium >=3.14.0 release mars DesiredCapabilite is as obsolete.
+      /* Note: Selenium >=3.14.0 release mars DesiredCapabilities is as obsolete.
        * This is not yet supported by LambdaTest. Once supported, the above
        * setup can become like below.*/
 
