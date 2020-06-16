@@ -1,9 +1,9 @@
 # Content Management System
 
-This implementation showcases Next.js's Static Generation feature using
+This implementation showcases NextJS's Static Generation feature using
 [Contentful](https://www.contentful.com/) as the data source.
 
-## Tools used:
+## Tools used
 
 - [Contentful](https://www.contentful.com/)
 - [Rich-text-react-renderer](https://www.npmjs.com/package/@contentful/rich-text-react-renderer)
@@ -72,7 +72,7 @@ Stacks relies on
 [contentful](https://www.contentful.com/developers/docs/tutorials/general/setting-locales/)
 to supplies the locales needed for translations.
 
-#### For the purposes of demo
+### For the purposes of demo
 
 - Two locales have been created in Contentful (_en-GB_ and _it-IT_)
   ![Locales](../../../../.github/images/locales_contentful.jpg)
