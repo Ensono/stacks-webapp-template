@@ -270,7 +270,7 @@ stages:
                           namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
                           tls_domain: $(base_domain),
-                          k8s_app_path: '',
+                          k8s_app_path: '/',
                           k8s_image: '$(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag)',
                           version: $(docker_image_tag),
                           role: $(role),

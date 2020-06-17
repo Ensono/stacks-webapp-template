@@ -256,7 +256,7 @@ pipeline {
             namespace="dev-stacks-webapp-jenkins"
             dns_pointer="app-jenkins.${base_domain}"
             tls_domain="${base_domain}"
-            k8s_app_path=""
+            k8s_app_path="/"
             k8s_image="${docker_container_registry_name}/${docker_image_name}:${docker_image_tag}"
             version="${docker_image_tag}"
             role="${role}"
@@ -281,7 +281,7 @@ pipeline {
               ]) {
                 sh '''
                   export app_insights_key="${APPLICATION_INSIGHTS}"
-                  envsubst -i ./app/base_gke-app-deploy.yml -o ./app/app-deploy.yml -no-unset -no-empty
+                  envsubst -i ./app/base_gke-app-deploy.yml -o ./app/app-deploy.yml -no-unset
                 '''
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}
