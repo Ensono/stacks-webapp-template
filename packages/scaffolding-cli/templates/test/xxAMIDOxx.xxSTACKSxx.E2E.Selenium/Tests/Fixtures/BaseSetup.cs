@@ -1,7 +1,6 @@
 using System;
 using xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Configuration;
 using xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium;
-using xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory;
 
 
 namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Fixtures
@@ -15,16 +14,14 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Fixtures
 
     public BaseSetup()
     {
-      remote = Environment.GetEnvironmentVariable("REMOTE_BROWSER") == null ? false : true;
       SeleniumWrapper = new SeleniumWrapper();
       config = ConfigAccessor.GetApplicationConfiguration();
-      baseUrl = config.BaseUrl;
     }
 
     public void Home()
     {
-      SeleniumWrapper.Setup(remote);
-      SeleniumWrapper.Open(baseUrl);
+      SeleniumWrapper.Setup(config.RemoteBrowser);
+      SeleniumWrapper.Open(config.BaseUrl);
     }
 
     public void Dispose()
