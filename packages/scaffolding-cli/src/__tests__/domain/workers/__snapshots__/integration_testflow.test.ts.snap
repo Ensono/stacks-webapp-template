@@ -21,6 +21,7 @@ Array [
 exports[`mainWorker class netcoreSeleniumTfs with correct files 1`] = `
 Array [
   "/testProjectName.bootstrap-config.json",
+  "/testProjectName/.dockerignore",
   "/testProjectName/Api/Builders/Http/HttpRequestBuilder.cs",
   "/testProjectName/Api/Builders/Http/HttpRequestFactory.cs",
   "/testProjectName/Configuration/ConfigAccessor.cs",
@@ -30,6 +31,7 @@ Array [
   "/testProjectName/Selenium/Components/Header.cs",
   "/testProjectName/Selenium/Components/MenuList.cs",
   "/testProjectName/Selenium/Components/Notifier.cs",
+  "/testProjectName/Selenium/Factory/RemoteWebDriverFactory.cs",
   "/testProjectName/Selenium/Factory/WebDriverFactory.cs",
   "/testProjectName/Selenium/Pages/PageObject.cs",
   "/testProjectName/Selenium/SeleniumWrapper.cs",
