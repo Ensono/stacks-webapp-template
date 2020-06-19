@@ -19,8 +19,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      # ref: refs/tag/v1.2.0
-      ref: feat/1597
+      ref: refs/tag/v1.2.1
       endpoint: amidostacks
 
 # NOTE: If you use both variables and variable groups, you'll have to use name/value syntax for the individual (non-grouped)
