@@ -216,7 +216,7 @@ pipeline {
             TF_VAR_name_component="${component}"
             TF_VAR_name_environment="dev"
             TF_VAR_name_stage="dev"
-            TF_VAR_ingress_ip_name="amido-stacks-nonprod-gke-infra-ingress-public"
+            TF_VAR_ingress_ip_name="amido-stacks-nonprod-jnks-gke-infra-ingress-public"
             TF_VAR_dns_record="app-jenkins"
             TF_VAR_dns_zone_name="amido-stacks-nonprod-gke-infra"
           }
@@ -261,7 +261,7 @@ pipeline {
             version="${docker_image_tag}"
             role="${role}"
             company="${company}"
-            ingress_ip_name="amido-stacks-nonprod-gke-infra-ingress-public"
+            ingress_ip_name="amido-stacks-nonprod-jnks-gke-infra-ingress-public"
             project="${project}"
             domain="${domain}"
             component="web"
