@@ -74,7 +74,7 @@ export default function MainFeaturedPost(props) {
                             <Typography variant="h5" color="inherit" paragraph>
                                 {excerpt}
                             </Typography>
-                            <Link as={`/posts/${slug}`} href="/posts/[slug]">
+                            <Link as={`/posts/${slug}`} href="/posts/[...all]">
                                 <a className={classes.readMoreButton}>
                                     Read More
                                 </a>
