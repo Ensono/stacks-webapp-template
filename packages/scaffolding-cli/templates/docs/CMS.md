@@ -1,9 +1,9 @@
 # Content Management System
 
-This implementation showcases Next.js's Static Generation feature using
+This implementation showcases NextJS's Static Generation feature using
 [Contentful](https://www.contentful.com/) as the data source.
 
-## Tools used:
+## Tools used
 
 - [Contentful](https://www.contentful.com/)
 - [Rich-text-react-renderer](https://www.npmjs.com/package/@contentful/rich-text-react-renderer)
@@ -48,6 +48,8 @@ The Stacks Yumido example uses the following content model:
   `title` field.
 - `author` - **Reference** field
 
+![Content model overview](../../../../.github/images/content-model-overview.jpg)
+
 ### Step 3. Populate content
 
 **Important:** For each entry and asset, you need to click on **Publish**.
@@ -60,6 +62,26 @@ NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=<ACCESS_TOKEN> \
 NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN=<PREVIEW_TOKEN> \
 ```
 
-### References:
+### References
 
 ### [https://next-blog-contentful.now.sh/](https://next-blog-contentful.now.sh/)
+
+## Localization and Internationalization
+
+Stacks relies on
+[contentful](https://www.contentful.com/developers/docs/tutorials/general/setting-locales/)
+to supplies the locales needed for translations.
+
+### For the purposes of demo
+
+- Two locales have been created in Contentful (_en-GB_ and _it-IT_)
+  ![Locales](../../../../.github/images/locales_contentful.jpg)
+- Each post and field entry would contain 2 locales _for eg. slugs are prefixed
+  with_ _en-GB_ and _it-IT_.
+  ![Field translate](../../../../.github/images/i18n_fields.jpg)
+- NextJS static page generator builds dynamic pages and paths using the slug
+  data. ![Build output](../../../../.github/images/build_output.jpg)
+- Added a language switcher in the blog post pages in the header. The switcher
+  will update the URL to relative prefixed path for _eg:
+  /posts/it-IT/documentation-demo_ refer the image below
+  ![published_blog](../../../../.github/images/published_blog.jpg)

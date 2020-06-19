@@ -1,15 +1,12 @@
 import NextError from "next/error"
 import {useRouter} from "next/router"
-import {
-    getAllPostsWithSlug,
-    getPostAndMorePosts,
-} from "../../lib/contentful-api"
+import {getAllPostsWithSlug, getPost} from "../../lib/contentful-api"
 import React from "react"
 import PostHeader from "components/PostHeader"
 import PostBody from "components/PostBody"
 import {Layout} from "components"
 
-export default function Post({post, morePosts, preview}) {
+export default function Post({post}) {
     const router = useRouter()
     if (!router.isFallback && !post) {
         return <NextError statusCode={404} />
@@ -34,21 +31,27 @@ export default function Post({post, morePosts, preview}) {
     )
 }
 
-export async function getStaticProps({params, preview = false}) {
-    const data = await getPostAndMorePosts(params.slug, preview)
+export async function getStaticProps({params}) {
+    const data = await getPost(
+        params.all.join("/"),
+        params.all.length > 1 ? params.all[0] : "en-GB",
+    )
     return {
         props: {
-            preview,
+            preview: false,
             post: data?.post ?? null,
-            morePosts: data?.morePosts ?? null,
         },
     }
 }
 
 export async function getStaticPaths() {
     const allPosts = await getAllPostsWithSlug()
+    const allPostsWithLang = allPosts.map(post => Object.values(post)).flat()
     return {
-        paths: allPosts?.map(({slug}) => `/posts/${slug}`) ?? [],
+        paths: allPostsWithLang?.map(slug => {
+            console.log("slugs:", slug)
+            return `/posts/${slug}` ?? []
+        }),
         fallback: true,
     }
 }

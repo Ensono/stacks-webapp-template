@@ -1,8 +1,8 @@
 import {render} from "@testing-library/react"
 import React from "react"
-import {Search} from "."
+import {LocaleSwitcher} from "."
 
 test("renders ApiPane snapshot", () => {
-    const {asFragment} = render(<Search getSearchResults={() => {}} />)
+    const {asFragment} = render(<LocaleSwitcher />)
     expect(asFragment()).toMatchSnapshot()
 })

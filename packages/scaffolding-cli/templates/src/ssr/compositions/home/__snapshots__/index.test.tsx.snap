@@ -81,7 +81,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         class="MuiContainer-root MuiContainer-maxWidthSm"
       >
         <div
-          class="MuiBox-root MuiBox-root-415"
+          class="MuiBox-root MuiBox-root-417"
         >
           <div
             class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
@@ -109,10 +109,10 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
               />
               <fieldset
                 aria-hidden="true"
-                class="PrivateNotchedOutline-root-474 MuiOutlinedInput-notchedOutline"
+                class="PrivateNotchedOutline-root-476 MuiOutlinedInput-notchedOutline"
               >
                 <legend
-                  class="PrivateNotchedOutline-legendLabelled-476"
+                  class="PrivateNotchedOutline-legendLabelled-478"
                 >
                   <span>
                     Search Menus

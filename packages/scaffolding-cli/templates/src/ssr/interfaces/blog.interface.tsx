@@ -5,4 +5,6 @@ export interface PostType {
     author: string
     slug: string
     excerpt: string
+    locale?: string
+    id?: string
 }
