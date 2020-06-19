@@ -14,9 +14,33 @@ We are using [npx](https://www.npmjs.com/package/npx) (Node Package Executor) to
 
 Please ensure your environment has:
 
-* [node@12](https://nodejs.org/en/about/releases/). To download the supported version see [nodejs.org](https://nodejs.org/en/download/).
+* [node@12](https://nodejs.org/en/about/releases/). To download the supported version see [nodejs.org](https://nodejs.org/en/download/
 
 ## Using the template
+
+## Docker: Quick Start
+
+Requires [Docker](https://www.docker.com/get-started).
+
+## Running .NET Selenium with Docker
+
+We have a base dotnet image that contains a Chrome browser instance and the .NET Core SDK. See [dotnet-test-base/README.md](../../../../../libs/images/dotnet-test-base/README.md) for more information.
+
+### Local
+
+1. Build the image or, pull the latest from [amidostacks/dotnet-test-base](https://hub.docker.com/r/amidostacks/dotnet-test-base).
+  `docker image build -t amidostacks/dotnet-test-base:0.0.1 .`
+
+2. Build and test the project:
+  `docker run --rm --it -v $(pwd)/.:/src/ amidostacks/dotnet-test-base:0.0.1 dotnet build && dotnet test`
+
+3. This will output the collect results in both html and json foramt to [/bin/BDDfy.html](./bin/BDDfy.html)
+
+### From pipeline
+
+The docker image is open and found at [amidostacks/dotnet-test-base](https://hub.docker.com/r/amidostacks/dotnet-test-base).
+
+* Resource the container from the correct working directory, and invoke : `dotnet build && dotnet test`
 
 ## Editors (IDE's)
 
