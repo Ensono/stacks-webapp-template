@@ -5,7 +5,7 @@ Aims to be an all in one image for any Kubernetes deployment tasks, with additio
 Provides a Kubectl CLI and Kustomize along with the following tools and corresponding versions.
 
 versions:
-  - kubectl: 1.15.1
+  - kubectl: 1.16.10
   - kustomize: 3.5.4
   - typescript: 3.7.5
   - dontetcore: 3.1
@@ -48,6 +48,6 @@ Creating additional versions
 ```bash
 docker build -t amidostacks/ci-k8s .
 docker push amidostacks/ci-k8s:latest
-docker tag 4d67b2ab27e5 amidostacks/ci-k8s:0.0.7
-docker push amidostacks/ci-k8s:0.0.7
+docker tag c0c135106fe6 amidostacks/ci-k8s:0.0.8
+docker push amidostacks/ci-k8s:0.0.8
 ```

@@ -1,6 +1,6 @@
 FROM debian:10.3
 
-ARG KUBECTL_VERSION=1.15.1
+ARG KUBECTL_VERSION=1.16.10
 ARG KUSTOMIZE_VERSION=3.5.4
 ARG TYPESCRIPT_VERSION=3.7.5
 ARG DOTNET_CORE_VERSION=3.1
@@ -77,3 +77,16 @@ RUN curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/rel
 RUN curl -fsSL https://github.com/amido/stacks-webapp-template/releases/download/0.0.2/envsubst-`uname -s`-`uname -m` -o /opt/envsubst && \
   chmod +x /opt/envsubst && \
   mv /opt/envsubst /usr/local/bin
+
+RUN apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    gnupg-agent \
+    software-properties-common 
+
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+
+RUN apt-get update -y && \
+    apt-get install -y docker-ce-cli
+

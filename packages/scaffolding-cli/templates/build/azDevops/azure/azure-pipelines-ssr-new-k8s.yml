@@ -34,7 +34,7 @@ resources:
     - container: sonar_scanner
       image: amidostacks/ci-sonarscanner:0.0.1
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.7
+      image: amidostacks/ci-k8s:0.0.8
     - container: terraform_custom
       image: amidostacks/ci-tf:0.0.3
 
@@ -109,11 +109,11 @@ stages:
         # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
+        container: k8s_deploy
         steps:
           - checkout: self
           - checkout: templates
             persistCredentials: true
-            target: k8s_deploy
           # BUILD NPM
           - template: templates/steps/build-node.yml
             parameters:

@@ -35,7 +35,7 @@ resources:
     - container: sonar_scanner
       image: amidostacks/ci-sonarscanner:0.0.1
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.6
+      image: amidostacks/ci-k8s:0.0.8
     - container: terraform_custom
       image: amidostacks/ci-tf:0.0.3
 
