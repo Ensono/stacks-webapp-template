@@ -4,7 +4,7 @@ using OpenQA.Selenium.Remote;
 
 namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
 {
-  public class RemoteBrowser
+  public class RemoteWebDriverFactory
   {
     public static string user = Environment.GetEnvironmentVariable("USERNAME") == null ? "%SET_USER_ENV_VAR%" : Environment.GetEnvironmentVariable("USERNAME");
     public static string accessKey = Environment.GetEnvironmentVariable("ACCESS_KEY") == null ? "%SET_ACCESS_KEY_ENV_VAR%" : Environment.GetEnvironmentVariable("ACCESS_KEY");

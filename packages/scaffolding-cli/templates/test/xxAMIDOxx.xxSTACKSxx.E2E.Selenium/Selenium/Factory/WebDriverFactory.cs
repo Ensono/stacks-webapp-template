@@ -11,7 +11,7 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
     public static IWebDriver GetWebDriver(bool remoteBrowser = false)
     {
       // Checks for the RemoteBrowser flag in appsettings.json. Default: Chrome
-      return remoteBrowser ? RemoteBrowser.RemoteWebDriver() : ChromeDriver();
+      return remoteBrowser ? RemoteWebDriverFactory.RemoteWebDriver() : ChromeDriver();
     }
 
     public static IWebDriver ChromeDriver()
@@ -23,7 +23,7 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
 
       var caps = new ChromeOptions();
 
-      caps.AddArguments(new List<string>() { "no-sandbox", "disable-gpu", "remote-debugging-port=1559" });
+      caps.AddArguments(new List<string>() { "no-sandbox", "disable-gpu", "headless", "remote-debugging-port=1559" });
 
       string outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
       string chromeDriverPath = Path.GetFullPath(outPutDirectory);

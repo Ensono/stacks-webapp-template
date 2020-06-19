@@ -8,7 +8,6 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Fixtures
   public class BaseSetup : IDisposable
   {
     private readonly ConfigModel config;
-    private readonly string baseUrl;
     public bool remote;
     public SeleniumWrapper SeleniumWrapper { get; private set; }
 
