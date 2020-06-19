@@ -105,16 +105,13 @@ stages:
       - group: amido-stacks-webapp
     jobs:
       - job: WebAppBuild
-        variables:
-          foo: bar
-        # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
+        container: k8s_deploy
         steps:
           - checkout: self
           - checkout: templates
             persistCredentials: true
-            # target: k8s_deploy
           # BUILD NPM
           - template: templates/steps/build-node.yml
             parameters:
@@ -251,7 +248,6 @@ stages:
                 - checkout: self
                 - checkout: templates
                   persistCredentials: true
-                  target: k8s_deploy
                 # Deploy Dev
                 # TODO: change this to steps and feed upstream
                 - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
