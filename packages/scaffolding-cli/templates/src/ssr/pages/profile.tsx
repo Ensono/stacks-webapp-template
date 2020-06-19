@@ -8,11 +8,12 @@ const Picture = styled.img`
     width: 100px;
 `
 
-const Profile = ({user: props}) => {
+const Profile = props => {
     return (
         <Layout>
+            <br />
+            <br />
             {!props.user && <h2> Please login!</h2>}
-
             {props.user && (
                 <div>
                     <Picture
@@ -21,13 +22,11 @@ const Profile = ({user: props}) => {
                     />{" "}
                     <h2>Hello, {props.user.displayName}</h2>
                     <p>This is what we know about you:</p>
-                    <ul>
-                        {Object.keys(props.user).map(key => (
-                            <li key={key}>
-                                {key}: {props.user[key].toString()}
-                            </li>
-                        ))}
-                    </ul>
+                    {
+                        <div>
+                            <pre>{JSON.stringify(props.user, null, 2)}</pre>
+                        </div>
+                    }
                 </div>
             )}
         </Layout>

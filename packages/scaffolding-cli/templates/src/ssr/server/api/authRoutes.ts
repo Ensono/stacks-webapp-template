@@ -35,5 +35,6 @@ export default (router: Router) => {
         res.redirect(
             `https://${AUTH0_DOMAIN}/logout?client_id=${AUTH0_CLIENT_ID}&returnTo=${AUTH0_BASE_URL}`,
         )
+        res.end()
     })
 }
