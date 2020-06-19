@@ -114,7 +114,7 @@ stages:
           - checkout: self
           - checkout: templates
             persistCredentials: true
-            target: k8s_deploy
+            # target: k8s_deploy
           # BUILD NPM
           - template: templates/steps/build-node.yml
             parameters:
