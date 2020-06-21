@@ -58,7 +58,6 @@ export async function getAllPostsWithSlug() {
         select: "fields.slug",
         locale: "*",
     })
-    console.info("getAllPostsWithSlug::::", entries.items[0])
     return parsePostEntries(entries, post => post.fields.slug)
 }
 
