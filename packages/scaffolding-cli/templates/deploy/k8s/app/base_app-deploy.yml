@@ -90,8 +90,6 @@ type: Opaque
 stringData:
   app_insights: ${app_insights_key}
   next_public_token: ${next_public_token}
-  next_preview_token: ${next_preview_token}
-  next_preview_secret: ${next_preview_secret}
   next_space_id: ${next_space_id}
 
 ---
