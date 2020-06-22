@@ -49,7 +49,7 @@ export async function getStaticPaths() {
     const allPostsWithLang = allPosts.map(post => Object.values(post)).flat()
     return {
         paths: allPostsWithLang?.map(slug => {
-            return `/cms/posts/${slug}` ?? []
+            return `/blog/posts/${slug}` ?? []
         }),
         fallback: true,
     }

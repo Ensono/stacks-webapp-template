@@ -75,8 +75,8 @@ export default function MainFeaturedPost(props) {
                                 {excerpt}
                             </Typography>
                             <Link
-                                as={`/cms/posts/${slug}`}
-                                href="/cms/posts/[...all]"
+                                as={`/blog/posts/${slug}`}
+                                href="/blog/posts/[...all]"
                             >
                                 <a className={classes.readMoreButton}>
                                     Read More
