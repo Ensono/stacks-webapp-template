@@ -152,7 +152,7 @@ stages:
                 APP_BASE_URL: "http://localhost"
                 MENU_API_URL: "http://dev.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
-                NODE_ENV: dev
+                NODE_ENV: development
                 # avoid warnings about terminal
                 TERM: xterm
               # Build Output File
