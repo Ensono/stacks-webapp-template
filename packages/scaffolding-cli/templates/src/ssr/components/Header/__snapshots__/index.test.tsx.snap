@@ -39,7 +39,8 @@ exports[`renders Header snapshot 1`] = `
         style="margin: 0px auto;"
       >
         <a
-          class="css-15rvyqs"
+          class="makeStyles-styledLink-2"
+          href="undefined/"
         >
           Yumido
         </a>
@@ -65,6 +66,22 @@ exports[`renders Header snapshot 1`] = `
               d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
             />
           </svg>
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+      <button
+        aria-label="Login button"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-authButton-1 MuiButton-containedPrimary"
+        data-testid="auth_login_button"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          Login
         </span>
         <span
           class="MuiTouchRipple-root"
@@ -114,11 +131,54 @@ exports[`renders no button on create page 1`] = `
         style="margin: 0px auto;"
       >
         <a
-          class="css-15rvyqs"
+          class="makeStyles-styledLink-150"
+          href="undefined/"
         >
           Yumido
         </a>
       </h2>
+      <button
+        aria-label="create menu button"
+        class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
+        tabindex="0"
+        title="Create menu"
+        type="button"
+      >
+        <span
+          class="MuiFab-label"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root"
+            data-testid="create_button"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+            />
+          </svg>
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+      <button
+        aria-label="Login button"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-authButton-149 MuiButton-containedPrimary"
+        data-testid="auth_login_button"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          Login
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
     </div>
   </header>
 </DocumentFragment>
