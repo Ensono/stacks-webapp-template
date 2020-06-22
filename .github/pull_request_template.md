@@ -17,7 +17,7 @@ feat: repo base files - 949
 A description of the change.
 
 <!--
-If you have accesss, to ink to the Azure Devops Ticket use `AB#{ID}`, eg. Implements `AB#1228 - Link tickets to GitHub`
+If you have access, to ink to the Azure DevOps Ticket use `AB#{ID}`, eg. Implements `AB#1228 - Link tickets to GitHub`
 -->
 
 #### 🤔 Why

@@ -9,12 +9,11 @@ import {
 } from "@material-ui/core"
 import AddIcon from "@material-ui/icons/Add"
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks"
-import {PrefixedLink as Link, ProfilePicture} from "components"
+import {LocaleSwitcher, PrefixedLink as Link, ProfilePicture} from "components"
+import {UserType} from "interfaces/auth.interface"
 import {useRouter} from "next/router"
 import React from "react"
-import {LocaleSwitcher} from "../LocaleSwitcher"
 import {useUser} from "../../lib/hooks"
-import {UserType} from "interfaces/auth.interface"
 
 const useStyles = makeStyles(theme => ({
     authButton: {

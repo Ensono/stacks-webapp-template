@@ -29,8 +29,6 @@ interface Props
         ReturnType<typeof mapDispatchToProps> {}
 
 const Home: FC<Props> = props => {
-    console.log("Home props:", props)
-
     return (
         <Layout>
             <br />
