@@ -3,8 +3,6 @@ parameters:
     vmImage: "ubuntu-latest"
   versionSpec: 12.x
   project_root_dir: ""
-  dependsOn: "GetPackage"
-  download_devops: true
   # Custom registry (eg. private)
   customRegistry: ""
   # Docker Config
@@ -40,14 +38,6 @@ parameters:
   cypress_applitools_test: false
   cypress_e2e_env_vars: {}
   cache_cypress: false
-  # Build File Output
-  build_file: false
-  build_file_path: ""
-  build_file_artefact: ""
-  # build output defaults
-  git_do_tag_release: false
-  git_release_tag: ""
-
 
 steps:
   # Login to Azure/AKS
@@ -154,10 +144,3 @@ steps:
           docker_imagetag: ${{ parameters.docker_imagetag }}
           docker_tag_args: ${{ parameters.docker_tag_args }}
           docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
-
-  - ${{ if eq(parameters.build_file, true) }}:
-      - task: PublishPipelineArtifact@1
-        displayName: "Publish: Build Artefacts"
-        inputs:
-          path: "${{ parameters.build_file_path }}"
-          artifact: "${{ parameters.build_file_artefact }}"

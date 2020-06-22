@@ -75,9 +75,6 @@ variables:
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
   docker_container_registry_name: $(company)$(project)nonproduks$(domain)
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
-  # BUILD ARTIFACTS across stages
-  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
-  build_artifact_deploy_name: $(self_generic_name)
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - INFRAstage - location - compnonent names in the infra-pipeline
   aks_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
@@ -133,7 +130,7 @@ stages:
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
               # Sonar settings
-              static_code_analysis: false
+              static_code_analysis: true
               sonar_container: sonar_scanner
               #Linting and formatting validation
               lint_formatting: false
@@ -142,7 +139,7 @@ stages:
               unit_test: true
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               cypress_e2e_test: true
-              cypress_applitools_test: true
+              cypress_applitools_test: false
               cypress_container: cypress
               # Set this to false or remove if cypress is not run as part of your pipeline
               cache_cypress: true
@@ -154,14 +151,6 @@ stages:
                 NODE_ENV: development
                 # avoid warnings about terminal
                 TERM: xterm
-              # Build Output File
-              # files to be persisted across stages
-              build_file: true
-              build_file_path: $(build_artifact_deploy_path)
-              build_file_artefact: $(build_artifact_deploy_name)
-              # Git Tag release
-              git_do_tag_release: false
-              git_release_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
           # you can define additional steps here
       # you can define additional jobs here
 
