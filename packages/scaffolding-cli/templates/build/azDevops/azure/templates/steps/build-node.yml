@@ -39,6 +39,7 @@ parameters:
   cypress_e2e_test: true
   cypress_applitools_test: false
   cypress_e2e_env_vars: {}
+  cache_cypress: false
   # Build File Output
   build_file: false
   build_on_server: false
@@ -80,6 +81,7 @@ steps:
       versionSpec: ${{ parameters.versionSpec }}
       workingDirectory: ${{ parameters.project_root_dir }}
       customRegistry: ${{ parameters.customRegistry }}
+      cache_cypress: ${{ parameters.cache_cypress }}
 
   # Linting and formatting validation
   - ${{ if eq(parameters.lint_formatting, true) }}:
