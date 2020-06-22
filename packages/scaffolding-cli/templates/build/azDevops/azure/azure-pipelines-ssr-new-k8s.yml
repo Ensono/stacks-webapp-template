@@ -140,8 +140,6 @@ stages:
               unit_test: true
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
               unit_test_project: "$(Test.UnitTestProjectPath)"
-              component_test: false
-              component_test_project: "$(Test.ComponentTestProjectPath)"
               cypress_e2e_test: true
               cypress_applitools_test: true
               cypress_container: cypress/base:12
