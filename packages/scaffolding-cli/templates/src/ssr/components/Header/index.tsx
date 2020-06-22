@@ -1,20 +1,37 @@
-import React from "react"
-import {AppBar, Fab, Toolbar, Tooltip, Typography} from "@material-ui/core"
+import {
+    AppBar,
+    Button,
+    Fab,
+    makeStyles,
+    Toolbar,
+    Tooltip,
+    Typography,
+} from "@material-ui/core"
 import AddIcon from "@material-ui/icons/Add"
-import {PrefixedLink as Link} from "components"
-import {LocaleSwitcher} from "../LocaleSwitcher"
-import {useRouter} from "next/router"
-import styled from "@emotion/styled"
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks"
+import {PrefixedLink as Link, ProfilePicture} from "components"
+import {useRouter} from "next/router"
+import React from "react"
+import {LocaleSwitcher} from "../LocaleSwitcher"
+import {useUser} from "../../lib/hooks"
+import {UserType} from "interfaces/auth.interface"
 
-const StyledLink = styled.a`
-    text-decoration: none;
-    cursor: pointer;
-`
+const useStyles = makeStyles(theme => ({
+    authButton: {
+        margin: theme.spacing(0, 1, 0),
+    },
+    styledLink: {
+        textDecoration: "none",
+        cursor: "pointer",
+    },
+}))
 
 const title: string = `Yumido`
 
-export const Header = () => {
+export const Header = props => {
+    const user: UserType = useUser()
+
+    const classes = useStyles()
     const isCreatePage = useRouter()?.pathname.split("/").pop() === "create"
     return (
         <AppBar position="fixed" color="secondary">
@@ -32,10 +49,9 @@ export const Header = () => {
                 </Link>
                 <Typography variant="h2" style={{margin: "0 auto"}}>
                     <Link href="/">
-                        <StyledLink>{title}</StyledLink>
+                        <a className={classes.styledLink}>{title}</a>
                     </Link>
                 </Typography>
-                <LocaleSwitcher />
                 {!isCreatePage && (
                     <Link href="/create">
                         <Tooltip title="Create menu" aria-label="create menu">
@@ -48,6 +64,43 @@ export const Header = () => {
                             </Fab>
                         </Tooltip>
                     </Link>
+                )}
+                <LocaleSwitcher />
+                {!user ? (
+                    <Link href="/login">
+                        <Button
+                            data-testid="auth_login_button"
+                            variant="contained"
+                            color="primary"
+                            aria-label="Login button"
+                            className={classes.authButton}
+                        >
+                            Login
+                        </Button>
+                    </Link>
+                ) : (
+                    <>
+                        <Link href="/profile">
+                            <Button data-testid="profile_image_button">
+                                <ProfilePicture
+                                    name={user.displayName}
+                                    picture={{url: user.picture}}
+                                    displayName={false}
+                                />
+                            </Button>
+                        </Link>
+                        <Link href="/logout">
+                            <Button
+                                data-testid="auth_logout_button"
+                                variant="contained"
+                                color="primary"
+                                aria-label="Logout button"
+                                className={classes.authButton}
+                            >
+                                logout
+                            </Button>
+                        </Link>
+                    </>
                 )}
             </Toolbar>
         </AppBar>

@@ -19,7 +19,6 @@
 const conf = require("../config")
 
 module.exports = (on, config) => {
-
     // modify config values
     config.defaultCommandTimeout = 10000
     config.baseUrl = `${conf.APP_BASE_URL}${conf.APP_BASE_PATH}`

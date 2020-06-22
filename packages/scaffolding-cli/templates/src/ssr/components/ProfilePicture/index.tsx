@@ -1,11 +1,11 @@
 import {Avatar} from "@material-ui/core"
 import React from "react"
 
-export default function ProfilePicture({name, picture}) {
+export const ProfilePicture = ({name, picture, displayName = true}) => {
     return (
         <div>
             <Avatar alt={name} src={picture.url} />
-            <div>{name}</div>
+            {displayName && <div>{name}</div>}
         </div>
     )
 }

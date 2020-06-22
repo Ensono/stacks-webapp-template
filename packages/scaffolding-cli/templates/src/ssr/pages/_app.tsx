@@ -32,6 +32,7 @@ class _App extends App<AppWithStore> {
             ctx.store.dispatch(END)
             await (ctx.store as WithSagaTaskStore).sagaTask.toPromise()
         }
+
         if (ctx?.req?.user) {
             pageProps.user = ctx.req.user
         }

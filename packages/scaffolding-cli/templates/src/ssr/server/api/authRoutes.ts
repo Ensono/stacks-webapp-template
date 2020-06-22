@@ -1,6 +1,8 @@
 import {Router} from "express"
 import passport from "passport"
 import logger from "../core/root-logger"
+import cookie from "cookie"
+import {removeTokenCookie} from "../../lib/auth-cookies"
 
 export default (router: Router) => {
     router.get(
@@ -29,12 +31,18 @@ export default (router: Router) => {
         })(req, res, next)
     })
 
-    router.get("/logout", (req: any, res) => {
+    router.get("/logout", (req: any, res: any) => {
+        removeTokenCookie(res, "connect.sid")
         req.logout()
         const {AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_BASE_URL} = process.env
         res.redirect(
             `https://${AUTH0_DOMAIN}/logout?client_id=${AUTH0_CLIENT_ID}&returnTo=${AUTH0_BASE_URL}`,
         )
         res.end()
+    })
+
+    router.get("/user", (req: any, res) => {
+        // const session = cookie.parse(req.headers?.cookie || "")
+        res.status(200).json({user: req.user || null})
     })
 }

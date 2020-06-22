@@ -43,6 +43,17 @@ const ssrCache = cacheableResponse({
     getKey: req => undefined,
 })
 
+// Express session for Auth
+const sessionConfig = {
+    secret: uid.sync(18),
+    cookie: {
+        maxAge: 86400 * 1000, // 24 hours in milliseconds
+        secure: process.env.NODE_ENV === "production",
+    },
+    resave: false,
+    saveUninitialized: true,
+}
+
 export default app
     .prepare()
     .then(() => {
@@ -50,15 +61,6 @@ export default app
 
         // TODO: Enable passport for CI
         // if (!process.env.CI) {
-        // Express session for Auth
-        const sessionConfig = {
-            secret: uid.sync(18),
-            cookie: {
-                maxAge: 86400 * 1000, // 24 hours in milliseconds
-            },
-            resave: false,
-            saveUninitialized: true,
-        }
         server.use(session(sessionConfig))
         //Configuring Auth0Strategy
         const auth0Strategy = new Auth0Strategy(

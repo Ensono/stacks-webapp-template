@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import {Layout} from "components"
 import React from "react"
+import {Link} from "@material-ui/core"
 
 const Picture = styled.img`
     border-radius: 50%;
@@ -13,7 +14,12 @@ const Profile = props => {
         <Layout>
             <br />
             <br />
-            {!props.user && <h2> Please login!</h2>}
+            {!props.user && (
+                <h2>
+                    {" "}
+                    Please login <Link href="/login">here</Link>
+                </h2>
+            )}
             {props.user && (
                 <div>
                     <Picture

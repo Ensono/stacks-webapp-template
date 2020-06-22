@@ -7,12 +7,14 @@ import {
     isLoading,
     requestMenusListRoutine,
 } from "../../ducks/get-menus"
+import {UserType} from "../../interfaces/auth.interface"
 
 const mapStateToProps = state => {
     return {
         isLoading: isLoading(state),
         error: getError(state),
         menuItems: getMenuItems(state),
+        user: {},
     }
 }
 
@@ -22,15 +24,18 @@ const mapDispatchToProps = dispatch => ({
 })
 
 interface Props
-    extends ReturnType<typeof mapStateToProps>,
+    extends UserType,
+        ReturnType<typeof mapStateToProps>,
         ReturnType<typeof mapDispatchToProps> {}
 
-const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
+const Home: FC<Props> = props => {
+    console.log("Home props:", props)
+
     return (
         <Layout>
             <br />
-            <Search getSearchResults={getMenulist} />
-            <ApiPane menuItems={menuItems} isLoading={isLoading} />
+            <Search getSearchResults={props.getMenulist} />
+            <ApiPane menuItems={props.menuItems} isLoading={props.isLoading} />
         </Layout>
     )
 }
