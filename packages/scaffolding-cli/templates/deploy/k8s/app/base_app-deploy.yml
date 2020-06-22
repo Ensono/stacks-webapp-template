@@ -90,8 +90,6 @@ type: Opaque
 stringData:
   app_insights: ${app_insights_key}
   next_public_token: ${next_public_token}
-  next_preview_token: ${next_preview_token}
-  next_preview_secret: ${next_preview_secret}
   next_space_id: ${next_space_id}
 
 ---
@@ -186,16 +184,6 @@ spec:
                 secretKeyRef:
                   name: appsecrets
                   key: next_public_token
-            - name: NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: appsecrets
-                  key: next_preview_token
-            - name: NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: appsecrets
-                  key: next_preview_secret
             - name: NEXT_PUBLIC_CONTENTFUL_SPACE_ID
               valueFrom:
                 secretKeyRef:

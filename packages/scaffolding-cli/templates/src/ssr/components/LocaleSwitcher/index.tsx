@@ -24,7 +24,7 @@ export const LocaleSwitcher: React.FC = () => {
             const allLangs = await getLanguages()
             setAllLang(allLangs.items)
         }
-        fetchData()
+        if (router?.route?.startsWith("/posts")) fetchData()
     }, [])
 
     const handleChange = event => {
