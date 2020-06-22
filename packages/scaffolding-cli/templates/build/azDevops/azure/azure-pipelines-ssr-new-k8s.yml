@@ -37,6 +37,8 @@ resources:
       image: amidostacks/ci-k8s:0.0.8
     - container: terraform_custom
       image: amidostacks/ci-tf:0.0.3
+    - container: cypress
+      image: cypress/base:12.16.2
 
 variables:
   company: amido
@@ -142,7 +144,7 @@ stages:
               unit_test_project: "$(Test.UnitTestProjectPath)"
               cypress_e2e_test: true
               cypress_applitools_test: true
-              cypress_container: cypress/base:12
+              cypress_container: cypress
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
