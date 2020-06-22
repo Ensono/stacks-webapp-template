@@ -3,7 +3,7 @@ import contentful from "contentful"
 import {PostType} from "interfaces/blog.interface"
 import NextError from "next/error"
 import React from "react"
-import {getAllPostsForHome} from "../lib/contentful-api"
+import {getAllPostsForHome} from "../../lib/contentful-api"
 
 type BlogProps = {
     preview?: boolean

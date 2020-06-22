@@ -18,7 +18,7 @@ export const Header = () => {
     return (
         <AppBar position="fixed" color="secondary">
             <Toolbar>
-                <Link href="/blog">
+                <Link href="/cms">
                     <Tooltip title="Blog" aria-label="blog">
                         <Fab
                             size="small"

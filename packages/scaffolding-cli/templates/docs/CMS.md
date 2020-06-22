@@ -85,3 +85,12 @@ to supplies the locales needed for translations.
   will update the URL to relative prefixed path for _eg:
   /posts/it-IT/documentation-demo_ refer the image below
   ![published_blog](../../../../.github/images/published_blog.jpg)
+
+---
+
+## ⚠️ Important 👷‍♀️🚧
+
+> Please note CMS is an optional feature included in the Stacks workspace. To
+> turn off CMS please remove the folder [/cms](../src/ssr/pages/cms) inside
+> ssr/pages before building and make sure the tsconfig does not include these
+> files.

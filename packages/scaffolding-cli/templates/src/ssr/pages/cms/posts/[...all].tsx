@@ -1,6 +1,6 @@
 import NextError from "next/error"
 import {useRouter} from "next/router"
-import {getAllPostsWithSlug, getPost} from "../../lib/contentful-api"
+import {getAllPostsWithSlug, getPost} from "../../../lib/contentful-api"
 import React from "react"
 import PostHeader from "components/PostHeader"
 import PostBody from "components/PostBody"
@@ -49,7 +49,7 @@ export async function getStaticPaths() {
     const allPostsWithLang = allPosts.map(post => Object.values(post)).flat()
     return {
         paths: allPostsWithLang?.map(slug => {
-            return `/posts/${slug}` ?? []
+            return `/cms/posts/${slug}` ?? []
         }),
         fallback: true,
     }
