@@ -18,12 +18,7 @@ parameters:
   #  Static Code Analysis
   static_code_analysis: false
   static_code_analysis_build_path: ""
-  Sonar_serviceConnection: ""
-  Sonar_organization: ""
-  Sonar_scannerMode: ""
-  Sonar_projectKey: ""
-  Sonar_projectName: ""
-  Sonar_projectVersion: ""
+  sonar_container: ""
   # Linting and formatting validation
   lint_formatting: ""
   shared_eslint_config: ""
@@ -84,7 +79,8 @@ steps:
   - ${{ if eq(parameters.static_code_analysis, true) }}:
       - template: azDevOps/azure/templates/v2/steps/test-static-code-sonar.yml@templates
         parameters:
-          workingDirectory: ${{ parameters.project_root_dir }}
+          working_directory: ${{ parameters.project_root_dir }}
+          target_container: ${{ parameters.sonar_container }}
 
   # Consumer driven contract tests
   - ${{ if eq(parameters.contract_test, true) }}:
