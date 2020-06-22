@@ -125,6 +125,8 @@ steps:
         parameters:
           env_vars: ${{ parameters.cypress_e2e_env_vars}}
           workingDirectory: ${{ parameters.project_root_dir }}
+          target_container: ${{ parameters.cypress_container }}
+
 
   # Visual regression tests running on locally built and hosted (undeployed)
   - ${{ if eq(parameters.cypress_applitools_test, true) }}:
