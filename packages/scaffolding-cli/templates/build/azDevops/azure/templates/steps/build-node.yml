@@ -42,7 +42,6 @@ parameters:
   cache_cypress: false
   # Build File Output
   build_file: false
-  build_on_server: false
   build_file_path: ""
   build_file_artefact: ""
   # build output defaults
@@ -135,17 +134,6 @@ steps:
       - task: ApplitoolsBuildTask@0
         displayName: "Tests: Visual Regression with Applitools"
 
-  # STEP build NPM for Azure registry
-  - ${{ if eq(parameters.build_on_server, true) }}:
-      - task: Npm@1
-        displayName: Build on ADO using custom feeds
-        inputs:
-          # Options: install, publish, custom
-          command: "custom"
-          customCommand: "ci --only=prod"
-          workingDirectory: ${{ parameters.project_root_dir }}
-          customRegistry: ${{ parameters.customRegistry }}
-
   # Build Docker Image, Scan and Push to Repository
   - ${{ if eq(parameters.docker_build, true) }}:
       - template: azDevOps/azure/templates/v2/steps/build-container-image.yml@templates
@@ -166,14 +154,6 @@ steps:
           docker_imagetag: ${{ parameters.docker_imagetag }}
           docker_tag_args: ${{ parameters.docker_tag_args }}
           docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
-
-  # Publish Artefacts if required
-  - ${{ if eq(parameters.functional_test, true) }}:
-      - task: PublishPipelineArtifact@1
-        displayName: "Publish: Functional Tests Artifact"
-        inputs:
-          path: "${{ parameters.functional_test_path }}"
-          artifact: "${{ parameters.functional_test_artefact }}"
 
   - ${{ if eq(parameters.build_file, true) }}:
       - task: PublishPipelineArtifact@1
