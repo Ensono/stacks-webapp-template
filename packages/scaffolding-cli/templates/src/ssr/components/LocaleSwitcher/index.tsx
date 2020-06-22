@@ -16,13 +16,19 @@ export const LocaleSwitcher: React.FC = () => {
 
     const [lang, setLang] = React.useState("en-GB")
     const [allLang, setAllLang] = React.useState([])
+    const [containsLocale, setContainsLocale] = React.useState(false)
 
     useEffect(() => {
         setLang(router?.asPath?.split("/")[2])
 
         const fetchData = async () => {
             const allLangs = await getLanguages()
+            const justLangCodes = allLang.map(lang => lang.code)
             setAllLang(allLangs.items)
+            setContainsLocale(
+                justLangCodes.length &&
+                    justLangCodes.indexOf(router.asPath.split("/")[2]) > -1,
+            )
         }
         if (router?.route?.startsWith("/posts")) fetchData()
     }, [])
@@ -39,22 +45,24 @@ export const LocaleSwitcher: React.FC = () => {
 
     return (
         <>
-            {router?.route?.startsWith("/posts") && allLang?.length && (
-                <TextField
-                    className={classes.select}
-                    id="select_lang"
-                    value={lang}
-                    onChange={handleChange}
-                    variant="outlined"
-                    select
-                >
-                    {allLang.map(locale => (
-                        <MenuItem key={locale.code} value={locale.code}>
-                            {locale.name}
-                        </MenuItem>
-                    ))}
-                </TextField>
-            )}
+            {router?.route?.startsWith("/posts") &&
+                allLang?.length &&
+                !!containsLocale && (
+                    <TextField
+                        className={classes.select}
+                        id="select_lang"
+                        value={lang}
+                        onChange={handleChange}
+                        variant="outlined"
+                        select
+                    >
+                        {allLang.map(locale => (
+                            <MenuItem key={locale.code} value={locale.code}>
+                                {locale.name}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                )}
         </>
     )
 }
