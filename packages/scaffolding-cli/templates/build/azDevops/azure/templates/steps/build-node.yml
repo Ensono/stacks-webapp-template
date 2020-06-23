@@ -121,7 +121,6 @@ steps:
   # Visual regression tests running on locally built and hosted (undeployed)
   - ${{ if eq(parameters.cypress_applitools_test, true) }}:
       - task: ApplitoolsBuildTask@0
-        target: 
         displayName: "Tests: Visual Regression with Applitools"
 
   # Build Docker Image, Scan and Push to Repository
