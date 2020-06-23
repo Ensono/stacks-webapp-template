@@ -43,7 +43,8 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
             style="margin: 0px auto;"
           >
             <a
-              class="css-15rvyqs"
+              class="makeStyles-styledLink-333"
+              href="undefined/"
             >
               Yumido
             </a>
@@ -74,6 +75,22 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
               class="MuiTouchRipple-root"
             />
           </button>
+          <button
+            aria-label="Login button"
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-authButton-332 MuiButton-containedPrimary"
+            data-testid="auth_login_button"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="MuiButton-label"
+            >
+              Login
+            </span>
+            <span
+              class="MuiTouchRipple-root"
+            />
+          </button>
         </div>
       </header>
       <br />
@@ -81,7 +98,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         class="MuiContainer-root MuiContainer-maxWidthSm"
       >
         <div
-          class="MuiBox-root MuiBox-root-417"
+          class="MuiBox-root MuiBox-root-479"
         >
           <div
             class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
@@ -109,10 +126,10 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
               />
               <fieldset
                 aria-hidden="true"
-                class="PrivateNotchedOutline-root-476 MuiOutlinedInput-notchedOutline"
+                class="PrivateNotchedOutline-root-538 MuiOutlinedInput-notchedOutline"
               >
                 <legend
-                  class="PrivateNotchedOutline-legendLabelled-478"
+                  class="PrivateNotchedOutline-legendLabelled-540"
                 >
                   <span>
                     Search Menus

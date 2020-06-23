@@ -29,7 +29,6 @@ const title: string = `Yumido`
 
 export const Header = props => {
     const user: UserType = useUser()
-
     const classes = useStyles()
     const isCreatePage = useRouter()?.pathname.split("/").pop() === "create"
     return (
@@ -80,7 +79,10 @@ export const Header = props => {
                 ) : (
                     <>
                         <Link href="/profile">
-                            <Button data-testid="profile_image_button">
+                            <Button
+                                aria-label="profile button"
+                                data-testid="profile_image_button"
+                            >
                                 <ProfilePicture
                                     name={user.displayName}
                                     picture={{url: user.picture}}

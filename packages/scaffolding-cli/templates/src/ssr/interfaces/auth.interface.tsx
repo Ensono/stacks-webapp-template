@@ -7,14 +7,14 @@ export interface UserType {
     locale: string
     nickname: string
     name: name_type
-    email: email_type[]
+    email: EmailType[]
 }
 
-interface name_type {
+export interface name_type {
     familyName: string
     givenName: string
 }
 
-interface email_type {
+export interface EmailType {
     value: string
 }
