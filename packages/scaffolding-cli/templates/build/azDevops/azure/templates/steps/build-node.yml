@@ -80,19 +80,19 @@ steps:
   #         lintingSharedConfigPackage: ${{ parameters.shared_eslint_config }}
   #         customRegistry: ${{ parameters.customRegistry }}
 
-  # # Linting and unit tests
-  # - ${{ if eq(parameters.unit_test, true) }}:
-  #     - template: azDevOps/azure/templates/v2/steps/test-unit-node.yml@templates
-  #       parameters:
-  #         versionSpec: ${{ parameters.versionSpec }}
-  #         workingDirectory: ${{ parameters.project_root_dir }}
+  # Linting and unit tests
+  - ${{ if eq(parameters.unit_test, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/test-unit-node.yml@templates
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          workingDirectory: ${{ parameters.project_root_dir }}
 
-  # # SonarCloud
-  # - ${{ if eq(parameters.static_code_analysis, true) }}:
-  #     - template: azDevOps/azure/templates/v2/steps/test-static-code-sonar.yml@templates
-  #       parameters:
-  #         working_directory: ${{ parameters.project_root_dir }}
-  #         target_container: ${{ parameters.sonar_container }}
+  # SonarCloud
+  - ${{ if eq(parameters.static_code_analysis, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/test-static-code-sonar.yml@templates
+        parameters:
+          working_directory: ${{ parameters.project_root_dir }}
+          target_container: ${{ parameters.sonar_container }}
 
   # # Consumer driven contract tests
   # - ${{ if eq(parameters.contract_test, true) }}:
