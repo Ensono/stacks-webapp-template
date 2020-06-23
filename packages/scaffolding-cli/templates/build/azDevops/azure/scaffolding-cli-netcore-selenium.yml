@@ -23,7 +23,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tag/v1.2.0
+      ref: refs/tag/v1.2.1
       endpoint: amidostacks
 
 variables:

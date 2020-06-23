@@ -14,8 +14,9 @@ The image uses the [amidostacks/node](https://hub.docker.com/r/amidostacks/node)
 
 The docker image is open and found at [amidostacks/lhci](https://hub.docker.com/r/amidostacks/lhci).
 
-1. Pull the container down and run by passing through the lhci config:
-  `docker run -v "$(pwd)/lighthouserc.json:/opt/lhci/lighthouserc.json" -v "$(pwd)/results:/opt/lhci/.lighthouseci" --rm -i amidostacks/lhci:latest lhci collect --config=lighthouserc.json`
+* Azure Devops: Use the template step to run [test-profiling-lighthouse.yml](https://github.com/amido/stacks-pipeline-templates/blob/feature/cycle2/azDevOps/azure/templates/v2/steps/test-profiling-lighthouse.yml)
+
+* Other: use the container from the correct working directory, and invoke : `lhci collect --config=exmaple.json`
 
 ### Local
 

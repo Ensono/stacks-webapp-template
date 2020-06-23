@@ -6,7 +6,7 @@ using Xunit;
 namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Tests.Stories
 {
   [Story(
-      AsA = "an exisiting restaurant on Yumido",
+      AsA = "an existing restaurant on Yumido",
       IWant = "to create a new menu",
       SoThat = "hungry customers can view my offerings")]
 

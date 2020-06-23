@@ -65,7 +65,7 @@ Run locally in
 > ⚠️ IMPORTANT: For local development, you will need to start the server to host
 > the webapp under dev. See [npm-start](#npm-start).
 
-## Environment varibales
+## Environment variables
 
 We need to ensure that Cypress knows the following at a minimum:
 
