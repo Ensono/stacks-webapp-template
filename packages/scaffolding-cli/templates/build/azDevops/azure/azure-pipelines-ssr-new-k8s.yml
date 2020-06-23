@@ -183,9 +183,6 @@ stages:
               ARM_CLIENT_ID: $(azure_client_id)
               ARM_CLIENT_SECRET: $(azure_client_secret)
               ARM_TENANT_ID: $(azure_tenant_id)
-            # target: terraform_custom
-            target:
-              container: terraform_custom
           # Create TF infra
           - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
             parameters: 
@@ -247,7 +244,6 @@ stages:
                 - checkout: self
                 - checkout: templates
                   persistCredentials: true
-                  target: k8s_deploy
                 # Deploy Dev
                 # TODO: change this to steps and feed upstream
                 - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
@@ -289,8 +285,7 @@ stages:
                   parameters:
                     environment: "dev"
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
-                    download_deploy_artefact: true
-                    deploy_artifact_name: $(build_artifact_deploy_name)
+                    download_deploy_artefact: false
                     test_artefact: "tests"
                     test_baseurl: ""
                     functional_test: false
@@ -302,11 +297,6 @@ stages:
                     # Mutation Information
                     kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
                     kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app # unnecessary
-                    appinsights_enabled: false
-                    appinsights_accountName: ""
-                    secureFile: ""
-                    # ReleaseNote Information
-                    releasenote: false
             on:
               success:
                 pool:
