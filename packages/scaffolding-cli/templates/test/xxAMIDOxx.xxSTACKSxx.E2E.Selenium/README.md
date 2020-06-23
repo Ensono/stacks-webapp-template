@@ -14,9 +14,33 @@ We are using [npx](https://www.npmjs.com/package/npx) (Node Package Executor) to
 
 Please ensure your environment has:
 
-* [node@12](https://nodejs.org/en/about/releases/). To download the supported version see [nodejs.org](https://nodejs.org/en/download/).
+* [node@12](https://nodejs.org/en/about/releases/). To download the supported version see [nodejs.org](https://nodejs.org/en/download/
 
 ## Using the template
+
+## Docker: Quick Start
+
+Requires [Docker](https://www.docker.com/get-started).
+
+## Running .NET Selenium with Docker
+
+We have a base dotnet image that contains a Chrome browser instance and the .NET Core SDK. See [dotnet-test-base/README.md](../../../../../libs/images/dotnet-test-base/README.md) for more information.
+
+### Local
+
+1. Build the image or, pull the latest from [amidostacks/dotnet-test-base](https://hub.docker.com/r/amidostacks/dotnet-test-base).
+  `docker image build -t amidostacks/dotnet-test-base:0.0.1 .`
+
+2. Build and test the project:
+  `docker run --rm --it -v $(pwd)/.:/src/ amidostacks/dotnet-test-base:0.0.1 dotnet build && dotnet test`
+
+3. This will output the collect results in both html and json foramt to [/bin/BDDfy.html](./bin/BDDfy.html)
+
+### From pipeline
+
+The docker image is open and found at [amidostacks/dotnet-test-base](https://hub.docker.com/r/amidostacks/dotnet-test-base).
+
+* Resource the container from the correct working directory, and invoke : `dotnet build && dotnet test`
 
 ## Editors (IDE's)
 
@@ -122,6 +146,32 @@ This contains classes used to manage the configuration for the tests.
 The ConfigAccessor will automatically replace any configuration setting values with the values set in the Environment Variables on the machine running the tests.
 
 E.g. in `appsettings.json` we are using the configuration setting (key-value pair) `"BaseUrl":"http://dev.azure.amidostacks.com/api/menu/"`. If there is an Environment Variable set on the current machine/build agent using `BaseUrl` key, the value in `appsettings.json` will be replaced.
+
+### Remote Browsers: Cross Browser Testing Cloud Services
+
+To enable testing on third party remote instances, in the [appsettings.json](./appsettings.json) set the boolean key to `remoteBrowser` to `true`, e.g. `remoteBrowser: true.
+
+In addition to configuring the tests to run remotely, they will also need to pull in the following environment variables, as determined by the third party tool under user:
+
+```bash
+USERNAME= \
+ACCESS_KEY= \
+SERVER=
+```
+
+#### LambdaTest: Cloud Cross Browser Testing Service
+
+![lambda_test](https://amidostacksassets.blob.core.windows.net/docs/assets/lambdatest_selenium.png)
+
+[lambdatest](https://www.lambdatest.com/) is a paid for SaaS service, "Performing Live Interactive and Automated Cross Browser Testing on 2000+ Real Browsers and Operating Systems Online".
+
+In order to run remotely on LamdaTest, the following environment variables must be set:
+
+```bash
+USERNAME=<LT_USERNAME> \
+ACCESS_KEY=<LT_ACCESS_KEY> \
+SERVER="@hub.lambdatest.com"
+```
 
 ### Selenium
 

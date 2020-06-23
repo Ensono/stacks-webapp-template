@@ -174,9 +174,6 @@ stages:
               ARM_CLIENT_ID: $(azure_client_id)
               ARM_CLIENT_SECRET: $(azure_client_secret)
               ARM_TENANT_ID: $(azure_tenant_id)
-            # target: terraform_custom
-            target:
-              container: terraform_custom
           # Create TF infra
           - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
             parameters: 
@@ -238,7 +235,6 @@ stages:
                 - checkout: self
                 - checkout: templates
                   persistCredentials: true
-                  target: k8s_deploy
                 # Deploy Dev
                 # TODO: change this to steps and feed upstream
                 - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
