@@ -54,15 +54,15 @@ steps:
       login_gcr: ${{ parameters.login_gcr }}
       gcp_auth: ${{ parameters.gcp_auth }}
 
-  # Audit dependencies
-  # ⚠️ IMPORTANT: Down to the user to ensure that the registry they are using
-  # can support `npm audit`
-  - ${{ if eq(parameters.audit_test, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/build-audit-dependencies-node.yml@templates
-        parameters:
-          versionSpec: ${{ parameters.versionSpec }}
-          workingDirectory: ${{ parameters.project_root_dir }}
-          customRegistry: ${{ parameters.customRegistry }}
+  # # Audit dependencies
+  # # ⚠️ IMPORTANT: Down to the user to ensure that the registry they are using
+  # # can support `npm audit`
+  # - ${{ if eq(parameters.audit_test, true) }}:
+  #     - template: azDevOps/azure/templates/v2/steps/build-audit-dependencies-node.yml@templates
+  #       parameters:
+  #         versionSpec: ${{ parameters.versionSpec }}
+  #         workingDirectory: ${{ parameters.project_root_dir }}
+  #         customRegistry: ${{ parameters.customRegistry }}
 
   # Install dependencies
   - template: azDevOps/azure/templates/v2/steps/build-install-dependencies-node.yml@templates
@@ -70,76 +70,76 @@ steps:
       versionSpec: ${{ parameters.versionSpec }}
       workingDirectory: ${{ parameters.project_root_dir }}
       customRegistry: ${{ parameters.customRegistry }}
-      cache_cypress: ${{ parameters.cache_cypress }}
 
-  # Linting and formatting validation
-  - ${{ if eq(parameters.lint_formatting, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/test-static-validate-node.yml@templates
-        parameters:
-          versionSpec: ${{ parameters.versionSpec }}
-          workingDirectory: ${{ parameters.project_root_dir }}
-          lintingSharedConfigPackage: ${{ parameters.shared_eslint_config }}
-          customRegistry: ${{ parameters.customRegistry }}
+  # # Linting and formatting validation
+  # - ${{ if eq(parameters.lint_formatting, true) }}:
+  #     - template: azDevOps/azure/templates/v2/steps/test-static-validate-node.yml@templates
+  #       parameters:
+  #         versionSpec: ${{ parameters.versionSpec }}
+  #         workingDirectory: ${{ parameters.project_root_dir }}
+  #         lintingSharedConfigPackage: ${{ parameters.shared_eslint_config }}
+  #         customRegistry: ${{ parameters.customRegistry }}
 
-  # Linting and unit tests
-  - ${{ if eq(parameters.unit_test, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/test-unit-node.yml@templates
-        parameters:
-          versionSpec: ${{ parameters.versionSpec }}
-          workingDirectory: ${{ parameters.project_root_dir }}
+  # # Linting and unit tests
+  # - ${{ if eq(parameters.unit_test, true) }}:
+  #     - template: azDevOps/azure/templates/v2/steps/test-unit-node.yml@templates
+  #       parameters:
+  #         versionSpec: ${{ parameters.versionSpec }}
+  #         workingDirectory: ${{ parameters.project_root_dir }}
 
-  # SonarCloud
-  - ${{ if eq(parameters.static_code_analysis, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/test-static-code-sonar.yml@templates
-        parameters:
-          working_directory: ${{ parameters.project_root_dir }}
-          target_container: ${{ parameters.sonar_container }}
+  # # SonarCloud
+  # - ${{ if eq(parameters.static_code_analysis, true) }}:
+  #     - template: azDevOps/azure/templates/v2/steps/test-static-code-sonar.yml@templates
+  #       parameters:
+  #         working_directory: ${{ parameters.project_root_dir }}
+  #         target_container: ${{ parameters.sonar_container }}
 
-  # Consumer driven contract tests
-  - ${{ if eq(parameters.contract_test, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/test-contract-pact.yml@templates
-        parameters:
-          versionSpec: ${{ parameters.versionSpec }}
-          build_number: ${{ parameters.docker_imagetag }}
-          workingDirectory: ${{ parameters.project_root_dir }}
+  # # Consumer driven contract tests
+  # - ${{ if eq(parameters.contract_test, true) }}:
+  #     - template: azDevOps/azure/templates/v2/steps/test-contract-pact.yml@templates
+  #       parameters:
+  #         versionSpec: ${{ parameters.versionSpec }}
+  #         build_number: ${{ parameters.docker_imagetag }}
+  #         workingDirectory: ${{ parameters.project_root_dir }}
 
-  # Check with Pact broker if safe to proceed with deployment (breaking contract changes)
-  - ${{ if and(eq(parameters.contract_test, true), eq(parameters.contract_check_can_deploy, true)) }}:
-      - template: azDevOps/azure/templates/v2/steps/deploy-contract-pact-can-deploy.yml@templates
-        parameters:
-          workingDirectory: ${{ parameters.project_root_dir }}
-          script: 'npm run test:pact-can-i-deploy-ci'
+  # # Check with Pact broker if safe to proceed with deployment (breaking contract changes)
+  # - ${{ if and(eq(parameters.contract_test, true), eq(parameters.contract_check_can_deploy, true)) }}:
+  #     - template: azDevOps/azure/templates/v2/steps/deploy-contract-pact-can-deploy.yml@templates
+  #       parameters:
+  #         workingDirectory: ${{ parameters.project_root_dir }}
+  #         script: 'npm run test:pact-can-i-deploy-ci'
 
-  # Functional tests running on locally built and hosted (undeployed)
-  - ${{ if eq(parameters.cypress_e2e_test, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/test-functional-cypress.yml@templates
-        parameters:
-          env_vars: ${{ parameters.cypress_e2e_env_vars}}
-          workingDirectory: ${{ parameters.project_root_dir }}
-          target_container: ${{ parameters.cypress_container }}
+  # # Functional tests running on locally built and hosted (undeployed)
+  # - ${{ if eq(parameters.cypress_e2e_test, true) }}:
+  #     - template: azDevOps/azure/templates/v2/steps/test-functional-cypress.yml@templates
+  #       parameters:
+  #         env_vars: ${{ parameters.cypress_e2e_env_vars}}
+  #         workingDirectory: ${{ parameters.project_root_dir }}
+  #         target_container: ${{ parameters.cypress_container }}
 
-  # Visual regression tests running on locally built and hosted (undeployed)
-  - ${{ if eq(parameters.cypress_applitools_test, true) }}:
-      - task: ApplitoolsBuildTask@0
-        displayName: "Tests: Visual Regression with Applitools"
+  # # Visual regression tests running on locally built and hosted (undeployed)
+  # - ${{ if eq(parameters.cypress_applitools_test, true) }}:
+  #     - task: ApplitoolsBuildTask@0
+  #       target: 
+  #       displayName: "Tests: Visual Regression with Applitools"
 
-  # Build Docker Image, Scan and Push to Repository
-  - ${{ if eq(parameters.docker_build, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/build-container-image.yml@templates
-        parameters:
-          workingDirectory: ${{ parameters.docker_workdir }}
-          docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
-          docker_imagename: ${{ parameters.docker_imagename }}
-          docker_imagetag: ${{ parameters.docker_imagetag }}
-          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
+  # # Build Docker Image, Scan and Push to Repository
+  # - ${{ if eq(parameters.docker_build, true) }}:
+  #     - template: azDevOps/azure/templates/v2/steps/build-container-image.yml@templates
+  #       parameters:
+  #         workingDirectory: ${{ parameters.docker_workdir }}
+  #         docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
+  #         docker_imagename: ${{ parameters.docker_imagename }}
+  #         docker_imagetag: ${{ parameters.docker_imagetag }}
+  #         docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
 
-    # Build Docker Image, Scan and Push to Repository
-  - ${{ if eq(parameters.docker_build_generic, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
-        parameters:
-          working_directory: ${{ parameters.docker_workdir }}
-          docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
-          docker_imagename: ${{ parameters.docker_imagename }}
-          docker_imagetag: ${{ parameters.docker_imagetag }}
-          docker_tag_args: ${{ parameters.docker_tag_args }}
-          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
+  #   # Build Docker Image, Scan and Push to Repository
+  # - ${{ if eq(parameters.docker_build_generic, true) }}:
+  #     - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
+  #       parameters:
+  #         working_directory: ${{ parameters.docker_workdir }}
+  #         docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
+  #         docker_imagename: ${{ parameters.docker_imagename }}
+  #         docker_imagetag: ${{ parameters.docker_imagetag }}
+  #         docker_tag_args: ${{ parameters.docker_tag_args }}
+  #         docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
