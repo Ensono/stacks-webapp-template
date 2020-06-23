@@ -11,7 +11,7 @@ Builds opinionate boilerplate project types (CSR, SSR, .NET API, Test Frameworks
 ## Getting Started
 
 We are using npx to execute and create the
-[template-cli](./packages/scaffolding-cli)
+[scaffolding-cli](./packages/scaffolding-cli)
 [npx](https://www.npmjs.com/package/npx).
 
 We are supporting and running [node@12](https://nodejs.org/en/about/releases/).
