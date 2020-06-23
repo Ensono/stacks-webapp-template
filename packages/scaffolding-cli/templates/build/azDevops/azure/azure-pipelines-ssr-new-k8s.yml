@@ -108,7 +108,7 @@ stages:
         # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
-        container: k8s_deploy
+        # container: k8s_deploy
         steps:
           - checkout: self
           - checkout: templates
