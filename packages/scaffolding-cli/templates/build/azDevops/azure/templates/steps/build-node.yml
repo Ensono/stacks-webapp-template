@@ -70,7 +70,7 @@ steps:
       versionSpec: ${{ parameters.versionSpec }}
       workingDirectory: ${{ parameters.project_root_dir }}
       customRegistry: ${{ parameters.customRegistry }}
-      enable_cache: true
+      enable_cache: false
 
   # Linting and formatting validation
   - ${{ if eq(parameters.lint_formatting, true) }}:
