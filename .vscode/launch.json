@@ -137,9 +137,7 @@
         "MENU_API_URL": "http://dev.amidostacks.com/api/menu",
         "PACT_BROKER": "https://amido-stacks.pact.dius.com.au",
         "NEXT_PUBLIC_CONTENTFUL_SPACE_ID": "",
-        "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": "",
-        "NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN": "",
-        "NEXT_PUBLIC_CONTENTFUL_PREVIEW_SECRET": ""
+        "NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN": ""
       },
       "args": [
         // "--project tsconfig.server.json"

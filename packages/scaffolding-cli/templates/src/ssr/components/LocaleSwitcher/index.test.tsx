@@ -1,8 +1,11 @@
-import {render} from "@testing-library/react"
+import {render, act} from "@testing-library/react"
 import React from "react"
 import {LocaleSwitcher} from "."
 
-test("renders ApiPane snapshot", () => {
-    const {asFragment} = render(<LocaleSwitcher />)
-    expect(asFragment()).toMatchSnapshot()
+test("renders LocaleSwitcher snapshot", async () => {
+    let renderedComp
+    await act(async () => {
+        renderedComp = render(<LocaleSwitcher />)
+    })
+    expect(renderedComp.asFragment()).toMatchSnapshot()
 })
