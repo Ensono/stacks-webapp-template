@@ -9,10 +9,6 @@
         "dest": "./aux_scripts"
       },
       {
-        "src": "shared/cms",
-        "dest": "./cms"
-      },
-      {
         "src": "shared/README.md",
         "dest": "./README.md"
       },
