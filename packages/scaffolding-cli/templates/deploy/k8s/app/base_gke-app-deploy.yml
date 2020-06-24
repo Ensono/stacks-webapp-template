@@ -186,20 +186,11 @@ metadata:
     part-of: ${project}
     environment: ${environment}
 spec:
-  # DEfaulting to same service
-  backend:
-    serviceName: ${resource_def_name}
-    servicePort: http
   rules:
   - host: ${dns_pointer}
     http:
       paths:
-        - path: ${k8s_app_path:=""}/*
-          # pathType: Prefix
-          backend:
-            serviceName: ${resource_def_name}
-            servicePort: http
-        - path: ${k8s_app_path:=""}
+        - path: ${k8s_app_path}*
           # pathType: Prefix
           backend:
             serviceName: ${resource_def_name}

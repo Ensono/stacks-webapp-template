@@ -35,7 +35,7 @@ resources:
     - container: sonar_scanner
       image: amidostacks/ci-sonarscanner:0.0.1
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.6
+      image: amidostacks/ci-k8s:0.0.8
     - container: terraform_custom
       image: amidostacks/ci-tf:0.0.3
 
@@ -105,16 +105,13 @@ stages:
       - group: amido-stacks-webapp
     jobs:
       - job: WebAppBuild
-        variables:
-          foo: bar
-        # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
+        container: k8s_deploy
         steps:
           - checkout: self
           - checkout: templates
             persistCredentials: true
-            target: k8s_deploy
           # BUILD NPM
           - template: templates/steps/build-node.yml
             parameters:
@@ -251,7 +248,6 @@ stages:
                 - checkout: self
                 - checkout: templates
                   persistCredentials: true
-                  target: k8s_deploy
                 # Deploy Dev
                 # TODO: change this to steps and feed upstream
                 - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
@@ -270,7 +266,7 @@ stages:
                           namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
                           tls_domain: $(base_domain),
-                          k8s_app_path: '',
+                          k8s_app_path: '/',
                           k8s_image: '$(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag)',
                           version: $(docker_image_tag),
                           role: $(role),
