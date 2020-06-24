@@ -19,9 +19,7 @@ trigger:
     include:
     - 'packages/scaffolding-cli/templates/build/*'
     - 'packages/scaffolding-cli/templates/deploy/gcp/*'
-    exclude:
-      - '**/*Jenkinsfile'
-      
+
 resources:
   repositories:
   - repository: templates
@@ -64,7 +62,7 @@ variables:
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - stage - location - compnonent names above
   # IT IS SET per stage as an output to be consumed by deploy stage
-  gke_cluster_version: "1.15.11-gke.12"
+  gke_cluster_version: "1.16.9-gke.2"
   gcp_region: europe-west2
   gcp_project_name: amido-stacks
   # DEFAULT IMAGE RUNNER

@@ -232,7 +232,7 @@
         "dest": "docs"
       },
       {
-        "src": "src/java_spring/complete",
+        "src": "src/java_spring/java",
         "dest": "src"
       }
     ]

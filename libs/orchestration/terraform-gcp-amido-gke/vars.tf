@@ -93,6 +93,11 @@ variable "enable_vertical_pod_autoscaling" {
   default     = true
 }
 
+variable "service_account_roles" {
+  type = list(string)
+  description = "Additional Service account roles for GKE"
+  default = []
+}
 # ---------------------------------------------------------------------------------------------------------------------
 # TEST PARAMETERS
 # These parameters are only used during testing and should not be touched.

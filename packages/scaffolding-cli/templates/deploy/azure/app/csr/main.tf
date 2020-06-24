@@ -11,7 +11,7 @@ module "default_label" {
 data "azurerm_client_config" "current" {}
 
 module "static_website" {
-  source                   = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-csr?ref=fix/csr-infra"
+  source                   = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-client-side-ui?ref=v1.1.0"
   resource_namer           = module.default_label.id
   subscription_id          = data.azurerm_client_config.current.subscription_id
   resource_group_location  = var.resource_group_location

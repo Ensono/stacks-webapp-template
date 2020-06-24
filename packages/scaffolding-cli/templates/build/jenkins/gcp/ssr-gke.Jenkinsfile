@@ -4,15 +4,15 @@ pipeline {
   agent none
   // parameters {
   // }
+  options {
+    preserveStashes(buildCount: 3)
+  }
   environment {
     company="amido"
     project="stacks"
     domain="node"
     role="frontend"
     // SelfConfig"
-    // If you haven't specified source_repo at cli runtime please ensure you replace it here "
-    // It is case sensitive for TFS based repos"
-    self_repo="stacks-webapp-template/packages/scaffolding-cli/templates"
     self_repo_src="packages/scaffolding-cli/templates/src/ssr"
     self_repo_tf_src="packages/scaffolding-cli/templates/deploy/gcp/app/kube"
     self_repo_k8s_src="packages/scaffolding-cli/templates/deploy/k8s"
@@ -29,36 +29,31 @@ pipeline {
     // avoid running anything past dev that is not on master"
     // sample value="company-webapp"
     tf_state_key="node-app"
-    // Versioning" 
+    // Versioning
     version_major="0"
     version_minor="0"
     version_revision="${BUILD_NUMBER}"
-    // Docker Config"
+    // Docker Config
     docker_dockerfile_path="src/"
     docker_image_name="${self_generic_name}"
     docker_image_tag="${version_major}.${version_minor}.${version_revision}-${GIT_COMMIT}"
     docker_container_registry_name="eu.gcr.io/${gcp_project_id}"
     build_artifact_deploy_name="${self_generic_name}"
-    // AKS/AZURE"
+    // AKS/AZURE
     // This will always be predictably named by setting your company - project - INFRAstage - location - compnonent names in the infra-pipeline"
     gcp_region="europe-west2"
     gcp_project_name="amido-stacks"
     gcp_project_id="amido-stacks"
     gcp_cluster_name="${company}-${project}-nonprod-gke-infra"
-    // Infra "
-    conventional_resource_namer="${company}-${project}-nonprod-uks-${domain}"
+    // Infra
     base_domain="gke.nonprod.amidostacks.com"
-    // Dynamic vars for downstream purposes"
-    // tf_workspace_suffix="$[]"
-    // dns_suffix=""""
-    // Test setup"
     // ADD Vars here"
-    // TestCafe E2E Tests"
     testcafe_e2e_test="false"
     // Lighthouse Audit"
     lighthouse_audit="false"
     static_code_analysis="true"
     cypress_e2e_test="false"
+    // GLOBAL GCP vars
     CLOUDSDK_COMPUTE_REGION="${gcp_region}"
     CLOUDSDK_CONTAINER_CLUSTER="${company}-${project}-nonprod-gke-infra"
     CLOUDSDK_CORE_PROJECT="${gcp_project_id}"
@@ -68,11 +63,11 @@ pipeline {
     stage('CI') {
       agent {
         docker {
-          image 'amidostacks/ci-k8s:0.0.7'
           // add additional args if you need to here
           // e.g.:
           // args '-v /var/run/docker.sock:/var/run/docker.sock -u 1000:999'
-          // Please check with your admin on how 
+          // Please check with your admin on any required steps you need to take to ensure a SUDOers access inside the containers
+          image "amidostacks/ci-k8s:0.0.7"
         }
       }
       stages{
@@ -94,6 +89,7 @@ pipeline {
               sh '''
                 npm run validate
               '''
+              stash includes: "node_modules/", name: "node_modules", allowEmpty: false
             }
           }
         }
@@ -104,27 +100,24 @@ pipeline {
           failFast true
           parallel {
             stage('unit-test') {
-                agent {
-                  docker {
-                    image 'amidostacks/ci-k8s:0.0.7'
+                steps {
+                  dir("${self_repo_src}") {
+                    unstash 'node_modules'
+                    sh '''
+                      npm run test
+                    '''
                   }
                 }
-                steps {
-                  sh '''
-                    cd ${self_repo_src}
-                    npm run test
-                  '''
+                post {
+                  always {
+                    junit '**/jest-junit-test-report.xml'
+                  }
                 }
             }
             stage('cypress-test') {
               when {
-                equals expected: "true", actual: "${cypress_e2e_test}"
+                expression { "${cypress_e2e_test}" == "true" }
               }
-              // agent {
-              //   docker {
-              //     image 'amidostacks/ci-k8s:0.0.7'
-              //   }
-              // }
               environment {
                 PORT="3000"
                 APP_BASE_URL="http://localhost"
@@ -132,16 +125,22 @@ pipeline {
                 APP_BASE_PATH=""
               }
               steps {
-                sh '''
-                  npm run test:cypress
-                '''
+               dir("${self_repo_src}") {
+                  unstash 'node_modules'
+                  sh '''
+                    npm run test:cypress
+                  '''
+                }
               }
             }
             stage('sonar-scanner') {
               when {
-                equals expected: "true", actual: "${static_code_analysis}"
+                expression { 
+                  "${static_code_analysis}" == "true"
+                }
               }
               agent {
+                // We only overwrite defaul CI container runner
                 docker {
                   image 'amidostacks/ci-sonarscanner:0.0.1'
                 }
@@ -157,6 +156,7 @@ pipeline {
                     string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN'),
                     string(credentialsId: 'SONAR_ORGANIZATION', variable: 'SONAR_ORGANIZATION')
                   ]) {
+                    unstash 'node_modules'
                     sh '''
                       sonar-scanner -v
                       sonar-scanner
@@ -168,16 +168,28 @@ pipeline {
           }
         }
         stage('ArtifactUpload') {
+          environment {
+            NODE_ENV="production"
+          }
           steps {
             dir("${self_repo_src}") {
-              withCredentials([file(credentialsId: 'gcp-key', variable: 'GCP_KEY')]) {
+              withCredentials([
+                file(credentialsId: 'gcp-key', variable: 'GCP_KEY'),
+                string(credentialsId: 'next_access_token', variable: 'NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN'),
+                string(credentialsId: 'next_preview_token', variable: 'NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN'),
+                string(credentialsId: 'next_space_id', variable: 'NEXT_PUBLIC_CONTENTFUL_SPACE_ID'),
+              ]) {
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}
                   gcloud container clusters get-credentials ${gcp_cluster_name} --region ${gcp_region} --project ${gcp_project_name}
                   docker-credential-gcr configure-docker
                   gcloud auth configure-docker "eu.gcr.io" --quiet
-                  docker build . -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
-                    -t ${docker_container_registry_name}/${docker_image_name}:latest
+                  docker build --build-arg NEXT_PUBLIC_CONTENTFUL_SPACE_ID=${NEXT_PUBLIC_CONTENTFUL_SPACE_ID} \\
+                  --build-arg NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=${NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN} \\
+                  --build-arg NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN=${NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN} \\
+                  --build-arg APP_BASE_PATH="" \\
+                  -t ${docker_container_registry_name}/${docker_image_name}:${docker_image_tag} \\
+                  -t ${docker_container_registry_name}/${docker_image_name}:latest .
                   docker push ${docker_container_registry_name}/${docker_image_name}
                 '''
               }
@@ -204,11 +216,9 @@ pipeline {
             TF_VAR_name_component="${component}"
             TF_VAR_name_environment="dev"
             TF_VAR_name_stage="dev"
-            TF_VAR_ingress_ip_name="amido-stacks-nonprod-gke-infra-ingress-public"
+            TF_VAR_ingress_ip_name="amido-stacks-nonprod-jnks-gke-infra-ingress-public"
             TF_VAR_dns_record="app-jenkins"
             TF_VAR_dns_zone_name="amido-stacks-nonprod-gke-infra"
-            // GOOGLE_CREDENTIALS=withCredentials([
-            //     file(credentialsId: 'gcp-key', variable: 'GCP_KEY')])
           }
           steps {
             dir("${self_repo_tf_src}") {
@@ -246,12 +256,12 @@ pipeline {
             namespace="dev-stacks-webapp-jenkins"
             dns_pointer="app-jenkins.${base_domain}"
             tls_domain="${base_domain}"
-            k8s_app_path=""
+            k8s_app_path="/"
             k8s_image="${docker_container_registry_name}/${docker_image_name}:${docker_image_tag}"
             version="${docker_image_tag}"
             role="${role}"
             company="${company}"
-            ingress_ip_name="amido-stacks-nonprod-gke-infra-ingress-public"
+            ingress_ip_name="amido-stacks-nonprod-jnks-gke-infra-ingress-public"
             project="${project}"
             domain="${domain}"
             component="web"
@@ -271,7 +281,7 @@ pipeline {
               ]) {
                 sh '''
                   export app_insights_key="${APPLICATION_INSIGHTS}"
-                  envsubst -i ./app/base_gke-app-deploy.yml -o ./app/app-deploy.yml -no-unset -no-empty
+                  envsubst -i ./app/base_gke-app-deploy.yml -o ./app/app-deploy.yml -no-unset
                 '''
                 sh '''
                   gcloud auth activate-service-account --key-file=${GCP_KEY}

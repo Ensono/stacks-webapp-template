@@ -12,7 +12,7 @@ module "default_label" {
 data "google_client_config" "current" {}
 
 module "gke-public" {
-  source         = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-gcp-amido-gke?ref=master"
+  source         = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-gcp-amido-gke?ref=fix/tweaks-libs"
   stage              = var.stage
   name_project       = var.name_project
   name_company       = var.name_company
@@ -26,5 +26,5 @@ module "gke-public" {
   dns_zone           = var.dns_zone
   cluster_version    = var.cluster_version
   enable_legacy_abac = false
+  service_account_roles = var.service_account_roles
 }
-
