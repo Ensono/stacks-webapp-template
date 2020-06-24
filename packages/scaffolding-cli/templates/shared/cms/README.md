@@ -40,8 +40,6 @@ For an example of how this is used in the Server Side Rendered Webapp, see [our 
 
 After you have the import CLI tool installed and have configured your environment, and at the command line:
 
-/Users/estherlloyd/Documents/Github/stacks/stacks-webapp-template/packages/scaffolding-cli/templates/shared/cms
-
 `contentful space import --content-file contentful-export-amidostacks-example.json --mt $CONTENTFUL_MT --space-id $NEXT_PUBLIC_CONTENTFUL_SPACE_ID`
 
 This will then populate your space with the Stacks blog posts, following the model, ensuring that you can get going faster.
