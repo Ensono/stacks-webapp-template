@@ -34,7 +34,9 @@ export default function Post({post}) {
 export async function getStaticProps({params}) {
     const data = await getPost(
         params.all.join("/"),
-        params.all.length > 1 ? params.all[0] : "en-GB",
+        params.all.length > 1
+            ? params.all[0]
+            : process.env.NEXT_PUBLIC_CONTENTFUL_DEFAULT_LOCALE,
     )
     return {
         props: {
