@@ -64,9 +64,9 @@ export const sharedPostQs = (): Array<PromptQuestion> => {
         {
             type: "text",
             name: "businessDomain",
-            message: "Please provide test scope (domain)",
+            message: "Please provide scope (domain)",
             description:
-                "Used for test scope with framework naming conventions.",
+                "Used for scope with framework naming conventions.",
             initial: "menu-api",
         },
         {
