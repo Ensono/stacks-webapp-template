@@ -9,8 +9,7 @@ configuration.
 
 ## Documentation
 
-See [Amido Stacks Webapp](https://amido.github.io/stacks-webapp-template/) for
-docs.
+See [Amido Stacks Webapp](https://amido.github.io/stacks/) for docs.
 
 ## Why?
 
