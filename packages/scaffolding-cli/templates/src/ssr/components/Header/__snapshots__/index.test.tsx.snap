@@ -40,7 +40,7 @@ exports[`renders Header snapshot 1`] = `
       >
         <a
           class="makeStyles-styledLink-2"
-          href="undefined/"
+          href="/"
         >
           Yumido
         </a>
@@ -163,7 +163,7 @@ exports[`renders no button on create page 1`] = `
       >
         <a
           class="makeStyles-styledLink-157"
-          href="undefined/"
+          href="/"
         >
           Yumido
         </a>
