@@ -10,6 +10,8 @@ import helmetGuard from "./middlewares/helmet"
 import httpLogger from "./middlewares/http-logger"
 import cacheableResponse from "cacheable-response"
 import session from "express-session"
+import Redis from "ioredis"
+import connectRedis from "connect-redis"
 import passport from "passport"
 import Auth0Strategy from "passport-auth0"
 import uid from "uid-safe"
@@ -21,6 +23,7 @@ if (!process.env.CI) {
 }
 
 const port = parseInt(process.env.PORT || "3000", 10)
+const isDevelopment = process.env.NODE_ENV !== "production"
 const app = next({dev: process.env.NODE_ENV !== "production", dir: "."})
 const handle = app.getRequestHandler()
 app.renderOpts.poweredByHeader = false
@@ -44,21 +47,39 @@ const ssrCache = cacheableResponse({
 })
 
 // Express session for Auth
+let RedisStore = connectRedis(session)
+let redisClient = null
+
+if (!isDevelopment && conf.REDIS_ENABLED) {
+    redisClient = new Redis({
+        port: conf.REDIS_PORT, // Redis port
+        host: conf.REDIS_HOST, // Redis host
+    })
+}
+
 const sessionConfig = {
+    store:
+        isDevelopment && !conf.REDIS_ENABLED
+            ? null
+            : new RedisStore({
+                  client: redisClient,
+                  logErrors: error => console.warn("session error: ", error),
+              }),
     secret: uid.sync(18),
     cookie: {
         maxAge: 86400 * 1000, // 24 hours in milliseconds
         secure: process.env.NODE_ENV === "production",
     },
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
+    rolling: false,
 }
 
 export default app
     .prepare()
     .then(() => {
         const server = express()
-        if (!process.env.CI) {
+        if (conf.AUTH0_DOMAIN && conf.AUTH0_CLIENT_ID) {
             server.use(session(sessionConfig))
             //Configuring Auth0Strategy
             const auth0Strategy = new Auth0Strategy(
