@@ -11,7 +11,7 @@ This implementation showcases NextJS's Static Generation feature using
 
 ## Configuration
 
-### Step 1. Create an account and a space on Contentful
+Create an account and a space on Contentful
 
 1. First,
    [create an account on Contentful](https://www.contentful.com/sign-up/).
@@ -27,11 +27,57 @@ This implementation showcases NextJS's Static Generation feature using
    **[Content Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/) -
    preview token** field of your API key
 
-### Step 2. Create a content model
+## Using Contentful
+
+### Requirements
+
+- A (free) [Contentful account](https://www.contentful.com/sign-up/)
+- Locally [installed](https://www.contentful.com/developers/docs/tutorials/cli/installation/) contentful-cli
+- [Authenticated](https://www.contentful.com/developers/docs/tutorials/cli/authentication/) with contentful-cli
+
+See [Contentful](https://www.contentful.com/) for more information.
+
+## Set the default local to en-GB
+
+You can change the local in Contentful, note that default in Contentful is en-US:
+
+![Contentful Management Token](https://amidostacksassets.blob.core.windows.net/docs/assets/contentful_locales.png)
+
+## Set up the tokens
+
+Get the tokens from your account, ensuring that you have created a new management access token.
+
+![Contentful Management Token](https://amidostacksassets.blob.core.windows.net/docs/assets/contentful_mt.png)
+
+![Contentful Access Token](https://amidostacksassets.blob.core.windows.net/docs/assets/contentful_access_keys.png)
+
+```bash
+export CONTENTFUL_MT= \
+export NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN= \
+export NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN= \
+export NEXT_PUBLIC_CONTENTFUL_SPACE_ID=
+```
+
+## Importing content with the Contentful CLI
+
+We have provided an example export of the Blog model used with Amido Stacks, supporting:
+
+- locals
+- translations (en-GB, it-IT)
+
+For an example of how this is used in the Server Side Rendered Webapp, see [our deployed server side rendered solution](https://app.nonprod.amidostacks.com/web/stacks/blog)
+
+After you have the import CLI tool installed and have configured your environment, and at the command line:
+
+`contentful space import --content-file contentful-export-amidostacks-example.json --mt $CONTENTFUL_MT --space-id $NEXT_PUBLIC_CONTENTFUL_SPACE_ID`
+
+This will then populate your space with the Stacks blog posts, following the model, ensuring that you can get going faster.
+
+## Content model
 
 The Stacks Yumido example uses the following content model:
 
-#### **Author**
+### **Author**
 
 - `name` - **Short text** field
 - `picture` - **Media** field
@@ -48,7 +94,7 @@ The Stacks Yumido example uses the following content model:
   `title` field.
 - `author` - **Reference** field
 
-![Content model overview](../../../../.github/images/content-model-overview.jpg)
+![Content model overview](https://amidostacksassets.blob.core.windows.net/docs/assets/content-model-overview.jpg)
 
 ### Step 3. Populate content
 
@@ -75,13 +121,22 @@ to supplies the locales needed for translations.
 ### For the purposes of demo
 
 - Two locales have been created in Contentful (_en-GB_ and _it-IT_)
-  ![Locales](../../../../.github/images/locales_contentful.jpg)
+  ![Locales](https://amidostacksassets.blob.core.windows.net/docs/assets/locales_contentful.jpg)
 - Each post and field entry would contain 2 locales _for eg. slugs are prefixed
   with_ _en-GB_ and _it-IT_.
-  ![Field translate](../../../../.github/images/i18n_fields.jpg)
+  ![Field translate](https://amidostacksassets.blob.core.windows.net/docs/assets/i18n_fields.jpg)
 - NextJS static page generator builds dynamic pages and paths using the slug
-  data. ![Build output](../../../../.github/images/build_output.jpg)
+  data. ![Build output](https://amidostacksassets.blob.core.windows.net/docs/assets/build_output.jpg)
 - Added a language switcher in the blog post pages in the header. The switcher
   will update the URL to relative prefixed path for _eg:
   /posts/it-IT/documentation-demo_ refer the image below
-  ![published_blog](../../../../.github/images/published_blog.jpg)
+  ![published_blog](https://amidostacksassets.blob.core.windows.net/docs/assets/published_blog.jpg)
+
+---
+
+## ⚠️ Important 👷‍♀️🚧
+
+> Please note CMS is an optional feature included in the Stacks workspace. To
+> turn off CMS please remove the folder [/cms](../src/ssr/pages/cms) inside
+> ssr/pages before building and make sure the tsconfig does not include these
+> files.
