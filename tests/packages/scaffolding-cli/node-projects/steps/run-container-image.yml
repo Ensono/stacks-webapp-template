@@ -1,0 +1,18 @@
+############################################################################################################
+# desc:
+# params: 
+# return: 
+# pre-reqs: 
+############################################################################################################
+
+parameters:
+  working_directory: ''
+  docker_run_additional_args: ''
+  docker_imagename: ''
+  docker_containerregistryname: ''
+
+steps:
+  - bash: |
+      docker run --rm ${{ parameters.docker_containerregistryname }}/${{ parameters.docker_imagename }} ${{ parameters.docker_run_additional_args }}
+    displayName: Run Container Image
+    workingDirectory: ${{ parameters.working_directory }}

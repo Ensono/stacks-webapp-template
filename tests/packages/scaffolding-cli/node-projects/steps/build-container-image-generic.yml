@@ -1,0 +1,19 @@
+############################################################################################################
+# desc:
+# params:
+# return:
+# pre-reqs:
+############################################################################################################
+
+parameters:
+  working_directory: ''
+  docker_build_additional_args: ''
+  docker_tag_args: ''
+  docker_imagename: ''
+  docker_containerregistryname: ''
+
+steps:
+  - bash: |
+      docker build ${{ parameters.docker_build_additional_args}} ${{ parameters.docker_tag_args }}
+    displayName: Build Container Image
+    workingDirectory: ${{ parameters.working_directory }}
