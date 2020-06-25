@@ -9,8 +9,7 @@ configuration.
 
 ## Documentation
 
-See [Amido Stacks Webapp](https://amido.github.io/stacks-webapp-template/) for
-docs.
+See [Amido Stacks Webapp](https://amido.github.io/stacks/) for docs.
 
 ## Why?
 
@@ -79,7 +78,7 @@ formatting and linting rules.
 For package management, we are using [Lerna](https://lernajs.io) which can be
 installed using [npm](https://www.npmjs.com/package/lerna).
 
-See [template-cli](./packages/scaffolding-cli/README.md) for information.
+See [scaffolding-cli](./packages/scaffolding-cli/README.md) for information.
 
 ## Versioning and Publishing [packages](./docs/packages.md)
 

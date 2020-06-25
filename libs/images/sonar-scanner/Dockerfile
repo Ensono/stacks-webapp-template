@@ -14,7 +14,7 @@ WORKDIR /opt
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y curl grep sed unzip wget&& \
+    apt-get install -y curl grep sed unzip wget && \
     apt-get clean
 
 RUN set -x && \

@@ -72,15 +72,7 @@ variables:
   build_artifact_deploy_name: $(self_generic_name)
   # Networking
   base_domain: nonprod.amidostacks.com
-  # Dynamic vars for downstream purposes
-  # tf_workspace_suffix: $[]
-  # dns_suffix: ""
-  # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
-  # Test setup
-  do_static_code_analysis: false
-  do_unit_test: true
-  do_cypress_e2e_test: false
 
 stages:
   - stage: CI
@@ -106,13 +98,13 @@ stages:
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
               # Sonar settings
-              static_code_analysis: $[ $do_static_code_analysis ]
+              static_code_analysis: true
               #Linting and formatting validation
               shared_eslint_config: "@amidostacks/eslint-config@latest"
               # Should be hardcoded in your sonar-project.properties file
-              unit_test: $[ $do_unit_test ]
+              unit_test: true
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
-              cypress_e2e_test: $[ $do_cypress_e2e_test ]
+              cypress_e2e_test: false
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"

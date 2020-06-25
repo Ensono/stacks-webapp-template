@@ -25,7 +25,7 @@ _TODO: This needs to be refined for those whom are using this solution_
 ## To run locally
 
 ```bash
-npm run dev
+npm run start
 ```
 
 ## To build and run using Docker

@@ -49,9 +49,9 @@ We suggest saving your tests along side the Reacty components, and page composit
 
 This contains shared environmental config for both the webapp and Cypress. We can pull this into `plugins/index.config.js` to append to the global Cypress config.
 
-_⚠️ IMPORTANT: if you have defined an environment varibale, then `dotenv` will not override this with the values in the `.env` file. The environment should always hold the source of truth._
+_⚠️ IMPORTANT: if you have defined an environment variable, then `dotenv` will not override this with the values in the `.env` file. The environment should always hold the source of truth._
 
-An example of your environment varibale configuration for running against a locally hosted server is as follows.
+An example of your environment variable configuration for running against a locally hosted server is as follows.
 
 For Linux/Mac (replacing `export` with `set` for Windows):
 
@@ -63,7 +63,7 @@ export MENU_API_URL=https://dev.amidostacks.com/api/menu \
 export APP_BASE_PATH=""
 ```
 
-Alternately, an example of your environment varibale configuration for running against a deployed webapp instance:
+Alternately, an example of your environment variable configuration for running against a deployed webapp instance:
 
 ```bash
 export NODE_ENV=production \

@@ -28,7 +28,7 @@ npm run test:axe
 
 This will launch [TestCafe](https://devexpress.github.io/testcafe/documentation/getting-started/) and run the tests in the browsers specified in [.testcaferc.json](./.testcaferc.json) in headless mode.
 
-This will validated using axe-core, from the Deque famility of products: [aXe](https://www.deque.com/axe/). When developing, we expect to support WCAG 2.1 Level AA ["wcag21aa"] at a minimum. Additional configuration can be changed by defining the [context and options](https://www.npmjs.com/package/axe-testcafe#axe-options).
+This will validated using axe-core, from the Deque family of products: [aXe](https://www.deque.com/axe/). When developing, we expect to support WCAG 2.1 Level AA ["wcag21aa"] at a minimum. Additional configuration can be changed by defining the [context and options](https://www.npmjs.com/package/axe-testcafe#axe-options).
 
 ## Browser configuration
 
@@ -52,14 +52,14 @@ See [browsers](https://devexpress.github.io/testcafe/documentation/using-testcaf
 
 We can use the [.env](./.env) file to specify defaults instead of exporting locally, or using your IDE.
 
-_⚠️ IMPORTANT: if you have defined an environment varibale, then `dotenv` will not override this with the values in the `.env` file. The environment should always hold the source of truth._
+_⚠️ IMPORTANT: if you have defined an environment variable, then `dotenv` will not override this with the values in the `.env` file. The environment should always hold the source of truth._
 
 - Base URL: `process.env.APP_BASE_URL` (defaults to deployed dev environment `https://app.nonprod.amidostacks.com `)
 - Base URL: `process.env.APP_BASE_PATH` (optional, default to deployed dev environment `/web/stacks`)
 - Base URL API: `process.env.MENU_API_URL` (defaults to deployed dev environment `https://dev.amidostacks.com/api/menu`)
 - NODE_ENV: `process.env.NODE_ENV` (should be `production` for a deployed runnable webapp)
 
-An example of your environment varibale configuration for running against a locally hosted server is as follows.
+An example of your environment variable configuration for running against a locally hosted server is as follows.
 
 For Linux/Mac (replacing `export` with `set` for Windows):
 
@@ -71,7 +71,7 @@ export MENU_API_URL=https://dev.amidostacks.com/api/menu \
 export APP_BASE_PATH=""
 ```
 
-Alternately, an example of your environment varibale configuration for running against a deployed webapp instance:
+Alternately, an example of your environment variable configuration for running against a deployed webapp instance:
 
 ```bash
 export NODE_ENV=production \
@@ -111,7 +111,7 @@ The publishArtifact task ensures the screenshots are captured if an applicable t
 
 [Lambdatest](https://www.lambdatest.com) is a Cross Browser Testing Cloud platform, leveraging the running on 2000+ Real Browsers and Operating Systems Online.
 
-To run using [Lambdatest](https://accounts.lambdatest.com/dashboard), the following environment varibales must be enabled on the platform:
+To run using [Lambdatest](https://accounts.lambdatest.com/dashboard), the following environment variables must be enabled on the platform:
 
 For Linux/Mac (replacing `export` with `set` for Windows):
 

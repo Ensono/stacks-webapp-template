@@ -21,7 +21,7 @@ variable "vnet_cidr" {
 }
 
 module "aks_bootstrap" {
-  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-aks?ref=0.0.2"
+  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-aks?ref=v1.1.0"
   resource_namer          = module.default_label.id
   resource_group_location = var.resource_group_location
   spn_object_id           = data.azurerm_client_config.current.object_id
@@ -52,7 +52,7 @@ module "aks_bootstrap" {
 }
 
 module "ssl_app_gateway" {
-  source                  = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-azurerm-amido-ssl-app-gateway?ref=0.0.2"
+  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-app-gateway?ref=v1.1.0"
   resource_namer            = "${module.default_label.id}"
   resource_group_name       = module.aks_bootstrap.resource_group_name
   resource_group_location   = var.resource_group_location
