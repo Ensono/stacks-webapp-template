@@ -46,8 +46,6 @@ steps:
   - template: steps/run-scaffolding-cli.yml
     parameters:
       # Docker Config
-      build-container-image-generic: true
-      build-run-container-image: true
       docker_build_additional_args: "--build-arg PROJECT_WORKDIR=$() --build-arg CONFIG_FILENAME=$() ."
       docker_run_additional_args: "-t scaffolding-cli"
       docker_workdir: "$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)"

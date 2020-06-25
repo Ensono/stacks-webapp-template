@@ -2,8 +2,8 @@ parameters:
   pool:
     vmImage: "ubuntu-latest"
   # Docker Config
-  build-container-image-generic: false
-  build-run-container-image: false
+  build-container-image: true
+  run-container-image: true
   docker_build_additional_args: ""
   docker_run_additional_args: ""
   docker_workdir: ""
@@ -16,11 +16,11 @@ parameters:
   build_file_path: ""
   build_file_artefact: ""
   # Run scripts against built image
-  run_scripts: false
+  run-scripts: false
 
 steps:
     # Build Docker Image
-  - ${{ if eq(parameters.build-container-image-generic, true) }}:
+  - ${{ if eq(parameters.build-container-image, true) }}:
       - template: ../steps/build-container-image-generic.yml
         parameters:
           working_directory: ${{ parameters.docker_workdir }}
@@ -30,7 +30,7 @@ steps:
           docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
 
   # Run Docker Image
-  - ${{ if eq(parameters.run-container-image-generic, true) }}:
+  - ${{ if eq(parameters.run-container-image, true) }}:
     - template: ../steps/run-container-image.yml
       parameters:
         working_directory: ${{ parameters.docker_workdir }}
@@ -39,7 +39,7 @@ steps:
         docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
 
     # Run scripts
-  - ${{ if eq(parameters.run_scripts, true) }}:
+  - ${{ if eq(parameters.run-scripts, true) }}:
     - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
       parameters:
         working_directory: ${{ parameters.docker_workdir }}
