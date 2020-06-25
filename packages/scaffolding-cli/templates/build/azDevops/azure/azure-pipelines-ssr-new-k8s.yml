@@ -267,7 +267,13 @@ stages:
                           aadpodidentitybinding: stacks-webapp-identity,
                           app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY),
                           next_public_token: $(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN),
-                          next_space_id: $(NEXT_PUBLIC_CONTENTFUL_SPACE_ID)
+                          next_space_id: $(NEXT_PUBLIC_CONTENTFUL_SPACE_ID),
+                          auth_client_secret: $(AUTH0_CLIENT_SECRET),
+                          auth_domain: $(AUTH0_DOMAIN),
+                          auth_client_id: $(AUTH0_CLIENT_ID),
+                          redis_host: $(REDIS_HOST),
+                          redis_port: $(REDIS_PORT),
+                          redis_enabled: $(REDIS_ENABLED)
                         }
                       }
                     ]
