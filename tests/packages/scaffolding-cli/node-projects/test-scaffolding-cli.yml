@@ -43,8 +43,7 @@ steps:
   - checkout: templates
     persistCredentials: true
 
-  # Run tests with TestCafe
-  - template: ../steps/run-scaffolding-cli.yml
+  - template: steps/run-scaffolding-cli.yml
     parameters:
       # Docker Config
       build-container-image-generic: true
