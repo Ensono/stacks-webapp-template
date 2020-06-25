@@ -1,7 +1,6 @@
 import React from "react"
 import {Header} from "."
 import {accessibilityTestHelper} from "../../__tests__/axe/accessibilityHelper.test"
-import {getLanguages} from "../../lib/contentful-api"
 // Mocks useRouter
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
 

@@ -98,7 +98,7 @@ ${ranAdvanced ? advanced : basic}
 
 🤓 To get started: open ${dir}/README.md
 
-📖 For guides and supporting information see: <url>
+📖 For guides and supporting information see: https://amido.github.io/stacks/
 
 💻 Thank you for using the Amido Stacks scaffolding-cli!
          To contribute: https://github.com/amido/stacks
