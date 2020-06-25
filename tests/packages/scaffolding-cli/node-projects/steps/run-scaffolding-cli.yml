@@ -19,31 +19,31 @@ parameters:
   run-scripts: false
 
 steps:
-    # Build Docker Image
-  - ${{ if eq(parameters.build-container-image, true) }}:
-      - template: ../steps/build-container-image-generic.yml
-        parameters:
-          working_directory: ${{ parameters.docker_workdir }}
-          docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
-          docker_imagename: ${{ parameters.docker_imagename }}
-          docker_tag_args: ${{ parameters.docker_tag_args }}
-          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
-
-  # Run Docker Image
-  - ${{ if eq(parameters.run-container-image, true) }}:
-    - template: ../steps/run-container-image.yml
+  # Build Docker Image
+- ${{ if eq(parameters.build-container-image, true) }}:
+    - template: ../steps/build-container-image-generic.yml
       parameters:
         working_directory: ${{ parameters.docker_workdir }}
-        docker_run_additional_args: ${{ parameters.docker_build_additional_args }}
+        docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
         docker_imagename: ${{ parameters.docker_imagename }}
+        docker_tag_args: ${{ parameters.docker_tag_args }}
         docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
 
-    # Run scripts
-  - ${{ if eq(parameters.run-scripts, true) }}:
-    - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
-      parameters:
-        working_directory: ${{ parameters.docker_workdir }}
-        target_container: ${{ parameters.docker_containerregistryname }}/${{ parameters.docker_imagename }}
-        npm_scripts:
-          - 'build'
-          - 'test'
+# Run Docker Image
+- ${{ if eq(parameters.run-container-image, true) }}:
+  - template: ../steps/run-container-image.yml
+    parameters:
+      working_directory: ${{ parameters.docker_workdir }}
+      docker_run_additional_args: ${{ parameters.docker_build_additional_args }}
+      docker_imagename: ${{ parameters.docker_imagename }}
+      docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
+
+  # Run scripts
+- ${{ if eq(parameters.run-scripts, true) }}:
+  - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
+    parameters:
+      working_directory: ${{ parameters.docker_workdir }}
+      target_container: ${{ parameters.docker_containerregistryname }}/${{ parameters.docker_imagename }}
+      npm_scripts:
+        - 'build'
+        - 'test'
