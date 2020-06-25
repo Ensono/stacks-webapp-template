@@ -79,7 +79,7 @@ export default app
     .prepare()
     .then(() => {
         const server = express()
-        if (conf.AUTH0_DOMAIN && conf.AUTH0_CLIENT_ID) {
+        if (conf.AUTH0_CLIENT_SECRET && conf.AUTH0_CLIENT_ID) {
             server.use(session(sessionConfig))
             //Configuring Auth0Strategy
             const auth0Strategy = new Auth0Strategy(
