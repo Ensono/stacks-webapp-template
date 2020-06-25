@@ -1,0 +1,54 @@
+parameters:
+  pool:
+    vmImage: "ubuntu-latest"
+  # Docker Config
+  docker_build_generic: true
+  docker_build_additional_args: ""
+  docker_workdir: ""
+  docker_imagename: ""
+  docker_imagetag: ""
+  docker_containerregistryname: ""
+  docker_tag_args: ""
+  # Build File Output
+  build_file: false
+  build_on_server: false
+  build_file_path: ""
+  build_file_artefact: ""
+  # Run scripts against built image
+  run_scripts: false
+
+steps:
+  # Login to Azure/AKS
+  - template: azDevOps/azure/templates/v2/steps/login-services.yml@templates
+    parameters:
+      # TODO: refactor this so we can keep on using the same step across providers
+      azure_tenant_id: "$(azure_tenant_id)"
+      azure_subscription_id: "$(azure_subscription_id)"
+      azure_client_id: "$(azure_client_id)"
+      azure_client_secret: "$(azure_client_secret)"
+      login_azure: ${{ parameters.login_azure }}
+      login_gcp: ${{ parameters.login_gcp }}
+      login_gke: ${{ parameters.login_gke }}
+      login_gcr: ${{ parameters.login_gcr }}
+      gcp_auth: ${{ parameters.gcp_auth }}
+
+    # Build Docker Image, Scan and Push to Repository
+  - ${{ if eq(parameters.docker_build_generic, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
+        parameters:
+          working_directory: ${{ parameters.docker_workdir }}
+          docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
+          docker_imagename: ${{ parameters.docker_imagename }}
+          docker_imagetag: ${{ parameters.docker_imagetag }}
+          docker_tag_args: ${{ parameters.docker_tag_args }}
+          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
+
+    # Run scripts
+  - ${{ if eq(parameters.run_scripts, true) }}:
+    - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
+      parameters:
+        working_directory: ${{ parameters.docker_workdir }}
+        target_container: ${{ parameters.docker_containerregistryname }}/${{ parameters.docker_imagename }}
+        npm_scripts:
+          - 'build'
+          - 'test'
