@@ -37,7 +37,6 @@ variables:
     docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
     docker_container_registry_name: $(company)$(project)nonproduks$(domain)
 
-
 steps:
   - checkout: self
   - checkout: templates
