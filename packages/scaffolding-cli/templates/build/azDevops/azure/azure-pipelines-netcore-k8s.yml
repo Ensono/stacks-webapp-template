@@ -17,25 +17,26 @@ trigger:
       - '*'
   paths:
     include:
-      - 'packages/scaffolding-cli/templates/*'
+      # REPLACE ME for custom paths if I am part of a bigger component 
+      - 'netcore-api-v2/*'
 
 resources:
   repositories:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: feature/cycle2
+      ref: refs/tags/v1.3.0
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
-      # REPOSITORY IS PUBLIC 
+      # REPOSITORY IS PUBLIC
       endpoint: amidostacks
 
   containers:
     - container: sonar_scanner
-      image: amidostacks/ci-sonarscanner:0.0.1
+      image: amidostacks/ci-sonarscanner:0.0.2
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.6
+      image: amidostacks/ci-k8s:0.0.10
     - container: terraform_custom
-      image: amidostacks/ci-tf:0.0.3
+      image: amidostacks/ci-tf:0.0.4
 
 variables:
   company: amido
@@ -44,9 +45,9 @@ variables:
   role: backend
   #
   # SelfConfig
-  # If you haven't specified source_repo at cli runtime please ensure you replace it here 
+  # If you haven't specified source_repo at cli runtime please ensure you replace it here
   # It is case sensitive for TFS based repos
-  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
+  self_repo: stacks-webapp-template/packages/scaffolding-cli/templates # replaced by cli
   self_repo_src: src/api
   self_repo_tf_src: deploy/azure/app/kube
   self_generic_name: stacks-api
@@ -58,10 +59,10 @@ variables:
   # Furthermore **IT IS VERY IMPORTANT** that you change the name of a workspace for each deployment stage
   # there are some best practices around this if you are going for feature based environments
   # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
-  # **`terraform_state_workspace: `** 
+  # **`terraform_state_workspace: `**
   # avoid running anything past dev that is not on master
   # sample value: company-webapp
-  tf_state_key: stacks-api
+  tf_state_key: %REPLACE_ME_FOR_UNIQUE_TF_STATE_KEY%
   # Versioning
   version_major: 0
   version_minor: 0
@@ -70,17 +71,8 @@ variables:
   docker_dockerfile_path: "src/api"
   docker_image_name: $(self_generic_name)
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
-  docker_container_registry_name: $(company)$(project)nonproduks$(domain)
+  docker_container_registry_name: %REPLACE_ME_FOR_DOCKER_REGISTRY_NAME%
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
-  # BUILD ARTIFACTS across stages
-  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
-  build_artifact_deploy_name: $(self_generic_name)
-  # AKS/AZURE
-  # This will always be predictably named by setting your company - project - compnonent names in the infra-pipeline
-  aks_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
-  aks_clustername: $(company)-$(project)-nonprod-uks-$(domain)
-  # Infra 
-  conventional_resource_namer: $(company)-$(project)-nonprod-uks-$(domain)
   base_domain: nonprod.amidostacks.com
   base_domain_internal: nonprod.amidostacks.internal
   # Dynamic vars for downstream purposes
@@ -89,18 +81,14 @@ variables:
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
-  # ADD Vars here
-  # TestCafe E2E Tests
-  testcafe_e2e_test: true
-  # Lighthouse Audit
-  lighthouse_audit: true
+  code_coverage_cobertura_directory: coverage
 
 stages:
   - stage: CI
     variables:
       # You can find notes in the READMEs around which values to use for each ENV variable group
-      - group: amido-stacks-infra-credentials-nonprod
-      - group: amido-stacks-webapp
+      - group: amido-stacks-demo-infra
+      - group: amido-stacks-demo-api
     jobs:
       - job: ApiBuild
         variables:
@@ -112,12 +100,11 @@ stages:
           - checkout: self
           - checkout: templates
             persistCredentials: true
-            target: k8s_deploy
           # BUILD NPM
           - template: templates/steps/build-netcore.yml
             parameters:
+              dotnet_core_version: "3.1.x"
               # Docker Config
-              build_on_server: false
               docker_build: true
               # TODO: normalize this
               docker_build_additional_args: "."
@@ -129,34 +116,49 @@ stages:
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
               # Sonar settings
-              static_code_analysis: false
+              static_code_analysis: true
               sonar_container: sonar_scanner
-              #Linting and formatting validation
-              lint_formatting: false
-              shared_eslint_config: "@amidostacks/eslint-config@latest"
+              sonar_run_properties: "/d:sonar.cs.opencover.reportsPaths=\"**/*.opencover.xml\" /d:sonar.exclusions=\"**/*Tests\" /d:sonar.coverage.exclusions=\"**/*Tests\""
+              sonar_env: {
+                SONAR_HOST_URL: "https://sonarcloud.io",
+                SONAR_TOKEN: $SONAR_TOKEN,
+                SONAR_PROJECT_KEY: $SONAR_PROJECT_KEY,
+                SONAR_ORGANIZATION: $SONAR_ORGANIZATION,
+                SONAR_PROJECT_NAME: $SONAR_PROJECT_NAME,
+                BUILD_VERSION: $(docker_image_tag),
+                SONAR_SCANNER_OPTS: ""
+              }
               # Should be hardcoded in your sonar-project.properties file
-              unit_test: false
-              project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
-              unit_test_project: "$(Test.UnitTestProjectPath)"
-              # Build Output File
-              # files to be persisted across stages
-              build_file: true
-              build_file_path: $(build_artifact_deploy_path)
-              build_file_artefact: $(build_artifact_deploy_name)
-              # Git Tag release
-              git_do_tag_release: false
-              git_release_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
+              unit_test: true
+              unit_test_project: "*UnitTests"
+              component_test: true
+              component_test_project: "*ComponentTests"
+              # Enable once you have set up a dev or dedicated test db
+              integration_test: true
+              integration_test_project: "*IntegrationTests"
+              integration_test_env: {
+                COSMOSDB_KEY: $(COSMOSDB_KEY_DEV),
+                CosmosDB__DatabaseName: $(COSMOSDB_NAME_DEV),
+                CosmosDB__DatabaseAccountUri: $(COSMOSDB__ACCOUNT_URI_DEV)
+              }
+              contract_test: true
+              contract_test_project: "*ContractTests"
+              contract_test_env: {
+                BUILD_NUMBER: $(docker_image_tag),
+                PACT_BEARER_TOKEN: $(PACT_BEARER_TOKEN),
+                BROKER_URL: $(PACT_BROKER)
+              }
+              test_arguments: "-v q /p:CollectCoverage=true /p:CoverletOutputFormat=opencover"
+              project_root_dir: $(Pipeline.Workspace)/s/$(self_repo)/$(self_repo_src)
           # you can define additional steps here
       # you can define additional jobs here
 
   - stage: dev
     variables:
-      - group: amido-stacks-infra-credentials-nonprod
+      - group: amido-stacks-demo-infra
       - group: amido-stacks-demo-api
     jobs:
-      - job: ApiInfraDev
-        variables:
-          foo: bar 
+      - job: AppInfraDev
         pool:
           vmImage: ubuntu-18.04
         container: terraform_custom
@@ -169,16 +171,13 @@ stages:
               ARM_CLIENT_ID: $(azure_client_id)
               ARM_CLIENT_SECRET: $(azure_client_secret)
               ARM_TENANT_ID: $(azure_tenant_id)
-            # target: terraform_custom
-            target:
-              container: terraform_custom
           # Create TF infra
           - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
-            parameters: 
+            parameters:
               # Terraform Basic Config
               terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
               # changing this would require changing the downstream consumers of these outputs
-              # 
+              #
               terraform_output_artefact: 'tfoutputs'
               # Terraform State Config
               terraform_backend_client_id: $(azure_client_id)
@@ -203,24 +202,29 @@ stages:
               # Terraform Resource Specific Config
               terraform_extra_properties: {
                 TF_VAR_resource_group_location: uksouth,
-                TF_VAR_resource_group_name: $(conventional_resource_namer),
+                TF_VAR_resource_group_name: amido-stacks-nonprod-demo,
                 TF_VAR_name_company: $(company),
                 TF_VAR_name_project: $(project),
                 TF_VAR_name_component: $(component),
                 TF_VAR_create_cosmosdb: true,
                 TF_VAR_name_environment: dev,
-                TF_VAR_app_gateway_frontend_ip_name: $(conventional_resource_namer),
-                TF_VAR_dns_record: api,
+                TF_VAR_app_gateway_frontend_ip_name: amido-stacks-nonprod-demo,
+                TF_VAR_dns_record: %REPLACE_ME_FOR_DNS_RECORD%,
                 TF_VAR_dns_zone_name: $(base_domain),
                 TF_VAR_internal_dns_zone_name: $(base_domain_internal)
               }
-              terraform_output_commands: ""
+              terraform_output_commands: |
+                raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k);isOutput=true]\(.[$k] | .value)"')
+                readarray -t outputs <<<"$raw_tf"
+                for i in "${outputs[@]}"; do echo "$i"; done
 
       - deployment: DeployDev
         dependsOn: AppInfraDev
         container: k8s_deploy
         variables:
-          GLOBAL_VAR: FOO
+          cosmosdb_database_name: $[ dependencies.AppInfraDev.outputs['tfoutputs.cosmosdb_database_name'] ]
+          cosmosdb_endpoint: $[ dependencies.AppInfraDev.outputs['tfoutputs.cosmosdb_endpoint'] ]
+          cosmosdb_primary_master_key: $[ dependencies.AppInfraDev.outputs['tfoutputs.cosmosdb_primary_master_key'] ]
         pool:
           vmImage: ubuntu-18.04
         environment: dev
@@ -231,7 +235,6 @@ stages:
                 - checkout: self
                 - checkout: templates
                   persistCredentials: true
-                  target: k8s_deploy
                 # Deploy Dev
                 # TODO: change this to steps and feed upstream
                 - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
@@ -239,54 +242,54 @@ stages:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
 
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
-                  parameters: 
+                  parameters:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+                    shared_env_vars: {
+                      namespace: $REPLACE_ME_FOR_NAMESPACE%,
+                      role: $(role),
+                      company: $(company),
+                      project: $(project),
+                      domain: $(domain),
+                      component: api,
+                      app_name: yumido-api-v2,
+                      resource_def_name: %xx-replace-me%,
+                      version: $(docker_image_tag),
+                      environment: dev
+                    }
+                    # debug: "yes" # uncomment for debug and if you want to see the templated out file in the STDOUT of pipeline
                     template_input: [
                       {
                         base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_api-deploy.yml,
                         displayName: AppDeployment,
                         env_vars: {
-                          namespace: dev-stacks-api,
-                          dns_pointer: api.$(base_domain),
+                          dns_pointer: %REPLACE_ME_FOR_DNS_RECORD%.$(base_domain),
                           tls_domain: $(base_domain),
                           k8s_app_path: /api/menu,
+                          log_level: "Debug",
                           k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
-                          version: $(docker_image_tag),
-                          role: $(role),
-                          company: $(company),
-                          project: $(project),
-                          domain: $(domain),
-                          component: api,
-                          app_name: yumido-api,
-                          resource_def_name: xx-replace-me,
-                          environment: dev,
                           aadpodidentitybinding: stacks-webapp-identity,
-                          APPINSIGHTS_INSTRUMENTATIONKEY: $(APPINSIGHTS_INSTRUMENTATIONKEY),
-                          cosmosdb_key: $(COSMOSDB_KEY_DEV)
-                        }
+                          app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY),
+                          cosmosdb_key: $(cosmosdb_primary_master_key),
+                          cosmosdb_endpoint: $(cosmosdb_endpoint),
+                          cosmosdb_name: $(cosmosdb_database_name)
+                        },
+                        args: "-no-empty", # -no-unset is present by default
                       }
                     ]
 
                 - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kubectl.yml@templates
                   parameters:
-                    environment: "dev"
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
-                    download_deploy_artefact: true
-                    deploy_artifact_name: $(build_artifact_deploy_name)
                     test_artefact: "tests"
                     test_baseurl: ""
                     functional_test: false
                     performance_test: false
                     smoke_test: false
                     # Kubernetes Config
-                    kubernetes_clusterrg: $(aks_clusterrg)
-                    kubernetes_clustername: $(aks_clustername)
+                    kubernetes_clusterrg: amido-stacks-nonprod-demo
+                    kubernetes_clustername: amido-stacks-nonprod-demo
                     # Mutation Information
-                    kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/api-deploy.yml
-                    kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app # unnecessary
-                    appinsights_enabled: false
-                    appinsights_accountName: ""
-                    secureFile: ""
+                    kubectl_filepath:
+                      - $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/api-deploy.yml
                     # ReleaseNote Information
                     releasenote: false
-

@@ -1,12 +1,9 @@
 parameters:
   pool:
     vmImage: "ubuntu-latest"
-  versionSpec: 12.x
   project_root_dir: ""
-  dependsOn: "GetPackage"
-  download_devops: true
+  dotnet_core_version: "3.1.x"
   # Custom registry (eg. private)
-  customRegistry: ""
   # Docker Config
   docker_build: true
   docker_build_additional_args: ""
@@ -20,25 +17,16 @@ parameters:
   #  Static Code Analysis
   static_code_analysis: false
   sonar_container: ""
-  # Linting and formatting validation
-  lint_formatting: ""
-  shared_eslint_config: ""
+  sonar_env: {}
+  sonar_run_properties: ""
   # Testing
   unit_test: true
-  contract_test: true
-  audit_test: false
-  contract_check_can_deploy: true
-  cypress_e2e_test: true
-  cypress_applitools_test: false
-  cypress_e2e_env_vars: {}
-  # Build File Output
-  build_file: false
-  build_on_server: false
-  build_file_path: ""
-  build_file_artefact: ""
-  # build output defaults
-  git_do_tag_release: false
-  git_release_tag: ""
+  component_test: false
+  integration_test: false
+  integration_test_env: {}
+  contract_test: false
+  contract_test_env: {}
+  test_arguments: ""
 
 steps:
   # Login to Azure/AKS
@@ -49,6 +37,108 @@ steps:
       azure_client_id: "$(azure_client_id)"
       azure_client_secret: "$(azure_client_secret)"
       login_azure: true
+
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core SDK ${{ parameters.dotnet_core_version }}'
+    inputs:
+      packageType: sdk
+      version: ${{ parameters.dotnet_core_version }}
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  - script: dotnet --list-sdks
+    displayName: 'Check dotnet sdks installed'
+
+  # SonarCloud Start
+  - ${{ if eq(parameters.static_code_analysis, true) }}:
+      # Set Sonar extra properties based on parameter input
+      - bash: |
+          dotnet sonarscanner begin /k:$SONAR_PROJECT_NAME /v:$BUILD_VERSION /d:sonar.host.url=$SONAR_HOST_URL /o:$SONAR_ORGANIZATION /d:sonar.login=$SONAR_TOKEN ${{ parameters.sonar_run_properties }}
+        displayName: 'Run Sonar prep'
+        workingDirectory: ${{ parameters.project_root_dir }}
+        target: ${{ parameters.sonar_container }}
+        env:
+          ${{ each var in parameters.sonar_env }}:
+            ${{ var.key }}: ${{ var.value }}
+
+      # SonarCloud wants a build to analyse
+      - task: DotNetCoreCLI@2
+        displayName: 'Build for SonarCloud analysis'
+        inputs:
+          command: 'build'
+          workingDirectory: ${{ parameters.project_root_dir }}
+        target: ${{ parameters.sonar_container }}
+
+  # Unit Test
+  - ${{ if eq(parameters.unit_test, true) }}:
+      - bash: |
+          for i in $(find . -maxdepth 3 -name "${{ parameters.unit_test_project }}" -type d -exec echo "{}" \;); do
+              dotnet test $i ${{ parameters.test_arguments}}
+          done
+        displayName: 'Test: Unit tests'
+        workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Component Test
+  - ${{ if eq(parameters.component_test, true) }}:
+      - bash: |
+          for i in $(find . -maxdepth 3 -name "${{ parameters.component_test_project }} " -type d -exec echo "{}" \;); do
+            dotnet test $i ${{ parameters.test_arguments}}
+          done
+        displayName: 'Test: Component tests'
+        workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Integration Test
+  - ${{ if eq(parameters.integration_test, true) }}:
+      - bash: |
+          for i in $(find . -maxdepth 3 -name "${{ parameters.integration_test_project }}" -type d -exec echo "{}" \;); do
+            dotnet test $i ${{ parameters.test_arguments}}
+          done
+        displayName: 'Test: Integration tests'
+        workingDirectory: ${{ parameters.project_root_dir }}
+        env:
+          ${{ each var in parameters.integration_test_env }}:
+            ${{ var.key }}: ${{ var.value }}
+
+
+  # Contract tests
+  - ${{ if eq(parameters.contract_test, true) }}:
+      - bash: |
+          for i in $(find . -maxdepth 3 -name "${{ parameters.contract_test_project }}" -type d -exec echo "{}" \;); do
+            dotnet test $i ${{ parameters.test_arguments}}
+          done
+        displayName: 'Test: Provider Contracts'
+        workingDirectory: ${{ parameters.project_root_dir }}
+        env:
+          ${{ each var in parameters.contract_test_env }}:
+            ${{ var.key }}: ${{ var.value }}
+
+  # Convert code coverage reports into Cobertura for Azure DevOps
+  - bash: |
+      dotnet tool install dotnet-reportgenerator-globaltool --tool-path .
+      files=$(find . -name "*.opencover.xml" -maxdepth 3 -type f -exec echo -n "{};" \;)
+      ./reportgenerator -reports:$files -targetdir:coverage -reporttypes:Cobertura
+    workingDirectory: ${{ parameters.project_root_dir }}
+    displayName: 'Convert opencover coverage to Cobertura for Azure DevOps'
+
+  # Publish Cobertura coverage to Azure DevOps
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      summaryFileLocation: ${{ parameters.project_root_dir }}/coverage/Cobertura.xml
+      codecoverageTool: cobertura
+      pathToSources: ${{ parameters.project_root_dir }}
+
+  # SonarCloud Results
+  - ${{ if eq(parameters.static_code_analysis, true) }}:
+      - bash: |
+          files=$(find . -maxdepth 3 -name "*.opencover.xml" -type f -exec echo "{}" \;)
+          readarray -t outputs <<<"$files"
+          for i in "${outputs[@]}"; do sed -i "s%/home/vsts/work/1/s%$(build.sourcesdirectory)%g" $i && cat $i; done
+          dotnet sonarscanner end /d:sonar.login=$SONAR_TOKEN
+        displayName: 'SonarCloud: Publish'
+        target: ${{ parameters.sonar_container }}
+        workingDirectory: ${{ parameters.project_root_dir }}
+        env:
+          ${{ each var in parameters.sonar_env }}:
+            ${{ var.key }}: ${{ var.value }}
 
   # Build Docker Image, Scan and Push to Repository
   - ${{ if eq(parameters.docker_build, true) }}:
@@ -67,10 +157,3 @@ steps:
         inputs:
           path: "${{ parameters.functional_test_path }}"
           artifact: "${{ parameters.functional_test_artefact }}"
-
-  - ${{ if eq(parameters.build_file, true) }}:
-      - task: PublishPipelineArtifact@1
-        displayName: "Publish: Build Artefacts"
-        inputs:
-          path: "${{ parameters.build_file_path }}"
-          artifact: "${{ parameters.build_file_artefact }}"
