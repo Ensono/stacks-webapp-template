@@ -1,5 +1,4 @@
 import {ThemeProvider as MuiThemeProvider} from "@material-ui/core/styles"
-import {ApplicationInsights} from "@microsoft/applicationinsights-web"
 import React from "react"
 import {Helmet} from "react-helmet"
 import {Provider} from "react-redux"
