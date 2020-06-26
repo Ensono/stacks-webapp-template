@@ -19,6 +19,7 @@ const store = configureStore(initialState)
 const App: React.FC = () => {
     return (
         <>
+            <main>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Amido Stacks CSR</title>
@@ -32,6 +33,7 @@ const App: React.FC = () => {
                     <ApiPane />
                 </MuiThemeProvider>
             </Provider>
+            </main>
         </>
     )
 }

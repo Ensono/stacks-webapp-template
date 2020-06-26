@@ -21,7 +21,7 @@ function* handleFetch(action: MetaActionWithAPI): Generator {
             console.error(err)
             yield put(fetchMenusError(err.message))
         } else {
-            yield put(fetchMenusError("An unknown error occured."))
+            yield put(fetchMenusError("An unknown error occurred."))
         }
     }
 }

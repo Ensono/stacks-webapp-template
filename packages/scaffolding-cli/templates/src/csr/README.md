@@ -74,7 +74,7 @@ We need to ensure that Cypress knows the following at a minimum:
 - path (e.g. /images)
 
 All variables should be pulled in using the same method the app does. In this
-case, this is all dont in `cypress/plugins/index.config.js`
+case, this is all don't in `cypress/plugins/index.config.js`
 
 ## Scripts
 
