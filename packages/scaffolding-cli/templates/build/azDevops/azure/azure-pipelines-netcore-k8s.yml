@@ -75,9 +75,6 @@ variables:
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   base_domain: nonprod.amidostacks.com
   base_domain_internal: nonprod.amidostacks.internal
-  # Dynamic vars for downstream purposes
-  # tf_workspace_suffix: $[]
-  # dns_suffix: ""
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -90,10 +87,7 @@ stages:
       - group: amido-stacks-demo-infra
       - group: amido-stacks-demo-api
     jobs:
-      - job: ApiBuild
-        variables:
-          foo: bar
-        # pool: amido-stacks-local
+      - job: AppBuild
         pool:
           vmImage: ubuntu-18.04
         steps:

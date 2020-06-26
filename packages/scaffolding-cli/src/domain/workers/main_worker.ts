@@ -77,7 +77,10 @@ export class MainWorker {
             const buildInput: Array<BuildReplaceInput> = netcore.inFiles({
                 projectName: instructions.projectName,
                 businessObj: instructions.business,
-                cloudObj: instructions.cloud
+                cloudObj: instructions.cloud,                
+                terraformObj: instructions.terraform,
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
