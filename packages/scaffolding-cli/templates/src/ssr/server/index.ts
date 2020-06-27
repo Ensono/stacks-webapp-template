@@ -23,7 +23,7 @@ if (!process.env.CI) {
 }
 
 const port = parseInt(process.env.PORT || "3000", 10)
-const isDevelopment = process.env.NODE_ENV !== "production"
+const isRedisEnabled = conf.REDIS_ENABLED && !process.env.CI
 const app = next({dev: process.env.NODE_ENV !== "production", dir: "."})
 const handle = app.getRequestHandler()
 app.renderOpts.poweredByHeader = false
@@ -50,7 +50,7 @@ const ssrCache = cacheableResponse({
 let RedisStore = connectRedis(session)
 let redisClient = null
 
-if (!isDevelopment && conf.REDIS_ENABLED) {
+if (isRedisEnabled) {
     redisClient = new Redis({
         port: conf.REDIS_PORT, // Redis port
         host: conf.REDIS_HOST, // Redis host
@@ -58,13 +58,12 @@ if (!isDevelopment && conf.REDIS_ENABLED) {
 }
 
 const sessionConfig = {
-    store:
-        isDevelopment && !conf.REDIS_ENABLED
-            ? null
-            : new RedisStore({
-                  client: redisClient,
-                  logErrors: error => console.warn("session error: ", error),
-              }),
+    store: !isRedisEnabled
+        ? null
+        : new RedisStore({
+              client: redisClient,
+              logErrors: error => console.warn("session error: ", error),
+          }),
     secret: uid.sync(18),
     cookie: {
         maxAge: 86400 * 1000, // 24 hours in milliseconds
