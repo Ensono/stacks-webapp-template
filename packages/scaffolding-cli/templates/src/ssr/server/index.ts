@@ -22,7 +22,8 @@ if (!process.env.CI) {
 }
 
 const port = parseInt(process.env.PORT || "3000", 10)
-const authenticationEnabled = conf.AUTH0_CLIENT_SECRET && conf.AUTH0_CLIENT_ID
+const authenticationEnabled =
+    !!conf.AUTH0_CLIENT_SECRET && !!conf.AUTH0_CLIENT_ID
 const isRedisEnabled =
     conf.REDIS_ENABLED && !process.env.CI && authenticationEnabled
 const app = next({dev: process.env.NODE_ENV !== "production", dir: "."})

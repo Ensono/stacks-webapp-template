@@ -71,53 +71,6 @@ exports[`renders Header snapshot 1`] = `
           class="MuiTouchRipple-root"
         />
       </button>
-      <button
-        aria-label="profile button"
-        class="MuiButtonBase-root MuiButton-root MuiButton-text"
-        data-testid="profile_image_button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label"
-        >
-          <div>
-            <div
-              class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root MuiAvatar-fallback"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                />
-              </svg>
-            </div>
-          </div>
-        </span>
-        <span
-          class="MuiTouchRipple-root"
-        />
-      </button>
-      <button
-        aria-label="Logout button"
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-authButton-1 MuiButton-containedPrimary"
-        data-testid="auth_logout_button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label"
-        >
-          logout
-        </span>
-        <span
-          class="MuiTouchRipple-root"
-        />
-      </button>
     </div>
   </header>
 </DocumentFragment>
@@ -162,59 +115,12 @@ exports[`renders no button on create page 1`] = `
         style="margin: 0px auto;"
       >
         <a
-          class="makeStyles-styledLink-157"
+          class="makeStyles-styledLink-121"
           href="/"
         >
           Yumido
         </a>
       </h2>
-      <button
-        aria-label="profile button"
-        class="MuiButtonBase-root MuiButton-root MuiButton-text"
-        data-testid="profile_image_button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label"
-        >
-          <div>
-            <div
-              class="MuiAvatar-root MuiAvatar-circle MuiAvatar-colorDefault"
-            >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root MuiAvatar-fallback"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-                />
-              </svg>
-            </div>
-          </div>
-        </span>
-        <span
-          class="MuiTouchRipple-root"
-        />
-      </button>
-      <button
-        aria-label="Logout button"
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-authButton-156 MuiButton-containedPrimary"
-        data-testid="auth_logout_button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="MuiButton-label"
-        >
-          logout
-        </span>
-        <span
-          class="MuiTouchRipple-root"
-        />
-      </button>
     </div>
   </header>
 </DocumentFragment>

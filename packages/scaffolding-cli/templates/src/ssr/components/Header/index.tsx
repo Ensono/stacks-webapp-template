@@ -14,6 +14,7 @@ import {UserType} from "interfaces/auth.interface"
 import {useRouter} from "next/router"
 import React from "react"
 import {useUser} from "../../lib/hooks"
+import conf from "../../environment-configuration"
 
 const useStyles = makeStyles(theme => ({
     authButton: {
@@ -26,7 +27,8 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const title: string = `Yumido`
-
+const authenticationEnabled =
+    !!conf.AUTH0_CLIENT_SECRET && !!conf.AUTH0_CLIENT_ID
 export const Header = props => {
     const user: UserType = useUser()
     const classes = useStyles()
@@ -64,43 +66,47 @@ export const Header = props => {
                     </Link>
                 )}
                 <LocaleSwitcher />
-                {!user ? (
-                    <Link href="/login">
-                        <Button
-                            data-testid="auth_login_button"
-                            variant="contained"
-                            color="primary"
-                            aria-label="Login button"
-                            className={classes.authButton}
-                        >
-                            Login
-                        </Button>
-                    </Link>
-                ) : (
+                {!!authenticationEnabled && (
                     <>
-                        <Link href="/profile">
-                            <Button
-                                aria-label="profile button"
-                                data-testid="profile_image_button"
-                            >
-                                <ProfilePicture
-                                    name={user.displayName}
-                                    picture={{url: user.picture}}
-                                    displayName={false}
-                                />
-                            </Button>
-                        </Link>
-                        <Link href="/logout">
-                            <Button
-                                data-testid="auth_logout_button"
-                                variant="contained"
-                                color="primary"
-                                aria-label="Logout button"
-                                className={classes.authButton}
-                            >
-                                logout
-                            </Button>
-                        </Link>
+                        {!user ? (
+                            <Link href="/login">
+                                <Button
+                                    data-testid="auth_login_button"
+                                    variant="contained"
+                                    color="primary"
+                                    aria-label="Login button"
+                                    className={classes.authButton}
+                                >
+                                    Login
+                                </Button>
+                            </Link>
+                        ) : (
+                            <>
+                                <Link href="/profile">
+                                    <Button
+                                        aria-label="profile button"
+                                        data-testid="profile_image_button"
+                                    >
+                                        <ProfilePicture
+                                            name={user.displayName}
+                                            picture={{url: user.picture}}
+                                            displayName={false}
+                                        />
+                                    </Button>
+                                </Link>
+                                <Link href="/logout">
+                                    <Button
+                                        data-testid="auth_logout_button"
+                                        variant="contained"
+                                        color="primary"
+                                        aria-label="Logout button"
+                                        className={classes.authButton}
+                                    >
+                                        logout
+                                    </Button>
+                                </Link>
+                            </>
+                        )}
                     </>
                 )}
             </Toolbar>
