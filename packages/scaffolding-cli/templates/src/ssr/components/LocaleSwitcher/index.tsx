@@ -11,6 +11,9 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
+const BLOG_PATH_STRING = "/blog/posts"
+const LOCALE_STRING_LOCATION = 3
+
 export const LocaleSwitcher: React.FC = () => {
     const classes = useStyles()
     const router = useRouter()
@@ -22,19 +25,20 @@ export const LocaleSwitcher: React.FC = () => {
     const [containsLocale, setContainsLocale] = React.useState(false)
 
     useEffect(() => {
-        setLang(router?.asPath?.split("/")[2])
+        setLang(router?.asPath?.split("/")[LOCALE_STRING_LOCATION])
 
         const fetchData = async () => {
             const locales = await getLanguages()
             setAllLang(locales.items)
             const justLangCodes = await locales.items.map(lang => lang.code)
-
             setContainsLocale(
                 justLangCodes.length &&
-                    justLangCodes.indexOf(router.asPath.split("/")[2]) > -1,
+                    justLangCodes.indexOf(
+                        router.asPath.split("/")[LOCALE_STRING_LOCATION],
+                    ) > -1,
             )
         }
-        if (router?.route?.startsWith("/posts")) fetchData()
+        if (router?.route?.startsWith(BLOG_PATH_STRING)) fetchData()
     }, [])
 
     const handleChange = event => {
@@ -49,7 +53,7 @@ export const LocaleSwitcher: React.FC = () => {
 
     return (
         <>
-            {router?.route?.startsWith("/posts") &&
+            {router?.route?.startsWith(BLOG_PATH_STRING) &&
                 allLang?.length &&
                 !!containsLocale && (
                     <TextField

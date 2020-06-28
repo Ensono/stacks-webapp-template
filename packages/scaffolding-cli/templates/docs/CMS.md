@@ -121,9 +121,18 @@ NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=<ACCESS_TOKEN> \
 NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN=<PREVIEW_TOKEN> \
 ```
 
+## ⚠️ Important 👷‍♀️🚧
+
+> Locale switcher strictly relies on the route. For example the route has to
+> always start with `/blog/posts` and should following slug should always start
+> with locale string (if multiple locales are enabled) e.g.
+> `blog/posts/it-IT/documentation-demo`.
+
 ### References
 
 ### [https://next-blog-contentful.now.sh/](https://next-blog-contentful.now.sh/)
+
+---
 
 ## Localization and Internationalization
 
