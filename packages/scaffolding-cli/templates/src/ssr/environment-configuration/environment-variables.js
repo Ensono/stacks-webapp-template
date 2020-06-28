@@ -15,7 +15,7 @@ module.exports = {
     AUTH0_CALLBACK_URL: `${process.env.APP_BASE_URL}:${process.env.PORT}/callback`,
 
     REDIS_HOST: process.env.REDIS_HOST || "127.0.0.1",
-    REDIS_PORT: process.env.REDIS_PORT || 6379,
+    REDIS_PORT: process.env.REDIS_PORT || "6379",
     REDIS_ENABLED: process.env.REDIS_ENABLED || false,
 
     NEXT_PUBLIC_CONTENTFUL_SPACE_ID:
