@@ -62,6 +62,8 @@ REDIS_PORT=<REDIS_PORT> \
 REDIS_ENABLED=true \
 ```
 
+> Please note Redis is disabled for running in CI
+
 </details>
 
 ## Reference

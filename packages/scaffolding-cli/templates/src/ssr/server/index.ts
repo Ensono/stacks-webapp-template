@@ -10,12 +10,11 @@ import helmetGuard from "./middlewares/helmet"
 import httpLogger from "./middlewares/http-logger"
 import cacheableResponse from "cacheable-response"
 import session from "express-session"
-import Redis from "ioredis"
-import connectRedis from "connect-redis"
+
 import passport from "passport"
 import Auth0Strategy from "passport-auth0"
-import uid from "uid-safe"
 import conf from "../environment-configuration"
+import {setPassportSessionCookie} from "../lib/auth-cookies"
 
 let appInsights = AI
 if (!process.env.CI) {
@@ -23,7 +22,9 @@ if (!process.env.CI) {
 }
 
 const port = parseInt(process.env.PORT || "3000", 10)
-const isRedisEnabled = conf.REDIS_ENABLED && !process.env.CI
+const authenticationEnabled = conf.AUTH0_CLIENT_SECRET && conf.AUTH0_CLIENT_ID
+const isRedisEnabled =
+    conf.REDIS_ENABLED && !process.env.CI && authenticationEnabled
 const app = next({dev: process.env.NODE_ENV !== "production", dir: "."})
 const handle = app.getRequestHandler()
 app.renderOpts.poweredByHeader = false
@@ -46,39 +47,12 @@ const ssrCache = cacheableResponse({
     getKey: req => undefined,
 })
 
-// Express session for Auth
-let RedisStore = connectRedis(session)
-let redisClient = null
-
-if (isRedisEnabled) {
-    redisClient = new Redis({
-        port: conf.REDIS_PORT, // Redis port
-        host: conf.REDIS_HOST, // Redis host
-    })
-}
-
-const sessionConfig = {
-    store: !isRedisEnabled
-        ? null
-        : new RedisStore({
-              client: redisClient,
-              logErrors: error => console.warn("session error: ", error),
-          }),
-    secret: uid.sync(18),
-    cookie: {
-        maxAge: 86400 * 1000, // 24 hours in milliseconds
-        secure: process.env.NODE_ENV === "production",
-    },
-    resave: false,
-    saveUninitialized: false,
-    rolling: false,
-}
-
 export default app
     .prepare()
     .then(() => {
         const server = express()
-        if (conf.AUTH0_CLIENT_SECRET && conf.AUTH0_CLIENT_ID) {
+        if (authenticationEnabled) {
+            const sessionConfig = setPassportSessionCookie(isRedisEnabled, conf)
             server.use(session(sessionConfig))
             //Configuring Auth0Strategy
             const auth0Strategy = new Auth0Strategy(

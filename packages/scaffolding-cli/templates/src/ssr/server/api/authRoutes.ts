@@ -2,7 +2,7 @@ import {Router} from "express"
 import passport from "passport"
 import logger from "../core/root-logger"
 import cookie from "cookie"
-import {removeTokenCookie} from "../../lib/auth-cookies"
+import {removePassportCookie} from "../../lib/auth-cookies"
 
 export default (router: Router) => {
     router.get(
@@ -32,7 +32,7 @@ export default (router: Router) => {
     })
 
     router.get("/logout", (req: any, res: any) => {
-        removeTokenCookie(res, "connect.sid")
+        removePassportCookie(res, "connect.sid")
         req.logout()
         const {AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_BASE_URL} = process.env
         res.redirect(
