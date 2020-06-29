@@ -1,5 +1,5 @@
 {
-  "projectName": "test-app-1",
+  "projectName": "test-api-v2",
   "projectType": "netcore",
   "platform": "aks",
   "deployment": "azdevops",

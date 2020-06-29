@@ -8,6 +8,7 @@ const Search = () => {
         <Container maxWidth="sm">
             <Box my={4}>
                 <TextField
+                    disabled
                     id="search-bar"
                     label="Search Menus"
                     name="SearchTerm"
@@ -16,7 +17,7 @@ const Search = () => {
                     variant="outlined"
                     data-testid="search_btn"
                     margin="normal"
-                    helperText="Search terms are case sensitive and partial matches are not searched"
+                    helperText=""
                     onChange={evt => setSearchTerm(evt.target.value)}
                 />
             </Box>
