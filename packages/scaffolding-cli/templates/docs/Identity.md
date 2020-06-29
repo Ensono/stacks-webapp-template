@@ -62,6 +62,9 @@ REDIS_PORT=<REDIS_PORT> \
 REDIS_ENABLED=true \
 ```
 
+![Redis-cli Screenshots](https://amidostacksassets.blob.core.windows.net/docs/assets/redis-server-screenshot.jpg)
+![Chrome Screenshots](https://amidostacksassets.blob.core.windows.net/docs/assets/chrome-cookies-screenshot.jpg)
+
 > Please note Redis is disabled for running in CI
 
 </details>
