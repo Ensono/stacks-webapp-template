@@ -9,7 +9,7 @@ metadata:
 
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
@@ -179,11 +179,11 @@ spec:
             - name: AUTH0_CLIENT_ID
               value: ${auth_client_id}
             - name: REDIS_HOST
-              value: ${redis_host}
+              value: "${redis_host}"
             - name: REDIS_PORT
-              value: ${redis_port}
+              value: "${redis_port}"
             - name: REDIS_ENABLED
-              value: ${redis_enabled}
+              value: "${redis_enabled}"
             - name: APPINSIGHTS_INSTRUMENTATIONKEY
               valueFrom:
                 secretKeyRef:
