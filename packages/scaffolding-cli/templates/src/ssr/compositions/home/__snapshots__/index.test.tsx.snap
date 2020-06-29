@@ -12,32 +12,36 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         <div
           class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
         >
-          <button
-            aria-label="blogs menu button"
-            class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
-            tabindex="0"
-            title="Blog"
-            type="button"
+          <a
+            href="/blog"
           >
-            <span
-              class="MuiFab-label"
+            <button
+              aria-label="blogs menu button"
+              class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
+              tabindex="0"
+              title="Blog"
+              type="button"
             >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                data-testid="blogs_button"
-                focusable="false"
-                viewBox="0 0 24 24"
+              <span
+                class="MuiFab-label"
               >
-                <path
-                  d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </button>
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  data-testid="blogs_button"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"
+                  />
+                </svg>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </a>
           <h2
             class="MuiTypography-root MuiTypography-h2"
             style="margin: 0px auto;"
@@ -49,32 +53,36 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
               Yumido
             </a>
           </h2>
-          <button
-            aria-label="create menu button"
-            class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
-            tabindex="0"
-            title="Create menu"
-            type="button"
+          <a
+            href="/create"
           >
-            <span
-              class="MuiFab-label"
+            <button
+              aria-label="create menu button"
+              class="MuiButtonBase-root MuiFab-root MuiFab-sizeSmall MuiFab-primary"
+              tabindex="0"
+              title="Create menu"
+              type="button"
             >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                data-testid="create_button"
-                focusable="false"
-                viewBox="0 0 24 24"
+              <span
+                class="MuiFab-label"
               >
-                <path
-                  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-                />
-              </svg>
-            </span>
-            <span
-              class="MuiTouchRipple-root"
-            />
-          </button>
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  data-testid="create_button"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+                  />
+                </svg>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </a>
         </div>
       </header>
       <br />
