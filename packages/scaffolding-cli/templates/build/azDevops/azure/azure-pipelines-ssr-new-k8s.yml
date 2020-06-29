@@ -244,6 +244,7 @@ stages:
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
                   parameters: 
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+                    enable_debug: "yes"
                     template_input: [
                       {
                         base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_app-deploy.yml,
@@ -274,7 +275,8 @@ stages:
                           redis_host: $(REDIS_HOST),
                           redis_port: $(REDIS_PORT),
                           redis_enabled: $(REDIS_ENABLED)
-                        }
+                        },
+                        args: "-no-empty",
                       }
                     ]
 
