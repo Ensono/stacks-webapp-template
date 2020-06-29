@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "test": "node_modules/.bin/jest -c jest.config.json --runInBand ",
+    "test": "env NEXT_PUBLIC_CONTENTFUL_SPACE_ID=foo env NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN=bar env NEXT_PUBLIC_CONTENTFUL_PREVIEW_ACCESS_TOKEN=baz env APP_BASE_PATH=\"\" node_modules/.bin/jest -c jest.config.json --runInBand",
     "test:watch": "node_modules/.bin/jest -c jest.config.json --watchAll --rootDir . --runInBand ",
     "dev": "nodemon",
     "build": "node_modules/.bin/tsc --project tsconfig.server.json && node_modules/.bin/next build",

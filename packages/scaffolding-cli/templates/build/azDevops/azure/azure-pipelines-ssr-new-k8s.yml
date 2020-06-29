@@ -25,7 +25,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: feature/cycle2
+      ref: refs/tags/v1.2.2
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC 
       endpoint: amidostacks
@@ -34,9 +34,11 @@ resources:
     - container: sonar_scanner
       image: amidostacks/ci-sonarscanner:0.0.1
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.7
+      image: amidostacks/ci-k8s:0.0.9
     - container: terraform_custom
       image: amidostacks/ci-tf:0.0.3
+    - container: cypress
+      image: cypress/base:12.16.2
 
 variables:
   company: amido
@@ -73,9 +75,6 @@ variables:
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
   docker_container_registry_name: $(company)$(project)nonproduks$(domain)
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
-  # BUILD ARTIFACTS across stages
-  build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
-  build_artifact_deploy_name: $(self_generic_name)
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - INFRAstage - location - compnonent names in the infra-pipeline
   aks_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
@@ -109,11 +108,11 @@ stages:
         # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
+        # container: k8s_deploy
         steps:
           - checkout: self
           - checkout: templates
             persistCredentials: true
-            target: k8s_deploy
           # BUILD NPM
           - template: templates/steps/build-node.yml
             parameters:
@@ -131,7 +130,7 @@ stages:
               vulnerability_scan: false
               vulnerability_workdir: "$(Build.ArtifactStagingDirectory)"
               # Sonar settings
-              static_code_analysis: false
+              static_code_analysis: true
               sonar_container: sonar_scanner
               #Linting and formatting validation
               lint_formatting: false
@@ -139,27 +138,19 @@ stages:
               # Should be hardcoded in your sonar-project.properties file
               unit_test: true
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
-              unit_test_project: "$(Test.UnitTestProjectPath)"
-              component_test: false
-              component_test_project: "$(Test.ComponentTestProjectPath)"
               cypress_e2e_test: true
               cypress_applitools_test: true
+              cypress_container: cypress
+              # Set this to false or remove if cypress is not run as part of your pipeline
+              cache_cypress: true
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
                 MENU_API_URL: "http://dev.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
-                NODE_ENV: dev
+                NODE_ENV: development
                 # avoid warnings about terminal
                 TERM: xterm
-              # Build Output File
-              # files to be persisted across stages
-              build_file: true
-              build_file_path: $(build_artifact_deploy_path)
-              build_file_artefact: $(build_artifact_deploy_name)
-              # Git Tag release
-              git_do_tag_release: false
-              git_release_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
           # you can define additional steps here
       # you can define additional jobs here
 
@@ -286,11 +277,6 @@ stages:
                     environment: "dev"
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
                     download_deploy_artefact: false
-                    test_artefact: "tests"
-                    test_baseurl: ""
-                    functional_test: false
-                    performance_test: false
-                    smoke_test: false
                     # Kubernetes Config
                     kubernetes_clusterrg: $(aks_clusterrg)
                     kubernetes_clustername: $(aks_clustername)

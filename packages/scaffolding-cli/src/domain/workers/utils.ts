@@ -99,7 +99,7 @@ export class Utils {
     public static async fileNameReplace(srcDir: Array<string>, instructionMap: CliAnswerModel): Promise<BaseResponse> {
         const fsResponse: BaseResponse = {} as BaseResponse
         try {
-            const replaceString = `${startCase(toLower(instructionMap.business.company))}.${startCase(toLower(instructionMap.business.project))}`
+            const replaceString = `${startCase(toLower(instructionMap.business.company)).replace(/\s/gm, "")}.${startCase(toLower(instructionMap.business.project)).replace(/\s/gm, "")}`
             const match = 'xxAMIDOxx.xxSTACKSxx'
 
             for (const dir of srcDir){

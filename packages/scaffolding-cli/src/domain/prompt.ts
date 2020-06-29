@@ -37,8 +37,11 @@ export async function runConfig(cliArgs: CliOptions): Promise<ExitMessage> {
 
 const onCancel = () => {
     // Todo: ensure we have a flow for a user to force exit
-    console.log("Selecting default answer.")
-    return true
+    // eslint-disable-next-line no-throw-literal
+    throw {
+        code: 0,
+        message: "Cancelling ...\nPlease re-run without interruption to complete the process"
+    }
 }
 
 /**

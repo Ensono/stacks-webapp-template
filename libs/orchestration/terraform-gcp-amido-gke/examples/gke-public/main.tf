@@ -26,6 +26,7 @@ module "gke-public" {
   dns_zone           = var.dns_zone
   cluster_version    = var.cluster_version
   enable_legacy_abac = false
+  service_account_roles = []
 }
 
 # // Get available master versions in our location to determine the latest version
@@ -34,3 +35,6 @@ module "gke-public" {
 #   project  = var.project
 # }
 
+output "test_substr" {
+  value = substr(replace(module.default_label.id, "-", ""), 0, 30)
+}
