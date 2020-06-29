@@ -32,6 +32,8 @@ variables:
   self_repo: stacks-webapp-template/tests/packages/scaffolding-cli
   self_repo_src: node-projects
   self_generic_name: scaffolding-cli
+  # scaffolding-cli
+  config_filename: ssr.bootstrap-cli.yml
   # Versioning
   version_major: 0
   version_minor: 0
@@ -49,7 +51,7 @@ steps:
   - template: steps/run-scaffolding-cli.yml
     parameters:
       # Docker Config
-      docker_build_additional_args: "--build-arg PROJECT_WORKDIR=$() --build-arg CONFIG_FILENAME=$() ."
+      docker_build_additional_args: "--build-arg PROJECT_WORKDIR=$(self_repo)/$(self_repo_src) --build-arg CONFIG_FILENAME=$(config_filename) ."
       docker_run_additional_args: "-t scaffolding-cli"
       docker_workdir: "$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)"
       docker_imagename: "$(docker_image_name)"
