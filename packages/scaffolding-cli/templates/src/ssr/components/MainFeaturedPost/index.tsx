@@ -77,6 +77,7 @@ export default function MainFeaturedPost(props) {
                             <Link
                                 as={`/blog/posts/${slug}`}
                                 href="/blog/posts/[...all]"
+                                passHref
                             >
                                 <a className={classes.readMoreButton}>
                                     Read More
