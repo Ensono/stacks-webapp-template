@@ -36,7 +36,7 @@ export const Header = props => {
     return (
         <AppBar position="fixed" color="secondary">
             <Toolbar>
-                <Link href="/blog">
+                <a href="/blog">
                     <Tooltip title="Blog" aria-label="blog">
                         <Fab
                             size="small"
@@ -46,14 +46,14 @@ export const Header = props => {
                             <LibraryBooksIcon data-testid="blogs_button" />
                         </Fab>
                     </Tooltip>
-                </Link>
+                </a>
                 <Typography variant="h2" style={{margin: "0 auto"}}>
-                    <Link href="/">
-                        <a className={classes.styledLink}>{title}</a>
-                    </Link>
+                    <a href="/" className={classes.styledLink}>
+                        {title}
+                    </a>
                 </Typography>
                 {!isCreatePage && (
-                    <Link href="/create">
+                    <a href="/create">
                         <Tooltip title="Create menu" aria-label="create menu">
                             <Fab
                                 size="small"
@@ -63,13 +63,13 @@ export const Header = props => {
                                 <AddIcon data-testid="create_button" />
                             </Fab>
                         </Tooltip>
-                    </Link>
+                    </a>
                 )}
                 <LocaleSwitcher />
                 {!!authenticationEnabled && (
                     <>
                         {!user ? (
-                            <Link href="/login">
+                            <a href="/login">
                                 <Button
                                     data-testid="auth_login_button"
                                     variant="contained"
@@ -79,10 +79,10 @@ export const Header = props => {
                                 >
                                     Login
                                 </Button>
-                            </Link>
+                            </a>
                         ) : (
                             <>
-                                <Link href="/profile">
+                                <a href="/profile">
                                     <Button
                                         aria-label="profile button"
                                         data-testid="profile_image_button"
@@ -93,8 +93,8 @@ export const Header = props => {
                                             displayName={false}
                                         />
                                     </Button>
-                                </Link>
-                                <Link href="/logout">
+                                </a>
+                                <a href="/logout">
                                     <Button
                                         data-testid="auth_logout_button"
                                         variant="contained"
@@ -104,7 +104,7 @@ export const Header = props => {
                                     >
                                         logout
                                     </Button>
-                                </Link>
+                                </a>
                             </>
                         )}
                     </>
