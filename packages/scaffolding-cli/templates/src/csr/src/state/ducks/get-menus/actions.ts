@@ -6,7 +6,7 @@ import {GetMenuActionTypes, MenuItem} from "../../../interfaces/sagas.interface"
 export const fetchMenus = () =>
     action(GetMenuActionTypes.FETCH_POSTS, [], {
         method: "get" as Method,
-        route: "/menu",
+        route: "/menu", // Todo: Point to deployed example API
     })
 
 export const fetchMenusSuccess = (data: MenuItem[]) =>

@@ -3,7 +3,7 @@
 Provides a Terraform CLI
 
 versions:
-  - terraform: 0.12.24
+  - terraform: 0.12.28
   - netcore deps:
     - azure-cli              2.2.0
     - command-modules-nspkg  2.0.3
@@ -20,13 +20,11 @@ USAGE:
 ---
 
 ```bash
-docker build -t amidostacks/ci-tf:latest .
-docker push amidostacks/ci-tf:latest
-docker tag a0bfe04e7801 amidostacks/ci-tf:0.0.3
-docker push amidostacks/ci-tf:0.0.3
+docker build -t amidostacks/ci-tf:latest -t amidostacks/ci-tf:0.0.4 .
+docker push amidostacks/ci-tf
 ```
 
 run and test any changes locally
 ```bash
-docker run -v $(pwd):/usr/data --rm -it amidostacks/ci-tf:0.0.3 /bin/bash
+docker run -v $(pwd):/usr/data --rm -it amidostacks/ci-tf:latest /bin/bash
 ```

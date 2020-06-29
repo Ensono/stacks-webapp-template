@@ -1,3 +1,4 @@
+/* eslint-disable jest/expect-expect */
 /**
 Every test you write will include selectors for elements. Write selectors that are resilient to changes.
 ❌NEVER target elements based on CSS attributes such as: id, class, tag (e.g. cy.get('button').click(), cy.get('.btn.btn-large').click())
@@ -17,15 +18,20 @@ describe("/ (index)", () => {
         cy.server()
         cy.route({
             method: "GET", // Route all GET requests
-            url: "/menu*", // that have a URL that matches '/menu'
+            url: new RegExp(".*\/menu.*"), // that have a URL that matches '/menu'
             response: "@menuResponse", // and force the response to be: []
         }).as("getStubbedMenu")
+
+        cy.route({
+            method: "POST", // Route all GET requests
+            url: new RegExp(".*\/track.*"), // that have a URL that matches '/menu'
+        }).as("stubTracking")
 
         cy.visit("")
     })
 
-    it.skip("fetches menu on load", () => {
-        let menuName: String = "Breakfast Menu"
+    it("fetches menu on load", () => {
+        const menuName = "Breakfast Menu"
 
         cy.wait("@getStubbedMenu").then(xhr => {
             cy.wrap(xhr.responseBody)
@@ -39,26 +45,10 @@ describe("/ (index)", () => {
         cy.get("[data-testid=results]").should("contain", menuName)
     })
 
-    it.skip("fetches menu from API on reload", () => {
-        cy.wait("@getStubbedMenu") //resolve the stub first
+    it("cannot enter text in disabled search", () => {
+        cy.wait("@getStubbedMenu") // Resolve the stub first
 
-        cy.route("GET", "/menu*").as("getMenu") //listen to XHR requests without stub
-        cy.reload(true) //force the reload without cache
-
-        cy.wait("@getMenu").then(xhr => {
-            cy.wrap(xhr.status).should("eq", 200)
-            cy.wrap(xhr.responseBody).should("have.property", "results")
-        })
-    })
-
-    it.skip("sends request to get menu on entering text in search bar", () => {
-        cy.wait("@getStubbedMenu") //resolve the stub first
-
-        cy.get("#search-bar").should("be.visible").type("T")
-        cy.wait("@getStubbedMenu").should(xhr => {
-            expect(xhr.url).to.match(/=T$/)
-        })
+        cy.get("#search-bar").should("be.disabled")
     })
 })
 
-export {}

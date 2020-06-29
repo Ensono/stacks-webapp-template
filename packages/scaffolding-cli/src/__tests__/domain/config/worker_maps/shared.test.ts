@@ -52,8 +52,6 @@ const files: Array<BuildReplaceInput> = [
             // "amidostacksnonprodnode": "REPLACE_ME_FOR_ACR_NAME", // cloud_obj?.acr_name
             "company: amido": `company: ${biz.company}`,
             "project: stacks": `project: ${biz.project}`,
-            "domain: node": `domain: ${biz.domain}`,
-            "component: node": `domain: ${biz.component}`,
             "nonprod.amidostacks.com": networkObj.baseDomain,
             "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
             "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",

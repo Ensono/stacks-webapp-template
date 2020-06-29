@@ -46,8 +46,6 @@ docker run -v $(pwd):/usr/data --rm -it amidostacks/ci-k8s:latest /bin/bash
 
 Creating additional versions
 ```bash
-docker build -t amidostacks/ci-k8s:latest -t amidostacks/ci-k8s:0.0.9 .
-docker push amidostacks/ci-k8s:latest
-docker tag d7d176271169 amidostacks/ci-k8s:0.0.9
-docker push amidostacks/ci-k8s:0.0.9
+docker build -t amidostacks/ci-k8s:latest -t amidostacks/ci-k8s:0.0.10 .
+docker push amidostacks/ci-k8s
 ```
