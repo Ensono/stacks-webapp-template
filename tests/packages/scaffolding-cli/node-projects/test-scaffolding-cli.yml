@@ -25,6 +25,10 @@ resources:
 
 # NOTE: If you use both variables and variable groups, you'll have to use name/value syntax for the individual (non-grouped)
 variables:
+  company: amido
+  project: stacks
+  domain: cli
+
   self_repo: stacks-webapp-template/tests/packages/scaffolding-cli
   self_repo_src: node-projects
   self_generic_name: scaffolding-cli
