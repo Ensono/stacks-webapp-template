@@ -33,7 +33,7 @@ variables:
   self_repo_src: node-projects
   self_generic_name: scaffolding-cli
   # scaffolding-cli
-  config_project_workdir: yumidoexampleapp
+  config_project_workdir: yumidoexampleapp/src
   config_filename: ssr.bootstrap-config.json
   # Versioning
   version_major: 0
