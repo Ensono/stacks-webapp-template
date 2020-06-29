@@ -5,25 +5,31 @@
 
 # dependencies
 **/node_modules
+**/bin
+**/out
+**/obj
 
 # js files excluding config
 **/*.js
 **/*.jsx
 !*config.js
 !**/*-config*/*.js
-!**/config*/*.js
-
 
 # logs
 *.log
 
 # testing
 **/coverage
-**/__tests__/coverage
-**/__tests__/logs
-**/__tests__/cypress/screenshots
-**/__tests__/cypress/videos
+__tests__/coverage
+__tests__/logs
+__tests__/cypress/screenshots
+__tests__/cypress/videos
 **/*test-report.xml
+test-local*
+**/*.opencover.xml
+**/.sonar*
+**/.store
+
 
 # production
 **/.next

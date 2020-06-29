@@ -10,6 +10,8 @@ export function WorkflowOptions(): Workflow {
     return {
         ssraksazdevops: FlowSelector.optionSsrAksAzuredevops,
         netcoreaksazdevops:  FlowSelector.optionNetcoreAksAzuredevops,
+        netcoreaksjenkins: () => { return { code: 0, message: "Not Yet Implemented.\n\nThough this may not ever happen... 😞"}},
+        netcoregkejenkins: () => { return { code: 0, message: "Not Yet Implemented.\n\nThough this may not ever happen... 😞"}},
         javaspringaksazdevops: FlowSelector.optionJavaSpringAksAzuredevops,
         javaspringaksjenkins: () => { return { code: 0, message: "Not Yet Implemented.\nWatch this space!"}},
         javaspringgkejenkins: () => { return { code: 0, message: "Not Yet Implemented.\nWatch this space!"}},
