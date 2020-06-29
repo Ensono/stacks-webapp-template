@@ -1,22 +1,20 @@
 import "@testing-library/jest-dom/extend-expect"
-import React from "react"
 import {render} from "@testing-library/react"
-import App from "../../pages"
+import React from "react"
+import {Provider} from "react-redux"
 import configureStore from "redux-mock-store"
 import sagaMiddleware from "redux-saga"
-import {Provider} from "react-redux"
+import App from "../../pages"
 
 const mockStore = configureStore([sagaMiddleware])
 const initialState = {
-  getMenus: {
-    loading: false,
-    error: null,
-    menuItems: [],
-  }
+    getMenus: {
+        loading: false,
+        error: null,
+        menuItems: [],
+    },
 }
-
 const indexPageText = `Yumido`
-
 
 test("With React Testing Library page renders tag type <div> with text", () => {
     // Initialize mockstore with empty state
@@ -31,7 +29,7 @@ test("With React Testing Library page renders tag type <div> with text", () => {
 })
 
 test("With React Testing Library Snapshot renders page", () => {
-  const store = mockStore(initialState)
+    const store = mockStore(initialState)
     const {asFragment} = render(
         <Provider store={store}>
             <App />
@@ -42,7 +40,7 @@ test("With React Testing Library Snapshot renders page", () => {
 })
 
 test("With React Testing Library page rerenders with hydrate", () => {
-  const store = mockStore(initialState)
+    const store = mockStore(initialState)
     const {getByText, rerender} = render(
         <Provider store={store}>
             <App />

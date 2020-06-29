@@ -21,7 +21,6 @@ const theme = createMuiTheme({
                 textTransform: "none",
             },
             contained: {
-                boxShadow: "0px",
                 textTransform: "uppercase",
             },
         },

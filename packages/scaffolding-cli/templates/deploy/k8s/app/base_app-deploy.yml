@@ -9,7 +9,7 @@ metadata:
 
 ---
 
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
@@ -91,7 +91,7 @@ stringData:
   app_insights: ${app_insights_key}
   next_public_token: ${next_public_token}
   next_space_id: ${next_space_id}
-
+  auth_client_secret: ${auth_client_secret}
 ---
 
 apiVersion: apps/v1
@@ -174,6 +174,16 @@ spec:
               value: ${k8s_app_path:=''}
             - name: APP_BASE_URL
               value: https://${dns_pointer}
+            - name: AUTH0_DOMAIN
+              value: ${auth_domain}
+            - name: AUTH0_CLIENT_ID
+              value: ${auth_client_id}
+            - name: REDIS_HOST
+              value: "${redis_host}"
+            - name: REDIS_PORT
+              value: "${redis_port}"
+            - name: REDIS_ENABLED
+              value: "${redis_enabled}"
             - name: APPINSIGHTS_INSTRUMENTATIONKEY
               valueFrom:
                 secretKeyRef:
@@ -189,6 +199,11 @@ spec:
                 secretKeyRef:
                   name: appsecrets
                   key: next_space_id
+            - name: AUTH0_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: auth_client_secret
 
           # # Remove limits and let the Pods container get the default (800cpu)
           # resources:

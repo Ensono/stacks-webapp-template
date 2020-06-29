@@ -14,8 +14,14 @@ module.exports = {
     AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
     AUTH0_CALLBACK_URL: `${process.env.APP_BASE_URL}:${process.env.PORT}/callback`,
 
+    REDIS_HOST: process.env.REDIS_HOST || "127.0.0.1",
+    REDIS_PORT: process.env.REDIS_PORT || "6379",
+    REDIS_ENABLED: process.env.REDIS_ENABLED || false,
+
     NEXT_PUBLIC_CONTENTFUL_SPACE_ID:
         process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID || "",
     NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN:
         process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN || "",
+    NEXT_PUBLIC_CONTENTFUL_DEFAULT_LOCALE:
+        process.env.NEXT_PUBLIC_CONTENTFUL_DEFAULT_LOCALE || "en-GB",
 }
