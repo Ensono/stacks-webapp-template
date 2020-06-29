@@ -1,4 +1,4 @@
-
+import { resolve } from "path"
 import terminalLink from "terminal-link"
 import {
     BusinessSection,
@@ -8,7 +8,6 @@ import {
     NetworkingSection,
 } from "../../model/prompt_answer"
 import {BuildReplaceInput} from "../file_mapper"
-import { resolve } from "path"
 
 /**
  * TODO: implement a shared inFiles replace to minimize duplication
@@ -50,8 +49,6 @@ export const inFiles = ({
                     "self_repo_tf_src: deploy/azure/infra",
                 "company: amido": `company: ${businessObj?.company}`,
                 "project: stacks": `project: ${businessObj?.project}`,
-                "domain: node": `domain: ${businessObj?.domain}`,
-                "component: node": `domain: ${businessObj?.component}`,
                 "nonprod.amidostacks.com": `${networkObj?.baseDomain}`,
                 "nonprod.amidostacks.internal":
                     "REPLACE_ME_FOR_INTERNAL_DOMAIN",

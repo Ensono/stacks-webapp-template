@@ -1,6 +1,6 @@
 FROM debian:10.3
 
-ARG KUBECTL_VERSION=1.15.1
+ARG KUBECTL_VERSION=1.16.10
 ARG KUSTOMIZE_VERSION=3.5.4
 ARG TYPESCRIPT_VERSION=3.7.5
 ARG DOTNET_CORE_VERSION=3.1
@@ -10,7 +10,7 @@ LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y curl grep sed unzip git wget sudo && \
+    apt-get install -y curl grep sed unzip git wget build-essential sudo && \
     apt-get clean -y
 
 # RUN apt-get update -y
@@ -69,11 +69,23 @@ RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 # Update the package list and install the Cloud SDK
 RUN apt-get update -y && apt-get install -y google-cloud-sdk
 
-RUN curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v2.0.1/docker-credential-gcr_linux_amd64-2.0.1.tar.gz" \ 
-| tar xz --to-stdout /opt/docker-credential-gcr \
-| tee /usr/local/bin/docker-credential-gcr > /dev/null && chmod 0777 /usr/local/bin/docker-credential-gcr
+# RUN curl -fsSL "https://github.com/GoogleCloudPlatform/docker-credential-gcr/releases/download/v2.0.1/docker-credential-gcr_linux_amd64-2.0.1.tar.gz" -o /tmp/docker-credential-gcr_linux_amd64-2.0.1.tar.gz \
+# | tar xz --to-stdout /tmp/docker-credential-gcr_linux_amd64-2.0.1.tar.gz \
+# | tee /usr/local/bin/docker-credential-gcr > /dev/null && chmod 0777 /usr/local/bin/docker-credential-gcr
 
 # ENVSUBST with built in checks
-RUN curl -fsSL https://github.com/amido/stacks-webapp-template/releases/download/0.0.2/envsubst-`uname -s`-`uname -m` -o /opt/envsubst && \
+RUN curl -fsSL https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-`uname -s`-`uname -m` -o /opt/envsubst && \
   chmod +x /opt/envsubst && \
   mv /opt/envsubst /usr/local/bin
+
+RUN apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    gnupg-agent \
+    software-properties-common
+
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+
+RUN apt-get update -y && \
+    apt-get install -y docker-ce-cli
