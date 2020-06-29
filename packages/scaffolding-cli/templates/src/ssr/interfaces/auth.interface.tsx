@@ -6,11 +6,11 @@ export interface UserType {
     picture: string
     locale: string
     nickname: string
-    name: name_type
+    name: NameType
     email: EmailType[]
 }
 
-export interface name_type {
+export interface NameType {
     familyName: string
     givenName: string
 }
