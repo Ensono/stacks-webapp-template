@@ -46,7 +46,7 @@ describe("Page security", () => {
         cy.get("@request")
         .its("headers")
         .its("x-xss-protection")
-        .should("eq", "1; mode=block")
+        .should("eq", "1; mode=block;")
     })
 
     it("x-frame-options header should be set to SAMEORIGIN", () => {

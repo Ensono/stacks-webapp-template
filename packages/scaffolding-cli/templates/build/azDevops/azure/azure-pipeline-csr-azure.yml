@@ -213,6 +213,11 @@ stages:
                     action: "Append",
                     name: "Referrer-Policy",
                     value: "no-referrer-when-downgrade"
+                  },
+                  {
+                    action: "Append"
+                    name: "X-XSS-Protection"
+                    value: "1; mode=block;"
                   }
                 ]'
               }
