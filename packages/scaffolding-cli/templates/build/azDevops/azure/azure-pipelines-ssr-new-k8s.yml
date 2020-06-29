@@ -287,7 +287,8 @@ stages:
                     kubernetes_clusterrg: $(aks_clusterrg)
                     kubernetes_clustername: $(aks_clustername)
                     # Mutation Information
-                    kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
+                    kubectl_filepath: 
+                      - $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
                     kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app # unnecessary
             on:
               success:
