@@ -32,7 +32,7 @@ We have a base dotnet image that contains a Chrome browser instance and the .NET
   `docker image build -t amidostacks/dotnet-test-base:0.0.1 .`
 
 2. Build and test the project:
-  `docker run --rm --it -v $(pwd)/.:/src/ amidostacks/dotnet-test-base:0.0.1 dotnet build && dotnet test`
+  `docker run --rm -v $(pwd)/.:/src/ amidostacks/dotnet-test-base:0.0.1 dotnet build && dotnet test`
 
 3. This will output the collect results in both html and json foramt to [/bin/BDDfy.html](./bin/BDDfy.html)
 
