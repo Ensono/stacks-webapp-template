@@ -5,7 +5,7 @@ parameters:
   build_container_image: false
   run_container_image: false
   docker_build_additional_args: ""
-  docker_run_additional_args: ""
+  docker_run_additional_args: []
   docker_workdir: ""
   docker_imagename: ""
   docker_containerregistryname: ""
@@ -15,35 +15,22 @@ parameters:
   build_on_server: false
   build_file_path: ""
   build_file_artefact: ""
-  # Run scripts against built image
-  run_scripts: false
 
 steps:
   # Build Docker Image
   - ${{ if eq(parameters.build_container_image, true) }}:
-      - template: ../steps/build-container-image-generic.yml
+      - template: ../steps/build-container-image-no-push.yml
         parameters:
           working_directory: ${{ parameters.docker_workdir }}
           docker_build_additional_args: ${{ parameters.docker_build_additional_args }}
-          docker_imagename: ${{ parameters.docker_imagename }}
           docker_tag_args: ${{ parameters.docker_tag_args }}
-          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
 
   # Run Docker Image
   - ${{ if eq(parameters.run_container_image, true) }}:
-      - template: ../steps/run-container-image.yml
-        parameters:
-          working_directory: ${{ parameters.docker_workdir }}
-          docker_run_additional_args: ${{ parameters.docker_run_additional_args }}
-          docker_imagename: ${{ parameters.docker_imagename }}
-          docker_containerregistryname: ${{ parameters.docker_containerregistryname }}
-
-    # Run scripts
-  - ${{ if eq(parameters.run_scripts, true) }}:
-      - template: azDevOps/azure/templates/v2/steps/build-container-image-generic.yml@templates
-        parameters:
-          working_directory: ${{ parameters.docker_workdir }}
-          target_container: ${{ parameters.docker_containerregistryname }}/${{ parameters.docker_imagename }}
-          npm_scripts:
-            - 'build'
-            - 'test'
+      - ${{ each arg in parameters.docker_run_additional_args }}:
+        - template: ../steps/run-container-image.yml
+          parameters:
+            working_directory: ${{ parameters.docker_workdir }}
+            docker_run_additional_args: ${{ arg }}
+            docker_imagename: ${{ parameters.docker_imagename }}
+            docker_containerregistryname: ${{ parameters.docker_containerregistryname }}

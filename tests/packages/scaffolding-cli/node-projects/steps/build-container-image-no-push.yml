@@ -1,16 +1,14 @@
 ############################################################################################################
-# desc:
-# params:
-# return:
-# pre-reqs:
+# desc: Builds a container without pushing it to a registry
+# params: workingDirectory, docker build arguments, docker tag arguments
+# return: built image for use in context of invoked job only
+# pre-reqs: Dockerfile in working directory
 ############################################################################################################
 
 parameters:
   working_directory: ''
   docker_build_additional_args: ''
   docker_tag_args: ''
-  docker_imagename: ''
-  docker_containerregistryname: ''
 
 steps:
   - bash: |

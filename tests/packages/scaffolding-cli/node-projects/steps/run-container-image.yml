@@ -1,8 +1,8 @@
 ############################################################################################################
-# desc:
-# params: 
-# return: 
-# pre-reqs: 
+# desc: Runs a given container image (either published or built in same pipeline)
+# params: working directory, run arguments (or commands), name of image to run, container registry where image is held
+# return: output from image
+# pre-reqs: built image
 ############################################################################################################
 
 parameters:

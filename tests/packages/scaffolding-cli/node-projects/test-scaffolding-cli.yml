@@ -13,7 +13,8 @@ trigger:
 
   paths:
     include:
-      - 'packages/scaffolding-cli/templates/src/*'
+      - 'packages/scaffolding-cli/templates/src/ssr/*'
+      - 'packages/scaffolding-cli/templates/src/csr/*'
 
 resources:
   repositories:
@@ -33,8 +34,11 @@ variables:
   self_repo_src: node-projects
   self_generic_name: scaffolding-cli
   # scaffolding-cli
-  config_project_workdir: yumidoexampleapp/src
-  config_filename: ssr.bootstrap-config.json
+  scaffolding_config:
+    ssr.bootstrap-config.json: yumidoexampleapp/src
+    csr.bootstrap-config.json: yumidoexampleapp/src
+  npm_scripts:
+    - "npm run test"
   # Versioning
   version_major: 0
   version_minor: 0
@@ -49,17 +53,17 @@ steps:
   - checkout: templates
     persistCredentials: true
 
-  - template: steps/run-scaffolding-cli.yml
-    parameters:
-      # Docker Config
-      docker_build_additional_args: "--build-arg PROJECT_WORKDIR=$(config_project_workdir) --build-arg CONFIG_FILENAME=$(config_filename) ."
-      docker_run_additional_args: "npm run test"
-      docker_workdir: "$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)"
-      docker_imagename: "$(docker_image_name)"
-      docker_containerregistryname: "$(docker_container_registry_name)"
-      docker_tag_args: "-t $(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag) \
-      -t $(docker_container_registry_name)/$(docker_image_name):latest"
-      # Run scripts against built image
-      run_scripts: false
-      build_container_image: true
-      run_container_image: true
+  - ${{ each config in variables.scaffolding_config }}:
+    - template: steps/run-scaffolding-cli.yml
+      parameters:
+        # Docker Config
+        docker_build_additional_args: "--build-arg CONFIG_FILENAME=${{ config.key }} --build-arg PROJECT_WORKDIR=${{ config.value }} ."
+        docker_run_additional_args: $(npm_scripts)
+        docker_workdir: "$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)"
+        docker_imagename: "$(docker_image_name)"
+        docker_containerregistryname: "$(docker_container_registry_name)"
+        docker_tag_args: "-t $(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag) \
+        -t $(docker_container_registry_name)/$(docker_image_name):latest"
+        # Run scripts against built image
+        build_container_image: true
+        run_container_image: true
