@@ -1,0 +1,128 @@
+parameters:
+  pool:
+    vmImage: "ubuntu-latest"
+  versionSpec: 12.x
+  project_root_dir: ""
+  download_devops: true
+  # Custom registry (eg. private)
+  customRegistry: ""
+  # auth selection
+  login_azure: false
+  login_gke: false
+  login_gcp: false
+  login_gcr: false
+  gcp_auth: {}
+  # Vulnerability Scanning
+  vulnerability_scan: false
+  vulnerability_workdir: ""
+  #  Static Code Analysis
+  static_code_analysis: false
+  static_code_analysis_build_path: ""
+  Sonar_serviceConnection: ""
+  Sonar_organization: ""
+  Sonar_scannerMode: ""
+  Sonar_projectKey: ""
+  Sonar_projectName: ""
+  Sonar_projectVersion: ""
+  # Linting and formatting validation
+  lint_formatting: ""
+  shared_eslint_config: ""
+  # Testing
+  unit_test: true
+  contract_test: false
+  audit_test: false
+  contract_check_can_deploy: false
+  cypress_e2e_test: false
+  cypress_applitools_test: false
+  cypress_e2e_env_vars: {}
+  # Build File Output
+  build_file: false
+  build_on_server: false
+  build_file_path: ""
+  build_file_artefact: ""
+  # build output defaults
+  git_do_tag_release: false
+  git_release_tag: ""
+
+
+steps:
+  # Audit dependencies
+  # ⚠️ IMPORTANT: Down to the user to ensure that the registry they are using
+  # can support `npm audit`
+  - ${{ if eq(parameters.audit_test, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/build-audit-dependencies-node.yml@templates
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          workingDirectory: ${{ parameters.project_root_dir }}
+          customRegistry: ${{ parameters.customRegistry }}
+
+  # Install dependencies
+  - template: azDevOps/azure/templates/v2/steps/build-install-dependencies-node.yml@templates
+    parameters:
+      versionSpec: ${{ parameters.versionSpec }}
+      workingDirectory: ${{ parameters.project_root_dir }}
+      customRegistry: ${{ parameters.customRegistry }}
+      run_build: false
+
+  # Linting and formatting validation
+  - ${{ if eq(parameters.lint_formatting, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/test-static-validate-node.yml@templates
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          workingDirectory: ${{ parameters.project_root_dir }}
+          lintingSharedConfigPackage: ${{ parameters.shared_eslint_config }}
+          customRegistry: ${{ parameters.customRegistry }}
+
+  # Linting and unit tests
+  - ${{ if eq(parameters.unit_test, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/test-unit-node.yml@templates
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # SonarCloud
+  - ${{ if eq(parameters.static_code_analysis, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/test-static-code-sonar.yml@templates
+        parameters:
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Consumer driven contract tests
+  - ${{ if eq(parameters.contract_test, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/test-contract-pact.yml@templates
+        parameters:
+          versionSpec: ${{ parameters.versionSpec }}
+          build_number: ${{ parameters.docker_imagetag }}
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Check with Pact broker if safe to proceed with deployment (breaking contract changes)
+  - ${{ if and(eq(parameters.contract_test, true), eq(parameters.contract_check_can_deploy, true)) }}:
+      - template: azDevOps/azure/templates/v2/steps/deploy-contract-pact-can-deploy.yml@templates
+        parameters:
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Functional tests running on locally built and hosted (undeployed)
+  - ${{ if eq(parameters.cypress_e2e_test, true) }}:
+      - template: azDevOps/azure/templates/v2/steps/test-functional-cypress.yml@templates
+        parameters:
+          env_vars: ${{ parameters.cypress_e2e_env_vars}}
+          workingDirectory: ${{ parameters.project_root_dir }}
+
+  # Visual regression tests running on locally built and hosted (undeployed)
+  - ${{ if eq(parameters.cypress_applitools_test, true) }}:
+      - task: ApplitoolsBuildTask@0
+        displayName: "Tests: Visual Regression with Applitools"
+
+  # Publish Artefacts if required
+  - ${{ if eq(parameters.functional_test, true) }}:
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish: Functional Tests Artifact"
+        inputs:
+          path: "${{ parameters.functional_test_path }}"
+          artifact: "${{ parameters.functional_test_artefact }}"
+
+  - ${{ if eq(parameters.build_file, true) }}:
+      - task: PublishPipelineArtifact@1
+        displayName: "Publish: Build Artefacts"
+        inputs:
+          path: "${{ parameters.build_file_path }}"
+          artifact: "${{ parameters.build_file_artefact }}"
