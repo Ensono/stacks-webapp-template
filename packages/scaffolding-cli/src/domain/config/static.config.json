@@ -101,6 +101,10 @@
       {
         "src": "docs",
         "dest": "docs"
+      },
+      {
+        "src": "src/csr",
+        "dest": "src"
       }
     ]
   },

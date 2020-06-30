@@ -1,4 +1,4 @@
-import Avatar from "../Avatar"
+import {ProfilePicture} from "../ProfilePicture"
 import Date from "../Date"
 import {ImgHolder, Image} from "./components"
 import React from "react"
@@ -10,7 +10,10 @@ export default function PostHeader({title, coverImage, date, author}) {
             <h1>{title}</h1>
             <div>
                 {author && (
-                    <Avatar name={author.name} picture={author.picture} />
+                    <ProfilePicture
+                        name={author.name}
+                        picture={author.picture}
+                    />
                 )}
                 <div>
                     <Date dateString={date} />

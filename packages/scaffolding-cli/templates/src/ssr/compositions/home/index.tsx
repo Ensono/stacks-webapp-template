@@ -25,12 +25,12 @@ interface Props
     extends ReturnType<typeof mapStateToProps>,
         ReturnType<typeof mapDispatchToProps> {}
 
-const Home: FC<Props> = ({isLoading, menuItems, getMenulist}) => {
+const Home: FC<Props> = props => {
     return (
         <Layout>
             <br />
-            <Search getSearchResults={getMenulist} />
-            <ApiPane menuItems={menuItems} isLoading={isLoading} />
+            <Search getSearchResults={props.getMenulist} />
+            <ApiPane menuItems={props.menuItems} isLoading={props.isLoading} />
         </Layout>
     )
 }

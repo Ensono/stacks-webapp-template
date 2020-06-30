@@ -1,24 +1,42 @@
-import React from "react"
-import {AppBar, Fab, Toolbar, Tooltip, Typography} from "@material-ui/core"
+import {
+    AppBar,
+    Button,
+    Fab,
+    makeStyles,
+    Toolbar,
+    Tooltip,
+    Typography,
+} from "@material-ui/core"
 import AddIcon from "@material-ui/icons/Add"
-import {PrefixedLink as Link, LocaleSwitcher} from "components"
-import {useRouter} from "next/router"
-import styled from "@emotion/styled"
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks"
+import {LocaleSwitcher, PrefixedLink as Link, ProfilePicture} from "components"
+import {UserType} from "interfaces/auth.interface"
+import {useRouter} from "next/router"
+import React from "react"
+import {useUser} from "../../lib/hooks"
+import conf from "../../environment-configuration"
 
-const StyledLink = styled.a`
-    text-decoration: none;
-    cursor: pointer;
-`
+const useStyles = makeStyles(theme => ({
+    authButton: {
+        margin: theme.spacing(0, 1, 0),
+    },
+    styledLink: {
+        textDecoration: "none",
+        cursor: "pointer",
+    },
+}))
 
 const title: string = `Yumido`
-
-export const Header = () => {
+const authenticationEnabled =
+    !!conf.AUTH0_CLIENT_SECRET && !!conf.AUTH0_CLIENT_ID
+export const Header = props => {
+    const user: UserType = useUser()
+    const classes = useStyles()
     const isCreatePage = useRouter()?.pathname.split("/").pop() === "create"
     return (
         <AppBar position="fixed" color="secondary">
             <Toolbar>
-                <Link href="/blog">
+                <a href="/blog">
                     <Tooltip title="Blog" aria-label="blog">
                         <Fab
                             size="small"
@@ -28,15 +46,14 @@ export const Header = () => {
                             <LibraryBooksIcon data-testid="blogs_button" />
                         </Fab>
                     </Tooltip>
-                </Link>
+                </a>
                 <Typography variant="h2" style={{margin: "0 auto"}}>
-                    <Link href="/">
-                        <StyledLink>{title}</StyledLink>
-                    </Link>
+                    <a href="/" className={classes.styledLink}>
+                        {title}
+                    </a>
                 </Typography>
-                <LocaleSwitcher />
                 {!isCreatePage && (
-                    <Link href="/create">
+                    <a href="/create">
                         <Tooltip title="Create menu" aria-label="create menu">
                             <Fab
                                 size="small"
@@ -46,7 +63,51 @@ export const Header = () => {
                                 <AddIcon data-testid="create_button" />
                             </Fab>
                         </Tooltip>
-                    </Link>
+                    </a>
+                )}
+                <LocaleSwitcher />
+                {!!authenticationEnabled && (
+                    <>
+                        {!user ? (
+                            <a href="/login">
+                                <Button
+                                    data-testid="auth_login_button"
+                                    variant="contained"
+                                    color="primary"
+                                    aria-label="Login button"
+                                    className={classes.authButton}
+                                >
+                                    Login
+                                </Button>
+                            </a>
+                        ) : (
+                            <>
+                                <a href="/profile">
+                                    <Button
+                                        aria-label="profile button"
+                                        data-testid="profile_image_button"
+                                    >
+                                        <ProfilePicture
+                                            name={user.displayName}
+                                            picture={{url: user.picture}}
+                                            displayName={false}
+                                        />
+                                    </Button>
+                                </a>
+                                <a href="/logout">
+                                    <Button
+                                        data-testid="auth_logout_button"
+                                        variant="contained"
+                                        color="primary"
+                                        aria-label="Logout button"
+                                        className={classes.authButton}
+                                    >
+                                        logout
+                                    </Button>
+                                </a>
+                            </>
+                        )}
+                    </>
                 )}
             </Toolbar>
         </AppBar>

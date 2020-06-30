@@ -1,6 +1,6 @@
 import NextError from "next/error"
 import {useRouter} from "next/router"
-import {getAllPostsWithSlug, getPost} from "../../lib/contentful-api"
+import {getAllPostsWithSlug, getPost} from "../../../lib/contentful-api"
 import React from "react"
 import PostHeader from "components/PostHeader"
 import PostBody from "components/PostBody"
@@ -34,7 +34,9 @@ export default function Post({post}) {
 export async function getStaticProps({params}) {
     const data = await getPost(
         params.all.join("/"),
-        params.all.length > 1 ? params.all[0] : "en-GB",
+        params.all.length > 1
+            ? params.all[0]
+            : process.env.NEXT_PUBLIC_CONTENTFUL_DEFAULT_LOCALE,
     )
     return {
         props: {
@@ -49,7 +51,7 @@ export async function getStaticPaths() {
     const allPostsWithLang = allPosts.map(post => Object.values(post)).flat()
     return {
         paths: allPostsWithLang?.map(slug => {
-            return `/posts/${slug}` ?? []
+            return `/blog/posts/${slug}` ?? []
         }),
         fallback: true,
     }

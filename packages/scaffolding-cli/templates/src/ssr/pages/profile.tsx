@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 import {Layout} from "components"
 import React from "react"
+import {Link} from "@material-ui/core"
 
 const Picture = styled.img`
     border-radius: 50%;
@@ -8,11 +9,17 @@ const Picture = styled.img`
     width: 100px;
 `
 
-const Profile = ({user: props}) => {
+const Profile = props => {
     return (
         <Layout>
-            {!props.user && <h2> Please login!</h2>}
-
+            <br />
+            <br />
+            {!props.user && (
+                <h2>
+                    {" "}
+                    Please login <Link href="/login">here</Link>
+                </h2>
+            )}
             {props.user && (
                 <div>
                     <Picture
@@ -21,13 +28,11 @@ const Profile = ({user: props}) => {
                     />{" "}
                     <h2>Hello, {props.user.displayName}</h2>
                     <p>This is what we know about you:</p>
-                    <ul>
-                        {Object.keys(props.user).map(key => (
-                            <li key={key}>
-                                {key}: {props.user[key].toString()}
-                            </li>
-                        ))}
-                    </ul>
+                    {
+                        <div>
+                            <pre>{JSON.stringify(props.user, null, 2)}</pre>
+                        </div>
+                    }
                 </div>
             )}
         </Layout>

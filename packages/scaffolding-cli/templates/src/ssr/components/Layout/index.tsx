@@ -16,6 +16,7 @@ export const Layout = props => {
             getConfig().publicRuntimeConfig.APP_BASE_PATH) ||
         process.env.APP_BASE_PATH ||
         ""
+
     return (
         <>
             <Meta assetPrefix={assetPrefix} />

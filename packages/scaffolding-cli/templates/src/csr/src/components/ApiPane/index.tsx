@@ -25,10 +25,12 @@ const ApiPane: React.FC<ApiPaneProps> = ({
             <Typography variant="h1">Latest menus:</Typography>
             {loading && <CircularProgress size={26} />}
             {!loading && errors && (
-                <Typography variant="h2">{errors}</Typography>
+                <Typography variant="caption">
+                    An error occurred when retrieving menus.
+                    </Typography>
             )}
-            {!loading && data?.length === 0 && (
-                <Typography variant="h2">No results</Typography>
+            {!loading && !errors && data?.length === 0 && (
+                <Typography variant="h2">Could not find any menus. Please create one to get started.</Typography>
             )}
             {!loading && data?.length >= 1 && (
                 <RestaurantListComponent restaurantList={data} />
