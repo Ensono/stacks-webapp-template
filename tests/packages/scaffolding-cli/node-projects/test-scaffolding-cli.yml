@@ -57,8 +57,8 @@ steps:
       docker_imagename: "$(docker_image_name)-ssr"
       docker_containerregistryname: "$(docker_container_registry_name)"
       docker_build_additional_args: "--build-arg CONFIG_FILENAME=ssr.bootstrap-config.json --build-arg PROJECT_WORKDIR=yumidoexampleapp/src ."
-      docker_tag_args: "-t $(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag) \
-          -t $(docker_container_registry_name)/$(docker_image_name):latest"
+      docker_tag_args: "-t $(docker_container_registry_name)/$(docker_image_name)-ssr:$(docker_image_tag) \
+          -t $(docker_container_registry_name)/$(docker_image_name)-ssr:latest"
       docker_run_additional_args: 
         - "npm run test"
 
@@ -72,7 +72,7 @@ steps:
       docker_imagename: "$(docker_image_name)-csr"
       docker_containerregistryname: "$(docker_container_registry_name)"
       docker_build_additional_args: "--build-arg CONFIG_FILENAME=csr.bootstrap-config.json --build-arg PROJECT_WORKDIR=yumidoexampleapp/src ."
-      docker_tag_args: "-t $(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag) \
-          -t $(docker_container_registry_name)/$(docker_image_name):latest"
+      docker_tag_args: "-t $(docker_container_registry_name)/$(docker_image_name)-csr:$(docker_image_tag) \
+          -t $(docker_container_registry_name)/$(docker_image_name)-csr:latest"
       docker_run_additional_args: 
         - "npm run test"
