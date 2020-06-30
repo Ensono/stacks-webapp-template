@@ -66,7 +66,6 @@ module "cosmosdb" {
 #### 
 # Additional user defined resources or modules can go here
 ####
-
 resource "azurerm_redis_cache" "default" {
   count               = var.create_cache ? 1 : 0
   name                = module.default_label.id
