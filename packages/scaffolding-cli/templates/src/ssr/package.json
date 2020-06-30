@@ -40,7 +40,7 @@
     "@emotion/styled": "^10.0.27",
     "@material-ui/core": "^4.9.1",
     "@material-ui/icons": "^4.9.1",
-    "@microsoft/applicationinsightnpx s-web": "^2.5.4",
+    "@microsoft/applicationinsights-web": "^2.5.4",
     "applicationinsights": "^1.7.2",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
@@ -73,7 +73,7 @@
     "swr": "^0.2.3",
     "uid-safe": "^2.1.5",
     "winston": "^3.2.1",
-    "@ckeditor/ckeditor5-react" : "2.1.0"
+    "@ckeditor/ckeditor5-react": "2.1.0"
   },
   "devDependencies": {
     "@amidostacks/eslint-config": "^0.30.0",
