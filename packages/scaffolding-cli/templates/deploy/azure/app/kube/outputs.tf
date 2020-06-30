@@ -18,3 +18,15 @@ output "cosmosdb_primary_master_key" {
   sensitive   = true
   value       = module.cosmosdb.cosmosdb_primary_master_key
 }
+
+output "redis_cache_key" {
+  description = "Primary Key for accessing the RedisCache, should only be used in applications running outside of AzureCloud"
+  sensitive   = true
+  value       = var.create_cosmosdb ? azurerm_redis_cache.default.0.primary_access_key : ""
+}
+
+output "redis_cache_hostname" {
+  description = "Primary Hostname endpoint for Redis Cache"
+  sensitive   = false
+  value       = var.create_cosmosdb ? azurerm_redis_cache.default.0.hostname : ""
+}

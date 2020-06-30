@@ -34,9 +34,9 @@ resources:
     - container: sonar_scanner
       image: amidostacks/ci-sonarscanner:0.0.1
     - container: k8s_deploy
-      image: amidostacks/ci-k8s:0.0.9
+      image: amidostacks/ci-k8s:0.0.10
     - container: terraform_custom
-      image: amidostacks/ci-tf:0.0.3
+      image: amidostacks/ci-tf:0.0.4
     - container: cypress
       image: cypress/base:12.16.2
 
@@ -76,9 +76,6 @@ variables:
   docker_container_registry_name: $(company)$(project)nonproduks$(domain)
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   # AKS/AZURE
-  # This will always be predictably named by setting your company - project - INFRAstage - location - compnonent names in the infra-pipeline
-  aks_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
-  aks_clustername: $(company)-$(project)-nonprod-uks-$(domain)
   # Infra 
   conventional_resource_namer: $(company)-$(project)-nonprod-uks-$(domain)
   base_domain: nonprod.amidostacks.com
@@ -146,7 +143,7 @@ stages:
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
-                MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
                 NODE_ENV: development
                 # avoid warnings about terminal
@@ -206,25 +203,30 @@ stages:
               terraform_extra_properties: {
                 TF_VAR_resource_group_location: uksouth,
                 TF_VAR_use_existing_resource_group: true,
-                TF_VAR_resource_group_name: $(conventional_resource_namer),
+                TF_VAR_resource_group_name: amido-stacks-nonprod-uks-node,
                 TF_VAR_name_company: $(company),
                 TF_VAR_name_project: $(project),
                 TF_VAR_name_component: $(component),
                 TF_VAR_create_cosmosdb: false,
+                TF_VAR_create_cache: true,
                 TF_VAR_name_environment: dev,
                 TF_VAR_name_stage: dev,
-                TF_VAR_app_gateway_frontend_ip_name: $(conventional_resource_namer),
+                TF_VAR_app_gateway_frontend_ip_name: amido-stacks-nonprod-uks-node,
                 TF_VAR_dns_record: app,
                 TF_VAR_dns_zone_name: $(base_domain),
                 TF_VAR_internal_dns_zone_name: $(base_domain_internal)
               }
-              terraform_output_commands: ""
+              terraform_output_commands: |
+                raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k);isOutput=true]\(.[$k] | .value)"')
+                readarray -t outputs <<<"$raw_tf"
+                for i in "${outputs[@]}"; do echo "$i"; done
 
       - deployment: DeployDev
         dependsOn: AppInfraDev
         container: k8s_deploy
         variables:
-          GLOBAL_VAR: FOO
+          redis_host: $[ dependencies.AppInfraDev.outputs['tfoutputs.redis_cache_hostname'] ]
+          redis_key: $[ dependencies.AppInfraDev.outputs['tfoutputs.redis_cache_key'] ]
         pool:
           vmImage: ubuntu-18.04
         environment: dev
@@ -272,9 +274,10 @@ stages:
                           auth_client_secret: $(AUTH0_CLIENT_SECRET),
                           auth_domain: $(AUTH0_DOMAIN),
                           auth_client_id: $(AUTH0_CLIENT_ID),
-                          redis_host: $(REDIS_HOST),
-                          redis_port: $(REDIS_PORT),
-                          redis_enabled: $(REDIS_ENABLED)
+                          redis_host: $(redis_host),
+                          redis_key: $(redis_key),
+                          redis_port: "443",
+                          redis_enabled: "false"
                         },
                         args: "-no-empty",
                       }
@@ -286,8 +289,8 @@ stages:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
                     download_deploy_artefact: false
                     # Kubernetes Config
-                    kubernetes_clusterrg: $(aks_clusterrg)
-                    kubernetes_clustername: $(aks_clustername)
+                    kubernetes_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
+                    kubernetes_clustername: $(company)-$(project)-nonprod-uks-$(domain)
                     # Mutation Information
                     kubectl_filepath: 
                       - $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
