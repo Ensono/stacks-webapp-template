@@ -32,7 +32,10 @@ class _App extends App<AppWithStore> {
             ctx.store.dispatch(END)
             await (ctx.store as WithSagaTaskStore).sagaTask.toPromise()
         }
-        // TODO Add passport to the app container.
+
+        if (ctx?.req?.user) {
+            pageProps.user = ctx.req.user
+        }
         return {pageProps}
     }
 
@@ -55,7 +58,7 @@ class _App extends App<AppWithStore> {
         const {Component, pageProps, store} = this.props
         const props = {
             ...pageProps,
-            user: this.state,
+            ...this.state,
         }
         return (
             <>

@@ -25,7 +25,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.2.2
+      ref: refs/tags/v1.3.0
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC 
       endpoint: amidostacks
@@ -244,6 +244,7 @@ stages:
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
                   parameters: 
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+                    enable_debug: "yes"
                     template_input: [
                       {
                         base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_app-deploy.yml,
@@ -267,8 +268,15 @@ stages:
                           aadpodidentitybinding: stacks-webapp-identity,
                           app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY),
                           next_public_token: $(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN),
-                          next_space_id: $(NEXT_PUBLIC_CONTENTFUL_SPACE_ID)
-                        }
+                          next_space_id: $(NEXT_PUBLIC_CONTENTFUL_SPACE_ID),
+                          auth_client_secret: $(AUTH0_CLIENT_SECRET),
+                          auth_domain: $(AUTH0_DOMAIN),
+                          auth_client_id: $(AUTH0_CLIENT_ID),
+                          redis_host: $(REDIS_HOST),
+                          redis_port: $(REDIS_PORT),
+                          redis_enabled: $(REDIS_ENABLED)
+                        },
+                        args: "-no-empty",
                       }
                     ]
 
@@ -281,7 +289,8 @@ stages:
                     kubernetes_clusterrg: $(aks_clusterrg)
                     kubernetes_clustername: $(aks_clustername)
                     # Mutation Information
-                    kubectl_filepath: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
+                    kubectl_filepath: 
+                      - $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
                     kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app # unnecessary
             on:
               success:

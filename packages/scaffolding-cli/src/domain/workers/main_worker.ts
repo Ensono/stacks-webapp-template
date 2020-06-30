@@ -77,7 +77,10 @@ export class MainWorker {
             const buildInput: Array<BuildReplaceInput> = netcore.inFiles({
                 projectName: instructions.projectName,
                 businessObj: instructions.business,
-                cloudObj: instructions.cloud
+                cloudObj: instructions.cloud,                
+                terraformObj: instructions.terraform,
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
@@ -85,7 +88,7 @@ export class MainWorker {
             // srcPathInTmp should be statically defined in each method
             await Utils.doGitClone(staticConf.netcore.gitRepo, newDirectory.tempPath, staticConf.netcore.localPath, staticConf.netcore.gitRef)
 
-            await Utils.constructOutput(staticConf.netcore.folderMap, newDirectory.finalPath, newDirectory.tempPath)
+            await Utils.constructOutput([...staticConf.netcore.folderMap, ...staticConf.shared.folderMap], newDirectory.finalPath, newDirectory.tempPath)
 
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput)
 

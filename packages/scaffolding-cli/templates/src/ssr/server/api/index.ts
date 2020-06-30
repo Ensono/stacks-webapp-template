@@ -16,6 +16,6 @@ withPostMenuEndpoints(router)
 healthEndPoint(router)
 
 //Auth endpoint
-// authEndPoint(router)
+authEndPoint(router)
 
 export default router

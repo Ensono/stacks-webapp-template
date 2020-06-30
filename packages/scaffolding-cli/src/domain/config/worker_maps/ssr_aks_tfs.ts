@@ -14,12 +14,15 @@ export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmO
         {
             files: ["**/package.json"],
             values: {
-                "PROJECT_NAME": projectName
+                "PROJECT_NAME": projectName,
+                "project_name": projectName
             }
         },
         {
             files: ["**/*-pipeline.yml"],
             values: {
+                "domain: node": `domain: ${businessObj?.domain}`,
+                "component: node": `domain: ${businessObj?.component}`,
                 "src/ssr": "src",
                 "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
                 "tf_state_key: stacks-webapp": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_MY_APP%`,

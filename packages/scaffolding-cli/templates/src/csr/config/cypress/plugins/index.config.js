@@ -33,7 +33,7 @@ module.exports = (on, config) => {
 
     config.baseUrl = `${protocol}://${baseUrl}:${port}/${env.raw.APP_BASE_PATH}`
 
-    //Pull in all the environment runtime configuration for the webapp
+    // Pull in all the environment runtime configuration for the webapp
     config.env = {
         ...getClientEnvironment.raw,
     }

@@ -3,6 +3,12 @@ import React from "react"
 import {Header} from "."
 
 const useRouter = jest.spyOn(require("next/router"), "useRouter")
+jest.mock("../../lib/hooks", () => ({
+    useUser: jest.fn().mockReturnValue({
+        displayName: "",
+        picture: "",
+    }),
+}))
 
 const mockNextUseRouter = (props: {
     route: string
@@ -19,6 +25,12 @@ const mockNextUseRouter = (props: {
 }
 
 test("renders Header snapshot", () => {
+    mockNextUseRouter({
+        route: "/",
+        pathname: "/",
+        query: "",
+        asPath: "",
+    })
     const {asFragment, getByTestId} = render(<Header />)
     expect(asFragment()).toMatchSnapshot()
     expect(getByTestId("create_button")).toBeInTheDocument()

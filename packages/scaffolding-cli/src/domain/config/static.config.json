@@ -1,4 +1,15 @@
 {
+  "shared": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
+      }
+    ]
+  },
   "ssr": {
     "gitRepo": "",
     "gitRef": "",
@@ -90,6 +101,10 @@
       {
         "src": "docs",
         "dest": "docs"
+      },
+      {
+        "src": "src/csr",
+        "dest": "src"
       }
     ]
   },
@@ -103,40 +118,28 @@
         "dest": "./aux_scripts"
       },
       {
-        "src": "shared/README.md",
+        "src": "shared/netcore.README.md",
         "dest": "./README.md"
       },
       {
-        "src": "shared/_gitignore",
-        "dest": "./.gitignore"
-      },
-      {
-        "src": "build/azDevops/azure/k8s_manifests",
+        "src": "build/azDevops/azure/k8s_manifests/aks",
         "dest": "build/azDevops/azure/k8s_manifests"
       },
       {
-        "src": "build/azDevops/azure/templates",
-        "dest": "build/azDevops/azure/templates"
+        "src": "build/azDevops/azure/templates/steps/build-netcore.yml",
+        "dest": "build/azDevops/azure/templates/steps/build-netcore.yml"
       },
       {
         "src": "build/azDevops/azure/azure-pipelines-netcore-k8s.yml",
         "dest": "build/azDevops/azure/api-pipeline.yml"
       },
       {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
-        "dest": "build/azDevops/azure/infra-pipeline.yml"
-      },
-      {
-        "src": "deploy/azure/infra/stacks-aks",
-        "dest": "deploy/azure/infra"
-      },
-      {
         "src": "deploy/azure/app/kube",
         "dest": "deploy/azure/app"
       },
       {
-        "src": "deploy/k8s",
-        "dest": "deploy/k8s"
+        "src": "deploy/k8s/app/base_api-deploy.yml",
+        "dest": "deploy/k8s/app/base_api-deploy.yml"
       },
       {
         "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium",
@@ -255,32 +258,20 @@
         "dest": "./.gitignore"
       },
       {
-        "src": "build/azDevops/azure/k8s_manifests",
-        "dest": "build/azDevops/gcp/k8s_manifests"
+        "src": "build/azDevops/azure/templates/steps/build-node.yml",
+        "dest": "build/azDevops/gcp/templates/steps/build-node.yml"
       },
       {
-        "src": "build/azDevops/azure/templates",
-        "dest": "build/azDevops/gcp/templates"
-      },
-      {
-        "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
+        "src": "build/azDevops/azure/azure-pipelines-ssr-gke.yml",
         "dest": "build/azDevops/gcp/app-pipeline.yml"
-      },
-      {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-gke.yml",
-        "dest": "build/azDevops/gcp/infra-pipeline.yml"
-      },
-      {
-        "src": "deploy/gcp/infra/stacks-gke",
-        "dest": "deploy/gcp/infra"
       },
       {
         "src": "deploy/azure/app/kube",
         "dest": "deploy/gcp/app"
       },
       {
-        "src": "deploy/k8s/app",
-        "dest": "deploy/k8s/app"
+        "src": "deploy/k8s/app/base_gke-app-deploy.yml",
+        "dest": "deploy/k8s/app/base_gke-app-deploy.yml"
       },
       {
         "src": "test",

@@ -14,7 +14,7 @@ const Header = () => {
                         {title}
                     </Typography>
                     <Tooltip title="Create menu" aria-label="create menu">
-                        <Fab
+                        <Fab disabled
                             size="small"
                             color="primary"
                             aria-label="create menu button"

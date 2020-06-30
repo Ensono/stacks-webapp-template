@@ -69,12 +69,12 @@ Run locally in
 
 We need to ensure that Cypress knows the following at a minimum:
 
-- protocol (e.g. https)
+- protocol (e.g. http)
 - host (e.g. google.com)
 - path (e.g. /images)
 
 All variables should be pulled in using the same method the app does. In this
-case, this is all dont in `cypress/plugins/index.config.js`
+case, this is all done in `cypress/plugins/index.config.js`
 
 ## Scripts
 

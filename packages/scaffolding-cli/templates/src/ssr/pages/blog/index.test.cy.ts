@@ -35,7 +35,7 @@ describe("/Blog", () => {
 
         cy.get("[data-testid=blog_preview_block]").should(
             "have.length.greaterThan",
-            1,
+            0,
         )
     })
 })

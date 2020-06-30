@@ -74,7 +74,7 @@ RUN apt-get update -y && apt-get install -y google-cloud-sdk
 # | tee /usr/local/bin/docker-credential-gcr > /dev/null && chmod 0777 /usr/local/bin/docker-credential-gcr
 
 # ENVSUBST with built in checks
-RUN curl -fsSL https://github.com/amido/stacks-webapp-template/releases/download/0.0.2/envsubst-`uname -s`-`uname -m` -o /opt/envsubst && \
+RUN curl -fsSL https://github.com/a8m/envsubst/releases/download/v1.2.0/envsubst-`uname -s`-`uname -m` -o /opt/envsubst && \
   chmod +x /opt/envsubst && \
   mv /opt/envsubst /usr/local/bin
 
@@ -82,7 +82,7 @@ RUN apt-get install -y \
     apt-transport-https \
     ca-certificates \
     gnupg-agent \
-    software-properties-common 
+    software-properties-common
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
