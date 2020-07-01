@@ -77,8 +77,6 @@ stages:
   - group: amido-stacks-infra-credentials-nonprod
   jobs:
   - job: InfraNonProd
-    variables:
-      foo: bar 
     pool:
       vmImage: ubuntu-18.04
     container: terraform_custom
@@ -100,7 +98,6 @@ stages:
           # Terraform Basic Config
           terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
           # changing this would require changing the downstream consumers of these outputs
-          # 
           terraform_output_artefact: 'tfoutputs'
           # Terraform State Config
           terraform_backend_client_id: $(azure_client_id)

@@ -240,3 +240,28 @@ export function platformQuestions(): Array<PromptQuestion> {
         },
     ]
 }
+
+export const language: {[key: string]: Function} = {
+    javasrping: javaQuestions
+}
+
+export const platform: {[key: string]: Function} = {
+    // aks: aksQuestions
+}
+
+export function javaQuestions(): Array<PromptQuestion> {
+    return [
+        {
+            type: "text",
+            name: "tld_namespace",
+            message: "soooof",
+            initial: "com",
+        },
+        {
+            type: "confirm",
+            name: "enableAdvanced",
+            message: "Continue to additional project configuration?",
+            initial: true,
+        },
+    ]
+}

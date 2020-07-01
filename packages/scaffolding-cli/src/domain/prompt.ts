@@ -7,6 +7,7 @@ import {
     platformQuestions,
     advancedQuestions,
     cliTestQuestions,
+    language,
 } from "./config/questions"
 import {PromptQuestion} from "./model/prompt_question"
 import {PromptAnswer, CliAnswerModel} from "./model/prompt_answer"
@@ -74,8 +75,16 @@ async function getFromCli(defaultProjectName: string, cliArgs: CliOptions): Prom
             cliSelection,
             advancedQuestions,
         )
+        if (language[cliSelection.projectType]) {
+            const languageAdvanced = await advancedCliQuestion(
+                advancedSelection,
+                language[cliSelection.projectType]
+            )
+            return languageAdvanced
+        } 
         return advancedSelection
     }
+
     return cliSelection
 }
 

@@ -17,6 +17,7 @@ module.exports = {
     REDIS_HOST: process.env.REDIS_HOST || "127.0.0.1",
     REDIS_PORT: process.env.REDIS_PORT || "6379",
     REDIS_ENABLED: process.env.REDIS_ENABLED || false,
+    REDIS_PASSWORD: process.env.REDIS_PASSWORD || null,
 
     NEXT_PUBLIC_CONTENTFUL_SPACE_ID:
         process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID || "",
