@@ -1,6 +1,7 @@
 import {MenuItem, TextField, makeStyles} from "@material-ui/core"
 import {useRouter} from "next/router"
 import React, {useEffect} from "react"
+import {getLanguages} from "../../lib/contentful-api"
 import conf from "../../environment-configuration"
 
 const useStyles = makeStyles(theme => ({
