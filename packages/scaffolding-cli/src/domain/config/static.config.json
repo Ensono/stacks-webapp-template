@@ -110,7 +110,7 @@
   },
   "netcore": {
     "gitRepo": "https://github.com/amido/stacks-dotnet.git",
-    "gitRef": "a19e47e0a0b5a0f8c171a2ee2db4318967eb42c9",
+    "gitRef": "bb1da0d16b061751ef163a4ae321587cbde4f4ea",
     "localPath": "src/netcore",
     "folderMap": [
       {
