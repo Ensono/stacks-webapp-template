@@ -73,7 +73,7 @@ variables:
   docker_dockerfile_path: "src/"
   docker_image_name: $(self_generic_name)
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
-  docker_container_registry_name: $(company)$(project)nonproduks$(domain)
+  docker_container_registry_name: amidostacksnonproduksnode
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   # AKS/AZURE
   # Infra 
@@ -157,8 +157,6 @@ stages:
       - group: amido-stacks-webapp
     jobs:
       - job: AppInfraDev
-        variables:
-          foo: bar 
         pool:
           vmImage: ubuntu-18.04
         container: terraform_custom
@@ -212,7 +210,7 @@ stages:
                 TF_VAR_name_environment: dev,
                 TF_VAR_name_stage: dev,
                 TF_VAR_app_gateway_frontend_ip_name: amido-stacks-nonprod-uks-node,
-                TF_VAR_dns_record: app-${BRANCH_NAME},
+                TF_VAR_dns_record: app,
                 TF_VAR_dns_zone_name: $(base_domain),
                 TF_VAR_internal_dns_zone_name: $(base_domain_internal)
               }

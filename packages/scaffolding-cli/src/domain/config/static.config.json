@@ -28,7 +28,7 @@
         "dest": "./.gitignore"
       },
       {
-        "src": "build/azDevops/azure/k8s_manifests",
+        "src": "build/azDevops/azure/k8s_manifests/aks",
         "dest": "build/azDevops/azure/k8s_manifests"
       },
       {
@@ -38,14 +38,6 @@
       {
         "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
         "dest": "build/azDevops/azure/app-pipeline.yml"
-      },
-      {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
-        "dest": "build/azDevops/azure/infra-pipeline.yml"
-      },
-      {
-        "src": "deploy/azure/infra/stacks-aks",
-        "dest": "deploy/azure/infra"
       },
       {
         "src": "deploy/azure/app/kube",
