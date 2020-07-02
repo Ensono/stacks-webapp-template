@@ -1,0 +1,78 @@
+##################################################################################################################################
+# Desc: 
+# 
+# Pre-reqs: 
+##################################################################################################################################
+
+pr: none
+
+trigger:
+  branches:
+    include:
+      - master
+
+  paths:
+    include:
+      - 'packages/scaffolding-cli/templates/src/ssr/*'
+      - 'packages/scaffolding-cli/templates/src/csr/*'
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: amido/stacks-pipeline-templates
+      ref: refs/tags/v1.4.1
+      endpoint: amidostacks # GitHub Service Connection
+
+# NOTE: If you use both variables and variable groups, you'll have to use name/value syntax for the individual (non-grouped)
+variables:
+  company: amido
+  project: stacks
+  domain: cli
+
+  self_repo: stacks-webapp-template/tests/packages/scaffolding-cli
+  self_repo_src: node-projects
+  self_generic_name: scaffolding-cli
+  # Versioning
+  version_major: 0
+  version_minor: 0
+  version_revision: $[counter(variables['version_minor'], 0)]
+  # Docker Config
+  docker_image_name: $(self_generic_name)
+  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
+  docker_container_registry_name: $(company)$(project)nonproduks$(domain)
+
+steps:
+  - checkout: self
+  - checkout: templates
+    persistCredentials: true
+
+  - template: azDevOps/azure/templates/v2/steps/run-scaffolding-cli.yml@templates
+    parameters:
+      # Run scripts against built image
+      build_container_image: true
+      run_container_image: true
+      # Docker Config
+      docker_workdir: "$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)"
+      docker_imagename: "$(docker_image_name)-ssr"
+      docker_containerregistryname: "$(docker_container_registry_name)"
+      docker_build_additional_args: "--build-arg CONFIG_FILENAME=ssr.bootstrap-config.json --build-arg PROJECT_WORKDIR=yumidoexampleapp/src ."
+      docker_tag_args: "-t $(docker_container_registry_name)/$(docker_image_name)-ssr:$(docker_image_tag) \
+          -t $(docker_container_registry_name)/$(docker_image_name)-ssr:latest"
+      docker_run_additional_args: 
+        - "npm run test"
+
+  - template: azDevOps/azure/templates/v2/steps/run-scaffolding-cli.yml@templates
+    parameters:
+      # Run scripts against built image
+      build_container_image: true
+      run_container_image: true
+      # Docker Config
+      docker_workdir: "$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)"
+      docker_imagename: "$(docker_image_name)-csr"
+      docker_containerregistryname: "$(docker_container_registry_name)"
+      docker_build_additional_args: "--build-arg CONFIG_FILENAME=csr.bootstrap-config.json --build-arg PROJECT_WORKDIR=yumidoexampleapp/src ."
+      docker_tag_args: "-t $(docker_container_registry_name)/$(docker_image_name)-csr:$(docker_image_tag) \
+          -t $(docker_container_registry_name)/$(docker_image_name)-csr:latest"
+      docker_run_additional_args: 
+        - "npm run test"
