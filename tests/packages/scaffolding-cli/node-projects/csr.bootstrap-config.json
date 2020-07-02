@@ -1,0 +1,13 @@
+{
+  "businessCompany": "amidoexample",
+  "projectName": "yumidoexampleapp",
+  "projectType": "csr",
+  "businessDomain": "webapp",
+  "deployment": "azdevops",
+  "platform": "aks",
+  "cloudRegion": "uksouth",
+  "businessComponent": "COMPONENT_REPLACE_ME",
+  "sourceControlRepoName": "yumidoexampleapp",
+  "terraformBackendStorage": "azureBlob",
+  "networkingBaseDomain": "app.replace.me"
+}

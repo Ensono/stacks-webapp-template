@@ -23,6 +23,12 @@ export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmO
             }
         },
         {
+            files: ["**/App.test.tsx"],
+            values: {
+                "project_name": projectName
+            }
+        },
+        {
             files: ["**/*.yml"],
             values: {
                 "src/csr": "src",
