@@ -1,0 +1,86 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/packages/scaffolding-cli/templates/test/cypress"
+  schedule:
+    interval: weekly
+    day: sunday
+    timezone: Europe/London
+  open-pull-requests-limit: 10
+  target-branch: chore/dependabot
+  versioning-strategy: increase-if-necessary
+  ignore:
+  - dependency-name: "@applitools/eyes-cypress"
+    versions:
+    - ">= 3.11.a"
+    - "< 3.12"
+  - dependency-name: cypress
+    versions:
+    - ">= 4.6.a"
+    - "< 4.7"
+  - dependency-name: mocha
+    versions:
+    - ">= 7.2.a"
+    - "< 7.3"
+  - dependency-name: mochawesome
+    versions:
+    - ">= 6.1.a"
+    - "< 6.2"
+  - dependency-name: mochawesome-report-generator
+    versions:
+    - ">= 5.a"
+    - "< 6"
+  - dependency-name: typescript
+    versions:
+    - "> 3.9.2"
+    - "< 3.10"
+- package-ecosystem: npm
+  directory: "/packages/scaffolding-cli/templates/src/ssr"
+  schedule:
+    interval: weekly
+    day: sunday
+    timezone: Europe/London
+  open-pull-requests-limit: 10
+  target-branch: chore/dependabot
+  versioning-strategy: increase-if-necessary
+  ignore:
+  - dependency-name: "@applitools/eyes-cypress"
+    versions:
+    - ">= 3.10.a"
+    - "< 3.11"
+  - dependency-name: "@applitools/eyes-cypress"
+    versions:
+    - ">= 3.11.a"
+    - "< 3.12"
+  - dependency-name: eslint-config-prettier
+    versions:
+    - ">= 6.11.a"
+    - "< 6.12"
+  - dependency-name: eslint-plugin-jest
+    versions:
+    - ">= 23.13.a"
+    - "< 23.14"
+  - dependency-name: testcafe
+    versions:
+    - "> 1.8.4"
+    - "< 1.9"
+  - dependency-name: ts-node
+    versions:
+    - ">= 8.10.a"
+    - "< 8.11"
+  - dependency-name: "@types/express-serve-static-core"
+    versions:
+    - "> 4.17.5"
+    - "< 4.18"
+  - dependency-name: "@types/helmet"
+    versions:
+    - "> 0.0.45"
+    - "< 0.1"
+  - dependency-name: "@types/jest"
+    versions:
+    - ">= 25.2.a"
+    - "< 25.3"
+  - dependency-name: "@types/react-redux"
+    versions:
+    - "> 7.1.7"
+    - "< 7.2"
