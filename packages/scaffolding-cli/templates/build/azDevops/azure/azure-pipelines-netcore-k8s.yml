@@ -128,14 +128,14 @@ stages:
               component_test: true
               component_test_project: "*ComponentTests"
               # Enable once you have set up a dev or dedicated test db
-              integration_test: true
+              integration_test: false
               integration_test_project: "*IntegrationTests"
               integration_test_env: {
                 COSMOSDB_KEY: $(COSMOSDB_KEY_DEV),
                 CosmosDB__DatabaseName: $(COSMOSDB_NAME_DEV),
-                CosmosDB__DatabaseAccountUri: $(COSMOSDB__ACCOUNT_URI_DEV)
+                CosmosDB__DatabaseAccountUri: $(COSMOSDB_ACCOUNT_URI_DEV)
               }
-              contract_test: true
+              contract_test: false
               contract_test_project: "*ContractTests"
               contract_test_env: {
                 BUILD_NUMBER: $(docker_image_tag),

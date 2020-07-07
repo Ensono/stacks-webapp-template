@@ -39,7 +39,7 @@ export function computedSelection(
         networking: {
             baseDomain:
                 cliOrConfigAnswer.networkingBaseDomain ||
-                "REPO_NAME_REPLACE_ME",
+                "BASE_DOMAIN_NAME_REPLACE_ME",
         },
     } as CliAnswerModel
 }
