@@ -8,6 +8,7 @@ export interface SingleConfigKey {
     gitRef: string
     folderMap: Array<FolderMap>
     localPath: string
+    searchValue?: string
 }
 
 export interface Static {

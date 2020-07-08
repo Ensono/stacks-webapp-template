@@ -1,24 +1,26 @@
 /* eslint-disable */
-
-import { FlowSelector }  from "../selectors"
-
+import { FlowSelector, IFlowSelector } from "../selectors"
 export interface Workflow {
     [key: string]: Function
 }
 
-export function WorkflowOptions(): Workflow {
+const flowSelector: IFlowSelector = new FlowSelector()
+export const WorkflowOptions = (): Workflow => {
     return {
-        ssraksazdevops: FlowSelector.optionSsrAksAzuredevops,
-        netcoreaksazdevops:  FlowSelector.optionNetcoreAksAzuredevops,
-        netcoreaksjenkins: () => { return { code: 0, message: "Not Yet Implemented.\n\nThough this may not ever happen... 😞"}},
-        netcoregkejenkins: () => { return { code: 0, message: "Not Yet Implemented.\n\nThough this may not ever happen... 😞"}},
-        javaspringaksazdevops: FlowSelector.optionJavaSpringAksAzuredevops,
-        javaspringaksjenkins: () => { return { code: 0, message: "Not Yet Implemented.\nWatch this space!"}},
-        javaspringgkejenkins: () => { return { code: 0, message: "Not Yet Implemented.\nWatch this space!"}},
-        csraksazdevops: FlowSelector.optionCsrAksAzuredevops,
-        testnetcoreseleniumanyazdevops: FlowSelector.optionNetcoreSeleniumAnyAzdevops,
-        testjstestcafeanyazdevops: FlowSelector.optionJsTestcafeAnyAzdevops,
-        ssrgkeazdevops: FlowSelector.optionSsrGkeAzdevops,
-        infraaksazdevops: FlowSelector.optionInfraAksAzdevops
+        ssraksazdevops: flowSelector.optionSsrAksAzuredevops,
+        ssrgkeazdevops: flowSelector.optionSsrGkeAzdevops,
+        ssrgkejenkins: flowSelector.optionSsrGkeJenkins,
+        netcoreaksazdevops: flowSelector.optionNetcoreAksAzuredevops,
+        netcoreaksjenkins: () => { return { code: 0, message: "Not Yet Implemented.\n\nThough this may not ever happen... 😞" } },
+        netcoregkejenkins: () => { return { code: 0, message: "Not Yet Implemented.\n\nThough this may not ever happen... 😞" } },
+        javaspringaksazdevops: flowSelector.optionJavaSpringAksAzuredevops,
+        javaspringaksjenkins: () => { return { code: 0, message: "Not Yet Implemented.\nWatch this space!" } },
+        javaspringgkejenkins: () => { return { code: 0, message: "Not Yet Implemented.\nWatch this space!" } },
+        csraksazdevops: flowSelector.optionCsrAksAzuredevops,
+        testnetcoreseleniumanyazdevops: flowSelector.optionNetcoreSeleniumAnyAzdevops,
+        testjstestcafeanyazdevops: flowSelector.optionJsTestcafeAnyAzdevops,
+        infraaksazdevops: flowSelector.optionInfraAksAzdevops,
+        infragkeazdevops: flowSelector.optionInfraGkeAzdevops,
+        infragkejenkins: flowSelector.optionInfraGkeJenkins,
     }
 }

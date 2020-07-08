@@ -178,8 +178,8 @@ stages:
           scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
           template_input: [
             {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_external-dns.yml, 
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml,
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_external-dns.yml, 
+              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/external-dns.yml,
               displayName: ExternalDns,
               env_vars: {
                 domain_filter: $(base_domain),
@@ -187,7 +187,7 @@ stages:
               }
             },
             {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml,
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_aadpodidentity.yml,
               displayName: AADPodId,
               env_vars: {
                 user_identity_id: $(AKS_DEFAULT_USER_IDENTITY_ID),
@@ -196,15 +196,15 @@ stages:
               }
             },
            {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentitybinding.yml, 
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_aadpodidentitybinding.yml, 
               displayName: AADPodIdBinding,
               env_vars: {
                 identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
               }
             },
            {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aks-nginx-ingress.yml,
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/nginx-ingress.yml,
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_aks-nginx-ingress.yml,
+              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/nginx-ingress.yml,
               displayName: NginxIngress,
               env_vars: {
                 aks_ingress_public_ip: $(AKS_INGRESS_PUBLIC_IP)
@@ -222,13 +222,13 @@ stages:
           aks_deploy_gatekeeper: false
           aks_aad_pod_identity: true
           aks_aad_pod_identity_yaml: {
-            aad_id_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentity.yml,
-            aad_id_binding_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml
+            aad_id_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/aadpodidentity.yml,
+            aad_id_binding_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/aadpodidentitybinding.yml
           }
           acr_name: $(docker_container_registry_name)
           acr_resource_group_name: $(AKS_RESOURCE_GROUP)
           ingress_definition:
             # TODO: make this a complex object so that additional args can be passed in
-            - $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/nginx-ingress.yml
-          external_dns_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml
+            - $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/nginx-ingress.yml
+          external_dns_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/external-dns.yml
           domain_filter: $(base_domain)

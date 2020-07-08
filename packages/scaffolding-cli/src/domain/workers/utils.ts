@@ -96,14 +96,11 @@ export class Utils {
         }
     }
 
-    public static async fileNameReplace(srcDir: Array<string>, instructionMap: CliAnswerModel): Promise<BaseResponse> {
+    public static async fileNameReplace(srcDir: Array<string>, searchString: string, replaceString: string): Promise<BaseResponse> {
         const fsResponse: BaseResponse = {} as BaseResponse
         try {
-            const replaceString = `${startCase(toLower(instructionMap.business.company)).replace(/\s/gm, "")}.${startCase(toLower(instructionMap.business.project)).replace(/\s/gm, "")}`
-            const match = 'xxAMIDOxx.xxSTACKSxx'
-
             for (const dir of srcDir){
-                await renamerRecursion(dir, match, replaceString)
+                await renamerRecursion(dir, searchString, replaceString)
             }
 
             fsResponse.ok = true

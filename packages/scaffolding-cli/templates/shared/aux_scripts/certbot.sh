@@ -14,13 +14,13 @@ sudo certbot certonly -d "*.$domain,$domain" --email $email --agree-tos --prefer
 
 mkdir -p /usr/data/certs
 
-cat /etc/letsencrypt/live/$domain/cert.pem /etc/letsencrypt/live/$domain/privkey.pem > /usr/data/deploy/azure/certs/$domain.pem
+cat /etc/letsencrypt/live/$domain/cert.pem /etc/letsencrypt/live/$domain/privkey.pem > /usr/data/certs/$domain.pem
 
 if [ -z "$pfx_password" ]; then
   pfx_password="Password1"
 fi;
 
-openssl pkcs12 -export -in /usr/data/deploy/azure/certs/$domain.pem -password pass:$pfx_password -name $domain -out /usr/data/deploy/azure/certs/$domain.pfx
+openssl pkcs12 -export -in /usr/data/certs/$domain.pem -password pass:$pfx_password -name $domain -out /usr/data/certs/$domain.pfx
 
 exit 0
 

@@ -17,12 +17,10 @@ export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmO
             }
         },
         {
-            files: ["**/vars.tf"],
+            files: ["**/*.java", "**/pom.xml", "**/Dockerfile"],
             values: {
-                "replace_company_name": businessObj?.company || "default",
-                "replace_project_name": businessObj?.project || "default",
-                "replace_component_name": businessObj?.component || "default",
-                "replace_azure_location": cloudObj?.region || "uksouth"
+                "com.xxAMIDOxx": `${(businessObj?.company)?.toLowerCase().replace(/\s/gm, "") || "company"}`,
+                "xxSTACKSxx": (businessObj?.project)?.toLowerCase().replace(/\s/gm, "") || "project",
             }
         }
     ]

@@ -25,7 +25,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.3.0
+      ref: refs/tags/v1.4.2
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC 
       endpoint: amidostacks
@@ -63,7 +63,6 @@ variables:
   # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
   # **`terraform_state_workspace: `** 
   # avoid running anything past dev that is not on master
-  # sample value: company-webapp
   tf_state_key: stacks-webapp
   # Versioning
   version_major: 0
@@ -129,6 +128,15 @@ stages:
               # Sonar settings
               static_code_analysis: true
               sonar_container: sonar_scanner
+              sonar_env: {
+                SONAR_HOST_URL: "https://sonarcloud.io",
+                SONAR_TOKEN: $SONAR_TOKEN,
+                SONAR_PROJECT_KEY: $SONAR_PROJECT_KEY,
+                SONAR_ORGANIZATION: $SONAR_ORGANIZATION,
+                SONAR_PROJECT_NAME: $SONAR_PROJECT_NAME,
+                BUILD_NUMBER: $(docker_image_tag),
+                SONAR_SCANNER_OPTS: ""
+              }
               #Linting and formatting validation
               lint_formatting: false
               shared_eslint_config: "@amidostacks/eslint-config@latest"
@@ -306,7 +314,7 @@ stages:
                         parameters:
                           env_vars:
                             APP_BASE_URL: "https://app.$(base_domain)"
-                            MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                            MENU_API_URL: "http://api.demo.nonprod.amidostacks.com/api/menu"
                             APP_BASE_PATH: "/web/stacks"
                             NODE_ENV: production
                           working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe

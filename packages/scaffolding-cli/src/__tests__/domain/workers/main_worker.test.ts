@@ -12,7 +12,7 @@ const staticConf: Static = conf as Static
 
 jest.mock("../../../domain/workers/utils")
 
-//TODO: parametise these tests
+// TODO: parametise these tests
 
 const mockAnswerSsr = {
     projectName: "foo",
@@ -116,7 +116,7 @@ describe("mainWorker class tests", () => {
             )
         })
 
-        it("infraAksAzdevops should return success and user message for npm", async () => {
+        it("infraAksAzdevops should return success and user message for infra only", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
                     message: `${mockAnswerSsr.projectName} created`,
@@ -142,6 +142,7 @@ describe("mainWorker class tests", () => {
                 `cd ${mockAnswerSsr.projectName}/deploy`,
             )
         })
+        
         it("csrAksTfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})

@@ -17,7 +17,7 @@ export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmO
             }
         },
         {
-            files: ["**/*Jenkinsfile"],
+            files: ["**/*-pipeline.yml"],
             values: {
                 "src/ssr": "src",
                 "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
