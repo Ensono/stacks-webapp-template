@@ -36,7 +36,7 @@
         "dest": "build/azDevops/azure/templates"
       },
       {
-        "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
+        "src": "build/azDevops/azure/azure-pipelines-ssr-aks.yml",
         "dest": "build/azDevops/azure/app-pipeline.yml"
       },
       {
