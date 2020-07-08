@@ -93,7 +93,7 @@ stages:
           # BUILD NPM
           - template: templates/steps/build-csr.yml
             parameters:
-              version_build_number: "${{ parameters.version_build_number }}"
+              version_build_number: "$(version_build_number)"
               # Docker Config
               login_azure: true
               # Vulnerability Scanning
