@@ -27,7 +27,7 @@ resources:
       name: amido/stacks-pipeline-templates
       ref: refs/tags/v1.3.0
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
-      # REPOSITORY IS PUBLIC 
+      # REPOSITORY IS PUBLIC
       endpoint: amidostacks
 
   containers:
@@ -45,7 +45,7 @@ variables:
   role: frontend
   #
   # SelfConfig
-  # If you haven't specified source_repo at cli runtime please ensure you replace it here 
+  # If you haven't specified source_repo at cli runtime please ensure you replace it here
   # It is case sensitive for TFS based repos
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_src: src/csr
@@ -59,14 +59,15 @@ variables:
   # Furthermore **IT IS VERY IMPORTANT** that you change the name of a workspace for each deployment stage
   # there are some best practices around this if you are going for feature based environments
   # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
-  # **`terraform_state_workspace: `** 
+  # **`terraform_state_workspace: `**
   # avoid running anything past dev that is not on master
   # sample value: company-webapp
   tf_state_key: stacks-webapp-csr
   # Versioning
   version_major: 0
   version_minor: 0
-  version_revision: $[counter(variables['version_minor'], 0)]
+  version_revision: $[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]
+  version_build_number: "$(version_major).$(version_minor).$(version_revision)-$(Build.SourceBranchName)"
   # BUILD ARTIFACTS across stages
   build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/src/csr
   build_artifact_deploy_name: $(self_generic_name)
@@ -92,6 +93,7 @@ stages:
           # BUILD NPM
           - template: templates/steps/build-csr.yml
             parameters:
+              version_build_number: "${{ parameters.version_build_number }}"
               # Docker Config
               login_azure: true
               # Vulnerability Scanning
@@ -128,7 +130,7 @@ stages:
     jobs:
       - job: AppInfraDev
         variables:
-          foo: bar 
+          foo: bar
         pool:
           vmImage: ubuntu-18.04
         container: terraform_custom
@@ -146,7 +148,7 @@ stages:
               container: terraform_custom
           # Create TF infra
           - template: azDevOps/azure/templates/v2/steps/login-services.yml@templates
-            parameters: 
+            parameters:
               login_azure: true
               azure_tenant_id: $(azure_tenant_id)
               azure_subscription_id: $(azure_subscription_id)
@@ -154,11 +156,11 @@ stages:
               azure_client_secret: $(azure_client_secret)
 
           - template: azDevOps/azure/templates/v2/steps/deploy-terraform-meta-generic.yml@templates
-            parameters: 
+            parameters:
               # Terraform Basic Config
               working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
               # changing this would require changing the downstream consumers of these outputs
-              # 
+              #
               terraform_output_artefact: 'tfoutputs'
               #Auth config
               terraform_auth_properties: {
