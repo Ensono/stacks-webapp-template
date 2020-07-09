@@ -29,6 +29,10 @@ parameters:
   test_arguments: ""
 
 steps:
+  - bash: |
+      echo '##vso[build.updatebuildnumber]${{ parameters.docker_imagetag }}'
+    displayName: 'Update: Build Number'
+
   # Login to Azure/AKS
   - template: azDevOps/azure/templates/v2/steps/login-services.yml@templates
     parameters:

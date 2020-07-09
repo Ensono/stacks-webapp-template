@@ -17,7 +17,7 @@ trigger:
       - '*'
   paths:
     include:
-      # REPLACE ME for custom paths if I am part of a bigger component 
+      # REPLACE ME for custom paths if I am part of a bigger component
       - 'netcore-api-v2/*'
 
 resources:
@@ -66,11 +66,11 @@ variables:
   # Versioning
   version_major: 0
   version_minor: 0
-  version_revision: $[counter(variables['version_minor'], 0)]
+  version_revision: $[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]
   # Docker Config
   docker_dockerfile_path: "src/api"
   docker_image_name: $(self_generic_name)
-  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
+  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(Build.SourceBranchName)"
   docker_container_registry_name: %REPLACE_ME_FOR_DOCKER_REGISTRY_NAME%
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   base_domain: nonprod.amidostacks.com

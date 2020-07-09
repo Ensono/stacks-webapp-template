@@ -27,7 +27,7 @@ resources:
       name: amido/stacks-pipeline-templates
       ref: refs/tags/v1.3.0
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
-      # REPOSITORY IS PUBLIC 
+      # REPOSITORY IS PUBLIC
       endpoint: amidostacks
 
   containers:
@@ -47,7 +47,7 @@ variables:
   role: frontend
   #
   # SelfConfig
-  # If you haven't specified source_repo at cli runtime please ensure you replace it here 
+  # If you haven't specified source_repo at cli runtime please ensure you replace it here
   # It is case sensitive for TFS based repos
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_src: src/ssr
@@ -61,25 +61,25 @@ variables:
   # Furthermore **IT IS VERY IMPORTANT** that you change the name of a workspace for each deployment stage
   # there are some best practices around this if you are going for feature based environments
   # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
-  # **`terraform_state_workspace: `** 
+  # **`terraform_state_workspace: `**
   # avoid running anything past dev that is not on master
   # sample value: company-webapp
   tf_state_key: stacks-webapp
   # Versioning
   version_major: 0
   version_minor: 0
-  version_revision: $[counter(variables['version_minor'], 0)]
+  version_revision: $[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]
   # Docker Config
   docker_dockerfile_path: "src/"
   docker_image_name: $(self_generic_name)
-  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
+  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(Build.SourceBranchName)"
   docker_container_registry_name: $(company)$(project)nonproduks$(domain)
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - INFRAstage - location - compnonent names in the infra-pipeline
   aks_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
   aks_clustername: $(company)-$(project)-nonprod-uks-$(domain)
-  # Infra 
+  # Infra
   conventional_resource_namer: $(company)-$(project)-nonprod-uks-$(domain)
   base_domain: nonprod.amidostacks.com
   base_domain_internal: nonprod.amidostacks.internal
@@ -161,7 +161,7 @@ stages:
     jobs:
       - job: AppInfraDev
         variables:
-          foo: bar 
+          foo: bar
         pool:
           vmImage: ubuntu-18.04
         container: terraform_custom
@@ -176,11 +176,11 @@ stages:
               ARM_TENANT_ID: $(azure_tenant_id)
           # Create TF infra
           - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
-            parameters: 
+            parameters:
               # Terraform Basic Config
               terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
               # changing this would require changing the downstream consumers of these outputs
-              # 
+              #
               terraform_output_artefact: 'tfoutputs'
               # Terraform State Config
               terraform_backend_client_id: $(azure_client_id)
@@ -242,7 +242,7 @@ stages:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
 
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
-                  parameters: 
+                  parameters:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
                     enable_debug: "yes"
                     template_input: [
@@ -289,7 +289,7 @@ stages:
                     kubernetes_clusterrg: $(aks_clusterrg)
                     kubernetes_clustername: $(aks_clustername)
                     # Mutation Information
-                    kubectl_filepath: 
+                    kubectl_filepath:
                       - $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
                     kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app # unnecessary
             on:

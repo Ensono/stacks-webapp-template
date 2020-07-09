@@ -46,7 +46,7 @@ variables:
   role: frontend
   #
   # SelfConfig
-  # If you haven't specified source_repo at cli runtime please ensure you replace it here 
+  # If you haven't specified source_repo at cli runtime please ensure you replace it here
   # It is case sensitive for TFS based repos
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_src: src/ssr
@@ -60,18 +60,18 @@ variables:
   # Furthermore **IT IS VERY IMPORTANT** that you change the name of a workspace for each deployment stage
   # there are some best practices around this if you are going for feature based environments
   # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
-  # **`terraform_state_workspace: `** 
+  # **`terraform_state_workspace: `**
   # avoid running anything past dev that is not on master
   # sample value: company-webapp
   tf_state_key: node-app
   # Versioning
   version_major: 0
   version_minor: 0
-  version_revision: $[counter(variables['version_minor'], 0)]
+  version_revision: $[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]
   # Docker Config
   docker_dockerfile_path: "src/"
   docker_image_name: $(self_generic_name)
-  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
+  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(Build.SourceBranchName)"
   docker_container_registry_name: eu.gcr.io/$(gcp_project_id)
   # BUILD ARTIFACTS across stages
   build_artifact_deploy_path: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app
@@ -82,7 +82,7 @@ variables:
   gcp_project_name: amido-stacks
   gcp_project_id: amido-stacks
   gcp_cluster_name: $(company)-$(project)-nonprod-gke-infra
-  # Infra 
+  # Infra
   conventional_resource_namer: $(company)-$(project)-nonprod-uks-$(domain)
   base_domain: gke.nonprod.amidostacks.com
   # Dynamic vars for downstream purposes
@@ -180,7 +180,7 @@ stages:
     jobs:
       - job: AppInfraDev
         variables:
-          foo: bar 
+          foo: bar
         pool:
           vmImage: ubuntu-18.04
         container: terraform_custom
@@ -198,11 +198,11 @@ stages:
               container: terraform_custom
           # Create TF infra
           - template: azDevOps/azure/templates/v2/steps/deploy-terraform-meta-generic.yml@templates
-            parameters: 
+            parameters:
               # Terraform Basic Config
               working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
               # changing this would require changing the downstream consumers of these outputs
-              # 
+              #
               terraform_output_artefact: 'tfoutputs'
               #Auth config
               terraform_auth_properties: {
@@ -255,7 +255,7 @@ stages:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
 
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
-                  parameters: 
+                  parameters:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
                     template_input: [
                       {
@@ -296,7 +296,7 @@ stages:
                     }
                     # ONLY USED FOR kubectl apply
                     cluster_name: $(gcp_cluster_name)
-                    deployment_defs: 
+                    deployment_defs:
                       - { name: app_deploy, file: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml, context: ""}
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
                     appinsights_enabled: false
