@@ -248,27 +248,29 @@ stages:
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
                   parameters: 
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
-                    enable_debug: "yes"
+                    shared_env_vars: {
+                      namespace: dev-stacks-webapp,
+                      role: $(role),
+                      company: $(company),
+                      project: $(project),
+                      domain: $(domain),
+                      component: web,
+                      resource_def_name: xx-replace-me,
+                      version: $(docker_image_tag),
+                      environment: dev
+                    }
+                    enable_debug: "yes" # Remove for 
                     template_input: [
                       {
                         base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_app-deploy.yml,
                         displayName: AppDeployment,
                         env_vars: {
-                          namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
                           tls_domain: $(base_domain),
                           k8s_app_path: /web/stacks,
                           k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
-                          version: $(docker_image_tag),
-                          role: $(role),
-                          company: $(company),
                           api_url: 'https://api.demo.nonprod.amidostacks.com/api/menu',
-                          project: $(project),
-                          domain: $(domain),
-                          component: web,
                           app_name: webapp-template,
-                          resource_def_name: xx-replace-me,
-                          environment: dev,
                           aadpodidentitybinding: stacks-webapp-identity,
                           app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY),
                           next_public_token: $(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN),
