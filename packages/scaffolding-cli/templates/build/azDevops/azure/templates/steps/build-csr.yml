@@ -1,4 +1,5 @@
 parameters:
+  version_build_number: ""
   pool:
     vmImage: "ubuntu-latest"
   versionSpec: 12.x
@@ -12,6 +13,8 @@ parameters:
   login_gcp: false
   login_gcr: false
   gcp_auth: {}
+  # Build Number
+  build_number: ""
   # Vulnerability Scanning
   vulnerability_scan: false
   vulnerability_workdir: ""
@@ -44,8 +47,11 @@ parameters:
   git_do_tag_release: false
   git_release_tag: ""
 
-
 steps:
+  - bash: |
+      echo '##vso[build.updatebuildnumber]${{ parameters.version_build_number }}'
+    displayName: 'Update: Build Number'
+
   # Audit dependencies
   # ⚠️ IMPORTANT: Down to the user to ensure that the registry they are using
   # can support `npm audit`
@@ -91,7 +97,7 @@ steps:
       - template: azDevOps/azure/templates/v2/steps/test-contract-pact.yml@templates
         parameters:
           versionSpec: ${{ parameters.versionSpec }}
-          build_number: ${{ parameters.docker_imagetag }}
+          build_number: ${{ parameters.version_build_number }}
           workingDirectory: ${{ parameters.project_root_dir }}
 
   # Check with Pact broker if safe to proceed with deployment (breaking contract changes)

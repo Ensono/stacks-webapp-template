@@ -65,7 +65,7 @@ variables:
   # Versioning
   version_major: 0
   version_minor: 0
-  version_revision: $[counter(variables['version_minor'], 0)]
+  version_revision: $[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]
   # Docker Config
   docker_dockerfile_path: "src/api"
   docker_image_name: $(self_generic_name)
@@ -271,4 +271,3 @@ stages:
                     secureFile: ""
                     # ReleaseNote Information
                     releasenote: false
-

@@ -40,7 +40,7 @@ variables:
   # Versioning
   version_major: 0
   version_minor: 0
-  version_revision: $[counter(variables['version_minor'], 0)]
+  version_revision: $[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_tf_src: deploy/azure/infra/stacks-aks
@@ -72,7 +72,7 @@ variables:
 stages:
 - stage: nonprod
   variables:
-  # You can find notes in the READMEs around which values to use for each ENV variable group 
+  # You can find notes in the READMEs around which values to use for each ENV variable group
   - group: amido-stacks-infra-credentials-nonprod
   jobs:
   - job: InfraNonProd
@@ -93,7 +93,7 @@ stages:
           container: terraform_custom
       # Create TF infra
       - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
-        parameters: 
+        parameters:
           # Terraform Basic Config
           terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
           # changing this would require changing the downstream consumers of these outputs
