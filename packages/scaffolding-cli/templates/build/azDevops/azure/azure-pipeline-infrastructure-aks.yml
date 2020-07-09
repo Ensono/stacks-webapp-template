@@ -24,13 +24,13 @@ resources:
   - repository: templates
     type: github
     name: amido/stacks-pipeline-templates
-    ref: feature/cycle2
+    ref: refs/tags/v1.4.4
     endpoint: amidostacks
   containers:
   - container: k8s_deploy
-    image: amidostacks/ci-k8s:0.0.6
+    image: amidostacks/ci-k8s:0.0.10
   - container: terraform_custom
-    image: amidostacks/ci-tf:0.0.3
+    image: amidostacks/ci-tf:0.0.4
 
 variables:
   company: amido
@@ -56,9 +56,8 @@ variables:
   # avoid running anything past dev that is not on master
   # sample value: sharedservices
   tf_state_key: sharedservices
-  # Docker Config
-  # SEE OUTPUTTED VALUE from Infra Bootstrap stage
-  # docker_container_registry_name: ""
+  # Scripts directory used by pipeline steps
+  scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - stage - location - compnonent names above
   # IT IS SET per stage as an output to be consumed by deploy stage
@@ -163,19 +162,12 @@ stages:
           ARM_CLIENT_ID: $(azure_client_id)
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
-        target: k8s_deploy
-
-      # ensure scripts are executable
-      - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
-        parameters:
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
-
       #####
       # Sample left for base K8s cluster bootstrap
       #####
       - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
         parameters: 
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+          scripts_dir: $(scripts_dir)
           template_input: [
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_external-dns.yml, 
@@ -214,7 +206,7 @@ stages:
 
       - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
         parameters: 
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+          scripts_dir: $(scripts_dir)
           aks_cluster_name: $(AKS_CLUSTER_NAME)
           aks_resource_group_name: $(AKS_RESOURCE_GROUP)
           aks_dns_resource_group_name: $(AKS_RESOURCE_GROUP)

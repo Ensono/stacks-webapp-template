@@ -26,7 +26,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.4.3
+      ref: refs/tags/v1.4.4
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC
       endpoint: amidostacks
@@ -78,13 +78,12 @@ variables:
   gcp_region: europe-west2
   gcp_project_name: amido-stacks
   gcp_project_id: amido-stacks
-  gcp_cluster_name: $(company)-$(project)-nonprod-gke-infra
+  gcp_cluster_name: amido-stacks-nonprod-gke-infra
   # Infra 
   conventional_resource_namer: $(company)-$(project)-nonprod-uks-$(domain)
   base_domain: gke.nonprod.amidostacks.com
-  # Dynamic vars for downstream purposes
-  # tf_workspace_suffix: $[]
-  # dns_suffix: ""
+  # Scripts directory used by pipeline steps
+  scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -246,12 +245,6 @@ stages:
                 - checkout: self
                 - checkout: templates
                   persistCredentials: true
-                # Deploy Dev
-                # TODO: change this to steps and feed upstream
-                - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
-                  parameters:
-                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
-
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
                   parameters: 
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts

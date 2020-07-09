@@ -25,13 +25,13 @@ resources:
   - repository: templates
     type: github
     name: amido/stacks-pipeline-templates
-    ref: feature/cycle2
+    ref: refs/tags/v1.4.4
     endpoint: amidostacks
   containers:
   - container: k8s_deploy
-    image: amidostacks/ci-k8s:0.0.6
+    image: amidostacks/ci-k8s:0.0.10
   - container: terraform_custom
-    image: amidostacks/ci-tf:0.0.3
+    image: amidostacks/ci-tf:0.0.4
 
 variables:
   company: amido

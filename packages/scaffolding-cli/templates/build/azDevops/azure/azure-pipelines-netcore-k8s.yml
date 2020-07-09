@@ -25,7 +25,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.3.0
+      ref: refs/tags/v1.4.4
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC
       endpoint: amidostacks
@@ -73,6 +73,8 @@ variables:
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
   docker_container_registry_name: %REPLACE_ME_FOR_DOCKER_REGISTRY_NAME%
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
+  # Scripts directory used by pipeline steps
+  scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
   base_domain: nonprod.amidostacks.com
   base_domain_internal: nonprod.amidostacks.internal
   # DEFAULT IMAGE RUNNER
@@ -230,11 +232,6 @@ stages:
                 - checkout: templates
                   persistCredentials: true
                 # Deploy Dev
-                # TODO: change this to steps and feed upstream
-                - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
-                  parameters:
-                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
-
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
                   parameters:
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts

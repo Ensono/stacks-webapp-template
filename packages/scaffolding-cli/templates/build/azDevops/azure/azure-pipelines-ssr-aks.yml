@@ -25,7 +25,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.4.3
+      ref: refs/tags/v1.4.4
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC 
       endpoint: amidostacks
@@ -81,7 +81,7 @@ variables:
   base_domain_internal: nonprod.amidostacks.internal
   # Dynamic vars for downstream purposes
   # tf_workspace_suffix: $[]
-  # dns_suffix: ""
+  scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -239,15 +239,9 @@ stages:
                 - checkout: self
                 - checkout: templates
                   persistCredentials: true
-                # Deploy Dev
-                # TODO: change this to steps and feed upstream
-                - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
-                  parameters:
-                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
-
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
                   parameters: 
-                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+                    scripts_dir: $(scripts_dir)
                     shared_env_vars: {
                       namespace: dev-stacks-webapp,
                       role: $(role),
@@ -290,7 +284,7 @@ stages:
                 - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kubectl.yml@templates
                   parameters:
                     environment: "dev"
-                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+                    scripts_dir: $(scripts_dir)
                     download_deploy_artefact: false
                     # Kubernetes Config
                     kubernetes_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
