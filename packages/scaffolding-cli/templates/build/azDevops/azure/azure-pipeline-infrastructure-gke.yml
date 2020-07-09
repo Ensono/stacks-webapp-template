@@ -129,6 +129,7 @@ stages:
             TF_VAR_name_environment: nonprod,
             TF_VAR_cluster_version: $(gke_cluster_version),
             TF_VAR_stage: nonprod,
+            TF_VAR_is_cluster_private: false,
             TF_VAR_dns_zone: $(base_domain)
           }
           terraform_output_commands: |

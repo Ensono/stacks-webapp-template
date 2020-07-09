@@ -233,8 +233,6 @@ stages:
       - deployment: DeployDev
         dependsOn: AppInfraDev
         container: k8s_deploy
-        variables:
-          GLOBAL_VAR: FOO
         pool:
           vmImage: ubuntu-18.04
         environment: dev

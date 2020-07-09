@@ -12,7 +12,7 @@ module "default_label" {
 data "google_client_config" "current" {}
 
 module "gke-public" {
-  source         = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-gcp-amido-gke?ref=fix/tweaks-libs"
+  source         = "git::https://github.com/amido/stacks-terraform//google/modules/google-gke?ref=v1.2.0"
   stage              = var.stage
   name_project       = var.name_project
   name_company       = var.name_company
