@@ -177,7 +177,8 @@ describe("utils class tests", () => {
 
             const file_replacer_ran: BaseResponse = await Utils.fileNameReplace(
                 [tmpdir()],
-                mock_cli_answer_model,
+                'xxAMIDOxx.xxSTACKSxx',
+                `${mock_cli_answer_model.business.company}.${mock_cli_answer_model.projectName}`
             )
             expect(mockReaddir).toHaveBeenCalled()
             expect(file_replacer_ran).toHaveProperty("message")

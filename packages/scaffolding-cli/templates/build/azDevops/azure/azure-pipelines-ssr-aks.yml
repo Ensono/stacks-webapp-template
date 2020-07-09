@@ -25,7 +25,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.4.2
+      ref: refs/tags/v1.4.3
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC 
       endpoint: amidostacks
@@ -99,12 +99,8 @@ stages:
       - group: amido-stacks-webapp
     jobs:
       - job: WebAppBuild
-        variables:
-          foo: bar
-        # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
-        # container: k8s_deploy
         steps:
           - checkout: self
           - checkout: templates
@@ -266,7 +262,7 @@ stages:
                           version: $(docker_image_tag),
                           role: $(role),
                           company: $(company),
-                          api_url: 'http://dev.amidostacks.com/api/menu',
+                          api_url: 'https://api.demo.nonprod.amidostacks.com/api/menu',
                           project: $(project),
                           domain: $(domain),
                           component: web,
