@@ -245,7 +245,7 @@
         "dest": "build/azDevops/gcp/app-pipeline.yml"
       },
       {
-        "src": "deploy/azure/app/kube",
+        "src": "deploy/gcp/app/kube",
         "dest": "deploy/gcp/app"
       },
       {
