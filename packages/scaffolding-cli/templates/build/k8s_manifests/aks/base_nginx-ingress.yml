@@ -304,12 +304,12 @@ metadata:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
 # TODO: try this again - @guidibrow mentioned to ensure network perms are set up
-# annotations:
-#   service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+annotations:
+  service.beta.kubernetes.io/azure-load-balancer-internal: "${LB_IS_INTERNAL}"
 spec:
   externalTrafficPolicy: Local
   type: LoadBalancer
-  loadBalancerIP: ${AKS_INGRESS_PUBLIC_IP}
+  loadBalancerIP: ${aks_ingress_ip}
   selector:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx

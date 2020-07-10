@@ -170,6 +170,7 @@ stages:
       - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
         parameters: 
           scripts_dir: $(scripts_dir)
+          debug: "yes" # comment for debug and if you want to see the templated out file in the STDOUT of pipeline
           template_input: [
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_external-dns.yml, 
@@ -178,7 +179,8 @@ stages:
               env_vars: {
                 domain_filter: $(base_domain),
                 aks_resource_group: $(AKS_RESOURCE_GROUP)
-              }
+              },
+              args: "-no-empty"
             },
             {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_aadpodidentity.yml,
@@ -187,22 +189,26 @@ stages:
                 user_identity_id: $(AKS_DEFAULT_USER_IDENTITY_ID),
                 identity_client_id: $(AKS_DEFAULT_USER_IDENTITY_CLIENT_ID),
                 identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
-              }
+              },
+              args: "-no-empty"
             },
            {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_aadpodidentitybinding.yml, 
               displayName: AADPodIdBinding,
               env_vars: {
                 identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
-              }
+              },
+              args: "-no-empty"
             },
            {
               base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_nginx-ingress.yml,
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/nginx-ingress.yml,
               displayName: NginxIngress,
               env_vars: {
-                aks_ingress_public_ip: $(AKS_INGRESS_PUBLIC_IP)
-              }
+                aks_ingress_ip: $(AKS_INGRESS_PRIVATE_IP),
+                LB_IS_INTERNAL: "true"
+              },
+              args: "-no-empty"
             }
           ]
 
