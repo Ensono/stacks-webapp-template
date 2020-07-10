@@ -1,5 +1,5 @@
 import { BuildReplaceInput } from "../../../../domain/config/file_mapper"
-import { BusinessSection, CloudSection, TerraformSection, NetworkingSection } from "../../../../domain/model/prompt_answer"
+import { BusinessSection, CloudSection, TerraformSection, NetworkingSection, SourceControlSection } from "../../../../domain/model/prompt_answer"
 import { netcore } from '../../../../domain/config/worker_maps'
 import conf from  '../../../../domain/config/static.config.json'
 import { Static, FolderMap } from '../../../../domain/model/config';
@@ -20,8 +20,18 @@ const network = {
 
 const tfObj = {
     backendStorageRg: "foo",
+    backendStorage: "azureBlob",
     backendStorageContainer: "bar"
 } as TerraformSection
+
+const cloud = {
+    region: "uksouth",
+    resourceGroup: "my-rg"
+} as CloudSection
+
+const sourceObj = {
+    repoName: "foo"
+} as SourceControlSection
 
 const files: Array<BuildReplaceInput> = [
     {
@@ -59,9 +69,9 @@ describe("netcore mapper tests", () => {
     it("netcore config should return an array of folders to map", () => {
         const test: Array<FolderMap> = staticConf.netcore.folderMap
         expect(test.length).toBe(9)
-    }),
+    })
     it("in_files return an array of objects and cloud should be default", () => {
-        const test: Array<BuildReplaceInput> = netcore.inFiles({ projectName: projectName, businessObj: biz, terraformObj: tfObj, networkObj: network})
+        const test: Array<BuildReplaceInput> = netcore.inFiles({ projectName: projectName, businessObj: biz, terraformObj: tfObj, scmObj: sourceObj, cloudObj: cloud, networkObj: network})
         expect(test).toStrictEqual(files)
     })
 })

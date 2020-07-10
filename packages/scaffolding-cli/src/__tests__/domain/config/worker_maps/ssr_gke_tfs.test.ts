@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import { BuildReplaceInput } from "../../../../domain/config/file_mapper"
-import { BusinessSection, CloudSection, NetworkingSection } from "../../../../domain/model/prompt_answer"
+import { BusinessSection, CloudSection, NetworkingSection, SourceControlSection, TerraformSection } from "../../../../domain/model/prompt_answer"
 import { gkeSsr } from '../../../../domain/config/worker_maps'
 import conf from  '../../../../domain/config/static.config.json'
 import { Static, FolderMap } from '../../../../domain/model/config';
@@ -24,6 +24,14 @@ const cloud = {
     region: "uksouth",
     resourceGroup: "my-rg"
 } as CloudSection
+
+const sourceControl = { 
+    repoName: "foo-git"
+} as SourceControlSection
+
+const terraform = {
+    backendStorage: "azureBlob"
+} as TerraformSection
 
 const files: Array<BuildReplaceInput> = [
     {
@@ -55,7 +63,7 @@ describe("ssr mapper tests", () => {
         expect(test.length).toBe(10)
     })
     it("in_files return an array of objects and cloud should be default", () => {
-        const test: Array<BuildReplaceInput> = gkeSsr.inFiles({ projectName: projName, businessObj: biz, networkObj: network})
+        const test: Array<BuildReplaceInput> = gkeSsr.inFiles({ projectName: projName, businessObj: biz, scmObj: sourceControl, cloudObj: cloud, terraformObj: terraform, networkObj: network})
         expect(test).toStrictEqual(files)
     })
 })

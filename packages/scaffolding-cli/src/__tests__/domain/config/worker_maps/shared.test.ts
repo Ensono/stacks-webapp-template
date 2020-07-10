@@ -30,7 +30,7 @@ const networkObj: NetworkingSection = <NetworkingSection>{
 }
 
 const terraformObj: TerraformSection = <TerraformSection>{
-    backendStorage: "foo",
+    backendStorage: "awsS3",
     backendStorageContainer: "container",
     backendStorageRg: "tg"
 }
@@ -80,7 +80,7 @@ describe("shared worker_maps tests", () => {
         expect(test).toMatch("code:")
     })
     it("in_files return an array of objects and cloud should be default", () => {
-        const test: Array<BuildReplaceInput> = shared.inFiles({ projectName: testProjectName, businessObj: biz, terraformObj, scmObj, networkObj})
+        const test: Array<BuildReplaceInput> = shared.inFiles({ projectName: testProjectName, businessObj: biz, cloudObj: cloud, terraformObj, scmObj, networkObj})
         expect(test).toStrictEqual(files)
     })
     

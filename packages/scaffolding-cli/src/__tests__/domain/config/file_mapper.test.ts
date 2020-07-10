@@ -13,7 +13,7 @@ const mock_answer_cli_answer = {
         resourceGroup: "bar"
     },
     terraform: {
-        backendStorage: "blob/path"
+        backendStorage: "azureBlob"
     },
     business: {
         company: "faz",
