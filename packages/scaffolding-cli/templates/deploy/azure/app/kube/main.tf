@@ -66,3 +66,21 @@ module "cosmosdb" {
 #### 
 # Additional user defined resources or modules can go here
 ####
+resource "azurerm_redis_cache" "default" {
+  count               = var.create_cache ? 1 : 0
+  name                = module.default_label.id
+  location            = var.resource_group_location
+  resource_group_name = local.resource_group_name
+  capacity            = 2
+  family              = "C"
+  sku_name            = "Standard"
+  enable_non_ssl_port = false
+  minimum_tls_version = "1.2"
+
+  redis_configuration {
+    enable_authentication = true
+    maxmemory_reserved = 2
+    maxmemory_delta    = 2
+    maxmemory_policy   = "allkeys-lru"
+  }
+}

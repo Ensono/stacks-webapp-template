@@ -26,11 +26,11 @@ export const inFiles = ({
     networkObj
 }: {
     projectName: string
-    businessObj?: BusinessSection
-    cloudObj?: CloudSection
-    terraformObj?: TerraformSection
-    scmObj?: SourceControlSection
-    networkObj?: NetworkingSection
+    businessObj: BusinessSection
+    cloudObj: CloudSection
+    terraformObj: TerraformSection
+    scmObj: SourceControlSection
+    networkObj: NetworkingSection
 }): Array<BuildReplaceInput> => {
     return [
         {
@@ -43,18 +43,17 @@ export const inFiles = ({
             files: ["**/*-pipeline.yml"],
             values: {
                 "stacks-webapp-template/packages/scaffolding-cli/templates":
-                    scmObj?.repoName || "REPLACE_ME_FOR_REPO_NAME",
+                    scmObj.repoName || "REPLACE_ME_FOR_REPO_NAME",
                 "packages/scaffolding-cli/templates/": "",
                 "self_repo_tf_src: deploy/azure/infra/stacks-aks":
                     "self_repo_tf_src: deploy/azure/infra",
-                "company: amido": `company: ${businessObj?.company}`,
-                "project: stacks": `project: ${businessObj?.project}`,
-                "nonprod.amidostacks.com": `${networkObj?.baseDomain}`,
+                "company: amido": `company: ${businessObj.company}`,
+                "project: stacks": `project: ${businessObj.project}`,
                 "nonprod.amidostacks.internal":
                     "REPLACE_ME_FOR_INTERNAL_DOMAIN",
                 "amido-stacks-infra-credentials-nonprod":
                     "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
-                "tf_state_storage: amidostackstfstategbl": `tf_state_storage: ${terraformObj?.backendStorage}`,
+                "tf_state_storage: amidostackstfstategbl": `tf_state_storage: ${terraformObj.backendStorage}`,
                 "tf_state_rg: amido-stacks-rg-uks": `tf_state_rg: ${terraformObj?.backendStorageRg}`,
                 "tf_state_container: tfstate": `tf_state_container: ${terraformObj?.backendStorageContainer}`,
                 "tf_state_key: sharedservices": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_SHARED_SERVICES%`,
@@ -109,7 +108,7 @@ export const finalErrorMessage = (
     const final = `----> \n
 Ooooops - Something went wrong \n
 error: ${message} \n 
-${code ? "code: " + code : ""} \n
+${code ? `code: " ${code}` : ""} \n
 <----- \n
 
 Please raise a ${terminalLink(

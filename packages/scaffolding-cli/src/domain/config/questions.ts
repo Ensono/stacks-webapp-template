@@ -1,5 +1,5 @@
 import { PromptQuestion } from "../model/prompt_question"
-import { PromptAnswer, CliAnswerModel } from "../model/prompt_answer"
+import { PromptAnswer, CliAnswerModel, ProjectTypeEnum } from "../model/prompt_answer"
 
 export function computedSelection(
     cliOrConfigAnswer: PromptAnswer,
@@ -41,6 +41,11 @@ export function computedSelection(
                 cliOrConfigAnswer.networkingBaseDomain ||
                 "BASE_DOMAIN_NAME_REPLACE_ME",
         },
+        javaspring: {
+            namespace: cliOrConfigAnswer.javaTldNamespace ||
+            "com"
+        }
+
     } as CliAnswerModel
 }
 
@@ -238,5 +243,23 @@ export function platformQuestions(): Array<PromptQuestion> {
             message: "Continue to additional project configuration?",
             initial: true,
         },
+    ]
+}
+
+export const language: {[key in ProjectTypeEnum]?: Function} = {
+    [ProjectTypeEnum.JAVASPRING]: javaQuestions
+}
+
+export const platform: {[key: string]: Function} = {
+}
+
+export function javaQuestions(): Array<PromptQuestion> {
+    return [
+        {
+            type: "text",
+            name: "javaTldNamespace",
+            message: "Package prefix - will be prepended to companyName.projectName previously supplied",
+            initial: "org",
+        }
     ]
 }

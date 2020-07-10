@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-await-in-loop */
-import { copy, move, remove, ensureDir, rename, stat, readdir, Stats} from 'fs-extra'
+import { copy, move, remove, ensureDir, rename, stat, readdir, Stats, mkdirp } from 'fs-extra'
 import { tmpdir } from 'os'
 import { startCase, toLower } from 'lodash'
 import { ReplaceInFileConfig, replaceInFile } from 'replace-in-file'
@@ -28,7 +28,7 @@ export function copyFilter(src: string, dest: string): boolean {
         return true
 }
 
-export async function renamerRecursion(inPath: string, match: string | RegExp, replaceString: string ): Promise<void> {
+export async function renamerRecursion(inPath: string, match: string | RegExp, replaceString: string): Promise<void> {
     const files: Array<string> = await readdir(inPath)
     // eslint-disable-next-line no-restricted-syntax
     for (const f of files) {
@@ -39,6 +39,21 @@ export async function renamerRecursion(inPath: string, match: string | RegExp, r
         if (file.isDirectory()) {
             await renamerRecursion(newPath, match, replaceString);
         }
+    }
+}
+
+export async function renameJavastyle(inPath: string, match: string | RegExp, replaceString: string): Promise<void> { 
+    try {
+        const newPath = resolve(inPath, replaceString)
+        const oldPath = resolve(inPath, match as string)
+        const tmpPath = resolve(tmpdir(), replaceString.replace(/\//g, "-"))
+        // workaround to ensure all types of namespaces can be accomodated
+        await copy(oldPath, tmpPath)
+        await remove(inPath)
+        await mkdirp(newPath)
+        await copy(tmpPath, newPath)
+    } catch (ex) {
+        logger.warn(ex.message)
     }
 }
 
@@ -96,16 +111,13 @@ export class Utils {
         }
     }
 
-    public static async fileNameReplace(srcDir: Array<string>, instructionMap: CliAnswerModel): Promise<BaseResponse> {
+    public static async fileNameReplace(srcDir: Array<string>, searchString: string, replaceString: string, javaStyle?: boolean): Promise<BaseResponse> {
         const fsResponse: BaseResponse = {} as BaseResponse
         try {
-            const replaceString = `${startCase(toLower(instructionMap.business.company)).replace(/\s/gm, "")}.${startCase(toLower(instructionMap.business.project)).replace(/\s/gm, "")}`
-            const match = 'xxAMIDOxx.xxSTACKSxx'
-
-            for (const dir of srcDir){
-                await renamerRecursion(dir, match, replaceString)
+            for (const dir of srcDir) {
+                if (javaStyle) await renameJavastyle(dir, searchString, replaceString)
+                else await renamerRecursion(dir, searchString, replaceString)
             }
-
             fsResponse.ok = true
             fsResponse.message = 'replaced all occurences'
             return fsResponse

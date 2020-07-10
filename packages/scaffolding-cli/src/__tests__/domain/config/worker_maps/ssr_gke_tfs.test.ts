@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 import { BuildReplaceInput } from "../../../../domain/config/file_mapper"
 import { BusinessSection, CloudSection, NetworkingSection, SourceControlSection, TerraformSection } from "../../../../domain/model/prompt_answer"
-import { ssr } from '../../../../domain/config/worker_maps'
+import { gkeSsr } from '../../../../domain/config/worker_maps'
 import conf from  '../../../../domain/config/static.config.json'
 import { Static, FolderMap } from '../../../../domain/model/config';
 
@@ -43,27 +43,27 @@ const files: Array<BuildReplaceInput> = [
     {
         files: ["**/app-pipeline.yml"],
         values: {
-            "domain: node": `domain: ${biz?.domain}`,
-            "component: node": `domain: ${biz?.component}`,
             "src/ssr": "src",
-            "nonprod.amidostacks.com": `${network.baseDomain}`,
             "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
-            "tf_state_key: stacks-webapp": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_MY_APP%`,
-            "deploy/azure/app/kube": "deploy/azure/app",
+            "tf_state_key: node-app": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_MY_APP%`,
+            "deploy/gcp/app/kube": "deploy/gcp/app",
             "terraform_state_workspace: dev": "terraform_state_workspace: %REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE%",
-            "docker_container_registry_name: amidostacksnonproduksnode": "docker_container_registry_name: REPLACE_ME_FOR_CONTAINER_REGISTRY",
-            "amido-stacks-nonprod-uks-node": "REPLACE_ME_FOR_CLOUD_RESOURCE_NAME"
+            "gke.nonprod.amidostacks.com": `${network?.baseDomain}`,
+            "gcp_region: europe-west2": "gcp_region: %REPLACE_ME_FOR_REGION%",
+            "gcp_project_name: amido-stacks": "gcp_project_name: %REPLACE_ME_FOR_REGION%",
+            "gcp_project_id: amido-stacks": "gcp_project_id: %REPLACE_ME_FOR_PROJECT_ID%",
+            "gcp_cluster_name: amido-stacks-nonprod-gke-infra": "gcp_cluster_name: %REPLACE_ME_FOR_CLUSTER_NAME%"
         }
     }
 ]
 
 describe("ssr mapper tests", () => {
     it("to_folders return an array of objects", () => {
-        const test: Array<FolderMap> = staticConf.ssr.folderMap
-        expect(test.length).toBe(11)
+        const test: Array<FolderMap> = staticConf.ssrGke.folderMap
+        expect(test.length).toBe(10)
     })
     it("in_files return an array of objects and cloud should be default", () => {
-        const test: Array<BuildReplaceInput> = ssr.inFiles({ projectName: projName, businessObj: biz, networkObj: network, cloudObj: cloud, scmObj: sourceControl, terraformObj: terraform})
+        const test: Array<BuildReplaceInput> = gkeSsr.inFiles({ projectName: projName, businessObj: biz, scmObj: sourceControl, cloudObj: cloud, terraformObj: terraform, networkObj: network})
         expect(test).toStrictEqual(files)
     })
 })

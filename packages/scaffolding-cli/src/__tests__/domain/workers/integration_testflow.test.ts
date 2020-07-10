@@ -8,14 +8,23 @@ import {jsTestcafe, netcoreSelenium} from "../../../domain/config/worker_maps"
 
 const mockAnswer = {
     projectName: "testProjectName",
-    projectType: "testProjectType",
+    projectType: "testjstestcafe",
     platform: "aks",
     deployment: "azdevops",
     business: {
-        company: "testComp",
+        company: "testcomp",
         domain: "testDomain",
         project: "testProject",
     },
+    sourceControl: {
+        repoName: "test-repo"
+    },
+    networking: {
+        baseDomain: "foo.me.org"
+    },
+    terraform: {
+        backendStorage: "azureBlob"
+    }
 } as CliAnswerModel
 
 const mainWorker = new MainWorker()

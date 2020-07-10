@@ -19,9 +19,8 @@ data "google_compute_global_address" "default" {
   name       = var.ingress_ip_name
 }
 
-
 module "node_app" {
-  source             = "git::https://github.com/amido/stacks-webapp-template//libs/orchestration/terraform-gcp-amido-k8s-app?ref=master"
+  source             = "git::https://github.com/amido/stacks-terraform//google/modules/google-k8s-server-side-app?ref=v1.2.0"
   stage              = var.stage
   name_project       = var.name_project
   name_company       = var.name_company

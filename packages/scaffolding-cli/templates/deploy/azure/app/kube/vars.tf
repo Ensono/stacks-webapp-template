@@ -98,6 +98,11 @@ variable "create_cosmosdb" {
   default = true
 }
 
+variable "create_cache" {
+  type = bool
+  description = "Whether to create a RedisCache"
+  default = false
+}
 variable "use_existing_resource_group" {
   description = "Whether to create a resource group for application level resources, if set to true and `resource_group_name` is not specified it will create a resource group for you. Ensure you specify resource group when setting to true"
   type    = bool

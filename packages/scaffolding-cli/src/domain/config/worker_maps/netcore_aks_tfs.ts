@@ -8,7 +8,20 @@ import { BusinessSection, CloudSection, TerraformSection, SourceControlSection, 
  * @param businessObj 
  * @param cloudObj 
  */
-export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmObj, networkObj }: { projectName: string; businessObj?: BusinessSection; cloudObj?: CloudSection; terraformObj?: TerraformSection; scmObj?: SourceControlSection, networkObj?: NetworkingSection }): Array<BuildReplaceInput> => {
+export const inFiles = ({
+    projectName, 
+    businessObj,
+    cloudObj, 
+    terraformObj, 
+    scmObj, 
+    networkObj
+}: {
+    projectName: string; businessObj: BusinessSection;
+    cloudObj: CloudSection;
+    terraformObj: TerraformSection;
+    scmObj: SourceControlSection,
+    networkObj: NetworkingSection
+}): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/*.md"],
@@ -19,8 +32,8 @@ export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmO
         {
             files: ["**/*.cs", "**/*.sln", "**/Dockerfile", "**/*.csproj"],
             values: {
-                "xxAMIDOxx": startCase(toLower(businessObj?.company)).replace(/\s/gm, "") || "Company",
-                "xxSTACKSxx": startCase(toLower(businessObj?.project)).replace(/\s/gm, "") || "Project",
+                "xxAMIDOxx": startCase(toLower(businessObj.company)).replace(/\s/gm, "") || "Company",
+                "xxSTACKSxx": startCase(toLower(businessObj.project)).replace(/\s/gm, "") || "Project",
             }
         },
         {
@@ -29,16 +42,14 @@ export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmO
                 "self_repo_tf_src: deploy/azure/app/kube":
                     "self_repo_tf_src: deploy/azure/app",
                 "amido-stacks-nonprod-demo": "%REPLACE_ME_FOR_VALID_RESOURCE_NAME%",
-                "company: amido": `company: ${businessObj?.company}`,
-                "project: stacks": `project: ${businessObj?.project}`,
-                "domain: api": `domain: ${businessObj?.domain}`,
+                "company: amido": `company: ${businessObj.company}`,
+                "project: stacks": `project: ${businessObj.project}`,
+                "domain: api": `domain: ${businessObj.domain}`,
                 "amido-stacks-demo-infra":
                     "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
                 "amido-stacks-demo-api":
                     "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
-                "tf_state_storage: amidostackstfstategbl": `tf_state_storage: %REPLACE_ME_FOR_BLOB_STORAGE_ACCOUNT%`,
-                "tf_state_rg: amido-stacks-rg-uks": `tf_state_rg: ${terraformObj?.backendStorageRg}`,
-                "tf_state_container: tfstate": `tf_state_container: ${terraformObj?.backendStorageContainer}`,
+                "nonprod.amidostacks.com": `${networkObj.baseDomain}`,
             }
         }
     ]

@@ -3,6 +3,7 @@
 /* eslint-disable jest/no-disabled-tests */
 /* eslint-disable @typescript-eslint/camelcase */
 /// <reference types="jest" />
+import { resolve } from "path"
 import * as fse from "fs-extra"
 import * as rif from "replace-in-file"
 import gitP, {SimpleGit} from "simple-git/promise"
@@ -17,6 +18,7 @@ import {
     Utils,
     copyFilter,
     renamerRecursion,
+    renameJavastyle
 } from "../../../domain/workers/utils"
 import {Replacetruct} from "../../../domain/config/file_mapper"
 import {FolderMap} from "../../../domain/model/config"
@@ -41,16 +43,20 @@ const mockReaddir = jest.spyOn(fse, "readdir")
 
 const mockRename = jest.spyOn(fse, "rename")
 
+const mockRemove = jest.spyOn(fse, "remove")
+
+const mockMkdirP = jest.spyOn(fse, "mkdirp")
+
 const mock_answer = {
     projectName: "foo",
-    projectType: "boo",
+    projectType: "ssr",
     platform: "aks",
     deployment: "azdevops",
 } as CliAnswerModel
 
 const mock_cli_answer_model = {
     projectName: "foo",
-    projectType: "boo",
+    projectType: "ssr",
     platform: "aks",
     deployment: "azdevops",
     business: {
@@ -88,6 +94,8 @@ describe("utils class tests", () => {
         mockCopy.mockClear()
         mockMove.mockClear()
         mockReplace.mockClear()
+        mockMkdirP.mockClear()
+        mockRemove.mockClear()
     })
     describe("Positive assertions", () => {
         it("copyWorker should return success", async () => {
@@ -104,6 +112,14 @@ describe("utils class tests", () => {
                 `${mock_answer.projectName} created`,
             )
         })
+        
+        it("renameJavastyle should run without error", async () => {
+            await renameJavastyle(temp_dir, "foo/bar", "company/project")
+            expect(mockCopy).toHaveBeenCalledTimes(2)
+            expect(mockMkdirP).toHaveBeenCalledWith(resolve(temp_dir,`company/project`))
+            expect(mockRemove).toHaveBeenCalled()
+        })
+
         it("moveWorker should return success", async () => {
             const move_ran: BaseResponse = await Utils.constructOutput(
                 ssr_tfs_aks,
@@ -177,7 +193,8 @@ describe("utils class tests", () => {
 
             const file_replacer_ran: BaseResponse = await Utils.fileNameReplace(
                 [tmpdir()],
-                mock_cli_answer_model,
+                'xxAMIDOxx.xxSTACKSxx',
+                `${mock_cli_answer_model.business.company}.${mock_cli_answer_model.projectName}`
             )
             expect(mockReaddir).toHaveBeenCalled()
             expect(file_replacer_ran).toHaveProperty("message")

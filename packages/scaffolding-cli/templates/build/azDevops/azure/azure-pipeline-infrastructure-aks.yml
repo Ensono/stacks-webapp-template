@@ -24,13 +24,13 @@ resources:
   - repository: templates
     type: github
     name: amido/stacks-pipeline-templates
-    ref: feature/cycle2
+    ref: refs/tags/v1.4.4
     endpoint: amidostacks
   containers:
   - container: k8s_deploy
-    image: amidostacks/ci-k8s:0.0.6
+    image: amidostacks/ci-k8s:0.0.10
   - container: terraform_custom
-    image: amidostacks/ci-tf:0.0.3
+    image: amidostacks/ci-tf:0.0.4
 
 variables:
   company: amido
@@ -41,6 +41,7 @@ variables:
   version_major: 0
   version_minor: 0
   version_revision: $[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]
+  version_build_number: "$(version_major).$(version_minor).$(version_revision)-$(Build.SourceBranchName)"
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_tf_src: deploy/azure/infra/stacks-aks
@@ -56,9 +57,8 @@ variables:
   # avoid running anything past dev that is not on master
   # sample value: sharedservices
   tf_state_key: sharedservices
-  # Docker Config
-  # SEE OUTPUTTED VALUE from Infra Bootstrap stage
-  # docker_container_registry_name: ""
+  # Scripts directory used by pipeline steps
+  scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - stage - location - compnonent names above
   # IT IS SET per stage as an output to be consumed by deploy stage
@@ -77,8 +77,6 @@ stages:
   - group: amido-stacks-infra-credentials-nonprod
   jobs:
   - job: InfraNonProd
-    variables:
-      foo: bar
     pool:
       vmImage: ubuntu-18.04
     container: terraform_custom
@@ -91,16 +89,15 @@ stages:
           ARM_CLIENT_ID: $(azure_client_id)
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
-        # target: terraform_custom
-        target:
-          container: terraform_custom
+      - bash: |
+          echo '##vso[build.updatebuildnumber]$(version_build_number)'
+        displayName: 'Update: Build Number'
       # Create TF infra
       - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
         parameters:
           # Terraform Basic Config
           terraform_working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
           # changing this would require changing the downstream consumers of these outputs
-          #
           terraform_output_artefact: 'tfoutputs'
           # Terraform State Config
           terraform_backend_client_id: $(azure_client_id)
@@ -166,23 +163,16 @@ stages:
           ARM_CLIENT_ID: $(azure_client_id)
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
-        target: k8s_deploy
-
-      # ensure scripts are executable
-      - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
-        parameters:
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
-
       #####
       # Sample left for base K8s cluster bootstrap
       #####
       - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
-        parameters:
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+        parameters: 
+          scripts_dir: $(scripts_dir)
           template_input: [
             {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_external-dns.yml,
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml,
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_external-dns.yml, 
+              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/external-dns.yml,
               displayName: ExternalDns,
               env_vars: {
                 domain_filter: $(base_domain),
@@ -190,7 +180,7 @@ stages:
               }
             },
             {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentity.yml,
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_aadpodidentity.yml,
               displayName: AADPodId,
               env_vars: {
                 user_identity_id: $(AKS_DEFAULT_USER_IDENTITY_ID),
@@ -199,15 +189,15 @@ stages:
               }
             },
            {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aadpodidentitybinding.yml,
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_aadpodidentitybinding.yml, 
               displayName: AADPodIdBinding,
               env_vars: {
                 identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
               }
             },
            {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/base_aks-nginx-ingress.yml,
-              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/nginx-ingress.yml,
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_nginx-ingress.yml,
+              out: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/nginx-ingress.yml,
               displayName: NginxIngress,
               env_vars: {
                 aks_ingress_public_ip: $(AKS_INGRESS_PUBLIC_IP)
@@ -216,8 +206,8 @@ stages:
           ]
 
       - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
-        parameters:
-          scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+        parameters: 
+          scripts_dir: $(scripts_dir)
           aks_cluster_name: $(AKS_CLUSTER_NAME)
           aks_resource_group_name: $(AKS_RESOURCE_GROUP)
           aks_dns_resource_group_name: $(AKS_RESOURCE_GROUP)
@@ -225,13 +215,13 @@ stages:
           aks_deploy_gatekeeper: false
           aks_aad_pod_identity: true
           aks_aad_pod_identity_yaml: {
-            aad_id_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentity.yml,
-            aad_id_binding_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/aadpodidentitybinding.yml
+            aad_id_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/aadpodidentity.yml,
+            aad_id_binding_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/aadpodidentitybinding.yml
           }
           acr_name: $(docker_container_registry_name)
           acr_resource_group_name: $(AKS_RESOURCE_GROUP)
           ingress_definition:
             # TODO: make this a complex object so that additional args can be passed in
-            - $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/nginx-ingress.yml
-          external_dns_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/azDevops/azure/k8s_manifests/external-dns.yml
+            - $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/nginx-ingress.yml
+          external_dns_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/external-dns.yml
           domain_filter: $(base_domain)

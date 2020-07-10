@@ -10,9 +10,5 @@
   "sonarlint.connectedMode.project": {
     "projectKey": "stacks-webapp-template"
   },
-  "cSpell.words": [
-    "contentful",
-    "Amido",
-    "amidostacks"
-  ]
+  "cSpell.words": ["contentful", "Amido", "amidostacks"]
 }

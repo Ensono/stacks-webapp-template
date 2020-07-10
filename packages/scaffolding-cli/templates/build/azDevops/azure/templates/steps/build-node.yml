@@ -26,6 +26,7 @@ parameters:
   #  Static Code Analysis
   static_code_analysis: false
   sonar_container: ""
+  sonar_env: {}
   # Linting and formatting validation
   lint_formatting: ""
   shared_eslint_config: ""
@@ -98,6 +99,7 @@ steps:
         parameters:
           working_directory: ${{ parameters.project_root_dir }}
           target_container: ${{ parameters.sonar_container }}
+          env_vars: ${{ parameters.sonar_env }}
 
   # Consumer driven contract tests
   - ${{ if eq(parameters.contract_test, true) }}:

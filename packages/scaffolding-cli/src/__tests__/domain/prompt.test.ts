@@ -2,13 +2,13 @@
 /* eslint-disable prefer-const */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/camelcase */
-import {runCli, runConfig} from "../../domain/prompt"
 import * as prompt from "prompts"
 import {resolve} from "path"
 import {ExitMessage, CliOptions} from "../../domain/model/cli_response"
 import {PromptAnswer} from "../../domain/model/prompt_answer"
-import {FlowSelector} from "../../domain/selectors"
+import { FlowSelector, IFlowSelector } from "../../domain/selectors"
 import {Utils} from "../../domain/workers/utils"
+import {runCli, runConfig} from "../../domain/prompt"
 import { CliError } from "../../domain/model/workers"
 
 const cliArgs: CliOptions = <CliOptions>{
@@ -51,7 +51,7 @@ const mockPrompt = jest.spyOn(prompt, "prompt")
 describe("prompt class tests", () => {
     describe("Positive assertions", () => {
         it("When run from config with absolute path should return an object with a code and message", async () => {
-            FlowSelector.optionSsrAksAzuredevops = jest
+            FlowSelector.prototype.optionSsrAksAzuredevops = jest
                 .fn()
                 .mockImplementationOnce(() => {
                     return Promise.resolve({code: 0, message: ""})
@@ -64,7 +64,7 @@ describe("prompt class tests", () => {
             expect(cliResult.code).toBe(0)
         })
         it("When run from config with relative path should return an object with a code and message", async () => {
-            FlowSelector.optionSsrAksAzuredevops = jest
+            FlowSelector.prototype.optionSsrAksAzuredevops = jest
                 .fn()
                 .mockImplementationOnce(() => {
                     return Promise.resolve({code: 0, message: ""})
@@ -79,7 +79,7 @@ describe("prompt class tests", () => {
         })
 
         it("When run from cli WITHOUT advanced config enabled should call prompt only 1x", async () => {
-            FlowSelector.optionSsrAksAzuredevops = jest
+            FlowSelector.prototype.optionSsrAksAzuredevops = jest
                 .fn()
                 .mockImplementationOnce(() => {
                     return Promise.resolve({code: 0, message: ""})
@@ -95,7 +95,7 @@ describe("prompt class tests", () => {
             expect(cliResult.code).toBe(0)
         })
         it("When run from cli WITH advanced config enabled should call prompt only 2x", async () => {
-            FlowSelector.optionSsrAksAzuredevops = jest
+            FlowSelector.prototype.optionSsrAksAzuredevops = jest
                 .fn()
                 .mockImplementationOnce(() => {
                     return Promise.resolve({code: 0, message: ""})
@@ -124,14 +124,15 @@ describe("prompt class tests", () => {
     })
     describe("Negative assertions", () => {
         it("When run from config should return a response with an error code and an excpetion inside error", async () => {
-            FlowSelector.optionSsrAksAzuredevops = jest
+            FlowSelector.prototype.optionSsrAksAzuredevops = jest
                 .fn()
                 .mockImplementationOnce(() => {
                     throw new Error("Something weird happened")
                 })
             let cliResult = await runConfig(cliOptsConfigFileSsr)
             expect(cliResult).toHaveProperty("code")
-            expect(FlowSelector.optionSsrAksAzuredevops).toHaveBeenCalled()
+            // eslint-disable-next-line @typescript-eslint/unbound-method
+            expect(FlowSelector.prototype.optionSsrAksAzuredevops).toHaveBeenCalled()
             expect(cliResult).toHaveProperty("message")
             expect(cliResult).toHaveProperty("code")
             expect(cliResult.message).toMatch("Something weird happened")

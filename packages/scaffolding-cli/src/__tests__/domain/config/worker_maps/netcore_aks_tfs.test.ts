@@ -1,5 +1,5 @@
 import { BuildReplaceInput } from "../../../../domain/config/file_mapper"
-import { BusinessSection, CloudSection, TerraformSection } from "../../../../domain/model/prompt_answer"
+import { BusinessSection, CloudSection, TerraformSection, NetworkingSection, SourceControlSection } from "../../../../domain/model/prompt_answer"
 import { netcore } from '../../../../domain/config/worker_maps'
 import conf from  '../../../../domain/config/static.config.json'
 import { Static, FolderMap } from '../../../../domain/model/config';
@@ -14,10 +14,24 @@ const biz: BusinessSection = {
     domain: "Domain"
 }
 
+const network = {
+    baseDomain: "test.me.com"
+} as NetworkingSection
+
 const tfObj = {
     backendStorageRg: "foo",
+    backendStorage: "azureBlob",
     backendStorageContainer: "bar"
 } as TerraformSection
+
+const cloud = {
+    region: "uksouth",
+    resourceGroup: "my-rg"
+} as CloudSection
+
+const sourceObj = {
+    repoName: "foo"
+} as SourceControlSection
 
 const files: Array<BuildReplaceInput> = [
     {
@@ -46,9 +60,7 @@ const files: Array<BuildReplaceInput> = [
                 "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
             "amido-stacks-demo-api":
                 "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
-            "tf_state_storage: amidostackstfstategbl": `tf_state_storage: %REPLACE_ME_FOR_BLOB_STORAGE_ACCOUNT%`,
-            "tf_state_rg: amido-stacks-rg-uks": `tf_state_rg: ${tfObj?.backendStorageRg}`,
-            "tf_state_container: tfstate": `tf_state_container: ${tfObj?.backendStorageContainer}`,
+            "nonprod.amidostacks.com": `${network.baseDomain}`
         }
     }
 ]
@@ -56,10 +68,10 @@ const files: Array<BuildReplaceInput> = [
 describe("netcore mapper tests", () => {
     it("netcore config should return an array of folders to map", () => {
         const test: Array<FolderMap> = staticConf.netcore.folderMap
-        expect(test.length).toBe(10)
-    }),
+        expect(test.length).toBe(9)
+    })
     it("in_files return an array of objects and cloud should be default", () => {
-        const test: Array<BuildReplaceInput> = netcore.inFiles({ projectName: projectName, businessObj: biz, terraformObj: tfObj})
+        const test: Array<BuildReplaceInput> = netcore.inFiles({ projectName: projectName, businessObj: biz, terraformObj: tfObj, scmObj: sourceObj, cloudObj: cloud, networkObj: network})
         expect(test).toStrictEqual(files)
     })
 })

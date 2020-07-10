@@ -28,7 +28,7 @@
         "dest": "./.gitignore"
       },
       {
-        "src": "build/azDevops/azure/k8s_manifests",
+        "src": "build/azDevops/azure/k8s_manifests/aks",
         "dest": "build/azDevops/azure/k8s_manifests"
       },
       {
@@ -36,16 +36,8 @@
         "dest": "build/azDevops/azure/templates"
       },
       {
-        "src": "build/azDevops/azure/azure-pipelines-ssr-new-k8s.yml",
+        "src": "build/azDevops/azure/azure-pipelines-ssr-aks.yml",
         "dest": "build/azDevops/azure/app-pipeline.yml"
-      },
-      {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
-        "dest": "build/azDevops/azure/infra-pipeline.yml"
-      },
-      {
-        "src": "deploy/azure/infra/stacks-aks",
-        "dest": "deploy/azure/infra"
       },
       {
         "src": "deploy/azure/app/kube",
@@ -112,6 +104,7 @@
     "gitRepo": "https://github.com/amido/stacks-dotnet.git",
     "gitRef": "bb1da0d16b061751ef163a4ae321587cbde4f4ea",
     "localPath": "src/netcore",
+    "searchValue": "xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
       {
         "src": "shared/aux_scripts",
@@ -120,10 +113,6 @@
       {
         "src": "shared/netcore.README.md",
         "dest": "./README.md"
-      },
-      {
-        "src": "build/azDevops/azure/k8s_manifests/aks",
-        "dest": "build/azDevops/azure/k8s_manifests"
       },
       {
         "src": "build/azDevops/azure/templates/steps/build-netcore.yml",
@@ -174,6 +163,7 @@
     "gitRepo": "",
     "gitRef": "",
     "localPath": "",
+    "searchValue": "xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
       {
         "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium",
@@ -183,8 +173,9 @@
   },
   "javaSpring": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "initial-commit",
+    "gitRef": "7c8fd7ff1c3017b1101119f3e3345083dae83c24",
     "localPath": "src/java_spring",
+    "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
       {
         "src": "shared/aux_scripts",
@@ -199,32 +190,20 @@
         "dest": "./.gitignore"
       },
       {
-        "src": "build/azDevops/azure/k8s_manifests",
-        "dest": "build/azDevops/azure/k8s_manifests"
+        "src": "build/azDevops/azure/templates/steps/build-java.yml",
+        "dest": "build/azDevops/azure/templates/steps/build-java.yml"
       },
       {
-        "src": "build/azDevops/azure/templates",
-        "dest": "build/azDevops/azure/templates"
-      },
-      {
-        "src": "build/azDevops/azure/azure-pipelines-javaspring-k8s.yml",
+        "src": "src/java_spring/build/azDevops/azure/azure-pipelines-javaspring-k8s.yml",
         "dest": "build/azDevops/azure/api-pipeline.yml"
-      },
-      {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
-        "dest": "build/azDevops/azure/infra-pipeline.yml"
-      },
-      {
-        "src": "deploy/azure/infra/stacks-aks",
-        "dest": "deploy/azure/infra"
       },
       {
         "src": "deploy/azure/app/kube",
         "dest": "deploy/azure/app"
       },
       {
-        "src": "deploy/k8s",
-        "dest": "deploy/k8s"
+        "src": "deploy/k8s/app/base_api-deploy.yml",
+        "dest": "deploy/k8s/app/base_api-deploy.yml"
       },
       {
         "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium",
@@ -236,7 +215,7 @@
       },
       {
         "src": "src/java_spring/java",
-        "dest": "src"
+        "dest": "java"
       }
     ]
   },
@@ -287,6 +266,49 @@
       }
     ]
   },
+  "ssrGkeJenkins": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
+      {
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
+      },
+      {
+        "src": "build/jenkins/gcp/ssr-gke.Jenkinsfile",
+        "dest": "build/jenkins/gcp/Jenkinsfile"
+      },
+      {
+        "src": "deploy/gcp/app/kube",
+        "dest": "deploy/gcp/app"
+      },
+      {
+        "src": "deploy/k8s/app/base_gke-app-deploy.yml",
+        "dest": "deploy/k8s/app/base_gke-app-deploy.yml"
+      },
+      {
+        "src": "test",
+        "dest": "test"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
+      },
+      {
+        "src": "src/ssr",
+        "dest": "src"
+      }
+    ]
+  },
   "aksInfra": {
     "gitRepo": "",
     "gitRef": "",
@@ -305,8 +327,8 @@
         "dest": "./.gitignore"
       },
       {
-        "src": "build/azDevops/azure/k8s_manifests",
-        "dest": "build/azDevops/azure/k8s_manifests"
+        "src": "build/k8s_manifests/aks",
+        "dest": "build/k8s_manifests/aks"
       },
       {
         "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
@@ -315,6 +337,76 @@
       {
         "src": "deploy/azure/infra/stacks-aks",
         "dest": "deploy/azure/infra"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
+      }
+    ]
+  },
+  "gkeInfra": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
+      {
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
+      },
+      {
+        "src": "build/k8s_manifests/gke",
+        "dest": "build/k8s_manifests/gke"
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-infrastructure-gke.yml",
+        "dest": "build/azDevops/gcp/infra-pipeline.yml"
+      },
+      {
+        "src": "deploy/gcp/infra/stacks-gke",
+        "dest": "deploy/gcp/infra"
+      },
+      {
+        "src": "docs",
+        "dest": "docs"
+      }
+    ]
+  },
+  "gkeInfraJenkins": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
+      {
+        "src": "shared/aux_scripts",
+        "dest": "./aux_scripts"
+      },
+      {
+        "src": "shared/README.md",
+        "dest": "./README.md"
+      },
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
+      },
+      {
+        "src": "build/k8s_manifests/gke",
+        "dest": "build/k8s_manifests/gke"
+      },
+      {
+        "src": "build/jenkins/gcp/infra-gke.Jenkinsfile",
+        "dest": "build/jenkins/gcp/Jenkinsfile"
+      },
+      {
+        "src": "deploy/gcp/infra/stacks-gke",
+        "dest": "deploy/gcp/infra"
       },
       {
         "src": "docs",

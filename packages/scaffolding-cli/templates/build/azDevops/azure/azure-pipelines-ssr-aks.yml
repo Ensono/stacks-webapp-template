@@ -25,7 +25,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.3.0
+      ref: refs/tags/v1.4.4
       # EXCHANGE THIS FOR YOUR OWN ENDPOINT CONNECTION TO GITHUB
       # REPOSITORY IS PUBLIC
       endpoint: amidostacks
@@ -63,7 +63,6 @@ variables:
   # - we suggest you create a runtime variable that is dynamically set based on a branch currently running
   # **`terraform_state_workspace: `**
   # avoid running anything past dev that is not on master
-  # sample value: company-webapp
   tf_state_key: stacks-webapp
   # Versioning
   version_major: 0
@@ -72,20 +71,17 @@ variables:
   # Docker Config
   docker_dockerfile_path: "src/"
   docker_image_name: $(self_generic_name)
-  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(Build.SourceBranchName)"
-  docker_container_registry_name: $(company)$(project)nonproduks$(domain)
+  docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
+  docker_container_registry_name: amidostacksnonproduksnode
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   # AKS/AZURE
-  # This will always be predictably named by setting your company - project - INFRAstage - location - compnonent names in the infra-pipeline
-  aks_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
-  aks_clustername: $(company)-$(project)-nonprod-uks-$(domain)
-  # Infra
+  # Infra 
   conventional_resource_namer: $(company)-$(project)-nonprod-uks-$(domain)
   base_domain: nonprod.amidostacks.com
   base_domain_internal: nonprod.amidostacks.internal
   # Dynamic vars for downstream purposes
   # tf_workspace_suffix: $[]
-  # dns_suffix: ""
+  scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
   # Test setup
@@ -103,12 +99,8 @@ stages:
       - group: amido-stacks-webapp
     jobs:
       - job: WebAppBuild
-        variables:
-          foo: bar
-        # pool: amido-stacks-local
         pool:
           vmImage: ubuntu-18.04
-        # container: k8s_deploy
         steps:
           - checkout: self
           - checkout: templates
@@ -132,6 +124,15 @@ stages:
               # Sonar settings
               static_code_analysis: true
               sonar_container: sonar_scanner
+              sonar_env: {
+                SONAR_HOST_URL: "https://sonarcloud.io",
+                SONAR_TOKEN: $SONAR_TOKEN,
+                SONAR_PROJECT_KEY: $SONAR_PROJECT_KEY,
+                SONAR_ORGANIZATION: $SONAR_ORGANIZATION,
+                SONAR_PROJECT_NAME: $SONAR_PROJECT_NAME,
+                BUILD_NUMBER: $(docker_image_tag),
+                SONAR_SCANNER_OPTS: ""
+              }
               #Linting and formatting validation
               lint_formatting: false
               shared_eslint_config: "@amidostacks/eslint-config@latest"
@@ -146,7 +147,7 @@ stages:
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
-                MENU_API_URL: "http://dev.amidostacks.com/api/menu"
+                MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
                 NODE_ENV: development
                 # avoid warnings about terminal
@@ -160,8 +161,6 @@ stages:
       - group: amido-stacks-webapp
     jobs:
       - job: AppInfraDev
-        variables:
-          foo: bar
         pool:
           vmImage: ubuntu-18.04
         container: terraform_custom
@@ -206,25 +205,30 @@ stages:
               terraform_extra_properties: {
                 TF_VAR_resource_group_location: uksouth,
                 TF_VAR_use_existing_resource_group: true,
-                TF_VAR_resource_group_name: $(conventional_resource_namer),
+                TF_VAR_resource_group_name: amido-stacks-nonprod-uks-node,
                 TF_VAR_name_company: $(company),
                 TF_VAR_name_project: $(project),
                 TF_VAR_name_component: $(component),
                 TF_VAR_create_cosmosdb: false,
+                TF_VAR_create_cache: true,
                 TF_VAR_name_environment: dev,
                 TF_VAR_name_stage: dev,
-                TF_VAR_app_gateway_frontend_ip_name: $(conventional_resource_namer),
+                TF_VAR_app_gateway_frontend_ip_name: amido-stacks-nonprod-uks-node,
                 TF_VAR_dns_record: app,
                 TF_VAR_dns_zone_name: $(base_domain),
                 TF_VAR_internal_dns_zone_name: $(base_domain_internal)
               }
-              terraform_output_commands: ""
+              terraform_output_commands: |
+                raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k);isOutput=true]\(.[$k] | .value)"')
+                readarray -t outputs <<<"$raw_tf"
+                for i in "${outputs[@]}"; do echo "$i"; done
 
       - deployment: DeployDev
         dependsOn: AppInfraDev
         container: k8s_deploy
         variables:
-          GLOBAL_VAR: FOO
+          redis_host: $[ dependencies.AppInfraDev.outputs['tfoutputs.redis_cache_hostname'] ]
+          redis_key: $[ dependencies.AppInfraDev.outputs['tfoutputs.redis_cache_key'] ]
         pool:
           vmImage: ubuntu-18.04
         environment: dev
@@ -235,36 +239,32 @@ stages:
                 - checkout: self
                 - checkout: templates
                   persistCredentials: true
-                # Deploy Dev
-                # TODO: change this to steps and feed upstream
-                - template: azDevOps/azure/templates/v2/steps/aux-k8s-scripts.yml@templates
-                  parameters:
-                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2
-
                 - template: azDevOps/azure/templates/v2/steps/yaml-k8s-templater.yml@templates
-                  parameters:
-                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
-                    enable_debug: "yes"
+                  parameters: 
+                    scripts_dir: $(scripts_dir)
+                    shared_env_vars: {
+                      namespace: dev-stacks-webapp,
+                      role: $(role),
+                      company: $(company),
+                      project: $(project),
+                      domain: $(domain),
+                      component: web,
+                      resource_def_name: xx-replace-me,
+                      version: $(docker_image_tag),
+                      environment: dev
+                    }
+                    enable_debug: "yes" # Remove or comment this line for production or to hide output from templating process
                     template_input: [
                       {
                         base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_app-deploy.yml,
                         displayName: AppDeployment,
                         env_vars: {
-                          namespace: dev-stacks-webapp,
                           dns_pointer: app.$(base_domain),
                           tls_domain: $(base_domain),
                           k8s_app_path: /web/stacks,
                           k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
-                          version: $(docker_image_tag),
-                          role: $(role),
-                          company: $(company),
-                          api_url: 'http://dev.amidostacks.com/api/menu',
-                          project: $(project),
-                          domain: $(domain),
-                          component: web,
+                          api_url: 'https://api.demo.nonprod.amidostacks.com/api/menu',
                           app_name: webapp-template,
-                          resource_def_name: xx-replace-me,
-                          environment: dev,
                           aadpodidentitybinding: stacks-webapp-identity,
                           app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY),
                           next_public_token: $(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN),
@@ -272,9 +272,10 @@ stages:
                           auth_client_secret: $(AUTH0_CLIENT_SECRET),
                           auth_domain: $(AUTH0_DOMAIN),
                           auth_client_id: $(AUTH0_CLIENT_ID),
-                          redis_host: $(REDIS_HOST),
-                          redis_port: $(REDIS_PORT),
-                          redis_enabled: $(REDIS_ENABLED)
+                          redis_host: $(redis_host),
+                          redis_key: $(redis_key),
+                          redis_port: "443",
+                          redis_enabled: "false"
                         },
                         args: "-no-empty",
                       }
@@ -283,34 +284,34 @@ stages:
                 - template: azDevOps/azure/templates/v2/steps/deploy-k8s-app-kubectl.yml@templates
                   parameters:
                     environment: "dev"
-                    scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
+                    scripts_dir: $(scripts_dir)
                     download_deploy_artefact: false
                     # Kubernetes Config
-                    kubernetes_clusterrg: $(aks_clusterrg)
-                    kubernetes_clustername: $(aks_clustername)
+                    kubernetes_clusterrg: $(company)-$(project)-nonprod-uks-$(domain)
+                    kubernetes_clustername: $(company)-$(project)-nonprod-uks-$(domain)
                     # Mutation Information
                     kubectl_filepath:
                       - $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
                     kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app # unnecessary
-            on:
-              success:
-                pool:
-                  vmImage: windows-2019
-                steps:
-                  - checkout: self
-                  - checkout: templates
-                  # Functional tests running on deployed webapp
-                  - ${{ if eq(variables.testcafe_e2e_test, true) }}:
-                      - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
-                        parameters:
-                          env_vars:
-                            APP_BASE_URL: "https://app.$(base_domain)"
-                            MENU_API_URL: "http://dev.amidostacks.com/api/menu"
-                            APP_BASE_PATH: "/web/stacks"
-                            NODE_ENV: production
-                          working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
-                          testcafe_browser_list: "chrome,firefox"
-                  - ${{ if eq(variables.lighthouse_audit, true) }}:
-                      - task: Lighthouse@1
-                        inputs:
-                          url: "https://app.$(base_domain)/web/stacks"
+      - job:
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        pool:
+          vmImage: windows-2019
+        steps:
+          - checkout: self
+          - checkout: templates
+          # Functional tests running on deployed webapp
+          - ${{ if eq(variables.testcafe_e2e_test, true) }}:
+              - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
+                parameters:
+                  env_vars:
+                    APP_BASE_URL: "https://app.$(base_domain)"
+                    MENU_API_URL: "http://api.demo.nonprod.amidostacks.com/api/menu"
+                    APP_BASE_PATH: "/web/stacks"
+                    NODE_ENV: production
+                  working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
+                  testcafe_browser_list: "chrome,firefox"
+          - ${{ if eq(variables.lighthouse_audit, true) }}:
+              - task: Lighthouse@1
+                inputs:
+                  url: "https://app.$(base_domain)/web/stacks"

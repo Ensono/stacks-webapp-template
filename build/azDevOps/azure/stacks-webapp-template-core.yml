@@ -20,7 +20,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: feature/cycle2
+      ref: refs/tags/v1.4.2
       endpoint: amidostacks
 
   containers:

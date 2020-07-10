@@ -5,7 +5,7 @@ import { CliAnswerModel } from '../../../domain/model/prompt_answer'
 
 const mock_answer_cli_answer = {
     projectName: "foo",
-    projectType: "boo",
+    projectType: "ssr",
     platform: "aks",
     deployment: "azdevops",
     cloud: {
@@ -13,7 +13,7 @@ const mock_answer_cli_answer = {
         resourceGroup: "bar"
     },
     terraform: {
-        backendStorage: "blob/path"
+        backendStorage: "azureBlob"
     },
     business: {
         company: "faz",

@@ -4,16 +4,20 @@ import connectRedis from "connect-redis"
 import uid from "uid-safe"
 import session from "express-session"
 
-export const setPassportSessionCookie = (isRedisEnabled, conf) => {
+export const setPassportSessionCookie = (isRedisEnabled, conf): session.SessionOptions => {
     // Express session for Auth
-    let RedisStore = connectRedis(session)
+    const RedisStore = connectRedis(session)
     let redisClient = null
 
     if (isRedisEnabled) {
-        redisClient = new Redis({
-            port: conf.REDIS_PORT, // Redis port
-            host: conf.REDIS_HOST, // Redis host
-        })
+        redisClient = new Redis(
+            conf.REDIS_PORT, // Redis port
+            conf.REDIS_HOST, // Redis host
+            {
+                password: conf.REDIS_PASSWORD || null,
+                keepAlive: 3600,
+                connectTimeout: 150000
+            })
     }
 
     const sessionConfig = {

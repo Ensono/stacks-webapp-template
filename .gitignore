@@ -216,3 +216,4 @@ go.sum
 
 # Lighthouse results
 **/*/lighthouse-ci/results
+**/.vscode/launch.local.json
