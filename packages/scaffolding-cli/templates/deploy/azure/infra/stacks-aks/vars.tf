@@ -42,7 +42,7 @@ variable "tags" {
   default = {}
 }
 
-# Each region must have corresponding a shortend name for resource naming purposes 
+# Each region must have corresponding a shortend name for resource naming purposes
 variable "location_name_map" {
   type = map(string)
 
@@ -112,10 +112,27 @@ variable "cluster_version" {
 
 variable "create_acr" {
   type = bool
-  default = false  
+  default = false
 }
 
 variable "acr_resource_group" {
-  type = string 
-  default = ""  
+  type = string
+  default = ""
+}
+
+variable "is_cluster_private" {
+  type        = bool
+  description = "Set cluster private - API only accessible over internal network"
+  default     = false
+}
+
+variable "log_application_type" {
+  type    = string
+  default = "other"
+}
+
+variable key_vault_name {
+  description = "Key Vault name - if not specificied will default to computed naming convention"
+  type = string
+  default = ""
 }
