@@ -196,7 +196,7 @@ stages:
               }
             },
            {
-              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_aks-nginx-ingress.yml,
+              base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_nginx-ingress.yml,
               out: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/nginx-ingress.yml,
               displayName: NginxIngress,
               env_vars: {

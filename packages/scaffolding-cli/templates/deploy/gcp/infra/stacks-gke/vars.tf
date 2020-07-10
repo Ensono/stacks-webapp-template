@@ -59,7 +59,13 @@ variable "cluster_version" {
 }
 
 variable "service_account_roles" {
-  type = list(string)
+  type        = list(string)
   description = "Additional Service account roles for GKE"
-  default = []
+  default     = []
+}
+
+variable "is_cluster_private" {
+  type        = bool
+  description = "Set cluster private"
+  default     = false
 }
