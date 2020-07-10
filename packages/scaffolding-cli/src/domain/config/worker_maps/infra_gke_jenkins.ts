@@ -1,3 +1,6 @@
+/* eslint-disable import/prefer-default-export */
+
+
 export const responseMessage = (projectName: string): string  => {
     return `Your directory has been created succesfully! \n
 The recommended way to test and bootstrap infrastructure locally is to use the docker containers that the pipeline uses. \n

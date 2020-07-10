@@ -173,7 +173,7 @@
   },
   "javaSpring": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "initial-commit",
+    "gitRef": "7c8fd7ff1c3017b1101119f3e3345083dae83c24",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -188,10 +188,6 @@
       {
         "src": "shared/_gitignore",
         "dest": "./.gitignore"
-      },
-      {
-        "src": "build/azDevops/azure/k8s_manifests",
-        "dest": "build/azDevops/azure/k8s_manifests"
       },
       {
         "src": "build/azDevops/azure/templates/steps/build-java.yml",
@@ -219,7 +215,7 @@
       },
       {
         "src": "src/java_spring/java",
-        "dest": "src"
+        "dest": "java"
       }
     ]
   },
@@ -292,7 +288,7 @@
         "dest": "build/jenkins/gcp/Jenkinsfile"
       },
       {
-        "src": "deploy/azure/app/kube",
+        "src": "deploy/gcp/app/kube",
         "dest": "deploy/gcp/app"
       },
       {
@@ -371,7 +367,7 @@
       },
       {
         "src": "build/azDevops/azure/azure-pipeline-infrastructure-gke.yml",
-        "dest": "build/azDevops/azure/infra-pipeline.yml"
+        "dest": "build/azDevops/gcp/infra-pipeline.yml"
       },
       {
         "src": "deploy/gcp/infra/stacks-gke",

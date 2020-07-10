@@ -9,7 +9,7 @@ import { CliError, CliResponse } from '../../domain/model/workers'
 
 const mock_answer_ssr_aks_tfs = <CliAnswerModel>{
     projectName: "foo",
-    projectType: "boo",
+    projectType: "ssr",
     platform: "aks",
     deployment: "jenkins"
 }

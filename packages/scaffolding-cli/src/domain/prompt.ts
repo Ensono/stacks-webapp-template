@@ -10,7 +10,7 @@ import {
     language,
 } from "./config/questions"
 import {PromptQuestion} from "./model/prompt_question"
-import {PromptAnswer, CliAnswerModel} from "./model/prompt_answer"
+import {PromptAnswer, CliAnswerModel, ProjectTypeEnum} from "./model/prompt_answer"
 import {ExitMessage, CliOptions} from "./model/cli_response"
 import {WorkflowOptions, Workflow} from "./model/workflow"
 
@@ -64,11 +64,7 @@ async function getFromCli(defaultProjectName: string, cliArgs: CliOptions): Prom
         initialQs = [...initialQs, el]
     })
 
-    const cliSelection = await prompt(initialQs, {onCancel})
-    // const platformSelection = await advancedCliQuestion(
-    //     cliSelection,
-    //     platformQuestions,
-    // )
+    const cliSelection = await prompt(initialQs, {onCancel}) as PromptAnswer
 
     if (cliSelection?.enableAdvanced) {
         const advancedSelection = await advancedCliQuestion(
@@ -78,7 +74,7 @@ async function getFromCli(defaultProjectName: string, cliArgs: CliOptions): Prom
         if (language[cliSelection.projectType]) {
             const languageAdvanced = await advancedCliQuestion(
                 advancedSelection,
-                language[cliSelection.projectType]
+                language[cliSelection.projectType] as Function
             )
             return languageAdvanced
         } 

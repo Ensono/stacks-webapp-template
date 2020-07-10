@@ -1,0 +1,20 @@
+{
+  "projectName": "test-app-infra-only",
+  "projectType": "infra",
+  "platform": "gke",
+  "deployment": "jenkins",
+  "advancedConfig": true,
+  "createConfig": false,
+  "cloudRegion": "uksouth",
+  "cloudResourceGroup": "string",
+  "businessCompany": "company",
+  "businessProject": "project",
+  "businessDomain": "core",
+  "businessComponent": "infra",
+  "sourceControlRepoType": "github",
+  "sourceControlRepoName": "Name-Of-Repo",
+  "sourceControlRepoUrl": "https://github/sample.git",
+  "terraformBackendStorage": "replace_terraform_backend_storage",
+  "terraformBackendStorageRg": "replace_terraform_backend_storage_rg",
+  "terraformBackendStorageContainer": "replace_terraform_backend_storage_container"
+}

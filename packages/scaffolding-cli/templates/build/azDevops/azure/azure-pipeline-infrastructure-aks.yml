@@ -41,6 +41,7 @@ variables:
   version_major: 0
   version_minor: 0
   version_revision: $[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]
+  version_build_number: "$(version_major).$(version_minor).$(version_revision)-$(Build.SourceBranchName)"
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_tf_src: deploy/azure/infra/stacks-aks
@@ -88,9 +89,9 @@ stages:
           ARM_CLIENT_ID: $(azure_client_id)
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
-        # target: terraform_custom
-        target:
-          container: terraform_custom
+      - bash: |
+          echo '##vso[build.updatebuildnumber]$(version_build_number)'
+        displayName: 'Update: Build Number'
       # Create TF infra
       - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
         parameters:

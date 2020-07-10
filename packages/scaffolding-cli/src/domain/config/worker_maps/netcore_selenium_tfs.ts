@@ -7,7 +7,9 @@ import { BusinessSection, CloudSection } from "../../model/prompt_answer"
  * @param projectName 
  * @param businessObj 
  */
-export const inFiles = (projectName: string, businessObj?: BusinessSection, cloudObj?: CloudSection): Array<netcoreSelenium> => {
+export const inFiles = (projectName: string,
+    businessObj: BusinessSection,
+    cloudObj?: CloudSection): Array<netcoreSelenium> => {
     return [
         {
             files: ["**/*.md"],
@@ -18,14 +20,14 @@ export const inFiles = (projectName: string, businessObj?: BusinessSection, clou
         {
             files: ["**/*.cs", "**/*.sln", "**/*.csproj"],
             values: {
-                "xxAMIDOxx": startCase(toLower(businessObj?.company)) || "Company",
-                "xxSTACKSxx": startCase(toLower(businessObj?.project)) || "Project",
+                "xxAMIDOxx": startCase(toLower(businessObj.company)) || "Company",
+                "xxSTACKSxx": startCase(toLower(businessObj.project)) || "Project",
             }
         }
     ]
 }
 
-export const responseMessage = (projectName: string): string  => {
+export const responseMessage = (projectName: string): string => {
     return `Your .NET Selenium Testing Framework has been created. To get started: \n
 ---- \n
 cd ${projectName} dotnet restore && dotnet test \n

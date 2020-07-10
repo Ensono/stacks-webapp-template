@@ -48,11 +48,8 @@ const files: Array<BuildReplaceInput> = [
             "stacks-webapp-template/packages/scaffolding-cli/templates": scmObj.repoName,
             "packages/scaffolding-cli/templates/": "",
             "self_repo_tf_src: deploy/azure/infra/stacks-aks": "self_repo_tf_src: deploy/azure/infra",
-            // "amido-stacks-nonprod-node": "REPLACE_ME_FOR_RG_NAME",
-            // "amidostacksnonprodnode": "REPLACE_ME_FOR_ACR_NAME", // cloud_obj?.acr_name
             "company: amido": `company: ${biz.company}`,
             "project: stacks": `project: ${biz.project}`,
-            "nonprod.amidostacks.com": networkObj.baseDomain,
             "nonprod.amidostacks.internal": "REPLACE_ME_FOR_INTERNAL_DOMAIN",
             "amido-stacks-infra-credentials-nonprod": "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
             "tf_state_storage: amidostackstfstategbl": `tf_state_storage: ${terraformObj.backendStorage}`,

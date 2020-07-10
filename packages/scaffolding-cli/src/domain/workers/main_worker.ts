@@ -1,10 +1,11 @@
 /* eslint-disable class-methods-use-this */
 import { startCase, toLower } from 'lodash'
-import { CliAnswerModel } from '../model/prompt_answer'
+import { CliAnswerModel, ProjectTypeEnum, JavaSection } from '../model/prompt_answer'
 import { CliResponse, CliError, TempCopy, BaseResponse } from '../model/workers'
 import { Utils } from './utils'
 import { Replacetruct, buildReplaceFoldersAndVals, BuildReplaceInput } from '../config/file_mapper'
-import { ssr, netcore, javaSpring, csr, shared, netcoreSelenium, gkeSsr, infraAks, jsTestcafe, gkeSsrJenkins } from '../config/worker_maps'
+import { ssr, netcore, javaSpring, csr, shared, netcoreSelenium,
+    gkeSsr, infraAks, jsTestcafe, gkeSsrJenkins, infraGke, infraGkeJenkins } from '../config/worker_maps'
 import conf from '../config/static.config.json'
 import { Static } from '../model/config'
 
@@ -33,7 +34,8 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
@@ -76,7 +78,7 @@ export class MainWorker {
             const buildInput: Array<BuildReplaceInput> = netcore.inFiles({
                 projectName: instructions.projectName,
                 businessObj: instructions.business,
-                cloudObj: instructions.cloud,                
+                cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
                 scmObj: instructions.sourceControl,
                 networkObj: instructions.networking
@@ -130,7 +132,9 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking,
+                javaspringObj: instructions[ProjectTypeEnum.JAVASPRING] as JavaSection
             }).concat(sharedBuildInput)
 
             // const buildInput: Array<BuildReplaceInput> = javaSpring.inFiles(instructions.projectName, instructions.business, instructions.cloud)
@@ -146,8 +150,10 @@ export class MainWorker {
 
             await Utils.valueReplace(valMaps)
 
-            const replaceString = `com/${startCase(toLower(instructions.business.company)).replace(/\s/gm, "")}/${startCase(toLower(instructions.business.project)).replace(/\s/gm, "")}`
-            await Utils.fileNameReplace([`${newDirectory.finalPath}/java`], staticConf.javaSpring.searchValue as string, replaceString)
+            const replaceString = `${instructions[ProjectTypeEnum.JAVASPRING]?.namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
+            await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`], 
+                (staticConf.javaSpring.searchValue as string).replace(/\./gm, "/"),
+                replaceString, true)
 
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
@@ -184,7 +190,8 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
@@ -255,7 +262,8 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking                
             })
 
             const buildInput: Array<BuildReplaceInput> = gkeSsr.inFiles({
@@ -263,7 +271,8 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
@@ -301,7 +310,8 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             })
 
             const buildInput: Array<BuildReplaceInput> = gkeSsrJenkins.inFiles({
@@ -309,7 +319,8 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
@@ -347,7 +358,8 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             })
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
@@ -378,17 +390,27 @@ export class MainWorker {
         const selectedFlowResponse: CliResponse = {} as CliResponse
         try {
 
-            const buildInput: Array<BuildReplaceInput> = shared.inFiles({
+            const sharedBuildInput: Array<BuildReplaceInput> = shared.inFiles({
                 projectName: instructions.projectName,
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             })
+
+            const buildInput: Array<BuildReplaceInput> = infraGke.inFiles({
+                projectName: instructions.projectName,
+                businessObj: instructions.business,
+                cloudObj: instructions.cloud,
+                terraformObj: instructions.terraform,
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
+            }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
 
-            await Utils.constructOutput(staticConf.aksInfra.folderMap, newDirectory.finalPath, newDirectory.tempPath)
+            await Utils.constructOutput(staticConf.gkeInfra.folderMap, newDirectory.finalPath, newDirectory.tempPath)
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput);
 
             await Utils.valueReplace(valMaps)
@@ -419,12 +441,13 @@ export class MainWorker {
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
-                scmObj: instructions.sourceControl
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
             })
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
 
-            await Utils.constructOutput(staticConf.aksInfra.folderMap, newDirectory.finalPath, newDirectory.tempPath)
+            await Utils.constructOutput(staticConf.gkeInfraJenkins.folderMap, newDirectory.finalPath, newDirectory.tempPath)
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput);
 
             await Utils.valueReplace(valMaps)

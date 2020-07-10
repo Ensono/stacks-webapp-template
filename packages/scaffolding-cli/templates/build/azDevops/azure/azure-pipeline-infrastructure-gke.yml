@@ -42,6 +42,7 @@ variables:
   version_major: 0
   version_minor: 0
   version_revision: $[counter(join(variables['version_major'], join('-', variables['version_minor'])), 0)]
+  version_build_number: "$(version_major).$(version_minor).$(version_revision)-$(Build.SourceBranchName)"
   # SelfConfig
   self_repo: stacks-webapp-template/packages/scaffolding-cli/templates
   self_repo_tf_src: deploy/gcp/infra/stacks-gke
@@ -78,8 +79,6 @@ stages:
   - group: amido-stacks-infra-credentials-nonprod
   jobs:
   - job: InfraNonProd
-    variables:
-      foo: bar
     pool:
       vmImage: ubuntu-18.04
     container: terraform_custom
@@ -93,18 +92,19 @@ stages:
           ARM_CLIENT_SECRET: $(azure_client_secret)
           ARM_TENANT_ID: $(azure_tenant_id)
           GOOGLE_CREDENTIALS: $(GOOGLE_CREDENTIALS)
-        # target: terraform_custom
-        target:
-          container: terraform_custom
+      - bash: |
+          echo '##vso[build.updatebuildnumber]$(version_build_number)'
+        displayName: 'Update: Build Number'
       # Create TF infra
       - template: azDevOps/azure/templates/v2/steps/deploy-terraform-meta-generic.yml@templates
         parameters:
           # Terraform Basic Config
           working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
           # changing this would require changing the downstream consumers of these outputs
-          #
+          # 
           terraform_output_artefact: 'tfoutputs'
-          #Auth config
+          # Auth config
+          # IF you are using a backend in GCP you should REMOVE all ARM_* references and adjust the 
           terraform_auth_properties: {
             ARM_CLIENT_ID: $(azure_client_id),
             ARM_CLIENT_SECRET: $(azure_client_secret),
@@ -113,10 +113,11 @@ stages:
             GOOGLE_CREDENTIALS: $(GOOGLE_CREDENTIALS)
           }
           # Terraform State Config
+          # UNCOMMENT below if you are using GCS as backend
+          # terraform_init_backend_config: '-backend-config="bucket=gcs-bucket-name" -backend-config="prefix=$(domain)"'
           terraform_init_backend_config: '-backend-config="key=$(tf_state_key)" -backend-config="storage_account_name=$(tf_state_storage)" -backend-config="resource_group_name=$(tf_state_rg)" -backend-config="container_name=$(tf_state_container)"'
           terraform_state_workspace: nonprod
           # Global Config
-          # Azure config
           tags: ''
           # Terraform Resource Specific Config
           terraform_extra_properties: {

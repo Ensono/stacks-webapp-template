@@ -11,7 +11,7 @@ jest.mock("../../../domain/workers/utils")
 jest.setTimeout(30000)
 const mockAnswer = {
     projectName: "testProjectName",
-    projectType: "testProjectType",
+    projectType: "ssr",
     platform: "aks",
     deployment: "azdevops",
     business: {

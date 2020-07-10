@@ -1,5 +1,5 @@
 import { BuildReplaceInput } from "../file_mapper"
-import { BusinessSection, CloudSection, TerraformSection, SourceControlSection } from "../../model/prompt_answer"
+import { BusinessSection, CloudSection, TerraformSection, SourceControlSection, NetworkingSection } from "../../model/prompt_answer"
 
 /**
  * 
@@ -8,7 +8,21 @@ import { BusinessSection, CloudSection, TerraformSection, SourceControlSection }
  * @param businessObj 
  * @param cloudObj 
  */
-export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmObj }: { projectName: string; businessObj?: BusinessSection; cloudObj?: CloudSection; terraformObj?: TerraformSection; scmObj?: SourceControlSection }): Array<BuildReplaceInput> => {
+export const inFiles = ({
+    projectName,
+    businessObj,
+    cloudObj,
+    terraformObj,
+    scmObj,
+    networkObj
+}: {
+    projectName: string;
+    businessObj: BusinessSection;
+    cloudObj: CloudSection;
+    terraformObj: TerraformSection;
+    scmObj: SourceControlSection,
+    networkObj: NetworkingSection
+}): Array<BuildReplaceInput> => {
     return [
         {
             files: ["**/*.md"],
@@ -32,17 +46,18 @@ export const inFiles = ({ projectName, businessObj, cloudObj, terraformObj, scmO
             files: ["**/*.yml"],
             values: {
                 "src/csr": "src",
-                "self_generic_name: stacks-webapp": `self_generic_name: ${businessObj?.project}-${businessObj?.domain}`,
+                "self_generic_name: stacks-webapp": `self_generic_name: ${businessObj.project}-${businessObj.domain}`,
                 "amido-stacks-webapp-csr": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
                 "tf_state_key: stacks-webapp-csr": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_MY_APP%`,
                 "deploy/azure/app/csr": "deploy/azure/app",
-                "terraform_state_workspace: dev": "terraform_state_workspace: %REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE%"
+                "terraform_state_workspace: dev": "terraform_state_workspace: %REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE%",
+                "nonprod.amidostacks.com": `${networkObj.baseDomain}`
             }
         }
     ]
 }
 
-export const responseMessage = (projectName: string): string  => {
+export const responseMessage = (projectName: string): string => {
     return `Your directory has been created, you can now: \n
 ---- \n
 cd ${projectName}/src && npm install && npm run start \n
