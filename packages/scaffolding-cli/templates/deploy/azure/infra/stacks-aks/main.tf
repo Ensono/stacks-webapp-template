@@ -63,8 +63,7 @@ module "ssl_app_gateway" {
   dns_zone                  = var.dns_zone
   pfx_password              = var.pfx_password
   aks_resource_group        = module.aks_bootstrap.aks_node_resource_group
-  aks_ingress_private_ip    = cidrhost(cidrsubnet(var.vnet_cidr.0, 4, 0), -3)
-  aks_ingress_public_ip     = module.aks_bootstrap.aks_ingress_public_ip
+  aks_ingress_ip            = var.is_cluster_private ? module.aks_bootstrap.aks_ingress_private_ip : module.aks_bootstrap.aks_ingress_public_ip
   subnet_front_end_prefix   = cidrsubnet(var.vnet_cidr.0, 4, 3)
   subnet_backend_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 4)
   subnet_names              = ["k8s1"]

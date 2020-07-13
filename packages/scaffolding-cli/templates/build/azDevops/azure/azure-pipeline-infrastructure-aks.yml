@@ -128,6 +128,7 @@ stages:
             TF_VAR_name_component: $(domain),
             TF_VAR_name_environment: nonprod,
             TF_VAR_create_acr: true,
+            TF_VAR_is_cluster_private: true,
             TF_VAR_cluster_version: $(aks_cluster_version),
             TF_VAR_stage: nonprod,
             TF_VAR_key_vault_name: "core-nonprod-vault",

@@ -41,13 +41,16 @@ export const inFiles = ({
             values: {
                 "self_repo_tf_src: deploy/azure/app/kube":
                     "self_repo_tf_src: deploy/azure/app",
-                "amido-stacks-nonprod-demo": "%REPLACE_ME_FOR_VALID_RESOURCE_NAME%",
+                "amidostacksnonprodeuncore": "%REPLACE_ME_FOR_CONTAINER_REGISTRY_NAME",
+                "amido-stacks-nonprod-eun-core": "%REPLACE_ME_FOR_VALID_RESOURCE_NAME%",
+                "yumido-netcore-api": "REPLACE_ME_FOR_YOUR_VALUE",
                 "company: amido": `company: ${businessObj.company}`,
                 "project: stacks": `project: ${businessObj.project}`,
                 "domain: api": `domain: ${businessObj.domain}`,
+                "tf_state_key: netcore-api": "tf_state_key: %REPLACE_ME_FOR_TF_STATE_KEY%",
                 "amido-stacks-demo-infra":
                     "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
-                "amido-stacks-demo-api":
+                "amido-stacks-webapp":
                     "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
                 "nonprod.amidostacks.com": `${networkObj.baseDomain}`,
             }
