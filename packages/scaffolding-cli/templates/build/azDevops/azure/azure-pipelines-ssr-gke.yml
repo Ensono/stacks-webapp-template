@@ -78,7 +78,6 @@ variables:
   gcp_region: europe-west2
   gcp_project_name: amido-stacks
   gcp_project_id: amido-stacks
-  gcp_cluster_name: amido-stacks-nonprod-core
   # Infra 
   base_domain: gke.nonprod.amidostacks.com
   # Scripts directory used by pipeline steps
@@ -116,7 +115,7 @@ stages:
               docker_build_generic: true
               gcp_auth: {
                 CLOUDSDK_COMPUTE_REGION: $(gcp_region),
-                CLOUDSDK_CONTAINER_CLUSTER: $(company)-$(project)-nonprod-gke-infra,
+                CLOUDSDK_CONTAINER_CLUSTER: amido-stacks-nonprod-core,
                 CLOUDSDK_CORE_PROJECT: $(gcp_project_id),
                 CLOUDSDK_CORE_DISABLE_PROMPTS: "True"
               }
@@ -266,12 +265,12 @@ stages:
                     login_gke: true
                     gcp_auth: {
                       CLOUDSDK_COMPUTE_REGION: $(gcp_region),
-                      CLOUDSDK_CONTAINER_CLUSTER: $(gcp_cluster_name),
+                      CLOUDSDK_CONTAINER_CLUSTER: amido-stacks-nonprod-core,
                       CLOUDSDK_CORE_PROJECT: $(gcp_project_id),
                       CLOUDSDK_CORE_DISABLE_PROMPTS: "True"
                     }
                     # ONLY USED FOR kubectl apply
-                    cluster_name: $(gcp_cluster_name)
+                    cluster_name: amido-stacks-nonprod-core
                     deployment_defs:
                       - { name: app_deploy, file: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml, context: ""}
                     scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts

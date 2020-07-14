@@ -85,6 +85,11 @@ spec:
               value: '${k8s_app_path:=""}'
             - name: APP_BASE_URL
               value: 'https://${dns_pointer}'
+            - name: SAMPLE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: appsecrets
+                  key: foo       
             # - name: APPINSIGHTS_INSTRUMENTATIONKEY
             #   valueFrom:
             #     secretKeyRef:
