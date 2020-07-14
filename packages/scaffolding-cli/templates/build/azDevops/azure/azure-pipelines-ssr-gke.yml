@@ -78,7 +78,7 @@ variables:
   gcp_region: europe-west2
   gcp_project_name: amido-stacks
   gcp_project_id: amido-stacks
-  gcp_cluster_name: amido-stacks-nonprod-gke-infra
+  gcp_cluster_name: amido-stacks-nonprod-core
   # Infra 
   base_domain: gke.nonprod.amidostacks.com
   # Scripts directory used by pipeline steps
@@ -209,9 +209,9 @@ stages:
                 TF_VAR_name_component: $(component),
                 TF_VAR_name_environment: dev,
                 TF_VAR_name_stage: dev,
-                TF_VAR_ingress_ip_name: amido-stacks-nonprod-gke-infra-ingress-public,
+                TF_VAR_ingress_ip_name: amido-stacks-nonprod-core-ingress-public,
                 TF_VAR_dns_record: app,
-                TF_VAR_dns_zone_name: amido-stacks-nonprod-gke-infra,
+                TF_VAR_dns_zone_name: amido-stacks-nonprod-core,
               }
               terraform_output_commands: ""
 
@@ -238,7 +238,7 @@ stages:
                       project: $(project),
                       domain: $(domain),
                       component: web,
-                      resource_def_name: xx-replace-me,
+                      resource_def_name: ssr-node-app,
                       version: $(docker_image_tag),
                       environment: dev
                     }
@@ -253,12 +253,8 @@ stages:
                           tls_domain: $(base_domain),
                           k8s_app_path: '/',
                           k8s_image: '$(docker_container_registry_name)/$(docker_image_name):$(docker_image_tag)',
-                          version: $(docker_image_tag),
-                          ingress_ip_name: amido-stacks-nonprod-gke-infra-ingress-public,
-                          app_name: webapp-template,
-                          resource_def_name: node-app,
-                          environment: dev,
-                          app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY)
+                          ingress_ip_name: amido-stacks-nonprod-core-ingress-public,
+                          secret_example: "bar_secret_replace_me_as_needed and as many times as needed"
                         }
                       }
                     ]
