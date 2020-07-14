@@ -36,7 +36,7 @@ resources:
 variables:
   company: amido
   project: stacks
-  domain: gke-infra
+  domain: core
   component: infra
   # Versioning
   version_major: 0
@@ -68,7 +68,6 @@ variables:
   gcp_project_name: amido-stacks
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
-  deployed_base_url: https://stacks-webapp.com/foo
   # Ensure you find this definition in the K8s and Azure steps to prefix with desired subdomain assignment
   base_domain: gke.nonprod.amidostacks.com
 
@@ -87,10 +86,6 @@ stages:
       - checkout: templates
         persistCredentials: true
         env:
-          ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
-          ARM_CLIENT_ID: $(azure_client_id)
-          ARM_CLIENT_SECRET: $(azure_client_secret)
-          ARM_TENANT_ID: $(azure_tenant_id)
           GOOGLE_CREDENTIALS: $(GOOGLE_CREDENTIALS)
       - bash: |
           echo '##vso[build.updatebuildnumber]$(version_build_number)'
@@ -106,16 +101,11 @@ stages:
           # Auth config
           # IF you are using a backend in GCP you should REMOVE all ARM_* references and adjust the 
           terraform_auth_properties: {
-            ARM_CLIENT_ID: $(azure_client_id),
-            ARM_CLIENT_SECRET: $(azure_client_secret),
-            ARM_SUBSCRIPTION_ID: $(azure_subscription_id),
-            ARM_TENANT_ID: $(azure_tenant_id),
             GOOGLE_CREDENTIALS: $(GOOGLE_CREDENTIALS)
           }
           # Terraform State Config
-          # UNCOMMENT below if you are using GCS as backend
-          # terraform_init_backend_config: '-backend-config="bucket=gcs-bucket-name" -backend-config="prefix=$(domain)"'
-          terraform_init_backend_config: '-backend-config="key=$(tf_state_key)" -backend-config="storage_account_name=$(tf_state_storage)" -backend-config="resource_group_name=$(tf_state_rg)" -backend-config="container_name=$(tf_state_container)"'
+          # Adjust the below if your state is kept in another backend type
+          terraform_init_backend_config: '-backend-config="bucket=amido-stacks-terraform-state" -backend-config="prefix=$(domain)"'
           terraform_state_workspace: nonprod
           # Global Config
           tags: ''

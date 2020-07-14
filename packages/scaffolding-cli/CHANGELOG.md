@@ -3,6 +3,64 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.40.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.40.0) (2020-07-13)
+
+
+### Bug Fixes
+
+* aks core ([ec74eb9](https://github.com/amido/stacks-webapp-template/commit/ec74eb93ff3da97044458811618d7325ef885808))
+* aks core correct yaml indentation ([e34212b](https://github.com/amido/stacks-webapp-template/commit/e34212b61581d8a8087b4eab248a2882edb1b0bd))
+* aks core infra ([3daa7a8](https://github.com/amido/stacks-webapp-template/commit/3daa7a8aa85e901782b1dd2bf33398eb930709b4))
+* bootstrapping with lerna ([#279](https://github.com/amido/stacks-webapp-template/issues/279)) ([3ce3af4](https://github.com/amido/stacks-webapp-template/commit/3ce3af4ab809131347619a25e49cf4e7493f9fac))
+* bump versions for aks tf ([b92af8b](https://github.com/amido/stacks-webapp-template/commit/b92af8bbfd404c6b93c4926f9dca2449f3a18319))
+* cms blog ui ([#283](https://github.com/amido/stacks-webapp-template/issues/283)) ([fee1d83](https://github.com/amido/stacks-webapp-template/commit/fee1d8327881fcd75dacd0e766b739f634f1b560))
+* corrected GCP app mapping ([#386](https://github.com/amido/stacks-webapp-template/issues/386)) ([2f303e8](https://github.com/amido/stacks-webapp-template/commit/2f303e82aa956a6d1a56342412ae3467a6d23db1))
+* csr favicon & searchbar ([#142](https://github.com/amido/stacks-webapp-template/issues/142)) ([7bf1b6a](https://github.com/amido/stacks-webapp-template/commit/7bf1b6a59b5d5de302b8347916266f2a793cf359))
+* csr properly ported in cli flow ([#317](https://github.com/amido/stacks-webapp-template/issues/317)) ([326b7ee](https://github.com/amido/stacks-webapp-template/commit/326b7ee40e055eae680b7ca13f955d07b3c70013))
+* deploy artifact ([30ab8ee](https://github.com/amido/stacks-webapp-template/commit/30ab8eee88a22df2554279149180a1b8332b13c3))
+* enable private cluster ([c98aaa5](https://github.com/amido/stacks-webapp-template/commit/c98aaa5cfafb7e5f4fb05589d61809051fa6a055))
+* patch env vars for csr ([ee7a70f](https://github.com/amido/stacks-webapp-template/commit/ee7a70f5be24c4d501c357d103d85d46d9dc7067))
+* reduce package size ([259e745](https://github.com/amido/stacks-webapp-template/commit/259e74554e3e72ffb8e61f72accebd5e8e69c687))
+* redundant calls to the search api ([#161](https://github.com/amido/stacks-webapp-template/issues/161)) ([6694a37](https://github.com/amido/stacks-webapp-template/commit/6694a37dd7b516c675c90b11ec49c753590c6e90))
+* security headers default helmet ([#367](https://github.com/amido/stacks-webapp-template/issues/367)) ([e63adac](https://github.com/amido/stacks-webapp-template/commit/e63adacef97037ceb4c653690fba840ff92a238b))
+* tf libs versioning updated ([6696289](https://github.com/amido/stacks-webapp-template/commit/669628972103228b9b0fa7f1bc1875993bd6cba1))
+* type error ([#347](https://github.com/amido/stacks-webapp-template/issues/347)) ([fbad081](https://github.com/amido/stacks-webapp-template/commit/fbad0819b57833aca745b0296f0e5bc6f4e898a7))
+
+
+### Features
+
+* added appInsights to CSR ([#164](https://github.com/amido/stacks-webapp-template/issues/164)) ([eb29288](https://github.com/amido/stacks-webapp-template/commit/eb2928872f0a87f0966470f300f6570aab87bc5c))
+* added Auth0 and /profile page ([#351](https://github.com/amido/stacks-webapp-template/issues/351)) ([a053626](https://github.com/amido/stacks-webapp-template/commit/a053626c058b64e6dd63d3d2e057d1be4a8868c9))
+* added Redux sagas and api integration ([#156](https://github.com/amido/stacks-webapp-template/issues/156)) ([c090fef](https://github.com/amido/stacks-webapp-template/commit/c090fef619d6b19c5e393bed91dbfe89606cbb9d))
+* CMS i18n integration ([#345](https://github.com/amido/stacks-webapp-template/issues/345)) ([1833736](https://github.com/amido/stacks-webapp-template/commit/18337369d7174cb6ea827545a1e084c791e62c13))
+* CRA (ejected) ([#131](https://github.com/amido/stacks-webapp-template/issues/131)) ([22be82c](https://github.com/amido/stacks-webapp-template/commit/22be82c8ae37be764cb2bf483a1eedb1e4b5fee3))
+* cypress with csr ([#159](https://github.com/amido/stacks-webapp-template/issues/159)) ([90e7281](https://github.com/amido/stacks-webapp-template/commit/90e7281f7e59152455811ffb00fb4d9789452a31))
+* delete menu after creation ([79a8936](https://github.com/amido/stacks-webapp-template/commit/79a8936edd49be2d914733e3f82052918ba800b8))
+* integrated with Contentful CMS ([#240](https://github.com/amido/stacks-webapp-template/issues/240)) ([a8cc522](https://github.com/amido/stacks-webapp-template/commit/a8cc5227dd108ecbb65931ee6a4bad33e6088e5c))
+* Lighthouse docker image and example ([#278](https://github.com/amido/stacks-webapp-template/issues/278)) ([2b69735](https://github.com/amido/stacks-webapp-template/commit/2b69735275cd8d8ed5ccae2bda0513324d8a53ee))
+* pact-config package ([#148](https://github.com/amido/stacks-webapp-template/issues/148)) ([4343f21](https://github.com/amido/stacks-webapp-template/commit/4343f21850a55ddb6966f4a6d093c80562b950eb))
+* Update Build Pipeline for AZD ([#384](https://github.com/amido/stacks-webapp-template/issues/384)) ([b2dd53b](https://github.com/amido/stacks-webapp-template/commit/b2dd53b3d4aea3eeadcab5b2c15dcde7f0e67320))
+
+
+
+## 0.0.2 (2020-04-28)
+
+
+### Bug Fixes
+
+* removed app Insights key from public ([#125](https://github.com/amido/stacks-webapp-template/issues/125)) ([bb16b1a](https://github.com/amido/stacks-webapp-template/commit/bb16b1a63d47618d82f94bb395e306e8bd792236))
+
+
+### Features
+
+* Search ([#119](https://github.com/amido/stacks-webapp-template/issues/119)) ([d4dbf04](https://github.com/amido/stacks-webapp-template/commit/d4dbf04cd4cbdd761de962f0c8388f02b6489497))
+* search helper text ([#124](https://github.com/amido/stacks-webapp-template/issues/124)) ([fa89290](https://github.com/amido/stacks-webapp-template/commit/fa89290a74062e7de46be859c3b2fda1b2eb475e))
+* search input throttled. ([#123](https://github.com/amido/stacks-webapp-template/issues/123)) ([86842b7](https://github.com/amido/stacks-webapp-template/commit/86842b7c5b885d3c140c47eea0ed3126e680cfa4))
+
+
+
+
+
 # [1.39.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/scaffolding-cli@1.12.1...@amidostacks/scaffolding-cli@1.39.0) (2020-07-10)
 
 
