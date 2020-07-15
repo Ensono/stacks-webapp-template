@@ -24,7 +24,7 @@ export function copyFilter(src: string, dest: string): boolean {
         templateSrc.includes("obj/") ||
         templateSrc.includes("node_modules/")) {
         return false
-    } 
+    }
         return true
 }
 
@@ -42,11 +42,12 @@ export async function renamerRecursion(inPath: string, match: string | RegExp, r
     }
 }
 
-export async function renameJavastyle(inPath: string, match: string | RegExp, replaceString: string): Promise<void> { 
+export async function renameJavastyle(inPath: string, match: string | RegExp, replaceString: string): Promise<void> {
     try {
         const newPath = resolve(inPath, replaceString)
         const oldPath = resolve(inPath, match as string)
         const tmpPath = resolve(tmpdir(), replaceString.replace(/\//g, "-"))
+        console.log(tmpPath);
         // workaround to ensure all types of namespaces can be accomodated
         await copy(oldPath, tmpPath)
         await remove(inPath)
@@ -60,9 +61,9 @@ export async function renameJavastyle(inPath: string, match: string | RegExp, re
 export class Utils {
     /**
      * git clone an entire public repo to use as a template
-     * @param tempDirectory 
-     * @param srcPathInTmp 
-     * @param monoRepoSubFolderOnly 
+     * @param tempDirectory
+     * @param srcPathInTmp
+     * @param monoRepoSubFolderOnly
      */
     public static async doGitClone(gitRepo: string, tempDirectory: string, srcPathInTmp: string, refVersion = "origin/master"): Promise<BaseResponse> {
         const gitResponse: BaseResponse = {} as BaseResponse
@@ -93,7 +94,7 @@ export class Utils {
             const configFile: string = resolve(process.cwd(), configOut)
             const sampleConfig: string = resolve(__dirname, `../config/sample${typeOverride}.bootstrap-config.json`)
             await copy(sampleConfig, configFile, {preserveTimestamps: true, dereference: false})
-            
+
             if (instructionMap) {
                 const generatedConfig = replaceGeneratedConfig(configFile, instructionMap)
                 await this.valueReplace(generatedConfig)
@@ -193,6 +194,7 @@ export class Utils {
         try {
             const newDirectory: string = resolve(process.cwd(), directoryName)
             const tempDirectory: string = resolve(tmpdir(), directoryName)
+            console.log(tempDirectory)
             // precaution to make sure no files from previous run are polluting the process
             await remove(tempDirectory)
             // blanket copy templates out

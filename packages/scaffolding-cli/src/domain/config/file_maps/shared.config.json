@@ -1,0 +1,13 @@
+{
+  "shared": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "folderMap": [
+      {
+        "src": "shared/_gitignore",
+        "dest": "./.gitignore"
+      }
+    ]
+  }
+}

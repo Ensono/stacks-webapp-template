@@ -2,11 +2,11 @@
 import { BuildReplaceInput } from "../../../../domain/config/file_mapper"
 import { BusinessSection, CloudSection, NetworkingSection, SourceControlSection, TerraformSection } from "../../../../domain/model/prompt_answer"
 import { ssr } from '../../../../domain/config/worker_maps'
-import conf from  '../../../../domain/config/static.config.json'
+import conf from  '../../../../domain/config/config_handler'
 import { Static, FolderMap } from '../../../../domain/model/config';
 
 const staticConf: Static = conf as Static;
-        
+
 const projName = "test-app-1"
 
 const biz = {
@@ -25,7 +25,7 @@ const cloud = {
     resourceGroup: "my-rg"
 } as CloudSection
 
-const sourceControl = { 
+const sourceControl = {
     repoName: "foo-git"
 } as SourceControlSection
 

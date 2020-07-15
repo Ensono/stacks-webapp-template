@@ -1,4 +1,4 @@
-import conf from '../../../domain/config/static.config.json'
+import conf from '../../../domain/config/config_handler'
 import { Static } from '../../../domain/model/config';
 
 const staticConf: Static = conf as Static;

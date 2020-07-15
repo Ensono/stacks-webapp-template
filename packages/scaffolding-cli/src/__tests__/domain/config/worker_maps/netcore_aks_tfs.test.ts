@@ -1,7 +1,7 @@
 import { BuildReplaceInput } from "../../../../domain/config/file_mapper"
 import { BusinessSection, CloudSection, TerraformSection, NetworkingSection, SourceControlSection } from "../../../../domain/model/prompt_answer"
 import { netcore } from '../../../../domain/config/worker_maps'
-import conf from  '../../../../domain/config/static.config.json'
+import conf from  '../../../../domain/config/config_handler'
 import { Static, FolderMap } from '../../../../domain/model/config';
 
 const staticConf: Static = conf as Static;

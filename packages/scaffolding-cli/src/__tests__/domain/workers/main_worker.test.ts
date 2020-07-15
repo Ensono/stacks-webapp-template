@@ -7,7 +7,7 @@ import {CliAnswerModel} from "../../../domain/model/prompt_answer"
 import {CliResponse, BaseResponse} from "../../../domain/model/workers"
 import {MainWorker} from "../../../domain/workers/main_worker"
 import {Utils} from "../../../domain/workers/utils"
-import conf from "../../../domain/config/static.config.json"
+import conf from "../../../domain/config/config_handler"
 import {Static} from "../../../domain/model/config"
 
 const staticConf: Static = conf as Static
@@ -235,7 +235,7 @@ describe("mainWorker class tests", () => {
                 `cd ${mockAnswerSsr.projectName}/deploy`,
             )
         })
-        
+
         it("csrAksTfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})
@@ -330,9 +330,9 @@ describe("mainWorker class tests", () => {
 
             const replaceString = `${mockAnswerJavaSpring.javaspring?.namespace.replace(/\./gm, "/")}/${startCase(mockAnswerJavaSpring.business.company).toLowerCase().replace(/\s/gm, "")}/${startCase(mockAnswerJavaSpring.business.project).toLowerCase().replace(/\s/gm, "")}`
             const searchString = (staticConf.javaSpring.searchValue as string).replace(/\./gm, "/")
-            // await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`], 
+            // await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`],
             //     replaceString, true)
-            
+
             const flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
                 mockAnswerJavaSpring
             )

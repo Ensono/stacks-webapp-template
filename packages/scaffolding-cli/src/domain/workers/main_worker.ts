@@ -6,7 +6,7 @@ import { Utils } from './utils'
 import { Replacetruct, buildReplaceFoldersAndVals, BuildReplaceInput } from '../config/file_mapper'
 import { ssr, netcore, javaSpring, csr, shared, netcoreSelenium,
     gkeSsr, infraAks, jsTestcafe, gkeSsrJenkins, infraGke, infraGkeJenkins } from '../config/worker_maps'
-import conf from '../config/static.config.json'
+import conf from '../config/config_handler'
 import { Static } from '../model/config'
 
 const staticConf: Static = conf as Static;
@@ -151,7 +151,7 @@ export class MainWorker {
             await Utils.valueReplace(valMaps)
 
             const replaceString = `${instructions[ProjectTypeEnum.JAVASPRING]?.namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
-            await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`], 
+            await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`],
                 (staticConf.javaSpring.searchValue as string).replace(/\./gm, "/"),
                 replaceString, true)
 
@@ -263,7 +263,7 @@ export class MainWorker {
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,
                 scmObj: instructions.sourceControl,
-                networkObj: instructions.networking                
+                networkObj: instructions.networking
             })
 
             const buildInput: Array<BuildReplaceInput> = gkeSsr.inFiles({

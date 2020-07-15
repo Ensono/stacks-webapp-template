@@ -6,7 +6,7 @@ information.
 
 ## scaffolding-cli
 
-Builds opinionate boilerplate project types (CSR, SSR, .NET API, Test Frameworks...) with accompanying infrastructure code. All from your CLI.
+Builds opinionated boilerplate project types (CSR, SSR, .NET API, Test Frameworks...) with accompanying infrastructure code. All from your CLI.
 
 ## Getting Started
 
@@ -141,4 +141,4 @@ To enhance:
 - selectors.ts -
 - workflow.ts - binding
 - selectors.ts
-- static.config.json - map of folders and destinations
+- file_maps/*.config.json - map of folders and destinations
