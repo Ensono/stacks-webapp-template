@@ -1,21 +1,22 @@
-import glob from "glob";
-import fs from "fs";
+import { SingleConfigKey, Static } from "../model/config";
+import { shared } from "./file_maps/shared.config"
+import { csr, ssr, ssrGke, ssrGkeJenkins, jsTestcafe } from "./file_maps/javascript.config"
+import { javaSpring } from "./file_maps/java.config"
+import { netcore, netcoreSelenium } from "./file_maps/netcore.config"
+import { aksInfra, gkeInfra, gkeInfraJenkins } from "./file_maps/infra.config"
 
-let mergedConfig = {};
-
-glob("file_maps/*.config.json", function(error: Error | null, files: string[]) {
-    files.forEach((file: string) => {
-        fs.readFile(file, 'utf8', function(err: NodeJS.ErrnoException | null, contents: string) {
-            let json = JSON.parse(contents);
-
-            mergedConfig = {
-                ...mergedConfig,
-                ...json,
-            };
-        });
-    });
-});
-
-const constMergedConfig = mergedConfig;
+const constMergedConfig = {
+    csr,
+    ssr,
+    ssrGke,
+    ssrGkeJenkins,
+    aksInfra,
+    gkeInfra,
+    gkeInfraJenkins,
+    jsTestcafe,
+    netcore,
+    netcoreSelenium,
+    javaSpring
+} as Static
 
 export default constMergedConfig;

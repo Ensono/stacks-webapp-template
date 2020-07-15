@@ -6,10 +6,7 @@ import { Utils } from './utils'
 import { Replacetruct, buildReplaceFoldersAndVals, BuildReplaceInput } from '../config/file_mapper'
 import { ssr, netcore, javaSpring, csr, shared, netcoreSelenium,
     gkeSsr, infraAks, jsTestcafe, gkeSsrJenkins, infraGke, infraGkeJenkins } from '../config/worker_maps'
-import conf from '../config/config_handler'
-import { Static } from '../model/config'
-
-const staticConf: Static = conf as Static;
+import staticConf from '../config/config_handler'
 
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["ssrAksTfs", "infraAksAzdevops", "ssrGkeTfs", "netcoreSeleniumTfs", "csrAksTfs", "javaSpringAksTfs", "netcoreAksTfs", "jsTestcafeTfs"] }] */
 export class MainWorker {
