@@ -72,11 +72,9 @@ variables:
   docker_dockerfile_path: "src/"
   docker_image_name: $(self_generic_name)
   docker_image_tag: "$(version_major).$(version_minor).$(version_revision)-$(build.sourcebranchname)"
-  docker_container_registry_name: amidostacksnonproduksnode
+  docker_container_registry_name: amidostacksnonprodeuncore
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   # AKS/AZURE
-  # Infra 
-  conventional_resource_namer: $(company)-$(project)-nonprod-uks-$(domain)
   base_domain: nonprod.amidostacks.com
   base_domain_internal: nonprod.amidostacks.internal
   # Dynamic vars for downstream purposes
@@ -203,18 +201,18 @@ stages:
               tags: ''
               # Terraform Resource Specific Config
               terraform_extra_properties: {
-                TF_VAR_resource_group_location: uksouth,
-                TF_VAR_use_existing_resource_group: true,
-                TF_VAR_resource_group_name: amido-stacks-nonprod-uks-node,
+                TF_VAR_resource_group_location: northeurope,
+                TF_VAR_create_cdn_endpoint: false,
+                TF_VAR_create_dns_record: true,
+                TF_VAR_app_gateway_frontend_ip_name: "amido-stacks-nonprod-eun-core",
+                TF_VAR_core_resource_group: "amido-stacks-nonprod-eun-core",
                 TF_VAR_name_company: $(company),
                 TF_VAR_name_project: $(project),
-                TF_VAR_name_component: $(component),
+                TF_VAR_name_domain: $(domain),
                 TF_VAR_create_cosmosdb: false,
                 TF_VAR_create_cache: true,
                 TF_VAR_name_environment: dev,
-                TF_VAR_name_stage: dev,
-                TF_VAR_app_gateway_frontend_ip_name: amido-stacks-nonprod-uks-node,
-                TF_VAR_dns_record: app,
+                TF_VAR_dns_record: dev-app,
                 TF_VAR_dns_zone_name: $(base_domain),
                 TF_VAR_internal_dns_zone_name: $(base_domain_internal)
               }
@@ -259,7 +257,7 @@ stages:
                         base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_app-deploy.yml,
                         displayName: AppDeployment,
                         env_vars: {
-                          dns_pointer: app.$(base_domain),
+                          dns_pointer: dev-app.$(base_domain),
                           tls_domain: $(base_domain),
                           k8s_app_path: /web/stacks,
                           k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
@@ -305,7 +303,7 @@ stages:
               - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
                 parameters:
                   env_vars:
-                    APP_BASE_URL: "https://app.$(base_domain)"
+                    APP_BASE_URL: "https://dev-app.$(base_domain)"
                     MENU_API_URL: "http://api.demo.nonprod.amidostacks.com/api/menu"
                     APP_BASE_PATH: "/web/stacks"
                     NODE_ENV: production
