@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.14.0 (2020-07-13)
+
+
+### Bug Fixes
+
+* bootstrapping with lerna ([#279](https://github.com/amido/stacks-webapp-template/issues/279)) ([3ce3af4](https://github.com/amido/stacks-webapp-template/commit/3ce3af4ab809131347619a25e49cf4e7493f9fac))
+
+
+### Features
+
+* pact-config package ([#148](https://github.com/amido/stacks-webapp-template/issues/148)) ([4343f21](https://github.com/amido/stacks-webapp-template/commit/4343f21850a55ddb6966f4a6d093c80562b950eb))
+
+
+
+
+
 # 0.13.0 (2020-07-10)
 
 

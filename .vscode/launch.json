@@ -38,7 +38,7 @@
       "args": [
         "run",
         "-c",
-        "src/__tests__/domain/infraGke.bootstrap-config.json"
+        "src/__tests__/domain/netcore.bootstrap-config.json"
       ]
     },
     {

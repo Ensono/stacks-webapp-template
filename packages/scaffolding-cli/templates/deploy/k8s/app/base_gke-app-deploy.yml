@@ -16,7 +16,7 @@ metadata:
   namespace: ${namespace}
 type: Opaque
 stringData:
-  app_insights: ${app_insights_key}
+  foo: ${secret_example}
 
 ---
 
@@ -85,11 +85,16 @@ spec:
               value: '${k8s_app_path:=""}'
             - name: APP_BASE_URL
               value: 'https://${dns_pointer}'
-            - name: APPINSIGHTS_INSTRUMENTATIONKEY
+            - name: SAMPLE_SECRET
               valueFrom:
                 secretKeyRef:
                   name: appsecrets
-                  key: app_insights
+                  key: foo       
+            # - name: APPINSIGHTS_INSTRUMENTATIONKEY
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: appsecrets
+            #       key: app_insights
 
           ports:
             - name: http

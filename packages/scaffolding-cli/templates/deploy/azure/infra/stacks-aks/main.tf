@@ -21,7 +21,7 @@ variable "vnet_cidr" {
 }
 
 module "aks_bootstrap" {
-  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-aks?ref=v1.1.0"
+  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-aks?ref=v1.3.1"
   resource_namer          = module.default_label.id
   resource_group_location = var.resource_group_location
   spn_object_id           = data.azurerm_client_config.current.object_id
@@ -34,11 +34,11 @@ module "aks_bootstrap" {
   create_dns_zone         = var.create_dns_zone
   dns_zone                = var.dns_zone
   internal_dns_zone       = var.internal_dns_zone
+  # ACR doesn't need to exist across environments - ensure you pass create_acr = false in other core environments
   create_acr              = var.create_acr
+  # acr_resource_group      = var.acr_resource_group == "" ? module.default_label.id : var.acr_resource_group
   acr_registry_name       = replace(module.default_label.id, "-", "")
-  # ACR doesn't need to exist across environments
   # creating multiple would break the build once deploy multiple times same binary principle
-  acr_resource_group      = var.acr_resource_group == "" ? module.default_label.id : var.acr_resource_group
   create_aksvnet          = var.create_aksvnet
   vnet_name               = module.default_label.id
   vnet_cidr               = var.vnet_cidr
@@ -49,10 +49,11 @@ module "aks_bootstrap" {
   create_user_identiy     = var.create_user_identiy
   enable_auto_scaling     = true
   log_application_type    = "Node.JS"
+  key_vault_name          = var.key_vault_name
 }
 
 module "ssl_app_gateway" {
-  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-app-gateway?ref=v1.1.0"
+  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-app-gateway?ref=v1.3.1"
   resource_namer            = "${module.default_label.id}"
   resource_group_name       = module.aks_bootstrap.resource_group_name
   resource_group_location   = var.resource_group_location
@@ -62,8 +63,7 @@ module "ssl_app_gateway" {
   dns_zone                  = var.dns_zone
   pfx_password              = var.pfx_password
   aks_resource_group        = module.aks_bootstrap.aks_node_resource_group
-  aks_ingress_private_ip    = cidrhost(cidrsubnet(var.vnet_cidr.0, 4, 0), -3)
-  aks_ingress_public_ip     = module.aks_bootstrap.aks_ingress_public_ip
+  aks_ingress_ip            = var.is_cluster_private ? module.aks_bootstrap.aks_ingress_private_ip : module.aks_bootstrap.aks_ingress_public_ip
   subnet_front_end_prefix   = cidrsubnet(var.vnet_cidr.0, 4, 3)
   subnet_backend_end_prefix = cidrsubnet(var.vnet_cidr.0, 4, 4)
   subnet_names              = ["k8s1"]

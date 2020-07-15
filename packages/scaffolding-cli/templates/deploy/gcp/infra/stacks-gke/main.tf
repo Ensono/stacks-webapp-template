@@ -12,7 +12,7 @@ module "default_label" {
 data "google_client_config" "current" {}
 
 module "gke_cluster" {
-  source         = "git::https://github.com/amido/stacks-terraform//google/modules/google-gke?ref=v1.3.0"
+  source         = "git::https://github.com/amido/stacks-terraform//google/modules/google-gke?ref=v1.3.1"
   stage          = var.stage
   name_project   = var.name_project
   name_company   = var.name_company
@@ -28,4 +28,5 @@ module "gke_cluster" {
   enable_legacy_abac    = false
   service_account_roles = []
   is_cluster_private    = var.is_cluster_private
+  master_ipv4_cidr_block    = "10.5.0.0/28"
 }

@@ -27,6 +27,7 @@ ARG DOTNET_CORE_VERSION=3.1
 
 Overwrite existing args in case you want to fork for custom purposes you could do something like below.
 then repeat the steps above to publish the fork into your own Docker repo. 
+
 ```bash
 docker build -t amidostacks/ci-k8s:my-custom-version --build-arg TYPESCRIPT_VERSION=3.8.3 --build-arg KUBECTL_VERSION=1.17.1 .
 ```

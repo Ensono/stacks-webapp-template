@@ -51,16 +51,19 @@ const files: Array<BuildReplaceInput> = [
         files: ["**/api-pipeline.yml"],
         values: {
             "self_repo_tf_src: deploy/azure/app/kube":
-                "self_repo_tf_src: deploy/azure/app",
-            "amido-stacks-nonprod-demo": "%REPLACE_ME_FOR_VALID_RESOURCE_NAME%",
-            "company: amido": `company: ${biz.company}`,
-            "project: stacks": `project: ${biz.project}`,
-            "domain: api": `domain: ${biz.domain}`,
-            "amido-stacks-demo-infra":
-                "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
-            "amido-stacks-demo-api":
-                "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
-            "nonprod.amidostacks.com": `${network.baseDomain}`
+            "self_repo_tf_src: deploy/azure/app",
+        "amidostacksnonprodeuncore": "%REPLACE_ME_FOR_CONTAINER_REGISTRY_NAME",
+        "amido-stacks-nonprod-eun-core": "%REPLACE_ME_FOR_VALID_RESOURCE_NAME%",
+        "yumido-netcore-api": "REPLACE_ME_FOR_YOUR_VALUE",
+        "company: amido": `company: ${biz.company}`,
+        "project: stacks": `project: ${biz.project}`,
+        "domain: api": `domain: ${biz.domain}`,
+        "tf_state_key: netcore-api": "tf_state_key: %REPLACE_ME_FOR_TF_STATE_KEY%",
+        "amido-stacks-demo-infra":
+            "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
+        "amido-stacks-webapp":
+            "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
+        "nonprod.amidostacks.com": `${network.baseDomain}`
         }
     }
 ]
@@ -71,7 +74,7 @@ describe("netcore mapper tests", () => {
         expect(test.length).toBe(9)
     })
     it("in_files return an array of objects and cloud should be default", () => {
-        const test: Array<BuildReplaceInput> = netcore.inFiles({ projectName: projectName, businessObj: biz, terraformObj: tfObj, scmObj: sourceObj, cloudObj: cloud, networkObj: network})
+        const test: Array<BuildReplaceInput> = netcore.inFiles({ projectName, businessObj: biz, terraformObj: tfObj, scmObj: sourceObj, cloudObj: cloud, networkObj: network})
         expect(test).toStrictEqual(files)
     })
 })

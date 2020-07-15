@@ -102,7 +102,7 @@
   },
   "netcore": {
     "gitRepo": "https://github.com/amido/stacks-dotnet.git",
-    "gitRef": "bb1da0d16b061751ef163a4ae321587cbde4f4ea",
+    "gitRef": "a574de0e8b8d9ec4c0c7bafc89d29f7b01a79bd1",
     "localPath": "src/netcore",
     "searchValue": "xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -115,19 +115,19 @@
         "dest": "./README.md"
       },
       {
-        "src": "build/azDevops/azure/templates/steps/build-netcore.yml",
+        "src": "src/netcore/build/azDevops/azure/templates/steps/build-netcore.yml",
         "dest": "build/azDevops/azure/templates/steps/build-netcore.yml"
       },
       {
-        "src": "build/azDevops/azure/azure-pipelines-netcore-k8s.yml",
+        "src": "src/netcore/build/azDevops/azure/azure-pipelines-netcore-k8s.yml",
         "dest": "build/azDevops/azure/api-pipeline.yml"
       },
       {
-        "src": "deploy/azure/app/kube",
+        "src": "src/netcore/deploy/azure/app/kube",
         "dest": "deploy/azure/app"
       },
       {
-        "src": "deploy/k8s/app/base_api-deploy.yml",
+        "src": "src/netcore/deploy/k8s/app/base_api-deploy.yml",
         "dest": "deploy/k8s/app/base_api-deploy.yml"
       },
       {
@@ -190,7 +190,7 @@
         "dest": "./.gitignore"
       },
       {
-        "src": "build/azDevops/azure/templates/steps/build-java.yml",
+        "src": "src/java_spring/build/azDevops/azure/templates/steps/build-java.yml",
         "dest": "build/azDevops/azure/templates/steps/build-java.yml"
       },
       {
@@ -198,11 +198,11 @@
         "dest": "build/azDevops/azure/api-pipeline.yml"
       },
       {
-        "src": "deploy/azure/app/kube",
+        "src": "src/java_spring/deploy/azure/app/kube",
         "dest": "deploy/azure/app"
       },
       {
-        "src": "deploy/k8s/app/base_api-deploy.yml",
+        "src": "src/java_spring/deploy/k8s/app/base_api-deploy.yml",
         "dest": "deploy/k8s/app/base_api-deploy.yml"
       },
       {
