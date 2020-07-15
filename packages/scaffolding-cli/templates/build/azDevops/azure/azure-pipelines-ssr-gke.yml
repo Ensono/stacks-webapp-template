@@ -152,14 +152,13 @@ stages:
               # Should be hardcoded in your sonar-project.properties file
               unit_test: false
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
-              unit_test_project: "$(Test.UnitTestProjectPath)"
-              component_test: false
-              component_test_project: "$(Test.ComponentTestProjectPath)"
+              contract_test: false
               cypress_e2e_test: false
               cypress_applitools_test: false
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
+                # Replace this URL with 3rd party integration endpoint
                 MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
                 NODE_ENV: dev
