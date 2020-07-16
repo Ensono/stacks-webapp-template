@@ -28,7 +28,6 @@ module "app" {
   dns_zone_name                        = var.dns_zone_name
   dns_zone_resource_group              = var.dns_zone_resource_group != "" ? var.dns_zone_resource_group : var.core_resource_group
   dns_a_records                        = [data.azurerm_public_ip.app_gateway.ip_address]
-  cdn_profile_name                     = var.cdn_profile_name
   create_cdn_endpoint                  = var.create_cdn_endpoint
   subscription_id                      = data.azurerm_client_config.current.subscription_id
   # Alternatively if you want you can pass in the IP directly
