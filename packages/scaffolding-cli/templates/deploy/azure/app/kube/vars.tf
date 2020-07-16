@@ -180,11 +180,6 @@ variable "cache_redis_maxmemory_policy" {
 # CDN Options
 ####################
 
-variable "cdn_profile_name" {
-  type = string
-  description = ""
-}
-
 ########################
 # CDN Response Headers #
 ########################
