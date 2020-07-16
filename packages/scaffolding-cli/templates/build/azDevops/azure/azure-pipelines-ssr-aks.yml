@@ -145,7 +145,7 @@ stages:
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
-                MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/api/menu"
+                MENU_API_URL: "https://dev-netcore-api.nonprod.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
                 NODE_ENV: development
                 # avoid warnings about terminal
@@ -263,7 +263,7 @@ stages:
                           tls_domain: $(base_domain),
                           k8s_app_path: /web/stacks,
                           k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
-                          api_url: 'https://api.demo.nonprod.amidostacks.com/api/menu',
+                          api_url: 'https://dev-netcore-api.nonprod.amidostacks.com/api/menu',
                           app_name: webapp-template,
                           aadpodidentitybinding: stacks-webapp-identity,
                           app_insights_key: $(app_insights_instrumentation_key),
@@ -306,7 +306,7 @@ stages:
                 parameters:
                   env_vars:
                     APP_BASE_URL: "https://dev-app.$(base_domain)"
-                    MENU_API_URL: "http://api.demo.nonprod.amidostacks.com/api/menu"
+                    MENU_API_URL: "http://dev-netcore-api.nonprod.amidostacks.com/api/menu"
                     APP_BASE_PATH: "/web/stacks"
                     NODE_ENV: production
                   working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe

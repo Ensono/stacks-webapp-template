@@ -110,7 +110,7 @@ stages:
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
-                MENU_API_URL: "https://api.demo.nonprod.amidostacks.com/api/menu"
+                MENU_API_URL: "https://dev-netcore-api.nonprod.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
                 NODE_ENV: dev
                 # avoid warnings about terminal
