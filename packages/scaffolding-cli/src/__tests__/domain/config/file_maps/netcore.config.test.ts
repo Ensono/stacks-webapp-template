@@ -11,7 +11,8 @@ describe("netcore tests", () => {
     })
     it("netcore MUST contain searchValue", () => {
         expect(netcore).toHaveProperty("folderMap")
-        expect(netcore.searchValue).not.toBeEmpty()
+        // expect(netcore.searchValue).not.toBeEmpty()
+        expect(netcore.searchValue).toEqual("xxAMIDOxx.xxSTACKSxx")
     })
     it("netcore definitions should NEVER include master as the ref", () => {
         expect(netcore.gitRef).not.toMatch(`master`)
@@ -29,16 +30,17 @@ describe("netcoreSelenium tests", () => {
      */
     it("netcoreSelenium MUST contain folderMap key as an array", () => {
         expect(netcore).toHaveProperty("folderMap")
-        expect(netcore.folderMap.length).toBe(1)
+        expect(netcoreSelenium.folderMap.length).toBe(1)
     })
     it("netcoreSelenium MUST contain searchValue", () => {
-        expect(netcore).toHaveProperty("folderMap")
-        expect(netcore.searchValue).not.toBeEmpty()
+        expect(netcoreSelenium).toHaveProperty("folderMap")
+        // expect(netcoreSelenium.searchValue).not.toBeEmpty()
+        expect(netcoreSelenium.searchValue).toBe("xxAMIDOxx.xxSTACKSxx")
     })
     it("netcoreSelenium  gitRef definitions should be empty as it's locally sourced", () => {
-        expect(netcore.gitRef).toBe("")
+        expect(netcoreSelenium.gitRef).toBeFalsy()
     })
-    it("netcoreSelenium gitRepo should be defined and equal", () => {
-        expect(netcore.gitRepo).toBe("")
+    it("netcoreSelenium gitRepo should be undefined and empty", () => {
+        expect(netcoreSelenium.gitRepo).toEqual("")
     })
 })
