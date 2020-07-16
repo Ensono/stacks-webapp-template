@@ -205,6 +205,7 @@ stages:
                 TF_VAR_create_cdn_endpoint: false,
                 TF_VAR_create_dns_record: true,
                 TF_VAR_app_gateway_frontend_ip_name: "amido-stacks-nonprod-eun-core",
+                TF_VAR_app_insights_name: "amido-stacks-nonprod-eun-core",
                 TF_VAR_core_resource_group: "amido-stacks-nonprod-eun-core",
                 TF_VAR_name_company: $(company),
                 TF_VAR_name_project: $(project),
@@ -227,6 +228,7 @@ stages:
         variables:
           redis_host: $[ dependencies.AppInfraDev.outputs['tfoutputs.redis_cache_hostname'] ]
           redis_key: $[ dependencies.AppInfraDev.outputs['tfoutputs.redis_cache_key'] ]
+          app_insights_instrumentation_key: $[ dependencies.AppInfraDev.outputs['tfoutputs.app_insights_instrumentation_key'] ]
         pool:
           vmImage: ubuntu-18.04
         environment: dev
@@ -264,7 +266,7 @@ stages:
                           api_url: 'https://api.demo.nonprod.amidostacks.com/api/menu',
                           app_name: webapp-template,
                           aadpodidentitybinding: stacks-webapp-identity,
-                          app_insights_key: $(APPINSIGHTS_INSTRUMENTATIONKEY),
+                          app_insights_key: $(app_insights_instrumentation_key),
                           next_public_token: $(NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN),
                           next_space_id: $(NEXT_PUBLIC_CONTENTFUL_SPACE_ID),
                           auth_client_secret: $(AUTH0_CLIENT_SECRET),
