@@ -1,4 +1,4 @@
-import { Static, StaticConfig } from "../model/config";
+import { Static } from "../model/config";
 import { shared } from "./file_maps/shared.config"
 import { csr, ssr, ssrGke, ssrGkeJenkins, jsTestcafe } from "./file_maps/javascript.config"
 import { javaSpring } from "./file_maps/java.config"

@@ -1,5 +1,3 @@
-import { type } from "os"
-
 export interface FolderMap {
     src: string
     dest: string
@@ -30,9 +28,4 @@ export enum ConfigKeyEnum {
 
 export type Static = { 
     [key in ConfigKeyEnum]: SingleConfigKey
-}
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface StaticConfig extends Static {
-
 }
