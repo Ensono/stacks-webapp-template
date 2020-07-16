@@ -1,7 +1,9 @@
-import conf from '../../../domain/config/config_handler'
-import { Static } from '../../../domain/model/config';
+/* eslint-disable security/detect-object-injection */
+import staticConf from '../../../domain/config/config_handler'
+import { SingleConfigKey, ConfigKeyEnum } from '../../../domain/model/config'
+// import { Static } from '../../../domain/model/config';
 
-const staticConf: Static = conf as Static;
+// const staticConf: Static = conf as Static;
 
 const currentSupportedPaths = ["ssr", "csr", "netcore", "javaSpring", "netcoreSelenium",
     "jsTestcafe", "ssrGke", "aksInfra", "gkeInfra", "ssrGkeJenkins", "ssrGkeJenkins", "shared"]
@@ -17,14 +19,14 @@ describe("StaticConfig tests", () => {
         expect(confKeys).toEqual(expect.arrayContaining(currentSupportedPaths))
     })
     it("staticConf MUST contain folderMap key as an array", () => {
-        confKeys.forEach(i => {
-            expect(staticConf[i]).toHaveProperty("folderMap")
-            expect(staticConf[i].folderMap.length).not.toBe(0)
+        confKeys.forEach((i) => {
+            expect(staticConf[i as ConfigKeyEnum]).toHaveProperty("folderMap")
+            expect(staticConf[i as ConfigKeyEnum].folderMap.length).not.toBe(0)
         })
     })
     it("staticConf definitions should NEVER include master as the ref", () => {
         confKeys.forEach(i => {
-            expect(staticConf[i].gitRef).not.toMatch(`master`)
+            expect(staticConf[i as ConfigKeyEnum].gitRef).not.toMatch(`master`)
         })
     })
 })

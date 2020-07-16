@@ -194,7 +194,6 @@ export class Utils {
         try {
             const newDirectory: string = resolve(process.cwd(), directoryName)
             const tempDirectory: string = resolve(tmpdir(), directoryName)
-            console.log(tempDirectory)
             // precaution to make sure no files from previous run are polluting the process
             await remove(tempDirectory)
             // blanket copy templates out

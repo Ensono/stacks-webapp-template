@@ -8,6 +8,7 @@ import { ssr, netcore, javaSpring, csr, shared, netcoreSelenium,
     gkeSsr, infraAks, jsTestcafe, gkeSsrJenkins, infraGke, infraGkeJenkins } from '../config/worker_maps'
 import staticConf from '../config/config_handler'
 
+
 /* eslint class-methods-use-this: ["error", { "exceptMethods": ["ssrAksTfs", "infraAksAzdevops", "ssrGkeTfs", "netcoreSeleniumTfs", "csrAksTfs", "javaSpringAksTfs", "netcoreAksTfs", "jsTestcafeTfs"] }] */
 export class MainWorker {
     /**
