@@ -6,11 +6,11 @@ const helmetGuard = Helmet({
   },
   xssFilter: true,
   hidePoweredBy: true,
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["* 'unsafe-inline 'unsafe-eval'"]
-    }
-  }
+//   contentSecurityPolicy: {
+//     directives: {
+//       defaultSrc: ["* 'unsafe-inline 'unsafe-eval'"]
+//     }
+//   }
 })
 
 export default helmetGuard
