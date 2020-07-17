@@ -38,7 +38,7 @@ export const Header = props => {
     return (
         <AppBar position="fixed" color="secondary">
             <Toolbar>
-                <a href="./blog">
+                <a href={conf.APP_BASE_PATH + "/blog"}>
                     <Tooltip title="Blog" aria-label="blog">
                         <Fab
                             size="small"
@@ -55,7 +55,7 @@ export const Header = props => {
                     </a>
                 </Typography>
                 {!isCreatePage && (
-                    <a href="./create">
+                    <a href={conf.APP_BASE_PATH + "/create"}>
                         <Tooltip title="Create menu" aria-label="create menu">
                             <Fab
                                 size="small"
@@ -71,7 +71,7 @@ export const Header = props => {
                 {!!authenticationEnabled && (
                     <>
                         {!user ? (
-                            <a href="./login">
+                            <a href={conf.APP_BASE_PATH + "/login"}>
                                 <Button
                                     data-testid="auth_login_button"
                                     variant="contained"
@@ -84,7 +84,7 @@ export const Header = props => {
                             </a>
                         ) : (
                             <>
-                                <a href="./profile">
+                                <a href={conf.APP_BASE_PATH + "/profile"}>
                                     <Button
                                         aria-label="profile button"
                                         data-testid="profile_image_button"
@@ -96,7 +96,7 @@ export const Header = props => {
                                         />
                                     </Button>
                                 </a>
-                                <a href="./logout">
+                                <a href={conf.APP_BASE_PATH + "/logout"}>
                                     <Button
                                         data-testid="auth_logout_button"
                                         variant="contained"
