@@ -12,18 +12,22 @@ docker run -d -v /var/run/docker.sock:/var/run/docker.sock -v "$(which docker):/
 docker start jenkins
 ```
 
-Note: If you're using Windows with Docker for Windows you'll need to change run command to the following:
+Note: If you're using Windows with Docker for Windows you'll need the following:
+  1. A `bash` shell such as Cygwin (or derivatives such as Babun) or GitBash.
+  2. Change run command above to the following:
 ```bash
 docker run -d -v /var/run/docker.sock:/var/run/docker.sock -v jenkins-vol:/var/jenkins_home --name jenkins-dood -p 8080:8080 jenkins-dood
 DOCKER_VERSION="$(docker -v | awk -F ' ' '{print substr($3, 1, length($3)-1)}')"
 docker exec -it jenkins-dood /bin/bash -c "wget https://download.docker.com/linux/static/stable/x86_64/docker-$DOCKER_VERSION.tgz && tar -xvzf docker-$DOCKER_VERSION.tgz && ln -s /docker/docker /usr/bin/docker"
 ```
-If you're using GitBash you may need to double up the slash on the Docker socket also: `... -v //var/run/docker.sock:/var/run/docker.sock ...`
+If you're using GitBash (not Cygwin) you may need to double up the slash on the Docker socket also: `... -v //var/run/docker.sock:/var/run/docker.sock ...`
+This is because GitBash auto translates paths to Windows paths always.
 
 If you are running it for the first time
 ```bash
 docker exec -it jenkins-dood /bin/bash -c "cat /var/jenkins_home/secrets/initialAdminPassword"
 ```
+Use this password to enter the Jenkins UI.
 
 Exposed args:
 ```
