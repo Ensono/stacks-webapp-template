@@ -31,7 +31,7 @@ const title = `Yumido`
 const authenticationEnabled =
     !!conf.AUTH0_CLIENT_SECRET && !!conf.AUTH0_CLIENT_ID
 
-const Header = props => {
+export const Header = props => {
     const user: UserType = useUser()
     const classes = useStyles()
     const isCreatePage = useRouter()?.pathname.split("/").pop() === "create"
@@ -115,5 +115,3 @@ const Header = props => {
         </AppBar>
     )
 }
-
-export default Header
