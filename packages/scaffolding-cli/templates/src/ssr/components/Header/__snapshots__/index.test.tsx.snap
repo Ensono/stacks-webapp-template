@@ -9,7 +9,7 @@ exports[`renders Header snapshot 1`] = `
       class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
     >
       <a
-        href="/blog"
+        href="./blog"
       >
         <button
           aria-label="blogs menu button"
@@ -50,7 +50,7 @@ exports[`renders Header snapshot 1`] = `
         </a>
       </h2>
       <a
-        href="/create"
+        href="./create"
       >
         <button
           aria-label="create menu button"
@@ -93,7 +93,7 @@ exports[`renders no button on create page 1`] = `
       class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
     >
       <a
-        href="/blog"
+        href="./blog"
       >
         <button
           aria-label="blogs menu button"

@@ -26,10 +26,12 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-const title: string = `Yumido`
+const title = `Yumido`
+
 const authenticationEnabled =
     !!conf.AUTH0_CLIENT_SECRET && !!conf.AUTH0_CLIENT_ID
-export const Header = props => {
+
+const Header = props => {
     const user: UserType = useUser()
     const classes = useStyles()
     const isCreatePage = useRouter()?.pathname.split("/").pop() === "create"
@@ -113,3 +115,5 @@ export const Header = props => {
         </AppBar>
     )
 }
+
+export default Header
