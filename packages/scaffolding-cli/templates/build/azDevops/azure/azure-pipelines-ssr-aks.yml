@@ -274,8 +274,8 @@ stages:
                           auth_client_id: $(AUTH0_CLIENT_ID),
                           redis_host: $(redis_host),
                           redis_key: $(redis_key),
-                          redis_port: "443",
-                          redis_enabled: "false"
+                          redis_port: "6380",
+                          redis_enabled: "true"
                         },
                         args: "-no-empty",
                       }

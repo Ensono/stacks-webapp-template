@@ -1,9 +1,9 @@
 import {BlogLanding, Layout} from "components"
 import contentful from "contentful"
-import {PostType} from "interfaces/blog.interface"
 import NextError from "next/error"
 import React from "react"
 import {getAllPostsForHome} from "../../lib/contentful-api"
+import {PostType} from "interfaces/blog.interface"
 
 type BlogProps = {
     preview?: boolean
