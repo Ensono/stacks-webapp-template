@@ -136,3 +136,8 @@ variable key_vault_name {
   type = string
   default = ""
 }
+
+variable acme_email {
+  type = string
+  description = "Email for Acme registration, must be a valid email"
+}

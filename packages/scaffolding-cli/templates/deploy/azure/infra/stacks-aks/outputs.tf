@@ -69,3 +69,20 @@ output "aks_ingress_public_ip" {
   description = "Public IP to be used for the ingress controller inside the cluster"
   value       = module.aks_bootstrap.aks_ingress_public_ip
 }
+
+output "certificate_pem" {
+  description = "PEM key of certificate, can be used internally"
+  value = module.ssl_app_gateway.certificate_pem
+  sensitive = true
+}
+
+output "issuer_pem" {
+  description = "PEM key of certificate, can be used internally together certificate to create a full cert"
+  value = module.ssl_app_gateway.issuer_pem
+  sensitive = true
+}
+
+output "app_gateway_ip" {
+  description = "Application Gateway public IP. Should be used with DNS provider at a top level. Can have multiple subs pointing to it - e.g. app.sub.domain.com, app-uat.sub.domain.com. App Gateway will perform SSL termination for all "
+  value       = module.ssl_app_gateway.app_gateway_ip
+}

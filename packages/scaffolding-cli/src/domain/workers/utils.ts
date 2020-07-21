@@ -46,7 +46,7 @@ export async function renameJavastyle(inPath: string, match: string | RegExp, re
     try {
         const newPath = resolve(inPath, replaceString)
         const oldPath = resolve(inPath, match as string)
-        const tmpPath = resolve(tmpdir(), replaceString.replace(/\//g, "-"))
+        const tmpPath = resolve(tmpdir(), `${replaceString.replace(/\//g, "-")}_${process.ppid}`)
         // workaround to ensure all types of namespaces can be accomodated
         await copy(oldPath, tmpPath)
         await remove(inPath)
@@ -192,7 +192,7 @@ export class Utils {
         const fsResponse: TempCopy = {} as TempCopy
         try {
             const newDirectory: string = resolve(process.cwd(), directoryName)
-            const tempDirectory: string = resolve(tmpdir(), directoryName)
+            const tempDirectory: string = resolve(tmpdir(), `${directoryName}_${process.ppid}`)
             // precaution to make sure no files from previous run are polluting the process
             await remove(tempDirectory)
             // blanket copy templates out

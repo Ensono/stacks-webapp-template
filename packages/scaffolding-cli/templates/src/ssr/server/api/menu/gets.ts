@@ -12,7 +12,6 @@ export default (router: Router) => {
     router.get(getMenuList.routeDefinition, Cors(), async (req, res) => {
         const {query} = req
         try {
-            debugger
             const response = await axios({
                 url: getMenuList.url(),
                 method: getMenuList.method,

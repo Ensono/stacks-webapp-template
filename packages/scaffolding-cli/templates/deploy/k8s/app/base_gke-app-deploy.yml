@@ -80,7 +80,7 @@ spec:
             - name: PORT
               value: '3000'
             - name: MENU_API_URL
-              value: 'https://api.demo.nonprod.amidostacks.com/api/menu'
+              value: 'https://dev-netcore-api.nonprod.amidostacks.com/api/menu'
             - name: APP_BASE_PATH
               value: '${k8s_app_path:=""}'
             - name: APP_BASE_URL
