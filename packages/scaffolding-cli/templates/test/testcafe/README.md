@@ -67,7 +67,7 @@ For Linux/Mac (replacing `export` with `set` for Windows):
 export NODE_ENV=development \
 export PORT=3000 \
 export APP_BASE_URL=http://localhost \
-export MENU_API_URL=https://dev.amidostacks.com/api/menu \
+export MENU_API_URL=https://dev-netcore-api.nonprod.amidostacks.com/api/menu \
 export APP_BASE_PATH=""
 ```
 
@@ -77,7 +77,7 @@ Alternately, an example of your environment variable configuration for running a
 export NODE_ENV=production \
 export APP_BASE_URL=https://dev-app.nonprod.amidostacks.com \
 export APP_BASE_PATH=/web/stacks \
-export MENU_API_URL=https://dev.amidostacks.com/api/menu
+export MENU_API_URL=https://dev-netcore-api.nonprod.amidostacks.com/api/menu
 ```
 
 ## Running tests in Docker

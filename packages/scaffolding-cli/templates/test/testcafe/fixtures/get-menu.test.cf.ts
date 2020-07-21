@@ -12,7 +12,7 @@ test( testName, fn(t) ):
 */
 
 import {Selector} from "testcafe"
-import {deleteMenu} from "../api/menu"
+import {deleteMenu, addMenu} from "../api/menu"
 import {getAppUrl} from "../environment-variables"
 
 const url = getAppUrl().APP_URL
@@ -21,9 +21,23 @@ console.log(`Current url: ${url}`)
 fixture`home`.page`${url}`
 
 const menuList = Selector("[data-testid=results]")
-test("Returns the Latest menus component", async t => {
-    await t.expect(menuList.innerText).contains("Breakfast Menu")
-})
+
+const testMenuName = "Automated Yumido Menu"
+
+test
+    .before(async (t: any) => {
+        t.ctx.menuId = await addMenu(testMenuName)
+        console.log(`Created menuId: ${t.ctx.menuId}`)
+    })
+    ("Returns the Latest menus component", async t => {
+        await t
+            .expect(menuList.exists)
+            .ok()
+    })
+    .after(async (t: any) => {
+        const response = await deleteMenu(t.ctx.menuId)
+        console.log(`deleteMenu response: ${response}`)
+    })
 
 test("Create a new Yumido menu", async t => {
     const createMenu = Selector("[data-testid='create_button']")
@@ -33,13 +47,12 @@ test("Create a new Yumido menu", async t => {
     const saveMenu = Selector(":nth-child(2) > .MuiButtonBase-root")
     const snackBarMessage = Selector("#snackbar-message-id").innerText
 
-    const testMenuName = "Automated Yumido Menu"
-
     await t
         .expect(menuList.innerText)
         .notContains(testMenuName)
         .click(createMenu)
-        .expect(menuName.exists).ok()
+        .expect(menuName.exists)
+        .ok()
         .typeText(menuName, testMenuName)
         .typeText(menuDesc, "A delicous array of funky FE flavours")
         .click(menuActive)
