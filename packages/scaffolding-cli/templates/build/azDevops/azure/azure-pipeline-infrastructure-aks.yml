@@ -89,11 +89,14 @@ stages:
       container: terraform_custom
       steps:
         - checkout: self
+
         - checkout: templates
           persistCredentials: true
+
         - bash: |
             echo '##vso[build.updatebuildnumber]$(version_build_number)'
           displayName: 'Update: Build Number'
+
         # Create TF infra
         - template: azDevOps/azure/templates/v2/steps/deploy-terraform-resource.yml@templates
           parameters:
@@ -160,13 +163,10 @@ stages:
       container: k8s_deploy
       steps:
         - checkout: self
+
         - checkout: templates
           persistCredentials: true
-          env:
-            ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
-            ARM_CLIENT_ID: $(azure_client_id)
-            ARM_CLIENT_SECRET: $(azure_client_secret)
-            ARM_TENANT_ID: $(azure_tenant_id)
+
         #####
         # Sample left for base K8s cluster bootstrap
         #####
@@ -328,13 +328,10 @@ stages:
       container: k8s_deploy
       steps:
         - checkout: self
+
         - checkout: templates
           persistCredentials: true
-          env:
-            ARM_SUBSCRIPTION_ID: $(azure_subscription_id)
-            ARM_CLIENT_ID: $(azure_client_id)
-            ARM_CLIENT_SECRET: $(azure_client_secret)
-            ARM_TENANT_ID: $(azure_tenant_id)
+
         #####
         # Sample left for base K8s cluster bootstrap
         #####
