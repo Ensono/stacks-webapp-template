@@ -30,3 +30,27 @@ export const deleteMenu = (menuId: string) => {
             .catch(() => reject(new Error()))
     })
 }
+
+export const addMenu = (menuName: string) => {
+    const MENU_API_ENDPOINT = `${environmentVariables.MENU_API_URL}/${API_VERSION}/menu`
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`${MENU_API_ENDPOINT}`, {
+                name: menuName,
+                description: "Testcafe beforeHook",
+                enabled: true,
+                tenantId: "d290f1ee-6c54-4b01-90e6-d701748f0851",
+            })
+            .then(response => {
+                const {data, status} = response
+                if (status >= 200) {
+                    console.log(`Successfully added menuName=${menuName} with status=${response.status}`)
+                    resolve(data.id)
+                } else {
+                    console.log(`Could not add menuName=${menuName}`)
+                    reject(data)
+                }
+            })
+            .catch(() => reject(new Error()))
+    })
+}
