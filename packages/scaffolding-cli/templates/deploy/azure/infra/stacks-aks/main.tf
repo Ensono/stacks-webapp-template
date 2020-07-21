@@ -1,6 +1,6 @@
 data "azurerm_client_config" "current" {}
 
-# Naming convention 
+# Naming convention
 module "default_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.16.0"
   namespace  = format("%s-%s", var.name_company, var.name_project)
@@ -11,10 +11,10 @@ module "default_label" {
   tags       = var.tags
 }
 
-# if you do not set the 
+# if you do not set the
 # `service_cidr`
 # `dns_service_ip`
-# `docker_bridge_cidr` 
+# `docker_bridge_cidr`
 # AKS will default to ==> 10.0.0.0/16
 variable "vnet_cidr" {
   default = ["10.1.0.0/16"]
@@ -53,7 +53,7 @@ module "aks_bootstrap" {
 }
 
 module "ssl_app_gateway" {
-  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-app-gateway?ref=v1.3.1"
+  source                  = "git::https://github.com/amido/stacks-terraform//azurerm/modules/azurerm-app-gateway?ref=v1.3.2"
   resource_namer            = "${module.default_label.id}"
   resource_group_name       = module.aks_bootstrap.resource_group_name
   resource_group_location   = var.resource_group_location
