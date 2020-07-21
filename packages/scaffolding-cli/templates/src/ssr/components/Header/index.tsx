@@ -50,7 +50,7 @@ export const Header = props => {
                     </Tooltip>
                 </a>
                 <Typography variant="h2" style={{margin: "0 auto"}}>
-                    <a href="/" className={classes.styledLink}>
+                    <a href={conf.APP_BASE_PATH + "/"} className={classes.styledLink}>
                         {title}
                     </a>
                 </Typography>
