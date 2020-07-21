@@ -51,8 +51,8 @@ const files: Array<BuildReplaceInput> = [
             "tf_state_key: stacks-webapp": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_MY_APP%`,
             "deploy/azure/app/kube": "deploy/azure/app",
             "terraform_state_workspace: dev": "terraform_state_workspace: %REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE%",
-            "docker_container_registry_name: amidostacksnonproduksnode": "docker_container_registry_name: REPLACE_ME_FOR_CONTAINER_REGISTRY",
-            "amido-stacks-nonprod-uks-node": "REPLACE_ME_FOR_CLOUD_RESOURCE_NAME"
+            "docker_container_registry_name: amidostacksnonprodeuncore": "docker_container_registry_name: REPLACE_ME_FOR_CONTAINER_REGISTRY",
+            "amido-stacks-nonprod-eun-core": "REPLACE_ME_FOR_CLOUD_RESOURCE_NAME"
         }
     }
 ]
@@ -60,7 +60,7 @@ const files: Array<BuildReplaceInput> = [
 describe("ssr mapper tests", () => {
     it("to_folders return an array of objects", () => {
         const test: Array<FolderMap> = staticConf.ssr.folderMap
-        expect(test.length).toBe(11)
+        expect(test.length).toBe(10)
     })
     it("in_files return an array of objects and cloud should be default", () => {
         const test: Array<BuildReplaceInput> = ssr.inFiles({ projectName: projName, businessObj: biz, networkObj: network, cloudObj: cloud, scmObj: sourceControl, terraformObj: terraform})

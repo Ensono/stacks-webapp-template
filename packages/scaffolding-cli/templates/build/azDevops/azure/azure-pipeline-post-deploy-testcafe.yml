@@ -49,7 +49,7 @@ variables:
 
   # Deployed app urls
   - name: base_url
-    value: 'https://app.nonprod.amidostacks.com'
+    value: 'https://dev-app.nonprod.amidostacks.com'
   - name: base_path
     value: '/web/stacks'
   

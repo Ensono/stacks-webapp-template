@@ -51,7 +51,8 @@ export const inFiles = ({
                 "tf_state_key: stacks-webapp-csr": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_MY_APP%`,
                 "deploy/azure/app/csr": "deploy/azure/app",
                 "terraform_state_workspace: dev": "terraform_state_workspace: %REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE%",
-                "nonprod.amidostacks.com": `${networkObj.baseDomain}`
+                "nonprod.amidostacks.com": `${networkObj.baseDomain}`,
+                "amido-stacks-nonprod-eun-core": "REPLACE_ME_FOR_CLOUD_RESOURCE_NAME"
             }
         }
     ]

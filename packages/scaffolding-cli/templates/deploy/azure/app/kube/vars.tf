@@ -36,7 +36,7 @@ variable "tags" {
   default = {}
 }
 
-# Each region must have corresponding a shortend name for resource naming purposes 
+# Each region must have corresponding a shortend name for resource naming purposes
 variable "location_name_map" {
   type = map(string)
 
@@ -62,32 +62,36 @@ variable "resource_group_location" {
   default = "uksouth"
 }
 
-variable "resource_group_name" {
-  description = "RG name of where you want to be deploying app level resources, can be left blank and "
-  type = string   
-}
-
 variable "app_gateway_frontend_ip_name" {
   description = ""
-  type = string  
+  type = string
 }
 
 variable "dns_record" {
   description = ""
   type = string
-  default = "app" 
+  default = "app"
 }
-
 
 variable "dns_zone_name" {
   type    = string
   default = "nonprod.amidostacks.com"
 }
 
+variable "dns_zone_resource_group" {
+  type    = string
+  default = ""
+}
+
+variable "core_resource_group" {
+  type    = string
+}
+
 variable "internal_dns_zone_name" {
   type    = string
   default = "nonprod.amidostacks.internal"
 }
+
 
 ###########################
 # CONDITIONAL SETTINGS
@@ -103,8 +107,90 @@ variable "create_cache" {
   description = "Whether to create a RedisCache"
   default = false
 }
-variable "use_existing_resource_group" {
-  description = "Whether to create a resource group for application level resources, if set to true and `resource_group_name` is not specified it will create a resource group for you. Ensure you specify resource group when setting to true"
-  type    = bool
+
+variable "create_dns_record" {
+  type = bool
+  default = false
+}
+
+variable "create_cdn_endpoint" {
+  type = bool
+  default = false
+}
+
+####################
+# RedisCache Options
+####################
+
+variable "cache_capacity" {
+  type = number
+  default = 2
+  description = "Specify desired capacity"
+}
+
+variable "cache_family" {
+  type = string
+  default = "C"
+  description = "Specify desired compute family"
+}
+
+variable "cache_sku_name" {
+  type = string
+  default = "Standard"
+  description = "Specify desired sku_name"
+}
+
+variable "cach_enable_non_ssl_port" {
+  type = bool
+  default = false
+  description = "Enable non SSL port"
+}
+
+variable "cache_minimum_tls_version" {
+  type = string
+  default = "1.2"
+  description = "Specify minimum TLS version"
+}
+
+variable "cache_redis_enable_authentication" {
+  type = bool
   default = true
+  description = "Enabale authentication. This highly recommended for any public facing clusters"
+}
+
+variable "cache_redis_maxmemory_reserved" {
+  type = number
+  default = 2
+  description = "Specify max reserved memory"
+}
+
+variable "cache_redis_maxmemory_delta" {
+  type = number
+  default = 2
+  description = "Specify max memory delta"
+}
+
+variable "cache_redis_maxmemory_policy" {
+  type = string
+  default = "allkeys-lru"
+  description = "Specify max memory policy"
+}
+
+####################
+# CDN Options
+####################
+
+########################
+# CDN Response Headers #
+########################
+variable "response_header_cdn" {
+  type = list(map(string))
+  description = "Custom Response Headers for Microsoft CDN. Can be used with security and auditing requirements"
+  default = [
+    {
+      action = "Append"
+      name = "Content-Security-Policy"
+      value = "default-src * 'unsafe-inline' 'unsafe-eval'"
+    }
+  ]
 }
