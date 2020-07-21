@@ -137,7 +137,7 @@ stages:
               TF_VAR_is_cluster_private: true,
               TF_VAR_cluster_version: $(aks_cluster_version),
               TF_VAR_stage: nonprod,
-              TF_VAR_key_vault_name: "core-nonprod-vault",
+              TF_VAR_key_vault_name: "stacks-core-nonprod",
               TF_VAR_dns_zone: $(base_domain_nonprod),
               TF_VAR_internal_dns_zone: $(base_domain_internal_nonprod),
             }
@@ -302,7 +302,7 @@ stages:
               TF_VAR_is_cluster_private: true,
               TF_VAR_cluster_version: $(aks_cluster_version),
               TF_VAR_stage: prod,
-              TF_VAR_key_vault_name: "core-prod-vault",
+              TF_VAR_key_vault_name: "stacks-core-prod",
               TF_VAR_dns_zone: $(base_domain_prod),
               TF_VAR_internal_dns_zone: $(base_domain_internal_prod),
             }
