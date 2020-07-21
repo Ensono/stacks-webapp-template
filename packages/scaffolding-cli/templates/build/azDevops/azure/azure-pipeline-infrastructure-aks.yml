@@ -238,7 +238,7 @@ stages:
             domain_filter: $(base_domain_nonprod)
 
   - stage: prod
-    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     variables:
     # You can find notes in the READMEs around which values to use for each ENV variable group
     - group: amido-stacks-infra-credentials-prod
@@ -312,7 +312,7 @@ stages:
               for i in "${outputs[@]}"; do echo "$i"; done
 
     - job: K8sProd
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+      # condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       dependsOn: InfraProd
       variables:
         AKS_DEFAULT_USER_IDENTITY_CLIENT_ID: $[ dependencies.InfraProd.outputs['tfoutputs.AKS_DEFAULT_USER_IDENTITY_CLIENT_ID'] ]
