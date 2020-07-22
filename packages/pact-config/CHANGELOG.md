@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.17.0 (2020-07-22)
+
+
+### Bug Fixes
+
+* adds `acme_email` param to prod deploy. ([606f21e](https://github.com/amido/stacks-webapp-template/commit/606f21e53569912a50c1ae6e3421376b2ed18850))
+* bootstrapping with lerna ([#279](https://github.com/amido/stacks-webapp-template/issues/279)) ([3ce3af4](https://github.com/amido/stacks-webapp-template/commit/3ce3af4ab809131347619a25e49cf4e7493f9fac))
+
+
+### Features
+
+* bump version ([d9fb33f](https://github.com/amido/stacks-webapp-template/commit/d9fb33f4c0512d2d72d05c96154949c20e5f6fd7))
+* pact-config package ([#148](https://github.com/amido/stacks-webapp-template/issues/148)) ([4343f21](https://github.com/amido/stacks-webapp-template/commit/4343f21850a55ddb6966f4a6d093c80562b950eb))
+
+
+
+
+
 # 0.16.0 (2020-07-21)
 
 
