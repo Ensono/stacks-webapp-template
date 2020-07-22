@@ -119,7 +119,7 @@ stages:
             project: 'stacks'
             environment: ''
             azure_cli_providers: [
-              { name: MSIPreview, namespace: Microsoft.ContainerService }
+              { name: MSIPreview, namespace: Microsoft.ContainerService },
             ]
             # Azure config
             tags: ''
@@ -137,9 +137,9 @@ stages:
               TF_VAR_is_cluster_private: true,
               TF_VAR_cluster_version: $(aks_cluster_version),
               TF_VAR_stage: nonprod,
-              TF_VAR_key_vault_name: "core-nonprod-vault",
+              TF_VAR_key_vault_name: "stacks-core-nonprod",
               TF_VAR_dns_zone: $(base_domain_nonprod),
-              TF_VAR_internal_dns_zone: $(base_domain_internal_nonprod)
+              TF_VAR_internal_dns_zone: $(base_domain_internal_nonprod),
             }
             terraform_output_commands: |
               raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
@@ -182,7 +182,7 @@ stages:
                 displayName: ExternalDns,
                 env_vars: {
                   domain_filter: $(base_domain_nonprod),
-                  aks_resource_group: $(AKS_RESOURCE_GROUP)
+                  aks_resource_group: $(AKS_RESOURCE_GROUP),
                 },
                 args: "-no-empty"
               },
@@ -192,7 +192,7 @@ stages:
                 env_vars: {
                   user_identity_id: $(AKS_DEFAULT_USER_IDENTITY_ID),
                   identity_client_id: $(AKS_DEFAULT_USER_IDENTITY_CLIENT_ID),
-                  identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
+                  identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME),
                 },
                 args: "-no-empty"
               },
@@ -200,7 +200,7 @@ stages:
                 base: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/base_aadpodidentitybinding.yml,
                 displayName: AADPodIdBinding,
                 env_vars: {
-                  identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
+                  identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME),
                 },
                 args: "-no-empty"
               },
@@ -210,7 +210,7 @@ stages:
                 displayName: NginxIngress,
                 env_vars: {
                   aks_ingress_ip: $(AKS_INGRESS_PRIVATE_IP),
-                  LB_IS_INTERNAL: "true"
+                  LB_IS_INTERNAL: "true",
                 },
                 args: "-no-empty"
               }
@@ -284,7 +284,7 @@ stages:
             project: 'stacks'
             environment: ''
             azure_cli_providers: [
-              { name: MSIPreview, namespace: Microsoft.ContainerService }
+              { name: MSIPreview, namespace: Microsoft.ContainerService },
             ]
             # Azure config
             tags: ''
@@ -298,12 +298,13 @@ stages:
               TF_VAR_name_component: $(domain),
               TF_VAR_name_environment: prod,
               TF_VAR_create_acr: true,
+              TF_VAR_acme_email: "stacks@amido.com",
               TF_VAR_is_cluster_private: true,
               TF_VAR_cluster_version: $(aks_cluster_version),
               TF_VAR_stage: prod,
-              TF_VAR_key_vault_name: "core-prod-vault",
+              TF_VAR_key_vault_name: "stacks-core-prod",
               TF_VAR_dns_zone: $(base_domain_prod),
-              TF_VAR_internal_dns_zone: $(base_domain_internal_prod)
+              TF_VAR_internal_dns_zone: $(base_domain_internal_prod),
             }
             terraform_output_commands: |
               raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k | ascii_upcase);isOutput=true]\(.[$k] | .value)"')
@@ -347,7 +348,7 @@ stages:
                 displayName: ExternalDns,
                 env_vars: {
                   domain_filter: $(base_domain_prod),
-                  aks_resource_group: $(AKS_RESOURCE_GROUP)
+                  aks_resource_group: $(AKS_RESOURCE_GROUP),
                 },
                 args: "-no-empty"
               },
@@ -357,7 +358,7 @@ stages:
                 env_vars: {
                   user_identity_id: $(AKS_DEFAULT_USER_IDENTITY_ID),
                   identity_client_id: $(AKS_DEFAULT_USER_IDENTITY_CLIENT_ID),
-                  identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME)
+                  identity_user_name: $(AKS_DEFAULT_USER_IDENTITY_NAME),
                 },
                 args: "-no-empty"
               },
@@ -375,7 +376,7 @@ stages:
                 displayName: NginxIngress,
                 env_vars: {
                   aks_ingress_ip: $(AKS_INGRESS_PRIVATE_IP),
-                  LB_IS_INTERNAL: "true"
+                  LB_IS_INTERNAL: "true",
                 },
                 args: "-no-empty"
               }
@@ -392,7 +393,7 @@ stages:
             aks_aad_pod_identity: true
             aks_aad_pod_identity_yaml: {
               aad_id_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/aadpodidentity.yml,
-              aad_id_binding_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/aadpodidentitybinding.yml
+              aad_id_binding_yml: $(Agent.BuildDirectory)/s/$(self_repo)/build/k8s_manifests/aks/aadpodidentitybinding.yml,
             }
             acr_name: $(docker_container_registry_name)
             acr_resource_group_name: $(AKS_RESOURCE_GROUP)
