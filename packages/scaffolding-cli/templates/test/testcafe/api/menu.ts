@@ -71,7 +71,7 @@ export const getMenus = (menuName: string) => {
     return new Promise<[Menu]>((resolve, reject) => {
         axios
             .get(`${MENU_API_ENDPOINT}`, {
-                params: {searchTerm: `${encodeURI(menuName)}`},
+                params: {searchTerm: menuName},
             })
             .then(response => {
                 const {data, status} = response

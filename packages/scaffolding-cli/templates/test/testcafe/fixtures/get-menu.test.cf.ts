@@ -62,7 +62,7 @@ test("Create a new Yumido menu", async t => {
         .expect(menuName.exists)
         .ok()
         .typeText(menuName, testMenuName)
-        .typeText(menuDesc, "A delicous array of funky FE flavours")
+        .typeText(menuDesc, "A delicious array of funky FE flavours")
         .click(menuActive)
         .click(saveMenu)
         .expect(snackBarMessage)
