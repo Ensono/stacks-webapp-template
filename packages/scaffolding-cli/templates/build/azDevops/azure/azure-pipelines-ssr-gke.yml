@@ -279,21 +279,3 @@ stages:
         condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
         pool:
           vmImage: windows-2019
-        steps:
-          - checkout: self
-          - checkout: templates
-          # Functional tests running on deployed webapp
-          - ${{ if eq(variables.testcafe_e2e_test, true) }}:
-              - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
-                parameters:
-                  env_vars:
-                    APP_BASE_URL: "https://app.$(base_domain)"
-                    MENU_API_URL: "http://dev-netcore-api.nonprod.amidostacks.com/api/menu"
-                    APP_BASE_PATH: "/web/stacks"
-                    NODE_ENV: production
-                  working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
-                  testcafe_browser_list: "chrome,firefox"
-          - ${{ if eq(variables.lighthouse_audit, true) }}:
-              - task: Lighthouse@1
-                inputs:
-                  url: "https://app.$(base_domain)/web/stacks"
