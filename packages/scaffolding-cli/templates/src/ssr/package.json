@@ -86,7 +86,7 @@
     "@types/express-serve-static-core": "^4.17.5",
     "@types/express-session": "^1.17.0",
     "@types/helmet": "^0.0.45",
-    "@types/jest": "^24.9.1",
+    "@types/jest": "^26.0.7",
     "@types/jest-axe": "^3.2.1",
     "@types/node": "^13.1.7",
     "@types/passport": "^1.0.3",
