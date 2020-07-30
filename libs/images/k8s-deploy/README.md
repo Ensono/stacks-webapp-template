@@ -19,6 +19,7 @@ versions:
     - core 2020.04.24
     - gsutil 4.49
     - docker-credential-gcr 2.0.1
+  - yamllint: 1.24.2
 
 Includes envsubst cli for template parsing with environment variables.
 
@@ -31,6 +32,7 @@ ARG KUBECTL_VERSION=1.16.10
 ARG KUSTOMIZE_VERSION=3.5.4
 ARG TYPESCRIPT_VERSION=3.7.5
 ARG DOTNET_CORE_VERSION=3.1
+ARG YAMLLINT=1.24.2
 ```
 
 Overwrite existing args in case you want to fork for custom purposes you could do something like below.
