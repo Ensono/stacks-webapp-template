@@ -4,6 +4,7 @@ ARG KUBECTL_VERSION=1.16.10
 ARG KUSTOMIZE_VERSION=3.5.4
 ARG TYPESCRIPT_VERSION=3.7.5
 ARG DOTNET_CORE_VERSION=3.1
+ARG YAMLLINT_VERSION=1.24.2
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
 LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
@@ -58,6 +59,10 @@ RUN apt-get install -y apt-transport-https && \
     apt-get update -y && \
     apt-get install -y dotnet-sdk-${DOTNET_CORE_VERSION} && \
     apt-get install -y aspnetcore-runtime-${DOTNET_CORE_VERSION}
+
+# YAMLLint
+RUN apt-get install -y python3 python3-pip && \
+	pip3 install "yamllint==${YAMLLINT_VERSION}"
 
 # Install GCLOUD CLI
 # Add the Cloud SDK distribution URI as a package source

@@ -2,3 +2,4 @@ scm-api:latest
 git-client:latest
 git:latest
 blueocean:latest
+jacoco:latest
