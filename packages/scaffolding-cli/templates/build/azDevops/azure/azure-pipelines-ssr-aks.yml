@@ -84,8 +84,6 @@ variables:
   pool_vm_image: ubuntu-18.04
   # Test setup
   # ADD Vars here
-  # TestCafe E2E Tests
-  testcafe_e2e_test: true
   # Lighthouse Audit
   lighthouse_audit: true
 
