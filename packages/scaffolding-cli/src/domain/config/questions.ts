@@ -27,7 +27,7 @@ export function computedSelection(
             backendStorageRg:
                 cliOrConfigAnswer.terraformBackendStorageRg ||
                 "BACKEND_STORAGE_RG_REPLACE_ME",
-            backendStorageContainer: 
+            backendStorageContainer:
                 cliOrConfigAnswer.terraformBackendStorageContainer ||
                 "BACKEND_STORAGE_CONTAINER_REPLACE_ME",
         },
@@ -183,7 +183,7 @@ export function advancedQuestions(): Array<PromptQuestion> {
             type: "text",
             name: "cloudRegion",
             message: "Please provide platform service region",
-            initial: "uksouth",
+            initial: "northeurope",
         },
         {
             type: "select",
@@ -258,8 +258,8 @@ export function javaQuestions(): Array<PromptQuestion> {
         {
             type: "text",
             name: "javaTldNamespace",
-            message: "Package prefix - will be prepended to companyName.projectName previously supplied",
-            initial: "org",
+            message: "Package prefix - will be prepended to companyName.projectName previously supplied, e.g. com or uk.co",
+            initial: "com",
         }
     ]
 }

@@ -66,12 +66,12 @@ export const inFiles = ({
 
 export const introUsageMessage = (): string => {
     return `
-    
-███████ ████████  █████   ██████ ██   ██ ███████ 
-██         ██    ██   ██ ██      ██  ██  ██      
-███████    ██    ███████ ██      █████   ███████ 
-     ██    ██    ██   ██ ██      ██  ██       ██ 
-███████    ██    ██   ██  ██████ ██   ██ ███████
+
+███████ ████████  █████   ██████ ██   ██ ███████
+██         ██    ██   ██ ██      ██  ██  ██
+███████    ██    ███████ ██      █████   ███████
+     ██    ██    ██   ██ ██      ██  ██       ██
+███████    ██    ██   ██  ██████ ██   ██ ███████
 \nBootstrap a templated project webapp, API and/or testing framework with supporting pipelines and infrastructure by answering just a few questions.\n
 For more information: https://amido.github.io/stacks\n
 `
@@ -107,7 +107,7 @@ export const finalErrorMessage = (
 ): string => {
     const final = `----> \n
 Ooooops - Something went wrong \n
-error: ${message} \n 
+error: ${message} \n
 ${code ? `code: " ${code}` : ""} \n
 <----- \n
 

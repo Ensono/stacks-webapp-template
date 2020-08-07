@@ -2,9 +2,8 @@
 /* eslint-disable no-await-in-loop */
 import { copy, move, remove, ensureDir, rename, stat, readdir, Stats, mkdirp } from 'fs-extra'
 import { tmpdir } from 'os'
-import { startCase, toLower } from 'lodash'
 import { ReplaceInFileConfig, replaceInFile } from 'replace-in-file'
-import { resolve, join } from 'path'
+import { resolve, join, sep } from 'path'
 import { logger } from 'simple-winston-logger-abstraction'
 import gitP, { SimpleGit } from 'simple-git/promise';
 import { Replacetruct, replaceGeneratedConfig } from '../config/file_mapper'
@@ -16,15 +15,15 @@ const TEMPLATES_DIRECTORY = `../../../templates/`
 
 export function copyFilter(src: string, dest: string): boolean {
     const templateSrc = (src.replace(join(__dirname, "../../../"), "")).toLowerCase()
-    if (templateSrc.includes(".next") ||
-        templateSrc.includes("coverage/") ||
-        templateSrc.includes(".terraform") ||
-        templateSrc.includes("dist/") ||
-        templateSrc.includes("bin/") ||
-        templateSrc.includes("obj/") ||
-        templateSrc.includes("node_modules/")) {
+    if (templateSrc.includes(`.next${sep}`) ||
+        templateSrc.includes(`coverage${sep}`) ||
+        templateSrc.includes(`.terraform${sep}`) ||
+        templateSrc.includes(`dist${sep}`) ||
+        templateSrc.includes(`bin${sep}`) ||
+        templateSrc.includes(`obj${sep}`) ||
+        templateSrc.includes(`node_modules${sep}`)) {
         return false
-    } 
+    }
         return true
 }
 
@@ -42,7 +41,7 @@ export async function renamerRecursion(inPath: string, match: string | RegExp, r
     }
 }
 
-export async function renameJavastyle(inPath: string, match: string | RegExp, replaceString: string): Promise<void> { 
+export async function renameJavastyle(inPath: string, match: string | RegExp, replaceString: string): Promise<void> {
     try {
         const newPath = resolve(inPath, replaceString)
         const oldPath = resolve(inPath, match as string)
@@ -60,9 +59,9 @@ export async function renameJavastyle(inPath: string, match: string | RegExp, re
 export class Utils {
     /**
      * git clone an entire public repo to use as a template
-     * @param tempDirectory 
-     * @param srcPathInTmp 
-     * @param monoRepoSubFolderOnly 
+     * @param tempDirectory
+     * @param srcPathInTmp
+     * @param monoRepoSubFolderOnly
      */
     public static async doGitClone(gitRepo: string, tempDirectory: string, srcPathInTmp: string, refVersion = "origin/master"): Promise<BaseResponse> {
         const gitResponse: BaseResponse = {} as BaseResponse
@@ -93,7 +92,7 @@ export class Utils {
             const configFile: string = resolve(process.cwd(), configOut)
             const sampleConfig: string = resolve(__dirname, `../config/sample${typeOverride}.bootstrap-config.json`)
             await copy(sampleConfig, configFile, {preserveTimestamps: true, dereference: false})
-            
+
             if (instructionMap) {
                 const generatedConfig = replaceGeneratedConfig(configFile, instructionMap)
                 await this.valueReplace(generatedConfig)

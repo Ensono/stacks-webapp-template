@@ -169,49 +169,45 @@
   },
   "javaSpring": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "7c8fd7ff1c3017b1101119f3e3345083dae83c24",
+    "gitRef": "3778c5dd3ec5cc2a2a4e373c81c1d28811aafe75",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
       {
-        "src": "shared/aux_scripts",
-        "dest": "./aux_scripts"
+        "src": "src/java_spring/api-tests",
+        "dest": "api-tests"
       },
       {
-        "src": "shared/README.md",
-        "dest": "./README.md"
-      },
-      {
-        "src": "shared/_gitignore",
-        "dest": "./.gitignore"
-      },
-      {
-        "src": "src/java_spring/build/azDevops/azure/templates/steps/build-java.yml",
-        "dest": "build/azDevops/azure/templates/steps/build-java.yml"
-      },
-      {
-        "src": "src/java_spring/build/azDevops/azure/azure-pipelines-javaspring-k8s.yml",
-        "dest": "build/azDevops/azure/api-pipeline.yml"
+        "src": "src/java_spring/build/azDevops/azure",
+        "dest": "build/azDevops/azure"
       },
       {
         "src": "src/java_spring/deploy/azure/app/kube",
-        "dest": "deploy/azure/app"
+        "dest": "deploy/azure/app/kube"
       },
       {
-        "src": "src/java_spring/deploy/k8s/app/base_api-deploy.yml",
-        "dest": "deploy/k8s/app/base_api-deploy.yml"
-      },
-      {
-        "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium",
-        "dest": "test"
-      },
-      {
-        "src": "docs",
-        "dest": "docs"
+        "src": "src/java_spring/deploy/k8s",
+        "dest": "deploy/k8s"
       },
       {
         "src": "src/java_spring/java",
         "dest": "java"
+      },
+      {
+        "src": "src/java_spring/.gitattributes",
+        "dest": ".gitattributes"
+      },
+      {
+        "src": "src/java_spring/.gitignore",
+        "dest": ".gitignore"
+      },
+      {
+        "src": "src/java_spring/README.md",
+        "dest": "README.md"
+      },
+      {
+        "src": "src/java_spring/yamllint.conf",
+        "dest": "yamllint.conf"
       }
     ]
   },
