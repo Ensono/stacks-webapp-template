@@ -235,7 +235,7 @@ describe("mainWorker class tests", () => {
                 `cd ${mockAnswerSsr.projectName}/deploy`,
             )
         })
-        
+
         it("csrAksTfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})
@@ -330,9 +330,9 @@ describe("mainWorker class tests", () => {
 
             const replaceString = `${mockAnswerJavaSpring.javaspring?.namespace.replace(/\./gm, "/")}/${startCase(mockAnswerJavaSpring.business.company).toLowerCase().replace(/\s/gm, "")}/${startCase(mockAnswerJavaSpring.business.project).toLowerCase().replace(/\s/gm, "")}`
             const searchString = (staticConf.javaSpring.searchValue as string).replace(/\./gm, "/")
-            // await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`], 
+            // await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`],
             //     replaceString, true)
-            
+
             const flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
                 mockAnswerJavaSpring
             )
@@ -354,9 +354,9 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mockAnswerSsr.projectName}/src`,
+                `cd ${mockAnswerSsr.projectName}/java`,
             )
-            expect(flow_ran.message).toMatch(`gradle build && gradle run `)
+            expect(flow_ran.message).toMatch(`./mvnw compile && ./mvnw spring-boot:run`)
         })
     })
 
