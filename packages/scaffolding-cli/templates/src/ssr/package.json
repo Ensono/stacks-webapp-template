@@ -78,7 +78,7 @@
     "@amidostacks/pact-config": "^0.6.0",
     "@applitools/eyes-cypress": "^3.9.13",
     "@pact-foundation/pact": "^9.8.0",
-    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.7",
     "@types/applicationinsights": "^0.20.0",
     "@types/cypress-axe": "^0.4.0",
