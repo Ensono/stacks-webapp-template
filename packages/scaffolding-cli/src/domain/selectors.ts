@@ -10,23 +10,25 @@ export interface IFlowSelector {
     optionSsrAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse>
 
     optionSsrGkeAzdevops(instructions: CliAnswerModel): Promise<CliResponse>
-    
+
     optionSsrGkeJenkins(instructions: CliAnswerModel): Promise<CliResponse>
 
     optionNetcoreAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse>
 
     optionJavaSpringAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse>
-    
+
+    optionJavaSpringAksJenkins(instructions: CliAnswerModel): Promise<CliResponse>
+
     optionCsrAksAzuredevops(instructions: CliAnswerModel):Promise<CliResponse>
 
     optionNetcoreSeleniumAnyAzdevops(instructions: CliAnswerModel):Promise<CliResponse>
 
     optionJsTestcafeAnyAzdevops(instructions: CliAnswerModel):Promise<CliResponse>
-    
+
     optionInfraAksAzdevops(instructions: CliAnswerModel):Promise<CliResponse>
-    
+
     optionInfraGkeAzdevops(instructions: CliAnswerModel):Promise<CliResponse>
-    
+
     optionInfraGkeJenkins(instructions: CliAnswerModel):Promise<CliResponse>
 }
 
@@ -35,11 +37,11 @@ export class FlowSelector implements IFlowSelector {
     async optionSsrAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
         return mainWorker.ssrAksTfs(instructions)
     }
-    
+
     async optionSsrGkeAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
         return mainWorker.ssrGkeTfs(instructions)
     }
-    
+
     async optionSsrGkeJenkins(instructions: CliAnswerModel): Promise<CliResponse> {
         return mainWorker.ssrGkeJenkins(instructions)
     }
@@ -50,6 +52,10 @@ export class FlowSelector implements IFlowSelector {
 
     async optionJavaSpringAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
         return mainWorker.javaSpringAksTfs(instructions)
+    }
+
+    async optionJavaSpringAksJenkins(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.javaSpringAksJenkins(instructions)
     }
 
     async optionCsrAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
@@ -71,7 +77,7 @@ export class FlowSelector implements IFlowSelector {
     async optionInfraGkeJenkins(instructions: CliAnswerModel): Promise<CliResponse> {
         return mainWorker.infraGkeJenkins(instructions)
     }
-    
+
     async optionJsTestcafeAnyAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
         return mainWorker.jsTestcafeTfs(instructions)
     }

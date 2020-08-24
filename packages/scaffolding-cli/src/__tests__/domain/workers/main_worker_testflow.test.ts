@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable compat/compat */
-import {CliAnswerModel} from "../../../domain/model/prompt_answer"
-import {CliResponse, BaseResponse} from "../../../domain/model/workers"
-import {MainWorker} from "../../../domain/workers/main_worker"
-import {Utils} from "../../../domain/workers/utils"
+import { CliAnswerModel } from "../../../domain/model/prompt_answer"
+import { CliResponse, BaseResponse } from "../../../domain/model/workers"
+import { MainWorker } from "../../../domain/workers/main_worker"
+import { Utils } from "../../../domain/workers/utils"
 import { jsTestcafe, netcoreSelenium } from '../../../domain/config/worker_maps'
 
 jest.mock("../../../domain/workers/utils")

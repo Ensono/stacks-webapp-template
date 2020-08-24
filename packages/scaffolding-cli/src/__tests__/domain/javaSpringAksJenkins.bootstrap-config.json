@@ -1,0 +1,14 @@
+{
+  "businessCompany": "company",
+  "projectName": "test-app-java",
+  "projectType": "javaSpring",
+  "deployment": "jenkins",
+  "businessDomain": "menu-api",
+  "platform": "aks",
+  "cloudRegion": "uksouth",
+  "businessComponent": "replace_business_component",
+  "sourceControlRepoName": "amido-stacks-repo",
+  "terraformBackendStorage": "azure_blob",
+  "networkingBaseDomain": "app.replace.me",
+  "javaTldNamespace": "org.test.foo"
+}
