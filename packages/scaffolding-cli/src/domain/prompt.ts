@@ -1,18 +1,17 @@
-import {prompt} from "prompts"
-import {resolve, isAbsolute} from "path"
+import { prompt } from "prompts"
+import { resolve, isAbsolute } from "path"
 import { readFile } from "fs-extra"
 import {
     cliQuestions,
     computedSelection,
-    platformQuestions,
     advancedQuestions,
     cliTestQuestions,
     language,
 } from "./config/questions"
-import {PromptQuestion} from "./model/prompt_question"
-import {PromptAnswer, CliAnswerModel, ProjectTypeEnum} from "./model/prompt_answer"
-import {ExitMessage, CliOptions} from "./model/cli_response"
-import {WorkflowOptions, Workflow} from "./model/workflow"
+import { PromptQuestion } from "./model/prompt_question"
+import { PromptAnswer, CliAnswerModel } from "./model/prompt_answer"
+import { ExitMessage, CliOptions } from "./model/cli_response"
+import { WorkflowOptions, Workflow } from "./model/workflow"
 
 let userSelection: PromptAnswer = {} as PromptAnswer
 let cliModifiedSelection: CliAnswerModel
@@ -51,7 +50,7 @@ const onCancel = () => {
  */
 async function getFromCli(defaultProjectName: string, cliArgs: CliOptions): Promise<PromptAnswer> {
     let initialQs: Array<PromptQuestion> = new Array<PromptQuestion>()
-    
+
     // If the command is test, go through test flow:
     if (cliArgs._[0] === "test") {
         initialQs = cliTestQuestions(defaultProjectName)
@@ -77,7 +76,7 @@ async function getFromCli(defaultProjectName: string, cliArgs: CliOptions): Prom
                 language[cliSelection.projectType] as Function
             )
             return languageAdvanced
-        } 
+        }
         return advancedSelection
     }
 
