@@ -1,8 +1,8 @@
-import Link from "next/link"
+import Link, { LinkProps } from "next/link"
 import React from "react"
 import conf from "../../environment-configuration"
 
-export const PrefixedLink: React.FC<Link["props"]> = ({
+export const PrefixedLink: React.FC<LinkProps> = ({
     href,
     as = href,
     ...props

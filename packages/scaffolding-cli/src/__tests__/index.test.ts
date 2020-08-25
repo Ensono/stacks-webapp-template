@@ -1,10 +1,8 @@
 /**
  * Integration test
  */
-import {ExitMessage} from "../domain/model/cli_response"
 import * as cliPrompt from "../domain/prompt"
 import {exec, ExecOptions} from "child_process"
-import concat from "concat-stream"
 
 jest.mock("../domain/prompt")
 jest.mock("path")

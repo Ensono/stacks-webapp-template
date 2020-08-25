@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable compat/compat */
 import { startCase } from "lodash"
-import {CliAnswerModel} from "../../../domain/model/prompt_answer"
-import {CliResponse, BaseResponse} from "../../../domain/model/workers"
-import {MainWorker} from "../../../domain/workers/main_worker"
-import {Utils} from "../../../domain/workers/utils"
+import { CliAnswerModel } from "../../../domain/model/prompt_answer"
+import { CliResponse, BaseResponse } from "../../../domain/model/workers"
+import { MainWorker } from "../../../domain/workers/main_worker"
+import { Utils } from "../../../domain/workers/utils"
 import conf from "../../../domain/config/static.config.json"
-import {Static} from "../../../domain/model/config"
+import { Static } from "../../../domain/model/config"
 
 const staticConf: Static = conf as Static
 
@@ -100,11 +100,35 @@ const mockAnswerCsr = {
     }
 } as CliAnswerModel
 
-const mockAnswerJavaSpring = {
+const mockAnswerJavaSpringAksTfs = {
     projectName: "foo",
     projectType: "javaspring",
     platform: "aks",
     deployment: "azdevops",
+    business: {
+        company: "testcomp",
+        domain: "testDomain",
+        project: "javaSpring",
+    },
+    sourceControl: {
+        repoName: "test-repo"
+    },
+    networking: {
+        baseDomain: "foo.me.org"
+    },
+    terraform: {
+        backendStorage: "azureBlob"
+    },
+    javaspring: {
+        namespace: "foo.bar"
+    }
+} as CliAnswerModel
+
+const mockAnswerJavaSpringAksJenkins = {
+    projectName: "foo",
+    projectType: "javaspring",
+    platform: "aks",
+    deployment: "jenkins",
     business: {
         company: "testcomp",
         domain: "testDomain",
@@ -182,10 +206,11 @@ describe("mainWorker class tests", () => {
             expect(flowRan.ok).toBe(true)
             expect(flowRan.message).toMatch(`Created React SSR in`)
         })
+
         it("ssrGkeTfs should return success and user message for npm", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mockAnswerSsr.projectName} created`,
+                    message: `${mockAnswerSsrGke.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
@@ -197,7 +222,7 @@ describe("mainWorker class tests", () => {
                 return Promise.resolve(workerResponse)
             })
             const flow_ran: CliResponse = await mainWorker.ssrGkeTfs(
-                mockAnswerSsr,
+                mockAnswerSsrGke,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.constructOutput).toHaveBeenCalled()
@@ -205,7 +230,7 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mockAnswerSsr.projectName}/src && npm install && npm run build && npm run start`,
+                `cd ${mockAnswerSsrGke.projectName}/src && npm install && npm run build && npm run start`,
             )
         })
 
@@ -235,14 +260,14 @@ describe("mainWorker class tests", () => {
                 `cd ${mockAnswerSsr.projectName}/deploy`,
             )
         })
-        
+
         it("csrAksTfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})
             })
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mockAnswerSsr.projectName} created`,
+                    message: `${mockAnswerCsr.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
@@ -263,16 +288,17 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mockAnswerSsr.projectName}/src && npm install && npm run start`,
+                `cd ${mockAnswerCsr.projectName}/src && npm install && npm run start`,
             )
         })
+
         it("netcoreAksTfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})
             })
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mockAnswerSsr.projectName} created`,
+                    message: `${mockAnswerNetcore.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
@@ -302,17 +328,18 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mockAnswerSsr.projectName}/src`,
+                `cd ${mockAnswerNetcore.projectName}/src`,
             )
             expect(flow_ran.message).toMatch(`dotnet clean && dotnet restore`)
         })
+
         it("javaSpringAksTfs should return success and user message for npm", async () => {
             Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({message: `foo`})
             })
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
-                    message: `${mockAnswerSsr.projectName} created`,
+                    message: `${mockAnswerJavaSpringAksTfs.projectName} created`,
                     tempPath: "/var/test",
                     finalPath: "/opt/myapp",
                 })
@@ -328,13 +355,13 @@ describe("mainWorker class tests", () => {
                 return Promise.resolve(workerResponse)
             })
 
-            const replaceString = `${mockAnswerJavaSpring.javaspring?.namespace.replace(/\./gm, "/")}/${startCase(mockAnswerJavaSpring.business.company).toLowerCase().replace(/\s/gm, "")}/${startCase(mockAnswerJavaSpring.business.project).toLowerCase().replace(/\s/gm, "")}`
+            const replaceString = `${mockAnswerJavaSpringAksTfs.javaspring?.namespace.replace(/\./gm, "/")}/${startCase(mockAnswerJavaSpringAksTfs.business.company).toLowerCase().replace(/\s/gm, "")}/${startCase(mockAnswerJavaSpringAksTfs.business.project).toLowerCase().replace(/\s/gm, "")}`
             const searchString = (staticConf.javaSpring.searchValue as string).replace(/\./gm, "/")
-            // await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`], 
+            // await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`],
             //     replaceString, true)
-            
+
             const flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
-                mockAnswerJavaSpring
+                mockAnswerJavaSpringAksTfs
             )
             expect(Utils.doGitClone).toHaveBeenCalledWith(
                 staticConf.javaSpring.gitRepo,
@@ -354,9 +381,62 @@ describe("mainWorker class tests", () => {
             expect(flow_ran).toHaveProperty("ok")
             expect(flow_ran.ok).toBe(true)
             expect(flow_ran.message).toMatch(
-                `cd ${mockAnswerSsr.projectName}/src`,
+                `cd ${mockAnswerJavaSpringAksTfs.projectName}/java`,
             )
-            expect(flow_ran.message).toMatch(`gradle build && gradle run `)
+            expect(flow_ran.message).toMatch(`./mvnw compile && ./mvnw spring-boot:run`)
+        })
+
+        it("javaSpringAksJenkins should return success and user message for npm", async () => {
+            Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `foo`})
+            })
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({
+                    message: `${mockAnswerJavaSpringAksJenkins.projectName} created`,
+                    tempPath: "/var/test",
+                    finalPath: "/opt/myapp",
+                })
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(workerResponse)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(workerResponse)
+            })
+
+            Utils.fileNameReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(workerResponse)
+            })
+
+            const replaceString = `${mockAnswerJavaSpringAksJenkins.javaspring?.namespace.replace(/\./gm, "/")}/${startCase(mockAnswerJavaSpringAksJenkins.business.company).toLowerCase().replace(/\s/gm, "")}/${startCase(mockAnswerJavaSpringAksJenkins.business.project).toLowerCase().replace(/\s/gm, "")}`
+            const searchString = (staticConf.javaSpring.searchValue as string).replace(/\./gm, "/")
+            // await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`],
+            //     replaceString, true)
+
+            const flow_ran: CliResponse = await mainWorker.javaSpringAksJenkins(
+                mockAnswerJavaSpringAksJenkins
+            )
+            expect(Utils.doGitClone).toHaveBeenCalledWith(
+                staticConf.javaSpring.gitRepo,
+                "/var/test",
+                staticConf.javaSpring.localPath,
+                staticConf.javaSpring.gitRef,
+            )
+
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(Utils.fileNameReplace).toHaveBeenCalled()
+            expect(Utils.fileNameReplace).toHaveBeenCalledWith(
+                [`/opt/myapp/java/src/main/java`, `/opt/myapp/java/src/test/java`],
+                searchString, replaceString, true
+            )
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(
+                `cd ${mockAnswerJavaSpringAksJenkins.projectName}/java`,
+            )
+            expect(flow_ran.message).toMatch(`./mvnw compile && ./mvnw spring-boot:run`)
         })
     })
 
@@ -376,6 +456,7 @@ describe("mainWorker class tests", () => {
             expect(flow_ran.error).toHaveProperty("stack")
             expect(flow_ran.error).toHaveProperty("message")
         })
+
         it("netcore_aks_tfs should return a code of -1 when error occurs", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 throw new Error("Something weird happened")
@@ -391,12 +472,13 @@ describe("mainWorker class tests", () => {
             expect(flow_ran.error).toHaveProperty("stack")
             expect(flow_ran.error).toHaveProperty("message")
         })
+
         it("javaSpringAksTfs should return a code of -1 when error occurs", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 throw new Error("Something weird happened")
             })
             const flow_ran: CliResponse = await mainWorker.javaSpringAksTfs(
-                mockAnswerJavaSpring,
+                mockAnswerJavaSpringAksTfs,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("error")
@@ -406,6 +488,23 @@ describe("mainWorker class tests", () => {
             expect(flow_ran.error).toHaveProperty("stack")
             expect(flow_ran.error).toHaveProperty("message")
         })
+
+        it("javaSpringAksJenkins should return a code of -1 when error occurs", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                throw new Error("Something weird happened")
+            })
+            const flow_ran: CliResponse = await mainWorker.javaSpringAksJenkins(
+                mockAnswerJavaSpringAksJenkins,
+            )
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("error")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(false)
+            expect(flow_ran.error).toBeInstanceOf(Error)
+            expect(flow_ran.error).toHaveProperty("stack")
+            expect(flow_ran.error).toHaveProperty("message")
+        })
+
         it("csr_aks_tfs should return a code of -1 when error occurs", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 throw new Error("Something weird happened")

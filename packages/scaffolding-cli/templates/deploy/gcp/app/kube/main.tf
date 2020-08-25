@@ -1,4 +1,4 @@
-# Naming convention 
+# Naming convention
 module "default_label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=0.16.0"
   namespace  = format("%s-%s", var.name_company, var.name_project)

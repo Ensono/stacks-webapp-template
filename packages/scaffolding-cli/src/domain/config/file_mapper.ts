@@ -1,8 +1,8 @@
 // File Mapper
-import {map, forEach, keys, forOwn, get, join} from "lodash"
-import {resolve} from "path"
-import {isObject, isString} from "util"
-import {CliAnswerModel} from "../model/prompt_answer"
+import { map, forEach, keys, get } from "lodash"
+import { resolve } from "path"
+import { isObject } from "util"
+import { CliAnswerModel } from "../model/prompt_answer"
 
 export enum BaseFlowType {
     BUILD = "build",

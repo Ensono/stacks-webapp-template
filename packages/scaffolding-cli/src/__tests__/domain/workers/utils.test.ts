@@ -3,12 +3,12 @@
 /* eslint-disable jest/no-disabled-tests */
 /* eslint-disable @typescript-eslint/camelcase */
 /// <reference types="jest" />
-import { resolve } from "path"
+import { resolve, sep } from "path"
 import * as fse from "fs-extra"
 import * as rif from "replace-in-file"
-import gitP, {SimpleGit} from "simple-git/promise"
-import {tmpdir} from "os"
-import {PromptAnswer, CliAnswerModel} from "../../../domain/model/prompt_answer"
+import gitP from "simple-git/promise"
+import { tmpdir } from "os"
+import { CliAnswerModel } from "../../../domain/model/prompt_answer"
 import {
     CliResponse,
     BaseResponse,
@@ -20,8 +20,8 @@ import {
     renamerRecursion,
     renameJavastyle
 } from "../../../domain/workers/utils"
-import {Replacetruct} from "../../../domain/config/file_mapper"
-import {FolderMap} from "../../../domain/model/config"
+import { Replacetruct } from "../../../domain/config/file_mapper"
+import { FolderMap } from "../../../domain/model/config"
 
 jest.mock("fs-extra")
 jest.mock("replace-in-file")
@@ -74,7 +74,7 @@ const ssr_tfs_aks: Array<FolderMap> = [
     {src: "src/ssr", dest: "src"},
 ]
 
-const temp_dir = "/tmp/my-app"
+const temp_dir = `${tmpdir}${sep}my-app`
 const new_dir = "/var/test"
 
 const mock_vals: Array<Replacetruct> = [
@@ -112,7 +112,7 @@ describe("utils class tests", () => {
                 `${mock_answer.projectName} created`,
             )
         })
-        
+
         it("renameJavastyle should run without error", async () => {
             await renameJavastyle(temp_dir, "foo/bar", "company/project")
             expect(mockCopy).toHaveBeenCalledTimes(2)
@@ -165,14 +165,14 @@ describe("utils class tests", () => {
             const git_ran: BaseResponse = await Utils.doGitClone(
                 "https://git.repo/sample.git",
                 temp_dir,
-                "src/sample-test",
+                `src${sep}sample-test`,
                 "1234234523ew0ew0j8ewr0u8ewr80",
             )
             expect(
                 gitP(temp_dir).clone,
             ).toHaveBeenCalledWith(
                 "https://git.repo/sample.git",
-                `${temp_dir}/src/sample-test`,
+                `${temp_dir}${sep}src${sep}sample-test`,
                 ["-n"],
             )
             expect(gitP(temp_dir).checkout).toHaveBeenCalledWith(
@@ -204,11 +204,11 @@ describe("utils class tests", () => {
         })
 
         it("copyFilter should return true for dist", () => {
-            const processed: boolean = copyFilter("some/dist/foo", "/some/dir")
+            const processed: boolean = copyFilter(`some${sep}dist${sep}foo`, `${sep}some${sep}dir`)
             expect(processed).toBe(false)
         })
         it("copyFilter should return false for none excluded dir", () => {
-            const processed: boolean = copyFilter("user_code/foo", "/some/dir")
+            const processed: boolean = copyFilter(`user_code${sep}foo`, `${sep}some${sep}dir`)
             expect(processed).toBe(true)
         })
 

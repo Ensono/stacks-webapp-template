@@ -44,6 +44,7 @@
     "applicationinsights": "^1.7.2",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
+    "caniuse-lite": "^1.0.0",
     "cacheable-response": "^2.0.7",
     "connect-redis": "^4.0.4",
     "contentful": "^7.14.4",
