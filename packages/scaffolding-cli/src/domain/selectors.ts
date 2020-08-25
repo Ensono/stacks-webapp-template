@@ -25,6 +25,8 @@ export interface IFlowSelector {
 
     optionJsTestcafeAnyAzdevops(instructions: CliAnswerModel):Promise<CliResponse>
 
+    optionJavaSerenityAnyAzdevops(instructions: CliAnswerModel):Promise<CliResponse>
+
     optionInfraAksAzdevops(instructions: CliAnswerModel):Promise<CliResponse>
 
     optionInfraGkeAzdevops(instructions: CliAnswerModel):Promise<CliResponse>
@@ -66,6 +68,14 @@ export class FlowSelector implements IFlowSelector {
         return mainWorker.netcoreSeleniumTfs(instructions)
     }
 
+    async optionJsTestcafeAnyAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.jsTestcafeTfs(instructions)
+    }
+
+    async optionJavaSerenityAnyAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
+        return mainWorker.javaSerenityTfs(instructions)
+    }
+
     async optionInfraAksAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
         return mainWorker.infraAksAzdevops(instructions)
     }
@@ -76,9 +86,5 @@ export class FlowSelector implements IFlowSelector {
 
     async optionInfraGkeJenkins(instructions: CliAnswerModel): Promise<CliResponse> {
         return mainWorker.infraGkeJenkins(instructions)
-    }
-
-    async optionJsTestcafeAnyAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return mainWorker.jsTestcafeTfs(instructions)
     }
 }

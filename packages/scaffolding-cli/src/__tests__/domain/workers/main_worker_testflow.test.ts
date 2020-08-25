@@ -5,7 +5,7 @@ import { CliAnswerModel } from "../../../domain/model/prompt_answer"
 import { CliResponse, BaseResponse } from "../../../domain/model/workers"
 import { MainWorker } from "../../../domain/workers/main_worker"
 import { Utils } from "../../../domain/workers/utils"
-import { jsTestcafe, netcoreSelenium } from '../../../domain/config/worker_maps'
+import { jsTestcafe, netcoreSelenium, javaSerenityTfs } from '../../../domain/config/worker_maps'
 
 jest.mock("../../../domain/workers/utils")
 jest.setTimeout(30000)
@@ -21,6 +21,13 @@ const mockAnswer = {
     },
 } as CliAnswerModel
 
+const javaMockAnswer = {
+    ...mockAnswer,
+    javaspring: {
+        namespace: "uk.co"
+    }
+} as CliAnswerModel
+
 const mainWorker = new MainWorker()
 
 const workerResponse = {
@@ -28,8 +35,8 @@ const workerResponse = {
     ok: true,
 } as BaseResponse
 
-describe("mainWorker class", () => {
-    describe("can bootstrap", () => {
+describe("mainWorker class tests - Tests", () => {
+    describe("Positive assertions", () => {
         beforeEach(async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
@@ -57,21 +64,20 @@ describe("mainWorker class", () => {
         })
 
         it("netcoreSeleniumTfs", async () => {
-                const flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
-                    mockAnswer
-                )
+            const flowRan: CliResponse = await mainWorker.netcoreSeleniumTfs(
+                mockAnswer
+            )
 
-                expect(Utils.prepBase).toHaveBeenCalled()
-                expect(Utils.valueReplace).toHaveBeenCalled()
-                expect(Utils.constructOutput).toHaveBeenCalled()
-                expect(Utils.fileNameReplace).toHaveBeenCalled()
-                expect(Utils.writeOutConfigFile).toHaveBeenCalled()
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.valueReplace).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(Utils.fileNameReplace).toHaveBeenCalled()
+            expect(Utils.writeOutConfigFile).toHaveBeenCalled()
 
-                expect(flowRan.ok).toBe(true)
-                expect(flowRan).toHaveProperty("message")
-                expect(flowRan.message).toContain(netcoreSelenium.responseMessage(mockAnswer.projectName))
-            },
-        )
+            expect(flowRan.ok).toBe(true)
+            expect(flowRan).toHaveProperty("message")
+            expect(flowRan.message).toContain(netcoreSelenium.responseMessage(mockAnswer.projectName))
+        })
 
         it("jsTestcafeTfs", async () => {
             const flowRan: CliResponse = await mainWorker.jsTestcafeTfs(
@@ -85,7 +91,78 @@ describe("mainWorker class", () => {
             expect(flowRan.ok).toBe(true)
             expect(flowRan).toHaveProperty("message")
             expect(flowRan.message).toContain(jsTestcafe.responseMessage(mockAnswer.projectName))
-        },
-    )
+        })
+
+        it("javaSerenityTfs", async () => {
+            const flowRan: CliResponse = await mainWorker.javaSerenityTfs(
+                javaMockAnswer
+            )
+
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.valueReplace).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(Utils.fileNameReplace).toHaveBeenCalled()
+            expect(Utils.writeOutConfigFile).toHaveBeenCalled()
+
+            expect(flowRan.ok).toBe(true)
+            expect(flowRan).toHaveProperty("message")
+            expect(flowRan.message).toContain(javaSerenityTfs.responseMessage(javaMockAnswer.projectName))
+        })
+    })
+
+    describe("Negative assertions", () => {
+        it("netcoreSeleniumTfs", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                throw new Error("Something weird happened")
+            })
+
+            const flow_ran: CliResponse = await mainWorker.netcoreSeleniumTfs(
+                mockAnswer,
+            )
+
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("error")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(false)
+            expect(flow_ran.error).toBeInstanceOf(Error)
+            expect(flow_ran.error).toHaveProperty("stack")
+            expect(flow_ran.error).toHaveProperty("message")
+        })
+
+        it("jsTestcafeTfs", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                throw new Error("Something weird happened")
+            })
+
+            const flow_ran: CliResponse = await mainWorker.jsTestcafeTfs(
+                mockAnswer,
+            )
+
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("error")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(false)
+            expect(flow_ran.error).toBeInstanceOf(Error)
+            expect(flow_ran.error).toHaveProperty("stack")
+            expect(flow_ran.error).toHaveProperty("message")
+        })
+
+        it("javaSerenityTfs", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                throw new Error("Something weird happened")
+            })
+
+            const flow_ran: CliResponse = await mainWorker.javaSerenityTfs(
+                javaMockAnswer,
+            )
+
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("error")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(false)
+            expect(flow_ran.error).toBeInstanceOf(Error)
+            expect(flow_ran.error).toHaveProperty("stack")
+            expect(flow_ran.error).toHaveProperty("message")
+        })
     })
 })

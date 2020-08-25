@@ -182,6 +182,7 @@ Utils.writeOutConfigFile = jest.fn().mockImplementationOnce(() => {
 describe("mainWorker class tests", () => {
     describe("Positive assertions", () => {
         beforeEach(async () => {})
+
         it("ssrAksTfs should return success and user message for npm", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
@@ -223,6 +224,33 @@ describe("mainWorker class tests", () => {
             })
             const flow_ran: CliResponse = await mainWorker.ssrGkeTfs(
                 mockAnswerSsrGke,
+            )
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(
+                `cd ${mockAnswerSsrGke.projectName}/src && npm install && npm run build && npm run start`,
+            )
+        })
+
+        it("ssrGkeJenkins should return success and user message for npm", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({
+                    message: `${mockAnswerSsrGkeJenkins.projectName} created`,
+                    tempPath: "/var/test",
+                    finalPath: "/opt/myapp",
+                })
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(workerResponse)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(workerResponse)
+            })
+            const flow_ran: CliResponse = await mainWorker.ssrGkeJenkins(
+                mockAnswerSsrGkeJenkins,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(Utils.constructOutput).toHaveBeenCalled()
@@ -438,6 +466,60 @@ describe("mainWorker class tests", () => {
             )
             expect(flow_ran.message).toMatch(`./mvnw compile && ./mvnw spring-boot:run`)
         })
+
+        it("infraGkeAzdevops should return success and user message for infra only", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({
+                    message: `${mockAnswerSsr.projectName} created`,
+                    tempPath: "/var/test",
+                    finalPath: "/opt/myapp",
+                })
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(workerResponse)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(workerResponse)
+            })
+            const flow_ran: CliResponse = await mainWorker.infraGkeAzdevops(
+                mockAnswerSsr,
+            )
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(
+                `cd ${mockAnswerSsr.projectName}/deploy`,
+            )
+        })
+
+        it("infraGkeJenkins should return success and user message for infra only", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({
+                    message: `${mockAnswerSsr.projectName} created`,
+                    tempPath: "/var/test",
+                    finalPath: "/opt/myapp",
+                })
+            })
+            Utils.constructOutput = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(workerResponse)
+            })
+            Utils.valueReplace = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve(workerResponse)
+            })
+            const flow_ran: CliResponse = await mainWorker.infraGkeJenkins(
+                mockAnswerSsr,
+            )
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.constructOutput).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("message")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(true)
+            expect(flow_ran.message).toMatch(
+                `cd ${mockAnswerSsr.projectName}/deploy`,
+            )
+        })
     })
 
     describe("Negative assertions", () => {
@@ -505,12 +587,92 @@ describe("mainWorker class tests", () => {
             expect(flow_ran.error).toHaveProperty("message")
         })
 
-        it("csr_aks_tfs should return a code of -1 when error occurs", async () => {
+        it("csrAksTfs should return a code of -1 when error occurs", async () => {
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 throw new Error("Something weird happened")
             })
             const flow_ran: CliResponse = await mainWorker.csrAksTfs(
                 mockAnswerCsr,
+            )
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("error")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(false)
+            expect(flow_ran.error).toBeInstanceOf(Error)
+            expect(flow_ran.error).toHaveProperty("stack")
+            expect(flow_ran.error).toHaveProperty("message")
+        })
+
+        it("infraAksAzdevops should return a code of -1 when error occurs", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                throw new Error("Something weird happened")
+            })
+            const flow_ran: CliResponse = await mainWorker.infraAksAzdevops(
+                mockAnswerSsr,
+            )
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("error")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(false)
+            expect(flow_ran.error).toBeInstanceOf(Error)
+            expect(flow_ran.error).toHaveProperty("stack")
+            expect(flow_ran.error).toHaveProperty("message")
+        })
+
+        it("infraGkeAzdevops should return a code of -1 when error occurs", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                throw new Error("Something weird happened")
+            })
+            const flow_ran: CliResponse = await mainWorker.infraGkeAzdevops(
+                mockAnswerSsr,
+            )
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("error")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(false)
+            expect(flow_ran.error).toBeInstanceOf(Error)
+            expect(flow_ran.error).toHaveProperty("stack")
+            expect(flow_ran.error).toHaveProperty("message")
+        })
+
+        it("infraGkeJenkins should return a code of -1 when error occurs", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                throw new Error("Something weird happened")
+            })
+            const flow_ran: CliResponse = await mainWorker.infraGkeJenkins(
+                mockAnswerSsr,
+            )
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("error")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(false)
+            expect(flow_ran.error).toBeInstanceOf(Error)
+            expect(flow_ran.error).toHaveProperty("stack")
+            expect(flow_ran.error).toHaveProperty("message")
+        })
+
+        it("ssrGkeTfs should return a code of -1 when error occurs", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                throw new Error("Something weird happened")
+            })
+            const flow_ran: CliResponse = await mainWorker.ssrGkeTfs(
+                mockAnswerSsrGke,
+            )
+            expect(Utils.prepBase).toHaveBeenCalled()
+            expect(flow_ran).toHaveProperty("error")
+            expect(flow_ran).toHaveProperty("ok")
+            expect(flow_ran.ok).toBe(false)
+            expect(flow_ran.error).toBeInstanceOf(Error)
+            expect(flow_ran.error).toHaveProperty("stack")
+            expect(flow_ran.error).toHaveProperty("message")
+        })
+
+        it("ssrGkeJenkins should return a code of -1 when error occurs", async () => {
+            Utils.prepBase = jest.fn().mockImplementationOnce(() => {
+                throw new Error("Something weird happened")
+            })
+            const flow_ran: CliResponse = await mainWorker.ssrGkeJenkins(
+                mockAnswerSsrGke,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("error")

@@ -13,7 +13,7 @@ describe("StaticConfig tests", () => {
      * this needs to be manually bumped on purpose everytime a new option is added
      */
     it("staticConf return an object with only specified keys", () => {
-        expect(confKeys.length).toBe(13)
+        expect(confKeys.length).toBe(14)
         expect(confKeys).toEqual(expect.arrayContaining(currentSupportedPaths))
     })
     it("staticConf MUST contain folderMap key as an array", () => {

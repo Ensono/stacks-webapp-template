@@ -255,6 +255,18 @@
       }
     ]
   },
+  "javaSerenityTfs": {
+    "gitRepo": "",
+    "gitRef": "",
+    "localPath": "",
+    "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
+    "folderMap": [
+      {
+        "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Serenity",
+        "dest": ""
+      }
+    ]
+  },
   "ssrGke": {
     "gitRepo": "",
     "gitRef": "",
