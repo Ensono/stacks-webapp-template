@@ -3,3 +3,4 @@ git-client:latest
 git:latest
 blueocean:latest
 jacoco:latest
+htmlpublisher:latest 
