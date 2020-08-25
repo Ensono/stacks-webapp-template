@@ -169,7 +169,7 @@
   },
   "javaSpring": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "3778c5dd3ec5cc2a2a4e373c81c1d28811aafe75",
+    "gitRef": "b7e87c72a566800b3c432f61e803760b66561dda",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -180,6 +180,50 @@
       {
         "src": "src/java_spring/build/azDevops/azure",
         "dest": "build/azDevops/azure"
+      },
+      {
+        "src": "src/java_spring/deploy/azure/app/kube",
+        "dest": "deploy/azure/app/kube"
+      },
+      {
+        "src": "src/java_spring/deploy/k8s",
+        "dest": "deploy/k8s"
+      },
+      {
+        "src": "src/java_spring/java",
+        "dest": "java"
+      },
+      {
+        "src": "src/java_spring/.gitattributes",
+        "dest": ".gitattributes"
+      },
+      {
+        "src": "src/java_spring/.gitignore",
+        "dest": ".gitignore"
+      },
+      {
+        "src": "src/java_spring/README.md",
+        "dest": "README.md"
+      },
+      {
+        "src": "src/java_spring/yamllint.conf",
+        "dest": "yamllint.conf"
+      }
+    ]
+  },
+  "javaSpringJenkins": {
+    "gitRepo": "https://github.com/amido/stacks-java.git",
+    "gitRef": "b7e87c72a566800b3c432f61e803760b66561dda",
+    "localPath": "src/java_spring",
+    "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
+    "folderMap": [
+      {
+        "src": "src/java_spring/api-tests",
+        "dest": "api-tests"
+      },
+      {
+        "src": "src/java_spring/build/jenkins/azure",
+        "dest": "build/jenkins/azure"
       },
       {
         "src": "src/java_spring/deploy/azure/app/kube",

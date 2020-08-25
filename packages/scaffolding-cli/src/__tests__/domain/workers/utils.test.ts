@@ -6,9 +6,9 @@
 import { resolve, sep } from "path"
 import * as fse from "fs-extra"
 import * as rif from "replace-in-file"
-import gitP, {SimpleGit} from "simple-git/promise"
+import gitP from "simple-git/promise"
 import { tmpdir } from "os"
-import {PromptAnswer, CliAnswerModel} from "../../../domain/model/prompt_answer"
+import { CliAnswerModel } from "../../../domain/model/prompt_answer"
 import {
     CliResponse,
     BaseResponse,
@@ -20,8 +20,8 @@ import {
     renamerRecursion,
     renameJavastyle
 } from "../../../domain/workers/utils"
-import {Replacetruct} from "../../../domain/config/file_mapper"
-import {FolderMap} from "../../../domain/model/config"
+import { Replacetruct } from "../../../domain/config/file_mapper"
+import { FolderMap } from "../../../domain/model/config"
 
 jest.mock("fs-extra")
 jest.mock("replace-in-file")

@@ -8,7 +8,7 @@ describe("Page security", () => {
     const protocol = "http://"
     const defaultUrl = Cypress.config().baseUrl || ""
     const host = defaultUrl?.startsWith("http:\/\//") ? defaultUrl.substring(0, 7) : defaultUrl.substring(0, 8)
-    const maxAge = "63072000"
+    const maxAge = "15552000"
 
     beforeEach(() => {
         cy.request({url: `${Cypress.config().baseUrl}`, failOnStatusCode: true, followRedirect: false}).as("request")
@@ -32,7 +32,7 @@ describe("Page security", () => {
         cy.get("@request")
         .its("headers")
         .its("strict-transport-security")
-        .should("eq", `max-age=${maxAge}`)
+        .should("eq", `max-age=${maxAge}; includeSubDomains`)
     })
 
     it("X-Content-Type-Options header should be set to nosniff", () => {
@@ -46,7 +46,7 @@ describe("Page security", () => {
         cy.get("@request")
         .its("headers")
         .its("x-xss-protection")
-        .should("eq", "1; mode=block;")
+        .should("eq", "0")
     })
 
     it("x-frame-options header should be set to SAMEORIGIN", () => {

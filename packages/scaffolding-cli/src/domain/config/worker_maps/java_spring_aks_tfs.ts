@@ -2,7 +2,6 @@ import { BuildReplaceInput } from "../file_mapper"
 import { BusinessSection, CloudSection, TerraformSection, SourceControlSection, NetworkingSection, JavaSection } from "../../model/prompt_answer"
 
 /**
- *
  * Statically assign the file mapping from temp and the Key/Value mapp of strings to replace in file
  * @param projectName
  * @param businessObj
@@ -42,11 +41,12 @@ export const inFiles = ({
                 "domain: java-api": `domain: "${businessObj.domain}"`,
                 "self_repo: stacks-java": `self_repo: "${scmObj.repoName}"`,
                 "self_remote_repo: \"amido/$(self_repo)\"": `self_remote_repo: "%REMOTE_GITHUB_REPO%/$(self_repo)"`,
-                "tf_state_rg: amido-stacks-rg-uks": `tf_state_rg: "%REPLACE_ME_WITH_TERRAFORM_STATE_RESOURCE_GROUP%"`,
-                "tf_state_storage: amidostackstfstategbl": `tf_state_storage: "%REPLACE_ME_WITH_TERRAFORM_STATE_STORAGE_ACCOUNT%"`,
-                "tf_state_container: tfstate": `tf_state_container: "%REPLACE_ME_WITH_TERRAFORM_STATE_STORAGE_CONTAINER%"`,
-                "docker_container_registry_name_nonprod: amidostacksnonprodeuncore": "docker_container_registry_name_nonprod: %REPLACE_ME_WITH_NONPROD_DOCKER_ACR_NAME%",
-                "docker_container_registry_name_prod: amidostacksprodeuncore": "docker_container_registry_name_prod: %REPLACE_ME_WITH_PROD_DOCKER_ACR_NAME%",
+                "tf_state_rg: \"amido-stacks-rg-uks\"": `tf_state_rg: "%REPLACE_ME_WITH_TERRAFORM_STATE_RESOURCE_GROUP%"`,
+                "tf_state_storage: \"amidostackstfstategbl\"": `tf_state_storage: "%REPLACE_ME_WITH_TERRAFORM_STATE_STORAGE_ACCOUNT%"`,
+                "tf_state_container: \"tfstate\"": `tf_state_container: "%REPLACE_ME_WITH_TERRAFORM_STATE_STORAGE_CONTAINER%"`,
+                "tf_state_key: \"stacks-api-java\"": `tf_state_key: "${businessObj.project}"`,
+                "docker_container_registry_name_nonprod: amidostacksnonprodeuncore": `docker_container_registry_name_nonprod: "%REPLACE_ME_WITH_NONPROD_DOCKER_ACR_NAME%"`,
+                "docker_container_registry_name_prod: amidostacksprodeuncore": `docker_container_registry_name_prod: "%REPLACE_ME_WITH_PROD_DOCKER_ACR_NAME%"`,
                 "base_domain_nonprod: nonprod.amidostacks.com": `base_domain_nonprod: "${networkObj.baseDomain}"`,
                 "base_domain_internal_nonprod: nonprod.amidostacks.internal": `base_domain_internal_nonprod: "%REPLACE_ME_WITH_INTERNAL_NONPROD_DOMAIN%"`,
                 "base_domain_prod: prod.amidostacks.com": `base_domain_prod: "${networkObj.baseDomain}"`,
@@ -56,12 +56,23 @@ export const inFiles = ({
                 "- group: amido-stacks-java-api": `- group: "%REPLACE_ME_FOR_APP/SONAR_VARIABLES%"`,
                 "- group: amido-stacks-infra-credentials-prod": `- group: "%REPLACE_ME_FOR_PROD_INFRA_SPECIFIC_LIBRARY_VARIABLES%"`,
                 // In-Stage variables
-                "TF_VAR_app_gateway_frontend_ip_name: \"amido-stacks-nonprod-eun-core\"": `TF_VAR_app_gateway_frontend_ip_name: "%REPLACE_ME_WITH_NONPROD_APP_GATEWAY_IP%"`,
-                "TF_VAR_core_resource_group: \"amido-stacks-nonprod-eun-core\"": `TF_VAR_core_resource_group: "%REPLACE_ME_WITH_NONPROD_CORE_RESOURCE_GROUP%"`,
-                "TF_VAR_app_insights_name: \"amido-stacks-nonprod-eun-core\"": `TF_VAR_app_insights_name: "%REPLACE_ME_WITH_NONPROD_APP_INSIGHTS_NAME%"`,
-                "TF_VAR_app_gateway_frontend_ip_name: \"amido-stacks-prod-eun-core\"": `TF_VAR_app_gateway_frontend_ip_name: "%REPLACE_ME_WITH_PROD_APP_GATEWAY_IP%"`,
-                "TF_VAR_core_resource_group: \"amido-stacks-prod-eun-core\"": `TF_VAR_core_resource_group: "%REPLACE_ME_WITH_PROD_CORE_RESOURCE_GROUP%"`,
-                "TF_VAR_app_insights_name: \"amido-stacks-prod-eun-core\"": `TF_VAR_app_insights_name: "%REPLACE_ME_WITH_PROD_APP_INSIGHTS_NAME%"`,
+                // Dev
+                "- name: core_resource_group\n        value: \"amido-stacks-nonprod-eun-core\"": `- name: core_resource_group\n        value: "%REPLACE_ME_WITH_NONPROD_CORE_RESOURCE_GROUP%"`,
+                // AppInfraDev
+                "- name: app_gateway_frontend_ip_name\n            value: \"amido-stacks-nonprod-eun-core\"": `- name: app_gateway_frontend_ip_name\n            value: "%REPLACE_ME_WITH_NONPROD_APP_GATEWAY_IP_NAME%"`,
+                "- name: app_insights_name\n            value: \"amido-stacks-nonprod-eun-core\"": `- name: app_insights_name\n            value: "%REPLACE_ME_WITH_NONPROD_APP_INSIGHTS_NAME%"`,
+                // DeployDev
+                "- name: aks_cluster_name\n            value: \"amido-stacks-nonprod-eun-core\"": `- name: aks_cluster_name\n            value: "%REPLACE_ME_WITH_NONPROD_AKS_CLUSTER_NAME%"`,
+                // Prod
+                "- name: core_resource_group\n        value: \"amido-stacks-prod-eun-core\"": `- name: core_resource_group\n        value: "%REPLACE_ME_WITH_PROD_CORE_RESOURCE_GROUP%"`,
+                // AppInfraProd
+                "- name: app_gateway_frontend_ip_name\n            value: \"amido-stacks-prod-eun-core\"": `- name: app_gateway_frontend_ip_name\n            value: "%REPLACE_ME_WITH_PROD_APP_GATEWAY_IP_NAME%"`,
+                "- name: app_insights_name\n            value: \"amido-stacks-prod-eun-core\"": `- name: app_insights_name\n            value: "%REPLACE_ME_WITH_PROD_APP_INSIGHTS_NAME%"`,
+                // DeployProd
+                "- name: aks_cluster_name\n            value: \"amido-stacks-prod-eun-core\"": `- name: aks_cluster_name\n            value: "%REPLACE_ME_WITH_PROD_AKS_CLUSTER_NAME%"`,
+                // DeployDev / DeployProd
+                "- name: resource_def_name\n            value: \"stacks-java-api\"": `- name: resource_def_name\n            value: "${businessObj.project}-api"`,
+
             }
         }
     ]
