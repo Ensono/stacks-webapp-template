@@ -2,7 +2,7 @@
 import * as AI from "applicationinsights"
 import cacheableResponse from "cacheable-response"
 import bodyParser from "body-parser"
-import express from "express"
+import express, { Response } from "express"
 import next from "next"
 import session from "express-session"
 import api from "./api"
@@ -42,7 +42,7 @@ const ssrCache = cacheableResponse({
 
         return { data }
     },
-    send: ({data, res}) => res.send(data),
+    send: ({data, res}) => (<Response>res).send(data),
     getKey: req => undefined,
 })
 
