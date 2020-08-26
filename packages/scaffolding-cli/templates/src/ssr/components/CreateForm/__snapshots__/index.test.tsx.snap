@@ -28,6 +28,7 @@ exports[`renders form snapshot 1`] = `
           >
             Menu name
             <span
+              aria-hidden="true"
               class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
             >
                *
@@ -47,10 +48,10 @@ exports[`renders form snapshot 1`] = `
             />
             <fieldset
               aria-hidden="true"
-              class="PrivateNotchedOutline-root-100 MuiOutlinedInput-notchedOutline"
+              class="PrivateNotchedOutline-root-4 MuiOutlinedInput-notchedOutline"
             >
               <legend
-                class="PrivateNotchedOutline-legendLabelled-102 PrivateNotchedOutline-legendNotched-103"
+                class="PrivateNotchedOutline-legendLabelled-6 PrivateNotchedOutline-legendNotched-7"
               >
                 <span>
                   Menu name *
@@ -70,6 +71,7 @@ exports[`renders form snapshot 1`] = `
           >
             Description
             <span
+              aria-hidden="true"
               class="MuiFormLabel-asterisk MuiInputLabel-asterisk"
             >
                *
@@ -89,10 +91,10 @@ exports[`renders form snapshot 1`] = `
             />
             <fieldset
               aria-hidden="true"
-              class="PrivateNotchedOutline-root-100 MuiOutlinedInput-notchedOutline"
+              class="PrivateNotchedOutline-root-4 MuiOutlinedInput-notchedOutline"
             >
               <legend
-                class="PrivateNotchedOutline-legendLabelled-102"
+                class="PrivateNotchedOutline-legendLabelled-6"
               >
                 <span>
                   Description *
@@ -106,13 +108,13 @@ exports[`renders form snapshot 1`] = `
         >
           <span
             aria-disabled="false"
-            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-116 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
+            class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root MuiCheckbox-colorSecondary MuiIconButton-colorSecondary"
           >
             <span
               class="MuiIconButton-label"
             >
               <input
-                class="PrivateSwitchBase-input-119"
+                class="PrivateSwitchBase-input-11"
                 data-indeterminate="false"
                 name="enabled"
                 type="checkbox"
