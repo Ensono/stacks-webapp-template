@@ -42,7 +42,7 @@
     "@material-ui/icons": "^4.9.1",
     "@microsoft/applicationinsights-web": "^2.5.4",
     "applicationinsights": "^1.7.2",
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "body-parser": "^1.19.0",
     "caniuse-lite": "^1.0.0",
     "cacheable-response": "^2.0.7",
