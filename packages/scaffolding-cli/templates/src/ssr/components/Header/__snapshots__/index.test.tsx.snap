@@ -127,7 +127,7 @@ exports[`renders no button on create page 1`] = `
         style="margin: 0px auto;"
       >
         <a
-          class="makeStyles-styledLink-121"
+          class="makeStyles-styledLink-5"
           href="/"
         >
           Yumido
