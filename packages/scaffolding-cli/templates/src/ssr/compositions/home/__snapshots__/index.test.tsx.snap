@@ -47,7 +47,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
             style="margin: 0px auto;"
           >
             <a
-              class="makeStyles-styledLink-304"
+              class="makeStyles-styledLink-10"
               href="/"
             >
               Yumido
@@ -90,7 +90,7 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
         class="MuiContainer-root MuiContainer-maxWidthSm"
       >
         <div
-          class="MuiBox-root MuiBox-root-421"
+          class="MuiBox-root MuiBox-root-12"
         >
           <div
             class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
@@ -118,10 +118,10 @@ exports[`With React Testing Library Snapshot renders page 1`] = `
               />
               <fieldset
                 aria-hidden="true"
-                class="PrivateNotchedOutline-root-480 MuiOutlinedInput-notchedOutline"
+                class="PrivateNotchedOutline-root-13 MuiOutlinedInput-notchedOutline"
               >
                 <legend
-                  class="PrivateNotchedOutline-legendLabelled-482"
+                  class="PrivateNotchedOutline-legendLabelled-15"
                 >
                   <span>
                     Search Menus

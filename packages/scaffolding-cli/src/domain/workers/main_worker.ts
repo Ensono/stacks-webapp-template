@@ -154,10 +154,9 @@ export class MainWorker {
             await Utils.valueReplace(valMaps)
 
             const replaceString = `${(<JavaCliAnswerModel>instructions)[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
-            await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`],
+            await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`, `${newDirectory.finalPath}/api-test/src/test/java`],
                 (staticConf.javaSpring.searchValue as string).replace(/\./gm, "/"),
                 replaceString, true)
-
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true

@@ -1,7 +1,7 @@
-import {render, screen, waitForElement} from "@testing-library/react"
+import { render } from "@testing-library/react"
 import React from "react"
 import CreateForm from "."
-import {Provider} from "react-redux"
+import { Provider } from "react-redux"
 import sagaMiddleware from "redux-saga"
 import configureStore from "redux-mock-store"
 
@@ -22,11 +22,12 @@ const initialState = {
 
 test("renders form snapshot", () => {
     const store = mockStore(initialState)
-    const {getByText, asFragment} = render(
+    const { getByRole, asFragment } = render(
         <Provider store={store}>
             <CreateForm />
         </Provider>,
     )
+
     expect(asFragment()).toMatchSnapshot()
-    expect(getByText("Save")).toBeDisabled()
+    expect(getByRole('button', { name: 'Save' })).toBeDisabled()
 })

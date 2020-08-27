@@ -6,7 +6,7 @@ exports[`renders ApiPane snapshot 1`] = `
     class="MuiContainer-root MuiContainer-maxWidthSm"
   >
     <div
-      class="MuiBox-root MuiBox-root-10"
+      class="MuiBox-root MuiBox-root-1"
     >
       <div
         class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal MuiFormControl-fullWidth"
@@ -34,10 +34,10 @@ exports[`renders ApiPane snapshot 1`] = `
           />
           <fieldset
             aria-hidden="true"
-            class="PrivateNotchedOutline-root-69 MuiOutlinedInput-notchedOutline"
+            class="PrivateNotchedOutline-root-2 MuiOutlinedInput-notchedOutline"
           >
             <legend
-              class="PrivateNotchedOutline-legendLabelled-71"
+              class="PrivateNotchedOutline-legendLabelled-4"
             >
               <span>
                 Search Menus
