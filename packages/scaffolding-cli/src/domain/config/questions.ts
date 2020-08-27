@@ -45,7 +45,6 @@ export function computedSelection(
             namespace: cliOrConfigAnswer.javaTldNamespace ||
             "com"
         }
-
     } as CliAnswerModel
 }
 
@@ -153,16 +152,22 @@ export function cliTestQuestions(
         message: "Select test framework",
         choices: [
             {
-                title: "Selenium framework with .NET",
+                title: "TypeScript using TestCafe framework",
+                description:
+                    "in-browser, automation, node.js, javascript, bdd, cross browser",
+                value: "testjstestcafe",
+            },
+            {
+                title: ".NET using Slenium framework",
                 description:
                     "automation, bddfy, xunit, webdriver, netcore, e2e, standalone",
                 value: "testnetcoreselenium",
             },
             {
-                title: "TestCafe framework with Typescript",
+                title: "Java using Serenity framework",
                 description:
-                    "in-browser, automation, node.js, javascript, bdd, cross browser",
-                value: "testjstestcafe",
+                    "java, serenity, cucumber, bdd, e2e",
+                value: "testjavaserenity",
             }
         ],
         initial: 0,
@@ -247,7 +252,8 @@ export function platformQuestions(): Array<PromptQuestion> {
 }
 
 export const language: {[key in ProjectTypeEnum]?: Function} = {
-    [ProjectTypeEnum.JAVASPRING]: javaQuestions
+    [ProjectTypeEnum.JAVASPRING]: javaQuestions,
+    [ProjectTypeEnum.TESTJAVASERENTIY]: javaQuestions,
 }
 
 export const platform: {[key: string]: Function} = {

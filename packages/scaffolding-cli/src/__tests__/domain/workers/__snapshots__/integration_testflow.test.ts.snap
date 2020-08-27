@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`mainWorker class javaSerenityTfs with correct files 1`] = `
+Array [
+  "/testProjectName.bootstrap-config.json",
+  "/testProjectName/README.md",
+  "/testProjectName/pom.xml",
+  "/testProjectName/serenity.properties",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/fixtures/GenericPageSteps.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/fixtures/Hooks.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/fixtures/Requests.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/models/Category.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/models/Item.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/models/Menu.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/models/ResponseWrapper.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/pages/BlogPage.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/pages/CreateMenuPage.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/pages/MainPage.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/starter/CucumberTestSuiteUI.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/starter/stepdefinitions/CreateMenuStepDefinitions.java",
+  "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/starter/stepdefinitions/SearchMenuStepDefinitions.java",
+  "/testProjectName/src/test/resources/features/CreateMenu.feature",
+  "/testProjectName/src/test/resources/features/RedirectToBlogPage.feature",
+  "/testProjectName/src/test/resources/features/SearchMenu.feature",
+  "/testProjectName/src/test/resources/logback-test.xml",
+  "/testProjectName/src/test/resources/serenity.conf",
+]
+`;
+
 exports[`mainWorker class jsTestcafe with correct files 1`] = `
 Array [
   "/testProjectName.bootstrap-config.json",

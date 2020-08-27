@@ -10,12 +10,12 @@ import { BusinessSection, CloudSection, TerraformSection, SourceControlSection, 
 export const inFiles = ({
     projectName, businessObj, cloudObj, terraformObj, scmObj, networkObj, javaspringObj
 }: {
-    projectName: string;
-    businessObj: BusinessSection;
-    cloudObj: CloudSection;
-    terraformObj: TerraformSection;
-    scmObj: SourceControlSection,
-    networkObj: NetworkingSection,
+    projectName: string
+    businessObj: BusinessSection
+    cloudObj: CloudSection
+    terraformObj: TerraformSection
+    scmObj: SourceControlSection
+    networkObj: NetworkingSection
     javaspringObj: JavaSection
 }): Array<BuildReplaceInput> => {
     return [

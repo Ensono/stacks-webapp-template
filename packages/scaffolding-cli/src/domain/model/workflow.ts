@@ -18,10 +18,12 @@ export const WorkflowOptions = (): Workflow => {
         javaspringaksjenkins: flowSelector.optionJavaSpringAksJenkins,
         javaspringgkejenkins: () => { return { code: 0, message: "Not Yet Implemented.\nWatch this space!" } },
         csraksazdevops: flowSelector.optionCsrAksAzuredevops,
-        testnetcoreseleniumanyazdevops: flowSelector.optionNetcoreSeleniumAnyAzdevops,
-        testjstestcafeanyazdevops: flowSelector.optionJsTestcafeAnyAzdevops,
         infraaksazdevops: flowSelector.optionInfraAksAzdevops,
         infragkeazdevops: flowSelector.optionInfraGkeAzdevops,
         infragkejenkins: flowSelector.optionInfraGkeJenkins,
+        // Test Frameworks
+        testnetcoreseleniumanyazdevops: flowSelector.optionNetcoreSeleniumAnyAzdevops,
+        testjstestcafeanyazdevops: flowSelector.optionJsTestcafeAnyAzdevops,
+        testjavaserenityanyazdevops: flowSelector.optionJavaSerenityAnyAzdevops,
     }
 }

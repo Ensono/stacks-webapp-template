@@ -5,7 +5,7 @@ import path from "path"
 import { CliAnswerModel } from "../../../domain/model/prompt_answer"
 import { CliResponse } from "../../../domain/model/workers"
 import { MainWorker } from "../../../domain/workers/main_worker"
-import { jsTestcafe, netcoreSelenium } from "../../../domain/config/worker_maps"
+import { jsTestcafe, netcoreSelenium, javaSerenityTfs } from "../../../domain/config/worker_maps"
 
 const mockAnswer = {
     projectName: "testProjectName",
@@ -26,6 +26,13 @@ const mockAnswer = {
     terraform: {
         backendStorage: "azureBlob"
     }
+} as CliAnswerModel
+
+const javaMockAnswer = {
+    ...mockAnswer,
+    javaspring: {
+        namespace: "uk.co",
+    },
 } as CliAnswerModel
 
 const mainWorker = new MainWorker()
@@ -101,6 +108,25 @@ describe("mainWorker class", () => {
 
         expect(flowRan.message).toContain(
             jsTestcafe.responseMessage(mockAnswer.projectName),
+        )
+    })
+
+    it("javaSerenityTfs with correct files", async () => {
+        const results: string[] = []
+
+        const flowRan: CliResponse = await mainWorker.javaSerenityTfs(
+            javaMockAnswer,
+        )
+
+        for await (const p of walk(tempDir)) results.push(p)
+
+        expect(results.sort()).toMatchSnapshot()
+
+        expect(flowRan.ok).toBe(true)
+        expect(flowRan).toHaveProperty("message")
+
+        expect(flowRan.message).toContain(
+            javaSerenityTfs.responseMessage(mockAnswer.projectName),
         )
     })
 })

@@ -30,7 +30,8 @@ export enum ProjectTypeEnum {
     CSR = 'csr',
     INFRA = 'infra',
     TESTNETCORESELENIUM = 'testnetcoreselenium',
-    TESTJSTESTCAFE = 'testjstestcafe'
+    TESTJSTESTCAFE = 'testjstestcafe',
+    TESTJAVASERENTIY = 'testjavaserenity',
 }
 
 export interface CloudSection {
@@ -94,6 +95,9 @@ export interface CliAnswerModel extends BaseAnswer {
     terraform: TerraformSection
     sourceControl: SourceControlSection
     networking: NetworkingSection
-    // add more here if needed
     [ProjectTypeEnum.JAVASPRING]?: JavaSection
+}
+
+export interface JavaCliAnswerModel extends CliAnswerModel {
+    [ProjectTypeEnum.JAVASPRING]: JavaSection
 }

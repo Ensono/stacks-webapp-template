@@ -54,7 +54,16 @@ async function getFromCli(defaultProjectName: string, cliArgs: CliOptions): Prom
     // If the command is test, go through test flow:
     if (cliArgs._[0] === "test") {
         initialQs = cliTestQuestions(defaultProjectName)
-        const cliSelection = await prompt(initialQs, {onCancel})
+        const cliSelection = await prompt(initialQs, {onCancel}) as PromptAnswer
+
+        if (language[cliSelection.projectType]) {
+            const languageAdvanced = await advancedCliQuestion(
+                cliSelection,
+                language[cliSelection.projectType] as Function
+            )
+            return languageAdvanced
+        }
+
         return cliSelection
     }
 
