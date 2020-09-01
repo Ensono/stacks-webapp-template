@@ -33,7 +33,7 @@ variables:
     value: "$(self_pipeline_repo)/scripts"
 
   - name: docker_java_container
-    value: "azul_java"
+    value: "azul_java_amido"
 
   # Maven
   - name: maven_cache_directory
