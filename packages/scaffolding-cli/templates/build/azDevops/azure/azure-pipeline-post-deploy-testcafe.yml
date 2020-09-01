@@ -1,6 +1,6 @@
 ##################################################################################################################################
 # Desc: Post Deployment Tests. Example pipeline that can be triggered and run after success deployment of a webapp.
-# 
+#
 # Pre-reqs: endpoint = GitHub Service Connection, test_results_storage = Azure Storage Container,
 # test_results_container = Azure Storage Container, group = Libary variables containing Azure Portal Subscription Credentials
 # Documentation: https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints
@@ -52,7 +52,7 @@ variables:
     value: 'https://dev-app.nonprod.amidostacks.com'
   - name: base_path
     value: '/web/stacks'
-  
+
   # Resource management connection
   - group: amido-stacks-infra-credentials-nonprod # Azure Portal Credentials
 
@@ -105,4 +105,3 @@ steps:
         test_results_container: $(test_results_container)
         test_results_path: $(lighthouse_config_path)/.lighthouseci
         test_results_blob_prefix: $(Build.BuildNumber)
-
