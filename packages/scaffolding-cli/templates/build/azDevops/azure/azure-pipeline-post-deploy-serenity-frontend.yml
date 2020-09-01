@@ -15,7 +15,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.4.9
+      ref: refs/tags/v1.4.10
       endpoint: amidostacks # GitHub Service Connection
 
   containers:
@@ -60,10 +60,6 @@ variables:
     value: "/api/menu"
   - name: api_functional_test_base_url
     value: "${{ variables.api_base_url }}${{ variables.api_base_path }}"
-
-  - name: extra_test_arguments
-    value: "-Dwebdriver.base.url=\"${{ variables.functional_test_base_url }}\" -Dapi.base.url=\"${{ variables.api_functional_test_base_url }}\" -Dchrome.switches=\"--headless,--no-sandbox,--disable-dev-shm-usage\""
-
 steps:
   - checkout: self
 
@@ -120,6 +116,7 @@ steps:
       arguments: >
         -a "@Functional"
         -b "${{ variables.functional_test_base_url }}"
+        -c "${{ variables.api_functional_test_base_url }}"
         -X "${{ variables.extra_test_arguments }}"
         -Y "${{ variables.maven_ignored_post_deploy_test_tags }}"
         -Z "${{ variables.maven_cache_directory }}"
