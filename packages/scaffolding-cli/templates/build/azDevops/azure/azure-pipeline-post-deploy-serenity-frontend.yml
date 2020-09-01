@@ -35,9 +35,6 @@ variables:
   - name: docker_java_container
     value: "azul_java"
 
-  - name: extra_test_arguments
-    value: "-Dchrome.switches=\"--headless,--no-sandbox,--disable-dev-shm-usage\""
-
   # Maven
   - name: maven_cache_directory
     value: "./.m2"
@@ -57,6 +54,15 @@ variables:
     value: "/web/stacks"
   - name: functional_test_base_url
     value: "${{ variables.base_url }}${{ variables.base_path }}"
+  - name: api_base_url
+    value: "https://dev-netcore-api.nonprod.amidostacks.com"
+  - name: api_base_path
+    value: "/api/menu"
+  - name: api_functional_test_base_url
+    value: "${{ variables.api_base_url }}${{ variables.api_base_path }}"
+
+  - name: extra_test_arguments
+    value: "-Dwebdriver.base.url=\"${{ variables.functional_test_base_url }}\" -Dapi.base.url=\"${{ variables.api_functional_test_base_url }}\" -Dchrome.switches=\"--headless,--no-sandbox,--disable-dev-shm-usage\""
 
 steps:
   - checkout: self
