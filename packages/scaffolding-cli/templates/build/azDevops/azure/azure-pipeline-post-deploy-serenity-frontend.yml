@@ -115,8 +115,8 @@ steps:
       filePath: "${{ variables.self_pipeline_scripts_dir }}/test-maven-post-deploy-tagged-ui-test-run.bash"
       arguments: >
         -a "@Functional"
-        -b "${{ variables.functional_test_base_url }}"
-        -c "${{ variables.api_functional_test_base_url }}"
+        -b "${{ variables.api_functional_test_base_url }}"
+        -c "${{ variables.functional_test_base_url }}"
         -Y "${{ variables.maven_ignored_post_deploy_test_tags }}"
         -Z "${{ variables.maven_cache_directory }}"
       workingDirectory: "${{ variables.working_directory }}"
