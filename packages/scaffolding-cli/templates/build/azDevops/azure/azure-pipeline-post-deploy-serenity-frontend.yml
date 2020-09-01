@@ -35,6 +35,9 @@ variables:
   - name: docker_java_container
     value: "azul_java"
 
+  - name: chromedriver_version
+    value: "85.0.4183.87"
+
   # Maven
   - name: maven_cache_directory
     value: "./.m2"
@@ -68,6 +71,21 @@ steps:
         maven-fe-tests
       path: "${{ variables.working_directory }}/${{ variables.maven_cache_directory }}"
     displayName: Cache Maven packages
+
+  - task: Bash@3
+    inputs:
+      targetType: "inline"
+      script: |
+        apt update
+        apt install chromium wget unzip -y
+
+        wget https://chromedriver.storage.googleapis.com/${{ variables.chromedriver_version }}/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        mv chromedriver /usr/local/bin
+      workingDirectory: "${{ variables.working_directory }}"
+    target:
+      container: ${{ variables.docker_java_container }}
+    displayName: "Install Chromium and Chrome Driver"
 
   - task: Bash@3
     inputs:
