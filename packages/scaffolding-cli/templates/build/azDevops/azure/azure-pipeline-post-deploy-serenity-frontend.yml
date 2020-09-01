@@ -112,12 +112,11 @@ steps:
   # Note: Don't forget to update the `maven_allowed_post_deploy_test_tags` in the root pipeline file.
   - task: Bash@3
     inputs:
-      filePath: "${{ variables.self_pipeline_scripts_dir }}/test-maven-post-deploy-tagged-test-run.bash"
+      filePath: "${{ variables.self_pipeline_scripts_dir }}/test-maven-post-deploy-tagged-ui-test-run.bash"
       arguments: >
         -a "@Functional"
         -b "${{ variables.functional_test_base_url }}"
         -c "${{ variables.api_functional_test_base_url }}"
-        -X "${{ variables.extra_test_arguments }}"
         -Y "${{ variables.maven_ignored_post_deploy_test_tags }}"
         -Z "${{ variables.maven_cache_directory }}"
       workingDirectory: "${{ variables.working_directory }}"
