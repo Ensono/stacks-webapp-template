@@ -1,0 +1,152 @@
+##################################################################################################################################
+# Desc: Post Deployment Tests. Example pipeline that can be triggered and run after success deployment of a webapp.
+##################################################################################################################################
+
+pool:
+  vmImage: ubuntu-18.04
+
+trigger:
+  branches:
+    include:
+      - master
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: amido/stacks-pipeline-templates
+      ref: refs/tags/v1.4.8
+      endpoint: amidostacks # GitHub Service Connection
+
+  containers:
+    - container: azul_java
+      image: azul/zulu-openjdk-debian:11
+
+variables:
+  - name: self_repo
+    value: stacks-webapp-template/packages/scaffolding-cli/templates
+  - name: working_directory
+    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/xxAMIDOxx.xxSTACKSxx.E2E.Serenity'
+  - name: self_pipeline_repo
+    value: "$(Agent.BuildDirectory)/s/stacks-pipeline-templates"
+  - name: self_pipeline_scripts_dir
+    value: "$(self_pipeline_repo)/scripts"
+
+  - name: docker_java_container
+    value: "azul_java"
+
+  # Maven
+  - name: maven_cache_directory
+    value: "./.m2"
+  - name: maven_allowed_post_deploy_test_tags
+    value: "@Functional or @Smoke or @Performance"
+  - name: maven_ignored_post_deploy_test_tags
+    value: "@Ignore"
+  - name: maven_post_deploy_html_report_directory
+    value: "target/site/serenity"
+  - name: maven_post_deploy_failsafe_reports_directory
+    value: "target/failsafe-reports"
+
+  # Deployed app urls
+  - name: functional_test_base_url
+    value: 'https://dev-app.nonprod.amidostacks.com'
+  - name: base_path
+    value: '/web/stacks'
+
+steps:
+  - checkout: self
+
+  - checkout: templates
+
+  - task: Cache@2
+    inputs:
+      key: 'maven-fe-tests | "$(Agent.OS)" | ${{ variables.working_directory }}/pom.xml'
+      restoreKeys: |
+        maven-fe-tests | "$(Agent.OS)"
+        maven-fe-tests
+      path: "${{ variables.working_directory }}/${{ variables.maven_cache_directory }}"
+    displayName: Cache Maven packages
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ variables.self_pipeline_scripts_dir }}/build-maven-install.bash"
+      arguments: >
+        -Z "${{ variables.maven_cache_directory }}"
+      workingDirectory: "${{ variables.working_directory }}"
+    target:
+      container: ${{ variables.docker_java_container }}
+    displayName: "Maven: Install Packages"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ variables.self_pipeline_scripts_dir }}/build-maven-compile.bash"
+      arguments: >
+        -Z "${{ variables.maven_cache_directory }}"
+      workingDirectory: "${{ variables.working_directory }}"
+    target:
+      container: ${{ variables.docker_java_container }}
+    displayName: "Maven: Compile Application"
+
+  - task: Bash@3
+    inputs:
+      filePath: "${{ variables.self_pipeline_scripts_dir }}/test-maven-post-deploy-untagged-test-check.bash"
+      arguments: >
+        -a "${{ variables.maven_allowed_post_deploy_test_tags }}"
+        -W "${{ variables.maven_post_deploy_html_report_directory }}"
+        -X "${{ variables.maven_post_deploy_failsafe_reports_directory }}"
+        -Y "${{ variables.maven_ignored_post_deploy_test_tags }}"
+        -Z "${{ variables.maven_cache_directory }}"
+      workingDirectory: "${{ variables.working_directory }}"
+    target:
+      container: ${{ variables.docker_java_container }}
+    displayName: "Maven: Invalid Test Tag Check"
+
+  # Copy this for each tag you have, for example @Functional and @Smoke etc.
+  # Note: Don't forget to update the `maven_allowed_post_deploy_test_tags` in the root pipeline file.
+  - task: Bash@3
+    inputs:
+      filePath: "${{ variables.self_pipeline_scripts_dir }}/test-maven-post-deploy-tagged-test-run.bash"
+      arguments: >
+        -a "@Functional"
+        -b "${{ variables.functional_test_base_url }}"
+        -Y "${{ variables.maven_ignored_post_deploy_test_tags }}"
+        -Z "${{ variables.maven_cache_directory }}"
+      workingDirectory: "${{ variables.working_directory }}"
+    target:
+      container: ${{ variables.docker_java_container }}
+    displayName: "Post-Deploy Test: Run Functional Tests"
+
+  # Run after all Post-Deploy tests to aggregate Serenity reports.
+  - task: Bash@3
+    inputs:
+      filePath: "${{ variables.self_pipeline_scripts_dir }}/test-maven-serenity-aggregate.bash"
+      arguments: >
+        -Z "${{ variables.maven_cache_directory }}"
+      workingDirectory: "${{ variables.working_directory }}"
+    target:
+      container: ${{ variables.docker_java_container }}
+    displayName: "Post-Deploy Test: Serenity Report Aggregate"
+
+  # Run after all Post-Deploy tests to check if they ran successfully or not.
+  - task: Bash@3
+    inputs:
+      filePath: "${{ variables.self_pipeline_scripts_dir }}/test-maven-post-deploy-test-verify.bash"
+      arguments: >
+        -Z "${{ variables.maven_cache_directory }}"
+      workingDirectory: "${{ variables.working_directory }}"
+    target:
+      container: ${{ variables.docker_java_container }}
+    displayName: "Post-Deploy Test: Verify Test Run"
+
+  - task: PublishPipelineArtifact@1
+    condition: always()
+    inputs:
+      path: "${{ variables.working_directory }}/${{ variables.maven_post_deploy_html_report_directory }}"
+      artifact: "${{ variables.environment }}-${{ variables.functional_test_artefact_name }}-report-$(System.JobAttempt)"
+    displayName: "Publish: Post-Deploy Tests Artefact"
+
+  - task: PublishTestResults@2
+    condition: always()
+    inputs:
+      searchFolder: "${{ variables.working_directory }}"
+    displayName: "Publish Post-Deploy Test Results"
