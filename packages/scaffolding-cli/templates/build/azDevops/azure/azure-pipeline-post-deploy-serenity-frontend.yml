@@ -15,7 +15,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.4.10
+      ref: refs/tags/v1.4.11
       endpoint: amidostacks # GitHub Service Connection
 
   containers:
