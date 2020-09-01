@@ -48,10 +48,12 @@ variables:
     value: "target/failsafe-reports"
 
   # Deployed app urls
-  - name: functional_test_base_url
-    value: 'https://dev-app.nonprod.amidostacks.com'
+  - name: base_url
+    value: "https://dev-app.nonprod.amidostacks.com"
   - name: base_path
-    value: '/web/stacks'
+    value: "/web/stacks"
+  - name: functional_test_base_url
+    value: "${{ variables.base_url }}${{ variables.base_path }}"
 
 steps:
   - checkout: self
