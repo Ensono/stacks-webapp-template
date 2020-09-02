@@ -24,9 +24,9 @@ resources:
 
 variables:
   - name: self_repo
-    value: stacks-webapp-template/packages/scaffolding-cli/templates
+    value: "stacks-webapp-template/packages/scaffolding-cli/templates"
   - name: working_directory
-    value: '$(Agent.BuildDirectory)/s/$(self_repo)/test/xxAMIDOxx.xxSTACKSxx.E2E.Serenity'
+    value: "$(Agent.BuildDirectory)/s/$(self_repo)/test/xxAMIDOxx.xxSTACKSxx.E2E.Serenity"
   - name: self_pipeline_repo
     value: "$(Agent.BuildDirectory)/s/stacks-pipeline-templates"
   - name: self_pipeline_scripts_dir
@@ -150,7 +150,7 @@ steps:
     condition: always()
     inputs:
       path: "${{ variables.working_directory }}/${{ variables.maven_post_deploy_html_report_directory }}"
-      artifact: "${{ variables.environment }}-${{ variables.functional_test_artefact_name }}-report-$(System.JobAttempt)"
+      artifact: "serenity-fe-report-$(System.JobAttempt)"
     displayName: "Publish: Post-Deploy Tests Artefact"
 
   - task: PublishTestResults@2
