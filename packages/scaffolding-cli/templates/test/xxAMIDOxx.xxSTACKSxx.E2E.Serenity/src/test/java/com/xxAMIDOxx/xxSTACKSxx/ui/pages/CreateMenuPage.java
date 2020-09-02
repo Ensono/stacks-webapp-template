@@ -4,6 +4,7 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class CreateMenuPage extends PageObject {
@@ -22,7 +23,8 @@ public class CreateMenuPage extends PageObject {
     @FindBy(id = "snackbar-message-id")
     public WebElementFacade createMenuAlert;
 
-    @FindBy(name = "enabled")
+    //@FindBy(name = "enabled")
+    @FindBy(xpath = ".//*[@name='enabled']/parent::span")
     public WebElementFacade activateCheckbox;
 
     @FindBy(xpath = CANCEL_BUTTON)
@@ -39,11 +41,12 @@ public class CreateMenuPage extends PageObject {
 
 
     public void setActivateCheckbox(String activateCheckbox) {
+      WebElementFacade activateChkBxInput = this.activateCheckbox.find(By.name("enabled"));
         if (Boolean.parseBoolean(activateCheckbox)) {
-            this.activateCheckbox.click();
-            Assert.assertTrue(this.activateCheckbox.isSelected());
+          this.activateCheckbox.click();
+          Assert.assertTrue(activateChkBxInput.isSelected());
         } else {
-            Assert.assertFalse(this.activateCheckbox.isSelected());
+            Assert.assertFalse(activateChkBxInput.isSelected());
         }
     }
 }
