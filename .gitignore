@@ -219,4 +219,5 @@ go.sum
 **/.vscode/launch.local.json
 
 # Serenity Java
-*/target
+target/
+.m2/

@@ -169,7 +169,7 @@
   },
   "javaSpring": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "b7e87c72a566800b3c432f61e803760b66561dda",
+    "gitRef": "3308597feb08e8ba932bdd01f439804c18f47168",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -213,7 +213,7 @@
   },
   "javaSpringJenkins": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "b7e87c72a566800b3c432f61e803760b66561dda",
+    "gitRef": "3308597feb08e8ba932bdd01f439804c18f47168",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -264,6 +264,10 @@
       {
         "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Serenity",
         "dest": ""
+      },
+      {
+        "src": "build/azDevops/azure/azure-pipeline-post-deploy-serenity-frontend.yml",
+        "dest": "build/azDevops/azure/azure-pipeline-post-deploy-serenity-frontend.yml"
       }
     ]
   },

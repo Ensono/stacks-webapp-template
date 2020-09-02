@@ -3,7 +3,12 @@
 exports[`mainWorker class javaSerenityTfs with correct files 1`] = `
 Array [
   "/testProjectName.bootstrap-config.json",
+  "/testProjectName/.mvn/wrapper/maven-wrapper.jar",
+  "/testProjectName/.mvn/wrapper/maven-wrapper.properties",
   "/testProjectName/README.md",
+  "/testProjectName/build/azDevops/azure/azure-pipeline-post-deploy-serenity-frontend.yml",
+  "/testProjectName/mvnw",
+  "/testProjectName/mvnw.cmd",
   "/testProjectName/pom.xml",
   "/testProjectName/serenity.properties",
   "/testProjectName/src/test/java/uk/co/testcomp/testproject/ui/fixtures/GenericPageSteps.java",
