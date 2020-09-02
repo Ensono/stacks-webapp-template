@@ -158,7 +158,7 @@ export function cliTestQuestions(
                 value: "testjstestcafe",
             },
             {
-                title: ".NET using Slenium framework",
+                title: ".NET using Selenium framework",
                 description:
                     "automation, bddfy, xunit, webdriver, netcore, e2e, standalone",
                 value: "testnetcoreselenium",
