@@ -15,7 +15,7 @@ resources:
     - repository: templates
       type: github
       name: amido/stacks-pipeline-templates
-      ref: refs/tags/v1.4.11
+      ref: refs/tags/v1.4.14
       endpoint: amidostacks # GitHub Service Connection
 
   containers:
@@ -60,6 +60,14 @@ variables:
     value: "/api"
   - name: api_functional_test_base_url
     value: "${{ variables.api_base_url }}${{ variables.api_base_path }}"
+
+  # Serenity configuration
+  - name: serenity_browser_width
+    value: "1920"
+  - name: serenity_browser_height
+    value: "1080"
+  - name: serenity_implicit_timeout
+    value: "5000"
 steps:
   - checkout: self
 
@@ -117,6 +125,9 @@ steps:
         -a "@Functional"
         -b "${{ variables.api_functional_test_base_url }}"
         -c "${{ variables.functional_test_base_url }}"
+        -V "${{ variables.serenity_implicit_timeout }}"
+        -W "${{ variables.serenity_browser_width }}"
+        -X "${{ variables.serenity_browser_height }}"
         -Y "${{ variables.maven_ignored_post_deploy_test_tags }}"
         -Z "${{ variables.maven_cache_directory }}"
       workingDirectory: "${{ variables.working_directory }}"
