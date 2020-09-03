@@ -13,9 +13,10 @@ public class MainPage extends PageObject {
 
   private static final String SEARCH_BAR = "//*[@id='search-bar']";
     private static final String CREATE_MENU_BUTTON = "//button[@aria-label='create menu button']";
-    private static final String BLOG_BUTTON = "//button[@aria-label='blogs menu button']";
+    private static final String BLOG_BUTTON = "//button[@aria-label='blogs menu button']/parent::a";
     private static final String ALL_MENUS = "//ul[@data-testid='results']";
     private static final String NO_RESULTS = "//*[@id=\"__next\"]/main/div/div[2]/h2";
+    private static final String MENU_RESULTS = "//li/div/span/h2";
 
   @FindBy(xpath = CREATE_MENU_BUTTON)
     public WebElementFacade createMenuButton;
@@ -41,17 +42,17 @@ public class MainPage extends PageObject {
 
 
     public Optional<WebElementFacade> findMenuByName(String menuName) {
-        return allMenus.thenFindAll("//*li/div/span/h2")
+        return allMenus.thenFindAll(MENU_RESULTS)
                 .stream()
                 .filter(li -> li.getText().equals(menuName))
                 .findFirst();
     }
 
     public List<WebElementFacade> findAllMenusByNameCriteria(String menuName) {
-      withTimeoutOf(Duration.ofSeconds(15)).findAll("//*li/div/span/h2");
+      withTimeoutOf(Duration.ofSeconds(15)).findAll(MENU_RESULTS);
 
       //withTimeoutOf() can help
-      return allMenus.thenFindAll("//*li/div/span/h2")
+      return allMenus.thenFindAll(MENU_RESULTS)
                 .stream()
                 .filter(li -> li.getText().contains(menuName))
                 .collect(Collectors.toList());
