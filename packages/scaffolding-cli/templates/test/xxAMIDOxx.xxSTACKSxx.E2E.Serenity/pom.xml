@@ -12,7 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <serenity.version>2.1.10</serenity.version>
+        <serenity.version>2.3.2</serenity.version>
         <serenity.cucumber.version>2.1.2</serenity.cucumber.version>
         <serenity.maven.version>2.2.12</serenity.maven.version>
         <cucumber.version>4.8.0</cucumber.version>
