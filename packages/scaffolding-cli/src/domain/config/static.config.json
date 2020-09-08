@@ -169,7 +169,7 @@
   },
   "javaSpring": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "3308597feb08e8ba932bdd01f439804c18f47168",
+    "gitRef": "eb216ed339deb0ff4343c78da21c41ac8288240b",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -213,7 +213,7 @@
   },
   "javaSpringJenkins": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "3308597feb08e8ba932bdd01f439804c18f47168",
+    "gitRef": "eb216ed339deb0ff4343c78da21c41ac8288240b",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
