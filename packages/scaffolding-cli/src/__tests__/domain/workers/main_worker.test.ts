@@ -402,7 +402,7 @@ describe("mainWorker class tests", () => {
             expect(Utils.constructOutput).toHaveBeenCalled()
             expect(Utils.fileNameReplace).toHaveBeenCalled()
             expect(Utils.fileNameReplace).toHaveBeenCalledWith(
-                [`/opt/myapp/java/src/main/java`, `/opt/myapp/java/src/test/java`, `/opt/myapp/api-test/src/test/java`],
+                [`/opt/myapp/java/src/main/java`, `/opt/myapp/java/src/test/java`, `/opt/myapp/api-tests/src/test/java`],
                 searchString, replaceString, true
             )
             expect(flow_ran).toHaveProperty("message")
