@@ -11,7 +11,7 @@ Feature: Yumido app - Create a new menu
       | Andy's Pizza Menu (Automated Test Data) | The best pizza in your town | true     |
     And I click on the 'Save' button
     Then the new menu is created
-    When I click on the 'Home' button
+    When I open the main page
     And I search menu with "Andy's Pizza Menu (Automated Test Data)" name
     Then 1 menu with this search criteria are displayed
     Then the menu with "Andy's Pizza Menu (Automated Test Data)" name is displayed and has "enabled" status
@@ -31,7 +31,7 @@ Feature: Yumido app - Create a new menu
       | Salads Only (Automated Test Data) | This menu contains only vegetarian salads | true     |
     And I click on the 'Save' button
     Then the "New menu creation failed" alert is displayed
-    When I click on the 'Home' button
+    When I open the main page
     And I search menu with "Salads Only (Automated Test Data)" name
     Then 1 menu with this search criteria are displayed
 
@@ -45,7 +45,7 @@ Feature: Yumido app - Create a new menu
       | Vegetarian Menu (Automated Test Data) | The best vegetarian food in your town | false    |
     And I click on the 'Save' button
     Then the new menu is created
-    When I click on the 'Home' button
+    When I open the main page
     And I search menu with "Vegetarian Menu (Automated Test Data)" name
     Then 1 menu with this search criteria are displayed
     And the menu with "Vegetarian Menu (Automated Test Data)" name is displayed and has "disabled" status
