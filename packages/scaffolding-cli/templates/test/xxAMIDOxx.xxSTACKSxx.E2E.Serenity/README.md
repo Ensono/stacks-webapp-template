@@ -33,6 +33,8 @@ If you wish to use a local instance of Serenity Webdriver, be sure to download t
 
 ```webdriver.chrome.driver``` - Path to the Chrome driver, if it is not on the system path.
 
+```headless.mode``` - This property allows running tests without a browser opening.
+
 More properties here: https://serenity-bdd.github.io/theserenitybook/latest/serenity-system-properties.html
 
 ## Run Tests Locally

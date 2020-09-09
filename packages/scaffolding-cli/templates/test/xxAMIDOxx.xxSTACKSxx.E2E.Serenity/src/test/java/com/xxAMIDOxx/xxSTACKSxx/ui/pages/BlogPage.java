@@ -6,12 +6,12 @@ import org.openqa.selenium.WebElement;
 
 public class BlogPage extends PageObject {
 
-    private static final String BLOG_TITLE = "//h2[@data-testid='blog_title']";
+  private static final String BLOG_TITLE = "//h2[@data-testid='blog_title']";
 
-    @FindBy(xpath = BLOG_TITLE)
-    public WebElement blogTitle;
+  @FindBy(xpath = BLOG_TITLE)
+  public WebElement blogTitle;
 
-    public WebElement blogTitle() {
-        return blogTitle;
-    }
+  public WebElement blogTitle() {
+    return blogTitle;
+  }
 }
