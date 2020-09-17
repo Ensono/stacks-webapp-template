@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable compat/compat */
-import { CliAnswerModel } from "../../../domain/model/prompt_answer"
+import { CliAnswerModel, JavaCliAnswerModel } from "../../../domain/model/prompt_answer"
 import { CliResponse, BaseResponse } from "../../../domain/model/workers"
 import { MainWorker } from "../../../domain/workers/main_worker"
 import { Utils } from "../../../domain/workers/utils"
@@ -26,7 +26,7 @@ const javaMockAnswer = {
     javaspring: {
         namespace: "uk.co"
     }
-} as CliAnswerModel
+} as JavaCliAnswerModel
 
 const mainWorker = new MainWorker()
 

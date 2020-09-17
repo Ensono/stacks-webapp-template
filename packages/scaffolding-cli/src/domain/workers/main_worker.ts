@@ -111,9 +111,7 @@ export class MainWorker {
         }
     }
 
-    async javaSpringAksTfs(instructions: CliAnswerModel): Promise<CliResponse> {
-        instructions = <JavaCliAnswerModel>instructions
-
+    async javaSpringAksTfs(instructions: JavaCliAnswerModel): Promise<CliResponse> {
         const selectedFlowResponse: CliResponse = {} as CliResponse
         try {
             const sharedBuildInput: Array<BuildReplaceInput> = shared.inFiles({
@@ -132,7 +130,7 @@ export class MainWorker {
                 terraformObj: instructions.terraform,
                 scmObj: instructions.sourceControl,
                 networkObj: instructions.networking,
-                javaspringObj: instructions[ProjectTypeEnum.JAVASPRING] as JavaSection
+                javaspringObj: instructions[ProjectTypeEnum.JAVASPRING]
             }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
@@ -153,7 +151,7 @@ export class MainWorker {
 
             await Utils.valueReplace(valMaps)
 
-            const replaceString = `${(<JavaCliAnswerModel>instructions)[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
+            const replaceString = `${instructions[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
             await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`, `${newDirectory.finalPath}/api-tests/src/test/java`],
                 (staticConf.javaSpring.searchValue as string).replace(/\./gm, "/"),
                 replaceString, true)
@@ -175,9 +173,7 @@ export class MainWorker {
         }
     }
 
-    async javaSpringAksJenkins(instructions: CliAnswerModel): Promise<CliResponse> {
-        instructions = <JavaCliAnswerModel>instructions
-
+    async javaSpringAksJenkins(instructions: JavaCliAnswerModel): Promise<CliResponse> {
         const selectedFlowResponse: CliResponse = {} as CliResponse
         try {
             const sharedBuildInput: Array<BuildReplaceInput> = shared.inFiles({
@@ -196,7 +192,7 @@ export class MainWorker {
                 terraformObj: instructions.terraform,
                 scmObj: instructions.sourceControl,
                 networkObj: instructions.networking,
-                javaspringObj: instructions[ProjectTypeEnum.JAVASPRING] as JavaSection
+                javaspringObj: instructions[ProjectTypeEnum.JAVASPRING]
             }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
@@ -210,7 +206,7 @@ export class MainWorker {
 
             await Utils.valueReplace(valMaps)
 
-            const replaceString = `${(<JavaCliAnswerModel>instructions)[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
+            const replaceString = `${instructions[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
             await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`],
                 (staticConf.javaSpringJenkins.searchValue as string).replace(/\./gm, "/"),
                 replaceString, true)
@@ -313,15 +309,14 @@ export class MainWorker {
         }
     }
 
-    async javaSerenityTfs(instructions: CliAnswerModel): Promise<CliResponse> {
-
+    async javaSerenityTfs(instructions: JavaCliAnswerModel): Promise<CliResponse> {
         const javaSerenityTfsConfig = staticConf.javaSerenityTfs
         const selectedFlowResponse: CliResponse = {} as CliResponse
         try {
             const buildInput: Array<BuildReplaceInput> = javaSerenityTfs.inFiles({
                 projectName: instructions.projectName,
                 businessObj: instructions.business,
-                javaspringObj: instructions[ProjectTypeEnum.JAVASPRING] as JavaSection
+                javaspringObj: instructions[ProjectTypeEnum.JAVASPRING]
             })
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
@@ -339,7 +334,7 @@ export class MainWorker {
 
             await Utils.valueReplace(valMaps)
 
-            const replaceString = `${(<JavaCliAnswerModel>instructions)[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
+            const replaceString = `${instructions[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
             await Utils.fileNameReplace(
                 [
                     `${newDirectory.finalPath}/src/test/java`,

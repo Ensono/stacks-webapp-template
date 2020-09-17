@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable compat/compat */
 import { startCase } from "lodash"
-import { CliAnswerModel } from "../../../domain/model/prompt_answer"
+import { CliAnswerModel, JavaCliAnswerModel } from "../../../domain/model/prompt_answer"
 import { CliResponse, BaseResponse } from "../../../domain/model/workers"
 import { MainWorker } from "../../../domain/workers/main_worker"
 import { Utils } from "../../../domain/workers/utils"
@@ -122,7 +122,7 @@ const mockAnswerJavaSpringAksTfs = {
     javaspring: {
         namespace: "foo.bar"
     }
-} as CliAnswerModel
+} as JavaCliAnswerModel
 
 const mockAnswerJavaSpringAksJenkins = {
     projectName: "foo",
@@ -146,7 +146,7 @@ const mockAnswerJavaSpringAksJenkins = {
     javaspring: {
         namespace: "foo.bar"
     }
-} as CliAnswerModel
+} as JavaCliAnswerModel
 
 const mockAnswerNetcore = {
     projectName: "foo",

@@ -2,7 +2,7 @@
 import { promises, remove, ensureDir, emptyDir } from "fs-extra"
 import os from "os"
 import path from "path"
-import { CliAnswerModel } from "../../../domain/model/prompt_answer"
+import { CliAnswerModel, JavaCliAnswerModel } from "../../../domain/model/prompt_answer"
 import { CliResponse } from "../../../domain/model/workers"
 import { MainWorker } from "../../../domain/workers/main_worker"
 import { jsTestcafe, netcoreSelenium, javaSerenityTfs } from "../../../domain/config/worker_maps"
@@ -33,7 +33,7 @@ const javaMockAnswer = {
     javaspring: {
         namespace: "uk.co",
     },
-} as CliAnswerModel
+} as JavaCliAnswerModel
 
 const mainWorker = new MainWorker()
 

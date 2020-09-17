@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable @typescript-eslint/require-await */
 import { MainWorker } from './workers/main_worker'
-import { CliAnswerModel } from './model/prompt_answer'
+import { CliAnswerModel, JavaCliAnswerModel } from './model/prompt_answer'
 import { CliResponse } from './model/workers'
 
 const mainWorker = new MainWorker()
@@ -53,11 +53,11 @@ export class FlowSelector implements IFlowSelector {
     }
 
     async optionJavaSpringAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return mainWorker.javaSpringAksTfs(instructions)
+        return mainWorker.javaSpringAksTfs(instructions as JavaCliAnswerModel)
     }
 
     async optionJavaSpringAksJenkins(instructions: CliAnswerModel): Promise<CliResponse> {
-        return mainWorker.javaSpringAksJenkins(instructions)
+        return mainWorker.javaSpringAksJenkins(instructions as JavaCliAnswerModel)
     }
 
     async optionCsrAksAzuredevops(instructions: CliAnswerModel): Promise<CliResponse> {
@@ -73,7 +73,7 @@ export class FlowSelector implements IFlowSelector {
     }
 
     async optionJavaSerenityAnyAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
-        return mainWorker.javaSerenityTfs(instructions)
+        return mainWorker.javaSerenityTfs(instructions as JavaCliAnswerModel)
     }
 
     async optionInfraAksAzdevops(instructions: CliAnswerModel): Promise<CliResponse> {
