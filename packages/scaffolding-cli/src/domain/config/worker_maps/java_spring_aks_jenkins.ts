@@ -26,7 +26,7 @@ export const inFiles = ({
             }
         },
         {
-            files: ["**/*.java", "**/pom.xml", "**/Dockerfile"],
+            files: ["**/*.java", "**/application.yml", "**/pom.xml", "**/Dockerfile"],
             values: {
                 "com.xxAMIDOxx": `${javaspringObj.namespace}.${(businessObj.company)?.toLowerCase().replace(/\s/gm, "") || "company"}`,
                 "xxSTACKSxx": (businessObj.project)?.toLowerCase().replace(/[\s-]/gm, "") || "project",
