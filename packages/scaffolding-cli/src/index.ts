@@ -2,11 +2,18 @@
 
 // Node version check
 const checkNodeVersion = (version: number) => {
-    const versionRegex = new RegExp(`^${version}\\..*`)
-    const versionCorrect = process.versions.node.match(versionRegex)
-    if (!versionCorrect) {
+    const versionRegex = new RegExp(/^(\d+)\..*/)
+    const versionCheck = process.versions.node.match(versionRegex)
+
+    if (versionCheck === null) {
         throw Error(
-            `This version is too old. Please upgrade the node runtime to version ${version}`
+            `Can't detect the node version!`
+        )
+    }
+
+    if (parseInt(versionCheck[1]) < version) {
+        throw Error(
+            `Your node version is too old. Please upgrade the node runtime to version ${version}`
         )
     }
 };
