@@ -213,7 +213,7 @@ stages:
                 TF_VAR_create_cosmosdb: false,
                 TF_VAR_create_cache: true,
                 TF_VAR_name_environment: dev,
-                TF_VAR_dns_record: dev-app,
+                TF_VAR_dns_record: dev-ssr-netcore,
                 TF_VAR_dns_zone_name: $(base_domain),
                 TF_VAR_internal_dns_zone_name: $(base_domain_internal)
               }
@@ -259,7 +259,7 @@ stages:
                         base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_app-deploy.yml,
                         displayName: AppDeployment,
                         env_vars: {
-                          dns_pointer: dev-app.$(base_domain),
+                          dns_pointer: dev-ssr-netcore.$(base_domain),
                           tls_domain: $(base_domain),
                           k8s_app_path: /web/stacks,
                           k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
@@ -305,7 +305,7 @@ stages:
               - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
                 parameters:
                   env_vars:
-                    APP_BASE_URL: "https://dev-app.$(base_domain)"
+                    APP_BASE_URL: "https://dev-ssr-netcore.$(base_domain)"
                     MENU_API_URL: "http://dev-netcore-api.nonprod.amidostacks.com/api"
                     APP_BASE_PATH: "/web/stacks"
                     NODE_ENV: production
