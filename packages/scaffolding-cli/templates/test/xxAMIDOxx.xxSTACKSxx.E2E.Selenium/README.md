@@ -145,7 +145,7 @@ This contains classes used to manage the configuration for the tests.
 
 The ConfigAccessor will automatically replace any configuration setting values with the values set in the Environment Variables on the machine running the tests.
 
-E.g. in `appsettings.json` we are using the configuration setting (key-value pair) `"BaseUrl":"http://dev.azure.amidostacks.com/api/menu/"`. If there is an Environment Variable set on the current machine/build agent using `BaseUrl` key, the value in `appsettings.json` will be replaced.
+E.g. in `appsettings.json` we are using the configuration setting (key-value pair) `"BaseUrl":"http://dev.azure.amidostacks.com/api/"`. If there is an Environment Variable set on the current machine/build agent using `BaseUrl` key, the value in `appsettings.json` will be replaced.
 
 ### Remote Browsers: Cross Browser Testing Cloud Services
 
