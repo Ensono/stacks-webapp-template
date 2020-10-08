@@ -15,7 +15,7 @@
         <serenity.version>2.2.0</serenity.version>
         <serenity.cucumber.version>2.2.0</serenity.cucumber.version>
         <serenity.maven.version>2.2.0</serenity.maven.version>
-        <cucumber.version>5.5.0</cucumber.version>
+        <cucumber.version>6.8.1</cucumber.version>
 
         <encoding>UTF-8</encoding>
         <tags></tags>
