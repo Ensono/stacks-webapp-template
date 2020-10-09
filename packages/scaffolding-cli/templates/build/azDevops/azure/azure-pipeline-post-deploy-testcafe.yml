@@ -65,7 +65,7 @@ steps:
     parameters:
       env_vars:
         APP_BASE_URL: $(base_url)
-        MENU_API_URL: 'https://dev-netcore-api.nonprod.amidostacks.com/api'
+        MENU_API_URL: 'https://dev-netcore-api.nonprod.amidostacks.com/api/menu'
         APP_BASE_PATH: $(base_path)
         NODE_ENV: production
       working_directory: $(working_directory)

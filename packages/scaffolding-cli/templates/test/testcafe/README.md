@@ -56,7 +56,7 @@ _⚠️ IMPORTANT: if you have defined an environment variable, then `dotenv` wi
 
 - Base URL: `process.env.APP_BASE_URL` (defaults to deployed dev environment `https://dev-netcore-app.nonprod.amidostacks.com `)
 - Base URL: `process.env.APP_BASE_PATH` (optional, default to deployed dev environment `/web/stacks`)
-- Base URL API: `process.env.MENU_API_URL` (defaults to deployed dev environment `https://dev.amidostacks.com/api`)
+- Base URL API: `process.env.MENU_API_URL` (defaults to deployed dev environment `https://dev.amidostacks.com/api/menu`)
 - NODE_ENV: `process.env.NODE_ENV` (should be `production` for a deployed runnable webapp)
 
 An example of your environment variable configuration for running against a locally hosted server is as follows.
@@ -67,7 +67,7 @@ For Linux/Mac (replacing `export` with `set` for Windows):
 export NODE_ENV=development \
 export PORT=3000 \
 export APP_BASE_URL=http://localhost \
-export MENU_API_URL=https://dev-netcore-api.nonprod.amidostacks.com/api \
+export MENU_API_URL=https://dev-netcore-api.nonprod.amidostacks.com/api/menu \
 export APP_BASE_PATH=""
 ```
 
@@ -77,7 +77,7 @@ Alternately, an example of your environment variable configuration for running a
 export NODE_ENV=production \
 export APP_BASE_URL=https://dev-netcore-app.nonprod.amidostacks.com \
 export APP_BASE_PATH=/web/stacks \
-export MENU_API_URL=https://dev-netcore-api.nonprod.amidostacks.com/api
+export MENU_API_URL=https://dev-netcore-api.nonprod.amidostacks.com/api/menu
 ```
 
 ## Running tests in Docker

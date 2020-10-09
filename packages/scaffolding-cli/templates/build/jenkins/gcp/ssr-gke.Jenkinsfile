@@ -121,7 +121,7 @@ pipeline {
               environment {
                 PORT="3000"
                 APP_BASE_URL="http://localhost"
-                MENU_API_URL="https://dev-netcore-api.nonprod.amidostacks.com/api"
+                MENU_API_URL="https://dev-netcore-api.nonprod.amidostacks.com/api/menu"
                 APP_BASE_PATH=""
               }
               steps {
