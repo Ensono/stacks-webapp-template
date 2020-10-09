@@ -258,7 +258,7 @@ stages:
                     build_command: 'npm run build'
                     build_vars: {
                       NODE_ENV: production,
-                      MENU_API_URL: "https://dev-app.nonprod.amidostacks.com/web/stacks",
+                      MENU_API_URL: "https://dev-netcore-app.nonprod.amidostacks.com/web/stacks",
                       APPINSIGHTS_INSTRUMENTATIONKEY: $(app_insights_instrumentation_key)
                     }
                     build_out: './dist'

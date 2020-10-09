@@ -54,7 +54,7 @@ We can use the [.env](./.env) file to specify defaults instead of exporting loca
 
 _⚠️ IMPORTANT: if you have defined an environment variable, then `dotenv` will not override this with the values in the `.env` file. The environment should always hold the source of truth._
 
-- Base URL: `process.env.APP_BASE_URL` (defaults to deployed dev environment `https://dev-app.nonprod.amidostacks.com `)
+- Base URL: `process.env.APP_BASE_URL` (defaults to deployed dev environment `https://dev-netcore-app.nonprod.amidostacks.com `)
 - Base URL: `process.env.APP_BASE_PATH` (optional, default to deployed dev environment `/web/stacks`)
 - Base URL API: `process.env.MENU_API_URL` (defaults to deployed dev environment `https://dev.amidostacks.com/api/menu`)
 - NODE_ENV: `process.env.NODE_ENV` (should be `production` for a deployed runnable webapp)
@@ -75,7 +75,7 @@ Alternately, an example of your environment variable configuration for running a
 
 ```bash
 export NODE_ENV=production \
-export APP_BASE_URL=https://dev-app.nonprod.amidostacks.com \
+export APP_BASE_URL=https://dev-netcore-app.nonprod.amidostacks.com \
 export APP_BASE_PATH=/web/stacks \
 export MENU_API_URL=https://dev-netcore-api.nonprod.amidostacks.com/api/menu
 ```

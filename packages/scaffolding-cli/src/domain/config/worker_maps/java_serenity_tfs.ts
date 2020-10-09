@@ -29,7 +29,7 @@ export const inFiles = ({
                 // Below replacement doesn't work for some reason, and so using the smaller replacemnt below it...
                 // "  - name: working_directory\n    value: \"$(Agent.BuildDirectory)/s/$(self_repo)/test/xxAMIDOxx.xxSTACKSxx.E2E.Serenity\"": `  - name: working_directory\n    value: ""`,
                 "/test/xxAMIDOxx.xxSTACKSxx.E2E.Serenity": ``,
-                "  - name: base_url\n    value: \"https://dev-app.nonprod.amidostacks.com\"": `  - name: base_url\n    value: "%REPLACE_ME_WITH_WEBAPP_URL%"`,
+                "  - name: base_url\n    value: \"https://dev-netcore-app.nonprod.amidostacks.com\"": `  - name: base_url\n    value: "%REPLACE_ME_WITH_WEBAPP_URL%"`,
                 "  - name: api_base_url\n    value: \"https://dev-java-api.nonprod.amidostacks.com\"": `  - name: api_base_url\n    value: "%REPLACE_ME_WITH_API_URL%"`,
                 "  - name: api_base_path\n    value: \"/api\"": `  - name: api_base_url\n    value: "/api/menu"`,
             }
