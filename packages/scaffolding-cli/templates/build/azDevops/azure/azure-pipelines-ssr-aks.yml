@@ -45,6 +45,7 @@ variables:
   project: stacks
   domain: node
   role: frontend
+  component: $(pipeline_variable_component)
   #
   # SelfConfig
   # If you haven't specified source_repo at cli runtime please ensure you replace it here
@@ -145,7 +146,7 @@ stages:
               cypress_e2e_env_vars:
                 PORT: 3000
                 APP_BASE_URL: "http://localhost"
-                MENU_API_URL: "https://dev-netcore-api.nonprod.amidostacks.com/api/menu"
+                MENU_API_URL: "https://$(pipeline_variable_api).nonprod.amidostacks.com/api/menu"
                 APP_BASE_PATH: ""
                 NODE_ENV: development
                 # avoid warnings about terminal
@@ -189,7 +190,7 @@ stages:
               terraform_state_container: $(tf_state_container)
               terraform_state_key: $(tf_state_key)
               # for branch based builds this can be $(Build.SourceBranchName)
-              terraform_state_workspace: dev
+              terraform_state_workspace: dev-$(component)
               # Global Config
               company: $(company)
               project: $(project)
@@ -210,10 +211,11 @@ stages:
                 TF_VAR_name_company: $(company),
                 TF_VAR_name_project: $(project),
                 TF_VAR_name_domain: $(domain),
+                TF_VAR_name_component: $(component),
                 TF_VAR_create_cosmosdb: false,
                 TF_VAR_create_cache: true,
                 TF_VAR_name_environment: dev,
-                TF_VAR_dns_record: dev-netcore-app,
+                TF_VAR_dns_record: dev-$(component),
                 TF_VAR_dns_zone_name: $(base_domain),
                 TF_VAR_internal_dns_zone_name: $(base_domain_internal)
               }
@@ -243,13 +245,13 @@ stages:
                   parameters: 
                     scripts_dir: $(scripts_dir)
                     shared_env_vars: {
-                      namespace: dev-stacks-webapp,
+                      namespace: dev-$(component),
                       role: $(role),
                       company: $(company),
                       project: $(project),
                       domain: $(domain),
-                      component: web,
-                      resource_def_name: xx-replace-me,
+                      component: $(component),
+                      resource_def_name: $(component),
                       version: $(docker_image_tag),
                       environment: dev
                     }
@@ -259,11 +261,11 @@ stages:
                         base: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/base_app-deploy.yml,
                         displayName: AppDeployment,
                         env_vars: {
-                          dns_pointer: dev-netcore-app.$(base_domain),
+                          dns_pointer: dev-$(component).$(base_domain),
                           tls_domain: $(base_domain),
                           k8s_app_path: /web/stacks,
                           k8s_image: '$(k8s_docker_registry)/$(docker_image_name):$(docker_image_tag)',
-                          api_url: 'https://dev-netcore-api.nonprod.amidostacks.com/api/menu',
+                          api_url: 'https://$(pipeline_variable_api).nonprod.amidostacks.com/api/menu',
                           app_name: webapp-template,
                           aadpodidentitybinding: stacks-webapp-identity,
                           app_insights_key: $(app_insights_instrumentation_key),
@@ -305,8 +307,8 @@ stages:
               - template: azDevOps/azure/templates/v2/steps/test-functional-testcafe.yml@templates
                 parameters:
                   env_vars:
-                    APP_BASE_URL: "https://dev-netcore-app.$(base_domain)"
-                    MENU_API_URL: "http://dev-netcore-api.nonprod.amidostacks.com/api/menu"
+                    APP_BASE_URL: "https://dev-$(component).$(base_domain)"
+                    MENU_API_URL: "http://$(pipeline_variable_api).nonprod.amidostacks.com/api/menu"
                     APP_BASE_PATH: "/web/stacks"
                     NODE_ENV: production
                   working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
@@ -314,4 +316,4 @@ stages:
           - ${{ if eq(variables.lighthouse_audit, true) }}:
               - task: Lighthouse@1
                 inputs:
-                  url: "https://dev-netcore-app.$(base_domain)/web/stacks"
+                  url: "https://dev-$(component).$(base_domain)/web/stacks"
