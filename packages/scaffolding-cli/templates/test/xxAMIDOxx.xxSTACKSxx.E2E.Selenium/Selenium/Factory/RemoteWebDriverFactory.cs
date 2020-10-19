@@ -22,7 +22,7 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
 
       caps.SetCapability("platform", "Windows 10");
       caps.SetCapability("browserName", "Chrome");
-      caps.SetCapability("version", "83.0");
+      caps.SetCapability("version", "84.0");
       caps.SetCapability("console", "true");
 
       /* Note: Selenium >=3.14.0 release mars DesiredCapabilities is as obsolete.
@@ -34,7 +34,7 @@ namespace xxAMIDOxx.xxSTACKSxx.E2E.Selenium.Selenium.Factory
       //caps.AddMetadataSetting("accessKey", accessKey);
       //caps.AddMetadataSetting("platform", "Windows 10");
       //caps.AddMetadataSetting("browserName", "Chrome");
-      //caps.AddMetadataSetting("version", "83.0");
+      //caps.AddMetadataSetting("version", "84.0");
       //caps.AddMetadataSetting("console", true);
 
       return new RemoteWebDriver(uri, caps);

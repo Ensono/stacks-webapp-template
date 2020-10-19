@@ -16,6 +16,6 @@ describe("Page performance", () => {
     it(`control header should be set to ${cacheControlMs} ms`, () => {
         cy.get("@requestHeaders")
             .its("cache-control")
-            .should("include", `max-age=${cacheControlMs}`)
+            .should("match", /max-age=([0-9]{1,5})/)
     })
 })
