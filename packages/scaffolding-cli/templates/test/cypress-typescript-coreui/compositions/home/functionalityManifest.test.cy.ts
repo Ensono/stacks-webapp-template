@@ -8,7 +8,7 @@ describe("Page manifest", () => {
     const name = "Amido Stacks"
 
     beforeEach(() => {
-        cy.request({url: `${Cypress.config().baseUrl}/manifest.json`, failOnStatusCode: true}).as("request")
+        cy.request({url: `${Cypress.config().baseUrl}/static/icons/manifest.json`, failOnStatusCode: true}).as("request")
     })
 
     it("file should exist", () => {
