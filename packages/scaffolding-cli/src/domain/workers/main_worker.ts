@@ -463,7 +463,7 @@ export class MainWorker {
         const selectedFlowResponse: CliResponse = {} as CliResponse
         try {
 
-            const buildInput: Array<BuildReplaceInput> = shared.inFiles({
+            const sharedBuildInput: Array<BuildReplaceInput> = shared.inFiles({
                 projectName: instructions.projectName,
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
@@ -471,6 +471,15 @@ export class MainWorker {
                 scmObj: instructions.sourceControl,
                 networkObj: instructions.networking
             })
+
+            const buildInput: Array<BuildReplaceInput> = infraAks.inFiles({
+                projectName: instructions.projectName,
+                businessObj: instructions.business,
+                cloudObj: instructions.cloud,
+                terraformObj: instructions.terraform,
+                scmObj: instructions.sourceControl,
+                networkObj: instructions.networking
+            }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
 

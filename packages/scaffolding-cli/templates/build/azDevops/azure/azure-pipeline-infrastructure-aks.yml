@@ -56,16 +56,16 @@ variables:
   # **`terraform_state_workspace: `** all states will be saved under this key for this definition
   # avoid running anything past dev that is not on master
   # sample value: sharedservices
-  tf_state_key: core-sharedservices
+  tf_state_key: $(domain)-$(component)
   # Scripts directory used by pipeline steps
   scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - stage - location - compnonent names above
   # IT IS SET per stage as an output to be consumed by deploy stage
   aks_cluster_version: "1.17.7"
+  region: northeurope
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04
-  deployed_base_url: https://stacks-webapp.com/foo
   # Ensure you find this definition in the K8s and Azure steps to prefix with desired subdomain assignment
   base_domain_nonprod: nonprod.amidostacks.com
   base_domain_internal_nonprod: nonprod.amidostacks.internal
@@ -85,7 +85,7 @@ stages:
         ARM_CLIENT_SECRET: $(azure_client_secret)
         ARM_TENANT_ID: $(azure_tenant_id)
       pool:
-        vmImage: ubuntu-18.04
+        vmImage: $(pool_vm_image)
       container: terraform_custom
       steps:
         - checkout: self
@@ -114,20 +114,11 @@ stages:
             terraform_state_container: $(tf_state_container)
             terraform_state_key: $(tf_state_key)
             terraform_state_workspace: nonprod
-            # Global Config
-            company: 'amido'
-            project: 'stacks'
-            environment: ''
-            azure_cli_providers: [
-              { name: MSIPreview, namespace: Microsoft.ContainerService },
-            ]
             # Azure config
             tags: ''
             # Terraform Resource Specific Config
             terraform_extra_properties: {
-              TF_VAR_client_secret: $(azure_client_secret),
-              TF_VAR_tenant_id: $(azure_tenant_id),
-              TF_VAR_resource_group_location: northeurope,
+              TF_VAR_resource_group_location: $(region),
               TF_VAR_name_company: $(company),
               TF_VAR_name_project: $(project),
               TF_VAR_name_component: $(domain),
@@ -137,7 +128,7 @@ stages:
               TF_VAR_is_cluster_private: true,
               TF_VAR_cluster_version: $(aks_cluster_version),
               TF_VAR_stage: nonprod,
-              TF_VAR_key_vault_name: "stacks-core-nonprod",
+              TF_VAR_key_vault_name: "$(project)-$(domain)-nonprod",
               TF_VAR_dns_zone: $(base_domain_nonprod),
               TF_VAR_internal_dns_zone: $(base_domain_internal_nonprod),
             }
@@ -160,7 +151,7 @@ stages:
         ACR_REGISTRY_NAME: $[ dependencies.InfraNonProd.outputs['tfoutputs.ACR_REGISTRY_NAME'] ]
         # if you have extended the infra definition and assigned output variables you can specify them here
       pool:
-        vmImage: ubuntu-18.04
+        vmImage: $(pool_vm_image)
       container: k8s_deploy
       steps:
         - checkout: self
@@ -250,7 +241,7 @@ stages:
         ARM_CLIENT_SECRET: $(prod_azure_client_secret)
         ARM_TENANT_ID: $(prod_azure_tenant_id)
       pool:
-        vmImage: ubuntu-18.04
+        vmImage: $(pool_vm_image)
       container: terraform_custom
       steps:
         - checkout: self
@@ -279,20 +270,11 @@ stages:
             terraform_state_container: $(tf_state_container)
             terraform_state_key: $(tf_state_key)
             terraform_state_workspace: prod
-            # Global Config
-            company: 'amido'
-            project: 'stacks'
-            environment: ''
-            azure_cli_providers: [
-              { name: MSIPreview, namespace: Microsoft.ContainerService },
-            ]
             # Azure config
             tags: ''
             # Terraform Resource Specific Config
             terraform_extra_properties: {
-              TF_VAR_client_secret: $(azure_client_secret),
-              TF_VAR_tenant_id: $(azure_tenant_id),
-              TF_VAR_resource_group_location: northeurope,
+              TF_VAR_resource_group_location: $(region),
               TF_VAR_name_company: $(company),
               TF_VAR_name_project: $(project),
               TF_VAR_name_component: $(domain),
@@ -302,7 +284,7 @@ stages:
               TF_VAR_is_cluster_private: true,
               TF_VAR_cluster_version: $(aks_cluster_version),
               TF_VAR_stage: prod,
-              TF_VAR_key_vault_name: "stacks-core-prod",
+              TF_VAR_key_vault_name: "$(project)-$(domain)-prod",
               TF_VAR_dns_zone: $(base_domain_prod),
               TF_VAR_internal_dns_zone: $(base_domain_internal_prod),
             }
@@ -326,7 +308,7 @@ stages:
         ACR_REGISTRY_NAME: $[ dependencies.InfraProd.outputs['tfoutputs.ACR_REGISTRY_NAME'] ]
         # if you have extended the infra definition and assigned output variables you can specify them here
       pool:
-        vmImage: ubuntu-18.04
+        vmImage: $(pool_vm_image)
       container: k8s_deploy
       steps:
         - checkout: self

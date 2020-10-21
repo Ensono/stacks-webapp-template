@@ -35,6 +35,9 @@ const mockAnswerSsr = {
     terraform: {
         backendStorage: "azureBlob"
     },
+    cloud: {
+        region: "northeurope"
+    }
 } as CliAnswerModel
 
 const mockAnswerSsrGke = {
@@ -55,6 +58,9 @@ const mockAnswerSsrGke = {
     },
     terraform: {
         backendStorage: "azureBlob"
+    },
+    cloud: {
+        region: "northeurope"
     }
 } as CliAnswerModel
 
@@ -76,6 +82,9 @@ const mockAnswerSsrGkeJenkins = {
     },
     terraform: {
         backendStorage: "azureBlob"
+    },
+    cloud: {
+        region: "northeurope"
     }
 } as CliAnswerModel
 
@@ -97,6 +106,9 @@ const mockAnswerCsr = {
     },
     terraform: {
         backendStorage: "azureBlob"
+    },
+    cloud: {
+        region: "northeurope"
     }
 } as CliAnswerModel
 
@@ -119,9 +131,12 @@ const mockAnswerJavaSpringAksTfs = {
     terraform: {
         backendStorage: "azureBlob"
     },
+    cloud: {
+        region: "northeurope"
+    },
     javaspring: {
         namespace: "foo.bar"
-    }
+    },
 } as JavaCliAnswerModel
 
 const mockAnswerJavaSpringAksJenkins = {
