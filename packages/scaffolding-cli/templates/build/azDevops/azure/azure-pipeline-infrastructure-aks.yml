@@ -56,13 +56,13 @@ variables:
   # **`terraform_state_workspace: `** all states will be saved under this key for this definition
   # avoid running anything past dev that is not on master
   # sample value: sharedservices
-  tf_state_key: $(domain)-$(component)
+  tf_state_key: stacks-core
   # Scripts directory used by pipeline steps
   scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - stage - location - compnonent names above
   # IT IS SET per stage as an output to be consumed by deploy stage
-  aks_cluster_version: "1.17.7"
+  aks_cluster_version: "1.17.11"
   region: northeurope
   # DEFAULT IMAGE RUNNER
   pool_vm_image: ubuntu-18.04

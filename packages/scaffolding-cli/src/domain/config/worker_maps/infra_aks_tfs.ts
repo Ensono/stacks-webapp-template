@@ -22,6 +22,7 @@ export const inFiles = ({
                 "domain: core": `domain: ${businessObj?.domain}`,
                 "self_repo_tf_src: deploy/azure/infra/stacks-aks": "self_repo_tf_src: deploy/azure/infra",
                 "region: northeurope": `region: ${cloudObj.region}`,
+                "tf_state_key: stacks-core": "tf_state_key: $(project)-$(domain)",
                 "amidostacks.com": `${networkObj?.baseDomain}`,
                 "TF_VAR_acme_email: \"stacks@amido.com\"": "TF_VAR_acme_email: \"%REPLACE_ME_FOR_ACME_EMAIL_ADDRESS%\""
             }

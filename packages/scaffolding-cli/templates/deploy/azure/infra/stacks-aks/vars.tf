@@ -63,10 +63,6 @@ variable "location_name_map" {
 # AZURE INFORMATION
 ############################################
 
-variable "client_secret" {
-  type = string
-}
-
 variable "resource_group_location" {
   type    = string
   default = "uksouth"
