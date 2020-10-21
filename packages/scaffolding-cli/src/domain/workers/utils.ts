@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-await-in-loop */
-import { copy, move, remove, ensureDir, rename, stat, readdir, Stats, mkdirp } from 'fs-extra'
+import { copy, remove, ensureDir, rename, stat, readdir, Stats, mkdirp } from 'fs-extra'
 import { tmpdir } from 'os'
 import { ReplaceInFileConfig, replaceInFile } from 'replace-in-file'
 import { resolve, join, sep } from 'path'
@@ -12,6 +12,7 @@ import { BaseResponse, TempCopy, ConfigResponse } from '../model/workers'
 import { CliAnswerModel } from '../model/prompt_answer'
 
 const TEMPLATES_DIRECTORY = `../../../templates/`
+let filesToExclude:string[] = [];
 
 export function copyFilter(src: string, dest: string): boolean {
     const templateSrc = (src.replace(join(__dirname, "../../../"), "")).toLowerCase()
@@ -25,6 +26,10 @@ export function copyFilter(src: string, dest: string): boolean {
         return false
     }
         return true
+}
+
+export function excludeFilesFilter(src: string): boolean {
+    return !filesToExclude.some(file => src.includes(file))
 }
 
 export async function renamerRecursion(inPath: string, match: string | RegExp, replaceString: string): Promise<void> {
@@ -166,7 +171,8 @@ export class Utils {
             for (const val of instructionMap) {
                 // need to use copy as move first deletes the directory and tries to insert it
                 // this will not work if you are moving a directory within the same parent
-                await move(resolve(tempDirectory, val.src), resolve(newDirectory, val.dest), { overwrite: true })
+                filesToExclude = val.excludeFiles || [];
+                await copy(resolve(tempDirectory, val.src), resolve(newDirectory, val.dest), { overwrite: true, filter: excludeFilesFilter })
             }
             // DELETE TEMP from this point on as we don't need it anymore
             await remove(tempDirectory)
