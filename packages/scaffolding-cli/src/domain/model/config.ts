@@ -1,6 +1,7 @@
 export interface FolderMap {
     src: string
     dest: string
+    excludeFiles?: string[]
 }
 
 export interface SingleConfigKey {

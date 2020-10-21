@@ -169,7 +169,7 @@
   },
   "javaSpring": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "eb216ed339deb0ff4343c78da21c41ac8288240b",
+    "gitRef": "03ab62ca0f77ef14f681e25b121624a0ffdea912",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -179,7 +179,85 @@
       },
       {
         "src": "src/java_spring/build/azDevops/azure",
-        "dest": "build/azDevops/azure"
+        "dest": "build/azDevops/azure",
+        "excludeFiles": ["azure-pipelines-javaspring-k8s.yml","build-api-tests", "post-build-tasks", "deploy-post-deploy-tests"]
+      },
+      {
+        "src": "src/java_spring/build/azDevops/azure/azure-pipelines-javaspring-k8s.yml",
+        "dest": "build/azDevops/azure/api-pipeline.yml"
+      },
+      {
+        "src": "src/java_spring/build/azDevops/azure/templates/steps/build/build-api-tests-cli.yml",
+        "dest": "build/azDevops/azure/templates/steps/build/build-api-tests.yml"
+      },
+      {
+        "src": "src/java_spring/build/azDevops/azure/templates/steps/build/post-build-tasks-cli.yml",
+        "dest": "build/azDevops/azure/templates/steps/build/post-build-tasks.yml"
+      },
+      {
+        "src": "src/java_spring/build/azDevops/azure/templates/steps/deploy/deploy-post-deploy-tests-serenity.yml",
+        "dest": "build/azDevops/azure/templates/steps/deploy/deploy-post-deploy-tests.yml"
+      },
+      {
+        "src": "src/java_spring/deploy/azure/app/kube",
+        "dest": "deploy/azure/app/kube"
+      },
+      {
+        "src": "src/java_spring/deploy/k8s",
+        "dest": "deploy/k8s"
+      },
+      {
+        "src": "src/java_spring/java",
+        "dest": "java"
+      },
+      {
+        "src": "src/java_spring/.gitattributes",
+        "dest": ".gitattributes"
+      },
+      {
+        "src": "src/java_spring/.gitignore",
+        "dest": ".gitignore"
+      },
+      {
+        "src": "src/java_spring/README.md",
+        "dest": "README.md"
+      },
+      {
+        "src": "src/java_spring/yamllint.conf",
+        "dest": "yamllint.conf"
+      }
+    ]
+  },
+  "javaSpringKarate": {
+    "gitRepo": "https://github.com/amido/stacks-java.git",
+    "gitRef": "03ab62ca0f77ef14f681e25b121624a0ffdea912",
+    "localPath": "src/java_spring",
+    "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
+    "folderMap": [
+      {
+        "src": "src/java_spring/api-tests-karate",
+        "dest": "api-tests"
+      },
+      {
+        "src": "src/java_spring/build/azDevops/azure",
+        "dest": "build/azDevops/azure",
+        "excludeFiles": ["azure-pipelines-javaspring-k8s.yml", "build-api-tests", "post-build-tasks", "deploy-post-deploy-tests"]
+      },
+      {
+        "src": "src/java_spring/build/azDevops/azure/azure-pipelines-javaspring-k8s.yml",
+        "dest": "build/azDevops/azure/api-pipeline.yml"
+      },
+      {
+        "src": "src/java_spring/build/azDevops/azure/templates/steps/build/build-api-tests-cli.yml",
+        "dest": "build/azDevops/azure/templates/steps/build/build-api-tests.yml"
+      },
+      {
+        "src": "src/java_spring/build/azDevops/azure/templates/steps/build/post-build-tasks-cli.yml",
+        "dest": "build/azDevops/azure/templates/steps/build/post-build-tasks.yml"
+      },
+      {
+        "src": "src/java_spring/build/azDevops/azure/templates/steps/deploy/deploy-post-deploy-tests-karate.yml",
+        "dest": "build/azDevops/azure/templates/steps/deploy/deploy-post-deploy-tests.yml"
       },
       {
         "src": "src/java_spring/deploy/azure/app/kube",
@@ -213,7 +291,7 @@
   },
   "javaSpringJenkins": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "eb216ed339deb0ff4343c78da21c41ac8288240b",
+    "gitRef": "03ab62ca0f77ef14f681e25b121624a0ffdea912",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [

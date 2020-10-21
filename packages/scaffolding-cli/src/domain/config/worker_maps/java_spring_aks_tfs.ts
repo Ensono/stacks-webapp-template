@@ -33,7 +33,7 @@ export const inFiles = ({
             }
         },
         {
-            files: ["build/azDevops/azure/azure-pipelines-javaspring-k8s.yml"],
+            files: ["build/azDevops/azure/api-pipeline.yml"],
             values: {
                 // Variable Replacements
                 "company: amido": `company: "${businessObj.company}"`,
@@ -51,6 +51,7 @@ export const inFiles = ({
                 "base_domain_internal_nonprod: nonprod.amidostacks.internal": `base_domain_internal_nonprod: "%REPLACE_ME_WITH_INTERNAL_NONPROD_DOMAIN%"`,
                 "base_domain_prod: prod.amidostacks.com": `base_domain_prod: "${networkObj.baseDomain}"`,
                 "base_domain_internal_prod: prod.amidostacks.internal": `base_domain_internal_prod: "%REPLACE_ME_WITH_INTERNAL_PROD_DOMAIN%"`,
+                "maven_untagged_test_check: true" : `${javaspringObj.testingFramework === "karate" ? "maven_untagged_test_check: false" : "maven_untagged_test_check: true"}`,
                 // Library Variable Replacements
                 "- group: amido-stacks-infra-credentials-nonprod": `- group: "%REPLACE_ME_FOR_NONPROD_INFRA_SPECIFIC_LIBRARY_VARIABLES%"`,
                 "- group: amido-stacks-java-api": `- group: "%REPLACE_ME_FOR_APP/SONAR_VARIABLES%"`,
