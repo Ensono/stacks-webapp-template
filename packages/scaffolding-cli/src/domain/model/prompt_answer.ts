@@ -58,6 +58,7 @@ export interface TerraformSection {
 
 export interface JavaSection {
     namespace: string
+    testingFramework: string
 }
 
 export interface BaseAnswer {
@@ -86,6 +87,7 @@ export interface PromptAnswer extends BaseAnswer {
     terraformBackendStorageContainer?: string
     networkingBaseDomain?: string
     javaTldNamespace?: string
+    javaTestingFramework?: string
 }
 
 export interface CliAnswerModel extends BaseAnswer {

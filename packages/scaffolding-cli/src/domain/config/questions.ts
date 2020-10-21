@@ -43,7 +43,9 @@ export function computedSelection(
         },
         javaspring: {
             namespace: cliOrConfigAnswer.javaTldNamespace ||
-            "com"
+            "com",
+            testingFramework: cliOrConfigAnswer.javaTestingFramework ||
+            "serenity"
         }
     } as CliAnswerModel
 }
@@ -234,7 +236,7 @@ export function platformQuestions(): Array<PromptQuestion> {
 }
 
 export const language: {[key in ProjectTypeEnum]?: Function} = {
-    [ProjectTypeEnum.JAVASPRING]: javaQuestions,
+    [ProjectTypeEnum.JAVASPRING]: () => [...javaQuestions(), ...javaTestingQuestions()],
     [ProjectTypeEnum.TESTJAVASERENTIY]: javaQuestions,
 }
 
@@ -248,6 +250,27 @@ export function javaQuestions(): Array<PromptQuestion> {
             name: "javaTldNamespace",
             message: "Package prefix - will be prepended to companyName.projectName previously supplied, e.g. com or uk.co",
             initial: "com",
+        }
+    ]
+}
+
+export function javaTestingQuestions(): Array<PromptQuestion> {
+    return [
+        {
+            type: "select",
+            name: "javaTestingFramework",
+            message: "Select Testing Framework",
+            choices: [
+                {
+                    title: "Serenity",
+                    value: "serenity",
+                },
+                {
+                    title: "Karate",
+                    value: "karate",
+                },
+            ],
+            initial: 0,
         }
     ]
 }

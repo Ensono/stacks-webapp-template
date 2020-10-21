@@ -35,8 +35,6 @@ jest.mock("simple-git/promise", () => {
 
 const mockCopy = jest.spyOn(fse, "copy")
 
-const mockMove = jest.spyOn(fse, "move")
-
 const mockReplace = jest.spyOn(rif, "replaceInFile")
 
 const mockReaddir = jest.spyOn(fse, "readdir")
@@ -92,7 +90,6 @@ const worker_response = {
 describe("utils class tests", () => {
     beforeEach(() => {
         mockCopy.mockClear()
-        mockMove.mockClear()
         mockReplace.mockClear()
         mockMkdirP.mockClear()
         mockRemove.mockClear()
@@ -120,18 +117,18 @@ describe("utils class tests", () => {
             expect(mockRemove).toHaveBeenCalled()
         })
 
-        it("moveWorker should return success", async () => {
-            const move_ran: BaseResponse = await Utils.constructOutput(
+        it("copyWorker should return success", async () => {
+            const copy_ran: BaseResponse = await Utils.constructOutput(
                 ssr_tfs_aks,
                 new_dir,
                 "/tmp",
             )
-            expect(mockMove).toHaveBeenCalled()
-            expect(mockMove).toHaveBeenCalledTimes(ssr_tfs_aks.length)
-            expect(move_ran).toHaveProperty("message")
-            expect(move_ran).toHaveProperty("ok")
-            expect(move_ran.ok).toBe(true)
-            expect(move_ran.message).toMatch(
+            expect(mockCopy).toHaveBeenCalled()
+            expect(mockCopy).toHaveBeenCalledTimes(ssr_tfs_aks.length)
+            expect(copy_ran).toHaveProperty("message")
+            expect(copy_ran).toHaveProperty("ok")
+            expect(copy_ran.ok).toBe(true)
+            expect(copy_ran.message).toMatch(
                 `${new_dir} populated with relevant files`,
             )
         })
@@ -147,16 +144,16 @@ describe("utils class tests", () => {
             expect(replace_ran.message).toMatch(`replaced all occurences`)
         })
         it("writeOutConfigFile should return success", async () => {
-            const move_ran: BaseResponse = await Utils.writeOutConfigFile(
+            const copy_ran: BaseResponse = await Utils.writeOutConfigFile(
                 "/tmp/foo.json",
                 mock_cli_answer_model,
             )
             expect(mockCopy).toHaveBeenCalled()
             expect(mockCopy).toHaveBeenCalledTimes(1)
-            expect(move_ran).toHaveProperty("message")
-            expect(move_ran).toHaveProperty("ok")
-            expect(move_ran.ok).toBe(true)
-            expect(move_ran.message).toMatch(
+            expect(copy_ran).toHaveProperty("message")
+            expect(copy_ran).toHaveProperty("ok")
+            expect(copy_ran.ok).toBe(true)
+            expect(copy_ran.message).toMatch(
                 `Sample config placed in current directory`,
             )
         })
@@ -225,7 +222,6 @@ describe("utils class tests", () => {
     describe("Negative assertions", () => {
         beforeEach(() => {
             mockCopy.mockClear()
-            mockMove.mockClear()
             mockReplace.mockClear()
         })
         it("copyWorker should return a code of ENOENT when error occurs", async () => {
@@ -285,8 +281,8 @@ describe("utils class tests", () => {
                 expect(ex.ok).toBe(false)
             }
         })
-        it("moveWorker should return a code of ENOENT when error occurs", async () => {
-            mockMove.mockImplementationOnce(() => {
+        it("copyWorker should return a code of ENOENT when error occurs", async () => {
+            mockCopy.mockImplementationOnce(() => {
                 throw {
                     code: "ENOENT",
                     message: new Error("Something weird happened"),
@@ -295,7 +291,7 @@ describe("utils class tests", () => {
             try {
                 await Utils.constructOutput(ssr_tfs_aks, new_dir, "/tmp")
             } catch (ex) {
-                expect(mockMove).toHaveBeenCalled()
+                expect(mockCopy).toHaveBeenCalled()
                 expect(ex).toHaveProperty("code")
                 expect(ex.code).toBe("ENOENT")
                 expect(ex).toHaveProperty("error")

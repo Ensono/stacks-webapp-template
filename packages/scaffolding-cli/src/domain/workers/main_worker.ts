@@ -133,13 +133,15 @@ export class MainWorker {
                 javaspringObj: instructions[ProjectTypeEnum.JAVASPRING]
             }).concat(sharedBuildInput)
 
+            const configName = instructions.javaspring.testingFramework === "karate" ? "javaSpringKarate" : "javaSpring"
+
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
             // git clone node_repo custom app src
             // srcPathInTmp should be statically defined in each method
-            await Utils.doGitClone(staticConf.javaSpring.gitRepo, newDirectory.tempPath, staticConf.javaSpring.localPath, staticConf.javaSpring.gitRef)
+            await Utils.doGitClone(staticConf[configName].gitRepo, newDirectory.tempPath, staticConf[configName].localPath, staticConf[configName].gitRef)
 
             await Utils.constructOutput(
-                staticConf.javaSpring.folderMap,
+                staticConf[configName].folderMap,
                 newDirectory.finalPath,
                 newDirectory.tempPath,
             )
@@ -153,7 +155,7 @@ export class MainWorker {
 
             const replaceString = `${instructions[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
             await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`, `${newDirectory.finalPath}/api-tests/src/test/java`],
-                (staticConf.javaSpring.searchValue as string).replace(/\./gm, "/"),
+                (staticConf[configName].searchValue as string).replace(/\./gm, "/"),
                 replaceString, true)
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0

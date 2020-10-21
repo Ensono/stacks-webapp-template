@@ -1,5 +1,5 @@
 import { PromptQuestion } from '../../../domain/model/prompt_question'
-import { cliQuestions, advancedQuestions, computedSelection } from '../../../domain/config/questions'
+import { cliQuestions, advancedQuestions, javaQuestions, javaTestingQuestions, computedSelection } from '../../../domain/config/questions'
 import { CliAnswerModel, PromptAnswer } from '../../../domain/model/prompt_answer'
 
 const mockAnswers = {
@@ -22,6 +22,14 @@ describe("file_mapper tests", () => {
     it("cliAdvancedQuestions should return an array of objects", () => {
         const test: Array<PromptQuestion> = advancedQuestions()
         expect(test.length).toBe(3)
+    })
+    it("javaQuestions should return an array of objects", () => {
+        const test: Array<PromptQuestion> = javaQuestions()
+        expect(test.length).toBe(1)
+    })
+    it("javaTestingQuestions should return an array of objects", () => {
+        const test: Array<PromptQuestion> = javaQuestions()
+        expect(test.length).toBe(1)
     })
     it("computedSelection should return an array of objects and undefined item should return %REPLACE_ME%", () => {
         const test: CliAnswerModel = computedSelection(mockAnswers)
