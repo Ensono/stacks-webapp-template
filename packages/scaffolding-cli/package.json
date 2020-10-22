@@ -1,6 +1,6 @@
 {
   "name": "@amidostacks/scaffolding-cli",
-  "version": "1.53.0",
+  "version": "1.54.0",
   "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
   "bin": {
     "scaffolding-cli": "./dist/index.js",
@@ -33,7 +33,7 @@
     "yargs": "^15.3.1"
   },
   "devDependencies": {
-    "@amidostacks/eslint-config": "^0.51.0",
+    "@amidostacks/eslint-config": "^0.52.0",
     "@types/concat-stream": "^1.6.0",
     "@types/fs-extra": "^9.0.1",
     "@types/jest": "^25.2.3",
