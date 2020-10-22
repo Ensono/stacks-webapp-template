@@ -56,7 +56,7 @@ variables:
   # **`terraform_state_workspace: `** all states will be saved under this key for this definition
   # avoid running anything past dev that is not on master
   # sample value: sharedservices
-  tf_state_key: stacks-core
+  tf_state_key: core-sharedservices
   # Scripts directory used by pipeline steps
   scripts_dir: $(Agent.BuildDirectory)/s/stacks-pipeline-templates/azDevOps/azure/templates/v2/scripts
   # AKS/AZURE
