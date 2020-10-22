@@ -19,12 +19,12 @@ export const inFiles = ({
         {
             files: ["**/infra-pipeline.yml"],
             values: {
-                "domain: node": `domain: ${businessObj?.domain}`,
-                "component: webapp": `domain: ${businessObj?.component}`,
+                "domain: core": `domain: ${businessObj?.domain}`,
                 "self_repo_tf_src: deploy/azure/infra/stacks-aks": "self_repo_tf_src: deploy/azure/infra",
-                "terraform_state_workspace: nonprod": "terraform_state_workspace: %REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE%",
-                "amido-stacks-nonprod-uks-node": "REPLACE_ME_FOR_CLOUD_RESOURCE_NAME",
-                "nonprod.amidostacks.com": `${networkObj?.baseDomain}`,
+                "region: northeurope": `region: ${cloudObj.region}`,
+                "tf_state_key: stacks-core": "tf_state_key: $(project)-$(domain)",
+                "amidostacks.com": `${networkObj?.baseDomain}`,
+                "TF_VAR_acme_email: \"stacks@amido.com\"": "TF_VAR_acme_email: \"%REPLACE_ME_FOR_ACME_EMAIL_ADDRESS%\""
             }
         }
     ]

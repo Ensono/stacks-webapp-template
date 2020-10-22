@@ -49,7 +49,7 @@ module "aks_bootstrap" {
   create_user_identiy     = var.create_user_identiy
   enable_auto_scaling     = true
   log_application_type    = "Node.JS"
-  key_vault_name          = var.key_vault_name
+  key_vault_name          = substr(var.key_vault_name, 0, 24)
 }
 
 module "ssl_app_gateway" {

@@ -7,7 +7,7 @@ export function computedSelection(
     return {
         projectName: cliOrConfigAnswer.projectName,
         projectType: cliOrConfigAnswer.projectType,
-        deployment: cliOrConfigAnswer.deployment,
+        deployment: cliOrConfigAnswer.deployment || "azdevops",
         platform: cliOrConfigAnswer.platform || "any",
         enableAdvanced: cliOrConfigAnswer.enableAdvanced || false,
         business: {
@@ -15,31 +15,31 @@ export function computedSelection(
             project: cliOrConfigAnswer.projectName,
             domain: cliOrConfigAnswer.businessDomain,
             component:
-                cliOrConfigAnswer.businessComponent || "COMPONENT_REPLACE_ME",
+                cliOrConfigAnswer.businessComponent || "%REPLACE_ME_FOR_COMPONENT%",
         },
         cloud: {
-            region: cliOrConfigAnswer.cloudRegion || "REGION_REPLACE_ME",
+            region: cliOrConfigAnswer.cloudRegion || "%REPLACE_ME_FOR_REGION%",
         },
         terraform: {
             backendStorage:
                 cliOrConfigAnswer.terraformBackendStorage ||
-                "BACKEND_STORAGE_REPLACE_ME",
+                "%REPLACE_ME_FOR_BACKEND_STORAGE_ACCOUNT%",
             backendStorageRg:
                 cliOrConfigAnswer.terraformBackendStorageRg ||
-                "BACKEND_STORAGE_RG_REPLACE_ME",
+                "%REPLACE_ME_FOR_BACKEND_STORAGE_RG%",
             backendStorageContainer:
                 cliOrConfigAnswer.terraformBackendStorageContainer ||
-                "BACKEND_STORAGE_CONTAINER_REPLACE_ME",
+                "%REPLACE_ME_FOR_BACKEND_STORAGE_CONTAINER%",
         },
         sourceControl: {
             repoName:
                 cliOrConfigAnswer.sourceControlRepoName ||
-                "REPO_NAME_REPLACE_ME",
+                "%REPLACE_ME_FOR_REPO_NAME%",
         },
         networking: {
             baseDomain:
                 cliOrConfigAnswer.networkingBaseDomain ||
-                "BASE_DOMAIN_NAME_REPLACE_ME",
+                "%REPLACE_ME_FOR_BASE_DOMAIN_NAME%",
         },
         javaspring: {
             namespace: cliOrConfigAnswer.javaTldNamespace ||
@@ -73,25 +73,25 @@ export const sharedPostQs = (): Array<PromptQuestion> => {
             message: "Please provide scope (domain)",
             description: "Used for scope with framework naming conventions.",
             initial: "menu-api",
-        },
-        {
-            type: "select",
-            name: "deployment",
-            message: "Select Pipeline Tool",
-            choices: [
-                {
-                    title: "AzureDevOps",
-                    description: "Azure Devops/VSTS/TFS",
-                    value: "azdevops",
-                },
-                {
-                    title: "Jenkins",
-                    description: "Jenkins CI/CD",
-                    value: "jenkins",
-                },
-            ],
-            initial: 0,
         }
+        // {
+        //     type: "select",
+        //     name: "deployment",
+        //     message: "Select Pipeline Tool",
+        //     choices: [
+        //         {
+        //             title: "AzureDevOps",
+        //             description: "Azure Devops/VSTS/TFS",
+        //             value: "azdevops",
+        //         },
+        //         {
+        //             title: "Jenkins",
+        //             description: "Jenkins CI/CD",
+        //             value: "jenkins",
+        //         },
+        //     ],
+        //     initial: 0,
+        // }
     ]
 }
 
@@ -133,14 +133,14 @@ export function cliQuestions(
             {
                 title: "Cloud platform shared services",
                 description:
-                    "terraform, azure, gcp, gke, aks, azure devops (tfs), jenkins",
+                    "terraform, azure, gcp, gke, aks, azure devops (tfs)",
                 value: "infra",
             },
         ],
         initial: 0,
     }
 
-    const questions: Array<PromptQuestion> = Array<PromptQuestion>().concat(sharedInitialQs(defaultProjectName), [custom], sharedPostQs(), platformQuestions())
+    const questions: Array<PromptQuestion> = Array<PromptQuestion>().concat(platformQuestions(), [custom], sharedInitialQs(defaultProjectName), sharedPostQs(), enableAdvancedQuestions())
     return questions
 }
 
@@ -174,8 +174,19 @@ export function cliTestQuestions(
         ],
         initial: 0,
     }
-    const questions: Array<PromptQuestion> = Array<PromptQuestion>().concat(sharedInitialQs(defaultProjectName), [custom], sharedPostQs())
+    const questions: Array<PromptQuestion> = Array<PromptQuestion>().concat([custom], sharedInitialQs(defaultProjectName), sharedPostQs())
     return questions
+}
+
+export function enableAdvancedQuestions(): Array<PromptQuestion> {
+    return [
+        {
+            type: "confirm",
+            name: "enableAdvanced",
+            message: "Continue to additional project configuration?",
+            initial: true,
+        },
+    ]
 }
 
 export function advancedQuestions(): Array<PromptQuestion> {
@@ -191,29 +202,6 @@ export function advancedQuestions(): Array<PromptQuestion> {
             name: "cloudRegion",
             message: "Please provide platform service region",
             initial: "northeurope",
-        },
-        {
-            type: "select",
-            name: "terraformBackendStorage",
-            message: "Select Terraform remote state storage service?",
-            choices: [
-                {
-                    title: "Azure",
-                    description: "Azure Blob",
-                    value: "azureBlob",
-                },
-                {
-                    title: "AWS S3",
-                    description: "S3 bucket",
-                    value: "awsS3",
-                },
-                {
-                    title: "GCS",
-                    description: "GCP Storage bucket",
-                    value: "gcpGcs",
-                },
-            ],
-            initial: 0,
         },
         {
             type: "text",
@@ -232,23 +220,17 @@ export function platformQuestions(): Array<PromptQuestion> {
             message: "Select Target Cloud Platform",
             choices: [
                 {
-                    title: "AKS",
-                    description: "Azure Kubernetes",
+                    title: "Azure",
+                    description: "Azure Kubernetes Service (AKS)",
                     value: "aks",
                 },
                 {
-                    title: "GKE",
-                    description: "Google Kubernetes Engine",
+                    title: "Google Cloud Platform",
+                    description: "Google Kubernetes Engine (GKE)",
                     value: "gke",
                 },
             ],
             initial: 0,
-        },
-        {
-            type: "confirm",
-            name: "enableAdvanced",
-            message: "Continue to additional project configuration?",
-            initial: true,
         },
     ]
 }

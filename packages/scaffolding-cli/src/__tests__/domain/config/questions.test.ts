@@ -17,11 +17,11 @@ const mockAnswers = {
 describe("file_mapper tests", () => {
     it("cliQuestions should return an array of objects", () => {
         const test: Array<PromptQuestion> = cliQuestions(mockAnswers.projectName)
-        expect(test.length).toBe(7)
+        expect(test.length).toBe(6)
     })
     it("cliAdvancedQuestions should return an array of objects", () => {
         const test: Array<PromptQuestion> = advancedQuestions()
-        expect(test.length).toBe(4)
+        expect(test.length).toBe(3)
     })
     it("javaQuestions should return an array of objects", () => {
         const test: Array<PromptQuestion> = javaQuestions()
