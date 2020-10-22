@@ -22,7 +22,7 @@ steps:
     displayName: 'Build: Install Dev Dependencies'
     inputs:
       # Options: install, publish, custom
-      command: 'install'
+      command: 'ci'
       workingDir: ${{ parameters.workingDirectory }}
       verbose: true
       customRegistry: ${{ parameters.customRegistry }}
