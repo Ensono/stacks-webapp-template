@@ -56,6 +56,7 @@ export async function renameJavastyle(inPath: string, match: string | RegExp, re
         await remove(inPath)
         await mkdirp(newPath)
         await copy(tmpPath, newPath)
+        await remove(tmpPath)
     } catch (ex) {
         logger.warn(ex.message)
     }

@@ -25,6 +25,7 @@ export const BackendStorageTypeEnum = {
 
 export enum ProjectTypeEnum {
     JAVASPRING = 'javaspring',
+    JAVASPRINGCQRS = 'javaspringcqrs',
     NETCORE = 'netcore',
     SSR = 'ssr',
     CSR = 'csr',
