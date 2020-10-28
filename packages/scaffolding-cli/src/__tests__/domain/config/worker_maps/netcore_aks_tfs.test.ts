@@ -71,7 +71,7 @@ const files: Array<BuildReplaceInput> = [
 describe("netcore mapper tests", () => {
     it("netcore config should return an array of folders to map", () => {
         const test: Array<FolderMap> = staticConf.netcore.folderMap
-        expect(test.length).toBe(9)
+        expect(test.length).toBe(8)
     })
     it("in_files return an array of objects and cloud should be default", () => {
         const test: Array<BuildReplaceInput> = netcore.inFiles({ projectName, businessObj: biz, terraformObj: tfObj, scmObj: sourceObj, cloudObj: cloud, networkObj: network})

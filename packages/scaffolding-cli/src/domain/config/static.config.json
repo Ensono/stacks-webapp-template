@@ -127,10 +127,6 @@
         "dest": "deploy/k8s/app/base_api-deploy.yml"
       },
       {
-        "src": "test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium",
-        "dest": "test"
-      },
-      {
         "src": "docs",
         "dest": "docs"
       },
