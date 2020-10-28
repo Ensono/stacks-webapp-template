@@ -131,6 +131,11 @@ export function cliQuestions(
                 value: "javaspring",
             },
             {
+                title: "API with Java and CQRS",
+                description: "api, java, springboot",
+                value: "javaspringcqrs",
+            },
+            {
                 title: "Cloud platform shared services",
                 description:
                     "terraform, azure, gcp, gke, aks, azure devops (tfs)",
@@ -237,6 +242,7 @@ export function platformQuestions(): Array<PromptQuestion> {
 
 export const language: {[key in ProjectTypeEnum]?: Function} = {
     [ProjectTypeEnum.JAVASPRING]: () => [...javaQuestions(), ...javaTestingQuestions()],
+    [ProjectTypeEnum.JAVASPRINGCQRS]: () => [...javaQuestions(), ...javaTestingQuestions()],
     [ProjectTypeEnum.TESTJAVASERENTIY]: javaQuestions,
 }
 

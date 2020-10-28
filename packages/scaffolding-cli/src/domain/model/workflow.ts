@@ -14,6 +14,7 @@ export const WorkflowOptions = (): Workflow => {
         netcoreaksjenkins: () => { return { code: 0, message: "Not Yet Implemented.\n\nThough this may not ever happen... 😞" } },
         netcoregkejenkins: () => { return { code: 0, message: "Not Yet Implemented.\n\nThough this may not ever happen... 😞" } },
         javaspringaksazdevops: flowSelector.optionJavaSpringAksAzuredevops,
+        javaspringcqrsaksazdevops: flowSelector.optionJavaSpringAksAzuredevops,
         javaspringgkeazdevops: () => { return { code: 0, message: "Not Yet Implemented.\nWatch this space!" } },
         javaspringaksjenkins: flowSelector.optionJavaSpringAksJenkins,
         javaspringgkejenkins: () => { return { code: 0, message: "Not Yet Implemented.\nWatch this space!" } },
