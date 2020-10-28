@@ -133,7 +133,23 @@ export class MainWorker {
                 javaspringObj: instructions[ProjectTypeEnum.JAVASPRING]
             }).concat(sharedBuildInput)
 
-            const configName = instructions.javaspring.testingFramework === "karate" ? "javaSpringKarate" : "javaSpring"
+            let configName;
+            switch (`${instructions.projectType}-${instructions.javaspring.testingFramework}`) {
+                case "javaspring-serenity":
+                    configName = "javaSpring";
+                    break;
+                case "javaspring-karate":
+                    configName = "javaSpringKarate";
+                    break;
+                case "javaspringcqrs-serenity":
+                    configName = "javaSpringCqrs";
+                    break;
+                case "javaspringcqrs-karate":
+                    configName = "javaSpringCqrsKarate";
+                    break;
+                default:
+                    configName = "javaSpring";
+            }
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
             // git clone node_repo custom app src
