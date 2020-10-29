@@ -181,6 +181,9 @@ const mockAnswerNetcore = {
     },
     terraform: {
         backendStorage: "azureBlob"
+    },
+    cloud: {
+        region: "northeurope"
     }
 } as CliAnswerModel
 
