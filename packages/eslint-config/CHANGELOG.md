@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.56.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.19.0...@amidostacks/eslint-config@0.56.0) (2020-10-29)
+
+
+### Bug Fixes
+
+* adds `acme_email` param to prod deploy. ([606f21e](https://github.com/amido/stacks-webapp-template/commit/606f21e53569912a50c1ae6e3421376b2ed18850))
+* bump version ([3373e21](https://github.com/amido/stacks-webapp-template/commit/3373e21331dc44d8c9c0ba20055805d51a291951))
+* bump version ([51c8b00](https://github.com/amido/stacks-webapp-template/commit/51c8b002d9374ace623d76141c0a8e0d97d63f43))
+* bump version, updates `.gitignore` ([60d9bfa](https://github.com/amido/stacks-webapp-template/commit/60d9bfa803a6ffc9d6061ab9df76c45549c8074d))
+* eslint peer deps list ([#108](https://github.com/amido/stacks-webapp-template/issues/108)) ([165f57f](https://github.com/amido/stacks-webapp-template/commit/165f57f97b77657c3099a4ddd53211eac34e7060))
+* Fixes the version number checker ([e74e03a](https://github.com/amido/stacks-webapp-template/commit/e74e03a75c3fc9908fa8c4bc10dd652a0f9decf5))
+* lerna publishing  ([#104](https://github.com/amido/stacks-webapp-template/issues/104)) ([62ab904](https://github.com/amido/stacks-webapp-template/commit/62ab90463fab445c01d6579f6ee9893bba33aa12))
+* publishing with lerna ([#109](https://github.com/amido/stacks-webapp-template/issues/109)) ([b266275](https://github.com/amido/stacks-webapp-template/commit/b2662750098ee6084e3308584c5ad654ba65c6d0))
+* reduce package size ([259e745](https://github.com/amido/stacks-webapp-template/commit/259e74554e3e72ffb8e61f72accebd5e8e69c687))
+* uncomments gates again now build passes ([ce72f31](https://github.com/amido/stacks-webapp-template/commit/ce72f316d4f8bdb2dc7adbba9571bc97f682aff5))
+* version ([1f3f1ee](https://github.com/amido/stacks-webapp-template/commit/1f3f1ee661f29bdd2d16a11b7e5c1127f6cdf9b7))
+
+
+### Features
+
+* Adds a cli version check ([1ca9b9d](https://github.com/amido/stacks-webapp-template/commit/1ca9b9d20735b732f492b079797672c3646bfe80))
+* bump version ([dc7cd19](https://github.com/amido/stacks-webapp-template/commit/dc7cd19daf45c5b6d16864e3d0dd381ef195b6c8))
+* bump version ([d9fb33f](https://github.com/amido/stacks-webapp-template/commit/d9fb33f4c0512d2d72d05c96154949c20e5f6fd7))
+* pact-config package ([#148](https://github.com/amido/stacks-webapp-template/issues/148)) ([4343f21](https://github.com/amido/stacks-webapp-template/commit/4343f21850a55ddb6966f4a6d093c80562b950eb))
+* Search ([#119](https://github.com/amido/stacks-webapp-template/issues/119)) ([d4dbf04](https://github.com/amido/stacks-webapp-template/commit/d4dbf04cd4cbdd761de962f0c8388f02b6489497))
+
+
+
+
+
 # [0.55.0](https://github.com/amido/stacks-webapp-template/compare/@amidostacks/eslint-config@0.19.0...@amidostacks/eslint-config@0.55.0) (2020-10-29)
 
 
