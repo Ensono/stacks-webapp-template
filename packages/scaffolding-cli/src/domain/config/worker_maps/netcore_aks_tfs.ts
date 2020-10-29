@@ -39,19 +39,29 @@ export const inFiles = ({
         {
             files: ["**/api-pipeline.yml"],
             values: {
-                "self_repo_tf_src: deploy/azure/app/kube":
-                    "self_repo_tf_src: deploy/azure/app",
-                "amidostacksnonprodeuncore": "%REPLACE_ME_FOR_CONTAINER_REGISTRY_NAME",
-                "amido-stacks-nonprod-eun-core": "%REPLACE_ME_FOR_VALID_RESOURCE_NAME%",
-                "yumido-netcore-api": "REPLACE_ME_FOR_YOUR_VALUE",
                 "company: amido": `company: ${businessObj.company}`,
                 "project: stacks": `project: ${businessObj.project}`,
-                "domain: api": `domain: ${businessObj.domain}`,
-                "tf_state_key: netcore-api": "tf_state_key: %REPLACE_ME_FOR_TF_STATE_KEY%",
+                "domain: netcore-api": `domain: ${businessObj.domain}`,
+                "self_repo: stacks-dotnet": `self_repo: "${scmObj.repoName}"`,
+                "self_repo_tf_src: deploy/azure/app/kube":
+                    "self_repo_tf_src: deploy/azure/app",
+                "self_generic_name: stacks-api": "self_generic_name: $(project)-$(domain)",                
+                "northeurope": cloudObj.region,
+                "amidostacksnonprodeuncore": "%REPLACE_ME_FOR_CONTAINER_REGISTRY_NAME%",
+                "TF_VAR_app_insights_name: \"amido-stacks-nonprod-eun-core\"": "TF_VAR_app_insights_name: %REPLACE_ME_FOR_APP_INSIGHTS_NAME%",
+                "TF_VAR_app_gateway_frontend_ip_name: \"amido-stacks-nonprod-eun-core\"": "TF_VAR_app_gateway_frontend_ip_name: %REPLACE_ME_FOR_APP_GATEWAY_IP_NAME%",
+                "kubernetes_clustername: amido-stacks-nonprod-eun-core": "kubernetes_clustername: %REPLACE_ME_FOR_AKS_CLUSTER_NAME%",
+                "amido-stacks-nonprod-eun-core": "%REPLACE_ME_FOR_CORE_RESOURCE_GROUP%",
+                "TF_VAR_dns_record: dev-netcore-api": "TF_VAR_dns_record: dev-$(domain)",
+                "namespace: dev-netcore-api": "namespace: dev-$(domain)",
+                "app_name: yumido-netcore-api": "app_name: $(domain)",
+                "resource_def_name: yumido-netcore-api": "resource_def_name: $(project)-$(domain)",
+                "dns_pointer: dev-netcore-api": "dns_pointer: dev-$(domain)",
+                "tf_state_key: netcore-api": `tf_state_key: "${businessObj.project}-${businessObj.domain}"`,
                 "amido-stacks-demo-infra":
-                    "REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES",
+                    "%REPLACE_ME_FOR_INFRA_SPECIFIC_LIBRARY_VARIABLES%",
                 "amido-stacks-webapp":
-                    "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
+                    "%REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES%",
                 "nonprod.amidostacks.com": `${networkObj.baseDomain}`,
             }
         }
