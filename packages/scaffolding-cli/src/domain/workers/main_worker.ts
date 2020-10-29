@@ -92,7 +92,7 @@ export class MainWorker {
 
             await Utils.valueReplace(valMaps)
             const replaceString = `${startCase(toLower(instructions.business.company)).replace(/\s/gm, "")}.${startCase(toLower(instructions.business.project)).replace(/\s/gm, "")}`
-            await Utils.fileNameReplace([`${newDirectory.finalPath}/src`, `${newDirectory.finalPath}/test`], staticConf.netcore.searchValue as string, replaceString)
+            await Utils.fileNameReplace([`${newDirectory.finalPath}/src`], staticConf.netcore.searchValue as string, replaceString)
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
