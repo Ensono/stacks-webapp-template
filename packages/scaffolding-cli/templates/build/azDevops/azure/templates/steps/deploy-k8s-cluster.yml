@@ -18,7 +18,7 @@ parameters:
   domain_filter: ""
 
 steps:
-  - template: ./login-services.yml
+  - template: azDevOps/azure/templates/v2/steps/login-services.yml@templates
     parameters:
       # Azure
       login_azure: true
