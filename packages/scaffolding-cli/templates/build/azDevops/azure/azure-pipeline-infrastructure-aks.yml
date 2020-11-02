@@ -207,9 +207,13 @@ stages:
               }
             ]
 
-        - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
+        - template: ./templates/steps/deploy-k8s-cluster.yml
           parameters:
             scripts_dir: $(scripts_dir)
+            azure_tenant_id: $(azure_tenant_id)
+            azure_subscription_id: $(azure_subscription_id)
+            azure_client_id: $(azure_client_id)
+            azure_client_secret: $(azure_client_secret)
             aks_cluster_name: $(AKS_CLUSTER_NAME)
             aks_resource_group_name: $(AKS_RESOURCE_GROUP)
             aks_dns_resource_group_name: $(AKS_RESOURCE_GROUP)
@@ -364,9 +368,13 @@ stages:
               }
             ]
 
-        - template: azDevOps/azure/templates/v2/steps/deploy-k8s-cluster.yml@templates
+        - template: ./templates/steps/deploy-k8s-cluster.yml
           parameters:
             scripts_dir: $(scripts_dir)
+            azure_tenant_id: $(prod_azure_tenant_id)
+            azure_subscription_id: $(prod_azure_subscription_id)
+            azure_client_id: $(prod_azure_client_id)
+            azure_client_secret: $(prod_azure_client_secret)
             aks_cluster_name: $(AKS_CLUSTER_NAME)
             aks_resource_group_name: $(AKS_RESOURCE_GROUP)
             aks_dns_resource_group_name: $(AKS_RESOURCE_GROUP)
