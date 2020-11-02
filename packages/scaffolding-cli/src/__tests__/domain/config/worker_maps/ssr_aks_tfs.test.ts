@@ -56,7 +56,9 @@ const files: Array<BuildReplaceInput> = [
             "docker_container_registry_name: amidostacksnonprodeuncore": "docker_container_registry_name: %REPLACE_ME_FOR_CONTAINER_REGISTRY%",
             "amido-stacks-nonprod-eun-core": "%REPLACE_ME_FOR_CLOUD_RESOURCE_NAME%",
             "dev-\\$\\(component\\)": "dev-webapp",
-            "\\$\\(pipeline_variable_api\\)": "api"
+            "\\$\\(pipeline_variable_api\\)": "api",
+            "region: northeurope": `region: ${cloud.region}`,
+            "https://dev-api.nonprod.cli-testing.nonprod.amidostacks.com/api/menu": "%REPLACE_ME_FOR_API_URL%"
         }
     }
 ]

@@ -76,6 +76,7 @@ variables:
   docker_container_registry_name: amidostacksnonprodeuncore
   k8s_docker_registry: $(docker_container_registry_name).azurecr.io
   # AKS/AZURE
+  region: northeurope
   base_domain: nonprod.amidostacks.com
   base_domain_internal: nonprod.amidostacks.internal
   # Dynamic vars for downstream purposes
@@ -99,7 +100,7 @@ stages:
     jobs:
       - job: WebAppBuild
         pool:
-          vmImage: ubuntu-18.04
+          vmImage: $(pool_vm_image)
         steps:
           - checkout: self
           - checkout: templates
@@ -161,7 +162,7 @@ stages:
     jobs:
       - job: AppInfraDev
         pool:
-          vmImage: ubuntu-18.04
+          vmImage: $(pool_vm_image)
         container: terraform_custom
         steps:
           - checkout: self
@@ -202,7 +203,7 @@ stages:
               tags: ''
               # Terraform Resource Specific Config
               terraform_extra_properties: {
-                TF_VAR_resource_group_location: northeurope,
+                TF_VAR_resource_group_location: $(region),
                 TF_VAR_create_cdn_endpoint: false,
                 TF_VAR_create_dns_record: true,
                 TF_VAR_app_gateway_frontend_ip_name: "amido-stacks-nonprod-eun-core",
@@ -232,7 +233,7 @@ stages:
           redis_key: $[ dependencies.AppInfraDev.outputs['tfoutputs.redis_cache_key'] ]
           app_insights_instrumentation_key: $[ dependencies.AppInfraDev.outputs['tfoutputs.app_insights_instrumentation_key'] ]
         pool:
-          vmImage: ubuntu-18.04
+          vmImage: $(pool_vm_image)
         environment: dev
         strategy:
           runOnce:
@@ -308,7 +309,7 @@ stages:
                 parameters:
                   env_vars:
                     APP_BASE_URL: "https://dev-$(component).$(base_domain)"
-                    MENU_API_URL: "http://dev-$(pipeline_variable_api).nonprod.amidostacks.com/api/menu"
+                    MENU_API_URL: "https://dev-$(pipeline_variable_api).nonprod.amidostacks.com/api/menu"
                     APP_BASE_PATH: "/web/stacks"
                     NODE_ENV: production
                   working_directory: $(Agent.BuildDirectory)/s/$(self_repo)/test/testcafe
