@@ -46,16 +46,19 @@ const files: Array<BuildReplaceInput> = [
             "domain: node": `domain: ${biz?.domain}`,
             "component: \\$\\(pipeline_variable_component\\)": `component: webapp`,
             "src/ssr": "src",
+            "self_generic_name: stacks-api": "self_generic_name: $(project)-$(domain)",
             "nonprod.amidostacks.com": `${network.baseDomain}`,
             "docker_image_name: \\$\\(component\\)": "docker_image_name: $(self_generic_name)",
-            "amido-stacks-webapp": "REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES",
-            "tf_state_key: stacks-webapp": `tf_state_key: %REPLACE_ME_FOR_STATE_KEY_FOR_MY_APP%`,
+            "amido-stacks-webapp": "%REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES%",
+            "tf_state_key: stacks-webapp": `tf_state_key: "${biz.project}-${biz.domain}"`,
             "deploy/azure/app/kube": "deploy/azure/app",
-            "terraform_state_workspace: dev-\\$\\(component\\)": "terraform_state_workspace: %REPLACE_ME_FOR_WORKSPACE_NAME_IN_EACH_STAGE%",
-            "docker_container_registry_name: amidostacksnonprodeuncore": "docker_container_registry_name: REPLACE_ME_FOR_CONTAINER_REGISTRY",
-            "amido-stacks-nonprod-eun-core": "REPLACE_ME_FOR_CLOUD_RESOURCE_NAME",
+            "terraform_state_workspace: dev-\\$\\(component\\)": "terraform_state_workspace: dev",
+            "docker_container_registry_name: amidostacksnonprodeuncore": "docker_container_registry_name: %REPLACE_ME_FOR_CONTAINER_REGISTRY%",
+            "amido-stacks-nonprod-eun-core": "%REPLACE_ME_FOR_CLOUD_RESOURCE_NAME%",
             "dev-\\$\\(component\\)": "dev-webapp",
-            "\\$\\(pipeline_variable_api\\)": "api"
+            "\\$\\(pipeline_variable_api\\)": "api",
+            "region: northeurope": `region: ${cloud.region}`,
+            "https://dev-api.nonprod.cli-testing.nonprod.amidostacks.com/api/menu": "%REPLACE_ME_FOR_API_URL%"
         }
     }
 ]

@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.34.0 (2020-11-02)
+
+
+### Bug Fixes
+
+* adds `acme_email` param to prod deploy. ([606f21e](https://github.com/amido/stacks-webapp-template/commit/606f21e53569912a50c1ae6e3421376b2ed18850))
+* bootstrapping with lerna ([#279](https://github.com/amido/stacks-webapp-template/issues/279)) ([3ce3af4](https://github.com/amido/stacks-webapp-template/commit/3ce3af4ab809131347619a25e49cf4e7493f9fac))
+* bump version ([3373e21](https://github.com/amido/stacks-webapp-template/commit/3373e21331dc44d8c9c0ba20055805d51a291951))
+* bump version ([51c8b00](https://github.com/amido/stacks-webapp-template/commit/51c8b002d9374ace623d76141c0a8e0d97d63f43))
+* bump version, updates `.gitignore` ([60d9bfa](https://github.com/amido/stacks-webapp-template/commit/60d9bfa803a6ffc9d6061ab9df76c45549c8074d))
+* Fixes the version number checker ([e74e03a](https://github.com/amido/stacks-webapp-template/commit/e74e03a75c3fc9908fa8c4bc10dd652a0f9decf5))
+* uncomments gates again now build passes ([ce72f31](https://github.com/amido/stacks-webapp-template/commit/ce72f316d4f8bdb2dc7adbba9571bc97f682aff5))
+
+
+### Features
+
+* Adds a cli version check ([1ca9b9d](https://github.com/amido/stacks-webapp-template/commit/1ca9b9d20735b732f492b079797672c3646bfe80))
+* bump version ([dc7cd19](https://github.com/amido/stacks-webapp-template/commit/dc7cd19daf45c5b6d16864e3d0dd381ef195b6c8))
+* bump version ([d9fb33f](https://github.com/amido/stacks-webapp-template/commit/d9fb33f4c0512d2d72d05c96154949c20e5f6fd7))
+* pact-config package ([#148](https://github.com/amido/stacks-webapp-template/issues/148)) ([4343f21](https://github.com/amido/stacks-webapp-template/commit/4343f21850a55ddb6966f4a6d093c80562b950eb))
+
+
+
+
+
 # 0.33.0 (2020-10-29)
 
 
