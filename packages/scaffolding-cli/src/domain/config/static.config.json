@@ -165,7 +165,7 @@
   },
   "javaSpring": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "95fab7bc69308cf1fff1f44ea571642bae0bac65",
+    "gitRef": "c74732236014f56f0218bd69b013bec0722897ca",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -231,7 +231,7 @@
   },
   "javaSpringKarate": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "95fab7bc69308cf1fff1f44ea571642bae0bac65",
+    "gitRef": "c74732236014f56f0218bd69b013bec0722897ca",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -297,7 +297,7 @@
   },
   "javaSpringCqrs": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "86e144fdd32f86a2110d16ccf1e418881ec4c064",
+    "gitRef": "a0d146b8cf3db2174aa96278413868862af4a9e7",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -363,7 +363,7 @@
   },
   "javaSpringCqrsKarate": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "86e144fdd32f86a2110d16ccf1e418881ec4c064",
+    "gitRef": "a0d146b8cf3db2174aa96278413868862af4a9e7",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
@@ -429,7 +429,7 @@
   },
   "javaSpringJenkins": {
     "gitRepo": "https://github.com/amido/stacks-java.git",
-    "gitRef": "95fab7bc69308cf1fff1f44ea571642bae0bac65",
+    "gitRef": "c74732236014f56f0218bd69b013bec0722897ca",
     "localPath": "src/java_spring",
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
