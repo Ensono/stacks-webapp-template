@@ -54,13 +54,13 @@ export const sharedInitialQs = (defaultProjectName: string): Array<PromptQuestio
     return [{
         type: "text",
         name: "businessCompany",
-        message: "Please provide the company name",
+        message: "Enter company name",
         initial: "amido",
     },
     {
         type: "text",
         name: "projectName",
-        message: "Please provide the project name",
+        message: "Enter project name",
         initial: defaultProjectName,
     }]
 }
@@ -70,8 +70,7 @@ export const sharedPostQs = (): Array<PromptQuestion> => {
         {
             type: "text",
             name: "businessDomain",
-            message: "Please provide scope (domain)",
-            description: "Used for scope with framework naming conventions.",
+            message: "Enter scope (domain)",
             initial: "menu-api",
         }
         // {
@@ -107,8 +106,14 @@ export function cliQuestions(
     const custom: PromptQuestion = <PromptQuestion>{
         type: "select",
         name: "projectType",
-        message: "Select Project type",
+        message: "Select project type",
         choices: [
+            {
+                title: "Cloud platform shared services (pre-req)",
+                description:
+                    "terraform, azure, gcp, gke, aks, azure devops (tfs)",
+                value: "infra",
+            },
             {
                 title: "React app with server side rendering",
                 description:
@@ -121,7 +126,7 @@ export function cliQuestions(
                 value: "csr",
             },
             {
-                title: "API with .NET",
+                title: "API with .NET and CQRS",
                 description: "api, netcore, server, restfull",
                 value: "netcore",
             },
@@ -134,12 +139,6 @@ export function cliQuestions(
                 title: "API with Java and CQRS",
                 description: "api, java, springboot",
                 value: "javaspringcqrs",
-            },
-            {
-                title: "Cloud platform shared services",
-                description:
-                    "terraform, azure, gcp, gke, aks, azure devops (tfs)",
-                value: "infra",
             },
         ],
         initial: 0,
@@ -199,19 +198,19 @@ export function advancedQuestions(): Array<PromptQuestion> {
         {
             type: "text",
             name: "sourceControlRepoName",
-            message: "Please provide version control repository name",
+            message: "Enter version control repository name",
             initial: "stacks-repo",
         },
         {
             type: "text",
             name: "cloudRegion",
-            message: "Please provide platform service region",
+            message: "Enter cloud platform region",
             initial: "northeurope",
         },
         {
             type: "text",
             name: "networkingBaseDomain",
-            message: "Provide host name (DNS domain)",
+            message: "Enter host name (DNS domain)",
             initial: "app.replaceme.com",
         },
     ]
@@ -222,7 +221,7 @@ export function platformQuestions(): Array<PromptQuestion> {
         {
             type: "select",
             name: "platform",
-            message: "Select Target Cloud Platform",
+            message: "Select cloud platform",
             choices: [
                 {
                     title: "Azure",
@@ -254,7 +253,7 @@ export function javaQuestions(): Array<PromptQuestion> {
         {
             type: "text",
             name: "javaTldNamespace",
-            message: "Package prefix - will be prepended to companyName.projectName previously supplied, e.g. com or uk.co",
+            message: "Enter package prefix - will be prepended to companyName.projectName previously supplied, e.g. com or uk.co",
             initial: "com",
         }
     ]
@@ -265,7 +264,7 @@ export function javaTestingQuestions(): Array<PromptQuestion> {
         {
             type: "select",
             name: "javaTestingFramework",
-            message: "Select Testing Framework",
+            message: "Select testing framework",
             choices: [
                 {
                     title: "Serenity",
