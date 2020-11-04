@@ -3,8 +3,8 @@
   "version": "1.60.0",
   "description": "scaffolding-cli creates a scaffolded folder with deploy, build and src folders ready to be committed to a Git repo of your choosing",
   "bin": {
-    "scaffolding-cli": "./dist/index.js",
-    "amido-scaffolding-cli": "./dist/index.js"
+    "scaffolding-cli": "dist/index.js",
+    "amido-scaffolding-cli": "dist/index.js"
   },
   "scripts": {
     "lint": "node_modules/.bin/eslint ./src/**/*/*.* -f codeframe",
