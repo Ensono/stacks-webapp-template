@@ -1,11 +1,9 @@
 package com.xxAMIDOxx.xxSTACKSxx.ui.starter.stepdefinitions;
 
 import com.xxAMIDOxx.xxSTACKSxx.ui.fixtures.GenericPageSteps;
-import com.xxAMIDOxx.xxSTACKSxx.ui.fixtures.Hooks;
 import com.xxAMIDOxx.xxSTACKSxx.ui.pages.BlogPage;
 import com.xxAMIDOxx.xxSTACKSxx.ui.pages.CreateMenuPage;
 import com.xxAMIDOxx.xxSTACKSxx.ui.pages.MainPage;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -25,17 +23,6 @@ public class CreateMenuStepDefinitions {
   @Steps BlogPage blogPage;
 
   @Steps CreateMenuPage createMenuPage;
-
-  private static boolean firstTestRun = false;
-
-  @Before
-  public static void beforeAll() {
-    if (!firstTestRun) {
-      System.out.println("Delete all data from the previous automated test");
-      Hooks.deleteAllMenusFromPreviousRun();
-      firstTestRun = true;
-    }
-  }
 
   @Given("^I open the main page$")
   public void iOpenNewPage() {
