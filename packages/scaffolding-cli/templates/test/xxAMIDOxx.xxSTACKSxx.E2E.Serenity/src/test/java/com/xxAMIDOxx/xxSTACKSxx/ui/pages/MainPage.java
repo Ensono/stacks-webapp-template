@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.util.EnvironmentVariables;
+import net.thucydides.core.util.SystemEnvironmentVariables;
 import org.openqa.selenium.StaleElementReferenceException;
 
 public class MainPage extends PageObject {
@@ -32,8 +35,17 @@ public class MainPage extends PageObject {
   @FindBy(xpath = SEARCH_BAR)
   public WebElementFacade searchBar;
 
+  private static EnvironmentVariables environmentVariables =
+      SystemEnvironmentVariables.createEnvironmentVariables();
+
+  public static final String BASE_UI_URL =
+      (System.getenv("BASE_UI_URL") != null)
+          ? System.getenv("BASE_UI_URL")
+          : EnvironmentSpecificConfiguration.from(environmentVariables)
+              .getProperty("webdriver.base.url");
+
   public void openMainPage() {
-    open();
+    openUrl(BASE_UI_URL);
     waitABit(1000);
     getDriver().manage().window().maximize();
   }

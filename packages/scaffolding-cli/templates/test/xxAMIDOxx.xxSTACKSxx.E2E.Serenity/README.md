@@ -6,6 +6,11 @@ The following properties for different environments are required in the ``src/te
 - webdriver.base.url
 - api.base.url
 
+#### Enable Authorisation
+
+To enable the authorisation please set the`generate.auth0.token` value to true if authorisation token is requested,
+and set environment variables for  authorisation details like: CLIENT_ID, CLIENT_SECRET, AUDIENCE, GRANT_TYPE, OAUTH_TOKEN_URL.
+
 ### WebDriver Downloads
 
 If you wish to use a local instance of Serenity Webdriver, be sure to download the WebDriver file for the browsers with which you wish to perform cross browser testing from the links mentioned below:
