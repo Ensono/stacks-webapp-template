@@ -9,7 +9,7 @@ configuration.
 
 ## Documentation
 
-See [Amido Stacks Webapp](https://amido.github.io/stacks/) for docs.
+For more information check out the documentation on [Amido Stacks](https://amido.github.io/stacks/).
 
 ## Why?
 
@@ -58,7 +58,7 @@ cross-dependencies.
 
 ## Tests
 
-##### Static
+### Static
 
 `npm run lint`: runs global linting from root level, ensuring all packages are
 following conventions specified in [.eslintrc](.eslintrc).
@@ -69,7 +69,7 @@ following conventions specified in [.prettierrc](.prettierrc).
 `npm run validate`: ensures that the project adheres to Typescript checks,
 formatting and linting rules.
 
-##### Unit
+### Unit
 
 `npm run test`: runs the unit tests for all packages.
 
