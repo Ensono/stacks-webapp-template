@@ -16,10 +16,6 @@
     "localPath": "",
     "folderMap": [
       {
-        "src": "shared/aux_scripts",
-        "dest": "./aux_scripts"
-      },
-      {
         "src": "shared/README.md",
         "dest": "./README.md"
       },
@@ -28,8 +24,8 @@
         "dest": "./.gitignore"
       },
       {
-        "src": "build/azDevops/azure/templates",
-        "dest": "build/azDevops/azure/templates"
+        "src": "build/azDevops/azure/templates/steps/build-node.yml",
+        "dest": "build/azDevops/azure/templates/steps/build-node.yml"
       },
       {
         "src": "build/azDevops/azure/azure-pipelines-ssr-aks.yml",
@@ -40,8 +36,8 @@
         "dest": "deploy/azure/app"
       },
       {
-        "src": "deploy/k8s",
-        "dest": "deploy/k8s"
+        "src": "deploy/k8s/app/base_app-deploy.yml",
+        "dest": "deploy/k8s/app/base_app-deploy.yml"
       },
       {
         "src": "test/testcafe",
