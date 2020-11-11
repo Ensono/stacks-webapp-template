@@ -34,6 +34,13 @@ const terraform = {
 } as TerraformSection
 
 const files: Array<BuildReplaceInput> = [
+     {
+        files: ["**/*.md"],
+        values: {
+            "project_type": "Server side rendered web application",
+            "project_docs_url": "https://amido.github.io/stacks/docs/workloads/azure/frontend/SSR/getting_started_ssr"
+        }
+    },
     {
         files: ["**/package.json"],
         values: {

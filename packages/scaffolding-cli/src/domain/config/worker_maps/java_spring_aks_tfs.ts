@@ -20,12 +20,6 @@ export const inFiles = ({
 }): Array<BuildReplaceInput> => {
     return [
         {
-            files: ["**/*.md"],
-            values: {
-                "project_name": projectName
-            }
-        },
-        {
             files: ["**/*.java", "**/application.yml", "**/pom.xml", "**/Dockerfile"],
             values: {
                 "com.xxAMIDOxx": `${javaspringObj.namespace}.${(businessObj.company)?.toLowerCase().replace(/\s/gm, "") || "company"}`,

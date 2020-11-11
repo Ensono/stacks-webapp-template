@@ -24,12 +24,6 @@ export const inFiles = ({
 }): Array<BuildReplaceInput> => {
     return [
         {
-            files: ["**/*.md"],
-            values: {
-                "PROJECT_NAME": projectName
-            }
-        },
-        {
             files: ["**/*.cs", "**/*.sln", "**/Dockerfile", "**/*.csproj"],
             values: {
                 "xxAMIDOxx": startCase(toLower(businessObj.company)).replace(/\s/gm, "") || "Company",

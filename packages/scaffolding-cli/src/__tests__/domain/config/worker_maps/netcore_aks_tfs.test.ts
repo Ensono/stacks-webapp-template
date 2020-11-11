@@ -35,12 +35,6 @@ const sourceObj = {
 
 const files: Array<BuildReplaceInput> = [
     {
-        files: ["**/*.md"],
-        values: {
-            "PROJECT_NAME": projectName
-        }
-    },
-    {
         files: ["**/*.cs", "**/*.sln", "**/Dockerfile", "**/*.csproj"],
         values: {
             "xxAMIDOxx": biz.company || "Company",
