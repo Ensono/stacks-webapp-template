@@ -19,12 +19,11 @@ export const inFiles = ({
     networkObj: NetworkingSection
     javaspringObj: JavaSection
 }): Array<BuildReplaceInput> => {
-    console.log(projectType)
     return [
         {
             files: ["**/*.md"],
             values: {
-                "project_type": `API with Java${projectType === "javaspringcqrs" ? " and CQRS" : ""}`,
+                "project_type": `Java Spring Boot REST API${projectType === "javaspringcqrs" ? " with CQRS" : ""}`,
                 "project_docs_url": `https://amido.github.io/stacks/docs/workloads/azure/backend/${projectType === "javaspring" ? "java/intro_java" : "java_cqrs/intro_java_cqrs"}`
             }
         },

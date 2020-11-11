@@ -26,7 +26,7 @@ export const inFiles = ({
         {
             files: ["**/*.md"],
             values: {
-                "project_type": "API with .NET and CQRS",
+                "project_type": ".NET Core REST API with CQRS",
                 "project_docs_url": "https://amido.github.io/stacks/docs/workloads/azure/backend/netcore/introduction_netcore"
             }
         },

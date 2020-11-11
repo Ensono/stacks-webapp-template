@@ -126,17 +126,17 @@ export function cliQuestions(
                 value: "csr",
             },
             {
-                title: "API with .NET and CQRS",
+                title: ".NET Core REST API with CQRS",
                 description: "api, netcore, server, restfull",
                 value: "netcore",
             },
             {
-                title: "API with Java",
+                title: "Java Spring Boot REST API",
                 description: "api, java, springboot",
                 value: "javaspring",
             },
             {
-                title: "API with Java and CQRS",
+                title: "Java Spring Boot REST API with CQRS",
                 description: "api, java, springboot",
                 value: "javaspringcqrs",
             },
