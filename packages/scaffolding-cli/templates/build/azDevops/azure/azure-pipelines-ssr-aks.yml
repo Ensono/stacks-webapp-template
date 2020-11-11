@@ -139,8 +139,8 @@ stages:
               # Should be hardcoded in your sonar-project.properties file
               unit_test: true
               project_root_dir: $(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_src)
-              cypress_e2e_test: false
-              cypress_applitools_test: false
+              cypress_e2e_test: true
+              cypress_applitools_test: true
               cypress_container: cypress
               # Set this to false or remove if cypress is not run as part of your pipeline
               cache_cypress: true
@@ -296,7 +296,8 @@ stages:
                     kubectl_filepath:
                       - $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app/app-deploy.yml
                     kubectl_working_dir: $(Agent.BuildDirectory)/s/$(self_repo)/deploy/k8s/app # unnecessary
-      - job:
+      - job: PostDeployDev
+        dependsOn: DeployDev
         condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
         pool:
           vmImage: windows-2019

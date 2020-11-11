@@ -8,7 +8,7 @@ import session from "express-session"
 import api from "./api"
 import logger from "./core/root-logger"
 import errorHandler from "./middlewares/error-handler"
-import { helmetGuard, removeXPoweredByHeader } from "./middlewares/helmet"
+import { helmetGuard, removeXPoweredByHeader, setXSSProtectionHeader } from "./middlewares/helmet"
 import httpLogger from "./middlewares/http-logger"
 import conf from "../environment-configuration"
 import {setPassportSessionCookie} from "../lib/auth-cookies"
@@ -65,6 +65,7 @@ export default app
 
         server.use(helmetGuard)
         server.use(removeXPoweredByHeader)
+        server.use(setXSSProtectionHeader)
         server.use(httpLogger)
         server.use(bodyParser.urlencoded({extended: false}))
         server.use(bodyParser.json())

@@ -38,7 +38,6 @@ export const inFiles = ({
                 "component: \\$\\(pipeline_variable_component\\)": `component: webapp`,
                 "src/ssr": "src",
                 "self_generic_name: stacks-api": "self_generic_name: $(project)-$(domain)",
-                "nonprod.amidostacks.com": `${networkObj.baseDomain}`,
                 "docker_image_name: \\$\\(component\\)": "docker_image_name: $(self_generic_name)",
                 "amido-stacks-webapp": "%REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES%",
                 "tf_state_key: stacks-webapp": `tf_state_key: "${businessObj.project}-${businessObj.domain}"`,
@@ -47,9 +46,9 @@ export const inFiles = ({
                 "docker_container_registry_name: amidostacksnonprodeuncore": "docker_container_registry_name: %REPLACE_ME_FOR_CONTAINER_REGISTRY%",
                 "amido-stacks-nonprod-eun-core": "%REPLACE_ME_FOR_CLOUD_RESOURCE_NAME%",
                 "dev-\\$\\(component\\)": "dev-webapp",
-                "\\$\\(pipeline_variable_api\\)": "api",
-                "region: northeurope": `region: ${cloudObj.region}`,
-                "https://dev-api.nonprod.cli-testing.nonprod.amidostacks.com/api/menu": "%REPLACE_ME_FOR_API_URL%"
+                "https://dev-\\$\\(pipeline_variable_api\\).nonprod.amidostacks.com/api/menu": "$(MENU_API_URL)",
+                "nonprod.amidostacks.com": `${networkObj.baseDomain}`,
+                "region: northeurope": `region: ${cloudObj.region}`
             }
         }
     ]
