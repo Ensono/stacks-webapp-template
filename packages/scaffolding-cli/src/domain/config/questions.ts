@@ -115,13 +115,13 @@ export function cliQuestions(
                 value: "infra",
             },
             {
-                title: "React app with server side rendering",
+                title: "Server side rendered web application",
                 description:
                     "React, SSR, node, next.js, express, typescript",
                 value: "ssr",
             },
             {
-                title: "React app with client side rendering",
+                title: "Client side rendered web application",
                 description: "React, CSR, typescript",
                 value: "csr",
             },
