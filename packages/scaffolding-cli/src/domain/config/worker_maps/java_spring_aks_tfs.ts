@@ -8,9 +8,10 @@ import { BusinessSection, CloudSection, TerraformSection, SourceControlSection, 
  * @param cloudObj
  */
 export const inFiles = ({
-    projectName, businessObj, cloudObj, terraformObj, scmObj, networkObj, javaspringObj
+    projectName, projectType, businessObj, cloudObj, terraformObj, scmObj, networkObj, javaspringObj
 }: {
     projectName: string
+    projectType: string
     businessObj: BusinessSection
     cloudObj: CloudSection
     terraformObj: TerraformSection
@@ -22,7 +23,8 @@ export const inFiles = ({
         {
             files: ["**/*.md"],
             values: {
-                "project_name": projectName
+                "project_type": `Java Spring Boot REST API${projectType === "javaspringcqrs" ? " with CQRS" : ""}`,
+                "project_docs_url": `https://amido.github.io/stacks/docs/workloads/azure/backend/${projectType === "javaspring" ? "java/intro_java" : "java_cqrs/intro_java_cqrs"}`
             }
         },
         {

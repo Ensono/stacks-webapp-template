@@ -17,6 +17,13 @@ export const inFiles = ({
     }): Array<BuildReplaceInput> => {
     return [
         {
+            files: ["**/*.md"],
+            values: {
+                "project_type": "Cloud platform shared services",
+                "project_docs_url": "https://amido.github.io/stacks/docs/infrastructure/azure/core_infrastructure"
+            }
+        },
+        {
             files: ["**/infra-pipeline.yml"],
             values: {
                 "domain: core": `domain: ${businessObj?.domain}`,

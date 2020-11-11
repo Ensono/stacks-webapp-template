@@ -115,28 +115,28 @@ export function cliQuestions(
                 value: "infra",
             },
             {
-                title: "React app with server side rendering",
+                title: "Server side rendered web application",
                 description:
                     "React, SSR, node, next.js, express, typescript",
                 value: "ssr",
             },
             {
-                title: "React app with client side rendering",
+                title: "Client side rendered web application",
                 description: "React, CSR, typescript",
                 value: "csr",
             },
             {
-                title: "API with .NET and CQRS",
+                title: ".NET Core REST API with CQRS",
                 description: "api, netcore, server, restfull",
                 value: "netcore",
             },
             {
-                title: "API with Java",
+                title: "Java Spring Boot REST API",
                 description: "api, java, springboot",
                 value: "javaspring",
             },
             {
-                title: "API with Java and CQRS",
+                title: "Java Spring Boot REST API with CQRS",
                 description: "api, java, springboot",
                 value: "javaspringcqrs",
             },

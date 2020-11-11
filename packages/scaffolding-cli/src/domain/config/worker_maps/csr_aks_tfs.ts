@@ -27,7 +27,8 @@ export const inFiles = ({
         {
             files: ["**/*.md"],
             values: {
-                "project_name": projectName
+                "project_type": "Client side rendered web application",
+                "project_docs_url": "https://amido.github.io/stacks/docs/workloads/azure/frontend/CSR/getting_started_csr"
             }
         },
         {

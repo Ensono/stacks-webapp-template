@@ -125,6 +125,7 @@ export class MainWorker {
 
             const buildInput: Array<BuildReplaceInput> = javaSpringAksTfs.inFiles({
                 projectName: instructions.projectName,
+                projectType: instructions.projectType,
                 businessObj: instructions.business,
                 cloudObj: instructions.cloud,
                 terraformObj: instructions.terraform,

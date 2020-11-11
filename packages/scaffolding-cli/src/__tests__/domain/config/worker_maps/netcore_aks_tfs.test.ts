@@ -37,7 +37,8 @@ const files: Array<BuildReplaceInput> = [
     {
         files: ["**/*.md"],
         values: {
-            "PROJECT_NAME": projectName
+            "project_type": ".NET Core REST API with CQRS",
+            "project_docs_url": "https://amido.github.io/stacks/docs/workloads/azure/backend/netcore/introduction_netcore"
         }
     },
     {
