@@ -47,7 +47,6 @@ const files: Array<BuildReplaceInput> = [
             "component: \\$\\(pipeline_variable_component\\)": `component: webapp`,
             "src/ssr": "src",
             "self_generic_name: stacks-api": "self_generic_name: $(project)-$(domain)",
-            "nonprod.amidostacks.com": `${network.baseDomain}`,
             "docker_image_name: \\$\\(component\\)": "docker_image_name: $(self_generic_name)",
             "amido-stacks-webapp": "%REPLACE_ME_FOR_APP_SPECIFIC_LIBRARY_VARIABLES%",
             "tf_state_key: stacks-webapp": `tf_state_key: "${biz.project}-${biz.domain}"`,
@@ -56,9 +55,9 @@ const files: Array<BuildReplaceInput> = [
             "docker_container_registry_name: amidostacksnonprodeuncore": "docker_container_registry_name: %REPLACE_ME_FOR_CONTAINER_REGISTRY%",
             "amido-stacks-nonprod-eun-core": "%REPLACE_ME_FOR_CLOUD_RESOURCE_NAME%",
             "dev-\\$\\(component\\)": "dev-webapp",
-            "\\$\\(pipeline_variable_api\\)": "api",
+            "https://dev-\\$\\(pipeline_variable_api\\).nonprod.amidostacks.com/api/menu": "$(MENU_API_URL)",
+            "nonprod.amidostacks.com": `${network.baseDomain}`,
             "region: northeurope": `region: ${cloud.region}`,
-            "https://dev-api.nonprod.cli-testing.nonprod.amidostacks.com/api/menu": "%REPLACE_ME_FOR_API_URL%"
         }
     }
 ]
@@ -66,7 +65,7 @@ const files: Array<BuildReplaceInput> = [
 describe("ssr mapper tests", () => {
     it("to_folders return an array of objects", () => {
         const test: Array<FolderMap> = staticConf.ssr.folderMap
-        expect(test.length).toBe(10)
+        expect(test.length).toBe(9)
     })
     it("in_files return an array of objects and cloud should be default", () => {
         const test: Array<BuildReplaceInput> = ssr.inFiles({ projectName: projName, businessObj: biz, networkObj: network, cloudObj: cloud, scmObj: sourceControl, terraformObj: terraform})
