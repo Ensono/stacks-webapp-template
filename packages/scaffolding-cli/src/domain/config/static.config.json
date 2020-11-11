@@ -103,7 +103,7 @@
         "dest": "./aux_scripts"
       },
       {
-        "src": "shared/netcore.README.md",
+        "src": "shared/README.md",
         "dest": "./README.md"
       },
       {
@@ -216,8 +216,8 @@
         "dest": ".gitignore"
       },
       {
-        "src": "src/java_spring/README.md",
-        "dest": "README.md"
+        "src": "shared/README.md",
+        "dest": "./README.md"
       },
       {
         "src": "src/java_spring/yamllint.conf",
@@ -282,8 +282,8 @@
         "dest": ".gitignore"
       },
       {
-        "src": "src/java_spring/README.md",
-        "dest": "README.md"
+        "src": "shared/README.md",
+        "dest": "./README.md"
       },
       {
         "src": "src/java_spring/yamllint.conf",
@@ -348,8 +348,8 @@
         "dest": ".gitignore"
       },
       {
-        "src": "src/java_spring/README.md",
-        "dest": "README.md"
+        "src": "shared/README.md",
+        "dest": "./README.md"
       },
       {
         "src": "src/java_spring/yamllint.conf",
@@ -414,8 +414,8 @@
         "dest": ".gitignore"
       },
       {
-        "src": "src/java_spring/README.md",
-        "dest": "README.md"
+        "src": "shared/README.md",
+        "dest": "./README.md"
       },
       {
         "src": "src/java_spring/yamllint.conf",

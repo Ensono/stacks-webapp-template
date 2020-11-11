@@ -24,6 +24,13 @@ export const inFiles = ({
 }): Array<BuildReplaceInput> => {
     return [
         {
+            files: ["**/*.md"],
+            values: {
+                "project_type": "API with .NET and CQRS",
+                "project_docs_url": "https://amido.github.io/stacks/docs/workloads/azure/backend/netcore/introduction_netcore"
+            }
+        },
+        {
             files: ["**/*.cs", "**/*.sln", "**/Dockerfile", "**/*.csproj"],
             values: {
                 "xxAMIDOxx": startCase(toLower(businessObj.company)).replace(/\s/gm, "") || "Company",

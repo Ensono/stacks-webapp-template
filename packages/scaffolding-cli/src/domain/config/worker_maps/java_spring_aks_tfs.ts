@@ -8,9 +8,10 @@ import { BusinessSection, CloudSection, TerraformSection, SourceControlSection, 
  * @param cloudObj
  */
 export const inFiles = ({
-    projectName, businessObj, cloudObj, terraformObj, scmObj, networkObj, javaspringObj
+    projectName, projectType, businessObj, cloudObj, terraformObj, scmObj, networkObj, javaspringObj
 }: {
     projectName: string
+    projectType: string
     businessObj: BusinessSection
     cloudObj: CloudSection
     terraformObj: TerraformSection
@@ -18,7 +19,15 @@ export const inFiles = ({
     networkObj: NetworkingSection
     javaspringObj: JavaSection
 }): Array<BuildReplaceInput> => {
+    console.log(projectType)
     return [
+        {
+            files: ["**/*.md"],
+            values: {
+                "project_type": `API with Java${projectType === "javaspringcqrs" ? " and CQRS" : ""}`,
+                "project_docs_url": `https://amido.github.io/stacks/docs/workloads/azure/backend/${projectType === "javaspring" ? "java/intro_java" : "java_cqrs/intro_java_cqrs"}`
+            }
+        },
         {
             files: ["**/*.java", "**/application.yml", "**/pom.xml", "**/Dockerfile"],
             values: {
