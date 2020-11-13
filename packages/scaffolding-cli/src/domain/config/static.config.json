@@ -165,7 +165,11 @@
     "gitRepo": "https://github.com/amido/stacks-java.git",
     "gitRef": "c74732236014f56f0218bd69b013bec0722897ca",
     "localPath": "src/java_spring",
-    "fileNameReplacementPaths": ["/java/src/main/java", "/java/src/test/java", "/api-tests/src/test/java"],
+    "fileNameReplacementPaths": [
+      "/java/src/main/java",
+      "/java/src/test/java",
+      "/api-tests/src/test/java"
+    ],
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
       {
@@ -299,7 +303,11 @@
     "gitRepo": "https://github.com/amido/stacks-java.git",
     "gitRef": "a0d146b8cf3db2174aa96278413868862af4a9e7",
     "localPath": "src/java_spring",
-    "fileNameReplacementPaths": ["/java/src/main/java", "/java/src/test/java", "/api-tests/src/test/java"],
+    "fileNameReplacementPaths": [
+      "/java/src/main/java",
+      "/java/src/test/java",
+      "/api-tests/src/test/java"
+    ],
     "searchValue": "com.xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
       {
