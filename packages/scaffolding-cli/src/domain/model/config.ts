@@ -1,7 +1,7 @@
 export interface FolderMap {
     src: string
     dest: string
-    excludeFiles?: string[]
+    excludeFiles?: Array<string>
 }
 
 export interface SingleConfigKey {
@@ -9,6 +9,7 @@ export interface SingleConfigKey {
     gitRef: string
     folderMap: Array<FolderMap>
     localPath: string
+    fileNameReplacementPaths?: Array<string>
     searchValue?: string
 }
 
