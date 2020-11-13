@@ -92,7 +92,8 @@ export class MainWorker {
 
             await Utils.valueReplace(valMaps)
             const replaceString = `${startCase(toLower(instructions.business.company)).replace(/\s/gm, "")}.${startCase(toLower(instructions.business.project)).replace(/\s/gm, "")}`
-            await Utils.fileNameReplace([`${newDirectory.finalPath}/src`], staticConf.netcore.searchValue as string, replaceString)
+            const fileNameReplacementPaths = staticConf.netcore.fileNameReplacementPaths?.map(path => `${newDirectory.finalPath}${path}`);
+            await Utils.fileNameReplace(fileNameReplacementPaths || [], staticConf.netcore.searchValue as string, replaceString)
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
             selectedFlowResponse.ok = true
@@ -171,7 +172,8 @@ export class MainWorker {
             await Utils.valueReplace(valMaps)
 
             const replaceString = `${instructions[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
-            await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`, `${newDirectory.finalPath}/api-tests/src/test/java`],
+            const fileNameReplacementPaths = staticConf[configName].fileNameReplacementPaths?.map(path => `${newDirectory.finalPath}${path}`);
+            await Utils.fileNameReplace(fileNameReplacementPaths || [],
                 (staticConf[configName].searchValue as string).replace(/\./gm, "/"),
                 replaceString, true)
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
@@ -226,7 +228,8 @@ export class MainWorker {
             await Utils.valueReplace(valMaps)
 
             const replaceString = `${instructions[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
-            await Utils.fileNameReplace([`${newDirectory.finalPath}/java/src/main/java`, `${newDirectory.finalPath}/java/src/test/java`],
+            const fileNameReplacementPaths = staticConf.javaSpringJenkins.fileNameReplacementPaths?.map(path => `${newDirectory.finalPath}${path}`);
+            await Utils.fileNameReplace(fileNameReplacementPaths || [],
                 (staticConf.javaSpringJenkins.searchValue as string).replace(/\./gm, "/"),
                 replaceString, true)
 
@@ -308,7 +311,8 @@ export class MainWorker {
 
             await Utils.valueReplace(valMaps)
             const replaceString = `${startCase(toLower(instructions.business.company)).replace(/\s/gm, "")}.${startCase(toLower(instructions.business.project)).replace(/\s/gm, "")}`
-            await Utils.fileNameReplace([`${newDirectory.finalPath}`], staticConf.netcoreSelenium.searchValue as string, replaceString)
+            const fileNameReplacementPaths = staticConf.netcoreSelenium.fileNameReplacementPaths?.map(path => `${newDirectory.finalPath}${path}`);
+            await Utils.fileNameReplace(fileNameReplacementPaths || [], staticConf.netcoreSelenium.searchValue as string, replaceString)
 
             await Utils.writeOutConfigFile(`${instructions.projectName}.bootstrap-config.json`, instructions)
             selectedFlowResponse.code = 0
@@ -354,10 +358,9 @@ export class MainWorker {
             await Utils.valueReplace(valMaps)
 
             const replaceString = `${instructions[ProjectTypeEnum.JAVASPRING].namespace.replace(/\./gm, "/")}/${toLower(startCase(instructions.business.company)).replace(/\s/gm, "")}/${toLower(startCase(instructions.business.project)).replace(/\s/gm, "")}`
+            const fileNameReplacementPaths = javaSerenityTfsConfig.fileNameReplacementPaths?.map(path => `${newDirectory.finalPath}${path}`);
             await Utils.fileNameReplace(
-                [
-                    `${newDirectory.finalPath}/src/test/java`,
-                ],
+                fileNameReplacementPaths || [],
                 (javaSerenityTfsConfig.searchValue as string).replace(/\./gm, "/"),
                 replaceString,
                 true, // Java Style Replacement
