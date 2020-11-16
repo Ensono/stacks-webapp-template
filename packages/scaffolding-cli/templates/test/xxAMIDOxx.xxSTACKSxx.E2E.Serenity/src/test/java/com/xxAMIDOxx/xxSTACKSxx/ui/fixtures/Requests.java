@@ -7,8 +7,12 @@ import net.serenitybdd.core.environment.EnvironmentSpecificConfiguration;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.util.EnvironmentVariables;
 import net.thucydides.core.util.SystemEnvironmentVariables;
+import org.slf4j.LoggerFactory;
+
 
 public class Requests {
+
+  private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Requests.class);
 
   private static EnvironmentVariables environmentVariables =
       SystemEnvironmentVariables.createEnvironmentVariables();
@@ -52,6 +56,8 @@ public class Requests {
   }
 
   public static void getMenusBySearchTerm(String searchTerm) {
+    LOGGER.info("GET: ".concat(menuUrl.concat("?searchTerm=").concat(searchTerm)));
+
     SerenityRest.given()
         .header("Authorization", "Bearer " + retrieveAccessTokenFromSerenity())
         .when()
@@ -59,6 +65,8 @@ public class Requests {
   }
 
   public static void deleteTheMenu(String id) {
+    LOGGER.info("DELETE: ".concat(menuUrl.concat("/").concat(id)));
+
     SerenityRest.given()
         .header("Authorization", "Bearer " + retrieveAccessTokenFromSerenity())
         .when()

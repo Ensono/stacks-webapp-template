@@ -57,7 +57,7 @@ variables:
   - name: api_base_url
     value: "https://dev-java-api.nonprod.amidostacks.com"
   - name: api_base_path
-    value: "/api"
+    value: "/api/menu"
   - name: api_functional_test_base_url
     value: "${{ variables.api_base_url }}${{ variables.api_base_path }}"
 
