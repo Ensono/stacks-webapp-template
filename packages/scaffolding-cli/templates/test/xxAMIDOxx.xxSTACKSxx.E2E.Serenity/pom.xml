@@ -12,10 +12,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <serenity.version>2.3.8</serenity.version>
-        <serenity.cucumber.version>2.3.6</serenity.cucumber.version>
+        <serenity.version>2.3.4</serenity.version>
+        <serenity.cucumber.version>2.2.6</serenity.cucumber.version>
         <serenity.maven.version>2.3.8</serenity.maven.version>
-        <cucumber.version>6.9.0</cucumber.version>
+        <cucumber.version>5.5.0</cucumber.version>
 
         <encoding>UTF-8</encoding>
         <tags></tags>
@@ -61,7 +61,7 @@
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-cucumber6</artifactId>
+            <artifactId>serenity-cucumber5</artifactId>
             <version>${serenity.cucumber.version}</version>
             <scope>test</scope>
         </dependency>
