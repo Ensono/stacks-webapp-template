@@ -9,7 +9,7 @@ configuration.
 
 ## Documentation
 
-For more information check out the documentation on [Amido Stacks](https://amido.github.io/stacks/).
+For more information check out the documentation on [Amido Stacks](https://stacks.amido.com/).
 
 ## Why?
 

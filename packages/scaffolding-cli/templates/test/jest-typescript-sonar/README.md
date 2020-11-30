@@ -2,7 +2,7 @@
 
 Please refer to the in depth information at:
 
-https://amido.github.io/stacks/docs/testing_static
+https://stacks.amido.com/docs/testing_static
 
 ## Getting started
 

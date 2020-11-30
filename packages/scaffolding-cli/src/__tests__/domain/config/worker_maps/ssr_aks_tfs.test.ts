@@ -6,7 +6,7 @@ import conf from  '../../../../domain/config/static.config.json'
 import { Static, FolderMap } from '../../../../domain/model/config';
 
 const staticConf: Static = conf as Static;
-        
+
 const projName = "test-app-1"
 
 const biz = {
@@ -25,7 +25,7 @@ const cloud = {
     resourceGroup: "my-rg"
 } as CloudSection
 
-const sourceControl = { 
+const sourceControl = {
     repoName: "foo-git"
 } as SourceControlSection
 
@@ -38,7 +38,7 @@ const files: Array<BuildReplaceInput> = [
         files: ["**/*.md"],
         values: {
             "project_type": "Server side rendered web application",
-            "project_docs_url": "https://amido.github.io/stacks/docs/workloads/azure/frontend/SSR/getting_started_ssr"
+            "project_docs_url": "https://stacks.amido.com/docs/workloads/azure/frontend/SSR/getting_started_ssr"
         }
     },
     {

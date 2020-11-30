@@ -37,6 +37,8 @@ export class MainWorker {
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
 
+            await Utils.doGitClone(staticConf.ssr.gitRepo, newDirectory.tempPath, staticConf.ssr.localPath, staticConf.ssr.gitRef)
+
             await Utils.constructOutput(staticConf.ssr.folderMap, newDirectory.finalPath, newDirectory.tempPath)
 
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput);
@@ -274,6 +276,8 @@ export class MainWorker {
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
 
+            await Utils.doGitClone(staticConf.csr.gitRepo, newDirectory.tempPath, staticConf.csr.localPath, staticConf.csr.gitRef)
+
             await Utils.constructOutput(staticConf.csr.folderMap, newDirectory.finalPath, newDirectory.tempPath)
 
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput)
@@ -504,6 +508,8 @@ export class MainWorker {
             }).concat(sharedBuildInput)
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
+
+            await Utils.doGitClone(staticConf.aksInfra.gitRepo, newDirectory.tempPath, staticConf.aksInfra.localPath, staticConf.aksInfra.gitRef)
 
             await Utils.constructOutput(staticConf.aksInfra.folderMap, newDirectory.finalPath, newDirectory.tempPath)
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput);

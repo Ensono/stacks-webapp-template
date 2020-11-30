@@ -11,125 +11,133 @@
     ]
   },
   "ssr": {
-    "gitRepo": "",
-    "gitRef": "",
-    "localPath": "",
+    "gitRepo": "https://github.com/amido/stacks-typescript-ssr.git",
+    "gitRef": "4a51f638d0a5597648c2f6a1b96c31460dced7ab",
+    "localPath": "src/ssr",
     "folderMap": [
       {
         "src": "shared/README.md",
         "dest": "./README.md"
       },
       {
-        "src": "shared/_gitignore",
-        "dest": "./.gitignore"
+        "src": "src/ssr/build/azDevops/azure/templates",
+        "dest": "build/azDevops/azure/templates"
       },
       {
-        "src": "build/azDevops/azure/templates/steps/build-node.yml",
-        "dest": "build/azDevops/azure/templates/steps/build-node.yml"
+        "src": "src/ssr/build/azDevops/azure/azure-pipelines-ssr-aks.yml",
+        "dest": "build/azDevops/azure/azure-pipelines-ssr-aks.yml"
       },
       {
-        "src": "build/azDevops/azure/azure-pipelines-ssr-aks.yml",
-        "dest": "build/azDevops/azure/app-pipeline.yml"
+        "src": "src/ssr/deploy/azure/app/kube",
+        "dest": "deploy/azure/app/kube"
       },
       {
-        "src": "deploy/azure/app/kube",
-        "dest": "deploy/azure/app"
-      },
-      {
-        "src": "deploy/k8s/app/base_app-deploy.yml",
+        "src": "src/ssr/deploy/k8s/app/base_app-deploy.yml",
         "dest": "deploy/k8s/app/base_app-deploy.yml"
       },
       {
-        "src": "test/testcafe",
+        "src": "src/ssr/test/testcafe",
         "dest": "test/testcafe"
       },
       {
-        "src": "docs",
-        "dest": "docs"
+        "src": "src/ssr/src/ssr",
+        "dest": "src/ssr"
       },
       {
-        "src": "src/ssr",
-        "dest": "src"
+        "src": "src/ssr/.gitattributes",
+        "dest": ".gitattributes"
+      },
+      {
+        "src": "src/ssr/.gitignore",
+        "dest": ".gitignore"
+      },
+      {
+        "src": "src/ssr/yamllint.conf",
+        "dest": "yamllint.conf"
       }
     ]
   },
   "csr": {
-    "gitRepo": "",
-    "gitRef": "",
-    "localPath": "",
+    "gitRepo": "https://github.com/amido/stacks-typescript-csr.git",
+    "gitRef": "901f49e43227b84ba0b9cee48601eec86d172768",
+    "localPath": "src/csr",
     "folderMap": [
-      {
-        "src": "shared/aux_scripts",
-        "dest": "./aux_scripts"
-      },
       {
         "src": "shared/README.md",
         "dest": "./README.md"
       },
       {
-        "src": "shared/_gitignore",
-        "dest": "./.gitignore"
+        "src": "src/csr/build/azDevops/azure",
+        "dest": "build/azDevops/azure"
       },
       {
-        "src": "build/azDevops/azure/templates/steps/build-csr.yml",
-        "dest": "build/azDevops/azure/templates/steps/build-csr.yml"
+        "src": "src/csr/deploy/azure/app/csr",
+        "dest": "deploy/azure/app/csr"
       },
       {
-        "src": "build/azDevops/azure/azure-pipeline-csr-azure.yml",
-        "dest": "build/azDevops/azure/app-pipeline.yml"
+        "src": "src/csr/src/csr",
+        "dest": "src/csr"
       },
       {
-        "src": "deploy/azure/app/csr",
-        "dest": "deploy/azure/app"
+        "src": "src/csr/.gitignore",
+        "dest": ".gitignore"
       },
       {
-        "src": "docs",
-        "dest": "docs"
+        "src": "src/csr/.gitattributes",
+        "dest": ".gitattributes"
       },
       {
-        "src": "src/csr",
-        "dest": "src"
+        "src": "src/csr/yamllint.conf",
+        "dest": "yamllint.conf"
+      },
+      {
+        "src": "src/csr/.gitignore",
+        "dest": ".gitignore"
       }
     ]
   },
   "netcore": {
     "gitRepo": "https://github.com/amido/stacks-dotnet.git",
-    "gitRef": "b1c5b5ff1042bd26c8ad443b4045e55333310c8a",
+    "gitRef": "ea2d9846843f0d0c2429660b404a2ab632e7248e",
     "localPath": "src/netcore",
     "fileNameReplacementPaths": ["/src"],
     "searchValue": "xxAMIDOxx.xxSTACKSxx",
     "folderMap": [
       {
-        "src": "shared/aux_scripts",
-        "dest": "./aux_scripts"
-      },
-      {
         "src": "shared/README.md",
         "dest": "./README.md"
       },
       {
-        "src": "src/netcore/build/azDevops/azure/templates/steps/build-netcore.yml",
-        "dest": "build/azDevops/azure/templates/steps/build-netcore.yml"
+        "src": "src/netcore/build/azDevops/azure/templates/steps/build/build-netcore.yml",
+        "dest": "build/azDevops/azure/templates/steps/build/build-netcore.yml"
       },
       {
         "src": "src/netcore/build/azDevops/azure/azure-pipelines-netcore-k8s.yml",
-        "dest": "build/azDevops/azure/api-pipeline.yml"
+        "dest": "build/azDevops/azure/azure-pipelines-netcore-k8s.yml"
       },
       {
         "src": "src/netcore/deploy/azure/app/kube",
-        "dest": "deploy/azure/app"
+        "dest": "deploy/azure/app/kube"
       },
       {
         "src": "src/netcore/deploy/k8s/app/base_api-deploy.yml",
         "dest": "deploy/k8s/app/base_api-deploy.yml"
       },
       {
-        "src": "docs",
-        "dest": "docs"
-      },
-      {
         "src": "src/netcore/src",
         "dest": "src"
+      },
+      {
+        "src": "src/netcore/.gitattributes",
+        "dest": ".gitattributes"
+      },
+      {
+        "src": "src/netcore/.gitignore",
+        "dest": ".gitignore"
+      },
+      {
+        "src": "src/netcore/yamllint.conf",
+        "dest": "yamllint.conf"
       }
     ]
   },
@@ -590,37 +598,41 @@
     ]
   },
   "aksInfra": {
-    "gitRepo": "",
-    "gitRef": "",
-    "localPath": "",
+    "gitRepo": "https://github.com/amido/stacks-infrastructure-aks.git",
+    "gitRef": "b3aa4f7194dc79b80648d6804705d627f3599ff1",
+    "localPath": "src/aks-infra",
     "folderMap": [
-      {
-        "src": "shared/aux_scripts",
-        "dest": "./aux_scripts"
-      },
       {
         "src": "shared/README.md",
         "dest": "./README.md"
       },
       {
-        "src": "shared/_gitignore",
-        "dest": "./.gitignore"
+        "src": "src/aks-infra/deploy/k8s_manifests/aks",
+        "dest": "deploy/k8s_manifests/aks"
       },
       {
-        "src": "build/k8s_manifests/aks",
-        "dest": "build/k8s_manifests/aks"
+        "src": "src/aks-infra/build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
+        "dest": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml"
       },
       {
-        "src": "build/azDevops/azure/azure-pipeline-infrastructure-aks.yml",
-        "dest": "build/azDevops/azure/infra-pipeline.yml"
-      },
-      {
-        "src": "deploy/azure/infra/stacks-aks",
-        "dest": "deploy/azure/infra"
+        "src": "src/aks-infra/deploy/azure/infra/stacks-aks",
+        "dest": "deploy/azure/stacks-aks"
       },
       {
         "src": "docs",
         "dest": "docs"
+      },
+      {
+        "src": "src/aks-infra/.gitattributes",
+        "dest": ".gitattributes"
+      },
+      {
+        "src": "src/aks-infra/.gitignore",
+        "dest": ".gitignore"
+      },
+      {
+        "src": "src/aks-infra/yamllint.conf",
+        "dest": "yamllint.conf"
       }
     ]
   },

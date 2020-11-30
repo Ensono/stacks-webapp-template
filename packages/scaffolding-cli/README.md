@@ -13,4 +13,4 @@ Builds opinionated boilerplate project types (CSR, SSR, .NET API, Test Framework
 
 - Checkout our [CHANGELOG](./CHANGELOG.md) for latest changes
 
-For more information check out the documentation on [Amido Stacks](https://amido.github.io/stacks/).
+For more information check out the documentation on [Amido Stacks](https://stacks.amido.com/).
