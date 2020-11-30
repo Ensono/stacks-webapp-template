@@ -11,4 +11,4 @@ sidebar_label: Pact-Config
 
 - Checkout our [CHANGELOG](./CHANGELOG.md) for latest changes
 
-For more information check out the [documentation](https://amido.github.io/stacks/docs/testing/contract_testing_pact) about API contract testing with PACT on [Amido Stacks](https://amido.github.io/stacks/).
+For more information check out the [documentation](https://stacks.amido.com/docs/testing/contract_testing_pact) about API contract testing with PACT on [Amido Stacks](https://stacks.amido.com/).

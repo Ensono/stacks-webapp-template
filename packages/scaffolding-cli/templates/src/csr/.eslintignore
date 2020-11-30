@@ -1,7 +1,0 @@
-node_modules/
-dist/
-**/*.d.ts
-docs/
-__mocks__/
-__tests__/cypress/
-coverage/

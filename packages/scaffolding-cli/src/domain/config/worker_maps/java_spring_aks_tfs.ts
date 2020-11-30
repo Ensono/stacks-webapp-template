@@ -24,7 +24,7 @@ export const inFiles = ({
             files: ["**/*.md"],
             values: {
                 "project_type": `Java Spring Boot REST API${projectType === "javaspringcqrs" ? " with CQRS" : ""}`,
-                "project_docs_url": `https://amido.github.io/stacks/docs/workloads/azure/backend/${projectType === "javaspring" ? "java/intro_java" : "java_cqrs/intro_java_cqrs"}`
+                "project_docs_url": `https://stacks.amido.com/docs/workloads/azure/backend/${projectType === "javaspring" ? "java/intro_java" : "java_cqrs/intro_java_cqrs"}`
             }
         },
         {
@@ -49,7 +49,7 @@ export const inFiles = ({
                 "tf_state_key: \"stacks-api-java\"": `tf_state_key: "${businessObj.project}-${businessObj.domain}"`,
                 "docker_container_registry_name_nonprod: amidostacksnonprodeuncore": `docker_container_registry_name_nonprod: "%REPLACE_ME_WITH_NONPROD_DOCKER_ACR_NAME%"`,
                 "docker_container_registry_name_prod: amidostacksprodeuncore": `docker_container_registry_name_prod: "%REPLACE_ME_WITH_PROD_DOCKER_ACR_NAME%"`,
-                "region: \"northeurope\"": `region: ${cloudObj.region}`,
+                "region: \"northeurope\"": `region: "${cloudObj.region}"`,
                 "base_domain_nonprod: nonprod.amidostacks.com": `base_domain_nonprod: "nonprod.${networkObj.baseDomain}"`,
                 "base_domain_internal_nonprod: nonprod.amidostacks.internal": `base_domain_internal_nonprod: "%REPLACE_ME_WITH_INTERNAL_NONPROD_DOMAIN%"`,
                 "base_domain_prod: prod.amidostacks.com": `base_domain_prod: "prod.${networkObj.baseDomain}"`,

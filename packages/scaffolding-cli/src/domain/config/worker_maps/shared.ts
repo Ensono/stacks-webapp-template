@@ -74,7 +74,7 @@ export const introUsageMessage = (): string => {
      ██    ██    ██   ██ ██      ██  ██       ██
 ███████    ██    ██   ██  ██████ ██   ██ ███████
 \nBootstrap a templated project webapp, API and/or testing framework with supporting pipelines and infrastructure by answering just a few questions.\n
-For more information: https://amido.github.io/stacks\n
+For more information: https://stacks.amido.com\n
 `
 }
 
@@ -95,7 +95,7 @@ ${ranAdvanced ? advanced : basic}
 
 🤓 To get started: open ${dir}/README.md
 
-📖 For guides and supporting information see: https://amido.github.io/stacks/
+📖 For guides and supporting information see: https://stacks.amido.com/
 
 💻 Thank you for using the Amido Stacks scaffolding-cli!
          To contribute: https://github.com/amido/stacks

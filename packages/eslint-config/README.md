@@ -14,4 +14,4 @@ sidebar_label: Packages
 Shared ESLint config to guide a consistent code style across front end
 development in (and outside!) [Amido](https://amido.com).
 
-For more information check out the documentation on [Amido Stacks](https://amido.github.io/stacks/).
+For more information check out the documentation on [Amido Stacks](https://stacks.amido.com/).
