@@ -202,6 +202,9 @@ describe("mainWorker class tests", () => {
         beforeEach(async () => {})
 
         it("ssrAksTfs should return success and user message for npm", async () => {
+            Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `foo`})
+            })
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
                     message: `${mockAnswerSsr.projectName} created`,
@@ -219,6 +222,12 @@ describe("mainWorker class tests", () => {
                 mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.doGitClone).toHaveBeenCalledWith(
+                staticConf.ssr.gitRepo,
+                "/var/test",
+                staticConf.ssr.localPath,
+                staticConf.ssr.gitRef,
+            )
             expect(Utils.constructOutput).toHaveBeenCalled()
             expect(flowRan).toHaveProperty("message")
             expect(flowRan).toHaveProperty("ok")
@@ -281,6 +290,9 @@ describe("mainWorker class tests", () => {
         })
 
         it("infraAksAzdevops should return success and user message for infra only", async () => {
+            Utils.doGitClone = jest.fn().mockImplementationOnce(() => {
+                return Promise.resolve({message: `foo`})
+            })
             Utils.prepBase = jest.fn().mockImplementationOnce(() => {
                 return Promise.resolve({
                     message: `${mockAnswerSsr.projectName} created`,
@@ -298,6 +310,12 @@ describe("mainWorker class tests", () => {
                 mockAnswerSsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.doGitClone).toHaveBeenCalledWith(
+                staticConf.aksInfra.gitRepo,
+                "/var/test",
+                staticConf.aksInfra.localPath,
+                staticConf.aksInfra.gitRef,
+            )
             expect(Utils.constructOutput).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("message")
             expect(flow_ran).toHaveProperty("ok")
@@ -329,6 +347,12 @@ describe("mainWorker class tests", () => {
                 mockAnswerCsr,
             )
             expect(Utils.prepBase).toHaveBeenCalled()
+            expect(Utils.doGitClone).toHaveBeenCalledWith(
+                staticConf.csr.gitRepo,
+                "/var/test",
+                staticConf.csr.localPath,
+                staticConf.csr.gitRef,
+            )
             expect(Utils.constructOutput).toHaveBeenCalled()
             expect(flow_ran).toHaveProperty("message")
             expect(flow_ran).toHaveProperty("ok")
