@@ -1,6 +1,6 @@
 FROM debian:10.3
 
-ARG TF_VERSION=0.12.28
+ARG TF_VERSION=0.13.1
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
 
