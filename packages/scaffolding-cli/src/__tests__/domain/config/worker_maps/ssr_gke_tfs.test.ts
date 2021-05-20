@@ -6,7 +6,7 @@ import conf from  '../../../../domain/config/static.config.json'
 import { Static, FolderMap } from '../../../../domain/model/config';
 
 const staticConf: Static = conf as Static;
-        
+
 const projName = "test-app-1"
 
 const biz = {
@@ -25,7 +25,7 @@ const cloud = {
     resourceGroup: "my-rg"
 } as CloudSection
 
-const sourceControl = { 
+const sourceControl = {
     repoName: "foo-git"
 } as SourceControlSection
 
@@ -60,7 +60,7 @@ const files: Array<BuildReplaceInput> = [
 describe("ssr mapper tests", () => {
     it("to_folders return an array of objects", () => {
         const test: Array<FolderMap> = staticConf.ssrGke.folderMap
-        expect(test.length).toBe(10)
+        expect(test.length).toBe(12)
     })
     it("in_files return an array of objects and cloud should be default", () => {
         const test: Array<BuildReplaceInput> = gkeSsr.inFiles({ projectName: projName, businessObj: biz, scmObj: sourceControl, cloudObj: cloud, terraformObj: terraform, networkObj: network})
