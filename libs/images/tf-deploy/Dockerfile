@@ -1,4 +1,4 @@
-FROM debian:10.3
+FROM debian:buster-20210311
 
 ARG TF_VERSION=0.13.1
 
