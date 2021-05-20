@@ -50,7 +50,7 @@ export async function renameJavastyle(inPath: string, match: string | RegExp, re
     try {
         const newPath = resolve(inPath, replaceString)
         const oldPath = resolve(inPath, match as string)
-        const tmpPath = resolve(tmpdir(), `${replaceString.replace(/\//g, "-")}_${process.ppid}`)
+        const tmpPath = resolve(tmpdir(), `${replaceString.replace(/\//g, "-")}_${process.pid}`)
         // workaround to ensure all types of namespaces can be accomodated
         await copy(oldPath, tmpPath)
         await remove(inPath)
@@ -175,11 +175,13 @@ export class Utils {
                 filesToExclude = val.excludeFiles || [];
                 await copy(resolve(tempDirectory, val.src), resolve(newDirectory, val.dest), { overwrite: true, filter: excludeFilesFilter })
             }
+
             // DELETE TEMP from this point on as we don't need it anymore
             await remove(tempDirectory)
 
             fsResponse.ok = true
             fsResponse.message = `${newDirectory} populated with relevant files`
+
             return fsResponse
         } catch (ex) {
             fsResponse.ok = false
@@ -187,6 +189,7 @@ export class Utils {
             fsResponse.message = ex.message
             fsResponse.error = ex.stack
             await remove(tempDirectory)
+
             throw fsResponse
         }
     }
@@ -198,7 +201,7 @@ export class Utils {
         const fsResponse: TempCopy = {} as TempCopy
         try {
             const newDirectory: string = resolve(process.cwd(), directoryName)
-            const tempDirectory: string = resolve(tmpdir(), `${directoryName}_${process.ppid}`)
+            const tempDirectory: string = resolve(tmpdir(), `${directoryName}_${process.pid}`)
             // precaution to make sure no files from previous run are polluting the process
             await remove(tempDirectory)
             // blanket copy templates out

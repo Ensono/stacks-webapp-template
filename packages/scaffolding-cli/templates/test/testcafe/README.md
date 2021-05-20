@@ -32,7 +32,7 @@ This will validated using axe-core, from the Deque family of products: [aXe](htt
 
 ## Browser configuration
 
-We assume that most users will have Chrome installed on their operating system. If this is not the case, the base configuration file  
+We assume that most users will have Chrome installed on their operating system. If this is not the case, the base configuration file
   "browsers": [
     "chrome:headless",
     "firefox:headless"

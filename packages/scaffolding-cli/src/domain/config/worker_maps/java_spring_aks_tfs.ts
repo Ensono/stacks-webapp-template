@@ -35,7 +35,7 @@ export const inFiles = ({
             }
         },
         {
-            files: ["build/azDevops/azure/api-pipeline.yml"],
+            files: ["build/azDevOps/azure/api-pipeline.yml"],
             values: {
                 // Variable Replacements
                 "company: amido": `company: "${businessObj.company}"`,

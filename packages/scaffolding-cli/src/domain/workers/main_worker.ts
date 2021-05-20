@@ -413,6 +413,8 @@ export class MainWorker {
 
             const newDirectory: TempCopy = await Utils.prepBase(instructions.projectName)
 
+            await Utils.doGitClone(staticConf.ssrGke.gitRepo, newDirectory.tempPath, staticConf.ssrGke.localPath, staticConf.ssrGke.gitRef)
+
             await Utils.constructOutput(staticConf.ssrGke.folderMap, newDirectory.finalPath, newDirectory.tempPath)
 
             const valMaps: Array<Replacetruct> = buildReplaceFoldersAndVals(newDirectory.finalPath, buildInput);

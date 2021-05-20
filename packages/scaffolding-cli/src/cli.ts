@@ -1,5 +1,6 @@
 import chalk from "chalk"
 import yargs from "yargs"
+import { Options } from "yargs"
 import {basename, resolve} from "path"
 import {ExitMessage, CliOptions} from "./domain/model/cli_response"
 import {runCli, runConfig} from "./domain/prompt"
@@ -43,7 +44,7 @@ async function cliCommand(argv: CliOptions): Promise<ExitMessage>{
     }
 }
 
-const runOptions = () => {
+const runOptions = (yargs: any) => {
     yargs
         .scriptName("@amidostacks/scaffolding-cli")
         .options("config", {
@@ -71,7 +72,7 @@ const runOptions = () => {
     return yargs
 }
 
-const runTestOptions = () => {
+const runTestOptions = (yargs: any) => {
     yargs
         .scriptName("@amidostacks/scaffolding-cli")
         .options("c", {

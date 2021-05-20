@@ -30,7 +30,7 @@ The docker image is open and found at [amidostacks/lhci](https://hub.docker.com/
   `docker run --name lhci -v "$(pwd)/lighthouserc.json:/opt/lhci/lighthouserc.json" -v "$(pwd)/results:/opt/lhci/.lighthouseci" --rm -i -t amidostacks/lhci:latest lhci collect --url=https://google.com`
 
 4. This will output the collect results in both html and json foramt to [/results](./results), and the assertions to `.lighthouseci`
-  
+
 5. To assert on the results against specified baseline of acceptable standards:
   `docker run --name lhci -v "$(pwd)/lighthouserc.json:/opt/lhci/lighthouserc.json" -v "$(pwd)/results:/opt/lhci/.lighthouseci" --rm -i -t amidostacks/lhci:latest lhci assert --config=lighthouserc.json`
 
