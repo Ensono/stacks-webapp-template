@@ -185,9 +185,9 @@
         "dest": "api-tests"
       },
       {
-          "src": "src/java_spring/build/azDevOps/azure",
-          "dest": "build/azDevOps/azure",
-          "excludeFiles": [
+        "src": "src/java_spring/build/azDevOps/azure",
+        "dest": "build/azDevOps/azure",
+        "excludeFiles": [
           "azure-pipelines-javaspring-k8s.yml",
           "build-api-tests",
           "post-build-tasks",

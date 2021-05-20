@@ -1,6 +1,5 @@
 import chalk from "chalk"
 import yargs from "yargs"
-import { Options } from "yargs"
 import {basename, resolve} from "path"
 import {ExitMessage, CliOptions} from "./domain/model/cli_response"
 import {runCli, runConfig} from "./domain/prompt"
