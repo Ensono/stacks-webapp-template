@@ -1,7 +1,7 @@
-FROM docker:19.03.12
+FROM docker:19.03.15
 
 LABEL maintainer="stacks@amido.com"
-ENV GLIBC_VER=2.31-r0
+ENV GLIBC_VER=2.33-r0
 
 RUN apk --no-cache add \
         binutils \
