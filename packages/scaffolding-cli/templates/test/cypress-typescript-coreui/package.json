@@ -18,7 +18,7 @@
     "clean:tree": "git clean -idx"
   },
   "devDependencies": {
-    "@types/cypress-axe": "^0.8.0",
+    "@types/cypress-axe": "^0.11.0",
     "axe-core": "^4.0.2",
     "cypress": "^4.12.1",
     "cypress-audit": "^0.2.2",
