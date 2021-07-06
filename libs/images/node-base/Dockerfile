@@ -7,7 +7,7 @@ LABEL maintainer="Amido Stacks <stacks@amido.com>"
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y curl grep sed unzip && \
+    apt-get install -y curl grep sed unzip wget && \
     apt-get clean
 
 RUN npm install -g typescript@${TYPESCRIPT_VERSION} @types/node
