@@ -3,7 +3,7 @@ FROM alpine:3.12
 LABEL maintainer="stacks@amido.com"
 
 ARG KUBECTL_VERSION=1.18.9
-ARG TF_VERSION=0.13.4
+ARG TF_VERSION=1.0.2
 
 ENV GLIBC_VER=2.31-r0
 
