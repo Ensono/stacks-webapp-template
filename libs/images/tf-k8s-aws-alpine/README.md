@@ -3,7 +3,7 @@
 Provides a Terraform CLI and K8s cli in alpine container with other utils
 
 versions:
-  - terraform: 0.13.4
+  - terraform: 1.0.2
   - aws-cli: 2.x.x
   - python: 3.7
   - kubectl: 1.18.9
