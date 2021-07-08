@@ -6,7 +6,7 @@ versions:
   - terraform: 1.0.2
   - aws-cli: 2.x.x
   - python: 3.7
-  - kubectl: 1.18.9
+  - kubectl: 1.20.7
 
 USAGE:
 ---
