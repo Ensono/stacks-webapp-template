@@ -1,4 +1,4 @@
-FROM amidostacks/node:0.0.3
+FROM amidostacks/node-14:0.0.1
 
 # Install latest Chrome stable package
 # Important: Chrome sandboxing https://github.com/GoogleChrome/lighthouse-ci/tree/master/docs/recipes/docker-client#--no-sandbox-issues-explained
