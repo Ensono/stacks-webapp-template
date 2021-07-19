@@ -1,4 +1,4 @@
-FROM amidostacks/node:0.0.3
+FROM amidostacks/node-14:0.0.1
 
 ARG VERSION="latest"
 ARG PROJECT_WORKDIR=""
