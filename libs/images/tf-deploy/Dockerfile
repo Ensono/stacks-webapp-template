@@ -1,4 +1,4 @@
-FROM debian:10.9
+FROM debian:11-slim
 
 ARG TF_VERSION=0.13.7
 
