@@ -33,7 +33,7 @@ docker push USERNAME/TAG:latest
 
 ### Local
 
-1. Build the image or, pull the latest from [amidostacks/node](https://hub.docker.com/r/amidostacks/node-14).
+1. Build the image or, pull the latest from [amidostacks/node](https://hub.docker.com/r/amidostacks/node).
   `docker build -t amidostacks/dotnet-test-base:latest .`
 
 2. Launch container interactive with bash: `docker run --rm -it -v $(pwd)/.:/src/ amidostacks/dotnet-test-base:latest /bin/bash`

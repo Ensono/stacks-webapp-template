@@ -1,6 +1,6 @@
 # @amidostacks/scaffolding-cli Bootstrap Image
 
-Using the @amidostacks/node:14:0.0.1 base image, installs the @amidostacks/scaffolding-cli package to build a supplied project type.
+Using the @amidostacks/node:0.0.3 base image, installs the @amidostacks/scaffolding-cli package to build a supplied project type.
 Useful for testing the end to end scenario, emulating what the consumers of @amidostacks/scaffolding-cli will experience.
 
 Versions:
