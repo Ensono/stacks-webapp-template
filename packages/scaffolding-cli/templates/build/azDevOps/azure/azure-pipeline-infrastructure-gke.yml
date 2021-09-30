@@ -63,7 +63,7 @@ variables:
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - stage - location - compnonent names above
   # IT IS SET per stage as an output to be consumed by deploy stage
-  gke_cluster_version: "1.17.9-gke.1504"
+  gke_cluster_version: "1.19.12-gke.2101	"
   gcp_region: europe-west2
   gcp_project_name: amido-stacks
   # DEFAULT IMAGE RUNNER
