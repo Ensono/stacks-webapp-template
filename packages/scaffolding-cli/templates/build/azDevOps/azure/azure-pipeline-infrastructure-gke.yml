@@ -25,7 +25,7 @@ resources:
   - repository: templates
     type: github
     name: amido/stacks-pipeline-templates
-    ref: refs/tags/v1.4.4
+    ref: refs/heads/feature/cycle4
     endpoint: amidostacks
   containers:
   - container: k8s_deploy
