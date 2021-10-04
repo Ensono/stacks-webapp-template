@@ -9,11 +9,16 @@
 #############################################################################################################################
 name: '$(build.sourcebranchname)-init'
 
-pr: none
+pr:
+  - master
+
 trigger:
   branches:
     include:
-    - '*'
+      - 'master'
+  paths:
+    include:
+      - '*'
 
   paths:
     include:
