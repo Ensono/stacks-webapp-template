@@ -95,7 +95,7 @@ stages:
       # Create TF infra
       - template: azDevOps/azure/templates/v2/steps/deploy-terraform-meta-generic.yml@templates
         parameters:
-          terraform_plan_only: true
+          terraform_plan_only: false
           # Terraform Basic Config
           working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
           # changing this would require changing the downstream consumers of these outputs
