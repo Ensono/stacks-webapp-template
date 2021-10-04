@@ -16,10 +16,7 @@ trigger:
   branches:
     include:
       - 'master'
-  paths:
-    include:
-      - '*'
-
+      
   paths:
     include:
     - 'packages/scaffolding-cli/templates/build/*'
