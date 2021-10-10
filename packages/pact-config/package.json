@@ -24,7 +24,7 @@
     "@types/jest": "^25.2.3",
     "axios": "^0.21.1",
     "jest": "^25.1.0",
-    "jest-junit": "^10.0.0",
+    "jest-junit": "^13.0.0",
     "ts-jest": "^25.4.0",
     "ts-node": "8.9.1",
     "typescript": "^3.8.3"
