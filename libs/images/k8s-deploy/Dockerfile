@@ -55,10 +55,11 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
     chown root:root /etc/apt/sources.list.d/microsoft-prod.list
 
 # DOTNET SDK, runtime
-RUN apt-get install -y apt-transport-https && \
-    apt-get update -y && \
-    apt-get install -y dotnet-sdk-${DOTNET_CORE_VERSION} && \
-    apt-get install -y aspnetcore-runtime-${DOTNET_CORE_VERSION}
+RUN apt-get install -y apt-transport-https \
+    && apt-get update -y \
+    && apt-get install -y dotnet-sdk-${DOTNET_CORE_VERSION} \
+    && apt-get install -y aspnetcore-runtime-${DOTNET_CORE_VERSION} \
+	&& apt-get install -y powershell
 
 # YAMLLint
 RUN apt-get install -y python3 python3-pip && \
