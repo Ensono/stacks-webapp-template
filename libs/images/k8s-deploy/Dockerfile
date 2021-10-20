@@ -5,13 +5,14 @@ ARG KUSTOMIZE_VERSION=3.5.4
 ARG TYPESCRIPT_VERSION=3.7.5
 ARG DOTNET_CORE_VERSION=3.1
 ARG YAMLLINT_VERSION=1.24.2
+ARG AZURE_CLI_VERSION=2.42
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
 LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
 
 RUN apt-get update -y && \
     apt-get upgrade -y && \
-    apt-get install -y curl grep sed unzip git wget build-essential sudo && \
+    apt-get install -y pip curl grep sed unzip git wget build-essential sudo && \
     apt-get clean -y
 
 # RUN apt-get update -y
@@ -36,8 +37,7 @@ RUN cd /tmp && \
     rm -f kustomize_v*_amd64.tar.gz 
 
 #Install Azure CLI
-RUN cd /tmp && \
-    curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+RUN pip3 install azure-cli==${AZURE_CLI_VERSION}
 
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs && \
