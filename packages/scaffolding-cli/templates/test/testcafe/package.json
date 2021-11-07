@@ -17,7 +17,7 @@
   "devDependencies": {
     "axe-core": "^3.5.3",
     "axe-testcafe": "^3.0.0",
-    "eslint": "^6.8.0",
+    "eslint": "^8.2.0",
     "prettier": "^1.19.1",
     "testcafe": "^1.8.3",
     "typescript": "^3.7.5"
