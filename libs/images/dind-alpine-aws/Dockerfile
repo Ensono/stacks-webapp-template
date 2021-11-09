@@ -1,4 +1,4 @@
-FROM docker:19.03.15
+FROM docker:20.10.9
 
 LABEL maintainer="stacks@amido.com"
 ENV GLIBC_VER=2.33-r0
