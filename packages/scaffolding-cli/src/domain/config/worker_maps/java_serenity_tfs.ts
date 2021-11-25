@@ -23,7 +23,7 @@ export const inFiles = ({
             }
         },
         {
-            files: ["build/azDevops/azure/azure-pipeline-post-deploy-serenity-frontend.yml"],
+            files: ["build/azDevOps/azure/azure-pipeline-post-deploy-serenity-frontend.yml"],
             values: {
                 "  - name: self_repo\n    value: \"stacks-webapp-template/packages/scaffolding-cli/templates\"": `  - name: self_repo\n    value: "%REPLACE_ME_WITH_YOUR_REPO%"`,
                 // Below replacement doesn't work for some reason, and so using the smaller replacemnt below it...

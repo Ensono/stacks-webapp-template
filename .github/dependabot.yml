@@ -1,0 +1,82 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: sunday
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    reviewers:
+      - dnitsch
+      - naren-bellala
+    rebase-strategy: disabled
+
+  - package-ecosystem: nuget
+    directory: "/packages/scaffolding-cli/templates/test/xxAMIDOxx.xxSTACKSxx.E2E.Selenium"
+    schedule:
+      interval: weekly
+      day: sunday
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    rebase-strategy: disabled
+
+  - package-ecosystem: npm
+    directory: "/packages/pact-config"
+    schedule:
+      interval: weekly
+      day: sunday
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    rebase-strategy: disabled
+    
+  - package-ecosystem: npm
+    directory: "/packages/scaffolding-cli"
+    schedule:
+      interval: weekly
+      day: sunday
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    rebase-strategy: disabled
+
+  - package-ecosystem: npm
+    directory: "/packages/scaffolding-cli/templates/test/testcafe"
+    schedule:
+      interval: weekly
+      day: sunday
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    rebase-strategy: disabled
+
+  - package-ecosystem: npm
+    directory: "/packages/scaffolding-cli/templates/test/cypress-typescript-axe-applitools-lighthouse"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    rebase-strategy: disabled
+
+  - package-ecosystem: npm
+    directory: "/packages/scaffolding-cli/templates/test/jest-typescript-sonar"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    rebase-strategy: disabled
+
+  - package-ecosystem: npm
+    directory: "/packages/scaffolding-cli/templates/test/cypress-typescript-coreui"
+    schedule:
+      interval: weekly
+      day: sunday
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    rebase-strategy: disabled
+
+  - package-ecosystem: maven
+    directory: "/packages/scaffolding-cli/templates/test/xxAMIDOxx.xxSTACKSxx.E2E.Serenity"
+    schedule:
+      interval: daily
+      timezone: Europe/London
+    open-pull-requests-limit: 10
+    rebase-strategy: disabled

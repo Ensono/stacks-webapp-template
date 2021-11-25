@@ -1,4 +1,4 @@
-FROM node:12-buster
+FROM node:14.17.3-buster-slim
 
 ARG NODE_VERSION=12.x
 ARG TYPESCRIPT_VERSION=3.7.5

@@ -1,5 +1,5 @@
 ############################################################################################################
-# desc: Example standalone pipeline running E2E tests with .NET Selenium Framework 
+# desc: Example standalone pipeline running E2E tests with .NET Selenium Framework
 # return: templated solution that builds, and tests in pipeline
 # pre-reqs: published packages and templates, example config file
 ############################################################################################################

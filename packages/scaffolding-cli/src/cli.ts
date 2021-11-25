@@ -43,7 +43,7 @@ async function cliCommand(argv: CliOptions): Promise<ExitMessage>{
     }
 }
 
-const runOptions = () => {
+const runOptions = (yargs: any) => {
     yargs
         .scriptName("@amidostacks/scaffolding-cli")
         .options("config", {
@@ -71,7 +71,7 @@ const runOptions = () => {
     return yargs
 }
 
-const runTestOptions = () => {
+const runTestOptions = (yargs: any) => {
     yargs
         .scriptName("@amidostacks/scaffolding-cli")
         .options("c", {

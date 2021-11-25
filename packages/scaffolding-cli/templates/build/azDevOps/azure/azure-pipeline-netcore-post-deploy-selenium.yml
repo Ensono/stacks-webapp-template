@@ -1,6 +1,6 @@
 ##################################################################################################################################
 # Desc: Post Deployment Tests. Example pipeline that can be triggered and run after success deployment of a webapp.
-# 
+#
 # Pre-reqs: endpoint = GitHub Service Connection, test_results_storage = Azure Storage Container,
 # test_results_container = Azure Storage Container, group = Libary variables containing Azure Portal Subscription Credentials
 # Documentation: https://docs.microsoft.com/en-us/azure/devops/pipelines/library/service-endpoints

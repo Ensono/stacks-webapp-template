@@ -96,10 +96,10 @@ stages:
           # Terraform Basic Config
           working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
           # changing this would require changing the downstream consumers of these outputs
-          # 
+          #
           terraform_output_artefact: 'tfoutputs'
           # Auth config
-          # IF you are using a backend in GCP you should REMOVE all ARM_* references and adjust the 
+          # IF you are using a backend in GCP you should REMOVE all ARM_* references and adjust the
           terraform_auth_properties: {
             GOOGLE_CREDENTIALS: $(GOOGLE_CREDENTIALS)
           }

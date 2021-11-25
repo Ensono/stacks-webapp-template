@@ -66,7 +66,7 @@ const mock_cli_answer_model = {
 
 const ssr_tfs_aks: Array<FolderMap> = [
     {src: "shared", dest: ""},
-    {src: "build/azDevops/azure", dest: "build/azDevops/azure"},
+    {src: "build/azDevOps/azure", dest: "build/azDevOps/azure"},
     {src: "deploy/azure/ssr", dest: "deploy/azure"},
     {src: "docs", dest: "docs"},
     {src: "src/ssr", dest: "src"},

@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-debian:11
+FROM azul/zulu-openjdk-debian:11.0.12
 
 RUN apt-get update \
   && apt-get install -y chromium wget unzip \

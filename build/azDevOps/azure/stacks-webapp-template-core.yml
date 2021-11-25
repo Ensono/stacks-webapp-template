@@ -3,7 +3,7 @@ name: $(build.SourceBranchName)-init
 trigger:
   branches:
     include:
-    - "*"
+    - "master"
   paths:
     include:
     - deploy/*

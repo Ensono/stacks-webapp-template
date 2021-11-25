@@ -1,6 +1,6 @@
 import { Pact } from '@pact-foundation/pact';
 import { resolve } from 'path';
-import { PactfileWriteMode } from '@pact-foundation/pact/dsl/mockService';
+import { PactfileWriteMode } from '@pact-foundation/pact/src/dsl/mockService';
 
 const options = (mockPort?: number) => ({
     port: mockPort,
