@@ -4,7 +4,7 @@ Comes with Typescript so build tasks can happen in the container without referen
 
 versions:
   - node: 14.x
-  - typescript: 3.7.5
+  - typescript: 4.4.3
 
 
 USAGE:
@@ -19,4 +19,4 @@ docker push amidostacks/node-14:0.0.1
 ```
 
 cd $PATH_TO_MY_APP_ROOT
-docker run -it --rm -v $(pwd):/opt/app amidostacks/node-14:0.0.1 /bin/bash
+docker run -it --rm -v $(pwd):/opt/app amidostacks/node-14:latest /bin/bash
