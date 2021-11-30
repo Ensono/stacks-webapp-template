@@ -1,11 +1,12 @@
-FROM debian:11-slim
+FROM ubuntu:20.04
 
 ARG KUBECTL_VERSION=1.16.10
 ARG KUSTOMIZE_VERSION=3.5.4
 ARG TYPESCRIPT_VERSION=3.7.5
 ARG DOTNET_CORE_VERSION=3.1
 ARG YAMLLINT_VERSION=1.24.2
-ARG AZURE_CLI_VERSION=2.42
+ARG AZURE_CLI_VERSION=2.30
+ARG DEBIAN_FRONTEND=noninteractive
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
 LABEL "com.azure.dev.pipelines.agent.handler.node.path"="/usr/bin/node"
@@ -90,8 +91,8 @@ RUN apt-get install -y \
     gnupg-agent \
     software-properties-common
 
-RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - && \
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 RUN apt-get update -y && \
     apt-get install -y docker-ce-cli
