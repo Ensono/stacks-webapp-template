@@ -1,6 +1,7 @@
-FROM debian:11-slim
+FROM ubuntu:20.04
 
-ARG TF_VERSION=0.13.7
+ARG TF_VERSION=1.0.11
+ARG DEBIAN_FRONTEND=noninteractive
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
 
