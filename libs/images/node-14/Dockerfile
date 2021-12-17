@@ -1,6 +1,6 @@
-FROM node:14.17.3-buster-slim
+FROM node:14.18-bullseye-slim
 
-ARG NODE_VERSION=12.x
+ARG NODE_VERSION=14.x
 ARG TYPESCRIPT_VERSION=3.7.5
 
 LABEL maintainer="Amido Stacks <stacks@amido.com>"
