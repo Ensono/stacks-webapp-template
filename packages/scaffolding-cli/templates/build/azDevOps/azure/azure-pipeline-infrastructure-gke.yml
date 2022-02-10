@@ -9,12 +9,14 @@
 #############################################################################################################################
 name: '$(build.sourcebranchname)-init'
 
-pr: none
+pr:
+  - master
+
 trigger:
   branches:
     include:
-    - '*'
-
+      - 'master'
+      
   paths:
     include:
     - 'packages/scaffolding-cli/templates/build/*'
@@ -25,7 +27,7 @@ resources:
   - repository: templates
     type: github
     name: amido/stacks-pipeline-templates
-    ref: refs/tags/v1.4.4
+    ref: refs/heads/feature/cycle4
     endpoint: amidostacks
   containers:
   - container: k8s_deploy
@@ -63,7 +65,7 @@ variables:
   # AKS/AZURE
   # This will always be predictably named by setting your company - project - stage - location - compnonent names above
   # IT IS SET per stage as an output to be consumed by deploy stage
-  gke_cluster_version: "1.16.10-gke.8"
+  gke_cluster_version: "1.19.12-gke.2101"
   gcp_region: europe-west2
   gcp_project_name: amido-stacks
   # DEFAULT IMAGE RUNNER
@@ -93,6 +95,7 @@ stages:
       # Create TF infra
       - template: azDevOps/azure/templates/v2/steps/deploy-terraform-meta-generic.yml@templates
         parameters:
+          terraform_plan_only: false
           # Terraform Basic Config
           working_dir: '$(Agent.BuildDirectory)/s/$(self_repo)/$(self_repo_tf_src)'
           # changing this would require changing the downstream consumers of these outputs
@@ -127,3 +130,4 @@ stages:
             raw_tf=$(terraform output -json | jq -r 'keys[] as $k | "##vso[task.setvariable variable=\($k);isOutput=true]\(.[$k] | .value)"')
             readarray -t outputs <<<"$raw_tf"
             for i in "${outputs[@]}"; do echo "$i"; done
+            
