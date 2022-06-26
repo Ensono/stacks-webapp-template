@@ -27,7 +27,7 @@
     "lodash": "^4.17.15",
     "prompts": "^2.4.2",
     "replace-in-file": "^6.0.0",
-    "simple-git": "2.5.0",
+    "simple-git": "3.10.0",
     "simple-winston-logger-abstraction": "2.0.2",
     "terminal-link": "^2.1.1",
     "yargs": "^15.3.1"
