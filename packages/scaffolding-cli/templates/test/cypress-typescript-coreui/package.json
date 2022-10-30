@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/cypress-axe": "^0.8.0",
-    "axe-core": "^4.0.2",
+    "axe-core": "^4.5.0",
     "cypress": "^4.12.1",
     "cypress-audit": "^0.2.2",
     "cypress-axe": "^0.10.0",
