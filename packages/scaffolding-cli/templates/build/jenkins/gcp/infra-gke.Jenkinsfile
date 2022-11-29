@@ -34,7 +34,7 @@ pipeline {
     gcp_project_name="amido-stacks"
     gcp_project_id="amido-stacks"
     gcp_cluster_name="${company}-${project}-nonprod-${domain}"
-    gke_cluster_version="1.16.9-gke.2"
+    gke_cluster_version="1.23.12-gke.100"
     // Infra
     base_domain="gke.nonprod.amidostacks.com"
     // GLOBAL GCP vars

@@ -158,7 +158,7 @@ spec:
 
 ---
 
-apiVersion: networking.gke.io/v1beta1
+apiVersion: networking.gke.io/v1
 kind: ManagedCertificate
 metadata:
   labels:
@@ -174,7 +174,7 @@ spec:
 
 ---
 
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ${resource_def_name}-ingress
@@ -191,13 +191,16 @@ metadata:
     part-of: ${project}
     environment: ${environment}
 spec:
+  ingressClassName: gce # This is unsupported and ignored on GKE but should remove errors when checking the manifests with certain tools
   rules:
   - host: ${dns_pointer}
     http:
       paths:
         - path: ${k8s_app_path}*
-          # pathType: Prefix
+          pathType: ImplementationSpecific
           backend:
-            serviceName: ${resource_def_name}
-            servicePort: http
+            service:
+              name: ${resource_def_name}
+              port:
+                name: http
 
