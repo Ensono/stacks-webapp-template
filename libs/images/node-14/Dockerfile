@@ -1,4 +1,4 @@
-FROM node:14.18-bullseye-slim
+FROM node:14.20.1-bullseye-slim
 
 ARG NODE_VERSION=14.x
 ARG TYPESCRIPT_VERSION=3.7.5
