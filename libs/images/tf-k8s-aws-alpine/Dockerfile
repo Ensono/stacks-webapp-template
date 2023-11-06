@@ -1,4 +1,4 @@
-FROM alpine:3.13.7
+FROM alpine:3.13.8
 
 LABEL maintainer="stacks@amido.com"
 
